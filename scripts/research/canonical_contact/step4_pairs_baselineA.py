@@ -19,7 +19,7 @@ from scipy.spatial import cKDTree
 
 ROOT = Path("/result/uhnam/dexcore/canonical_contact")
 CACHE = ROOT / "dense_window_cache"
-MESH_DICT = Path("/result/uhnam/dexcore/bimart_taco/assets/taco_mesh_dict.npy")
+MESH_DICT = Path("/result/uhnam/dexcore/taco/30_bimart_gen3_scene_scale/assets/taco_mesh_dict.npy")
 TOUCH_MIN = 0.2
 CAP = 3000
 SEED = 0

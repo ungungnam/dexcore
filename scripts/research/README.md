@@ -22,3 +22,16 @@ Run them with the repo on `PYTHONPATH` and `scripts/` **not** first on `sys.path
 
     source ~/miniconda3/etc/profile.d/conda.sh && conda activate dexmachina
     PYTHONPATH=/home/uhnam/workspace/dexcore python /result/uhnam/dexcore/<original path>/<script>.py
+
+## Note added 2026-09-28 — the gen1/gen2 scripts are a record, not a runnable pipeline
+
+`taco_gen1_probes/` and `taco_oneoff_analysis/` hard-code paths such as
+`/result/uhnam/dexcore/bimart_taco/train_store/`. That material was deleted on 2026-09-28 (the
+generations it belonged to were superseded; see `/result/uhnam/dexcore/INDEX.md`). The paths are
+left **as they were** on purpose: rewriting them would make the record of how those numbers were
+produced untrue. To re-run any of them, re-create the generation first
+(`preprocess_taco_bimart.py`, then training).
+
+`canonical_contact/` scripts that read the gen1 `sequences/` were repointed at
+`taco/30_bimart_gen3_scene_scale`, because those scripts use only the dense contact arrays, which
+are bit-identical between the two generations.

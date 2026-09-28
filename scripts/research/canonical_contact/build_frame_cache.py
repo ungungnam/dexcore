@@ -22,7 +22,7 @@ from src.analysis.canonical.interface import DEFAULT_RADIUS
 
 ROOT = Path("/result/uhnam/dexcore/canonical_contact")
 OUT = ROOT / "time_decomp"
-SEQ = Path("/result/uhnam/dexcore/bimart_taco")
+SEQ = Path("/result/uhnam/dexcore/taco/30_bimart_gen3_scene_scale")
 BACKEND = "normalized"
 RADIUS = DEFAULT_RADIUS
 SIGMA = RADIUS / 2.0

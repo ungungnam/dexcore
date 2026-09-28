@@ -9,7 +9,7 @@ ROOT = Path("/result/uhnam/dexcore/canonical_contact")
 sys.path.insert(0, str(ROOT / "scripts"))
 from render_util import render_mesh_with_values, compose_grid
 
-MESH_DICT = "/result/uhnam/dexcore/bimart_taco/assets/taco_mesh_dict.npy"
+MESH_DICT = "/result/uhnam/dexcore/taco/30_bimart_gen3_scene_scale/assets/taco_mesh_dict.npy"
 # (category, role, hand, verb) -- primary hand: R for tool, L for target
 PLAN = [("spatula", "tool", "R", "scrape off"),
         ("knife", "tool", "R", "cut"),

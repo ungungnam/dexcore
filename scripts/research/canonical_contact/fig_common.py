@@ -16,7 +16,7 @@ ROOT = Path("/result/uhnam/dexcore/canonical_contact")
 CACHE = ROOT / "canonical_contact_cache"
 FIG = ROOT / "figures"
 FIGDATA = ROOT / "figures_data"
-MESH_DICT = "/result/uhnam/dexcore/bimart_taco/assets/taco_mesh_dict.npy"
+MESH_DICT = "/result/uhnam/dexcore/taco/30_bimart_gen3_scene_scale/assets/taco_mesh_dict.npy"
 sys.path.insert(0, "/home/uhnam/workspace/dexcore")
 
 # the six (category, role, hand) triples used by Figures C-E

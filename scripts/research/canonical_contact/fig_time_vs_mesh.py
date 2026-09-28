@@ -27,7 +27,7 @@ from render_util import compose_grid, value_colormap
 
 from src.analysis.canonical import backends as BR
 
-SEQ = Path("/result/uhnam/dexcore/bimart_taco")
+SEQ = Path("/result/uhnam/dexcore/taco/30_bimart_gen3_scene_scale")
 MESH_DICT = SEQ / "assets/taco_mesh_dict.npy"
 CAT, ROLE, HAND = "spatula", "tool", "R"
 BINS, VMAX, SIZE, N_MESH = 5, 0.55, (400, 400), 5
