@@ -1,0 +1,18 @@
+# Which canonical-frame rule each object uses. See src/data/object.py.
+#
+#   lid_hint     (default, may be omitted) the base OBB axis perpendicular to the hinge that points
+#                most toward the lid. Right for BOXY objects.
+#   base_normal  the THINNEST base OBB axis perpendicular to the hinge. Right for SLAB objects,
+#                whose base is a thin panel and whose base->lid hint can run along the hinge.
+#
+# DECLARED, never inferred. A threshold on flatness would guess which family an object belongs to,
+# and guessing wrong silently rotates the frame every downstream stage is expressed in. An object
+# that is not listed keeps the default, so adding one here cannot change an existing result.
+
+laptop: base_normal
+lap10239_calibrated: base_normal
+lap10211_calibrated: base_normal
+lap11030_calibrated: base_normal
+lap10243_calibrated: base_normal
+lap10305_calibrated: base_normal
+lap11876_calibrated: base_normal

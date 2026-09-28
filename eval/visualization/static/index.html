@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dexcore viewer</title>
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{ "imports": {
+    "three": "./vendor/three.module.js",
+    "three/addons/controls/OrbitControls.js": "./vendor/OrbitControls.js",
+    "three/addons/controls/TrackballControls.js": "./vendor/TrackballControls.js"
+} }
+</script>
+</head>
+<body>
+<div id="app">
+
+  <aside id="panel">
+    <h1>dexcore <span class="sub">viewer</span></h1>
+
+    <section>
+      <h2>demonstration</h2>
+      <label class="filebtn">
+        upload .npy
+        <input type="file" id="file" accept=".npy" hidden>
+      </label>
+      <select id="demos"><option value="">— loading —</option></select>
+      <div class="window">
+        <label>frames <input type="number" id="fstart" value="0" min="0" step="1"></label>
+        <label>to <input type="number" id="fend" placeholder="end" min="1" step="1"></label>
+      </div>
+      <button id="load" class="primary">load</button>
+      <div id="meta" class="meta"></div>
+    </section>
+
+    <section>
+      <h2>comparison</h2>
+      <div class="toggles">
+        <label><input type="checkbox" id="t-split" checked> split view</label>
+        <label><input type="checkbox" id="t-link" checked> link cameras</label>
+      </div>
+      <select id="ovdemos"><option value="">— auto: recorded source —</option></select>
+      <div class="row">
+        <button id="ovload">use as left</button>
+        <button id="ovclear">back to auto</button>
+      </div>
+      <div id="ovinfo" class="meta"></div>
+    </section>
+
+    <section>
+      <h2>show</h2>
+      <div class="toggles">
+        <label><input type="checkbox" id="t-object" checked> object</label>
+        <label><input type="checkbox" id="t-hand" checked> hand meshes</label>
+        <label><input type="checkbox" id="t-kp" checked> keypoints</label>
+        <label><input type="checkbox" id="t-skel" checked> skeleton</label>
+        <label><input type="checkbox" id="t-contact" checked> contacts</label>
+        <label><input type="checkbox" id="t-trail"> keypoint trail</label>
+        <label><input type="checkbox" id="t-left" checked> left hand</label>
+        <label><input type="checkbox" id="t-right" checked> right hand</label>
+        <label><input type="checkbox" id="t-grid"> ground grid</label>
+        <label><input type="checkbox" id="t-free"> free rotate</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>contact</h2>
+      <div id="contactlist" class="contactlist">—</div>
+    </section>
+
+    <section id="provsec">
+      <h2>provenance</h2>
+      <pre id="prov"></pre>
+    </section>
+  </aside>
+
+  <main>
+    <div id="panes">
+      <div class="pane" id="paneA">
+        <div class="pane-canvas" id="viewA"></div>
+        <div class="pane-label" id="labelA">source</div>
+      </div>
+      <div class="pane" id="paneB">
+        <div class="pane-canvas" id="viewB"></div>
+        <div class="pane-label" id="labelB">target</div>
+      </div>
+    </div>
+    <div id="hud"></div>
+    <div id="err" class="err" hidden></div>
+
+    <div id="transport">
+      <button id="play">▶</button>
+      <div class="sliderwrap">
+        <canvas id="ticks" height="14"></canvas>
+        <input type="range" id="frame" min="0" max="0" value="0" step="1">
+      </div>
+      <span id="frameno" class="mono">0 / 0</span>
+      <label class="speed">speed
+        <select id="speed">
+          <option value="0.25">0.25x</option>
+          <option value="0.5">0.5x</option>
+          <option value="1" selected>1x</option>
+          <option value="2">2x</option>
+        </select>
+      </label>
+    </div>
+  </main>
+
+</div>
+<script type="module" src="viewer.js"></script>
+</body>
+</html>

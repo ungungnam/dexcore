@@ -1,0 +1,4 @@
+# The dense reference. Travels the same pipeline as every sparse budget, which is what makes
+# All -> Identity -> Reconstruct a correctness gate rather than a formality.
+selector: all
+selector_options: {}

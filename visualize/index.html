@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 합성 그리드</title>
+<style>
+:root{
+  --bg:#f7f7f5; --fg:#1b1b1a; --muted:#6b6b66; --line:#e0e0da; --card:#fff; --sunk:#f2f2ef;
+  --ours:#1f6f4a; --bimart:#a8622c; --warn:#a33;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141413; --fg:#ecebe6; --muted:#9a9a93; --line:#2c2c29; --card:#1c1c1a; --sunk:#171716;
+  --ours:#5fbf8f; --bimart:#d9925a; --warn:#e08585;
+}}
+:root[data-theme="dark"]{
+  --bg:#141413; --fg:#ecebe6; --muted:#9a9a93; --line:#2c2c29; --card:#1c1c1a; --sunk:#171716;
+  --ours:#5fbf8f; --bimart:#d9925a; --warn:#e08585;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif}
+.wrap{max-width:1400px;margin:0 auto;padding:30px 20px 80px}
+h1{font-size:23px;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 20px;font-size:14px;max-width:70ch}
+
+/* the shared input, shown once */
+.source{display:flex;gap:16px;align-items:center;background:var(--card);
+  border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:6px}
+.source video{width:150px;aspect-ratio:1/1;border-radius:8px;background:#000;
+  border:1px solid var(--line);object-fit:cover;flex:none;cursor:pointer}
+.source .txt{min-width:0}
+.source h3{margin:0 0 4px;font-size:15px}
+.source p{margin:0;color:var(--muted);font-size:13px}
+
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+  position:sticky;top:0;z-index:5;padding:12px 0;background:var(--bg);border-bottom:1px solid var(--line)}
+button{font:inherit;font-size:13px;padding:5px 12px;border:1px solid var(--line);
+  border-radius:999px;background:var(--card);color:var(--fg);cursor:pointer}
+button.on{border-color:var(--fg)}
+.spacer{flex:1}
+
+.catblock{margin-top:34px}
+.cathead{display:flex;gap:14px;align-items:center;padding:12px 4px 4px;
+  border-bottom:2px solid var(--line);margin-bottom:4px}
+.cathead video{width:120px;aspect-ratio:1/1;object-fit:cover;border-radius:8px;
+  background:#000;border:1px solid var(--line);flex:none;cursor:pointer}
+.catname{font-size:19px;margin:0;letter-spacing:.02em}
+.catsub{margin:2px 0 0;color:var(--muted);font-size:13px}
+.cattally{margin:4px 0 0;font-size:12px;color:var(--fg);font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:14px 16px 16px;margin-top:16px}
+.card header{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+h2{font-size:17px;margin:0;font-weight:600;letter-spacing:-.01em}
+.pieces{font-size:12px;color:var(--muted);border:1px solid var(--line);
+  border-radius:6px;padding:1px 7px}
+.src{font-size:12px;color:var(--muted)}
+.verdict{font-size:12px;font-weight:600;margin-left:auto;
+  border:1px solid currentColor;border-radius:999px;padding:2px 10px}
+.verdict.win-ours{color:var(--ours)}
+.verdict.win-bimart{color:var(--bimart)}
+
+.methods{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:900px){.methods{grid-template-columns:1fr}}
+.method{background:var(--sunk);border:1px solid var(--line);border-radius:10px;
+  padding:10px;border-top:3px solid var(--line);min-width:0}
+.method.ours{border-top-color:var(--ours)}
+.method.bimart{border-top-color:var(--bimart)}
+.mhead{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:8px}
+.mname{font-size:13px;font-weight:600}
+.method.ours .mname{color:var(--ours)}
+.method.bimart .mname{color:var(--bimart)}
+.badges{display:flex;gap:5px;flex-wrap:wrap}
+.b{font-size:11px;color:var(--muted);border:1px solid var(--line);
+  border-radius:5px;padding:1px 6px;white-space:nowrap;background:var(--card)}
+.b.auc{color:var(--fg);font-weight:600}
+.b.auc.stale{color:var(--warn);border-color:var(--warn)}
+.b.auc em{font-style:normal;font-weight:400;opacity:.75}
+.b.none{opacity:.55}
+.b.st{font-weight:600;color:var(--fg)}
+.b.st.ok{border-color:var(--ours);color:var(--ours)}
+.b.st.early{border-color:var(--bimart);color:var(--bimart)}
+.b.st.live{border-color:var(--muted);color:var(--muted)}
+
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.panel{margin:0;min-width:0;display:flex;flex-direction:column;gap:5px}
+figcaption{font-size:11px;color:var(--muted);order:2}
+video{width:100%;aspect-ratio:1/1;object-fit:cover;background:#000;
+  border-radius:7px;border:1px solid var(--line);cursor:pointer;order:1}
+.ph{aspect-ratio:1/1;border:1px dashed var(--line);border-radius:7px;display:flex;
+  align-items:center;justify-content:center;color:var(--muted);font-size:12px;order:1}
+
+footer{margin-top:34px;color:var(--muted);font-size:13px;
+  border-top:1px solid var(--line);padding-top:16px;max-width:80ch}
+footer code{background:var(--card);border:1px solid var(--line);
+  border-radius:4px;padding:1px 5px;font-size:12px}
+</style></head><body>
+<div class="wrap">
+<h1>레퍼런스 합성 그리드</h1>
+<p class="sub">타깃 하나에 두 합성 방법을 나란히. 왼쪽 열이 우리 파이프라인, 오른쪽이 BimArt이고,
+각 열은 <b>합성된 레퍼런스</b>와 그것으로 학습한 <b>정책 롤아웃</b>입니다.</p>
+
+<div class="bar">
+  <button data-f="all" class="on">전체</button>
+  <button data-f="mw">MICROWAVE</button>
+  <button data-f="pm">BOX</button>
+  <button data-f="lap">LAPTOP</button>
+  <span class="spacer"></span>
+  <button id="play">전체 재생</button>
+  <button id="pause">전체 정지</button>
+  <span class="spacer"></span>
+  <button id="theme">테마</button>
+</div>
+
+
+      <section class="catblock" data-cat="mw">
+        <div class="cathead">
+          <video src="videos/source_microwave_human.mp4" muted loop playsinline preload="metadata"></video>
+          <div>
+            <h2 class="catname">MICROWAVE</h2>
+            <p class="catsub">ARCTIC microwave 시연 → PartNet-Mobility Microwave</p>
+            <p class="cattally">4타깃 · 비교가능 1 · 우리 1승 0패</p>
+          </div>
+        </div>
+
+      <section class="card" data-cat="mw" data-target="mw7304">
+        <header>
+          <h2>mw7304</h2>
+          <span class="pieces">46조각</span>
+          <span class="verdict win-ours">우리 +0.342 AUC</span>
+        </header>
+        <div class="methods">
+          <div class="method ours">
+            <div class="mhead">
+              <span class="mname">우리 + cordex</span>
+              <span class="badges"><span class="b st ok">완주</span><span class="b">ep 5000</span><span class="b">rew 144.7</span><span class="b auc">AUC 0.751</span><span class="b">ADD 3.0cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/mw7304_dexcore_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/mw7304_dexcore_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div>
+          <div class="method bimart">
+            <div class="mhead">
+              <span class="mname">BimArt</span>
+              <span class="badges"><span class="b st early">조기종료</span><span class="b">ep 4430</span><span class="b">rew 12.4</span><span class="b auc">AUC 0.409</span><span class="b">ADD 10.6cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/mw7304_bimart_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/mw7304_bimart_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div></div>
+      </section>
+      <section class="card" data-cat="mw" data-target="mw7236">
+        <header>
+          <h2>mw7236</h2>
+          <span class="pieces">34조각</span>
+          
+        </header>
+        <div class="methods">
+          <div class="method ours">
+            <div class="mhead">
+              <span class="mname">우리 + cordex</span>
+              <span class="badges"><span class="b st early">조기종료</span><span class="b">ep 2510</span><span class="b">rew 1.1</span><span class="b auc">AUC 0.006</span><span class="b">ADD 117.6cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/mw7236_dexcore_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/mw7236_dexcore_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div>
+          <div class="method bimart">
+            <div class="mhead">
+              <span class="mname">BimArt</span>
+              <span class="badges"><span class="b st live">진행중</span><span class="b">중간 스냅샷</span><span class="b none">AUC 미측정</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/mw7236_bimart_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/mw7236_bimart_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div></div>
+      </section>
+      <section class="card" data-cat="mw" data-target="mw7310">
+        <header>
+          <h2>mw7310</h2>
+          <span class="pieces">19조각</span>
+          
+        </header>
+        <div class="methods">
+          <div class="method ours">
+            <div class="mhead">
+              <span class="mname">우리 + cordex</span>
+              <span class="badges"><span class="b st live">진행중</span><span class="b">ep 2510</span><span class="b">rew 2.0</span><span class="b none">AUC 미측정</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/mw7310_dexcore_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/mw7310_dexcore_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div>
+          <div class="method bimart">
+            <div class="mhead">
+              <span class="mname">BimArt</span>
+              <span class="badges"><span class="b st early">조기종료</span><span class="b">ep 2510</span><span class="b">rew 3.2</span><span class="b auc">AUC 0.118</span><span class="b">ADD 64.4cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/mw7310_bimart_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/mw7310_bimart_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div></div>
+      </section>
+      <section class="card" data-cat="mw" data-target="mw7292">
+        <header>
+          <h2>mw7292</h2>
+          <span class="pieces">12조각</span>
+          
+        </header>
+        <div class="methods">
+          <div class="method ours">
+            <div class="mhead">
+              <span class="mname">우리 + cordex</span>
+              <span class="badges"><span class="b st live">진행중</span><span class="b">ep 2510</span><span class="b">rew 1.4</span><span class="b none">AUC 미측정</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/mw7292_dexcore_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/mw7292_dexcore_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div>
+          <div class="method bimart">
+            <div class="mhead">
+              <span class="mname">BimArt</span>
+              <span class="badges"><span class="b st early">조기종료</span><span class="b">ep 2510</span><span class="b">rew 1.9</span><span class="b none">AUC 미측정</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/mw7292_bimart_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/mw7292_bimart_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div></div>
+      </section>
+      </section>
+
+      <section class="catblock" data-cat="pm">
+        <div class="cathead">
+          <video src="videos/source_box_human.mp4" muted loop playsinline preload="metadata"></video>
+          <div>
+            <h2 class="catname">BOX</h2>
+            <p class="catsub">ARCTIC box 시연 → PartNet-Mobility Box</p>
+            <p class="cattally">6타깃 · 비교가능 6 · 우리 5승 1패</p>
+          </div>
+        </div>
+
+      <section class="card" data-cat="pm" data-target="pm102379">
+        <header>
+          <h2>pm102379</h2>
+          <span class="pieces">42조각</span>
+          <span class="verdict win-ours">우리 +0.362 AUC</span>
+        </header>
+        <div class="methods">
+          <div class="method ours">
+            <div class="mhead">
+              <span class="mname">우리 + cordex</span>
+              <span class="badges"><span class="b st ok">완주</span><span class="b">ep 5000</span><span class="b">rew 130.4</span><span class="b auc">AUC 0.744</span><span class="b">ADD 3.1cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/pm102379_dexcore_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/pm102379_dexcore_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div>
+          <div class="method bimart">
+            <div class="mhead">
+              <span class="mname">BimArt</span>
+              <span class="badges"><span class="b st ok">완주</span><span class="b">ep 5000</span><span class="b">rew 65.5</span><span class="b auc">AUC 0.382</span><span class="b">ADD 6.5cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/pm102379_bimart_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/pm102379_bimart_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div></div>
+      </section>
+      <section class="card" data-cat="pm" data-target="pm100189">
+        <header>
+          <h2>pm100189</h2>
+          <span class="pieces">38조각</span>
+          <span class="verdict win-ours">우리 +0.107 AUC</span>
+        </header>
+        <div class="methods">
+          <div class="method ours">
+            <div class="mhead">
+              <span class="mname">우리 + cordex</span>
+              <span class="badges"><span class="b st ok">완주</span><span class="b">ep 5000</span><span class="b">rew 93.7</span><span class="b auc">AUC 0.511</span><span class="b">ADD 33.3cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/pm100189_dexcore_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/pm100189_dexcore_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div>
+          <div class="method bimart">
+            <div class="mhead">
+              <span class="mname">BimArt</span>
+              <span class="badges"><span class="b st ok">완주</span><span class="b">ep 5000</span><span class="b">rew 85.3</span><span class="b auc">AUC 0.405</span><span class="b">ADD 16.0cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/pm100189_bimart_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/pm100189_bimart_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div></div>
+      </section>
+      <section class="card" data-cat="pm" data-target="pm100224">
+        <header>
+          <h2>pm100224</h2>
+          <span class="pieces">19조각</span>
+          <span class="verdict win-ours">우리 +0.082 AUC</span>
+        </header>
+        <div class="methods">
+          <div class="method ours">
+            <div class="mhead">
+              <span class="mname">우리 + cordex</span>
+              <span class="badges"><span class="b st ok">완주</span><span class="b">ep 5000</span><span class="b">rew 91.1</span><span class="b auc">AUC 0.509</span><span class="b">ADD 5.9cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/pm100224_dexcore_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/pm100224_dexcore_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div>
+          <div class="method bimart">
+            <div class="mhead">
+              <span class="mname">BimArt</span>
+              <span class="badges"><span class="b st ok">완주</span><span class="b">ep 5000</span><span class="b">rew 79.3</span><span class="b auc">AUC 0.428</span><span class="b">ADD 6.8cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/pm100224_bimart_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/pm100224_bimart_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div></div>
+      </section>
+      <section class="card" data-cat="pm" data-target="pm100243">
+        <header>
+          <h2>pm100243</h2>
+          <span class="pieces">17조각</span>
+          <span class="verdict win-ours">우리 +0.526 AUC</span>
+        </header>
+        <div class="methods">
+          <div class="method ours">
+            <div class="mhead">
+              <span class="mname">우리 + cordex</span>
+              <span class="badges"><span class="b st ok">완주</span><span class="b">ep 5000</span><span class="b">rew 126.5</span><span class="b auc">AUC 0.717</span><span class="b">ADD 3.4cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/pm100243_dexcore_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/pm100243_dexcore_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div>
+          <div class="method bimart">
+            <div class="mhead">
+              <span class="mname">BimArt</span>
+              <span class="badges"><span class="b st early">조기종료</span><span class="b">ep 2510</span><span class="b">rew 33.7</span><span class="b auc">AUC 0.191</span><span class="b">ADD 117.2cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/pm100243_bimart_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/pm100243_bimart_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div></div>
+      </section>
+      <section class="card" data-cat="pm" data-target="pm100658">
+        <header>
+          <h2>pm100658</h2>
+          <span class="pieces">11조각</span>
+          <span class="verdict win-bimart">BimArt +0.017 AUC</span>
+        </header>
+        <div class="methods">
+          <div class="method ours">
+            <div class="mhead">
+              <span class="mname">우리 + cordex</span>
+              <span class="badges"><span class="b st early">조기종료</span><span class="b">ep 3540</span><span class="b">rew 20.4</span><span class="b auc">AUC 0.106</span><span class="b">ADD 107.3cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/pm100658_dexcore_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/pm100658_dexcore_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div>
+          <div class="method bimart">
+            <div class="mhead">
+              <span class="mname">BimArt</span>
+              <span class="badges"><span class="b st early">조기종료</span><span class="b">ep 3810</span><span class="b">rew 31.1</span><span class="b auc">AUC 0.123</span><span class="b">ADD 117.8cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/pm100658_bimart_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/pm100658_bimart_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div></div>
+      </section>
+      <section class="card" data-cat="pm" data-target="pm100141">
+        <header>
+          <h2>pm100141</h2>
+          <span class="pieces">9조각</span>
+          <span class="verdict win-ours">우리 +0.053 AUC</span>
+        </header>
+        <div class="methods">
+          <div class="method ours">
+            <div class="mhead">
+              <span class="mname">우리 + cordex</span>
+              <span class="badges"><span class="b st early">조기종료</span><span class="b">ep 2570</span><span class="b">rew 34.3</span><span class="b auc">AUC 0.224</span><span class="b">ADD 31.2cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/pm100141_ours_cordex_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/pm100141_ours_cordex_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div>
+          <div class="method bimart">
+            <div class="mhead">
+              <span class="mname">BimArt</span>
+              <span class="badges"><span class="b st early">조기종료</span><span class="b">ep 2510</span><span class="b">rew 33.3</span><span class="b auc">AUC 0.171</span><span class="b">ADD 75.4cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/pm100141_bimart_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/pm100141_bimart_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div></div>
+      </section>
+      </section>
+
+      <section class="catblock" data-cat="lap">
+        <div class="cathead">
+          <video src="videos/source_laptop_human.mp4" muted loop playsinline preload="metadata"></video>
+          <div>
+            <h2 class="catname">LAPTOP</h2>
+            <p class="catsub">ARCTIC laptop 시연 → PartNet-Mobility Laptop</p>
+            <p class="cattally">6타깃 · 비교가능 6 · 우리 6승 0패</p>
+          </div>
+        </div>
+
+      <section class="card" data-cat="lap" data-target="lap11876">
+        <header>
+          <h2>lap11876</h2>
+          <span class="pieces">29조각</span>
+          <span class="verdict win-ours">우리 +0.241 AUC</span>
+        </header>
+        <div class="methods">
+          <div class="method ours">
+            <div class="mhead">
+              <span class="mname">우리 + cordex</span>
+              <span class="badges"><span class="b st early">조기종료</span><span class="b">ep 2980</span><span class="b">rew 34.7</span><span class="b auc">AUC 0.561</span><span class="b">ADD 4.9cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/lap11876_dexcore_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/lap11876_dexcore_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div>
+          <div class="method bimart">
+            <div class="mhead">
+              <span class="mname">BimArt</span>
+              <span class="badges"><span class="b st early">조기종료</span><span class="b">ep 2510</span><span class="b">rew 20.5</span><span class="b auc">AUC 0.320</span><span class="b">ADD 58.4cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/lap11876_bimart_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/lap11876_bimart_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div></div>
+      </section>
+      <section class="card" data-cat="lap" data-target="lap11030">
+        <header>
+          <h2>lap11030</h2>
+          <span class="pieces">15조각</span>
+          <span class="verdict win-ours">우리 +0.467 AUC</span>
+        </header>
+        <div class="methods">
+          <div class="method ours">
+            <div class="mhead">
+              <span class="mname">우리 + cordex</span>
+              <span class="badges"><span class="b st ok">완주</span><span class="b">ep 5000</span><span class="b">rew 67.9</span><span class="b auc">AUC 0.789</span><span class="b">ADD 2.6cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/lap11030_dexcore_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/lap11030_dexcore_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div>
+          <div class="method bimart">
+            <div class="mhead">
+              <span class="mname">BimArt</span>
+              <span class="badges"><span class="b st early">조기종료</span><span class="b">ep 2510</span><span class="b">rew 20.4</span><span class="b auc">AUC 0.323</span><span class="b">ADD 39.6cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/lap11030_bimart_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/lap11030_bimart_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div></div>
+      </section>
+      <section class="card" data-cat="lap" data-target="lap10239">
+        <header>
+          <h2>lap10239</h2>
+          <span class="pieces">12조각</span>
+          <span class="verdict win-ours">우리 +0.037 AUC</span>
+        </header>
+        <div class="methods">
+          <div class="method ours">
+            <div class="mhead">
+              <span class="mname">우리 + cordex</span>
+              <span class="badges"><span class="b st live">진행중</span><span class="b">ep 5000</span><span class="b">rew 66.8</span><span class="b auc">AUC 0.377</span><span class="b">ADD 35.0cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/lap10239_dexcore_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/lap10239_dexcore_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div>
+          <div class="method bimart">
+            <div class="mhead">
+              <span class="mname">BimArt</span>
+              <span class="badges"><span class="b st live">진행중</span><span class="b">ep 5000</span><span class="b">rew 59.8</span><span class="b auc">AUC 0.340</span><span class="b">ADD 46.0cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/lap10239_bimart_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/lap10239_bimart_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div></div>
+      </section>
+      <section class="card" data-cat="lap" data-target="lap10243">
+        <header>
+          <h2>lap10243</h2>
+          <span class="pieces">8조각</span>
+          <span class="verdict win-ours">우리 +0.223 AUC</span>
+        </header>
+        <div class="methods">
+          <div class="method ours">
+            <div class="mhead">
+              <span class="mname">우리 + cordex</span>
+              <span class="badges"><span class="b st ok">완주</span><span class="b">ep 5000</span><span class="b">rew 61.4</span><span class="b auc">AUC 0.598</span><span class="b">ADD 7.7cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/lap10243_dexcore_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/lap10243_dexcore_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div>
+          <div class="method bimart">
+            <div class="mhead">
+              <span class="mname">BimArt</span>
+              <span class="badges"><span class="b st early">조기종료</span><span class="b">ep 4520</span><span class="b">rew 34.4</span><span class="b auc">AUC 0.375</span><span class="b">ADD 40.3cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/lap10243_bimart_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/lap10243_bimart_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div></div>
+      </section>
+      <section class="card" data-cat="lap" data-target="lap10211">
+        <header>
+          <h2>lap10211</h2>
+          <span class="pieces">4조각</span>
+          <span class="verdict win-ours">우리 +0.250 AUC</span>
+        </header>
+        <div class="methods">
+          <div class="method ours">
+            <div class="mhead">
+              <span class="mname">우리 + cordex</span>
+              <span class="badges"><span class="b st ok">완주</span><span class="b">ep 5000</span><span class="b">rew 67.9</span><span class="b auc">AUC 0.568</span><span class="b">ADD 4.4cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/lap10211_dexcore_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/lap10211_dexcore_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div>
+          <div class="method bimart">
+            <div class="mhead">
+              <span class="mname">BimArt</span>
+              <span class="badges"><span class="b st ok">완주</span><span class="b">ep 5000</span><span class="b">rew 53.6</span><span class="b auc">AUC 0.318</span><span class="b">ADD 43.7cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/lap10211_bimart_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/lap10211_bimart_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div></div>
+      </section>
+      <section class="card" data-cat="lap" data-target="lap10305">
+        <header>
+          <h2>lap10305</h2>
+          <span class="pieces">2조각</span>
+          <span class="verdict win-ours">우리 +0.340 AUC</span>
+        </header>
+        <div class="methods">
+          <div class="method ours">
+            <div class="mhead">
+              <span class="mname">우리 + cordex</span>
+              <span class="badges"><span class="b st live">진행중</span><span class="b">ep 4790</span><span class="b">rew 16.0</span><span class="b auc">AUC 0.461</span><span class="b">ADD 10.9cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/lap10305_dexcore_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/lap10305_dexcore_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div>
+          <div class="method bimart">
+            <div class="mhead">
+              <span class="mname">BimArt</span>
+              <span class="badges"><span class="b st live">진행중</span><span class="b">ep 2510</span><span class="b">rew 20.8</span><span class="b auc">AUC 0.121</span><span class="b">ADD 90.0cm</span></span>
+            </div>
+            <div class="pair">
+              <figure class="panel"><figcaption>레퍼런스</figcaption><video src="videos/lap10305_bimart_target.mp4" muted loop playsinline preload="metadata"></video></figure>
+              <figure class="panel"><figcaption>롤아웃</figcaption><video src="videos/lap10305_bimart_rollout.mp4" muted loop playsinline preload="metadata"></video></figure>
+            </div>
+          </div></div>
+      </section>
+      </section>
+
+<footer>
+데모 두 종은 <code>demo_gen.render_demo</code>의 기구학 재생, 롤아웃은
+<code>eval_rl_games --record_video</code>의 물리 시뮬레이션입니다. 상태는 학습 로그의 종료 마커
+(<code>MAX EPOCHS NUM!</code> / <code>Reward too low</code>)로 판정하며, 마커가 없으면 진행중입니다 —
+<b>진행중</b> 런의 롤아웃은 중간 스냅샷이라 최종 성능이 아닙니다. AUC가 체크포인트와 다른 에폭에서
+계산됐으면 붉게 표시됩니다. <code>build_videos.sh</code>로 영상을, 이 스크립트로 페이지를 다시 만듭니다.
+</footer>
+</div>
+<script>
+const vids = () => [...document.querySelectorAll('video')];
+document.querySelectorAll('.bar button[data-f]').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.bar button[data-f]').forEach(x => x.classList.remove('on'));
+  b.classList.add('on');
+  const f = b.dataset.f;
+  document.querySelectorAll('.catblock').forEach(c => {
+    c.style.display = (f === 'all' || c.dataset.cat === f) ? '' : 'none';
+  });
+});
+document.getElementById('play').onclick  = () => vids().forEach(v => v.play().catch(() => {}));
+document.getElementById('pause').onclick = () => vids().forEach(v => v.pause());
+document.getElementById('theme').onclick = () => {
+  const r = document.documentElement;
+  const dark = r.getAttribute('data-theme') === 'dark'
+    || (!r.hasAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+  r.setAttribute('data-theme', dark ? 'light' : 'dark');
+  try { localStorage.setItem('theme', r.getAttribute('data-theme')); } catch (e) {}
+};
+try { const t = localStorage.getItem('theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+vids().forEach(v => v.onclick = () => v.paused ? v.play().catch(() => {}) : v.pause());
+// a card's four panels play together, and only while on screen
+const io = new IntersectionObserver(es => es.forEach(e => {
+  e.target.querySelectorAll('video').forEach(v =>
+    e.isIntersecting ? v.play().catch(() => {}) : v.pause());
+}), {threshold: 0.2});
+document.querySelectorAll('.card, .source').forEach(c => io.observe(c));
+</script>
+</body></html>

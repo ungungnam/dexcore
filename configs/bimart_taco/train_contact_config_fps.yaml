@@ -1,0 +1,50 @@
+# Corrected-contact-label rerun. Identical to the original config except:
+#   * stat_dict_path -> *_norm_stats_fps.pkl (statistics of the corrected label)
+#   * num_epochs cut, justified by the observed validation curves: the motion model's
+#     validation loss bottomed at epoch 18 and rose 81% by 199, the contact model's at 74
+#     and rose 13%, so 60 / 110 epochs pass both minima with margin.
+#   * exp_name -> contact_model_taco_fps
+# The store is passed on the command line (train_store_fps). Everything else -- batch 100,
+# lr, architecture, dropout, EMA, diffusion steps -- is unchanged, so the only difference
+# from the previous run is the contact label.
+# TACO port of BimArt's contact model config.
+# Changed from the ARCTIC original: data paths, `global_state_dim` 7 -> 8 (two objects means two
+# scales), `base_frame` 100 -> 8 (TACO has no T-pose lead-in and a median length of 148 frames).
+inherit: null
+exp_name: contact_model_taco_fps
+# data and loading
+base_dir: /result/uhnam/dexcore/bimart_taco
+split: train
+end_frame: null
+base_frame: 8
+batch_size: 100
+num_workers: 8
+normalize_data: true
+pred_horizon: 64
+num_features: 3
+num_bps_points: 512
+global_state_dim: 8
+stat_dict_path: /result/uhnam/dexcore/bimart_taco/assets/taco_contact_norm_stats_fps.pkl
+# architecture -- unchanged from upstream
+ff_size: 1024
+activation: gelu
+dropout: 0.1
+latent_cond_dim: 512
+mlp_layer1_dim: 1024
+mlp_layer2_dim: 1024
+num_heads: 4
+num_layers: 8
+obj_latent_dim: 1024
+# training -- unchanged from upstream
+load_pretrained: false
+lr: 1.0e-05
+start_epochs: 0
+num_epochs: 110
+num_timesteps: 50
+pretrained_model_path: null
+# output
+save_root_dir: /result/uhnam/dexcore/bimart_taco/experiments/
+save_checkpt_epoch: 100
+use_wandb: true
+wandb_entity: enter_your_credential
+wandb_pj_name: bimart_taco_contact

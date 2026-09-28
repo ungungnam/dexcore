@@ -1,0 +1,5 @@
+# No geometric change. Valid only when the target IS the source object.
+# A scaled object (box_s090, box_s110) is a DIFFERENT object: identity refuses it unless
+# allow_different_object is set, which records an explicit no-op baseline rather than a transfer.
+transfer: identity
+transfer_options: {}

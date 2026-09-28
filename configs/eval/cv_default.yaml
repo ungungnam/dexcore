@@ -1,0 +1,2 @@
+# Demo/CV-level metrics. Reconstruction error is same-object only and needs a --reference.
+metrics: [penetration, collision, smoothness]

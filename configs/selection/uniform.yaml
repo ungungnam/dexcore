@@ -1,0 +1,5 @@
+# The baseline. Ignores the demo's content entirely -- which is exactly why it is the control.
+selector: uniform
+selector_options:
+  ratio: 0.1           # sweep: 1.0 / 0.25 / 0.10 / 0.05 / 0.01
+  keep_endpoints: true # reconstruction interpolates and refuses to extrapolate

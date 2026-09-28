@@ -1,0 +1,19 @@
+obj_name: microwave
+use_clip: "01"
+subject: s01
+frame_start: 0
+frame_end: 240
+target_object: mw7310_calibrated
+synthesizer: bimart
+synthesizer_options:
+  category: microwave
+  source_object: microwave
+  entry_verts_per_part: 20000
+selector: uniform
+transfer: identity
+reconstructor: linear_keypoint
+selector_options:
+  ratio: 0.1
+metrics: [penetration, collision, smoothness]
+output_dir: outputs/microwave
+seed: 0

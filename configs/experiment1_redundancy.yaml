@@ -1,0 +1,19 @@
+# Experiment 1 -- temporal redundancy, same object.
+#   Source Demo -> Selector -> IdentityTransfer -> Reconstruction -> CV eval -> DexMachina eval
+# Question: how much of the dense human hand trajectory is actually necessary?
+#
+# Sweep the budget with --ratio (1.0 / 0.25 / 0.10 / 0.05 / 0.01) and the selector with
+# --selector (all | uniform | reconstruction_aware). The object is held fixed, so every difference
+# is attributable to selection and reconstruction alone.
+obj_name: box
+use_clip: "01"
+target_object: null          # same object: identity transfer is meaningful
+selector: uniform
+selector_options:
+  ratio: 0.1
+transfer: identity
+reconstructor: linear_keypoint
+reconstructor_options:
+  ik_iters: 300
+metrics: [penetration, collision, smoothness, reconstruction]
+output_dir: outputs/exp1_redundancy

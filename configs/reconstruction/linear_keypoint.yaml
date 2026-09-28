@@ -1,0 +1,7 @@
+# Object-relative linear in-betweening, then 51-DoF MANO IK.
+reconstructor: linear_keypoint
+reconstructor_options:
+  frame: root          # root = object-relative (the default and the point) | world = the ablation
+  ik_iters: 300
+  recompute_contacts: true
+  samples_per_link: 32

@@ -1,0 +1,26 @@
+# Server data roots (see CLAUDE.md): never in git
+/data/
+/result/
+/ckpt/
+
+# Vendored upstream repos (28 GB, each with its own .git) and run outputs
+/third_party/
+/outputs/
+/.omc/
+
+# Model weights and large artefacts
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Run logs, videos and wandb
+*.log
+*.pid
+wandb/
+visualize/videos/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/

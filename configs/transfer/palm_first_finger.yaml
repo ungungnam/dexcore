@@ -1,0 +1,5 @@
+# Palm placement first, then per-finger adaptation, per selected keyframe.
+# NOT IMPLEMENTED YET -- raises with the list of dexmachina modules to vendor.
+transfer: palm_first_finger
+transfer_options:
+  contact_band_m: 0.002

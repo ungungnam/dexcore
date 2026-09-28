@@ -1,0 +1,22 @@
+# Experiment 2 -- cross-object functional transfer.
+#   Uniform 10% -> PalmFirstFingerTransfer -> LinearKeypointReconstructor
+# Question: are sparse geometrically transferred interaction states enough to reconstruct a useful
+# target-object demonstration?
+#
+# NOTE: box_s110 is a DIFFERENT object, not a rescaled box. Both the target object trajectory
+# (canonical-frame transfer) and PalmFirstFingerTransfer are still to be vendored, so this config
+# currently raises with the exact list of dexmachina modules needed.
+obj_name: box
+use_clip: "01"
+target_object: box_s110
+selector: uniform
+selector_options:
+  ratio: 0.1
+transfer: palm_first_finger
+transfer_options:
+  contact_band_m: 0.002
+reconstructor: linear_keypoint
+reconstructor_options:
+  ik_iters: 300
+metrics: [penetration, collision, smoothness]
+output_dir: outputs/exp2_cross_object

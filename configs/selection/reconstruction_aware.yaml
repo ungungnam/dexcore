@@ -1,0 +1,8 @@
+# Greedy worst-first under a reconstruction-error criterion.
+# The criterion scores the CHEAP proxy (object-relative keypoint interpolation, no IK) -- see the
+# module docstring on why, and on what that means for what this selector actually optimises.
+selector: reconstruction_aware
+selector_options:
+  ratio: 0.1
+  keep_endpoints: true
+  criterion: keypoint   # keypoint | keypoint_world | fingertip

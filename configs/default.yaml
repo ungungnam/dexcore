@@ -1,0 +1,23 @@
+# Base configuration. Every other config in this tree merges on top of this one.
+obj_name: box            # the SOURCE object; also resolves the source geometry
+use_clip: "01"
+subject: s01
+demo_path: null
+frame_start: 0
+frame_end: null
+
+target_object: null      # null -> the source object (the same-object experiment)
+
+selector: uniform
+selector_options:
+  ratio: 0.1
+transfer: identity
+transfer_options: {}
+reconstructor: linear_keypoint
+reconstructor_options:
+  ik_iters: 300
+
+metrics: [penetration, collision, smoothness]
+output_dir: outputs
+run_name: null
+seed: 0
