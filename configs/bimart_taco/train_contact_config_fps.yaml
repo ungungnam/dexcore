@@ -1,3 +1,6 @@
+# NOTE: base_dir stays the /result/uhnam/dexcore/bimart_taco compatibility shim on purpose — this
+# variant reads gen1's sequences/ and gen2's train_store_fps/, and only the shim holds both.
+# Outputs (save_root_dir, stat_dict_path) go to the gen2 leaf.
 # Corrected-contact-label rerun. Identical to the original config except:
 #   * stat_dict_path -> *_norm_stats_fps.pkl (statistics of the corrected label)
 #   * num_epochs cut, justified by the observed validation curves: the motion model's
@@ -24,7 +27,7 @@ pred_horizon: 64
 num_features: 3
 num_bps_points: 512
 global_state_dim: 8
-stat_dict_path: /result/uhnam/dexcore/bimart_taco/assets/taco_contact_norm_stats_fps.pkl
+stat_dict_path: /result/uhnam/dexcore/taco/20_bimart_gen2_fps_label_abandoned/assets/taco_contact_norm_stats_fps.pkl
 # architecture -- unchanged from upstream
 ff_size: 1024
 activation: gelu
@@ -43,7 +46,7 @@ num_epochs: 110
 num_timesteps: 50
 pretrained_model_path: null
 # output
-save_root_dir: /result/uhnam/dexcore/bimart_taco/experiments/
+save_root_dir: /result/uhnam/dexcore/taco/20_bimart_gen2_fps_label_abandoned/experiments/
 save_checkpt_epoch: 100
 use_wandb: true
 wandb_entity: enter_your_credential

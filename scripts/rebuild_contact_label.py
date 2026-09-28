@@ -29,7 +29,7 @@ import numpy as np
 def main():
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--root", default="/result/uhnam/dexcore/bimart_taco")
+    p.add_argument("--root", default="/result/uhnam/dexcore/taco/10_bimart_gen1_original_label")
     p.add_argument("--out-store", default="train_store_fps")
     p.add_argument("--tag", default="_fps", help="suffix for the stat files")
     p.add_argument("--check", type=int, default=24, help="sequences to verify against dense truth")

@@ -34,7 +34,7 @@ from src.analysis.action_structure.contact import TARGET_PART_ID, TOOL_PART_ID
 
 log = logging.getLogger(__name__)
 
-DEFAULT_DIR = Path("/result/uhnam/dexcore/analysis/taco/contacts/full/episodes")
+DEFAULT_DIR = Path("/result/uhnam/dexcore/taco/00_dataset_analysis/contacts/full/episodes")
 
 
 def episode_contact_local(npz, track, part_id: int):

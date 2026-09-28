@@ -5,12 +5,12 @@
 # TACO port of BimArt's motion model config. See the contact config for what changed and why.
 inherit: null
 exp_name: motion_model_taco_scene
-save_root_dir: /result/uhnam/dexcore/bimart_taco_scene/experiments/
+save_root_dir: /result/uhnam/dexcore/taco/30_bimart_gen3_scene_scale/experiments/
 use_job_id: true
 data:
-  base_dir: /result/uhnam/dexcore/bimart_taco_scene
+  base_dir: /result/uhnam/dexcore/taco/30_bimart_gen3_scene_scale
   split: train
-  stat_dict_path: /result/uhnam/dexcore/bimart_taco_scene/assets/taco_motion_norm_stats.pkl
+  stat_dict_path: /result/uhnam/dexcore/taco/30_bimart_gen3_scene_scale/assets/taco_motion_norm_stats.pkl
   action_dim: 1200
   pred_horizon: 64
   global_state_dim: 8

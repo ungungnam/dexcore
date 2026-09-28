@@ -65,7 +65,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--root", default=None)
-    p.add_argument("--out", default="/result/uhnam/dexcore/bimart_taco")
+    p.add_argument("--out", default="/result/uhnam/dexcore/taco/10_bimart_gen1_original_label")
     p.add_argument("--mesh-dict", default=None)
     p.add_argument("--base-frame", type=int, default=DEFAULT_BASE_FRAME)
     p.add_argument("--workers", type=int, default=8)

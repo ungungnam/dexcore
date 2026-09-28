@@ -8,7 +8,7 @@
 inherit: null
 exp_name: contact_model_taco_scene
 # data and loading
-base_dir: /result/uhnam/dexcore/bimart_taco_scene
+base_dir: /result/uhnam/dexcore/taco/30_bimart_gen3_scene_scale
 split: train
 end_frame: null
 base_frame: 8
@@ -19,7 +19,7 @@ pred_horizon: 64
 num_features: 3
 num_bps_points: 512
 global_state_dim: 8
-stat_dict_path: /result/uhnam/dexcore/bimart_taco_scene/assets/taco_contact_norm_stats.pkl
+stat_dict_path: /result/uhnam/dexcore/taco/30_bimart_gen3_scene_scale/assets/taco_contact_norm_stats.pkl
 # architecture -- unchanged from upstream
 ff_size: 1024
 activation: gelu
@@ -38,7 +38,7 @@ num_epochs: 110
 num_timesteps: 50
 pretrained_model_path: null
 # output
-save_root_dir: /result/uhnam/dexcore/bimart_taco_scene/experiments/
+save_root_dir: /result/uhnam/dexcore/taco/30_bimart_gen3_scene_scale/experiments/
 save_checkpt_epoch: 100
 use_wandb: true
 wandb_entity: enter_your_credential

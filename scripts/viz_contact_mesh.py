@@ -76,7 +76,7 @@ from scripts.viz_contact_maps import (CAT, CMAP_DIST, INK, INK_2, INK_MUTED, N_B
 
 LOG = logging.getLogger("viz_contact_mesh")
 
-DEFAULT_ROOT = Path("/result/uhnam/dexcore/bimart_taco")
+DEFAULT_ROOT = Path("/result/uhnam/dexcore/taco/10_bimart_gen1_original_label")
 #: (label, hand, object) for the four halves of the contact vector, in the store's order.
 def set_parts(a: str, b: str, source: str | None = None) -> None:
     """Rename the two objects for display, here and in `viz_contact_maps`. Keys are unchanged."""

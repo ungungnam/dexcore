@@ -28,13 +28,13 @@ import yaml
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--contact", default="/result/uhnam/dexcore/bimart_taco/experiments/"
+    p.add_argument("--contact", default="/result/uhnam/dexcore/taco/10_bimart_gen1_original_label/experiments/"
                                         "contact_model_taco_20260923_151838")
     p.add_argument("--split", required=True)
     p.add_argument("--windows", type=int, default=0)
     p.add_argument("--batch-size", type=int, default=64)
     p.add_argument("--seed", type=int, default=0)
-    p.add_argument("--out", default="/result/uhnam/dexcore/bimart_taco/contact_probe")
+    p.add_argument("--out", default="/result/uhnam/dexcore/taco/10_bimart_gen1_original_label/contact_probe")
     p.add_argument("--variant", default="", choices=("", "_fps", "_scene"),
                    help="'_fps' selects the corrected-contact-label configs and store")
     p.add_argument("--store", default=None,

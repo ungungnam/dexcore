@@ -3,7 +3,7 @@ quality table.
 
     python -m src.analysis.canonical.fit_all            # from the repo root
 
-Output layout (root defaults to /result/uhnam/dexcore/canonical_contact/canonical_backend):
+Output layout (root defaults to /result/uhnam/dexcore/taco/40_representation_study/canonical_backend):
 
     <root>/<backend>/<category>.npz      the fitted state, `backends.load(name, root)` restores it
     <root>/<backend>/templates.json      template id and per-mesh Chamfer per stage
@@ -35,8 +35,8 @@ from src.analysis.canonical.interface import DEFAULT_RADIUS
 
 log = logging.getLogger("canonical.fit_all")
 
-DEFAULT_MESH_DICT = "/result/uhnam/dexcore/bimart_taco/assets/taco_mesh_dict.npy"
-DEFAULT_ROOT = "/result/uhnam/dexcore/canonical_contact/canonical_backend"
+DEFAULT_MESH_DICT = "/result/uhnam/dexcore/taco/10_bimart_gen1_original_label/assets/taco_mesh_dict.npy"
+DEFAULT_ROOT = "/result/uhnam/dexcore/taco/40_representation_study/canonical_backend"
 
 CSV_COLUMNS = ["category", "n_meshes", "template", "template_normalized",
                "chamfer_centred_scaled", "chamfer_pca_sign", "chamfer_icp",

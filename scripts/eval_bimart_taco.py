@@ -120,7 +120,7 @@ def main():
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--contact", required=True)
     p.add_argument("--motion", required=True)
-    p.add_argument("--out", default="/result/uhnam/dexcore/bimart_taco/evaluation")
+    p.add_argument("--out", default="/result/uhnam/dexcore/taco/10_bimart_gen1_original_label/evaluation")
     p.add_argument("--sample-windows", type=int, default=128,
                    help="windows per split for the 50-step sampling metric")
     p.add_argument("--batch-size", type=int, default=64)

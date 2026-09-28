@@ -37,7 +37,7 @@ import numpy as np
 def main():
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--root", default="/result/uhnam/dexcore/bimart_taco")
+    p.add_argument("--root", default="/result/uhnam/dexcore/taco/10_bimart_gen1_original_label")
     p.add_argument("--splits", nargs="*", default=["test_1", "test_2"])
     p.add_argument("--key", default="pred", choices=("pred", "gt"))
     p.add_argument("--infer-dir", default="inference",

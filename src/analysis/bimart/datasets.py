@@ -41,7 +41,7 @@ from src.analysis.bimart import store
 
 log = logging.getLogger(__name__)
 
-DEFAULT_ROOT = Path("/result/uhnam/dexcore/bimart_taco")
+DEFAULT_ROOT = Path("/result/uhnam/dexcore/taco/10_bimart_gen1_original_label")
 TEST_SPLITS = ("test_1", "test_2", "test_3", "test_4")
 
 

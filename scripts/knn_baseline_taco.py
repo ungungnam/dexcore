@@ -23,7 +23,7 @@ import argparse, json, logging
 from pathlib import Path
 import numpy as np, pandas as pd
 
-R = Path("/result/uhnam/dexcore/bimart_taco"); S = R / "train_store"
+R = Path("/result/uhnam/dexcore/taco/10_bimart_gen1_original_label"); S = R / "train_store"
 H = 64; KP = 600
 
 

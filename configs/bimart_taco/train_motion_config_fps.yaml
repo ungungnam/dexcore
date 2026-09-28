@@ -1,3 +1,6 @@
+# NOTE: base_dir stays the /result/uhnam/dexcore/bimart_taco compatibility shim on purpose — this
+# variant reads gen1's sequences/ and gen2's train_store_fps/, and only the shim holds both.
+# Outputs (save_root_dir, stat_dict_path) go to the gen2 leaf.
 # Corrected-contact-label rerun. Identical to the original config except:
 #   * stat_dict_path -> *_norm_stats_fps.pkl (statistics of the corrected label)
 #   * num_epochs cut, justified by the observed validation curves: the motion model's
@@ -10,12 +13,12 @@
 # TACO port of BimArt's motion model config. See the contact config for what changed and why.
 inherit: null
 exp_name: motion_model_taco_fps
-save_root_dir: /result/uhnam/dexcore/bimart_taco/experiments/
+save_root_dir: /result/uhnam/dexcore/taco/20_bimart_gen2_fps_label_abandoned/experiments/
 use_job_id: true
 data:
   base_dir: /result/uhnam/dexcore/bimart_taco
   split: train
-  stat_dict_path: /result/uhnam/dexcore/bimart_taco/assets/taco_motion_norm_stats_fps.pkl
+  stat_dict_path: /result/uhnam/dexcore/taco/20_bimart_gen2_fps_label_abandoned/assets/taco_motion_norm_stats_fps.pkl
   action_dim: 1200
   pred_horizon: 64
   global_state_dim: 8

@@ -45,9 +45,9 @@ HAND_KP = 100
 def main():
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--contact", default="/result/uhnam/dexcore/bimart_taco/experiments/"
+    p.add_argument("--contact", default="/result/uhnam/dexcore/taco/10_bimart_gen1_original_label/experiments/"
                                         "contact_model_taco_20260923_151838")
-    p.add_argument("--motion", default="/result/uhnam/dexcore/bimart_taco/experiments/"
+    p.add_argument("--motion", default="/result/uhnam/dexcore/taco/10_bimart_gen1_original_label/experiments/"
                                        "motion_model_taco_20260923_151845")
     p.add_argument("--split", default="test_2")
     p.add_argument("--windows", type=int, default=8)
@@ -55,7 +55,7 @@ def main():
     p.add_argument("--refine-steps", type=int, default=100)
     p.add_argument("--guidance-scale", type=float, default=1.0)
     p.add_argument("--seed", type=int, default=0)
-    p.add_argument("--out", default="/result/uhnam/dexcore/bimart_taco/inference")
+    p.add_argument("--out", default="/result/uhnam/dexcore/taco/10_bimart_gen1_original_label/inference")
     args = p.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s: %(message)s",
                         datefmt="%H:%M:%S")
