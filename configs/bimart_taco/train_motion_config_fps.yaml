@@ -1,3 +1,5 @@
+# NOTE 2026-09-28: this variant was ABANDONED and its raw material (train_store_fps/) deleted.
+# Kept for the record only. See /result/uhnam/dexcore/INDEX.md.
 # NOTE: base_dir stays the /result/uhnam/dexcore/bimart_taco compatibility shim on purpose — this
 # variant reads gen1's sequences/ and gen2's train_store_fps/, and only the shim holds both.
 # Outputs (save_root_dir, stat_dict_path) go to the gen2 leaf.

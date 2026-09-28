@@ -66,7 +66,7 @@ def main():
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--motion", required=True)
     p.add_argument("--splits", nargs="+", default=["train", "test_1"])
-    p.add_argument("--out", default="/result/uhnam/dexcore/taco/10_bimart_gen1_original_label/diagnosis")
+    p.add_argument("--out", default="/result/uhnam/dexcore/taco/30_bimart_gen3_scene_scale/diagnosis")
     p.add_argument("--windows", type=int, default=96, help="windows per split")
     p.add_argument("--n-sample", type=int, default=6, help="draws per window for the spread test")
     p.add_argument("--batch-size", type=int, default=48)

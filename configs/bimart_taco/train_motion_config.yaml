@@ -1,3 +1,6 @@
+# NOTE 2026-09-28: this generation's raw material (sequences/, train_store/) was deleted —
+# it was superseded by the scene-scale generation. To run this config again, re-create the
+# generation first with scripts/preprocess_taco_bimart.py. See /result/uhnam/dexcore/INDEX.md.
 # TACO port of BimArt's motion model config. See the contact config for what changed and why.
 inherit: null
 exp_name: motion_model_taco

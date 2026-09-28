@@ -1,3 +1,6 @@
+# NOTE 2026-09-28: this generation's raw material (sequences/, train_store/) was deleted —
+# it was superseded by the scene-scale generation. To run this config again, re-create the
+# generation first with scripts/preprocess_taco_bimart.py. See /result/uhnam/dexcore/INDEX.md.
 # TACO port of BimArt's contact model config.
 # Changed from the ARCTIC original: data paths, `global_state_dim` 7 -> 8 (two objects means two
 # scales), `base_frame` 100 -> 8 (TACO has no T-pose lead-in and a median length of 148 frames).

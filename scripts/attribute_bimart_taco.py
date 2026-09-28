@@ -49,15 +49,15 @@ def kp(a_norm, mean, std):
 def main():
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--contact", default="/result/uhnam/dexcore/taco/10_bimart_gen1_original_label/experiments/"
+    p.add_argument("--contact", default="/result/uhnam/dexcore/taco/30_bimart_gen3_scene_scale/experiments/"
                                         "contact_model_taco_20260923_151838")
-    p.add_argument("--motion", default="/result/uhnam/dexcore/taco/10_bimart_gen1_original_label/experiments/"
+    p.add_argument("--motion", default="/result/uhnam/dexcore/taco/30_bimart_gen3_scene_scale/experiments/"
                                        "motion_model_taco_20260923_151845")
     p.add_argument("--splits", nargs="+", default=["test_1", "test_2", "test_3", "test_4"])
     p.add_argument("--windows", type=int, default=64)
     p.add_argument("--batch-size", type=int, default=32)
     p.add_argument("--seed", type=int, default=0)
-    p.add_argument("--out", default="/result/uhnam/dexcore/taco/10_bimart_gen1_original_label/attribution")
+    p.add_argument("--out", default="/result/uhnam/dexcore/taco/30_bimart_gen3_scene_scale/attribution")
     p.add_argument("--variant", default="", choices=("", "_fps", "_scene"),
                    help="'_fps' selects the corrected-contact-label configs and store")
     p.add_argument("--store", default=None,
