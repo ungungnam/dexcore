@@ -359,7 +359,7 @@
     var xTicks = null, sx;
     if (isScatter) {
       var xp = (xHi - xLo) * 0.05 || 1;
-      xTicks = niceTicks(xLo - xp, xHi + xp, Math.max(3, Math.floor(plotW / 80)));
+      xTicks = niceTicks(xLo - xp, xHi + xp, Math.max(4, Math.floor(plotW / 60))); // fine enough steps that a narrow panel is not left a third empty
       var xa = xTicks[0], xb = xTicks[xTicks.length - 1];
       var xTickFmt = tickFormatter(xTicks, false);
       sx = function (v) { return mLeft + (v - xa) / (xb - xa) * plotW; };
