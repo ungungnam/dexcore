@@ -2291,7 +2291,7 @@
     "reports/wrench_counterfactual/taco/geometry/3069_1.npz",
     "reports/wrench_counterfactual/taco/geometry/811_0.npz"
    ],
-   "metric": "Illustration, not a statistic. Contact maps are the studies' 512-value canonical maps drawn back on the object mesh by the studies' own smoothing operator; see display_choices in the figure's metadata.",
+   "metric": "Illustration, not a statistic. No contact-value map is drawn: the object surface near the recorded hand is coloured by the nearest hand part; see display_choices in the figure's metadata.",
    "numbers": {
     "taco | persistent spatial events in the test split": {
      "value": "119",
@@ -2900,7 +2900,7 @@
     "taco/50_hier_contact_gen/sequences_meta.csv",
     "this script"
    ],
-   "metric": "Illustration, not a statistic. Contact maps are the studies' 512-value canonical maps drawn back on the object mesh by the studies' own smoothing operator; see display_choices in the figure's metadata.",
+   "metric": "Illustration, not a statistic. No contact-value map is drawn: the object surface near the recorded hand is coloured by the nearest hand part; see display_choices in the figure's metadata.",
    "numbers": {
     "both | numbers per frame in the structural description": {
      "value": "48",

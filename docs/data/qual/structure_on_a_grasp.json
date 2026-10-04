@@ -1,6 +1,6 @@
 {
  "fig_id": "structure_on_a_grasp",
- "created": "2026-10-05T00:41:40+0900",
+ "created": "2026-10-05T01:01:33+0900",
  "outputs": {
   "figure": "reports/project_page_qualitative/structure_on_a_grasp/figure.png",
   "panels": "reports/project_page_qualitative/structure_on_a_grasp/panels.npz",
@@ -646,8 +646,8 @@
     "touching_parts_at_frame": 6,
     "page_reference": {
      "file": "docs/evidence/images.json",
-     "key": "assets/img/f1b_taco_knife_rollout.png",
-     "text": "TACO test example 3011 (knife, tool role, right hand; take '(scrape off, knife, plate)/20231020_226'): contact maps on the 512 canonical points at t = 0, 8, 16, 32, 48, 63"
+     "key": "assets/img/qual_contact_map_primer.webp",
+     "text": "What a contact map is: one recorded TACO sequence, on the object and as 512 points (TACO example 3011, (scrape off, knife, plate)/20231020_226)"
     },
     "in_test_split": true,
     "test_sequences_with_the_same_number_of_touching_parts": 183

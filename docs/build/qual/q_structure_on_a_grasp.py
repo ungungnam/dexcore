@@ -66,7 +66,7 @@ PAGE_EXAMPLE = 3011                     # TACO sequence already shown on the pag
 STUDY = qlib.RESULT_ROOT / "reports/structure_variance_boundary"
 DEFINITIONS = STUDY / "representation_definitions.json"
 PAGE_IMAGES = qlib.REPO / "docs/evidence/images.json"
-PAGE_IMAGE_KEY = "assets/img/f1b_taco_knife_rollout.png"
+PAGE_IMAGE_KEY = "assets/img/qual_contact_map_primer.webp"   # the page figure that introduces this sequence
 ARCTIC_TEMPLATES = qlib.REPO / "third_party/BimArt/data/arctic_raw/meta/object_vtemplates"   # millimetres
 RULES_SOURCE = ("scripts/research/structure_variance_boundary/build_features.py (part_features), sv_common.py "
                 "(causal_majority, N_MIN_VERTS), scripts/research/wrench_counterfactual/wc_common.py (contact_geometry)")
@@ -200,8 +200,10 @@ def count_evidence(feat: Features, test: np.ndarray) -> tuple[np.ndarray, dict[s
 
 def select_taco(feat: Features) -> Selection:
     test = test_examples("taco")
-    page = json.loads(PAGE_IMAGES.read_text()).get(PAGE_IMAGE_KEY, {}).get("shows", "")
-    if f"example {PAGE_EXAMPLE}" not in page:
+    entry = json.loads(PAGE_IMAGES.read_text()).get(PAGE_IMAGE_KEY, {})
+    shown = [e for e in entry.get("examples", []) if e.get("dataset") == "TACO" and e.get("example") == PAGE_EXAMPLE]
+    page = f"{entry.get('shows', '')} (TACO example {PAGE_EXAMPLE}, {shown[0].get('sequence_id', '')})" if shown else ""
+    if not shown:
         raise RuntimeError(f"{PAGE_IMAGES} no longer documents example {PAGE_EXAMPLE} as the page's sequence (entry "
                            f"{PAGE_IMAGE_KEY!r}); point PAGE_IMAGE_KEY at a page figure that shows it, or change the rule")
     counts, evidence = count_evidence(feat, test)

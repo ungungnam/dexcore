@@ -47,6 +47,10 @@ FIGURES = {
 }
 
 
+# figures that colour the surface by hand part (from recorded hand-to-vertex distances), not by a contact-map value
+PART_COLOURED = {"reconfiguration_with_hand", "structure_on_a_grasp"}
+
+
 def relative(text):
     """Shorten absolute server paths in any string of a nested structure."""
     if isinstance(text, str):
@@ -119,8 +123,11 @@ def main() -> int:
             "datasets": datasets,
             "report": script,
             "source_files": sources,
-            "metric": "Illustration, not a statistic. Contact maps are the studies' 512-value canonical maps drawn back on the "
-                      "object mesh by the studies' own smoothing operator; see display_choices in the figure's metadata.",
+            "metric": "Illustration, not a statistic. " + (
+                "No contact-value map is drawn: the object surface near the recorded hand is coloured by the nearest hand part; "
+                if fig_id in PART_COLOURED else
+                "Contact maps are the studies' 512-value canonical maps drawn back on the object mesh by the studies' own "
+                "smoothing operator; ") + "see display_choices in the figure's metadata.",
             "numbers": number_table(numbers),
             "caveats": [as_text(c) for c in meta.get("caveats", [])],
         })
