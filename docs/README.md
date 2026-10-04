@@ -3,7 +3,9 @@
 **What Should a Temporal Contact Generator Actually Model?** — the research argument of this
 repository on one page: motivation, three findings, and the current hypothesis.
 
-Live: <https://ungungnam.github.io/dexcore/> (GitHub Pages serves this `docs/` folder from `main`).
+This is the detailed working page. Since 5 October 2026 it is no longer served on the web: the
+project's GitHub Pages address shows the concise public page built in `public_page/`. Preview this
+page locally (see below).
 
 ## Run it
 

@@ -3,8 +3,12 @@
 Cross-object functional transfer of human hand-object demonstrations, and a study of what a temporal
 hand-object contact generator should model.
 
-**Project page: <https://ungungnam.github.io/dexcore/>** — the research argument (motivation, three
-findings, current hypothesis) with the evidence behind each claim. Its source is in [`docs/`](docs/).
+**Project page: <https://ungungnam.github.io/dexcore/>** — a concise page on the ongoing research:
+motivation, three observations and the research direction. Its source is in
+[`public_page/`](public_page/) (published from the branch `gh-pages`).
+
+The detailed working page (three findings, every evidence block, the current hypothesis) is in
+[`docs/`](docs/); it is not served on the web: `python -m http.server -d docs 8000`.
 
 ## What this repository contains
 
@@ -13,7 +17,8 @@ findings, current hypothesis) with the evidence behind each claim. Its source is
 | Transfer pipeline | `src/`, `scripts/*.py`, `configs/`, `eval/`, `tests/` | selection → transfer → reconstruction of hand-object demonstrations, the BimArt end-to-end baseline, metrics and a viewer. Documented in the rest of this README |
 | Dataset analysis and BimArt ports | `src/analysis/`, `scripts/*bimart*`, `configs/bimart_*/` | TACO / ARCTIC loaders and statistics; BimArt trained on TACO and on OakInk2 |
 | Contact-generation research | [`scripts/research/`](scripts/research/README.md) | the experiment scripts behind the project page, one directory per study, catalogued in `scripts/research/README.md` |
-| Project page | [`docs/`](docs/README.md) | the page, its figure-building scripts and the evidence manifest |
+| Public page | [`public_page/`](public_page/README.md) | the concise page served on the web, its build and exposure checks |
+| Detailed page | [`docs/`](docs/README.md) | the full argument, its figure-building scripts and the evidence manifest (local preview) |
 
 Things to know before reading the research scripts:
 

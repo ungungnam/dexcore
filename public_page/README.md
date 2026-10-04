@@ -132,8 +132,9 @@ The owner's decision (5 October 2026): the public page replaces the page served 
 GitHub Pages address. It is published from a `gh-pages` branch that holds ONLY the content of
 `public_page/site/`; GitHub Pages source = branch `gh-pages`, folder `/`.
 
-State on 5 October 2026: **not deployed yet.** GitHub Pages still serves `main:/docs` (the
-internal page), and `origin` has no `gh-pages` branch. Both steps below are needed, in this order.
+State: **deployed on 5 October 2026.** GitHub Pages serves the branch `gh-pages`; the internal page
+under `docs/` is no longer served. Step 1 below is the command for every later change; steps 2 and 3
+were needed once and are kept as a record.
 
 **Step 1: publish the branch** (also the command that refreshes the page after every later change)
 
@@ -149,19 +150,26 @@ the tree of `HEAD:public_page/site` on top of the last published commit (the loc
 `gh-pages`, or `origin/gh-pages` in a checkout that has not published before) and pushes the
 branch. The working tree and the current branch are not touched.
 
-**Step 2: point GitHub Pages to the branch** (once; the branch must exist, so this comes after
-step 1). Until this is done, GitHub Pages keeps serving `main:/docs`, the internal page.
+**Step 2: point GitHub Pages to the branch** (done once, on 5 October 2026; the branch must exist,
+so this comes after step 1). Until this is done, GitHub Pages keeps serving `main:/docs`, the
+internal page.
 
 ```bash
 echo '{"source":{"branch":"gh-pages","path":"/"}}' | gh api -X PUT repos/<owner>/<repo>/pages --input -
 gh api repos/<owner>/<repo>/pages --jq .source      # must print {"branch":"gh-pages","path":"/"}
 ```
 
-Then open the project's GitHub Pages address and check that it shows the public page.
+**Step 3: request a build** (once, right after step 2). Changing the source does not rebuild the site
+by itself: until a build runs, the old page stays online.
 
-After step 2 two sentences outside this folder are out of date and should be corrected by the
-owner: the root `README.md` ("Project page ... Its source is in `docs/`") and `docs/README.md`
-("GitHub Pages serves this `docs/` folder from `main`").
+```bash
+gh api -X POST repos/<owner>/<repo>/pages/builds
+gh api repos/<owner>/<repo>/pages/builds/latest --jq '.status + " " + .commit'   # built <gh-pages commit>
+```
+
+Then open the project's GitHub Pages address and check that it shows the public page and that a file
+of the internal page (for example `evidence_manifest.json`) answers 404. Later pushes of `gh-pages`
+(step 1) rebuild the site by themselves.
 
 Not part of the published branch: the internal page (`docs/`), `public_evidence_manifest.json`,
 `exposure_checklist.md`, `public_content_outline.md`, this README and `build/`. Two things to keep
