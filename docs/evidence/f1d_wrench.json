@@ -1,0 +1,948 @@
+{
+ "unit": "E_wrench",
+ "figure_module": "docs/build/figs/f1d_wrench.py",
+ "entries": [
+  {
+   "block": "F1-D",
+   "claim": "For persistent spatial contact events inside a firmly held grasp (TACO 119 events, ARCTIC 26), the grasp before the event already holds most of the modelled wrench capability of the grasp after it (median pre→post retention 0.85 on TACO and 0.89 on ARCTIC, median profile cosine 0.97 / 0.96, median relative change of the direction-averaged capability +0.04 / +0.02), which supports reading many of these dense reconfigurations as preserving a wrench-capability proxy for functional grasp capability, under the modelled constraints.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+   "source_files": [
+    "reports/wrench_counterfactual/summary_by_event_type.csv",
+    "reports/wrench_counterfactual/events.csv",
+    "scripts/research/wrench_counterfactual/wrench_lp.py",
+    "scripts/research/wrench_counterfactual/wrench_analysis.py",
+    "scripts/research/wrench_counterfactual/aggregate.py"
+   ],
+   "metric": "Per event: PRE grasp (frame before the event) versus POST grasp (frame after it), each built from the contact at its own frame in the object frame (no transport). Capability profile = support-function capacity h(u) along 76 shared 6-D force/torque directions (64 random, fixed seed, + 12 signed axes) of a contact-patch model (unit force budget per finger and palm, 8-edge Coulomb cone with mu = 0.5, torque divided by the object size); normalised units, not newtons. Retention pre→post = mean over directions of min(h_pre / h_post, 1): 1 = the PRE grasp already had all of the POST grasp's capability (one-sided). Profile cosine = cosine similarity of the two 76-D profiles (1 = same shape; blind to an overall scale change). Relative change = (Q_post − Q_pre) / Q_pre with Q = mean of the profile (0 = unchanged). Table values are MEDIANS over test-split events; intervals are 95 % percentile intervals of a bootstrap that resamples whole takes (1 000 replicates). Neither direction is 'better': values near 1 (retention, cosine) or 0 (relative change) mean the capability is preserved.",
+   "numbers": {
+    "TACO | persistent spatial: events / takes analysed": {
+     "value": "119 / 73",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row dataset=taco, class_report=persistent_spatial; columns n_events, n_takes"
+    },
+    "ARCTIC | persistent spatial: events / takes analysed": {
+     "value": "26 / 15",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row dataset=arctic, class_report=persistent_spatial; columns n_events, n_takes"
+    },
+    "TACO | retention pre→post, median over events [95 % take-bootstrap CI]": {
+     "value": "0.8457323588959588 [0.8125030225786758, 0.8817415014735955]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns R_pre_to_post_median, _lo, _hi"
+    },
+    "ARCTIC | retention pre→post, median over events [95 % take-bootstrap CI]": {
+     "value": "0.8903558785893627 [0.7581835776655913, 0.9604408612428033]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns R_pre_to_post_median, _lo, _hi"
+    },
+    "TACO | retention pre→post, mean over events [CI]": {
+     "value": "0.818908492993078 [0.7923539434684632, 0.8429840453741936]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns R_pre_to_post_mean, _lo, _hi"
+    },
+    "ARCTIC | retention pre→post, mean over events [CI]": {
+     "value": "0.8445892713076577 [0.7782945565297961, 0.9025329135890467]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns R_pre_to_post_mean, _lo, _hi"
+    },
+    "TACO | reverse retention post→pre, median [CI]": {
+     "value": "0.909767941315868 [0.8847200195433138, 0.9369980331075182]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns R_post_to_pre_median, _lo, _hi"
+    },
+    "ARCTIC | reverse retention post→pre, median [CI]": {
+     "value": "0.8881458555931027 [0.8430634370683654, 0.9127108595715563]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns R_post_to_pre_median, _lo, _hi"
+    },
+    "TACO | profile cosine, median over events [CI]": {
+     "value": "0.9680306162180315 [0.9620739438496304, 0.9719433878902383]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns cosine_median, _lo, _hi"
+    },
+    "ARCTIC | profile cosine, median over events [CI]": {
+     "value": "0.9571627834814752 [0.910556096989811, 0.9908430706636726]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns cosine_median, _lo, _hi"
+    },
+    "TACO | profile cosine, mean over events": {
+     "value": "0.9320046386050351",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; column cosine_mean"
+    },
+    "ARCTIC | profile cosine, mean over events": {
+     "value": "0.9318146035363786",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; column cosine_mean"
+    },
+    "TACO | relative change of direction-averaged capability (Q_post − Q_pre)/Q_pre, median [CI]": {
+     "value": "0.0361643974468233 [0.0036769813846196, 0.0761240543933321]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns rel_change_Q_median, _lo, _hi"
+    },
+    "ARCTIC | relative change of direction-averaged capability (Q_post − Q_pre)/Q_pre, median [CI]": {
+     "value": "0.02065742512497645 [-0.090418082972453, 0.19411209845069144]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns rel_change_Q_median, _lo, _hi"
+    },
+    "TACO | relative change, mean [CI]": {
+     "value": "0.13423769862694163 [0.07238577611182077, 0.20617373961667648]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns rel_change_Q_mean, _lo, _hi"
+    },
+    "ARCTIC | relative change, mean [CI]": {
+     "value": "0.04779083784945397 [-0.11081955106134983, 0.20508928093973472]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns rel_change_Q_mean, _lo, _hi"
+    },
+    "TACO | relative L1 distance between the profiles, median [CI] (0 = identical)": {
+     "value": "0.1400591181499988 [0.1275967593826157, 0.1610800536621167]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns l1_rel_distance_median, _lo, _hi"
+    },
+    "ARCTIC | relative L1 distance between the profiles, median [CI] (0 = identical)": {
+     "value": "0.16538819192878335 [0.0999159363169736, 0.2162731575042315]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns l1_rel_distance_median, _lo, _hi"
+    },
+    "TACO | Q_pre → Q_post, medians (normalised units)": {
+     "value": "1.7787886066603031 → 1.8819956047734572",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns Q_pre_median, Q_post_median"
+    },
+    "ARCTIC | Q_pre → Q_post, medians (normalised units)": {
+     "value": "1.4482394020844447 → 1.4830818951732427",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns Q_pre_median, Q_post_median"
+    },
+    "TACO | share of events with |relative change| ≤ 0.25 (no CI in the table)": {
+     "value": "0.7310924369747899",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; column frac_abs_rel_change_le_0.25"
+    },
+    "ARCTIC | share of events with |relative change| ≤ 0.25 (no CI in the table)": {
+     "value": "0.6538461538461539",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; column frac_abs_rel_change_le_0.25"
+    },
+    "TACO | share of events gaining more than 25 % (relative change > 0.25)": {
+     "value": "0.20168067226890757 (24 events)",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; column frac_rel_change_gt_0.25; count 24 from events.csv rows class_report=persistent_spatial with rel_change_Q > 0.25"
+    },
+    "ARCTIC | share of events gaining more than 25 % (relative change > 0.25)": {
+     "value": "0.23076923076923078 (6 events)",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; column frac_rel_change_gt_0.25; count 6 from events.csv"
+    },
+    "TACO | events losing more than 25 % (relative change < −0.25)": {
+     "value": "8 of 119 (report prose: 7 % (8))",
+     "source": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows dataset=taco, class_report=persistent_spatial, rel_change_Q < -0.25 (count); report section 6, first paragraph"
+    },
+    "ARCTIC | events losing more than 25 % (relative change < −0.25)": {
+     "value": "3 of 26 (report prose: 12 % (3))",
+     "source": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows dataset=arctic, class_report=persistent_spatial, rel_change_Q < -0.25 (count); report section 6, first paragraph"
+    },
+    "TACO | share of events with retention ≥ 0.8 / ≥ 0.9": {
+     "value": "0.6218487394957983 / 0.33613445378151263",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns frac_retention_ge_0.8, frac_retention_ge_0.9"
+    },
+    "ARCTIC | share of events with retention ≥ 0.8 / ≥ 0.9": {
+     "value": "0.6538461538461539 / 0.46153846153846156",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns frac_retention_ge_0.8, frac_retention_ge_0.9"
+    },
+    "TACO | share of events with Q_post > Q_pre": {
+     "value": "0.6302521008403361",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; column frac_Q_post_gt_pre"
+    },
+    "ARCTIC | share of events with Q_post > Q_pre": {
+     "value": "0.5384615384615384",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; column frac_Q_post_gt_pre"
+    },
+    "TACO | STRICT single-hand exact-direction measure: retention pre→post, median [CI]": {
+     "value": "0.6592420984429447 [0.3326187945259661, 0.780917585996227]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns strict_R_pre_to_post_median, _lo, _hi"
+    },
+    "ARCTIC | STRICT single-hand exact-direction measure: retention pre→post, median [CI]": {
+     "value": "0.7454112597702915 [0.1142857142857142, 0.918184806592778]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns strict_R_pre_to_post_median, _lo, _hi"
+    },
+    "TACO | reference level: transient (frame-jitter, diagnostic) class, retention pre→post median [CI]; n events": {
+     "value": "0.8965746349180798 [0.8710439327531824, 0.9129826728774874]; n = 150 (random subsample of 708)",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / transient; columns R_pre_to_post_median, _lo, _hi, n_events; subsample: report section 4 'Events'"
+    },
+    "ARCTIC | reference level: transient (frame-jitter, diagnostic) class, retention pre→post median [CI]; n events": {
+     "value": "0.9434942867084266 [0.8717621010500842, 0.9719880671111294]; n = 12",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / transient; columns R_pre_to_post_median, _lo, _hi, n_events"
+    }
+   },
+   "caveats": [
+    "Wrench capability is a modelled PROXY in normalised units (unit finger budgets, linearised Coulomb friction, torque normalised by object size, mesh centroid as torque origin). Object mass, centre of mass, inertia, hand force limits and friction are unavailable in both datasets; this is not a physical feasibility result and says nothing about why the fingers moved (report section 12).",
+    "The values are MEDIANS over events, not a statement about every event: 20 % (TACO) / 23 % (ARCTIC) gain more than 25 % and 8 / 3 events lose more than 25 %; only 34 % / 46 % of events retain at least 0.9. The report's own verdict is 'heterogeneous with a dominant function-preserving pattern' ('Case C with a strong Case-A component').",
+    "Retention is one-sided by design: a grasp that shrank scores close to 1 (a release scores exactly 1). Quote it together with the reverse retention (0.91 / 0.89), the cosine or the relative change. The report's phrase 'retains 85–90 % of the post grasp's capability in every direction' is loose: it is a mean over directions of a capped ratio, not a per-direction guarantee.",
+    "The 0.85 / 0.89 are specific to the single-hand support-function measure (other wrench components assumed balanced by the other hand / table / tool contact). Under the strict exact-direction measure the median retention is 0.66 [0.33, 0.78] (TACO) / 0.75 [0.11, 0.92] (ARCTIC).",
+    "TACO shows a small but systematic gain rather than exactly zero: lower CI bound of the median relative change 0.0037 > 0, mean +0.13 [0.07, 0.21], Q_post > Q_pre in 63 % of events (the report attributes it to a slightly larger post grasp). On ARCTIC the interval of the median straddles zero [−0.09, +0.19].",
+    "ARCTIC is small: 26 events from 15 takes; its intervals are wide (retention [0.76, 0.96]).",
+    "'Persistent spatial' is a minority class defined by two labelled cuts of the earlier event analysis (amount ratio ≤ 0.3; persistence over ±4 frames ≥ 0.5; firm contact before, after and throughout): 123 (119 analysed) of 1 464 detected TACO test events and 26 of 283 on ARCTIC. The larger persistent mixed class (452 / 131) behaves differently. The claim is about this class, not about post-grasp reconfigurations in general.",
+    "Events are short: PRE and POST are 1 frame apart in the median TACO event and 2 in the median ARCTIC event (events.csv post_frame − pre_frame; max 13 / 9), so a 'reconfiguration' is a contact-map jump between nearby frames that then persists.",
+    "Reference level: the diagnostic transient (frame-jitter) class has retention 0.90 / 0.94, so the persistent spatial class is only slightly below it.",
+    "Correction of the task text: retention and cosine do NOT use a transported pre grasp. Each grasp is evaluated at its own frame in the object frame (wrench_analysis.py: geom_dict(g, 'pre') / geom_dict(g, 'post')). Transport by mesh vertex id is used only for the future-motion directions.",
+    "The word 'missed' in the block title rests on another report (hand_contact_predictive_info_report.md lines 24–26: 'least explained'); this study measures no prediction error.",
+    "OakInk2 is excluded from this study (no hand geometry in the object frame in its caches).",
+    "Stale sentences in the report's Limitations section ('TACO's 100 analysed persistent-spatial events ... 61 takes'; 'ARCTIC ... 26 ... (37 takes)') contradict every table (119 / 73 and 26 / 15). The report's '177 / 37 test takes' are takes with at least one detected event; the fixed test split has 186 / 44 takes."
+   ]
+  },
+  {
+   "block": "F1-D",
+   "claim": "Events that change the contact amount are associated with a capability change more often than persistent spatial ones: persistent mixed events have a median relative capability change of +0.19 (TACO) / +0.16 (ARCTIC) and 46 % of them gain more than 25 % on both datasets (persistent spatial: 20 % / 23 %), amount-dominant events have a median of +0.73 / +0.14, and the onset and release positive controls go from no modelled capability to a grasp and from a grasp to none.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+   "source_files": [
+    "reports/wrench_counterfactual/summary_by_event_type.csv",
+    "reports/wrench_counterfactual/events.csv"
+   ],
+   "metric": "Same measures as the main entry, by event class of the test split (primary setting): relative change of the direction-averaged support-function capacity Q (0 = unchanged), pre→post retention (1 = PRE grasp already had the POST capability; one-sided), share of events within ±25 % and gaining > 25 %. Medians over events with 95 % take-bootstrap CIs; shares have no CI. Classes: persistent mixed = amount ratio between 0.3 and 0.7, firm contact throughout; amount-dominant = amount ratio ≥ 0.7 (diagnostic); onset / regrasp and release = positive controls; transient = persistence < 0.5 (diagnostic).",
+   "numbers": {
+    "TACO | persistent mixed: events / takes": {
+     "value": "435 / 159",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_mixed; columns n_events, n_takes"
+    },
+    "ARCTIC | persistent mixed: events / takes": {
+     "value": "118 / 27",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_mixed; columns n_events, n_takes"
+    },
+    "TACO | persistent mixed: relative change, median [CI]": {
+     "value": "0.1924348506584533 [0.1208699413540356, 0.2560762913638863]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_mixed; columns rel_change_Q_median, _lo, _hi"
+    },
+    "ARCTIC | persistent mixed: relative change, median [CI]": {
+     "value": "0.16366596553289725 [0.0511424838860908, 0.45302191488357996]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_mixed; columns rel_change_Q_median, _lo, _hi"
+    },
+    "TACO | persistent mixed: relative change, mean": {
+     "value": "0.5283376075622871",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_mixed; column rel_change_Q_mean"
+    },
+    "ARCTIC | persistent mixed: relative change, mean": {
+     "value": "0.7523834553612784",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_mixed; column rel_change_Q_mean"
+    },
+    "TACO | persistent mixed: retention pre→post, median [CI]": {
+     "value": "0.7596974251800489 [0.736338304373582, 0.781614906910165]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_mixed; columns R_pre_to_post_median, _lo, _hi"
+    },
+    "ARCTIC | persistent mixed: retention pre→post, median [CI]": {
+     "value": "0.7510629526276458 [0.6646560442849831, 0.8126319008736194]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_mixed; columns R_pre_to_post_median, _lo, _hi (report prose says [0.67, 0.81]; Table 1 and CSV 0.66)"
+    },
+    "TACO | persistent mixed: profile cosine, median": {
+     "value": "0.9511885423234808",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_mixed; column cosine_median"
+    },
+    "ARCTIC | persistent mixed: profile cosine, median": {
+     "value": "0.9525781122654281",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_mixed; column cosine_median"
+    },
+    "TACO | persistent mixed: share within ±25 % / share gaining > 25 % / share with Q_post > Q_pre": {
+     "value": "0.4942528735632184 / 0.4574712643678161 / 0.7080459770114943",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_mixed; columns frac_abs_rel_change_le_0.25, frac_rel_change_gt_0.25, frac_Q_post_gt_pre"
+    },
+    "ARCTIC | persistent mixed: share within ±25 % / share gaining > 25 % / share with Q_post > Q_pre": {
+     "value": "0.4322033898305085 / 0.4576271186440678 / 0.6949152542372882",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_mixed; columns frac_abs_rel_change_le_0.25, frac_rel_change_gt_0.25, frac_Q_post_gt_pre"
+    },
+    "TACO | amount-dominant (diagnostic): n events; relative change median [CI]; retention median [CI]": {
+     "value": "72; 0.7338639736554088 [0.239016043458101, 0.9235613438518816]; 0.5409653560611731 [0.4966444406972987, 0.6688570575882528]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / amount; columns n_events, rel_change_Q_median(+_lo,_hi), R_pre_to_post_median(+_lo,_hi)"
+    },
+    "ARCTIC | amount-dominant (diagnostic): n events; relative change median [CI]; retention median [CI]": {
+     "value": "40; 0.13802630573459185 [0.0, 0.953336754442791]; 0.6231720703253769 [0.46554499504099567, 0.728721053847339]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / amount; columns n_events, rel_change_Q_median(+_lo,_hi), R_pre_to_post_median(+_lo,_hi)"
+    },
+    "TACO | amount-dominant: share within ±25 % / share gaining > 25 %": {
+     "value": "0.375 / 0.6111111111111112",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / amount; columns frac_abs_rel_change_le_0.25, frac_rel_change_gt_0.25"
+    },
+    "ARCTIC | amount-dominant: share within ±25 % / share gaining > 25 %": {
+     "value": "0.5 / 0.475",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / amount; columns frac_abs_rel_change_le_0.25, frac_rel_change_gt_0.25"
+    },
+    "TACO | onset / regrasp (positive control): n events; Q_pre → Q_post medians; share with Q_post > Q_pre; retention median": {
+     "value": "77; 0.0 → 1.1979372368595258; 0.961038961038961; 0.0",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / onset; columns n_events, Q_pre_median, Q_post_median, frac_Q_post_gt_pre, R_pre_to_post_median"
+    },
+    "ARCTIC | onset / regrasp (positive control): n events; Q_pre → Q_post medians; share with Q_post > Q_pre; retention median": {
+     "value": "19; 0.0 → 0.7792115519218396; 0.9473684210526315; 0.0",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / onset; columns n_events, Q_pre_median, Q_post_median, frac_Q_post_gt_pre, R_pre_to_post_median"
+    },
+    "TACO | onset events with exactly zero capability (no patch) at the PRE frame": {
+     "value": "69 of 77",
+     "source": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows dataset=taco, class_report=onset with Q_pre == 0 (count; n_patches_pre == 0 in the same 69)"
+    },
+    "ARCTIC | onset events with exactly zero capability (no patch) at the PRE frame": {
+     "value": "17 of 19",
+     "source": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows dataset=arctic, class_report=onset with Q_pre == 0 (count)"
+    },
+    "TACO | release (positive control): n events; Q_pre → Q_post medians; relative change median": {
+     "value": "32; 0.7933038913038286 → 0.0; -0.9999999987394426 (Q_post = 0 on all 32)",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / release; columns n_events, Q_pre_median, Q_post_median, rel_change_Q_median; events.csv count Q_post == 0"
+    },
+    "ARCTIC | release (positive control): n events; Q_pre → Q_post medians; relative change median": {
+     "value": "54; 0.7800983604105949 → 0.0; -0.9999999987176706 (Q_post = 0 on all 54)",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / release; columns n_events, Q_pre_median, Q_post_median, rel_change_Q_median; events.csv count Q_post == 0"
+    },
+    "TACO | transient (diagnostic): relative change median; share within ±25 %; share gaining > 25 %": {
+     "value": "0.00915684557366965; 0.8933333333333333; 0.07333333333333333",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / transient; columns rel_change_Q_median, frac_abs_rel_change_le_0.25, frac_rel_change_gt_0.25"
+    },
+    "ARCTIC | transient (diagnostic): relative change median; share within ±25 %; share gaining > 25 %": {
+     "value": "-0.0236339593680805; 1.0; 0.0",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / transient; columns rel_change_Q_median, frac_abs_rel_change_le_0.25, frac_rel_change_gt_0.25"
+    }
+   },
+   "caveats": [
+    "'More often', not 'always': about half of the persistent mixed events still stay within ±25 % (49 % TACO / 43 % ARCTIC).",
+    "The spatial / mixed boundary is a labelled cut of the amount ratio at 0.3; the report says so in its limitations.",
+    "The profile cosine barely separates the classes (spatial 0.97 / 0.96 versus mixed 0.95 / 0.95) because a cosine ignores an overall scale change; the separation shows in the relative change, the retention and the shares.",
+    "The onset 'relative change' values in the CSV and in the report's Table 1 (about 1e9) are a division by epsilon (Q_pre = 0) and must not be quoted; state the control as 'from 0 to a median Q of 1.20 / 0.78'. Release has retention pre→post = 1 by definition of the one-sided measure, which must not be read as 'release preserves capability'.",
+    "The positive controls are close to by-construction (no contact patch at the PRE frame of 69 of 77 / 17 of 19 onset events, none at the POST frame of every release): they show that frames and pipeline line up and that the metric is not flat. The graded response of the mixed and amount-dominant classes is the more informative contrast.",
+    "ARCTIC amount-dominant interval is very wide ([0.00, 0.95]); the TACO transient class is a random subsample of 150 of 708 events.",
+    "Wrench capability is a modelled proxy in normalised units (see the main entry)."
+   ]
+  },
+  {
+   "block": "F1-D",
+   "claim": "Within the persistent spatial class, a capability change above 25 % is associated with a change of the set of contacting hand parts (palm and five fingers): events that keep the same set, including those in which parts slide by more than 1 cm, stay within ±25 % in 61 of 62 (TACO) and 15 of 15 (ARCTIC) cases; 23 of the 24 TACO and 6 of the 6 ARCTIC events that gain more than 25 % have a newly touching part, and 8 of 8 / 3 of 3 events that lose more than 25 % have a part leaving (counts over the per-event table, not printed in the report). In the report's own table the median absolute relative change is 0.03 (TACO) / 0.07 (ARCTIC) when no part is reconfigured against 0.18–0.25 with one or more reconfigured parts, where 'reconfigured' counts a part that slid more than 1 cm as well as one that appeared or disappeared; for persistent mixed events the same split gives 0.04 / 0.02 against 0.25–0.73.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+   "source_files": [
+    "reports/wrench_counterfactual/finger_transition_summary.csv",
+    "reports/wrench_counterfactual/events.csv",
+    "scripts/research/wrench_counterfactual/wrench_analysis.py"
+   ],
+   "metric": "Hand parts = palm + five fingers (MANO skinning-weight labels). A part is 'stable' if it touches before and after with its patch centroid moving ≤ 1 cm, 'slid' if it moved more, 'appeared' / 'disappeared' if it touches only after / only before. The report's Table 5 groups events by the number of reconfigured parts (slid + appeared + disappeared = 0, 1, ≥ 2) and gives the median pre→post retention (1 = preserved) and the median |relative change| of Q (0 = unchanged); no intervals are given. The finger-set split (same set / part added / part removed only) is a count over events.csv rows made in this evidence pass.",
+   "numbers": {
+    "TACO | persistent spatial: events with 0 / 1 / ≥2 reconfigured parts": {
+     "value": "29 / 31 / 59",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "row taco / persistent_spatial; columns n_events_changed0, n_events_changed1, n_events_changed2plus"
+    },
+    "ARCTIC | persistent spatial: events with 0 / 1 / ≥2 reconfigured parts": {
+     "value": "5 / 6 / 15",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "row arctic / persistent_spatial; columns n_events_changed0, n_events_changed1, n_events_changed2plus"
+    },
+    "TACO | persistent spatial: median |relative change| with 0 / 1 / ≥2 reconfigured parts": {
+     "value": "0.032187254447634 / 0.2045608227868109 / 0.1796057455792454",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "row taco / persistent_spatial; columns median_abs_rel_change_Q_changed0 / _changed1 / _changed2plus"
+    },
+    "ARCTIC | persistent spatial: median |relative change| with 0 / 1 / ≥2 reconfigured parts": {
+     "value": "0.0745753380360113 / 0.17536313679381735 / 0.2471896535259491",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "row arctic / persistent_spatial; columns median_abs_rel_change_Q_changed0 / _changed1 / _changed2plus"
+    },
+    "TACO | persistent spatial: median retention pre→post with 0 / 1 / ≥2 reconfigured parts": {
+     "value": "0.8863835478554701 / 0.8393153551657815 / 0.8016916822714089",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "row taco / persistent_spatial; columns median_retention_changed0 / _changed1 / _changed2plus"
+    },
+    "ARCTIC | persistent spatial: median retention pre→post with 0 / 1 / ≥2 reconfigured parts": {
+     "value": "0.8987572067008979 / 0.912657280781134 / 0.8819545504778276",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "row arctic / persistent_spatial; columns median_retention_changed0 / _changed1 / _changed2plus"
+    },
+    "TACO | persistent mixed: events with 0 / 1 / ≥2 reconfigured parts": {
+     "value": "87 / 128 / 220",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "row taco / persistent_mixed; columns n_events_changed0 / 1 / 2plus"
+    },
+    "ARCTIC | persistent mixed: events with 0 / 1 / ≥2 reconfigured parts": {
+     "value": "21 / 29 / 68",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "row arctic / persistent_mixed; columns n_events_changed0 / 1 / 2plus"
+    },
+    "TACO | persistent mixed: median |relative change| with 0 / 1 / ≥2 reconfigured parts": {
+     "value": "0.0366260624280819 / 0.2496629608189579 / 0.4726773103213199",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "row taco / persistent_mixed; columns median_abs_rel_change_Q_changed0 / 1 / 2plus"
+    },
+    "ARCTIC | persistent mixed: median |relative change| with 0 / 1 / ≥2 reconfigured parts": {
+     "value": "0.0242185432790685 / 0.269537863770298 / 0.7255945604713097",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "row arctic / persistent_mixed; columns median_abs_rel_change_Q_changed0 / 1 / 2plus"
+    },
+    "TACO | persistent mixed: median retention pre→post with 0 / 1 / ≥2 reconfigured parts": {
+     "value": "0.888694717427447 / 0.7793801017536497 / 0.6577371596011505",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "row taco / persistent_mixed; columns median_retention_changed0 / 1 / 2plus"
+    },
+    "ARCTIC | persistent mixed: median retention pre→post with 0 / 1 / ≥2 reconfigured parts": {
+     "value": "0.8878589940149425 / 0.8096786733157008 / 0.5801452028717204",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "row arctic / persistent_mixed; columns median_retention_changed0 / 1 / 2plus"
+    },
+    "TACO | share of events with the same set of hand parts before and after: persistent spatial / persistent mixed": {
+     "value": "0.5210084033613446 / 0.3701149425287356",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "rows taco / persistent_spatial and taco / persistent_mixed; column frac_same_finger_set"
+    },
+    "ARCTIC | share of events with the same set of hand parts before and after: persistent spatial / persistent mixed": {
+     "value": "0.5769230769230769 / 0.3728813559322034",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "rows arctic / persistent_spatial and arctic / persistent_mixed; column frac_same_finger_set"
+    },
+    "TACO | persistent spatial: parts slid / appeared / disappeared per event (means)": {
+     "value": "1.134453781512605 / 0.4957983193277311 / 0.23529411764705882",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "row taco / persistent_spatial; columns n_slid_mean, n_appeared_mean, n_disappeared_mean"
+    },
+    "ARCTIC | persistent spatial: parts slid / appeared / disappeared per event (means)": {
+     "value": "1.5384615384615385 / 0.2692307692307692 / 0.2692307692307692",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "row arctic / persistent_spatial; columns n_slid_mean, n_appeared_mean, n_disappeared_mean"
+    },
+    "TACO | persistent mixed: parts appeared per event (mean)": {
+     "value": "0.8988505747126436",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "row taco / persistent_mixed; column n_appeared_mean"
+    },
+    "ARCTIC | persistent mixed: parts appeared per event (mean)": {
+     "value": "0.9576271186440678",
+     "source": "reports/wrench_counterfactual/finger_transition_summary.csv",
+     "locator": "row arctic / persistent_mixed; column n_appeared_mean"
+    },
+    "TACO | RECOMPUTED COUNT (not in the report's tables): persistent spatial events by finger-set change, same set / part added / part removed only": {
+     "value": "62 / 45 / 12",
+     "source": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows dataset=taco, class_report=persistent_spatial; same = n_appeared 0 and n_disappeared 0; added = n_appeared > 0; removed only = n_appeared 0 and n_disappeared > 0"
+    },
+    "ARCTIC | RECOMPUTED COUNT (not in the report's tables): persistent spatial events by finger-set change, same set / part added / part removed only": {
+     "value": "15 / 7 / 4",
+     "source": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows dataset=arctic, class_report=persistent_spatial; same grouping"
+    },
+    "TACO | RECOMPUTED COUNT: same-finger-set persistent spatial events with |relative change| ≤ 0.25": {
+     "value": "61 of 62",
+     "source": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows taco / persistent_spatial with n_appeared 0 and n_disappeared 0; abs(rel_change_Q) <= 0.25"
+    },
+    "ARCTIC | RECOMPUTED COUNT: same-finger-set persistent spatial events with |relative change| ≤ 0.25": {
+     "value": "15 of 15",
+     "source": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows arctic / persistent_spatial with n_appeared 0 and n_disappeared 0; abs(rel_change_Q) <= 0.25"
+    },
+    "TACO | RECOMPUTED COUNT: persistent spatial events gaining > 25 % that have at least one part appearing": {
+     "value": "23 of 24",
+     "source": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows taco / persistent_spatial with rel_change_Q > 0.25; n_appeared >= 1"
+    },
+    "ARCTIC | RECOMPUTED COUNT: persistent spatial events gaining > 25 % that have at least one part appearing": {
+     "value": "6 of 6",
+     "source": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows arctic / persistent_spatial with rel_change_Q > 0.25; n_appeared >= 1"
+    },
+    "TACO | RECOMPUTED COUNT: persistent spatial events losing > 25 % that have at least one part disappearing": {
+     "value": "8 of 8",
+     "source": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows taco / persistent_spatial with rel_change_Q < -0.25; n_disappeared >= 1"
+    },
+    "ARCTIC | RECOMPUTED COUNT: persistent spatial events losing > 25 % that have at least one part disappearing": {
+     "value": "3 of 3",
+     "source": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows arctic / persistent_spatial with rel_change_Q < -0.25; n_disappeared >= 1"
+    }
+   },
+   "caveats": [
+    "The report's tabulated split is by the NUMBER OF RECONFIGURED PARTS, which counts a part that slid more than 1 cm as well as one that appeared or disappeared; it is not a pure finger-set split. The finger-set counts (same set / part added / part removed only; 23 of 24, 6 of 6, 8 of 8, 3 of 3, 61 of 62, 15 of 15) were counted in this pass from the per-event table events.csv and are not printed in the report; say so if they are used.",
+    "The report's supporting sentence 'the 20 % / 23 % of events gaining > 25 % have 0.5–2.7 fingers appearing' is NOT reproduced by events.csv (mean 1.46 parts appear, range 0–4, on TACO; exactly 1 on ARCTIC). Do not quote it.",
+    "'Finger removal' evidence is weaker than 'finger addition': the report discusses additions only; the removal statement rests on the events.csv count (12 TACO / 4 ARCTIC 'removed only' events).",
+    "On ARCTIC the retention by number of reconfigured parts is flat for the spatial class (0.90 / 0.91 / 0.88 with only 5 / 6 / 15 events); the gradient is visible in |relative change| and in the mixed class.",
+    "On TACO spatial the median |relative change| is not monotone in the number of parts (0.03 / 0.20 / 0.18).",
+    "Events that only lose parts have a high one-sided retention although their capability fell; use the relative change for them.",
+    "This is an association in observational data under one wrench model, with no intervals in the source table; 'hand part' includes the palm.",
+    "With unit budgets per finger, an added finger raises the modelled capability by construction of the model (the report: 'keeping the per-finger limits makes finger additions count'); under a single whole-hand budget the classes move closer (see the sensitivity entry)."
+   ],
+   "claim_as_extracted": "Within the persistent spatial and the persistent mixed class, the size of the capability change is associated with hand parts being added or removed rather than sliding in place: with no reconfigured part the median absolute relative change is 0.03 (TACO) / 0.07 (ARCTIC) for spatial events against 0.18–0.25 with one or more reconfigured parts, and 23 of the 24 TACO and 6 of the 6 ARCTIC persistent spatial events that gain more than 25 % have a hand part newly touching the object.",
+   "correction_reason": "Every number is right, but the sentence attaches 'added or removed rather than sliding in place' to the Table-5 split, and that split counts a slid part as reconfigured, so 0.03 / 0.07 versus 0.18-0.25 contrasts 'nothing moved more than 1 cm' with 'something slid, appeared or disappeared' and cannot separate sliding from adding. The sliding-versus-adding contrast is carried by the finger-set counts from events.csv (same set 61 of 62 / 15 of 15 within ±25 %; my recount: slide-only events 32 of 33 TACO and 10 of 10 ARCTIC within ±25 %). 'Removed' rests only on counts made from events.csv (the report discusses additions). The claim also names the mixed class but quoted no mixed number. Association only: with one unit budget per finger an added finger raises the modelled capability by construction."
+  },
+  {
+   "block": "F1-D",
+   "claim": "The size of the dense contact-map change is only weakly associated with the capability change for persistent spatial events on TACO (Spearman 0.19 with the relative change, −0.27 with the retention, n = 119) and moderately on ARCTIC (0.55 / −0.60, n = 26; no interval is given for these correlations). On TACO this is consistent with the size of the contact change providing little information about the capability change: 33 of the 73 events with a contact change at or above the train median keep |relative change| at or below the train median of 0.13 (45 % [34, 57]). On ARCTIC only 1 of the 11 such events does (9 % [0, 30]; train median 0.09); 5 of the 11 gain more than 25 %.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+   "source_files": [
+    "reports/wrench_counterfactual/correlation_dC_vs_wrench.csv",
+    "reports/wrench_counterfactual/quadrant.csv",
+    "reports/wrench_counterfactual/thresholds.json"
+   ],
+   "metric": "Spearman rank correlation, over test events of one class and dataset, between the contact-map change ‖C_post − C_pre‖₂ (512-D contact map) and (a) the relative change of Q, (b) the pre→post retention. No interval or p-value is given in the source. Quadrant: among persistent spatial test events whose contact change is at or above the median of the TRAIN persistent spatial events, the share whose |relative change| is at or below the train median; 95 % take-bootstrap CI.",
+   "numbers": {
+    "TACO | persistent spatial: Spearman(contact change, relative change of Q)": {
+     "value": "0.18719978350585212 (n = 119)",
+     "source": "reports/wrench_counterfactual/correlation_dC_vs_wrench.csv",
+     "locator": "row taco, persistent_spatial, metric=rel_change_Q; columns spearman_with_dC, n"
+    },
+    "ARCTIC | persistent spatial: Spearman(contact change, relative change of Q)": {
+     "value": "0.5521367521367521 (n = 26)",
+     "source": "reports/wrench_counterfactual/correlation_dC_vs_wrench.csv",
+     "locator": "row arctic, persistent_spatial, metric=rel_change_Q; columns spearman_with_dC, n"
+    },
+    "TACO | persistent spatial: Spearman(contact change, retention pre→post)": {
+     "value": "-0.2738045641809009 (n = 119)",
+     "source": "reports/wrench_counterfactual/correlation_dC_vs_wrench.csv",
+     "locator": "row taco, persistent_spatial, metric=R_pre_to_post"
+    },
+    "ARCTIC | persistent spatial: Spearman(contact change, retention pre→post)": {
+     "value": "-0.5952136752136752 (n = 26)",
+     "source": "reports/wrench_counterfactual/correlation_dC_vs_wrench.csv",
+     "locator": "row arctic, persistent_spatial, metric=R_pre_to_post"
+    },
+    "TACO | persistent mixed: Spearman(contact change, relative change of Q)": {
+     "value": "0.3989197983633331 (n = 435)",
+     "source": "reports/wrench_counterfactual/correlation_dC_vs_wrench.csv",
+     "locator": "row taco, persistent_mixed, metric=rel_change_Q"
+    },
+    "ARCTIC | persistent mixed: Spearman(contact change, relative change of Q)": {
+     "value": "0.517920662629922 (n = 118)",
+     "source": "reports/wrench_counterfactual/correlation_dC_vs_wrench.csv",
+     "locator": "row arctic, persistent_mixed, metric=rel_change_Q"
+    },
+    "TACO | persistent mixed: Spearman(contact change, retention pre→post)": {
+     "value": "-0.45313477563854226 (n = 435)",
+     "source": "reports/wrench_counterfactual/correlation_dC_vs_wrench.csv",
+     "locator": "row taco, persistent_mixed, metric=R_pre_to_post"
+    },
+    "ARCTIC | persistent mixed: Spearman(contact change, retention pre→post)": {
+     "value": "-0.5419996895751639 (n = 118)",
+     "source": "reports/wrench_counterfactual/correlation_dC_vs_wrench.csv",
+     "locator": "row arctic, persistent_mixed, metric=R_pre_to_post"
+    },
+    "TACO | share of large-contact-change persistent spatial events whose |relative change| stays at or below the train median: frac [CI], count": {
+     "value": "0.4520547945205479 [0.3428473581213307, 0.5714810924369748], 33 of 73",
+     "source": "reports/wrench_counterfactual/quadrant.csv",
+     "locator": "row taco, dC_threshold=dC_q50, dQ_threshold=abs_rel_change_Q_q50, quadrant=small_dQ_given_large_dC (n, frac, lo, hi); 73 = n of large_dC_small_dQ (33) + large_dC_large_dQ (40)"
+    },
+    "ARCTIC | share of large-contact-change persistent spatial events whose |relative change| stays at or below the train median: frac [CI], count": {
+     "value": "0.09090909090909091 [0.0, 0.3], 1 of 11",
+     "source": "reports/wrench_counterfactual/quadrant.csv",
+     "locator": "row arctic, dC_threshold=dC_q50, dQ_threshold=abs_rel_change_Q_q50, quadrant=small_dQ_given_large_dC; 11 = large_dC_small_dQ (1) + large_dC_large_dQ (10)"
+    },
+    "TACO | thresholds (medians of the TRAIN persistent spatial events): contact change; |relative change|; n train events": {
+     "value": "0.8200416564941406; 0.1324328037761979; 337",
+     "source": "reports/wrench_counterfactual/thresholds.json",
+     "locator": "taco.dC_q50, taco.abs_rel_change_Q_q50, taco.n_train"
+    },
+    "ARCTIC | thresholds (medians of the TRAIN persistent spatial events): contact change; |relative change|; n train events": {
+     "value": "1.284944772720337; 0.08968638762371635; 222",
+     "source": "reports/wrench_counterfactual/thresholds.json",
+     "locator": "arctic.dC_q50, arctic.abs_rel_change_Q_q50, arctic.n_train"
+    }
+   },
+   "caveats": [
+    "The source gives no confidence interval or p-value for the Spearman values; ARCTIC's 0.55 rests on 26 events and its quadrant statement on 11 events.",
+    "'Small capability change' in the quadrant is a strict cut (|relative change| at or below the train median 0.13 / 0.09), not 'within 25 %'. On ARCTIC, of the 11 large-change events only 5 gain more than 25 % (events.csv); the others change by 0.10–0.25 in magnitude and one is a loss.",
+    "Do not quote the report's final-answer sentence '... most of the large-contact-change spatial events (10 of 11), on TACO fewer than half (55 %)': 55 % (40 of 73) is more than half, and the ten ARCTIC events are not all finger-adding gains above 25 %.",
+    "The correlation is not zero even for the spatial class on TACO, and it is 0.40 / 0.52 for the mixed class: do not write 'contact-change size is unrelated to capability change'."
+   ],
+   "claim_as_extracted": "The size of the dense contact-map change is only weakly associated with the capability change for persistent spatial events on TACO (Spearman 0.19 with the relative change, −0.27 with the retention, n = 119) and moderately on ARCTIC (0.55 / −0.60, n = 26), which is consistent with a large dense contact change providing little information about a capability change on TACO, while on ARCTIC the large-change spatial events mostly do change the capability.",
+   "correction_reason": "Correlations and quadrant values are exact. 'Mostly do change the capability' is true only against the strict train-median cut (10 of 11 exceed |0.09|); against the ±25 % band used everywhere else on the page it is 5 of 11, so the criterion has to be stated. The ARCTIC statement rests on 11 events and the Spearman values have no interval or p-value in the source."
+  },
+  {
+   "block": "F1-D",
+   "claim": "The persistent spatial result is stable across ten modelling settings (the primary one and nine one-at-a-time changes of friction, patch merging, contact threshold and force-budget scheme): the median pre→post retention stays between 0.82 and 0.92 on TACO and between 0.76 and 0.94 on ARCTIC, and the median relative change between 0.00 and +0.04 (TACO) and −0.01 and +0.04 (ARCTIC). The largest shifts are the 0.5 cm contact threshold on ARCTIC (retention 0.76 [0.71, 0.81] against 0.89) and the single whole-hand budget, which raises retention to 0.92 (TACO) and 0.94 (ARCTIC). All settings stay inside the same contact-patch model.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+   "source_files": [
+    "reports/wrench_counterfactual/sensitivity_mu.csv",
+    "reports/wrench_counterfactual/sensitivity_patch.csv",
+    "reports/wrench_counterfactual/sensitivity_budget.csv"
+   ],
+   "metric": "Median pre→post retention (1 = preserved) and median relative change of Q (0 = unchanged) of the persistent spatial class, recomputed with one modelling choice changed from the primary setting (mu 0.5, contact threshold 1 cm, patch merge radius 1 cm, unit budget per finger): friction mu 0.3 / 0.8 / 1.0; merge radius 0 / 2 cm; contact threshold 0.5 / 1.5 cm; budget per patch / one budget for the whole hand. 95 % take-bootstrap CI. These tables use 123 (TACO) / 26 (ARCTIC) events.",
+   "numbers": {
+    "TACO | friction mu 0.3 / 0.5 / 0.8 / 1.0: retention median": {
+     "value": "0.8249773699357952 / 0.8457323588959588 / 0.8778359607755256 / 0.8839094359145739",
+     "source": "reports/wrench_counterfactual/sensitivity_mu.csv",
+     "locator": "rows taco, persistent_spatial, setting = mu0.3 / primary / mu0.8 / mu1.0; column R_pre_to_post_median"
+    },
+    "ARCTIC | friction mu 0.3 / 0.5 / 0.8 / 1.0: retention median": {
+     "value": "0.8706058456941868 / 0.8903558785893627 / 0.9117328048657769 / 0.9145390155145022",
+     "source": "reports/wrench_counterfactual/sensitivity_mu.csv",
+     "locator": "rows arctic, persistent_spatial, setting = mu0.3 / primary / mu0.8 / mu1.0; column R_pre_to_post_median"
+    },
+    "TACO | patch merge radius 0 cm / 2 cm: retention median": {
+     "value": "0.8458175071973599 / 0.8548406312663703",
+     "source": "reports/wrench_counterfactual/sensitivity_patch.csv",
+     "locator": "rows taco, persistent_spatial, setting = merge_none / merge_wide; column R_pre_to_post_median"
+    },
+    "ARCTIC | patch merge radius 0 cm / 2 cm: retention median": {
+     "value": "0.8983651555417349 / 0.8916804969659473",
+     "source": "reports/wrench_counterfactual/sensitivity_patch.csv",
+     "locator": "rows arctic, persistent_spatial, setting = merge_none / merge_wide; column R_pre_to_post_median"
+    },
+    "TACO | contact threshold 0.5 cm / 1.5 cm: retention median [CI]": {
+     "value": "0.8582333189860513 [0.8181792823079933, 0.8837273918292801] / 0.8592014784027464 [0.824326924570395, 0.886433365613823]",
+     "source": "reports/wrench_counterfactual/sensitivity_patch.csv",
+     "locator": "rows taco, persistent_spatial, setting = thr_tight / thr_loose; columns R_pre_to_post_median, _lo, _hi"
+    },
+    "ARCTIC | contact threshold 0.5 cm / 1.5 cm: retention median [CI]": {
+     "value": "0.7639550176834642 [0.7073932436764715, 0.8117276313031594] / 0.9100762623900707 [0.8563175664069664, 0.9581613225778479]",
+     "source": "reports/wrench_counterfactual/sensitivity_patch.csv",
+     "locator": "rows arctic, persistent_spatial, setting = thr_tight / thr_loose; columns R_pre_to_post_median, _lo, _hi"
+    },
+    "TACO | force budget per patch / whole hand: retention median": {
+     "value": "0.8327721565611753 / 0.921893143362119",
+     "source": "reports/wrench_counterfactual/sensitivity_budget.csv",
+     "locator": "rows taco, persistent_spatial, setting = budget_per_patch / budget_hand_total; column R_pre_to_post_median"
+    },
+    "ARCTIC | force budget per patch / whole hand: retention median": {
+     "value": "0.8549074719864306 / 0.9432510514694987",
+     "source": "reports/wrench_counterfactual/sensitivity_budget.csv",
+     "locator": "rows arctic, persistent_spatial, setting = budget_per_patch / budget_hand_total; column R_pre_to_post_median"
+    },
+    "TACO | median relative change, smallest and largest over the ten settings": {
+     "value": "0.0 (contact threshold 0.5 cm) … 0.0402461517038775 (mu 0.3)",
+     "source": "reports/wrench_counterfactual/sensitivity_patch.csv",
+     "locator": "rows taco, persistent_spatial; column rel_change_Q_median; minimum in sensitivity_patch.csv setting thr_tight, maximum in sensitivity_mu.csv setting mu0.3"
+    },
+    "ARCTIC | median relative change, smallest and largest over the ten settings": {
+     "value": "-0.010507748112147 (whole-hand budget) … 0.04101179252988065 (mu 1.0)",
+     "source": "reports/wrench_counterfactual/sensitivity_budget.csv",
+     "locator": "rows arctic, persistent_spatial; column rel_change_Q_median; minimum in sensitivity_budget.csv setting budget_hand_total, maximum in sensitivity_mu.csv setting mu1.0"
+    },
+    "TACO | events / takes behind the sensitivity rows (persistent spatial)": {
+     "value": "123 / 74",
+     "source": "reports/wrench_counterfactual/sensitivity_mu.csv",
+     "locator": "rows taco, persistent_spatial; columns n_events, n_takes"
+    },
+    "ARCTIC | events / takes behind the sensitivity rows (persistent spatial)": {
+     "value": "26 / 15",
+     "source": "reports/wrench_counterfactual/sensitivity_mu.csv",
+     "locator": "rows arctic, persistent_spatial; columns n_events, n_takes"
+    }
+   },
+   "caveats": [
+    "The sensitivity tables are computed over 123 TACO persistent spatial events (the 4 not firm throughout are included) and over 452 / 131 persistent mixed events although the report labels the mixed rows 'firm throughout'; their 'primary' row therefore differs slightly from Table 1 (TACO spatial relative change 0.0322 [0.0011, 0.0585] versus 0.0362 [0.0037, 0.0761]). Retention medians agree.",
+    "One setting is varied at a time and all settings stay inside the same model family; this is not robustness to real physics (no mass, inertia or force limits).",
+    "The ARCTIC dip at the 0.5 cm threshold (0.76 [0.71, 0.81]) must stay visible; the report explains it by grasps losing contacts on one side, which is an explanation, not a tested result.",
+    "The report's statement that the mixed class 'stays clearly above the spatial class in every setting' holds for the medians; with a single whole-hand budget the classes move close (TACO mixed 0.0424 versus spatial 0.0149; ARCTIC mixed 0.0542 [0.00, 0.13] versus spatial −0.0105 [−0.06, 0.08])."
+   ],
+   "claim_as_extracted": "The persistent spatial result is stable across the ten modelling settings that were varied one at a time: the median pre→post retention stays between 0.76 and 0.94 and the median relative change between −0.01 and +0.04 on both datasets, with the 0.5 cm contact threshold on ARCTIC (retention 0.76) as the one setting that moves a number noticeably.",
+   "correction_reason": "Ranges verified from the three sensitivity CSVs (TACO 0.8250-0.9219, ARCTIC 0.7640-0.9433; relative change TACO 0.0-0.0402, ARCTIC -0.0105-0.0410). Two wording problems: there are nine variations plus the primary setting, not ten variations; and 'the one setting that moves a number noticeably' is too strong, because the whole-hand budget moves TACO retention to 0.92 [0.90, 0.93], above the primary interval [0.81, 0.88]. Per-dataset ranges should be shown rather than one union range. Caveat: the TACO sensitivity rows use 123 events, 4 of them with no contact patch at either frame (relative change exactly 0, retention undefined)."
+  },
+  {
+   "block": "F1-D",
+   "claim": "Along the direction of the object's velocity change over the 8 frames after the event start (a force direction; no required wrench is computed), the grasp after a persistent spatial event is not systematically more capable than the grasp before it, transported to the same frame (median post / pre capacity ratio 1.06 [0.98, 1.14] on TACO; 0.94 [0.48, 0.98] on ARCTIC, i.e. slightly below 1), whereas persistent mixed events have ratios of 1.13–1.30 over the force, torque and support directions (8- and 16-frame horizons) with intervals above 1 on both datasets.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+   "source_files": [
+    "reports/wrench_counterfactual/summary_by_event_type.csv"
+   ],
+   "metric": "Report's 'Metric B': support-function capacity along three observable directions of the object's future motion — change of translational velocity over K = 8 or 16 frames after the event start (a pure force), change of angular velocity (a pure torque), and world-up (support against gravity). Directions only: no required wrench is computed because mass and inertia are unknown. Here the PRE grasp IS transported to the POST frame (patches kept on their mesh vertex ids; ARCTIC's lid follows the articulation). Ratio = post / pre capacity, median over events, 95 % take-bootstrap CI; 1 = no change, above 1 = POST grasp more capable along that direction.",
+   "numbers": {
+    "TACO | persistent spatial: post/pre ratio, force along the velocity change, K = 8, median [CI]": {
+     "value": "1.0626730864739873 [0.9817408075599376, 1.1430585725701876]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns B_force_K8_ratio_median, _lo, _hi",
+     "verifier_note": "0.9413679225368464 [0.48151285261099597, 0.9772412530787177] - both bounds differ from the reported strings in the last digit only (about 1e-16)"
+    },
+    "ARCTIC | persistent spatial: post/pre ratio, force along the velocity change, K = 8, median [CI]": {
+     "value": "0.9413679225368464 [0.4815128526109959, 0.9772412530787176]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns B_force_K8_ratio_median, _lo, _hi"
+    },
+    "TACO | persistent spatial: post/pre ratio, torque along the angular-velocity change, K = 8, median [CI]": {
+     "value": "1.0356445204608105 [0.9761060389965452, 1.183331163616818]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns B_torque_K8_ratio_median, _lo, _hi",
+     "verifier_note": "1.0356445204608105 [0.9761060389965451, 1.183331163616818] - lower bound differs in the last digit only"
+    },
+    "ARCTIC | persistent spatial: post/pre ratio, torque along the angular-velocity change, K = 8, median [CI]": {
+     "value": "1.050900244319457 [0.814583506769983, 1.3452970857973812]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns B_torque_K8_ratio_median, _lo, _hi"
+    },
+    "TACO | persistent spatial: post/pre ratio, anti-gravity support, median [CI]": {
+     "value": "1.0 [1.0, 1.0731266930560015]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns B_support_ratio_median, _lo, _hi",
+     "verifier_note": "1.0051603569093819 [0.9641469133198476, 1.0760403043215376] - the median differs in the last digit only"
+    },
+    "ARCTIC | persistent spatial: post/pre ratio, anti-gravity support, median [CI]": {
+     "value": "1.005160356909382 [0.9641469133198476, 1.0760403043215376]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns B_support_ratio_median, _lo, _hi"
+    },
+    "TACO | persistent mixed: post/pre ratio, force K = 8; torque K = 8; support (medians [CI])": {
+     "value": "1.1840070758973362 [1.1072506825944972, 1.2993236652142233]; 1.262354478304292 [1.1308247956972295, 1.402061087823203]; 1.1311424117048727 [1.072833073215725, 1.225798346745486]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_mixed; columns B_force_K8_ratio_median, B_torque_K8_ratio_median, B_support_ratio_median with _lo, _hi"
+    },
+    "ARCTIC | persistent mixed: post/pre ratio, force K = 8; torque K = 8; support (medians [CI])": {
+     "value": "1.146845187625729 [1.048687585751489, 1.2593410265689045]; 1.2264146712821955 [1.1592227579093617, 1.6963604460051218]; 1.14056809609136 [1.0114771710346255, 1.5187994428203364]",
+     "source": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_mixed; columns B_force_K8_ratio_median, B_torque_K8_ratio_median, B_support_ratio_median with _lo, _hi"
+    }
+   },
+   "caveats": [
+    "Direction-only analysis: it uses normalised directions of the object's kinematics, never a required wrench; ARCTIC's hinge torque is not turned into a direction, and low-motion windows give noisy directions (report section 12).",
+    "On ARCTIC the force ratio at K = 8 is below 1 with an interval that excludes 1 ([0.48, 0.98]): the post grasp is slightly less able along that direction. The report's summary phrase 'intervals including 1' is therefore not exact for this cell.",
+    "This supports 'not better aligned with the coming motion under the model'; it is not evidence about human intent and not a null-space measurement (no Jacobian null space was computed)."
+   ],
+   "claim_as_extracted": "Along the directions in which the object is about to move, the grasp after a persistent spatial event is not systematically more capable than the grasp before it (post / pre capacity ratio for the force direction over the next 8 frames: 1.06 [0.98, 1.14] on TACO, 0.94 [0.48, 0.98] on ARCTIC), whereas persistent mixed events have ratios of 1.13–1.30 with intervals above 1 on both datasets.",
+   "correction_reason": "Values match the table. Two precision points: the direction is that of the change of translational velocity over K frames after the event START (an acceleration direction), not the direction of motion; and the upper end 1.30 comes from the 16-frame horizon on ARCTIC (1.2956 [1.09, 1.57] force, 1.2976 [1.02, 1.62] torque), which the entry's number list does not contain (verified in the CSV). This is the one measure where the pre grasp is transported by mesh vertex id. Direction-only analysis; no intent or null-space reading."
+  }
+ ],
+ "dataset_differences": [
+  "Sample size: TACO 119 persistent spatial events from 73 takes, ARCTIC 26 from 15. ARCTIC intervals are much wider (retention [0.76, 0.96] versus [0.81, 0.88]; cosine [0.91, 0.99] versus [0.96, 0.97]).",
+  "Median relative change of the capability: TACO +0.036 with an interval just above zero [0.004, 0.076] (small but systematic gain; mean +0.13 [0.07, 0.21]; Q_post > Q_pre in 63 % of events); ARCTIC +0.021 with an interval straddling zero [−0.09, +0.19] (mean +0.05 [−0.11, +0.21]; 54 %).",
+  "Contact-change size versus capability change (persistent spatial): weak on TACO (Spearman 0.19 with the relative change, −0.27 with retention), moderate on ARCTIC (0.55, −0.60; n = 26).",
+  "Large-contact-change spatial events: on TACO 33 of 73 (45 % [34, 57]) keep |relative change| below the train median; on ARCTIC only 1 of 11 (9 % [0, 30]). The report's own wording for ARCTIC: 'the typical spatial event is wrench-neutral, the large ones are mostly not'.",
+  "Retention by number of reconfigured hand parts (persistent spatial): monotone on TACO (0.89 / 0.84 / 0.80; n = 29 / 31 / 59), flat on ARCTIC (0.90 / 0.91 / 0.88; n = 5 / 6 / 15).",
+  "Finger behaviour in persistent spatial events: TACO 1.13 parts slide, 0.50 appear, 0.24 disappear per event, 4.2 → 4.4 parts touching; ARCTIC 1.54 slide, 0.27 appear, 0.27 disappear, 3.4 → 3.4 parts touching.",
+  "Sensitivity to the contact threshold: at 0.5 cm TACO retention is unchanged (0.858) while ARCTIC drops to 0.764 [0.707, 0.812]; this is the only setting that moves a number noticeably.",
+  "Future-motion directions (persistent spatial, force direction, K = 8): TACO post/pre ratio 1.06 [0.98, 1.14]; ARCTIC 0.94 [0.48, 0.98], i.e. below 1 with an interval excluding 1.",
+  "Strict single-hand measure: retention 0.66 [0.33, 0.78] on TACO, 0.75 [0.11, 0.92] on ARCTIC; the single hand covers 0.41 → 0.50 of the 76 directions exactly on TACO but only 0.22 → 0.20 on ARCTIC.",
+  "Amount-dominant (diagnostic) class: median relative change +0.73 [0.24, 0.92] on TACO versus +0.14 [0.00, 0.95] on ARCTIC; retention 0.54 versus 0.62.",
+  "Persistent mixed class is similar on both datasets (median relative change +0.19 / +0.16; retention 0.76 / 0.75; 46 % / 46 % gain more than 25 %), with a much wider ARCTIC interval ([0.05, 0.45]).",
+  "Transient reference class: TACO is a random subsample of 150 of 708 events (retention 0.90); ARCTIC has all 12 events (0.94).",
+  "Event length: PRE and POST frames are 1 frame apart in the median TACO event and 2 in the median ARCTIC event.",
+  "Objects: TACO is rigid tool use (the tool also touches a target object); ARCTIC objects are articulated (the lid is rotated by the articulation angle). Both are bimanual and only one hand is modelled at a time.",
+  "OakInk2 is not part of this study (no hand geometry in the object frame in its caches); every F1-D statement is for TACO and ARCTIC only."
+ ],
+ "do_not_claim": [
+  "'Spatial contact changes do not matter' or 'all spatial reconfigurations are function-preserving': the result is a median over one event class; 20 % (TACO) / 23 % (ARCTIC) of persistent spatial events gain more than 25 % capability and 8 / 3 events lose more than 25 %.",
+  "'Null-space motion' or 'the fingers move in the grasp's null space': no Jacobian or grasp-map null space was measured; the report speaks only of redundancy 'under the modelled wrench constraints'.",
+  "'Function-preserving' without the qualifier 'modelled wrench capability' / 'under the modelled constraints': there is no mass, centre of mass, inertia, force limit or friction measurement; it is not a physical feasibility result.",
+  "Anything about human intent, comfort, fatigue, slip correction or purposelessness: the report explicitly excludes motive inference; wrench capability is a proxy for functional grasp capability.",
+  "'The grasp before retains 85–90 % of the capability in every direction' (the report's own loose phrase): retention is a mean over 76 directions of a capped ratio, and it is one-sided.",
+  "'The grasps before and after are equivalent because retention is about 0.85–0.89': retention is one-sided (a shrunken grasp scores about 1); report the reverse retention, cosine or relative change alongside.",
+  "'Release preserves capability (retention 1.0)' or 'onset changes capability by a factor of 1e9': both are artifacts (one-sided definition; division by epsilon when Q_pre = 0).",
+  "'Retention and cosine are computed after transporting the pre grasp by vertex id': transport is used only for the future-motion directions.",
+  "'Persistent mixed events always change capability': about half stay within ±25 % (49 % / 43 %).",
+  "'On ARCTIC, large spatial contact changes preserve capability': only 1 of 11 large-change events stays below the train-median change.",
+  "The report's sentence 'on ARCTIC these functional regrasps are most of the large-contact-change spatial events (10 of 11), on TACO fewer than half (55 %)': 55 % is more than half and the ten ARCTIC events are not all finger-adding gains above 25 %.",
+  "The report's '0.5–2.7 fingers appearing' in the events that gain more than 25 %: not reproduced by events.csv (mean 1.46, range 0–4, on TACO; exactly 1 on ARCTIC).",
+  "'Contact-change size is unrelated to capability change': Spearman is 0.19 on TACO but 0.55 on ARCTIC for spatial events, and 0.40 / 0.52 for mixed events; no intervals are given for these correlations.",
+  "'Finger additions cause the capability gain' as an established causal result: it is an association in observational data, and with one unit budget per finger an added finger raises the modelled capability by construction of the model.",
+  "'Finger removals lower capability' as a report finding: the report discusses additions; the removal pattern (8 of 8 and 3 of 3 loss events have a part disappearing) is a count made from events.csv in this pass.",
+  "A pooled number such as '145 events' or a retention averaged over TACO and ARCTIC: the datasets are never pooled.",
+  "'The result holds on OakInk2' or 'on all three datasets': OakInk2 was excluded.",
+  "'Robust to the physics': the ten sensitivity settings stay inside the same contact-patch model; under the strict single-hand measure retention is 0.66 / 0.75.",
+  "'A deterministic contact model cannot predict these events' as a result of this study: it is the report's interpretation; this study measured no prediction error. The word 'missed' rests on the hand-contact predictive-information report ('least explained').",
+  "'The Figure F examples are typical': they are selected extremes (highest retention, largest gain among events with an above-median contact change); three of the four 'equivalent' examples actually lost capability (−0.10, −0.17, −0.13).",
+  "'Contact does not move over time' or 'post-grasp reconfigurations are rare': persistent spatial events are 123 of 1 464 detected TACO test events and 26 of 283 on ARCTIC, alongside 452 / 131 persistent mixed events that more often change capability.",
+  "'The post grasp is never better aligned with the coming motion': true for the spatial class under the direction-only analysis, but the mixed class has ratios of 1.13–1.30 with intervals above 1.",
+  "'119 events from 177 takes' or 'the test split has 177 / 37 takes': the events come from 73 / 15 takes, and the fixed test split has 186 / 44 takes (177 / 37 are the takes with at least one detected event).",
+  "Units such as newtons or newton-metres for the capability: values are normalised (finger budget = 1, torque divided by the object's largest vertex radius)."
+ ],
+ "candidate_images": [
+  {
+   "path": "reports/wrench_counterfactual/figures/figF_taco_equivalent_1190_8.png",
+   "block": "F1-D",
+   "shows": "Diagnostic matplotlib figure, usable with a caption (the title line carries internal ids; the bottom profile panel is the part a stranger reads most easily). Top row: three orthographic views of the hand (light dots coloured by part: palm grey, thumb red, index blue, middle green, ring orange, little purple) and the object (grey) at the frame before the event, contact vertices as filled dots, patch centroids as stars, patch normals as bars. Middle row: the same at the frame after. Bottom: the two wrench-capability profiles over the 76 shared directions, sorted by the capability after. TACO pan, left hand; the before and after views look almost alike and the two profiles run close together.",
+   "caption": "TACO, a pan held by the left hand; a persistent spatial event with contact-map change 0.86. All six hand parts touch the pan before (top) and after (middle); index, middle and ring finger slide by more than 1 cm while palm, thumb and little finger stay. The wrench-capability profiles before (red) and after (blue) nearly coincide (bottom): pre→post retention 1.00, profile cosine 1.00, direction-averaged capability −10 %. A selected example: among events with an above-median contact change, one of the two with the highest retention.",
+   "size": "1760 x 1320 px, 506990 bytes"
+  },
+  {
+   "path": "reports/wrench_counterfactual/figures/figF_taco_improved_2707_7.png",
+   "block": "F1-D",
+   "shows": "Same layout. TACO roller, right hand: before the event only thumb (red) and index (blue) contact vertices are on the handle; after it all six parts are (panel titles: 6 patches → 14 patches). Bottom: the profile after lies well above the profile before over most directions (legend: mean 1.21 before, 2.92 after). The clearest counter-example of the set.",
+   "caption": "TACO, a roller held by the right hand; a persistent spatial event with contact-map change 4.45. Before the event only index and thumb touch the handle; after it palm, middle, ring and little finger have joined (index and thumb slid). The capability profile after the event (blue) lies well above the one before (red): direction-averaged capability +142 %, pre→post retention 0.47, profile cosine 0.88. A selected example: among events with an above-median contact change, one of the two with the largest capability gain.",
+   "size": "1760 x 1320 px, 521960 bytes"
+  },
+  {
+   "path": "reports/wrench_counterfactual/figures/figF_arctic_equivalent_910_4.png",
+   "block": "F1-D",
+   "shows": "Same layout. ARCTIC notebook, right hand: all six parts in contact before and after, each visibly displaced on the cover (panel titles: 6 patches → 9 patches). Bottom: the two profiles have the same shape, the one after slightly higher on the stronger directions (legend: mean 2.27 before, 2.59 after).",
+   "caption": "ARCTIC, a notebook held by the right hand; a persistent spatial event with contact-map change 2.24. All six hand parts touch before and after, and all six slide by more than 1 cm. The two capability profiles keep the same shape (profile cosine 0.99); the direction-averaged capability rises by 14 % and the pre→post retention is 0.88. A selected example: among events with an above-median contact change, one of the two with the highest retention.",
+   "size": "1760 x 1320 px, 437723 bytes"
+  },
+  {
+   "path": "reports/wrench_counterfactual/figures/figF_arctic_improved_345_2.png",
+   "block": "F1-D",
+   "shows": "Same layout. ARCTIC ketchup bottle, left hand: index, middle and ring contact patches before; a large thumb patch (red) is added after (panel titles: 3 patches → 4 patches). Bottom: the profile before is spiky and drops to zero in many directions that the profile after covers (legend: mean 0.98 before, 1.52 after).",
+   "caption": "ARCTIC, a ketchup bottle held by the left hand; a persistent spatial event with contact-map change 4.52. Index, middle and ring finger hold the bottle before the event; afterwards the thumb has joined. The capability profile before (red) is zero or near zero in many directions that the profile after (blue) covers: direction-averaged capability +55 %, pre→post retention 0.51, profile cosine 0.69. A selected example: among events with an above-median contact change, one of the two with the largest capability gain.",
+   "size": "1760 x 1320 px, 525106 bytes"
+  }
+ ],
+ "verification": {
+  "reliability": "high",
+  "numbers_confirmed": 116,
+  "numbers_checked": 121,
+  "number_corrections": [
+   {
+    "block": "F1-D",
+    "label": "persistent spatial: post/pre ratio, force along the velocity change, K = 8, median [CI] (TACO)",
+    "reported": "1.0626730864739873 [0.9817408075599376, 1.1430585725701876]",
+    "found": "1.0626730864739873 [0.9817408075599375, 1.1430585725701876] - the lower bound in the CSV ends in ...375, not ...376 (a last-digit float-parsing artefact of about 1e-16; no effect at any printed precision)",
+    "verdict": "corrected",
+    "source_checked": "summary_by_event_type.csv row taco/persistent_spatial, B_force_K8_ratio_median(+_lo,_hi), raw cell text",
+    "applied_to": "TACO | persistent spatial: post/pre ratio, force along the velocity change, K = 8, median [CI]"
+   },
+   {
+    "block": "F1-D",
+    "label": "persistent spatial: post/pre ratio, force along the velocity change, K = 8, median [CI] (ARCTIC)",
+    "reported": "0.9413679225368464 [0.4815128526109959, 0.9772412530787176]",
+    "found": "0.9413679225368464 [0.48151285261099597, 0.9772412530787177] - both bounds differ from the reported strings in the last digit only (about 1e-16)",
+    "verdict": "corrected",
+    "source_checked": "summary_by_event_type.csv row arctic/persistent_spatial, B_force_K8_ratio_median(+_lo,_hi), raw cell text",
+    "applied_to": "TACO | persistent spatial: post/pre ratio, force along the velocity change, K = 8, median [CI]"
+   },
+   {
+    "block": "F1-D",
+    "label": "persistent spatial: post/pre ratio, torque along the angular-velocity change, K = 8, median [CI] (TACO)",
+    "reported": "1.0356445204608105 [0.9761060389965452, 1.183331163616818]",
+    "found": "1.0356445204608105 [0.9761060389965451, 1.183331163616818] - lower bound differs in the last digit only",
+    "verdict": "corrected",
+    "source_checked": "summary_by_event_type.csv row taco/persistent_spatial, B_torque_K8_ratio_median(+_lo,_hi), raw cell text",
+    "applied_to": "TACO | persistent spatial: post/pre ratio, torque along the angular-velocity change, K = 8, median [CI]"
+   },
+   {
+    "block": "F1-D",
+    "label": "persistent spatial: post/pre ratio, anti-gravity support, median [CI] (ARCTIC)",
+    "reported": "1.005160356909382 [0.9641469133198476, 1.0760403043215376]",
+    "found": "1.0051603569093819 [0.9641469133198476, 1.0760403043215376] - the median differs in the last digit only",
+    "verdict": "corrected",
+    "source_checked": "summary_by_event_type.csv row arctic/persistent_spatial, B_support_ratio_median(+_lo,_hi), raw cell text",
+    "applied_to": "TACO | persistent spatial: post/pre ratio, anti-gravity support, median [CI]"
+   },
+   {
+    "block": "F1-D",
+    "label": "EXPECTED: retention and profile cosine use a pre grasp transported by vertex id",
+    "reported": "extractor: not for these two measures; transport is used only for the future-motion directions",
+    "found": "The owner's recollection is wrong and the extractor's correction is right. analyze_event() builds p_pre from geom_dict(g, 'pre') and p_post from geom_dict(g, 'post'), each at its own frame in the object frame, and computes Q, retention, cosine and L1 from those. The transported pre grasp, geom_dict(g, 'pre', 'post'), is used only for the B_* (future-motion) capacities.",
+    "verdict": "corrected",
+    "source_checked": "scripts/research/wrench_counterfactual/wrench_analysis.py lines 114-147; report section 3 ('Directional capacity' vs 'Manipulation-conditioned directions (Metric B)')"
+   }
+  ],
+  "claims_supported_as_extracted": 3,
+  "claims_checked": 8,
+  "figure_checks": [
+   {
+    "id": "f1d_contact_change_vs_capability_change",
+    "verdict": "ok",
+    "note": "Every point compared with events.csv (dC, rel_change_Q) per dataset and class, in file order: TACO 119 spatial + 435 mixed, ARCTIC 26 + 118, all identical, nothing subsampled, right dataset in each panel. Spearman values in the note are read from correlation_dC_vs_wrench.csv (0.19 / 0.55 spatial, 0.40 / 0.52 mixed). Direction 'none' is right. The only literal in the code is the y = 0 reference line. Extractor's 'reading' is slightly generous for TACO: 'cluster around 0 over the whole x range' should read 'scatter on both sides of 0 without a clear trend' (40 of the 73 TACO events at or above the train-median contact change lie outside the train-median band; range -0.50 to +1.77)."
+   },
+   {
+    "id": "f1d_spatial_events_by_finger_set",
+    "verdict": "ok",
+    "note": "Groups rebuilt from events.csv (n_appeared, n_disappeared): TACO 62 / 45 / 12, ARCTIC 15 / 7 / 4, a partition of the 119 / 26 events; all points identical. Reference lines equal thresholds.json (dC_q50 0.8200416564941406 / 1.284944772720337; ± abs_rel_change_Q_q50 0.1324328037761979 / 0.08968638762371635). The reading holds: part-added events above the band in 34 of 45 (TACO) and 7 of 7 (ARCTIC); removed-only events below it in 12 of 12 and 4 of 4; same-set events within ±25 % in 61 of 62 and 15 of 15. To say in the caption: 'Part added' includes events that also lost a part (12 of 45 TACO, 1 of 7 ARCTIC), and the grouping is a row filter made for the page, not a table of the report."
+   },
+   {
+    "id": "f1d_retention_cosine_by_event_class",
+    "verdict": "fixed",
+    "note": "All 36 medians and 72 interval bounds per panel match summary_by_event_type.csv (R_pre_to_post_median, R_post_to_pre_median, cosine_median with _lo / _hi) for the six classes, per dataset. Error bars are what the note says: 2.5 / 97.5 percentiles of 1 000 take-cluster bootstrap replicates of the median (tce_common.cluster_bootstrap, aggregate.py N_BOOT). Two edits in docs/build/figs/f1d_wrench.py: (1) the y label '(1 = capability profile preserved)' contradicted the release bar, which shows pre→post = 1 although no grasp is left, so it now reads 'median over events (near 1 = profiles alike; retention is one-sided, see note)'; (2) the note's typed '150' for the TACO transient subsample is now read from the n_events cell. Re-run: plotted data and notes unchanged, only the y label differs."
+   },
+   {
+    "id": "f1d_share_capability_change_by_event_class",
+    "verdict": "ok",
+    "note": "Twelve values per series and panel match frac_abs_rel_change_le_0.25 and frac_rel_change_gt_0.25. No error bars are plotted and the source has no interval for these shares (aggregate.py computes them without a bootstrap). The note's 'the rest loses more than 25 %' is exact (the three shares partition each class). Onset 'gain' is a division by epsilon when Q_pre = 0, which the note states."
+   },
+   {
+    "id": "f1d_capability_change_by_reconfigured_parts",
+    "verdict": "ok",
+    "note": "Values match finger_transition_summary.csv median_abs_rel_change_Q_changed0 / 1 / 2plus for persistent_spatial and persistent_mixed, per dataset; event counts in the note (29 / 31 / 59, 87 / 128 / 220, 5 / 6 / 15, 21 / 29 / 68) are read from the table. No error bars, none in the source. 'Reconfigured' definition in the note (centroid moved > 1 cm, or touches only before / only after) matches wrench_analysis.py finger_changes (SLIDE_M = 0.010)."
+   },
+   {
+    "id": "f1d_retention_by_reconfigured_parts",
+    "verdict": "ok",
+    "note": "Values match finger_transition_summary.csv median_retention_changed0 / 1 / 2plus (TACO spatial 0.886 / 0.839 / 0.802, mixed 0.889 / 0.779 / 0.658; ARCTIC spatial 0.899 / 0.913 / 0.882, mixed 0.888 / 0.810 / 0.580). One-sided measure, no intervals in the source; ARCTIC spatial bars rest on 5 / 6 / 15 events and are flat."
+   }
+  ],
+  "image_checks": [
+   {
+    "path": "reports/wrench_counterfactual/figures/figF_taco_equivalent_1190_8.png",
+    "exists": true,
+    "note": "1760 x 1320, 506990 bytes. Caption facts match events.csv / figF_examples.csv: pan, left hand, contact change 0.8565, all six parts before and after, index / middle / ring slid, palm / thumb / little stable, retention 0.9963, cosine 0.9966, relative change -0.0987. Two rewordings needed. (1) 'nearly coincide' overstates the picture: the profile before (red, mean 3.34) lies above the profile after (blue, mean 3.01) over most directions; write 'have the same shape, the one before about 10 % higher' and add that retention is one-sided (reverse retention 0.889). (2) 'above-median contact change' is true only against the TRAIN median (0.82); 0.86 is below the test-split median of 0.92. Write 'contact change at or above the train-split median'. The title inside the image carries internal ids and the report's label 'equivalent'."
+   },
+   {
+    "path": "reports/wrench_counterfactual/figures/figF_taco_improved_2707_7.png",
+    "exists": true,
+    "note": "1760 x 1320, 521960 bytes. Caption supported: roller, right hand, contact change 4.4516; before only thumb and index (6 patches), after all six parts (14 patches), palm / middle / ring / little appeared, thumb and index slid; relative change +1.4187 (+142 %), retention 0.4711, cosine 0.8807; legend means 1.21 before, 2.92 after. It is the second-largest gain among TACO persistent spatial events at or above the train-median contact change (figures.py fig_f). The embedded title says 'improved', the report's own label; the caption should stay with 'capability gain'."
+   },
+   {
+    "path": "reports/wrench_counterfactual/figures/figF_arctic_equivalent_910_4.png",
+    "exists": true,
+    "note": "1760 x 1320, 437723 bytes. Caption supported: notebook, right hand, contact change 2.2394, all six parts before and after and all six slid (6 → 9 patches), cosine 0.9947, relative change +0.1410, retention 0.8820; legend means 2.27 → 2.59. Second-highest retention among the 11 ARCTIC events at or above the train-median contact change. The embedded title calls it 'equivalent' although the capability rises 14 %; the proposed caption states the rise, keep it."
+   },
+   {
+    "path": "reports/wrench_counterfactual/figures/figF_arctic_improved_345_2.png",
+    "exists": true,
+    "note": "1760 x 1320, 525106 bytes. Caption supported: ketchup bottle, left hand, contact change 4.5183, index + middle + ring before, thumb added after (3 → 4 patches; the three fingers also slid), relative change +0.5482, retention 0.5095, cosine 0.6908; legend means 0.98 → 1.52. The profile before does drop to zero in many directions; it also exceeds the profile after in several directions (peaks near 3.4), which the caption can mention since it explains the low cosine. Second-largest gain among the large-contact-change ARCTIC events."
+   }
+  ],
+  "attached_by_the_verifier": [
+   "A table by finger-set change for the persistent spatial class, which the block asks for and the extractor gave only as scattered counts. Row counts over reports/wrench_counterfactual/events.csv made in this verification pass (not printed in the report, no intervals): TACO same set 62 (within ±25 %: 61, gain > 25 %: 1, loss > 25 %: 0); part added 45 (20 / 23 / 2; 12 of the 45 also lost a part); part removed only 12 (6 / 0 / 6). ARCTIC same set 15 (15 / 0 / 0); part added 7 (1 / 6 / 0; 1 also lost a part); part removed only 4 (1 / 0 / 3). Totals reproduce the table shares (87 / 24 / 8 of 119; 17 / 6 / 3 of 26).",
+   "Direct evidence for 'sliding in place' is not in the extractor output: among same-set events, the slide-only ones (at least one part moved more than 1 cm, none added or removed) are 33 on TACO (32 within ±25 %) and 10 on ARCTIC (10 within ±25 %); events.csv count from this pass. The report's Table 5 split cannot show this because it counts slid parts as reconfigured.",
+   "Sensitivity caveat to sharpen: the 4 extra TACO events in the sensitivity tables (123 instead of 119) have no contact patch at either frame (Q_pre = Q_post = 0, relative change exactly 0, retention undefined and dropped, cosine 0). That is why the retention median and interval equal Table 1 while the relative-change and cosine medians are pulled towards 0.",
+   "Report prose slips the page must not copy (table / CSV values are the right ones): section 9 gives TACO retention at mu 0.3 as 0.83 (CSV 0.8250, Table 4a 0.82) and ARCTIC retention at mu 1.0 as 0.92 (CSV 0.9145, Table 4a 0.91); section 7 gives the ARCTIC persistent mixed retention interval as [0.67, 0.81] (CSV 0.6647, Table 1 0.66). Already flagged by the extractor and confirmed: Limitations '100 events ... 61 takes' and '(37 takes)'; final answer '10 of 11 ... fewer than half (55 %)'; '0.5-2.7 fingers appearing' (events.csv: mean 1.46, range 0-4 on TACO; exactly 1 on ARCTIC).",
+   "The K = 16 future-motion ratios behind the '1.13-1.30' range are not in the extractor's number list: persistent mixed TACO force 1.2418103842927324 [1.1387846660325387, 1.2971485614967266], torque 1.1999090860959583 [1.1274837953763408, 1.3195946439992288]; ARCTIC force 1.29560701576621 [1.0884900964886521, 1.5688337193004493], torque 1.2975708608128766 [1.0199510456782674, 1.624422108853938] (summary_by_event_type.csv, B_force_K16_ratio_median / B_torque_K16_ratio_median).",
+   "No interval or test exists for the class contrasts the block leans on: the shares (within ±25 %, gain > 25 %), the Table-5 medians, the finger-set counts and the Spearman correlations all come without intervals. 'More often' is a descriptive comparison of shares and should be worded that way.",
+   "Locator correction for the word 'missed' in the block title: the phrase 'least explained' is in the wrench report's own section 2 (line 44), summarising the earlier study; hand_contact_predictive_info_report.md lines 24-26 give the numbers (ARCTIC persistent spatial +1.6 % n.s. at k = 8, oracle -8 %; TACO -4 % / -6 %, oracle -25 %) without that phrase. This unit measures no prediction error, so 'missed' needs the evidence of the hand-information unit beside it.",
+   "Block title wording: 'function-preserving' has to carry the qualifier 'modelled wrench capability' (a proxy in normalised units, single-hand support-function measure); under the strict exact-direction measure the median retention is 0.66 [0.33, 0.78] (TACO) / 0.75 [0.11, 0.92] (ARCTIC).",
+   "Retention detail missing from the metric description: the mean runs only over the directions in which at least one of the two grasps has capacity (> 1e-6), with 1e-6 added to the denominator (wrench_lp.py retention()).",
+   "Image captions: say 'at or above the train-split median contact change' instead of 'above-median' (the TACO example 1190_8 has 0.86, below the test-split median 0.92), and caption around the embedded titles, which carry internal ids and the report's labels 'equivalent' / 'improved'.",
+   "Last-digit note: five interval / median strings in the future-motion entry differ from the CSV cells in the 16th-17th digit (float-parsing artefact); exact cell strings are given in number_checks. No effect on any rounded value."
+  ]
+ }
+}

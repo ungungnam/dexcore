@@ -1,0 +1,672 @@
+{
+ "unit": "B_hier_contact_gen",
+ "figure_module": "docs/build/figs/f1b_hier_contact_gen.py",
+ "entries": [
+  {
+   "block": "F1-B",
+   "claim": "Generating a 64-frame contact sequence as 'sample an initial contact map s_0 from the static object condition (geometry plus hand / role flags), then evolve it deterministically with the local object motion' is supported on TACO: there the evolution from the true s_0 lowers the error from 3.48 to 1.82, and the best of ten sampled s_0, picked with the ground truth, reaches the same error (1.86). On ARCTIC and OakInk2 the evolution shows no measurable benefit over holding the true s_0 (2.21 vs 2.14 and 1.26 vs 1.24; paired intervals contain zero) and every sampled-s_0 variant stays above both true-s_0 rows, so the differences between variants there come from the initial map.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "report": "reports/hier_contact_gen_report.md",
+   "source_files": [
+    "taco/50_hier_contact_gen/results/aggregate.csv",
+    "arctic/40_hier_contact_gen/results/aggregate.csv",
+    "oakink2/20_hier_contact_gen/results/aggregate.csv",
+    "reports/hier_narrative/verdict.md"
+   ],
+   "metric": "E_C = L2 distance between predicted and true 512-point canonical contact maps, averaged over the 64 frames (30 Hz, starting at the first firm-contact frame) and over the test sequences; raw contact units; LOWER is better. Brackets = 95 % cluster-bootstrap interval over takes (OakInk2: recordings), 500 resamples. Rows: B0 = true s_0 held static (the page's 'static persistence'); B1 = true s_0 + deterministic vector field; B2 = s_0 sampled from p(s_0 | G) (geometry-only diffusion sampler) + the same vector field, K = 1 (sample 0) or best of the first 5 / 10 samples chosen by lowest E_C against the ground truth.",
+   "numbers": {
+    "TACO | B0 true s_0 held static, E_C [95 % CI]; n = 364 test sequences / 186 takes": {
+     "value": "3.483226440355673 [3.3512159408727222, 3.613688875484567]",
+     "source": "taco/50_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=static_gt, K=0; columns E_C, E_C_lo, E_C_hi, n_examples, n_takes"
+    },
+    "TACO | B1 true s_0 + evolution, E_C [95 % CI]": {
+     "value": "1.8194538629972017 [1.721226472184265, 1.930863432633991]",
+     "source": "taco/50_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=gtinit_vf, K=0; columns E_C, E_C_lo, E_C_hi"
+    },
+    "TACO | B2 sampled s_0 (K=1) + evolution, E_C [95 % CI]": {
+     "value": "2.592138313493886 [2.443167747237367, 2.76925019612191]",
+     "source": "taco/50_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=samplerG_vf, K=1; columns E_C, E_C_lo, E_C_hi"
+    },
+    "TACO | B2 sampled s_0 (best of 5) + evolution, E_C [95 % CI]": {
+     "value": "1.9842054408330183 [1.8761045001119703, 2.0983979491609612]",
+     "source": "taco/50_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=samplerG_vf, K=5; columns E_C, E_C_lo, E_C_hi"
+    },
+    "TACO | B2 sampled s_0 (best of 10) + evolution, E_C [95 % CI]": {
+     "value": "1.8554670324364861 [1.749710435043373, 1.9667910189265674]",
+     "source": "taco/50_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=samplerG_vf, K=10; columns E_C, E_C_lo, E_C_hi"
+    },
+    "ARCTIC | B0 true s_0 held static, E_C [95 % CI]; n = 186 test sequences / 44 takes": {
+     "value": "2.207074809458948 [1.9352572284652174, 2.480575433483176]",
+     "source": "arctic/40_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=static_gt, K=0; columns E_C, E_C_lo, E_C_hi, n_examples, n_takes"
+    },
+    "ARCTIC | B1 true s_0 + evolution, E_C [95 % CI]": {
+     "value": "2.136841640036593 [1.8596790765706255, 2.430970556304153]",
+     "source": "arctic/40_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=gtinit_vf, K=0; columns E_C, E_C_lo, E_C_hi"
+    },
+    "ARCTIC | B2 sampled s_0 (K=1) + evolution, E_C [95 % CI]": {
+     "value": "3.7003233951907 [3.3482899679645395, 4.181592946247898]",
+     "source": "arctic/40_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=samplerG_vf, K=1; columns E_C, E_C_lo, E_C_hi"
+    },
+    "ARCTIC | B2 sampled s_0 (best of 5) + evolution, E_C [95 % CI]": {
+     "value": "2.7059840301993074 [2.3950492105508845, 3.0795467125152167]",
+     "source": "arctic/40_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=samplerG_vf, K=5; columns E_C, E_C_lo, E_C_hi"
+    },
+    "ARCTIC | B2 sampled s_0 (best of 10) + evolution, E_C [95 % CI]": {
+     "value": "2.4757442597740438 [2.167684235704333, 2.821981382555207]",
+     "source": "arctic/40_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=samplerG_vf, K=10; columns E_C, E_C_lo, E_C_hi"
+    },
+    "OakInk2 | B0 true s_0 held static, E_C [95 % CI]; n = 201 test sequences / 34 recordings": {
+     "value": "1.2586076486837212 [1.1275745728959863, 1.4406920794792692]",
+     "source": "oakink2/20_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=static_gt, K=0; columns E_C, E_C_lo, E_C_hi, n_examples, n_takes"
+    },
+    "OakInk2 | B1 true s_0 + evolution, E_C [95 % CI]": {
+     "value": "1.242721739989608 [1.1064349106605522, 1.406762560386306]",
+     "source": "oakink2/20_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=gtinit_vf, K=0; columns E_C, E_C_lo, E_C_hi"
+    },
+    "OakInk2 | B2 sampled s_0 (K=1) + evolution, E_C [95 % CI]": {
+     "value": "4.092218212820404 [3.5957489106519067, 4.56554693514295]",
+     "source": "oakink2/20_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=samplerG_vf, K=1; columns E_C, E_C_lo, E_C_hi"
+    },
+    "OakInk2 | B2 sampled s_0 (best of 5) + evolution, E_C [95 % CI]": {
+     "value": "2.800409808977326 [2.517107655600081, 3.079839417671792]",
+     "source": "oakink2/20_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=samplerG_vf, K=5; columns E_C, E_C_lo, E_C_hi"
+    },
+    "OakInk2 | B2 sampled s_0 (best of 10) + evolution, E_C [95 % CI]": {
+     "value": "2.5131358637738583 [2.2881399593516556, 2.770105975006285]",
+     "source": "oakink2/20_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=samplerG_vf, K=10; columns E_C, E_C_lo, E_C_hi"
+    },
+    "TACO, ARCTIC, OakInk2 (stated per dataset) | Report's own scope statement (prose)": {
+     "value": "\"The decomposition is supported where there is temporal evolution to model, and that is TACO only.\"",
+     "source": "reports/hier_contact_gen_report.md",
+     "locator": "section Verdict, item 1 (same text in reports/hier_narrative/verdict.md line 14)"
+    }
+   },
+   "caveats": [
+    "Best-of-K is an oracle: the sample is picked with the ground truth of the whole rollout. It shows that a good initial map is among K samples, not that the generator finds it.",
+    "B0 and B1 use the TRUE first contact map; they are diagnostic rows, not generators. 'Static persistence 3.48' is the true s_0 held for 64 frames.",
+    "Raw E_C units differ between datasets (contact-mass scales differ): compare within a dataset, never raw values across datasets.",
+    "One training seed (0) and one fixed split per dataset. TACO test = the dataset's test_1 (every group, mesh and subject also occurs in training). ARCTIC test = 44 takes, OakInk2 test = 34 recordings, so intervals are wide.",
+    "The evolution is deterministic by construction (one vector field, free Euler rollout); this experiment did not compare it with a stochastic evolution.",
+    "The object trajectory is a given input, and the local context of the vector field includes object states up to 8 frames ahead.",
+    "G is the static condition: per-mesh surface descriptor at the 512 canonical points, mesh radius and extent, and one-hot hand and role flags (so 'geometry-only' includes which hand and which role).",
+    "With one sample (K=1) the generator is above the static true-s_0 row on ARCTIC (3.70 vs 2.21) and OakInk2 (4.09 vs 1.26); only on TACO is it below (2.59 vs 3.48)."
+   ],
+   "claim_as_extracted": "Generating a 64-frame contact sequence as 'sample an initial contact map s_0 from object geometry, then evolve it deterministically with the object motion' is supported on TACO, where both stages contribute; on ARCTIC and OakInk2 the evolution stage provides little additional information beyond holding the true s_0 and the error is dominated by the choice of s_0.",
+   "correction_reason": "Direction and dataset scope match the report (Verdict item 1: 'TACO only') and the tables. Two wording problems. (1) 'the error is dominated by the choice of s_0' is not shown for ARCTIC: the true-s_0 rollout error (2.137) is larger than the single-sample cost (+1.563); it does hold on OakInk2 (+2.849 against 1.243). (2) 'both stages contribute' on TACO rests, for the sampler, on the oracle best-of-10; that caveat has to sit in the sentence. 'Little additional information' on ARCTIC hides a wide interval (-0.257 to +0.107): 'no measurable benefit' is the accurate strength. G also includes one-hot hand and role flags (data.py)."
+  },
+  {
+   "block": "F1-B",
+   "claim": "On TACO, deterministic evolution from the true s_0 lowers the contact error from 3.48 (true s_0 held) to 1.82, a paired reduction of 1.66 (95 % CI 1.53 to 1.78; table -1.664 [-1.776, -1.535]) that holds on 85 % of the test sequences; on ARCTIC (-0.07 [-0.26, +0.11]) and OakInk2 (-0.02 [-0.11, +0.06]) the same comparison gives a difference whose interval contains zero.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "report": "reports/hier_contact_gen_report.md",
+   "source_files": [
+    "taco/50_hier_contact_gen/results/paired_differences.csv",
+    "arctic/40_hier_contact_gen/results/paired_differences.csv",
+    "oakink2/20_hier_contact_gen/results/paired_differences.csv",
+    "taco/50_hier_contact_gen/results/aggregate.csv"
+   ],
+   "metric": "Paired per-sequence difference of E_C, B1 minus B0 (true s_0 + evolution minus true s_0 held), on the same test sequences; NEGATIVE = evolution has the lower error. Brackets = 95 % cluster-bootstrap interval over takes / recordings (500 resamples). frac_better = fraction of test sequences with B1 below B0.",
+   "numbers": {
+    "TACO | B1 minus B0, paired E_C difference [95 % CI]; fraction of sequences where evolution is better (n = 364)": {
+     "value": "-1.663772577358471 [-1.7764469518614359, -1.5349612764135008]; 0.8516483516483516",
+     "source": "taco/50_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)' (a=gtinit_vf K0, b=static_gt K0); columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    "ARCTIC | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 186)": {
+     "value": "-0.07023316942235475 [-0.2569484386296308, 0.10685708734752797]; 0.521505376344086",
+     "source": "arctic/40_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    "OakInk2 | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 201)": {
+     "value": "-0.015885908694113084 [-0.11042012348078607, 0.058809346471569005]; 0.373134328358209",
+     "source": "oakink2/20_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    "TACO | Share of the static (B0) error removed by the evolution (report prose, = (B0 - B1) / B0)": {
+     "value": "47.8 %",
+     "source": "reports/hier_contact_gen_report.md",
+     "locator": "section 4, TACO table, row Q2"
+    },
+    "ARCTIC | Share of the static (B0) error removed by the evolution (report prose)": {
+     "value": "3.2 %",
+     "source": "reports/hier_contact_gen_report.md",
+     "locator": "section 4, ARCTIC table, row Q2"
+    },
+    "OakInk2 | Share of the static (B0) error removed by the evolution (report prose)": {
+     "value": "1.3 %",
+     "source": "reports/hier_contact_gen_report.md",
+     "locator": "section 4, OakInk2 table, row Q2"
+    },
+    "TACO | Mean absolute contact-mass (amount) error, B0 / B1": {
+     "value": "39.235800681205895 / 11.857063352079182",
+     "source": "taco/50_hier_contact_gen/results/aggregate.csv",
+     "locator": "rows model=static_gt K=0 and model=gtinit_vf K=0; column mass_abs"
+    },
+    "TACO | Temporal (frame-to-frame change) error E_dC, B0 / B1 (lower is better)": {
+     "value": "0.31665958018953 / 0.31793956117765915",
+     "source": "taco/50_hier_contact_gen/results/aggregate.csv",
+     "locator": "rows model=static_gt K=0 and model=gtinit_vf K=0; column E_dC"
+    },
+    "ARCTIC | Temporal (frame-to-frame change) error E_dC, B0 / B1 (lower is better)": {
+     "value": "0.16720590354894757 / 0.19400259953552998",
+     "source": "arctic/40_hier_contact_gen/results/aggregate.csv",
+     "locator": "rows model=static_gt K=0 and model=gtinit_vf K=0; column E_dC"
+    },
+    "TACO | Per-group E_C, B0 / B1, largest TACO test group plate target L (n = 143)": {
+     "value": "2.7131767391741692 / 2.1620242518561703",
+     "source": "taco/50_hier_contact_gen/results/per_group.csv",
+     "locator": "rows split=fixed, group=plate__target__L, model=static_gt K=0 and gtinit_vf K=0; column E_C"
+    },
+    "TACO | TACO groups with NO training take (test_3, n = 275): E_C B0 / B1": {
+     "value": "3.169172 / 3.373925",
+     "source": "taco/50_hier_contact_gen/results/by_orig_split.csv",
+     "locator": "rows orig_split=test_3, group_seen_in_train=False, model=static_gt K=0 and gtinit_vf K=0; column E_C (values as printed to 6 decimals)",
+     "verifier_note": "3.169172282218933 / 3.3739251886714587 (n = 275). The extractor truncated to 6 decimals; the table holds full precision. Meaning is right (orig_split=test_3, group_seen_in_train=False; not part of the main test set). test_4 unseen (n = 470): 3.7206470060855783 / 4.340327050584428"
+    }
+   },
+   "caveats": [
+    "The TACO gain is in the slow change of contact AMOUNT (mass error 39.2 to 11.9); the frame-to-frame error is not improved (E_dC 0.318 vs 0.317 for a constant map) and is worse on ARCTIC (0.194 vs 0.167).",
+    "The TACO gain is not uniform: plate target L (largest test group, n 143) goes 2.713 to 2.162, while the other five test groups lose 42-70 % of their static error (per_group.csv). Evolution is better in 6 of 6 TACO test groups, 11 of 22 ARCTIC groups, 16 of 36 OakInk2 groups.",
+    "On the two TACO groups with no training take (test_3 / test_4 subsets, not the main test set) the evolution is WORSE than static (3.374 vs 3.169, n 275; 4.340 vs 3.721, n 470).",
+    "ARCTIC is not 'nothing to evolve': 42 % of its test sequences leave firm contact within the window. The report gives the split: evolution lowers the error on the 107 sequences that stay in contact (2.35 to 2.09) and raises it on the 79 that release (2.01 to 2.20).",
+    "The reported vector field is the 'vf_unroll8' recipe (one-step loss plus an 8-step free-rollout loss, checkpoint selected on validation rollout error); the plain one-step recipe was discarded (report section 7)."
+   ],
+   "claim_as_extracted": "On TACO, deterministic evolution from the true s_0 lowers the contact error from 3.48 (true s_0 held) to 1.82, a paired reduction of 1.66 (95 % CI 1.54 to 1.78) that holds on 85 % of the test sequences; on ARCTIC and OakInk2 the same comparison gives a difference whose interval contains zero.",
+   "correction_reason": "All values are in paired_differences.csv. The interval bound '1.54' is copied from the report's Verdict prose ('[-1.78, -1.54]'), which double-rounds the table value -1.5349612764135008 (report section 4 prints -1.535); rounded once it is 1.53. Prose and table disagree in the second decimal; the table is the primary source. Rest of the sentence is supported (frac_better 0.8516; ARCTIC and OakInk2 intervals contain zero)."
+  },
+  {
+   "block": "F1-B",
+   "claim": "On TACO the best of ten initial maps sampled from p(s_0 | G) (the sample chosen with the ground truth, an oracle selection), followed by the same evolution, reaches a whole-window error (1.86) whose paired difference from the rollout started at the true s_0 (1.82) has an interval containing zero (+0.036, 95 % CI -0.043 to +0.115), while a single sample costs +0.77 [+0.64, +0.94]; on ARCTIC and OakInk2 the best of ten stays above the true-s_0 rollout (+0.34 [+0.21, +0.49] and +1.27 [+1.07, +1.48], intervals exclude zero).",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "report": "reports/hier_contact_gen_report.md",
+   "source_files": [
+    "taco/50_hier_contact_gen/results/paired_differences.csv",
+    "arctic/40_hier_contact_gen/results/paired_differences.csv",
+    "oakink2/20_hier_contact_gen/results/paired_differences.csv",
+    "reports/hier_contact_gen_report.md"
+   ],
+   "metric": "Paired per-sequence difference of E_C, B2 (sampled s_0 + evolution) minus B1 (true s_0 + evolution), same test sequences and same vector field; POSITIVE = sampling the initial map costs error. Brackets = 95 % cluster-bootstrap interval over takes / recordings (500 resamples).",
+   "numbers": {
+    "TACO | B2 (K=1) minus B1, paired E_C difference [95 % CI]": {
+     "value": "0.7726844504966841 [0.6441511967232452, 0.9376049949843143]",
+     "source": "taco/50_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q3 sampled(G,K=1) - GT init'; columns E_C, E_C_lo, E_C_hi"
+    },
+    "TACO | B2 (best of 10) minus B1, paired E_C difference [95 % CI]": {
+     "value": "0.03601316943928435 [-0.04265876052754004, 0.11542999701278063]",
+     "source": "taco/50_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q3 sampled(G,best10) - GT init'; columns E_C, E_C_lo, E_C_hi"
+    },
+    "ARCTIC | B2 (K=1) minus B1, paired E_C difference [95 % CI]": {
+     "value": "1.5634817551541071 [1.3631630836122048, 1.7981459342827042]",
+     "source": "arctic/40_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q3 sampled(G,K=1) - GT init'; columns E_C, E_C_lo, E_C_hi"
+    },
+    "ARCTIC | B2 (best of 10) minus B1, paired E_C difference [95 % CI]": {
+     "value": "0.3389026197374508 [0.21322992754574535, 0.48599813784241874]",
+     "source": "arctic/40_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q3 sampled(G,best10) - GT init'; columns E_C, E_C_lo, E_C_hi"
+    },
+    "OakInk2 | B2 (K=1) minus B1, paired E_C difference [95 % CI]": {
+     "value": "2.849496472830796 [2.3705504991433255, 3.313003513986747]",
+     "source": "oakink2/20_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q3 sampled(G,K=1) - GT init'; columns E_C, E_C_lo, E_C_hi"
+    },
+    "OakInk2 | B2 (best of 10) minus B1, paired E_C difference [95 % CI]": {
+     "value": "1.2704141237842503 [1.073046916918554, 1.4808839871199564]",
+     "source": "oakink2/20_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q3 sampled(G,best10) - GT init'; columns E_C, E_C_lo, E_C_hi"
+    },
+    "TACO | Share of the gap (B2 K=1 minus B1) closed by best-of-10 (report prose)": {
+     "value": "95 %",
+     "source": "reports/hier_contact_gen_report.md",
+     "locator": "section 4, TACO table, row Q5; Verdict item 3"
+    },
+    "ARCTIC | Share of the gap (B2 K=1 minus B1) closed by best-of-10 (report prose)": {
+     "value": "78 %",
+     "source": "reports/hier_contact_gen_report.md",
+     "locator": "section 4, ARCTIC table, row Q5; Verdict item 3"
+    },
+    "OakInk2 | Share of the gap (B2 K=1 minus B1) closed by best-of-10 (report prose)": {
+     "value": "55 %",
+     "source": "reports/hier_contact_gen_report.md",
+     "locator": "section 4, OakInk2 table, row Q5; Verdict item 3"
+    },
+    "TACO | Test sequences whose best-of-10 rollout is below their own static true-s_0 error (report prose)": {
+     "value": "85 %",
+     "source": "reports/hier_contact_gen_report.md",
+     "locator": "section 6, TACO, Q3"
+    },
+    "ARCTIC | Test sequences whose best-of-10 rollout is below their own static true-s_0 error (report prose)": {
+     "value": "38 %",
+     "source": "reports/hier_contact_gen_report.md",
+     "locator": "section 6, ARCTIC, Q3"
+    },
+    "OakInk2 | Test sequences whose best-of-10 rollout is below their own static true-s_0 error (report prose)": {
+     "value": "16 %",
+     "source": "reports/hier_contact_gen_report.md",
+     "locator": "section 6, OakInk2, Q3"
+    },
+    "TACO | B2 mean over the 10 samples + evolution (typical single sample), E_C [95 % CI]": {
+     "value": "2.5747322096438197 [2.457767850497958, 2.7161118050183566]",
+     "source": "taco/50_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=samplerG_vf, K=-1; columns E_C, E_C_lo, E_C_hi"
+    }
+   },
+   "caveats": [
+    "'Reaches the true-s_0 number' is a TACO-only statement and an oracle statement: best-of-10 is selected with the ground truth.",
+    "Even the oracle best-of-10 stays above the STATIC true-s_0 row on ARCTIC (2.476 vs 2.207) and OakInk2 (2.513 vs 1.259).",
+    "The percentages 95 / 78 / 55 % and 85 / 38 / 16 % are in the report prose only (no CSV column); I recomputed them from aggregate.csv (0.953 / 0.783 / 0.554) and eval/fixed0/per_example.csv (0.8489 / 0.3763 / 0.1642) and they agree.",
+    "The marginal intervals of the bar figure overlap heavily on ARCTIC and OakInk2; use the paired differences for statements about 'indistinguishable' or 'above'."
+   ],
+   "claim_as_extracted": "On TACO the best of ten initial maps sampled from p(s_0 | G), followed by the same evolution, reaches an error (1.86) that is statistically indistinguishable from the rollout started at the true s_0 (1.82; paired +0.036, 95 % CI -0.043 to +0.115), while a single sample costs +0.77; on ARCTIC and OakInk2 the best of ten stays significantly above the true-s_0 rollout (+0.34 and +1.27).",
+   "correction_reason": "Every number is confirmed in paired_differences.csv and aggregate.csv. The oracle caveat is only in the caveat list; without it in the sentence the claim reads as a generator result. 'Statistically indistinguishable' is an interval containing zero, not an equivalence test, and it is an equality of window-averaged errors: the chosen sample is still 1.748 from the true first map at frame 0 (curves.csv)."
+  },
+  {
+   "block": "F1-B",
+   "claim": "With the same evolution, the extra error of a generated sequence over the true-s_0 rollout comes from the sampled initial map (+0.77 TACO, +1.56 ARCTIC, +2.85 OakInk2 with one sample). On every dataset a single sample from p(s_0 | G) is about as far from the true first map as the first-contact map of a random real training sequence of the same object and hand (2.35 vs 2.40; 2.40 vs 2.64; 4.12 vs 4.34), and picking the best of ten samples with the ground truth recovers 95 % / 78 % / 55 % of that extra error. This is consistent with a large part of the multimodality being associated with the initial contact / grasp-mode selection.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "report": "reports/hier_contact_gen_report.md",
+   "source_files": [
+    "taco/50_hier_contact_gen/results/aggregate.csv",
+    "taco/50_hier_contact_gen/results/reference_baselines_summary.csv",
+    "arctic/40_hier_contact_gen/results/aggregate.csv",
+    "arctic/40_hier_contact_gen/results/reference_baselines_summary.csv",
+    "oakink2/20_hier_contact_gen/results/aggregate.csv",
+    "oakink2/20_hier_contact_gen/results/reference_baselines_summary.csv"
+   ],
+   "metric": "s0_err = L2 distance between an initial contact map and the true first contact map of the test sequence (raw contact units, mean over test sequences); LOWER is better. Compared: one sample of the geometry-only sampler vs data-only references built from real training first-contact maps of the same group and mesh (a random training take; best of 10 random training takes by held-static E_C; the mean training map; the nearest training map = retrieval oracle).",
+   "numbers": {
+    "TACO | s0_err, one sample of p(s_0 | G) (K=1)": {
+     "value": "2.3496068372994987",
+     "source": "taco/50_hier_contact_gen/results/aggregate.csv",
+     "locator": "row model=samplerG_static, K=1; column s0_err"
+    },
+    "TACO | s0_err, a random real training take of the same mesh (K=1)": {
+     "value": "2.3983323187925496",
+     "source": "taco/50_hier_contact_gen/results/reference_baselines_summary.csv",
+     "locator": "row model=ref_take_static, K=1; column s0_err"
+    },
+    "TACO | s0_err, sampler best of 10 (by held-static E_C) vs best of 10 real training takes (same rule)": {
+     "value": "2.1139196574606083 vs 2.2214784166253696",
+     "source": "taco/50_hier_contact_gen/results/aggregate.csv",
+     "locator": "aggregate.csv row model=samplerG_static K=10 column s0_err; reference_baselines_summary.csv row model=ref_take_static K=10 column s0_err"
+    },
+    "TACO | s0_err, mean training first-contact map of the mesh / nearest training map (retrieval oracle)": {
+     "value": "1.8646949318820958 / 1.082785598421981",
+     "source": "taco/50_hier_contact_gen/results/reference_baselines_summary.csv",
+     "locator": "rows model=ref_mean_static K=0 and model=ref_nearest_static K=0; column s0_err"
+    },
+    "ARCTIC | s0_err, one sample of p(s_0 | G) (K=1)": {
+     "value": "2.395477021413465",
+     "source": "arctic/40_hier_contact_gen/results/aggregate.csv",
+     "locator": "row model=samplerG_static, K=1; column s0_err"
+    },
+    "ARCTIC | s0_err, a random real training take of the same mesh (K=1)": {
+     "value": "2.644135583873077",
+     "source": "arctic/40_hier_contact_gen/results/reference_baselines_summary.csv",
+     "locator": "row model=ref_take_static, K=1; column s0_err"
+    },
+    "ARCTIC | s0_err, sampler best of 10 (by held-static E_C) vs best of 10 real training takes (same rule)": {
+     "value": "1.6597909533208417 vs 1.6978251680892",
+     "source": "arctic/40_hier_contact_gen/results/aggregate.csv",
+     "locator": "aggregate.csv row model=samplerG_static K=10 column s0_err; reference_baselines_summary.csv row model=ref_take_static K=10 column s0_err"
+    },
+    "ARCTIC | s0_err, mean training first-contact map of the mesh / nearest training map (retrieval oracle)": {
+     "value": "1.9510066490019522 / 0.9935902246544438",
+     "source": "arctic/40_hier_contact_gen/results/reference_baselines_summary.csv",
+     "locator": "rows model=ref_mean_static K=0 and model=ref_nearest_static K=0; column s0_err"
+    },
+    "OakInk2 | s0_err, one sample of p(s_0 | G) (K=1)": {
+     "value": "4.122380513753464",
+     "source": "oakink2/20_hier_contact_gen/results/aggregate.csv",
+     "locator": "row model=samplerG_static, K=1; column s0_err"
+    },
+    "OakInk2 | s0_err, a random real training take of the same mesh (K=1)": {
+     "value": "4.337615513682959",
+     "source": "oakink2/20_hier_contact_gen/results/reference_baselines_summary.csv",
+     "locator": "row model=ref_take_static, K=1; column s0_err"
+    },
+    "OakInk2 | s0_err, sampler best of 10 (by held-static E_C) vs best of 10 real training takes (same rule)": {
+     "value": "2.590866510696079 vs 2.5548572682622654",
+     "source": "oakink2/20_hier_contact_gen/results/aggregate.csv",
+     "locator": "aggregate.csv row model=samplerG_static K=10 column s0_err; reference_baselines_summary.csv row model=ref_take_static K=10 column s0_err"
+    },
+    "OakInk2 | s0_err, mean training first-contact map of the mesh / nearest training map (retrieval oracle)": {
+     "value": "3.34596254850798 / 1.7613134126535697",
+     "source": "oakink2/20_hier_contact_gen/results/reference_baselines_summary.csv",
+     "locator": "rows model=ref_mean_static K=0 and model=ref_nearest_static K=0; column s0_err"
+    }
+   },
+   "caveats": [
+    "The report's own sentence 'The multimodality lives entirely in S_0' (Verdict item 7) is stronger than the tables: best-of-10 does not reach the true-s_0 row on ARCTIC / OakInk2, and there is one seed and one split. Use 'a large part ... is associated with'.",
+    "With one sample, the deterministic mean training map of the mesh is CLOSER to the true first map than the geometry-only sampler on every dataset (1.865 vs 2.350; 1.951 vs 2.395; 3.346 vs 4.122). No 'mean map + evolution' rollout was run, so the K=1 generator was never compared with a deterministic initial map evolved by the same vector field.",
+    "The nearest training map (retrieval oracle, uses the ground truth) is far closer (1.083 / 0.994 / 1.761) than the best-of-10 sample: the sampler matches the spread of real takes, it does not identify the take.",
+    "'Multimodality' here is measured as spread of first-contact maps across takes of the same object and hand; the experiment has no mode labels and no test of what the modes are.",
+    "Raw units are not comparable across datasets."
+   ],
+   "claim_as_extracted": "The cost of generation is concentrated in the initial contact map: a single sample from p(s_0 | G) is about as far from the true first map as a random real training take of the same object on every dataset, which is consistent with a large part of the multimodality being associated with the initial contact / grasp-mode selection.",
+   "correction_reason": "s0_err values confirmed (aggregate.csv, reference_baselines_summary.csv). 'The cost of generation is concentrated in the initial contact map' is ambiguous and reads as a statement about the whole error; the true-s_0 rollout still has error 1.82 / 2.14 / 1.24. What the tables show is that B2 minus B1 (same vector field, different initial map) is the sampling cost. No paired test compares sampler and reference; the sampler is slightly closer on all three datasets. The link to 'multimodality' is the report's interpretation (Verdict item 3); this experiment has no mode labels and never ran a stochastic evolution, so 'is consistent with' is the right strength. The reference pool is training sequences of the same group and mesh, not takes."
+  },
+  {
+   "block": "F1-B",
+   "claim": "Applying the evolution to a single sampled s_0 instead of holding that same sample lowers the error on TACO (-1.57 [-1.70, -1.44]) and slightly on OakInk2 (-0.12 [-0.19, -0.05]) but raises it on ARCTIC (+0.25 [+0.07, +0.44], interval above zero), so the deterministic evolution does not uniformly help when it starts from a single sampled initial map. With the best of ten (each side picks its own best sample) the ARCTIC difference is -0.10 [-0.24, +0.03].",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "report": "reports/hier_contact_gen_report.md",
+   "source_files": [
+    "taco/50_hier_contact_gen/results/paired_differences.csv",
+    "arctic/40_hier_contact_gen/results/paired_differences.csv",
+    "oakink2/20_hier_contact_gen/results/paired_differences.csv"
+   ],
+   "metric": "Paired per-sequence difference of E_C: sampled s_0 + evolution minus sampled s_0 held static (geometry-only sampler). NEGATIVE = evolution helps. At K=1 both sides use the same sample 0; at best-of-10 each side uses its own best sample (rollout: lowest rollout E_C; static: lowest held-static E_C). Brackets = 95 % cluster-bootstrap interval (500 resamples).",
+   "numbers": {
+    "TACO | Sampled s_0 (K=1) + evolution minus the same sample held static [95 % CI]; fraction of sequences where evolution is better": {
+     "value": "-1.571795147035148 [-1.699686787533023, -1.4391342476790274]; 0.8296703296703297",
+     "source": "taco/50_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='VF vs static, sampled G K=1'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better"
+    },
+    "ARCTIC | Sampled s_0 (K=1) + evolution minus the same sample held static [95 % CI]; fraction better": {
+     "value": "0.2451927488850009 [0.06825344193825224, 0.43593305483793565]; 0.40860215053763443",
+     "source": "arctic/40_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='VF vs static, sampled G K=1'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better"
+    },
+    "OakInk2 | Sampled s_0 (K=1) + evolution minus the same sample held static [95 % CI]; fraction better": {
+     "value": "-0.11513726035160805 [-0.18705597357132894, -0.048399529881734855]; 0.6268656716417911",
+     "source": "oakink2/20_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='VF vs static, sampled G K=1'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better"
+    },
+    "TACO | Best-of-10 rollout minus best-of-10 held static [95 % CI]": {
+     "value": "-1.3402509521488304 [-1.438415571220784, -1.2166762679058847]",
+     "source": "taco/50_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='VF vs static, sampled G best10'; columns E_C, E_C_lo, E_C_hi"
+    },
+    "ARCTIC | Best-of-10 rollout minus best-of-10 held static [95 % CI]": {
+     "value": "-0.09895539860571582 [-0.243031533712337, 0.028305986421019304]",
+     "source": "arctic/40_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='VF vs static, sampled G best10'; columns E_C, E_C_lo, E_C_hi"
+    },
+    "OakInk2 | Best-of-10 rollout minus best-of-10 held static [95 % CI]": {
+     "value": "-0.05618499879220232 [-0.11065490052997518, -0.018144627400234325]",
+     "source": "oakink2/20_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='VF vs static, sampled G best10'; columns E_C, E_C_lo, E_C_hi"
+    }
+   },
+   "caveats": [
+    "The report calls the best-of-10 row 'same S0 held static', but in the code (rollout_eval.py) the held-static row picks its own best sample by held-static E_C; only the K=1 row compares literally the same sample.",
+    "Report Verdict item 7 states the ARCTIC exception explicitly: 'on ARCTIC, rolling the VF from a single sampled map is significantly worse than holding that map (+0.25 [0.07, 0.44]): a wrong initial mode is evolved wrongly.' The last clause is the report's interpretation, not a separately tested mechanism."
+   ],
+   "claim_as_extracted": "Applying the evolution to a sampled s_0 instead of holding that sample lowers the error on TACO (-1.57) and slightly on OakInk2 (-0.12) but raises it on ARCTIC with a single sample (+0.25, interval above zero), so the deterministic evolution is not uniformly safe from a wrong initial map.",
+   "correction_reason": "Values confirmed in paired_differences.csv ('VF vs static, sampled G K=1' and 'best10'). 'Not uniformly safe from a wrong initial map' imports the report's explanation ('a wrong initial mode is evolved wrongly', Verdict item 7), which was not tested separately: nothing establishes that sample 0 is a 'wrong' mode in the sequences where the rollout is worse."
+  },
+  {
+   "block": "F1-B",
+   "claim": "Over the 64 frames the error of holding the true s_0 rises on TACO to about 4.4 by frame 48 and stays there (4.41 at the last frame), while the rollout from the true s_0 levels off near 2.1 (2.11 at the last frame); on ARCTIC the rollout is below the static curve up to frame 48 and above it from frame 49 on (2.90 vs 2.62 at the last frame; the table has no per-frame intervals); on OakInk2 the two curves nearly coincide (1.70 vs 1.71 at the last frame).",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "report": "reports/hier_contact_gen_report.md",
+   "source_files": [
+    "taco/50_hier_contact_gen/results/curves.csv",
+    "arctic/40_hier_contact_gen/results/curves.csv",
+    "oakink2/20_hier_contact_gen/results/curves.csv"
+   ],
+   "metric": "Per-frame contact error: L2 distance between predicted and true 512-point contact maps at frame t (t = 0..63 after the first firm-contact frame, 30 Hz), mean over the test sequences; raw contact units; LOWER is better. No interval per frame in the table.",
+   "numbers": {
+    "TACO | B0 (true s_0 held), error at t = 16 / 32 / 63": {
+     "value": "2.9571054563294727 / 4.0386462800696 / 4.414069577478445",
+     "source": "taco/50_hier_contact_gen/results/curves.csv",
+     "locator": "rows split=fixed, metric=err, model=static_gt, K=0, t=16, 32, 63; column value"
+    },
+    "TACO | B1 (true s_0 + evolution), error at t = 16 / 32 / 63": {
+     "value": "1.7686081852886704 / 2.033347605267069 / 2.111090363545732",
+     "source": "taco/50_hier_contact_gen/results/curves.csv",
+     "locator": "rows split=fixed, metric=err, model=gtinit_vf, K=0, t=16, 32, 63; column value"
+    },
+    "TACO | B2 best of 10 + evolution, error at t = 0 / 63": {
+     "value": "1.7480017254231395 / 1.9502824419638614",
+     "source": "taco/50_hier_contact_gen/results/curves.csv",
+     "locator": "rows split=fixed, metric=err, model=samplerG_vf, K=10, t=0, 63; column value"
+    },
+    "ARCTIC | B0 (true s_0 held), error at t = 16 / 32 / 63": {
+     "value": "2.086419719281376 / 2.4227783210495466 / 2.6193583102956897",
+     "source": "arctic/40_hier_contact_gen/results/curves.csv",
+     "locator": "rows split=fixed, metric=err, model=static_gt, K=0, t=16, 32, 63; column value"
+    },
+    "ARCTIC | B1 (true s_0 + evolution), error at t = 16 / 32 / 63": {
+     "value": "1.8820433828138536 / 2.281702807673844 / 2.8973645734530624",
+     "source": "arctic/40_hier_contact_gen/results/curves.csv",
+     "locator": "rows split=fixed, metric=err, model=gtinit_vf, K=0, t=16, 32, 63; column value"
+    },
+    "ARCTIC | First frame (after t = 0) at which B1 exceeds B0: B0 / B1 at t = 49": {
+     "value": "2.514522906352756 / 2.5182272642850876",
+     "source": "arctic/40_hier_contact_gen/results/curves.csv",
+     "locator": "rows split=fixed, metric=err, t=49, model=static_gt K=0 and gtinit_vf K=0; column value"
+    },
+    "OakInk2 | B0 / B1 error at t = 63": {
+     "value": "1.7114608807127867 / 1.703791192366709",
+     "source": "oakink2/20_hier_contact_gen/results/curves.csv",
+     "locator": "rows split=fixed, metric=err, t=63, model=static_gt K=0 and gtinit_vf K=0; column value"
+    }
+   },
+   "caveats": [
+    "No per-frame confidence intervals exist in curves.csv; the ARCTIC crossing at t = 49 is a difference of 0.004 between two means and should be described as 'about frame 48-49', not as a significant event.",
+    "The best-of-10 curve is the per-frame error of the sample chosen by whole-rollout E_C with the ground truth (oracle)."
+   ],
+   "claim_as_extracted": "Over the 64 frames the error of holding the true s_0 keeps growing on TACO (4.41 at the last frame) while the rollout from the true s_0 levels off near 2.1; on ARCTIC the rollout is below the static curve early and above it at the end (2.90 vs 2.62), and on OakInk2 the two curves coincide (1.70 vs 1.71).",
+   "correction_reason": "All quoted values are in curves.csv. 'Keeps growing' is not what the TACO static curve does: 4.4405 at t=48, maximum 4.4736 at t=56, 4.4141 at t=63 (the report itself says 'grows from 0 to 4.4 by frame 48'). 'Early' on ARCTIC is frames 1-48 of 64. On OakInk2 the rollout is marginally above the static curve at frames 4-7, 55-56 and 58-59, so 'nearly coincide'."
+  },
+  {
+   "block": "F1-B",
+   "claim": "Which sampler: the page's p(s_0 | G) is the geometry-only sampler (B2); adding local object-motion context to the sampler (B3) lowers the single-sample error on TACO and ARCTIC but makes best-of-10 equal or worse on every dataset, which suggests it narrows the sampled distribution rather than identifying the grasp mode.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "report": "reports/hier_contact_gen_report.md",
+   "source_files": [
+    "taco/50_hier_contact_gen/results/paired_differences.csv",
+    "arctic/40_hier_contact_gen/results/paired_differences.csv",
+    "oakink2/20_hier_contact_gen/results/paired_differences.csv"
+   ],
+   "metric": "Paired per-sequence difference of E_C, B3 (sampler conditioned on G and the 9 object states around frame 0, + evolution) minus B2 (geometry-only sampler + the same evolution); NEGATIVE = motion context helps. Brackets = 95 % cluster-bootstrap interval (500 resamples).",
+   "numbers": {
+    "TACO | B3 minus B2 at K=1 [95 % CI]": {
+     "value": "-0.23593178718954652 [-0.3862544136958928, -0.11371140026195038]",
+     "source": "taco/50_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q4 GT-sampler - G-sampler (K=1)'; columns E_C, E_C_lo, E_C_hi"
+    },
+    "TACO | B3 minus B2 at best of 10 [95 % CI]": {
+     "value": "0.09757690688410958 [0.02232204730527541, 0.1684827205919158]",
+     "source": "taco/50_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q4 GT-sampler - G-sampler (best10)'; columns E_C, E_C_lo, E_C_hi"
+    },
+    "ARCTIC | B3 minus B2 at K=1 [95 % CI]": {
+     "value": "-0.36431680892103463 [-0.6219219306975335, -0.1278892668955899]",
+     "source": "arctic/40_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q4 GT-sampler - G-sampler (K=1)'; columns E_C, E_C_lo, E_C_hi"
+    },
+    "ARCTIC | B3 minus B2 at best of 10 [95 % CI]": {
+     "value": "0.14167521317158976 [-0.004934435302191326, 0.2550467662487265]",
+     "source": "arctic/40_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q4 GT-sampler - G-sampler (best10)'; columns E_C, E_C_lo, E_C_hi"
+    },
+    "OakInk2 | B3 minus B2 at K=1 [95 % CI]": {
+     "value": "-0.28429572321289215 [-0.7472298579140314, 0.29663828420142485]",
+     "source": "oakink2/20_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q4 GT-sampler - G-sampler (K=1)'; columns E_C, E_C_lo, E_C_hi"
+    },
+    "OakInk2 | B3 minus B2 at best of 10 [95 % CI]": {
+     "value": "0.28078389760866684 [0.030643252054109036, 0.5933677571653646]",
+     "source": "oakink2/20_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q4 GT-sampler - G-sampler (best10)'; columns E_C, E_C_lo, E_C_hi"
+    }
+   },
+   "caveats": [
+    "The K=1 gain is not significant on OakInk2 (interval contains zero); the best-of-10 loss is borderline on ARCTIC (interval -0.005 to +0.255).",
+    "'Covers fewer modes' is the report's reading of the K=1 vs best-of-10 flip (Verdict item 4); sample diversity itself was not measured as a separate quantity.",
+    "Both samplers are DDPM models sampled with DDIM (eta = 0, 100 steps), 10 samples per test sequence with fixed seeds; same vector field for B1, B2 and B3."
+   ]
+  }
+ ],
+ "dataset_differences": [
+  "Benefit of the evolution stage from the true s_0 (paired B1 minus B0, E_C): TACO -1.664 [-1.776, -1.535], better on 85.2 % of sequences, 47.8 % of the static error removed; ARCTIC -0.070 [-0.257, +0.107], better on 52.2 %, 3.2 % removed (interval contains zero); OakInk2 -0.016 [-0.110, +0.059], better on 37.3 %, 1.3 % removed (interval contains zero).",
+  "Best of 10 sampled s_0 + evolution versus the true-s_0 rollout (paired B2 minus B1): TACO +0.036 [-0.043, +0.115] (indistinguishable); ARCTIC +0.339 [+0.213, +0.486]; OakInk2 +1.270 [+1.073, +1.481]. Share of the single-sample gap closed by ten samples: 95 % / 78 % / 55 %.",
+  "Sampled generation versus simply holding the TRUE first map: on TACO both K=1 (2.592) and best of 10 (1.855) are below B0 (3.483); on ARCTIC both are above B0 (3.700 and 2.476 vs 2.207); on OakInk2 both are far above B0 (4.092 and 2.513 vs 1.259). Sequences whose best-of-10 rollout beats their own static true-s_0 error: 85 % / 38 % / 16 %.",
+  "Evolving a single sampled map versus holding that same map: TACO -1.572 [-1.700, -1.439] (helps); ARCTIC +0.245 [+0.068, +0.436] (hurts); OakInk2 -0.115 [-0.187, -0.048] (small help).",
+  "Why the regimes differ, as far as the tables show: TACO is an onset / release regime with large change in contact amount (36 % of test sequences leave firm contact in the window, mean true frame-to-frame change 0.317, static mass error 39.2 falling to 11.9 with evolution). OakInk2 is interaction-only with little to evolve (3 % leave contact, true frame change 0.142, static pattern error 0.0112). ARCTIC does change (42 % leave contact, static pattern error 0.0417) but the evolution does not predict it: it lowers the error on the 107 sequences that stay in contact (2.35 to 2.09) and raises it on the 79 that release (2.01 to 2.20). ARCTIC must not be described as 'no temporal change'.",
+  "Per-frame profile: TACO static error grows to 4.41 at frame 63 while the true-s_0 rollout plateaus near 2.1; ARCTIC rollout is below the static curve until about frame 48-49 and ends above it (2.90 vs 2.62); OakInk2 rollout coincides with the static curve (1.70 vs 1.71).",
+  "Temporal (frame-to-frame) error of the true-s_0 rollout versus a constant map: equal on TACO (0.318 vs 0.317) and OakInk2 (0.143 vs 0.142), worse on ARCTIC (0.194 vs 0.167).",
+  "Test sets are of different size and kind: TACO 364 sequences from 186 takes (the dataset's test_1; 97 % are a take's first contact onset); ARCTIC 186 sequences from 44 takes (dataset train / test labels; only 47 % are a take's first onset, the rest are later grasp episodes of the same long recording); OakInk2 201 sequences from 34 recordings (seeded 80/10/10 split by recording; 99 % first onset). ARCTIC and OakInk2 intervals are correspondingly wide.",
+  "Raw E_C units are not comparable across datasets (contact-mass scales differ): the fact that OakInk2 B0 = 1.26 is lower than TACO B0 = 3.48 says nothing about which dataset is easier.",
+  "Group-level consistency of the evolution gain from the true s_0: better in 6 of 6 TACO test groups (but only 20 % removed on plate target L, the largest group, versus 42-70 % in the other five), in 11 of 22 ARCTIC groups and in 16 of 36 OakInk2 groups.",
+  "Sampler with object-motion context (B3 minus B2): K=1 gain is significant on TACO (-0.236) and ARCTIC (-0.364), not on OakInk2 (-0.284 [-0.747, +0.297]); best-of-10 is worse on TACO (+0.098) and OakInk2 (+0.281), borderline on ARCTIC (+0.142 [-0.005, +0.255])."
+ ],
+ "do_not_claim": [
+  "'Sample-then-evolve works on all three datasets' or 'temporal evolution halves the error' as a general statement: the evolution benefit is a TACO result; on ARCTIC and OakInk2 it is not distinguishable from holding the true first map.",
+  "'Ten samples match the ground-truth initialisation' as a general statement: it holds on TACO only (+0.036, interval contains zero); ARCTIC +0.339 and OakInk2 +1.270 are significantly above.",
+  "'The generator reaches 1.86' or any wording that presents best-of-10 as a deployable result: best-of-K is selected with the ground truth of the whole rollout (oracle). The single-sample numbers are 2.59 (TACO), 3.70 (ARCTIC), 4.09 (OakInk2).",
+  "'The multimodality lives entirely in s_0' (the report's own phrase) or 'all the multimodality is in the initial contact': the tables support 'a large part of the multimodality is associated with the initial contact / grasp-mode selection', no more.",
+  "'The future is deterministic given s_0', 'deterministic evolution is sufficient / optimal / necessary' or 'universally deterministic': this experiment used only a deterministic vector field and never compared it with a stochastic evolution; on ARCTIC that deterministic evolution does not beat holding s_0.",
+  "'Contact does not move over time on ARCTIC / OakInk2': on ARCTIC 42 % of the test sequences leave firm contact within the window and the static pattern error is 0.0417; the null there is a failure to predict the change, not absence of change.",
+  "'Static persistence (3.48) is a naive baseline': it holds the TRUE first contact map, which a generator does not have.",
+  "'The learned sampler predicts the grasp' or 'is an accurate initial-contact model': a single sample is about as far from the truth as a random real training take, and FURTHER than the mean training map of the mesh on every dataset (2.350 vs 1.865; 2.395 vs 1.951; 4.122 vs 3.346).",
+  "'Object motion selects the grasp mode': adding motion context to the sampler helps one sample on TACO / ARCTIC but makes best-of-10 equal or worse on every dataset.",
+  "'The evolution models contact dynamics frame by frame': its frame-to-frame error is no better than a constant map on TACO / OakInk2 and worse on ARCTIC; the TACO gain is in the slow contact-amount trend.",
+  "'The evolution is always safe to apply': from a single sampled map on ARCTIC it is significantly worse than holding that map (+0.245 [+0.068, +0.436]).",
+  "'Generalises to unseen objects': the main TACO test contains only seen groups / meshes / subjects; on the two TACO groups with no training take the evolution is worse than static.",
+  "Any cross-dataset comparison or average of raw E_C values, or a pooled 'mean improvement over datasets'.",
+  "Any statement of robustness across seeds or splits: one training seed and one fixed split per dataset.",
+  "'Grasp intent', 'human intention' or named grasp modes: the experiment has no mode labels; 'mode' means the spread of first-contact maps across takes of the same object and hand.",
+  "'The best-of-10 rollout was compared with the same sample held static': at best-of-10 the held-static row uses its own best sample (chosen by held-static error); only the K=1 comparison uses literally the same sample."
+ ],
+ "candidate_images": [
+  {
+   "path": "arctic/40_hier_contact_gen/figures/fig7_sampler_modes_fixed.png",
+   "block": "F1-B",
+   "shows": "ARCTIC scissors, left hand, first-contact maps drawn on the 512 canonical points (2-D projection; brighter = more contact, colour scale clipped to the maximum of the top row). Top row: the true first-contact maps of ten test sequences of this object and hand; they come from only three recordings (scissors_grab_01/s01, scissors_use_02/s09, scissors_use_02/s10) and fall into two visibly different patterns: contact on a handle ring (sequences 0-3) or on the long end opposite the rings (sequences 4-9). Middle row: ten samples of the geometry-only sampler p(s_0 | G), all drawn for test sequence 0: most put the contact on the long end, sample 0 on the ring. Bottom row: ten samples of the trajectory-conditioned sampler for the same sequence: all on the handle ring. Defects: panel titles use internal notation ('GT C0', 'p(S0|G,tau)'), long raw suptitle, no colour bar; the suptitle says 'test takes' although the columns are test sequences.",
+   "caption": "First-contact maps of the left hand on the ARCTIC scissors. Top: ten test sequences (from three recordings) start with contact either on a handle ring or on the opposite end. Middle: ten initial maps sampled from object geometry alone for the first of these sequences reproduce both patterns. Bottom: ten samples that also see the object motion around first contact all choose the ring.",
+   "size": "379615 bytes, 2200 x 715 px"
+  },
+  {
+   "path": "taco/50_hier_contact_gen/figures/fig6_qual_high_drift_fixed.png",
+   "block": "F1-B",
+   "shows": "TACO knife (tool, right hand), take '(scrape off, knife, plate)/20231020_226': the test sequence with the largest change between first and last frame (selection rule in figures.py: argmax of ||C_63 - C_0||). Columns t = 0, 8, 16, 32, 48, 63. Rows: ground truth; B1 true s_0 + evolution; B2 geometry-only sample + evolution (best of 10, the chosen sample shown at the far left, k* = 5); B3 trajectory-conditioned sample + evolution (best of 10, k* = 4). Contact on the handle grows over the window and the B1 and B2 rollouts follow it. Title prints the E_C of this sequence: B0 4.53, B1 0.96, B2 1.26, B3 2.85 (verified in eval/fixed0/per_example.csv, example 3011: 4.533856 / 0.960238 / 1.260504 / 2.851851). Defects: title is a raw id string, row labels are internal codes, no colour bar.",
+   "caption": "One TACO example (knife, right hand; the test sequence whose contact changes most). Rows: ground truth; true first map + deterministic evolution; a sampled first map (best of ten, picked with the ground truth) + the same evolution, for the geometry-only and the motion-conditioned sampler. The contact on the handle grows over the 64 frames and the rollouts follow it (error of this sequence: 4.53 holding the true first map, 0.96 and 1.26 for the second and third rows).",
+   "size": "461435 bytes, 1764 x 708 px"
+  },
+  {
+   "path": "arctic/40_hier_contact_gen/figures/fig6_qual_high_drift_fixed.png",
+   "block": "F1-B",
+   "shows": "Contrast example for the dataset difference. ARCTIC ketchup bottle, left hand, take ketchup_grab_01/s10, onset frame 70 (the ARCTIC test sequence with the largest ||C_63 - C_0||; it leaves firm contact inside the window). Same layout as the TACO example. Ground truth: contact at one end at t = 0-8, almost none at t = 16-32, then a new contact region in the middle at t = 48-63. B1 (true s_0 + evolution) keeps a weak contact at the original end and does not produce the new region; the sampled rollouts start from different regions. Title E_C: B0 3.55, B1 3.47, B2 2.92, B3 5.37 (verified in per_example.csv, example 360). Same defects as above (raw id title, internal row labels, no colour bar); larger file.",
+   "caption": "One ARCTIC example (ketchup bottle, left hand; the test sequence whose contact changes most). The hand lets go and takes hold again at a different place; the deterministic evolution started from the true first map does not follow this change (error 3.47 against 3.55 for holding the first map).",
+   "size": "967150 bytes, 1764 x 708 px"
+  }
+ ],
+ "verification": {
+  "reliability": "high",
+  "numbers_confirmed": 73,
+  "numbers_checked": 74,
+  "number_corrections": [
+   {
+    "block": "F1-B",
+    "label": "TACO groups with no training take (test_3 subset, n = 275): E_C B0 / B1",
+    "reported": "3.169172 / 3.373925",
+    "found": "3.169172282218933 / 3.3739251886714587 (n = 275). The extractor truncated to 6 decimals; the table holds full precision. Meaning is right (orig_split=test_3, group_seen_in_train=False; not part of the main test set). test_4 unseen (n = 470): 3.7206470060855783 / 4.340327050584428",
+    "verdict": "corrected",
+    "source_checked": "taco/50_hier_contact_gen/results/by_orig_split.csv rows orig_split=test_3, group_seen_in_train=False, model=static_gt K=0 and gtinit_vf K=0; column E_C, n",
+    "applied_to": "TACO | TACO groups with NO training take (test_3, n = 275): E_C B0 / B1"
+   }
+  ],
+  "claims_supported_as_extracted": 1,
+  "claims_checked": 7,
+  "figure_checks": [
+   {
+    "id": "f1b_sample_then_evolve",
+    "verdict": "fixed",
+    "note": "Plotted values were correct and are unchanged: all 45 values (5 bars x value / lo / hi x 3 datasets) match aggregate.csv rows (static_gt, 0), (gtinit_vf, 0), (samplerG_vf, 1 / 5 / 10), columns E_C, E_C_lo, E_C_hi, in the right dataset panel; direction lower_better is right; error bars are the 2.5 / 97.5 percentiles of the take-level cluster bootstrap with 500 resamples (aggregate.py, hc_common.cluster_bootstrap); n in the note is read from n_examples / n_takes. No plotted value is typed in the code. Changed the note only: it now says the 64 frames follow a contact-episode onset, that the first two bars start from the TRUE first map (diagnostic rows, not generators), and that s0 is sampled from the static object condition (geometry descriptor plus hand and role flags, no object motion) instead of 'object geometry only'. Re-run after the edit: series, categories and sources identical to the first run."
+   },
+   {
+    "id": "f1b_paired_differences",
+    "verdict": "fixed",
+    "note": "Plotted values were correct and are unchanged: all 36 values (4 bars x value / lo / hi x 3 datasets) match paired_differences.csv rows 'Q2 VF - static (GT init)', 'VF vs static, sampled G K=1', 'Q3 sampled(G,K=1) - GT init', 'Q3 sampled(G,best10) - GT init' (a / b columns checked: gtinit_vf - static_gt; samplerG_vf K1 - samplerG_static K1; samplerG_vf K1 - gtinit_vf; samplerG_vf K10 - gtinit_vf), columns E_C, E_C_lo, E_C_hi. Sign convention in the note (below zero = first-named variant lower) is right; zero reference line is the only numeric literal. Changed the note only: the oracle caveat for the fourth bar was missing, so the note now states that 'best of 10' is the sample of ten with the lowest whole-rollout error picked with the ground truth, and that at K=1 'evolve minus hold' uses the same sampled map on both sides."
+   },
+   {
+    "id": "f1b_error_over_time",
+    "verdict": "fixed",
+    "note": "Plotted values were correct and are unchanged: all 4 curves x 64 frames x 3 datasets match curves.csv (split=fixed, metric=err, (static_gt, 0), (gtinit_vf, 0), (samplerG_vf, 1), (samplerG_vf, 10)); no duplicate rows; each curve's mean equals the aggregate E_C. No intervals exist per frame and none are drawn. Changed: x label 'frame after the first firm contact (30 Hz)' to 'frame since the contact-episode onset (30 Hz)', and the note now defines frame 0 (first firm-contact frame of a take, or of a later episode of the same take); 53 % of the ARCTIC test sequences start at a later episode, so the old label was wrong for them. For the page text: the extractor's reading 'the sampled curves are flat, their error is there from frame 0' holds for TACO (K=1 2.35 at frame 0, 2.58-2.68 afterwards; best of 10 1.75 to 1.95) and OakInk2, not for ARCTIC, where the K=1 curve rises from 2.40 to 3.96 and best of 10 from 1.73 to 2.82."
+   }
+  ],
+  "image_checks": [
+   {
+    "path": "arctic/40_hier_contact_gen/figures/fig7_sampler_modes_fixed.png",
+    "exists": true,
+    "note": "Exists, 379615 bytes, 2200 x 715 px; opened. Caption is supported: top row, sequences 0-3 have contact on a handle ring and 4-9 on the long end opposite the rings; middle row (geometry-only samples for sequence 0), sample 0 on the ring and samples 1-9 on the long end; bottom row (motion-conditioned), all ten on the ring. sequences_meta.csv confirms three recordings: four episodes of scissors_grab_01/s01, four of scissors_use_02/s09, two of scissors_use_02/s10. The example is chosen by rule (the group and mesh with the most test sequences, 23; first ten), not hand-picked. Caveats to attach: (1) the two patterns coincide with the recordings: all four ring maps are episodes of the one 'grab' recording and the six long-end maps come from the two 'use' recordings, so this is three recordings, not ten independent grasps; (2) the bottom row is one sequence and must not be used to say object motion selects the grasp mode (best of 10 with motion context is equal or worse on every dataset); (3) the embedded title says 'test takes' and 'take 0' although the columns are sequences, and panel titles use internal notation, so crop or re-title; no colour bar (scale clipped to the top row's maximum)."
+   },
+   {
+    "path": "taco/50_hier_contact_gen/figures/fig6_qual_high_drift_fixed.png",
+    "exists": true,
+    "note": "Exists, 461435 bytes, 1764 x 708 px; opened. Caption is supported. Title values match eval/fixed0/per_example.csv, example 3011 (knife__tool__R, take '(scrape off, knife, plate)/20231020_226'): B0 4.533856, B1 0.960238, B2 best of 10 1.260504 (k* 5), B3 best of 10 2.851851 (k* 4). Selection rule in figures.py is argmax of ||C_63 - C_0|| over the test sequences, so word it as 'the test sequence with the largest difference between its first and last contact map'; it is by construction the kind of example most favourable to the evolution (its B0 is 4.53 against the dataset mean 3.48) and should be labelled as one example. 'Handle' is read off the 2-D projection (the narrow end), it is not labelled in the data. Rows 3 and 4 are oracle best-of-10 selections, as the caption says. Raw-id title, internal row labels and no colour bar remain."
+   },
+   {
+    "path": "arctic/40_hier_contact_gen/figures/fig6_qual_high_drift_fixed.png",
+    "exists": true,
+    "note": "Exists, 967150 bytes, 1764 x 708 px; opened. Caption is supported with one wording change. Title values match eval/fixed0/per_example.csv, example 360 (ketchup__obj__L, ketchup_grab_01/s10, onset frame 70, leaves_contact = 1): B0 3.546175, B1 3.473378, B2 2.920623, B3 5.366763. The image shows true contact at one end at t = 0-8, almost none at t = 16-32 and a new region in the middle at t = 48-63, while the true-s_0 rollout keeps weak contact near the original end. 'The hand lets go and takes hold again' is an interpretation of the contact map; write 'the contact disappears and reappears at a different place'. The rollout is still marginally below the static error on this sequence (3.47 vs 3.55), so 'does not follow this change' is right but 'fails' would be too strong. Same selection rule and layout defects as the TACO example."
+   }
+  ],
+  "attached_by_the_verifier": [
+   "Oracle selection is by whole-window error, not by closeness to the true first map: on TACO the best-of-10 sample is 1.748 away from the true s_0 at frame 0 and its curve ends below the true-s_0 rollout at frame 63 (1.950 vs 2.111, curves.csv). 'Reaches the ground-truth-initialised error' is an equality of window-averaged errors, not recovery of the true initial contact. This caveat is not attached to the 1.86 vs 1.82 statement.",
+   "Reference baselines (the 'random real training take' and 'best of 10 real takes' rows): the pool is training SEQUENCES of the same group (object category, role, hand) and mesh, not takes (on ARCTIC 1005 training sequences come from 231 takes), and ten are drawn with replacement when the pool is smaller: 51 of 364 TACO test sequences (smallest pool 3) and 25 of 201 OakInk2 test sequences (smallest pool 1) have fewer than ten candidates; none on ARCTIC (reference_baselines.py, reference_baselines.csv column n_candidates). Not disclosed by the extractor.",
+   "Window start: the extractor's metric text says the 64 frames start 'at the first firm-contact frame'. They start at a contact-episode onset; on ARCTIC only 47 % of the test sequences are a take's first onset (per_example.csv first_onset 0.4731; TACO 0.9725, OakInk2 0.9900). The fact is in the dataset-difference list but the metric definition and the figure axis label were wrong for ARCTIC (label fixed in the module).",
+   "Report prose vs table: the report's Verdict gives the TACO paired interval as [-1.78, -1.54]; the table value is -1.5349612764135008 (section 4 prints -1.535). Use the table (1.53 at two decimals, or three decimals throughout).",
+   "The TACO static curve does not keep growing: 4.44 at frame 48, peak 4.47 at frame 56, 4.41 at frame 63. The page text for the time figure should say it rises to about 4.4 by frame 48.",
+   "ARCTIC sampled curves are not flat: K=1 rises from 2.40 at frame 0 to 3.96 at frame 63, best of 10 from 1.73 to 2.82 (curves.csv). 'The error is there from frame 0' applies to TACO and OakInk2 only.",
+   "ARCTIC scissors image: the two first-contact patterns coincide with the recordings (one 'grab' recording, two 'use' recordings); this is not stated in the proposed caption and matters for any 'two grasp modes of the same object' reading.",
+   "E_C averages all 64 frames including frame 0, where the two true-s_0 rows have zero error by construction and the sampled rows carry their initial-map error. Small, but it belongs in the metric definition."
+  ]
+ }
+}

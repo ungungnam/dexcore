@@ -1,0 +1,266 @@
+{
+ "unit": "supplement",
+ "figure_module": null,
+ "entries": [
+  {
+   "block": "HYP",
+   "claim": "Started from the true first latent, the single-step probe's advantage over the whole-sequence Stage-2 model shrinks with the target frame: 51 %, 17 % and 5 % at frames 1, 4 and 8 on TACO; 42 %, 10 % and 1 % on ARCTIC.",
+   "claim_status": "checked against the table by the page author",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_temporal_diagnostic/report.md",
+   "source_files": [
+    "reports/z_temporal_diagnostic/stage2_comparison.csv"
+   ],
+   "metric": "rescue = 1 - RMSE(single-step probe started from the true z_0) / RMSE(Stage-2 B1) of the predicted latent at target frame h, test sequences; higher = the probe is better; 95 % take-cluster bootstrap interval",
+   "numbers": {
+    "TACO | rescue from the true z_0 at frame 1 [95 % CI]": {
+     "value": "0.512411 [0.453443, 0.567915]",
+     "source": "reports/z_temporal_diagnostic/stage2_comparison.csv",
+     "locator": "dataset=taco, mode=from_start, h=1, columns rescue, rescue_lo, rescue_hi"
+    },
+    "TACO | rescue from the true z_0 at frame 4 [95 % CI]": {
+     "value": "0.173675 [0.131106, 0.217240]",
+     "source": "reports/z_temporal_diagnostic/stage2_comparison.csv",
+     "locator": "dataset=taco, mode=from_start, h=4"
+    },
+    "TACO | rescue from the true z_0 at frame 8 [95 % CI]": {
+     "value": "0.052867 [0.010793, 0.092846]",
+     "source": "reports/z_temporal_diagnostic/stage2_comparison.csv",
+     "locator": "dataset=taco, mode=from_start, h=8"
+    },
+    "ARCTIC | rescue from the true z_0 at frame 1 [95 % CI]": {
+     "value": "0.417208 [0.360950, 0.468007]",
+     "source": "reports/z_temporal_diagnostic/stage2_comparison.csv",
+     "locator": "dataset=arctic, mode=from_start, h=1"
+    },
+    "ARCTIC | rescue from the true z_0 at frame 4 [95 % CI]": {
+     "value": "0.104707 [0.016345, 0.189970]",
+     "source": "reports/z_temporal_diagnostic/stage2_comparison.csv",
+     "locator": "dataset=arctic, mode=from_start, h=4"
+    },
+    "ARCTIC | rescue from the true z_0 at frame 8 [95 % CI]": {
+     "value": "0.012201 [-0.075761, 0.093240]",
+     "source": "reports/z_temporal_diagnostic/stage2_comparison.csv",
+     "locator": "dataset=arctic, mode=from_start, h=8"
+    }
+   },
+   "caveats": [
+    "Belongs to the finished z temporal diagnostic; quoted in the hypothesis section as a caution against the stateful hypothesis, not as a result of the running experiment.",
+    "The probe is single-step and is given the true z_0; no rollout was measured."
+   ]
+  },
+  {
+   "block": "F3-B",
+   "claim": "The like-for-like linear reference for the 64-D z-only reconstruction is PCA-64 (0.66 on TACO, 1.19 on ARCTIC); the two reference bars drawn in the chart (plain autoencoder, PCA-128) use 128 dimensions.",
+   "claim_status": "checked against the table by the page author",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_factorization_stage1/report.md",
+   "source_files": [
+    "reports/contact_factorization_stage1/reconstruction_metrics.csv"
+   ],
+   "metric": "Mean per-frame L2 reconstruction error over the 512 points on the unique test frames (raw contact units, lower is better); 95 % take-cluster bootstrap interval.",
+   "numbers": {
+    "TACO | PCA-64 reconstruction error [95 % CI]": {
+     "value": "0.658383 [0.633482, 0.685826]",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row dataset=taco, model=pca64; columns E_full, E_full_lo, E_full_hi"
+    },
+    "ARCTIC | PCA-64 reconstruction error [95 % CI]": {
+     "value": "1.192481 [1.040023, 1.337286]",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row dataset=arctic, model=pca64; columns E_full, E_full_lo, E_full_hi"
+    }
+   },
+   "caveats": [
+    "PCA-64 is not plotted; the z-only error (0.449 TACO, 0.645 ARCTIC) is below it on both datasets and above PCA-128 on TACO (0.353)."
+   ]
+  },
+  {
+   "block": "F3-A",
+   "claim": "The error of holding the first contact map is averaged over different frames in Finding 1 and in Finding 3: 3.48 (TACO) and 2.21 (ARCTIC) over all 64 frames including the given first one, 3.54 and 2.24 over the 63 generated frames. Same baseline, same test sequences.",
+   "claim_status": "checked against the table by the page author",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_latent_temporal_stage2/report.md",
+   "source_files": [
+    "taco/50_hier_contact_gen/results/aggregate.csv",
+    "arctic/40_hier_contact_gen/results/aggregate.csv",
+    "reports/contact_latent_temporal_stage2/main_metrics.csv"
+   ],
+   "metric": "Dense contact error E_C (L2 over the 512 points, raw contact units, lower is better) of C_t = s_0, test mean with 95 % take-cluster bootstrap interval.",
+   "numbers": {
+    "TACO | hold the true s_0, frames 0-63 [95 % CI]": {
+     "value": "3.483226 [3.351216, 3.613689]",
+     "source": "taco/50_hier_contact_gen/results/aggregate.csv",
+     "locator": "row model=static_gt; columns E_C, E_C_lo, E_C_hi"
+    },
+    "ARCTIC | hold the true s_0, frames 0-63 [95 % CI]": {
+     "value": "2.207075 [1.935257, 2.480575]",
+     "source": "arctic/40_hier_contact_gen/results/aggregate.csv",
+     "locator": "row model=static_gt; columns E_C, E_C_lo, E_C_hi"
+    },
+    "TACO | hold the true s_0, frames 1-63 [95 % CI]": {
+     "value": "3.538516 [3.404165, 3.673847]",
+     "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+     "locator": "row dataset=taco, model=PERSIST, metric=E_C; columns value, ci_lo, ci_hi"
+    },
+    "ARCTIC | hold the true s_0, frames 1-63 [95 % CI]": {
+     "value": "2.242108 [1.975344, 2.523473]",
+     "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+     "locator": "row dataset=arctic, model=PERSIST, metric=E_C; columns value, ci_lo, ci_hi"
+    }
+   },
+   "caveats": [
+    "Stated in the lead of Finding 3 so that the reference line of the Finding-3 charts is not read as a different result from the bar of evidence 1B."
+   ]
+  },
+  {
+   "block": "F3-subB",
+   "claim": "The test sets differ between the datasets: the TACO test set is the dataset's test_1 split (364 sequences from 186 takes; every group, mesh and subject seen in training); the ARCTIC test set is 186 sequences from 44 takes, 21 of them from a subject absent from training. On the ARCTIC test takes of seen subjects the z diagnostic's labels are the same (no / no / marginal).",
+   "claim_status": "checked against the table by the page author",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_temporal_diagnostic/report.md",
+   "source_files": [
+    "taco/50_hier_contact_gen/manifests/fixed0.json",
+    "reports/hier_contact_gen_report.md",
+    "reports/z_temporal_diagnostic/report.md",
+    "taco/50_hier_contact_gen/results/aggregate.csv",
+    "arctic/40_hier_contact_gen/results/aggregate.csv"
+   ],
+   "metric": "Composition of the fixed test split used from evidence 1B on.",
+   "numbers": {
+    "TACO | split rule": {
+     "value": "dataset labels: train -> train/val, test_1 -> test (test_2..4 -> test_extra)",
+     "source": "taco/50_hier_contact_gen/manifests/fixed0.json",
+     "locator": "key rule"
+    },
+    "TACO | test sequences / takes": {
+     "value": "364 / 186",
+     "source": "taco/50_hier_contact_gen/results/aggregate.csv",
+     "locator": "columns n_examples, n_takes (any row)"
+    },
+    "TACO | test identities": {
+     "value": "\"Test = the dataset's test_1 (364 sequences, every group / mesh / subject seen in training)\"",
+     "source": "reports/hier_contact_gen_report.md",
+     "locator": "line 433"
+    },
+    "ARCTIC | test sequences / takes": {
+     "value": "186 / 44",
+     "source": "arctic/40_hier_contact_gen/results/aggregate.csv",
+     "locator": "columns n_examples, n_takes (any row)"
+    },
+    "ARCTIC | test takes of a subject absent from training": {
+     "value": "\"21 of the 44 test takes come from a subject that is absent from training\"",
+     "source": "reports/z_temporal_diagnostic/report.md",
+     "locator": "line 525"
+    },
+    "ARCTIC | labels on seen-subject test takes": {
+     "value": "\"on the test takes of subjects seen in training the labels are also no / no / marginal (2.3% / 3.8% / 7.9%)\"",
+     "source": "reports/z_temporal_diagnostic/report.md",
+     "locator": "line 26"
+    }
+   },
+   "caveats": [
+    "The seen-subject split is post hoc (added after the results were seen)."
+   ]
+  },
+  {
+   "block": "F2-B",
+   "claim": "Going from R1 to R2 lowers the future-structure error by 12 % (TACO) and 15 % (ARCTIC) as a mean over the four targets and the three horizons; the gain comes from the future centroid / normal and the future wrench profile, while the future amount (both datasets) and the future participation (ARCTIC) are not predicted better from R2 than from R1.",
+   "claim_status": "checked against the table by the page author",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_variance_boundary/structure_variance_report.md",
+   "source_files": [
+    "reports/structure_variance_boundary/incremental_gain.csv"
+   ],
+   "metric": "Ratio of the test error of the temporal model with input R2 to that with input R1 (below 1 = R2 better), per target (T1 participation, T2 amount, T3 centroid / normal, T4 wrench profile) at h = 1 / 4 / 8; temporal_ratio = mean over targets and horizons, with its 95 % interval.",
+   "numbers": {
+    "TACO | temporal_ratio R1 -> R2 [95 % CI]": {
+     "value": "0.884615 [0.875938, 0.892967]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "row dataset=taco, frm=R1, to=R2; columns temporal_ratio, temporal_lo, temporal_hi"
+    },
+    "ARCTIC | temporal_ratio R1 -> R2 [95 % CI]": {
+     "value": "0.852503 [0.833001, 0.874498]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "row dataset=arctic, frm=R1, to=R2; columns temporal_ratio, temporal_lo, temporal_hi"
+    },
+    "TACO | per-target ratio at h = 1 / 4 / 8: participation; amount; centroid / normal; wrench": {
+     "value": "0.960836 / 0.979407 / 0.965810; 1.061133 / 1.033010 / 1.020410; 0.558700 / 0.660434 / 0.718788; 0.805411 / 0.903415 / 0.948032",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "row taco R1 -> R2; columns T1_ratio_h*, T2_ratio_h*, T3_ratio_h*, T4_ratio_h*"
+    },
+    "ARCTIC | per-target ratio at h = 1 / 4 / 8: participation; amount; centroid / normal; wrench": {
+     "value": "1.198269 / 1.150703 / 1.092845; 1.115614 / 1.064039 / 1.022035; 0.345686 / 0.455122 / 0.538275; 0.643442 / 0.761867 / 0.842137",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "row arctic R1 -> R2; columns T1_ratio_h*, T2_ratio_h*, T3_ratio_h*, T4_ratio_h*"
+    }
+   },
+   "caveats": [
+    "The per-target ratios have no interval in this table. One of the two improved targets is the wrench profile itself."
+   ]
+  },
+  {
+   "block": "F2-C",
+   "claim": "The hand-point residual behaves differently from the contact-map residual: on TACO its change is partly predicted even by the causal predictor (22 / 36 / 46 % of the last-value error removed at 1 / 4 / 8 frames; 31 / 57 / 62 % with the future structure) and at eight frames carrying it forward is worse than a zero residual; on ARCTIC the causal predictor removes 11 % at one frame and nothing distinguishable from zero at 4 and 8 frames (19 / 24 / 20 % with the future structure).",
+   "claim_status": "checked against the table by the page author",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_variance_boundary/structure_variance_report.md",
+   "source_files": [
+    "reports/structure_variance_boundary/residual_prediction.csv"
+   ],
+   "metric": "Hand-point residual beyond R2 (block H): error of a predictor of the residual's change divided by the error of keeping the last value (mse_ratio_to_last; below 1 = the change is partly predicted), and error of the last value divided by the error of a zero residual (mse_ratio_to_zero); test takes, 95 % interval.",
+   "numbers": {
+    "TACO | causal predictor / last value at h = 1 / 4 / 8 [95 % CI]": {
+     "value": "0.783784 [0.742425, 0.827206] / 0.644871 [0.593660, 0.706031] / 0.542417 [0.487890, 0.608228]",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "rows dataset=taco, zstar=R2, block=H, model=history_delta, metric=mse_ratio_to_last"
+    },
+    "TACO | oracle (future R2) / last value at h = 1 / 4 / 8": {
+     "value": "0.691071 / 0.430529 / 0.382260",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "rows dataset=taco, zstar=R2, block=H, model=oracle_delta, metric=mse_ratio_to_last"
+    },
+    "ARCTIC | causal predictor / last value at h = 1 / 4 / 8 [95 % CI]": {
+     "value": "0.890012 [0.814509, 0.965832] / 0.959176 [0.834746, 1.076961] / 0.998064 [0.874837, 1.117718]",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "rows dataset=arctic, zstar=R2, block=H, model=history_delta, metric=mse_ratio_to_last"
+    },
+    "ARCTIC | oracle (future R2) / last value at h = 1 / 4 / 8": {
+     "value": "0.812675 / 0.759728 / 0.795636",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "rows dataset=arctic, zstar=R2, block=H, model=oracle_delta, metric=mse_ratio_to_last"
+    },
+    "TACO | last value / zero residual at h = 8 [95 % CI]": {
+     "value": "1.236777 [1.126543, 1.338421]",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "row dataset=taco, zstar=R2, block=H, model=last, metric=mse_ratio_to_zero, h=8"
+    }
+   },
+   "caveats": [
+    "The hand-point series are not drawn on the page; they are in the figure data (f2c_residual_change_vs_last, series 'hand, causal' and 'hand, oracle')."
+   ]
+  }
+ ],
+ "dataset_differences": [],
+ "do_not_claim": [],
+ "candidate_images": [],
+ "verification": null
+}

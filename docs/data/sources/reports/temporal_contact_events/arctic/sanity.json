@@ -1,0 +1,68 @@
+{
+  "dataset": "arctic",
+  "n_test_sequences": 186,
+  "n_takes": 44,
+  "n_transitions": 11718,
+  "n_train_transitions": 63315,
+  "q90": 0.5642629623413083,
+  "q95": 0.8045866072177881,
+  "decomposition_max_rel_residual": 1.4390233445737977e-05,
+  "n_valid_decomp": 11242,
+  "frac_valid_decomp": 0.959378733572282,
+  "n_spike_frames_q90": 663,
+  "frac_spike_frames_q90": 0.05657962109575013,
+  "n_events_q90": 283,
+  "n_events_q90_gap1": null,
+  "events_per_sequence": 1.521505376344086,
+  "n_spike_frames_q95": 289,
+  "spike_energy_share_of_all": 0.6236376798996892,
+  "spike_magnitude_share_of_all": 0.2933825975240143,
+  "n_onset_transitions": 58,
+  "n_release_transitions": 107,
+  "frac_frames_firm": 0.8868407578084997,
+  "smoothing_energy_ratio_s3": 0.7040764022158427,
+  "smoothing_energy_ratio_s5": 0.5289206746332643,
+  "smoothing_spike_energy_ratio_s3": 0.6290446015332664,
+  "smoothing_spike_energy_ratio_s5": 0.4113656861134112,
+  "persistence_h2_quantiles": {
+    "0.05": 0.710183072090149,
+    "0.1": 0.7699348866939545,
+    "0.25": 0.8623220175504684,
+    "0.5": 0.9299797415733337,
+    "0.75": 0.9679382145404816,
+    "0.9": 0.9915284037590026
+  },
+  "persistence_event_quantiles": {
+    "0.05": 0.8081521605555685,
+    "0.1": 0.8731322191276621,
+    "0.25": 0.9533099999819664,
+    "0.5": 0.9932896138318271,
+    "0.75": 0.9999999983274225,
+    "0.9": 0.9999999986209777
+  },
+  "category_counts": {
+    "mixed": 136,
+    "release": 54,
+    "amount": 40,
+    "spatial": 33,
+    "onset": 17,
+    "onset+release": 2,
+    "near_zero": 1
+  },
+  "kinematics_available": [
+    "obj_lin_speed",
+    "obj_ang_speed",
+    "arti_rate",
+    "hand_rel_speed"
+  ],
+  "transient_thr": 0.5,
+  "models": [
+    "B0_static",
+    "B1_gtinit_vf",
+    "B2_samplerG_vf_K10",
+    "B2_samplerG_vf_K1",
+    "B3_samplerGT_vf_K10",
+    "B4_bimart_K10",
+    "B4_bimart_K1"
+  ]
+}

@@ -1,0 +1,961 @@
+{
+ "unit": "I_stage2_latent_temporal",
+ "figure_module": "docs/build/figs/f3c_stage2_latent_temporal.py",
+ "entries": [
+  {
+   "block": "F3-C",
+   "claim": "With one seed per model, the z-mediated generator B1 (as implemented: absolute-map decoder, no path that copies s_0) has a dense error that is statistically tied with the direct generator B0 on TACO (1.732 vs 1.700; paired difference +0.031 [-0.009, +0.076]) and 14.1 % higher on ARCTIC (2.157 vs 1.890; paired difference +0.266 [+0.189, +0.345]).",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_latent_temporal_stage2/report.md",
+   "source_files": [
+    "reports/contact_latent_temporal_stage2/main_metrics.csv",
+    "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+    "reports/contact_latent_temporal_stage2/decision_summary.csv"
+   ],
+   "metric": "Dense error E_C: per-frame L2 norm of (generated - true) 512-point contact map in raw contact units, averaged over the 63 generated frames and over the test sequences; lower is better. Fixed ground-truth s_0, one deterministic trajectory per sequence, one seed per model. Per-model intervals are unpaired 95 % take-cluster bootstrap intervals (1000 resamples); the comparison uses the paired difference mean(B1 - B0) on identical sequences with a paired 95 % take-cluster bootstrap interval. Report rule: better / worse only if the paired interval excludes 0 and the relative change is at least 2 %.",
+   "numbers": {
+    "TACO | E_C of B0 (direct), mean [95 % CI], n": {
+     "value": "1.700352207481206 [1.5975254761392381, 1.8006890368593123], n = 364",
+     "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+     "locator": "row dataset=taco, model=B0, metric=E_C; columns value, ci_lo, ci_hi, n_examples"
+    },
+    "TACO | E_C of B1 (z-mediated), mean [95 % CI], n": {
+     "value": "1.7317861767669955 [1.6239584995702177, 1.8456560345574091], n = 364",
+     "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+     "locator": "row dataset=taco, model=B1, metric=E_C"
+    },
+    "TACO | paired difference B1 - B0 in E_C [paired 95 % CI]; relative improvement of B1; verdict": {
+     "value": "+0.031433969285789426 [-0.008829891883786155, +0.07580962459640529]; rel_improvement -0.01848674006919644 (1.8 % worse, not significant); verdict similar",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=B1, b=B0, metric=E_C; columns diff, ci_lo, ci_hi, rel_improvement, verdict"
+    },
+    "ARCTIC | E_C of B0 (direct), mean [95 % CI], n": {
+     "value": "1.8901479019112484 [1.6294874953810445, 2.173438141254632], n = 186",
+     "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+     "locator": "row dataset=arctic, model=B0, metric=E_C"
+    },
+    "ARCTIC | E_C of B1 (z-mediated), mean [95 % CI], n": {
+     "value": "2.156583450213876 [1.8606065641012814, 2.4872730774292955], n = 186",
+     "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+     "locator": "row dataset=arctic, model=B1, metric=E_C"
+    },
+    "ARCTIC | paired difference B1 - B0 in E_C [paired 95 % CI]; relative improvement of B1; verdict": {
+     "value": "+0.2664355483026274 [+0.18890297390399916, +0.3447021090804569]; rel_improvement -0.1409601587437774 (14.1 % worse); verdict worse",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=arctic, a=B1, b=B0, metric=E_C"
+    },
+    "TACO | E_C of the persistence predictor C_t = s_0 (reference)": {
+     "value": "3.5385159840295604 [3.4041649959006914, 3.6738467494776113]",
+     "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+     "locator": "row dataset=taco, model=PERSIST, metric=E_C"
+    },
+    "ARCTIC | E_C of the persistence predictor C_t = s_0 (reference)": {
+     "value": "2.2421078891843877 [1.975344062473828, 2.5234731272501163]",
+     "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+     "locator": "row dataset=arctic, model=PERSIST, metric=E_C"
+    },
+    "TACO | E_C over the last 16 frames, paired difference B1 - B0; verdict": {
+     "value": "-0.05687474066412056 [-0.11048730641894108, +0.004549332309997161]; rel_improvement +0.02874651520817185; verdict similar",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=B1, b=B0, metric=E_C_last16"
+    },
+    "ARCTIC | E_C over the last 16 frames, paired difference B1 - B0; verdict": {
+     "value": "+0.1620611304076769 [+0.06944797574138711, +0.2482973787182057]; rel_improvement -0.07307371567960602; verdict worse",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=arctic, a=B1, b=B0, metric=E_C_last16"
+    },
+    "TACO | share of test sequences with lower E_C under B1 than under B0": {
+     "value": "48 % (report prose); 0.47802197802197804 recomputed from the per-sequence files",
+     "source": "reports/contact_latent_temporal_stage2/report.md",
+     "locator": "Section 10, paragraph 'ARCTIC - z mediation hurts' (prose); check: taco/metrics/B0_seed0_A.npz and B1_seed0_A.npz, array E_C"
+    },
+    "ARCTIC | share of test sequences with lower E_C under B1 than under B0": {
+     "value": "27 % (report prose); 0.27419354838709675 recomputed from the per-sequence files",
+     "source": "reports/contact_latent_temporal_stage2/report.md",
+     "locator": "Section 10, paragraph 'ARCTIC - z mediation hurts' (prose); check: arctic/metrics/B0_seed0_A.npz and B1_seed0_A.npz, array E_C"
+    }
+   },
+   "caveats": [
+    "One training seed per model; seed-to-seed variation of these runs was not measured.",
+    "Report Section 8 disclosure: three of the four latent runs were stopped by hand before the protocol's 20 000-step minimum (ARCTIC B1 at 18 000, TACO B2 at 14 000, ARCTIC B2 at 12 000 steps), and the stop followed a preliminary test pass of the same step-4 000 states, so it was not test-blind. Checkpoints were selected on validation only and the preliminary and final test numbers are identical; a later validation best is not excluded, in particular for ARCTIC B1.",
+    "Unequal effective training length: B0 was selected at 79 000 (TACO) / 33 000 (ARCTIC) steps, all latent models at 4 000.",
+    "The per-model intervals in main_metrics.csv are unpaired and overlap on both datasets; only the paired difference decides the comparison.",
+    "On ARCTIC the z-mediated error (2.157) is close to the do-nothing persistence predictor (2.242); no paired test of B1 against persistence exists in the tables.",
+    "The comparison is confounded by design asymmetries stated in the report's limitations: B0 predicts a residual around s_0 while B1 decodes absolute maps without access to the Stage-1 encoder; the decoders read per-point geometry tokens B0's head never sees; B1 / B2 dense losses used 4 random frames per sequence per step while B0 used all 63.",
+    "Report Section 18 Q1 prints the ARCTIC interval as '+0.19 to +0.34'; the table value is [+0.189, +0.345].",
+    "Fixed ground-truth s_0 protocol only; TACO and ARCTIC only (OakInk2 is out of scope of this experiment)."
+   ],
+   "claim_as_extracted": "Predicting the 63 future contact maps through the Stage-1 structure-oriented latent z (B1) instead of directly (B0) leaves the dense error statistically tied on TACO (paired interval includes zero) and makes it 14.1 % worse on ARCTIC (paired interval excludes zero).",
+   "correction_reason": "Values, direction and dataset scope are right. 'makes it worse' reads as a causal statement about the representation, while the report itself lists confounds of the B1-vs-B0 comparison (decoder reads per-point geometry B0 never sees; absolute versus residual output; 4-frame subsampling of the dense loss; checkpoints selected at 4 k versus 79 k / 33 k steps). State it as a difference between the two models."
+  },
+  {
+   "block": "F3-C",
+   "claim": "On TACO the z-mediated generator is better than the direct one on four of the five structural / wrench error metrics, by 2.7-7.0 % averaged over the 63 frames, while on ARCTIC none of the five is better and the contact-amount error is 8.8 % worse.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_latent_temporal_stage2/report.md",
+   "source_files": [
+    "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+    "reports/contact_latent_temporal_stage2/main_metrics.csv",
+    "reports/contact_latent_temporal_stage2/decision_summary.csv"
+   ],
+   "metric": "Five error metrics of the report's decision rule, each extracted from the generated map and compared with the exact value of the true frame, averaged over frames 1-63 and test sequences; all lower is better: participation Hamming (part_hamming), contact amount L1 (amount_l1), contact-centroid distance / object length (centroid), contact-normal angle in degrees (normal), relative L1 error of the 76-direction wrench profile (q_rel_l1; the wrench profile is a proxy for functional grasp capability). rel_improvement = -(mean paired difference B1 - B0) / mean(B0); positive = B1 better. Verdict: better / worse only if the paired 95 % take-cluster bootstrap interval excludes 0 and |change| >= 2 %.",
+   "numbers": {
+    "TACO | participation Hamming: B0 -> B1; paired diff [CI]; rel_improvement; verdict": {
+     "value": "0.18977122437618263 -> 0.17709606810943684; -0.012675156266745794 [-0.020223016399589618, -0.0048121823430821165]; +0.0667917715576303; better",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=B1, b=B0, metric=part_hamming; columns value_b, value_a, diff, ci_lo, ci_hi, rel_improvement, verdict"
+    },
+    "TACO | contact amount L1: B0 -> B1; paired diff [CI]; rel_improvement; verdict": {
+     "value": "0.4543652038734693 -> 0.45310568187262984; -0.001259522000839422 [-0.00821249717369849, +0.005968533670886986]; +0.0027720476614449797; similar",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=B1, b=B0, metric=amount_l1"
+    },
+    "TACO | centroid / l: B0 -> B1; paired diff [CI]; rel_improvement; verdict": {
+     "value": "0.24584229048955572 -> 0.22865129808721307; -0.01719099240234265 [-0.02596927261923948, -0.008660402235787016]; +0.06992691277041688; better",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=B1, b=B0, metric=centroid"
+    },
+    "TACO | normal angle (degrees): B0 -> B1; paired diff [CI]; rel_improvement; verdict": {
+     "value": "51.59230439545034 -> 50.189081371485535; -1.4032230239648085 [-2.132159763582317, -0.611109233049901]; +0.0271983009948389; better",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=B1, b=B0, metric=normal"
+    },
+    "TACO | wrench relative L1: B0 -> B1; paired diff [CI]; rel_improvement; verdict": {
+     "value": "0.48118105096803915 -> 0.4655490345270424; -0.01563201644099676 [-0.024342454955034728, -0.006335117361139059]; +0.032486766487475546; better",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=B1, b=B0, metric=q_rel_l1"
+    },
+    "ARCTIC | participation Hamming: B0 -> B1; paired diff [CI]; rel_improvement; verdict": {
+     "value": "0.1793679407627512 -> 0.18845652358766685; +0.009088582824915648 [-0.002051281208849064, +0.01941228386863103]; -0.05067005166177972; similar",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=arctic, a=B1, b=B0, metric=part_hamming"
+    },
+    "ARCTIC | contact amount L1: B0 -> B1; paired diff [CI]; rel_improvement; verdict": {
+     "value": "0.4810219233234723 -> 0.5232520167946174; +0.04223009347114512 [+0.021491506896254384, +0.06611037338691476]; -0.0877924506628915; worse",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=arctic, a=B1, b=B0, metric=amount_l1"
+    },
+    "ARCTIC | centroid / l: B0 -> B1; paired diff [CI]; rel_improvement; verdict": {
+     "value": "0.2851637532353722 -> 0.28207128152491584; -0.0030924717104563147 [-0.01868042409935567, +0.012191837759730347]; +0.010844546950200259; similar",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=arctic, a=B1, b=B0, metric=centroid"
+    },
+    "ARCTIC | normal angle (degrees): B0 -> B1; paired diff [CI]; rel_improvement; verdict": {
+     "value": "47.783318554201436 -> 46.823663132165066; -0.9596554220363658 [-2.6641727596903486, +0.6694045617401763]; +0.020083482082723328; similar",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=arctic, a=B1, b=B0, metric=normal"
+    },
+    "ARCTIC | wrench relative L1: B0 -> B1; paired diff [CI]; rel_improvement; verdict": {
+     "value": "0.4877374209263312 -> 0.5058934240732141; +0.01815600314688298 [-0.0022288834157103204, +0.03884109969053004]; -0.03722495418210959; similar",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=arctic, a=B1, b=B0, metric=q_rel_l1"
+    },
+    "TACO | rule summary: structural / wrench metrics better / worse of 5": {
+     "value": "yes -- 4 better / 0 worse of 5: part_hamming better (+6.7 %); amount_l1 similar (+0.3 %); centroid better (+7.0 %); normal better (+2.7 %); q_rel_l1 better (+3.2 %)",
+     "source": "reports/contact_latent_temporal_stage2/decision_summary.csv",
+     "locator": "row dataset=taco, question='Does z mediation improve structural / wrench quality?'; columns answer, evidence"
+    },
+    "ARCTIC | rule summary: structural / wrench metrics better / worse of 5": {
+     "value": "worse -- 0 better / 1 worse of 5: part_hamming similar (-5.1 %); amount_l1 worse (-8.8 %); centroid similar (+1.1 %); normal similar (+2.0 %); q_rel_l1 similar (-3.7 %)",
+     "source": "reports/contact_latent_temporal_stage2/decision_summary.csv",
+     "locator": "row dataset=arctic, question='Does z mediation improve structural / wrench quality?'"
+    },
+    "TACO | floor of participation Hamming: the true map passed through the same extraction": {
+     "value": "0.10220798589084502 [0.09282560481112881, 0.11241755234948787] (B0 0.18977, B1 0.17710, persistence 0.4772588953396285)",
+     "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+     "locator": "rows dataset=taco, metric=part_hamming, model=GT / PERSIST"
+    },
+    "ARCTIC | floor of participation Hamming: the true map passed through the same extraction": {
+     "value": "0.04702167995574494 [0.03796390122465493, 0.05751424970810671] (B0 0.17937, B1 0.18846, persistence 0.3394066409448222)",
+     "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+     "locator": "rows dataset=arctic, metric=part_hamming, model=GT / PERSIST"
+    },
+    "TACO | sensitivity to the reference model: B1 against the previous direct model D0 (25.7 M, 3-seed mean), rel_improvement and verdict": {
+     "value": "part_hamming +0.02586551603262874 similar; centroid +0.04565940426208651 better; normal +0.021133714935202136 better; q_rel_l1 +0.022366048061185112 better; amount_l1 +0.014296050109025692 similar",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "rows dataset=taco, a=B1, b=D0_prev, metric in part_hamming / centroid / normal / q_rel_l1 / amount_l1"
+    }
+   },
+   "caveats": [
+    "The 2.7-7.0 % range covers four metrics (participation 6.7 %, centroid 7.0 %, normal 2.7 %, wrench 3.2 %); the fifth, contact amount, is unchanged (+0.3 %, similar).",
+    "It is a 63-frame average that nets an early disadvantage against a late advantage: at t <= 16 the direct model is better (see the horizon entry).",
+    "The report calls the TACO gain 'real but small': against the previous direct model D0 it shrinks to 2-5 % and the participation gain is no longer distinguishable; all models stay far from the extraction floor.",
+    "ARCTIC: only the contact amount is worse by the rule; participation (-5.1 %) and wrench (-3.7 %) are nominally worse but within their intervals -- do not write 'all structural metrics worse'.",
+    "No interval exists for the relative change itself; the interval belongs to the absolute paired difference.",
+    "One seed; three latent runs stopped by hand after a preliminary test pass (report Section 8); unequal training length (B0 79 k / 33 k steps, latent models 4 k).",
+    "Wrench profile error is a proxy for functional grasp capability, not a measure of human intent."
+   ]
+  },
+  {
+   "block": "F3-C",
+   "claim": "The TACO advantage of the z-mediated generator is a long-horizon effect: in the first 16 frames the direct model has the lower dense and participation error and the z-mediated model is nominally lower only from frame 17 on, whereas on ARCTIC the direct model has the lower dense error in every horizon bin.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_latent_temporal_stage2/report.md",
+   "source_files": [
+    "reports/contact_latent_temporal_stage2/horizon_metrics.csv"
+   ],
+   "metric": "Dense error E_C and participation Hamming error averaged within five bins of the 63 generated frames (t = 1-8, 9-16, 17-32, 33-48, 49-63), mean over test sequences with an unpaired 95 % take-cluster bootstrap interval per model and bin; lower is better. No paired test per bin exists in the tables.",
+   "numbers": {
+    "TACO | dense error by bin, B0 (1-8 / 9-16 / 17-32 / 33-48 / 49-63)": {
+     "value": "0.8061877320079864 / 1.3374427111517475 / 1.798204067245044 / 1.9715936577080615 / 1.9770917026660382",
+     "source": "reports/contact_latent_temporal_stage2/horizon_metrics.csv",
+     "locator": "rows dataset=taco, model=B0, curve=dense; column value (ci_lo, ci_hi alongside)"
+    },
+    "TACO | dense error by bin, B1": {
+     "value": "1.1460665571400999 / 1.46003304889354 / 1.7952021718982116 / 1.9212014032425462 / 1.919417866521375",
+     "source": "reports/contact_latent_temporal_stage2/horizon_metrics.csv",
+     "locator": "rows dataset=taco, model=B1, curve=dense"
+    },
+    "TACO | participation Hamming by bin, B0": {
+     "value": "0.13747710966924717 / 0.16225961914060863 / 0.19757326470514003 / 0.2077896110815825 / 0.2047924344929365",
+     "source": "reports/contact_latent_temporal_stage2/horizon_metrics.csv",
+     "locator": "rows dataset=taco, model=B0, curve=part"
+    },
+    "TACO | participation Hamming by bin, B1": {
+     "value": "0.15842491249134252 / 0.16907051690741554 / 0.18621222950405553 / 0.1836366800407132 / 0.1746337038884451",
+     "source": "reports/contact_latent_temporal_stage2/horizon_metrics.csv",
+     "locator": "rows dataset=taco, model=B1, curve=part"
+    },
+    "ARCTIC | dense error by bin, B0": {
+     "value": "1.0554690371913416 / 1.5948535785910183 / 1.9034048127541219 / 2.130074377657385 / 2.222737462285866",
+     "source": "reports/contact_latent_temporal_stage2/horizon_metrics.csv",
+     "locator": "rows dataset=arctic, model=B0, curve=dense"
+    },
+    "ARCTIC | dense error by bin, B1": {
+     "value": "1.5996014292512128 / 1.926302930074794 / 2.1821774902856177 / 2.3128802897070626 / 2.3824393056106077",
+     "source": "reports/contact_latent_temporal_stage2/horizon_metrics.csv",
+     "locator": "rows dataset=arctic, model=B1, curve=dense"
+    },
+    "ARCTIC | dense error by bin, persistence C_t = s_0": {
+     "value": "1.344877082451437 / 2.0191992925109483 / 2.2707920138378657 / 2.474946238656318 / 2.5605576598409256",
+     "source": "reports/contact_latent_temporal_stage2/horizon_metrics.csv",
+     "locator": "rows dataset=arctic, model=PERSIST, curve=dense"
+    },
+    "TACO | dense error by bin, persistence C_t = s_0": {
+     "value": "1.2531906425223556 / 2.5089409463286687 / 3.6066088006712733 / 4.280284953189779 / 4.44260938520724",
+     "source": "reports/contact_latent_temporal_stage2/horizon_metrics.csv",
+     "locator": "rows dataset=taco, model=PERSIST, curve=dense"
+    },
+    "ARCTIC | participation Hamming by bin, B0": {
+     "value": "0.12780018263967127 / 0.15669803284308922 / 0.1807795746492282 / 0.19214830226615393 / 0.20382318333806101",
+     "source": "reports/contact_latent_temporal_stage2/horizon_metrics.csv",
+     "locator": "rows dataset=arctic, model=B0, curve=part"
+    },
+    "ARCTIC | participation Hamming by bin, B1": {
+     "value": "0.1817876390552008 / 0.17260305117815733 / 0.1821796641114258 / 0.18721998706760426 / 0.20848268121480942",
+     "source": "reports/contact_latent_temporal_stage2/horizon_metrics.csv",
+     "locator": "rows dataset=arctic, model=B1, curve=part"
+    },
+    "TACO | report prose: size of the early TACO gap": {
+     "value": "'At t = 1-8 B0 is at 0.81 and B1 at 1.15 (42 % worse ...)'; '0.205 vs 0.175 at t = 49-63 (B1 15 % better)' for participation",
+     "source": "reports/contact_latent_temporal_stage2/report.md",
+     "locator": "Section 12 'Horizon analysis', bullet 'TACO' (prose; the bin means are in horizon_metrics.csv)"
+    },
+    "ARCTIC | contact amount error by bin, B0 / B1 in the last three bins": {
+     "value": "B0 0.48080780285411207 / 0.5119833046587945 / 0.5292812535826343; B1 0.5322566135493558 / 0.5531090430534189 / 0.5658574561608495",
+     "source": "reports/contact_latent_temporal_stage2/horizon_metrics.csv",
+     "locator": "rows dataset=arctic, curve=amount, model=B0 / B1, bins 17-32, 33-48, 49-63"
+    }
+   },
+   "caveats": [
+    "Per-bin intervals are unpaired and overlap in the late bins; the only paired late-horizon test is E_C over the last 16 frames, which is a tie on TACO (-0.057 [-0.110, +0.005]) and worse for B1 on ARCTIC (+0.162 [+0.069, +0.248]). So on TACO 'B1 lower after frame 17' is nominal for the dense error.",
+    "The percentages '42 % worse' and '15 % better' are report prose, not table columns; '42 %' is B1 relative to B0 (1.146 vs 0.806), which is not the same as 'B0 is 42 % better'.",
+    "On ARCTIC the z-mediated model is above the persistence predictor in the first bin (1.600 vs 1.345) and below it afterwards; on TACO it is below persistence in every bin.",
+    "The crossing frame is not a table quantity; the report says B1 'catches up after about 16 frames' on TACO.",
+    "One seed; hand-stopped latent runs (report Section 8)."
+   ]
+  },
+  {
+   "block": "F3-C",
+   "claim": "Adding a predicted realization residual r to the z pathway (B2) provides little additional information: B2's dense error is statistically indistinguishable from B1's on both datasets and the residual correction changes the dense error by 0.001 (TACO) / 0.002 (ARCTIC) with intervals that include zero.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_latent_temporal_stage2/report.md",
+   "source_files": [
+    "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+    "reports/contact_latent_temporal_stage2/r_metrics.csv",
+    "reports/contact_latent_temporal_stage2/z_metrics.csv",
+    "reports/contact_latent_temporal_stage2/main_metrics.csv"
+   ],
+   "metric": "Dense error E_C (lower is better), paired difference B2 - B1 with a paired 95 % take-cluster bootstrap interval; gain from r = E_C of B2's z-only map minus E_C of its full map (positive = r helps), with interval; size of the correction ||Delta C|| relative to ||C_bar - s_0||; fraction of test sequences the correction improves.",
+   "numbers": {
+    "TACO | E_C of B2, mean [95 % CI]": {
+     "value": "1.7269266294008427 [1.6181549000977418, 1.8388676311267178], n = 364",
+     "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+     "locator": "row dataset=taco, model=B2, metric=E_C"
+    },
+    "ARCTIC | E_C of B2, mean [95 % CI]": {
+     "value": "2.153969633403004 [1.8592245146513153, 2.4926436600759816], n = 186",
+     "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+     "locator": "row dataset=arctic, model=B2, metric=E_C"
+    },
+    "TACO | paired difference B2 - B1 in E_C [CI]; verdict": {
+     "value": "-0.004859547366152753 [-0.017807030838502408, +0.007209927511908602]; similar",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=B2, b=B1, metric=E_C"
+    },
+    "ARCTIC | paired difference B2 - B1 in E_C [CI]; verdict": {
+     "value": "-0.002613816810871965 [-0.016394841013852152, +0.011892550360190136]; similar",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=arctic, a=B2, b=B1, metric=E_C"
+    },
+    "TACO | gain in E_C from the r correction (z-only map minus full map) [CI]": {
+     "value": "0.0008104170089239602 [-0.0001828620139293886, 0.0017857869368764782]",
+     "source": "reports/contact_latent_temporal_stage2/r_metrics.csv",
+     "locator": "row dataset=taco; columns E_C_gain_from_r, gain_lo, gain_hi"
+    },
+    "ARCTIC | gain in E_C from the r correction (z-only map minus full map) [CI]": {
+     "value": "0.0021785318210560786 [-0.0011807391500385997, 0.006067840603590187]",
+     "source": "reports/contact_latent_temporal_stage2/r_metrics.csv",
+     "locator": "row dataset=arctic; columns E_C_gain_from_r, gain_lo, gain_hi"
+    },
+    "TACO | size of the correction relative to the z path's displacement from s_0; fraction of sequences improved": {
+     "value": "delta_over_bar_ratio 0.032444499468503474 (||Delta C|| 0.06984118878488331 vs ||C_bar - s_0|| 3.307216193624247); frac_sequences_improved 0.5247252747252747",
+     "source": "reports/contact_latent_temporal_stage2/r_metrics.csv",
+     "locator": "row dataset=taco; columns delta_over_bar_ratio, delta_norm_mean, bar_minus_s0_norm_mean, frac_sequences_improved"
+    },
+    "ARCTIC | size of the correction relative to the z path's displacement from s_0; fraction of sequences improved": {
+     "value": "delta_over_bar_ratio 0.07207772813837145 (||Delta C|| 0.1454649788256896 vs ||C_bar - s_0|| 2.4159586888785642); frac_sequences_improved 0.5591397849462365",
+     "source": "reports/contact_latent_temporal_stage2/r_metrics.csv",
+     "locator": "row dataset=arctic; same columns"
+    },
+    "TACO | latent accuracy of B2 relative to B1 (test L_z ratio)": {
+     "value": "0.990949178543502 (B2 0.48916586228999454 vs B1 0.4936336523422634)",
+     "source": "reports/contact_latent_temporal_stage2/z_metrics.csv",
+     "locator": "rows dataset=taco, model=B2_vs_B1 (ratio_B2_B1), B2 and B1 (L_z_test)"
+    },
+    "ARCTIC | latent accuracy of B2 relative to B1 (test L_z ratio)": {
+     "value": "0.9830146468724245 (B2 0.5013636637737173 vs B1 0.5100266464684572)",
+     "source": "reports/contact_latent_temporal_stage2/z_metrics.csv",
+     "locator": "rows dataset=arctic, model=B2_vs_B1 (ratio_B2_B1), B2 and B1 (L_z_test)"
+    },
+    "ARCTIC | the exception: dense frame-to-frame change of B2 vs B1": {
+     "value": "jitter_dense diff +0.005155750169789279 [+0.0025820727734596205, +0.007703138153760347], rel_improvement -0.028890133114143002, worse; jitter_dev_dense diff +0.0021639300950913017 [+0.00042655619631743575, +0.0036102901349272984], rel_improvement -0.031409083602993104, worse",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "rows dataset=arctic, a=B2, b=B1, metric=jitter_dense / jitter_dev_dense"
+    }
+   },
+   "caveats": [
+    "This concerns a PREDICTED r (r_hat from s_0, G, tau, not supervised against the Stage-1 r); it says nothing against the Stage-1 result that r carries complementary dense detail when an encoder sees the frame. r is a realization residual, not noise.",
+    "The report notes that 'z is preserved' (L_z ratio 0.99 / 0.98) holds only trivially, because the r pathway does almost nothing; the experiment gives no evidence about what a useful r pathway would do to z.",
+    "B2 = B1 holds for the dense error and every structural / wrench metric (differences <= 1.1 % per the report); on ARCTIC B2's dense frame-to-frame change and its deviation from the ground truth are 'worse' than B1's (2.9-3.1 %, the size of the previous study's seed spread on that metric).",
+    "The latent checkpoints were selected at 4 000 steps, when the residual pathway had barely moved (report Section 11); both B2 runs were stopped by hand (TACO 14 000, ARCTIC 12 000 steps).",
+    "One seed."
+   ]
+  },
+  {
+   "block": "F3-C",
+   "claim": "z mediation does not bring the generated trajectories closer to the ground truth's frame-to-frame dense change: the per-sequence deviation is 31 % (TACO) and 19 % (ARCTIC) larger for B1 than for B0.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_latent_temporal_stage2/report.md",
+   "source_files": [
+    "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+    "reports/contact_latent_temporal_stage2/main_metrics.csv",
+    "reports/contact_latent_temporal_stage2/temporal_stability.csv",
+    "reports/contact_latent_temporal_stage2/decision_summary.csv"
+   ],
+   "metric": "jitter_dense = mean frame-to-frame change of the dense map (no direction by itself; compare with the ground truth's); jitter_dev_dense = per-sequence |model change - ground-truth change|, lower is better; paired difference B1 - B0 with paired 95 % take-cluster bootstrap interval.",
+   "numbers": {
+    "TACO | jitter_dev_dense B0 -> B1; paired diff [CI]; rel_improvement; verdict": {
+     "value": "0.12275529301796968 -> 0.1606895056972792; +0.037934212679309506 [+0.03309492441465976, +0.04289590253111493]; -0.30902303067091746; worse",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=B1, b=B0, metric=jitter_dev_dense"
+    },
+    "ARCTIC | jitter_dev_dense B0 -> B1; paired diff [CI]; rel_improvement; verdict": {
+     "value": "0.0581061763148154 -> 0.06889504076091833; +0.010788864446102931 [+0.0038498375925546235, +0.017010355145124608]; -0.18567500273378137; worse",
+     "source": "reports/contact_latent_temporal_stage2/paired_comparisons.csv",
+     "locator": "row dataset=arctic, a=B1, b=B0, metric=jitter_dev_dense"
+    },
+    "TACO | mean dense frame-to-frame change: ground truth / B0 / B1 / B2": {
+     "value": "0.31471776661391443 / 0.2028724224828593 / 0.15689059486100962 / 0.1566913958106722",
+     "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+     "locator": "rows dataset=taco, metric=jitter_dense, model=GT / B0 / B1 / B2 (same rows in temporal_stability.csv)"
+    },
+    "ARCTIC | mean dense frame-to-frame change: ground truth / B0 / B1 / B2": {
+     "value": "0.1612472171164168 / 0.18584953069246263 / 0.17846058892907316 / 0.18361633909886244",
+     "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+     "locator": "rows dataset=arctic, metric=jitter_dense, model=GT / B0 / B1 / B2"
+    },
+    "TACO | rule answer to 'Does z improve long-horizon stability?'": {
+     "value": "worse -- jitter_dev_dense worse (-30.9 %); jitter_dev_r2 similar (+6.8 %); E_C_last16 similar (+2.9 %)",
+     "source": "reports/contact_latent_temporal_stage2/decision_summary.csv",
+     "locator": "row dataset=taco, question='Does z improve long-horizon stability?'"
+    },
+    "ARCTIC | rule answer to 'Does z improve long-horizon stability?'": {
+     "value": "worse -- jitter_dev_dense worse (-18.6 %); jitter_dev_r2 similar (-0.2 %); E_C_last16 worse (-7.3 %)",
+     "source": "reports/contact_latent_temporal_stage2/decision_summary.csv",
+     "locator": "row dataset=arctic, question='Does z improve long-horizon stability?'"
+    },
+    "TACO | first step from s_0 to the first decoded frame: B1 / B2 / B0 / ground truth": {
+     "value": "0.9278618725078119 / 0.9120774008333683 / 0.34288528 (printed) / 0.43705161 (printed)",
+     "source": "reports/contact_latent_temporal_stage2/temporal_curves.npz",
+     "locator": "arrays taco|B1|jitter, taco|B2|jitter, taco|B0|jitter, taco|GT|jitter, element [0]"
+    },
+    "ARCTIC | first step from s_0 to the first decoded frame: B1 / B2 / B0 / ground truth": {
+     "value": "1.2134302254485827 / 1.2205591266273812 / 0.43398619 (printed) / 0.53664406 (printed)",
+     "source": "reports/contact_latent_temporal_stage2/temporal_curves.npz",
+     "locator": "arrays arctic|B1|jitter, arctic|B2|jitter, arctic|B0|jitter, arctic|GT|jitter, element [0]"
+    }
+   },
+   "caveats": [
+    "No model is unstable (report Section 13); the difference is how much frame-to-frame change the trajectories contain relative to the ground truth.",
+    "Direction differs by dataset: on TACO every model changes less per frame than the ground truth (the latent models least); on ARCTIC every model changes more than the ground truth.",
+    "The ARCTIC differences in mean frame change between models (3-4 %) are within the seed spread of that metric in the previous study (7.9 %, report prose); the ARCTIC stability verdict rests on the per-sequence deviation.",
+    "One seed; hand-stopped latent runs (report Section 8)."
+   ]
+  },
+  {
+   "block": "F3-C",
+   "claim": "By the report's pre-set decision rule the best supported model is the z-mediated B1 on TACO (case B: z useful, r not needed) and the direct B0 on ARCTIC (case E: z hurts); no representation is supported on both datasets, and the result was obtained with one seed and with three latent runs stopped by hand after a preliminary test pass.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_latent_temporal_stage2/report.md",
+   "source_files": [
+    "reports/contact_latent_temporal_stage2/decision_summary.csv",
+    "reports/contact_latent_temporal_stage2/training_summary.csv",
+    "reports/contact_latent_temporal_stage2/sanity_summary.json",
+    "reports/contact_latent_temporal_stage2/logs/orchestrate.log",
+    "reports/contact_latent_temporal_stage2/logs/prelim_eval_taco.log",
+    "reports/contact_latent_temporal_stage2/logs/prelim_eval_arctic.log"
+   ],
+   "metric": "Rule-based verdict (thresholds in scripts/s2_common.py DECISION: paired interval excludes 0 and |change| >= 2 %; 'structure improves' = at least 3 of 5 structural / wrench metrics better and none worse). Training facts: steps run, selected step (minimum of each model's own full validation objective, EMA weights), reason the run ended.",
+   "numbers": {
+    "TACO | best supported model / case": {
+     "value": "B1 / case B -- 'case B: B1 vs B0 better; B2 vs B1 dense no (similar), structure preserved yes; B2 vs B0 E_C similar, structure 4 better / 0 worse'",
+     "source": "reports/contact_latent_temporal_stage2/decision_summary.csv",
+     "locator": "rows dataset=taco, question='Which model is best supported: B0 / B1 / B2?' and question='case'"
+    },
+    "ARCTIC | best supported model / case": {
+     "value": "B0 / case E -- 'case E: B1 vs B0 worse; B2 vs B1 dense no (similar), structure preserved yes; B2 vs B0 E_C worse, structure 0 better / 3 worse'",
+     "source": "reports/contact_latent_temporal_stage2/decision_summary.csv",
+     "locator": "rows dataset=arctic, question='Which model is best supported: B0 / B1 / B2?' and question='case'"
+    },
+    "TACO | steps run / selected step / stopped by: B0, B1, B2": {
+     "value": "B0 80000 / 79000 / max_steps; B1 20000 / 4000 / patience; B2 14000 / 4000 / manual_stop",
+     "source": "reports/contact_latent_temporal_stage2/training_summary.csv",
+     "locator": "rows dataset=taco, model=B0 / B1 / B2; columns steps, best_step, stopped_by"
+    },
+    "ARCTIC | steps run / selected step / stopped by: B0, B1, B2": {
+     "value": "B0 48000 / 33000 / patience; B1 18000 / 4000 / manual_stop; B2 12000 / 4000 / manual_stop",
+     "source": "reports/contact_latent_temporal_stage2/training_summary.csv",
+     "locator": "rows dataset=arctic, model=B0 / B1 / B2; columns steps, best_step, stopped_by"
+    },
+    "ARCTIC | ARCTIC B1 composite validation objective: best (step 4000) vs at the hand stop (step 18000)": {
+     "value": "1.672310064423759 vs 1.6726652811158378",
+     "source": "reports/contact_latent_temporal_stage2/training_summary.csv",
+     "locator": "row dataset=arctic, model=B1; columns best_val, final_val"
+    },
+    "TACO | validation dense error E_C at the selected step: B0 / B1 / B2": {
+     "value": "1.2691746045511665 / 1.2694220407634762 / 1.258305132811797",
+     "source": "reports/contact_latent_temporal_stage2/training_summary.csv",
+     "locator": "rows dataset=taco; column val_E_C_at_best"
+    },
+    "ARCTIC | validation dense error E_C at the selected step: B0 / B1 / B2": {
+     "value": "2.499225913353686 / 2.623308892519969 / 2.62605420598444",
+     "source": "reports/contact_latent_temporal_stage2/training_summary.csv",
+     "locator": "rows dataset=arctic; column val_E_C_at_best"
+    },
+    "TACO | sanity check 12 'comparable budgets'": {
+     "value": "status warn; stopped_by_hand_before_min_steps {B2: steps 14000, best_step 4000, checks_without_improvement 10}; 14 pass / 1 warn overall",
+     "source": "reports/contact_latent_temporal_stage2/sanity_summary.json",
+     "locator": "taco.12_comparable_budgets (status, stopped_by_hand_before_min_steps); taco.*.status"
+    },
+    "ARCTIC | sanity check 12 'comparable budgets'": {
+     "value": "status warn; stopped_by_hand_before_min_steps {B1: steps 18000, best_step 4000, checks_without_improvement 14; B2: steps 12000, best_step 4000, checks_without_improvement 8}; 14 pass / 1 warn overall",
+     "source": "reports/contact_latent_temporal_stage2/sanity_summary.json",
+     "locator": "arctic.12_comparable_budgets; arctic.*.status"
+    },
+    "TACO | times of the hand stops": {
+     "value": "'10-03 23:02:01 stopped taco B2 by hand (user decision)'; preliminary test pass of TACO B2 at 22:33-22:34 and of TACO B1 at 22:58",
+     "source": "reports/contact_latent_temporal_stage2/logs/orchestrate.log",
+     "locator": "lines 'stopped ... by hand'; logs/prelim_eval_taco.log time stamps"
+    },
+    "ARCTIC | times of the hand stops": {
+     "value": "'10-03 23:01:47 stopped arctic B1 by hand (user decision)'; '10-03 23:02:15 stopped arctic B2 by hand (user decision)'; preliminary test pass at 22:33-22:35 (report Section 8)",
+     "source": "reports/contact_latent_temporal_stage2/logs/orchestrate.log",
+     "locator": "lines 'stopped ... by hand'; report.md Section 8 paragraph 'The stop was not test-blind'"
+    }
+   },
+   "caveats": [
+    "'Case B' on TACO is the rule's label (structure 'yes', dense error not worse); it is not a dense-error win (tied, nominally 1.8 % worse) and the rule's stability answer is 'worse' on both datasets.",
+    "Report Section 8, to be kept attached: TACO B1 ran to the 20 000-step minimum and ended by the patience rule; ARCTIC B1 (18 000), TACO B2 (14 000) and ARCTIC B2 (12 000) were stopped by hand on the user's decision before that minimum; the stop was taken with preliminary test numbers known (not test-blind). No checkpoint was chosen on test data and the preliminary and final numbers are identical.",
+    "A late improvement of the kind B0 showed (improving until 33 k / 79 k steps) cannot be strictly excluded for the stopped runs, in particular ARCTIC B1, whose composite objective was within 0.0004 of its best when stopped.",
+    "One seed per model; the optional extra seed was not run.",
+    "Selection uses each model's own composite validation objective, so the selected B1 / B2 checkpoints are not necessarily their minimum-dense-validation steps (TACO B1: dense validation term 0.2312914173231057 at the selected step vs minimum 0.22831569812822 at step 9000).",
+    "On ARCTIC the validation gap between B1 and B0 (2.623 vs 2.499) is smaller than the test gap; the report notes the ARCTIC validation takes are harder than the test takes.",
+    "The thresholds were fixed in code before launch; the mapping from answers to cases A-E lives in s2_aggregate.py, last modified after the results, and the plan that defines the cases is not stored with the report."
+   ]
+  },
+  {
+   "block": "F3-diagA",
+   "claim": "When the fine-tuned B1 decoder is fed the teacher latents z* of the true frames instead of the latents its temporal model predicted, the dense error falls from 1.73 to 0.51 on TACO and from 2.16 to 0.71 on ARCTIC, below the direct model B0 (1.70 / 1.89), which suggests that z preserves the information needed for an accurate trajectory and that the gap lies in predicting the z trajectory.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_latent_temporal_stage2/report.md",
+   "source_files": [
+    "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+    "reports/contact_latent_temporal_stage2/taco/bottleneck.csv",
+    "reports/contact_latent_temporal_stage2/arctic/bottleneck.csv",
+    "reports/contact_latent_temporal_stage2/main_metrics.csv",
+    "reports/contact_latent_temporal_stage2/scripts/s2_diag_bottleneck.py"
+   ],
+   "metric": "Dense error E_C over frames 1-63 (lower is better), test mean with 95 % take-cluster bootstrap interval. E_C_pred: B1's own generated trajectory (z_hat predicted from s_0, G, tau; fine-tuned D_z of the selected step-4000 checkpoint). E_C_oracle_z: the SAME fine-tuned B1 decoder fed with the teacher z*_t = frozen Stage-1 encoder applied to the ground-truth frame t (analysis only, never a model input). stage1_E_zonly: the original Stage-1 autoencoder's z-only reconstruction of the same frames. share_of_error_from_bottleneck = (mean teacher-z* error)^2 / (mean predicted error)^2.",
+   "numbers": {
+    "TACO | B1, predicted z -> fine-tuned B1 decoder (E_C_pred) [CI]": {
+     "value": "1.7317860700845062 [1.6239583993998463, 1.8456559152178649]",
+     "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+     "locator": "row dataset=taco, model=B1; columns E_C_pred, E_C_pred_lo, E_C_pred_hi"
+    },
+    "TACO | B1 decoder fed with teacher z* (E_C_oracle_z) [CI]": {
+     "value": "0.5100195803526011 [0.4717575278567817, 0.5554102362321003]",
+     "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+     "locator": "row dataset=taco, model=B1; columns E_C_oracle_z, E_C_oracle_z_lo, E_C_oracle_z_hi"
+    },
+    "TACO | per-sequence gap predicted - teacher z* [CI]": {
+     "value": "1.221766491615019 [1.1361842874949863, 1.314775425698354]",
+     "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+     "locator": "row dataset=taco, model=B1; columns gap_pred_minus_oracle, _lo, _hi"
+    },
+    "TACO | share of squared error attributed to the bottleneck (remaining ~0.91 = latent prediction, report: '~90 %')": {
+     "value": "0.0867331816706558",
+     "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+     "locator": "row dataset=taco, model=B1; column share_of_error_from_bottleneck"
+    },
+    "TACO | B0 direct, E_C (reference) [CI]": {
+     "value": "1.700352207481206 [1.5975254761392381, 1.8006890368593123]",
+     "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+     "locator": "row dataset=taco, model=B0, metric=E_C"
+    },
+    "TACO | Stage-1 autoencoder, z-only reconstruction of the same frames [CI]; z + r reconstruction": {
+     "value": "0.4535929136756029 [0.4184297520166376, 0.4952688141733264]; z + r 0.1531617689140877 [0.13269907934257, 0.1792408152128072]",
+     "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+     "locator": "row dataset=taco, model=B1; columns stage1_E_zonly(_lo/_hi), stage1_E_full(_lo/_hi)"
+    },
+    "ARCTIC | B1, predicted z -> fine-tuned B1 decoder (E_C_pred) [CI]": {
+     "value": "2.1565832805729683 [1.8606064035484955, 2.4872728511379414]",
+     "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+     "locator": "row dataset=arctic, model=B1; columns E_C_pred, _lo, _hi"
+    },
+    "ARCTIC | B1 decoder fed with teacher z* (E_C_oracle_z) [CI]": {
+     "value": "0.7086474054282711 [0.5952451540107079, 0.8333562380622881]",
+     "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+     "locator": "row dataset=arctic, model=B1; columns E_C_oracle_z, _lo, _hi"
+    },
+    "ARCTIC | per-sequence gap predicted - teacher z* [CI]": {
+     "value": "1.4479358799114663 [1.2130797960183757, 1.6933425294464446]",
+     "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+     "locator": "row dataset=arctic, model=B1; columns gap_pred_minus_oracle, _lo, _hi"
+    },
+    "ARCTIC | share of squared error attributed to the bottleneck (remaining ~0.89 = latent prediction, report: '~90 %')": {
+     "value": "0.1079761604930588",
+     "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+     "locator": "row dataset=arctic, model=B1; column share_of_error_from_bottleneck"
+    },
+    "ARCTIC | B0 direct, E_C (reference) [CI]": {
+     "value": "1.8901479019112484 [1.6294874953810445, 2.173438141254632]",
+     "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+     "locator": "row dataset=arctic, model=B0, metric=E_C"
+    },
+    "ARCTIC | Stage-1 autoencoder, z-only reconstruction of the same frames [CI]; z + r reconstruction": {
+     "value": "0.633971434527187 [0.5293152796794994, 0.7481390702264823]; z + r 0.2018108513626841 [0.1641934586578869, 0.2425331607963326]",
+     "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+     "locator": "row dataset=arctic, model=B1; columns stage1_E_zonly(_lo/_hi), stage1_E_full(_lo/_hi)"
+    },
+    "TACO | teacher-z* error by horizon bin 1-8 / 9-16 / 17-32 / 33-48 / 49-63 (B1 decoder)": {
+     "value": "0.4111981093883514 / 0.4151743650436401 / 0.4725785255432129 / 0.5613330006599426 / 0.598511278629303",
+     "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+     "locator": "row dataset=taco, model=B1; columns oracle_h1_8 ... oracle_h49_63 (no CI)"
+    },
+    "ARCTIC | teacher-z* error by horizon bin 1-8 / 9-16 / 17-32 / 33-48 / 49-63 (B1 decoder)": {
+     "value": "0.7200925350189209 / 0.7388338446617126 / 0.7097171545028687 / 0.7069573998451233 / 0.6871053576469421",
+     "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+     "locator": "row dataset=arctic, model=B1; columns oracle_h1_8 ... oracle_h49_63 (no CI)"
+    },
+    "TACO | same diagnostic for B2 (teacher z* with B2's own predicted r_hat, fine-tuned D_z + D_r): predicted / teacher z* / share": {
+     "value": "1.7269265232914752 / 0.5226785538943259 [0.4839248689340977, 0.5682578174805683] / 0.0916055151713656",
+     "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+     "locator": "row dataset=taco, model=B2; columns E_C_pred, E_C_oracle_z(_lo/_hi), share_of_error_from_bottleneck"
+    },
+    "ARCTIC | same diagnostic for B2 (teacher z* with B2's own predicted r_hat, fine-tuned D_z + D_r): predicted / teacher z* / share": {
+     "value": "2.153969481907865 / 0.7307924672320325 [0.6148060473555675, 0.861055068009312] / 0.1151089280467137",
+     "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+     "locator": "row dataset=arctic, model=B2; columns E_C_pred, E_C_oracle_z(_lo/_hi), share_of_error_from_bottleneck"
+    }
+   },
+   "caveats": [
+    "The teacher z* is computed from the TRUE frame t, future frames included, so 0.51 / 0.71 is what the representation and this decoder allow with a perfect latent trajectory -- not something any generator achieves at inference. Sanity check 05 confirms the teacher never reaches the models at inference.",
+    "Which decoder: B1's own D_z, initialised from Stage 1 and fine-tuned end to end, at the selected step-4000 EMA checkpoint; it is slightly above the original Stage-1 autoencoder's z-only reconstruction of the same frames (0.510 vs 0.454 TACO, 0.709 vs 0.634 ARCTIC).",
+    "The '~90 % of squared error' figure is one minus the ratio of SQUARED MEAN errors, not a variance decomposition; in E_C units the gap is 1.222 of 1.732 (TACO) and 1.448 of 2.157 (ARCTIC) (the report's dashboard text: 'about 70 % in E_C units').",
+    "Report prose says the teacher-z* error is 'three times lower than B0's error' (Section 10) and 'three times better than any model' (Section 18): against B0 this holds on TACO (0.510 vs 1.700) but on ARCTIC 0.709 vs 1.890 is less than a factor of three. Give the two values per dataset.",
+    "The inspection is post hoc: the script is dated 23:03 and the table 23:12 on 2026-10-03, after the preliminary test pass (22:33-22:58); the report labels it 'analysis only'.",
+    "The report's own reading: z is a sufficient target but not an easier one; it 'does not say that z is a bad state'. It designs no next method; a latent model that is given the encoded s_0 at inference was not tested here.",
+    "main_metrics.csv B1 E_C (1.7317861767669955 / 2.156583450213876) and bottleneck E_C_pred differ in the 7th digit (float precision); same quantity.",
+    "One seed; the B1 checkpoint behind the ARCTIC numbers comes from a run stopped by hand at 18 000 steps (selected step 4 000)."
+   ]
+  },
+  {
+   "block": "F3-diagA",
+   "claim": "On the test set the predicted latent trajectory explains about half of the teacher latent's variance on TACO (mean per-dimension R^2 0.49; L_z 0.494 against 0.986 for the train-mean predictor) and 35-38 % on ARCTIC (R^2 0.35; 0.510 against 0.829). Its RMSE rises from about 0.57 in the first bin to about 0.75 from t = 33 on and then stays level. Holding the teacher's initial latent is more accurate than the model only at frames 1-3 (TACO) / frame 1 (ARCTIC).",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_latent_temporal_stage2/report.md",
+   "source_files": [
+    "reports/contact_latent_temporal_stage2/z_metrics.csv",
+    "reports/contact_latent_temporal_stage2/temporal_curves.npz"
+   ],
+   "metric": "L_z: mean squared error of the predicted z against the teacher z* in standardised (train-statistics) teacher coordinates, mean over frames 1-63 and the 64 dimensions, lower is better, with a 95 % take-cluster bootstrap interval; references: train-mean predictor and 'hold z*_0' (the teacher latent of frame 0 kept for all frames). r2_per_dim_mean: mean per-dimension coefficient of determination R^2 of the predicted z (higher is better). rmse_h*: root-mean-square z error per horizon bin.",
+   "numbers": {
+    "TACO | test L_z of B1 [CI] / train-mean predictor / hold z*_0": {
+     "value": "0.4936336523422634 [0.46266546403895487, 0.5283467109441987] / 0.9862065315246582 / 1.5674983263015747",
+     "source": "reports/contact_latent_temporal_stage2/z_metrics.csv",
+     "locator": "row dataset=taco, model=B1; columns L_z_test, L_z_lo, L_z_hi, L_z_train_mean, L_z_hold_z0"
+    },
+    "ARCTIC | test L_z of B1 [CI] / train-mean predictor / hold z*_0": {
+     "value": "0.5100266464684572 [0.4198066611459719, 0.5961013872028944] / 0.8289358615875244 / 0.9155101180076599",
+     "source": "reports/contact_latent_temporal_stage2/z_metrics.csv",
+     "locator": "row dataset=arctic, model=B1; same columns"
+    },
+    "TACO | per-dimension R^2 of the predicted z (B1): mean / min / max": {
+     "value": "0.4871982348002284 / 0.0802282681330837 / 0.7199846646442154",
+     "source": "reports/contact_latent_temporal_stage2/z_metrics.csv",
+     "locator": "row dataset=taco, model=B1; columns r2_per_dim_mean, r2_per_dim_min, r2_per_dim_max"
+    },
+    "ARCTIC | per-dimension R^2 of the predicted z (B1): mean / min / max": {
+     "value": "0.348564013279913 / -0.025160311221223308 / 0.6133296492909035",
+     "source": "reports/contact_latent_temporal_stage2/z_metrics.csv",
+     "locator": "row dataset=arctic, model=B1; same columns"
+    },
+    "TACO | z RMSE of B1 by horizon bin 1-8 / 9-16 / 17-32 / 33-48 / 49-63": {
+     "value": "0.5674190923109417 / 0.6416853074512179 / 0.7049514811650027 / 0.7516066939843794 / 0.7411350306477645",
+     "source": "reports/contact_latent_temporal_stage2/z_metrics.csv",
+     "locator": "row dataset=taco, model=B1; columns rmse_h1_8 ... rmse_h49_63"
+    },
+    "ARCTIC | z RMSE of B1 by horizon bin 1-8 / 9-16 / 17-32 / 33-48 / 49-63": {
+     "value": "0.5682259334608998 / 0.6588632260060598 / 0.7204026347245802 / 0.758214800235298 / 0.7560384822906085",
+     "source": "reports/contact_latent_temporal_stage2/z_metrics.csv",
+     "locator": "row dataset=arctic, model=B1; same columns"
+    },
+    "TACO | z RMSE of 'hold z*_0' by horizon bin 1-8 / ... / 49-63": {
+     "value": "0.643380343914032 / 1.0443779230117798 / 1.2597719430923462 / 1.3897401094436646 / 1.42409348487854",
+     "source": "reports/contact_latent_temporal_stage2/z_metrics.csv",
+     "locator": "row dataset=taco, model=B1; columns rmse_hold_h1_8 ... rmse_hold_h49_63"
+    },
+    "ARCTIC | z RMSE of 'hold z*_0' by horizon bin 1-8 / ... / 49-63": {
+     "value": "0.698005735874176 / 0.9029885530471802 / 0.976466953754425 / 1.0292365550994873 / 1.001707911491394",
+     "source": "reports/contact_latent_temporal_stage2/z_metrics.csv",
+     "locator": "row dataset=arctic, model=B1; same columns"
+    },
+    "TACO | z error at the first generated frame: B1 / hold z*_0": {
+     "value": "0.5007068916055231 / 0.2785801589488983",
+     "source": "reports/contact_latent_temporal_stage2/temporal_curves.npz",
+     "locator": "arrays taco|B1|z_err and taco|hold_z0|z_err, element [0] (= frame 1)"
+    },
+    "ARCTIC | z error at the first generated frame: B1 / hold z*_0": {
+     "value": "0.45728750675998 / 0.34397393465042114",
+     "source": "reports/contact_latent_temporal_stage2/temporal_curves.npz",
+     "locator": "arrays arctic|B1|z_err and arctic|hold_z0|z_err, element [0] (= frame 1)"
+    },
+    "TACO | correlation between a sequence's latent error and its dense error (B1)": {
+     "value": "0.6923346465305578",
+     "source": "reports/contact_latent_temporal_stage2/z_metrics.csv",
+     "locator": "row dataset=taco, model=B1; column corr_Lz_EC"
+    },
+    "ARCTIC | correlation between a sequence's latent error and its dense error (B1)": {
+     "value": "0.6951218279276041",
+     "source": "reports/contact_latent_temporal_stage2/z_metrics.csv",
+     "locator": "row dataset=arctic, model=B1; column corr_Lz_EC"
+    }
+   },
+   "caveats": [
+    "'About half' / 'about a third' paraphrase the mean per-dimension R^2 (0.487 / 0.349); the report writes 'about half' for TACO and '35-38 %' for ARCTIC (its Section 14 table prints '~38 %'; B2's value is 0.360).",
+    "R^2 here is the coefficient of determination, not the project's structure level 'R2'.",
+    "The train-mean reference scores 0.986 (TACO) / 0.829 (ARCTIC) on the test set, not 1.",
+    "The model predicts the whole 63-frame latent trajectory jointly in one pass (open loop, no rollout); this result does not test a stateful z evolution, which remains a motivated current hypothesis.",
+    "corr_Lz_EC is a per-sequence association, not a causal estimate.",
+    "One seed; latent checkpoints selected at step 4 000; ARCTIC B1 stopped by hand."
+   ],
+   "claim_as_extracted": "The predicted latent trajectory explains about half of the teacher latent's variance on TACO and about a third on ARCTIC on the test set, and its error grows along the horizon; holding the teacher's initial latent is more accurate than the model only in the first frames.",
+   "correction_reason": "'About a third' understates the ARCTIC figure: the table gives 0.349 and the report writes '35-38 %' ('~38 %' in Section 14). The error does not grow monotonically: TACO 0.752 -> 0.741 and ARCTIC 0.758 -> 0.756 in the last bin. Write R^2 (coefficient of determination), not the project's structure level R2."
+  },
+  {
+   "block": "F3-diagA",
+   "claim": "The z-mediated model starts behind: at the first generated frame its dense error (0.94 TACO / 1.27 ARCTIC) is already above the direct model's (0.36 / 0.40) and above the persistence predictor's (0.44 / 0.54), and even the teacher latent decoded by the same decoder costs 0.40 / 0.63 at that frame.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_latent_temporal_stage2/report.md",
+   "source_files": [
+    "reports/contact_latent_temporal_stage2/temporal_curves.npz",
+    "reports/contact_latent_temporal_stage2/taco/bottleneck_curves.npz",
+    "reports/contact_latent_temporal_stage2/arctic/bottleneck_curves.npz",
+    "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv"
+   ],
+   "metric": "Test-mean dense error (per-frame L2 over the 512 points, raw contact units, lower is better) at generated frame t = 1; no interval is stored for per-frame values. E_C_recon_s0 = ||D_z(z*_0) - s_0|| at frame 0: the part of the given initial map the z path does not reproduce, with a 95 % take-cluster bootstrap interval.",
+   "numbers": {
+    "TACO | dense error at t = 1: B0 / B1 / B2 / persistence": {
+     "value": "0.36065559875946696 / 0.9412768135399936 / 0.9403158652974846 / 0.4370516088815498",
+     "source": "reports/contact_latent_temporal_stage2/temporal_curves.npz",
+     "locator": "arrays taco|B0|dense, taco|B1|dense, taco|B2|dense, taco|PERSIST|dense, element [1]"
+    },
+    "ARCTIC | dense error at t = 1: B0 / B1 / B2 / persistence": {
+     "value": "0.40249051864669527 / 1.269884464320957 / 1.2718643348623988 / 0.5366440569801677",
+     "source": "reports/contact_latent_temporal_stage2/temporal_curves.npz",
+     "locator": "arrays arctic|B0|dense, arctic|B1|dense, arctic|B2|dense, arctic|PERSIST|dense, element [1]"
+    },
+    "TACO | dense error at t = 1 of the B1 decoder fed with teacher z*": {
+     "value": "0.40210992097854614",
+     "source": "reports/contact_latent_temporal_stage2/taco/bottleneck_curves.npz",
+     "locator": "array B1|oracle_z, element [0] (= frame 1)"
+    },
+    "ARCTIC | dense error at t = 1 of the B1 decoder fed with teacher z*": {
+     "value": "0.6335015892982483",
+     "source": "reports/contact_latent_temporal_stage2/arctic/bottleneck_curves.npz",
+     "locator": "array B1|oracle_z, element [0] (= frame 1)"
+    },
+    "TACO | ||D_z(z*_0) - s_0|| at frame 0, B1's fine-tuned decoder [CI]": {
+     "value": "0.3817117613545813 [0.3519191759231589, 0.4148303283858065]",
+     "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+     "locator": "row dataset=taco, model=B1; columns E_C_recon_s0, _lo, _hi"
+    },
+    "ARCTIC | ||D_z(z*_0) - s_0|| at frame 0, B1's fine-tuned decoder [CI]": {
+     "value": "0.5410165050297334 [0.4501327182805872, 0.6442489023120931]",
+     "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+     "locator": "row dataset=arctic, model=B1; columns E_C_recon_s0, _lo, _hi"
+    },
+    "TACO | teacher-z* decoding error over frames 1-63: minimum / maximum (B1 decoder)": {
+     "value": "0.40210992097854614 / 0.6101531386375427",
+     "source": "reports/contact_latent_temporal_stage2/taco/bottleneck_curves.npz",
+     "locator": "array B1|oracle_z, min / max over the 63 elements"
+    },
+    "ARCTIC | teacher-z* decoding error over frames 1-63: minimum / maximum (B1 decoder)": {
+     "value": "0.6335015892982483 / 0.7482947707176208",
+     "source": "reports/contact_latent_temporal_stage2/arctic/bottleneck_curves.npz",
+     "locator": "array B1|oracle_z, min / max over the 63 elements"
+    },
+    "TACO | persistence error at the last frame t = 63 (how far the contact moves from s_0)": {
+     "value": "4.414069610228251",
+     "source": "reports/contact_latent_temporal_stage2/temporal_curves.npz",
+     "locator": "array taco|PERSIST|dense, element [63]"
+    },
+    "ARCTIC | persistence error at the last frame t = 63 (how far the contact moves from s_0)": {
+     "value": "2.619358321030935",
+     "source": "reports/contact_latent_temporal_stage2/temporal_curves.npz",
+     "locator": "array arctic|PERSIST|dense, element [63]"
+    }
+   },
+   "caveats": [
+    "This is a design asymmetry the report states as a limitation: B0 predicts a residual around s_0, whereas B1 / B2 decode absolute maps and the Stage-1 encoder is not part of inference, so the latent models have no path that copies the initial map. A large part of the short-horizon gap is this asymmetry.",
+    "The experiment does not say what a latent model that is given the encoded s_0 would do; that such a model would close the gap is a motivated current hypothesis (the stateful-z / s_0-preserving experiment), not a result of this report.",
+    "Per-frame values are test means without intervals.",
+    "The report's dataset explanation (TACO amortises the initial cost because contact changes a lot within the window; ARCTIC never recovers it) is an interpretation consistent with the persistence errors, not a tested mechanism.",
+    "One seed; hand-stopped latent runs (report Section 8)."
+   ]
+  }
+ ],
+ "dataset_differences": [
+  "Dense error, B1 versus B0: a tie on TACO (1.732 vs 1.700; paired difference +0.031 [-0.009, +0.076]) but 14.1 % worse on ARCTIC (2.157 vs 1.890; +0.266 [+0.189, +0.345]).",
+  "Structural / wrench metrics, B1 versus B0: TACO 4 of 5 better (participation +6.7 %, centroid +7.0 %, normal +2.7 %, wrench +3.2 %; amount unchanged); ARCTIC 0 better and 1 worse (contact amount -8.8 %), the other four within their intervals.",
+  "Horizon: on TACO B1 is worse in the first 16 frames (dense 1.146 vs 0.806 at t = 1-8), level at t = 17-32 and nominally lower afterwards, and its participation error is lower from frame 17 on (0.175 vs 0.205 at t = 49-63); on ARCTIC B0 has the lower dense error in every bin (gap 0.54 at t = 1-8 shrinking to 0.16 at t = 49-63) and the contact-amount error stays higher for B1.",
+  "Persistence context: TACO contact changes much more within the window (persistence E_C 3.539, B0 1.700) than ARCTIC (2.242, B0 1.890); the report gives B0's gain over persistence as 52 % (TACO) and 16 % (ARCTIC). ARCTIC B1 (2.157) is close to persistence, and in the first bin it is above persistence (1.600 vs 1.345); on TACO B1 is below persistence in every bin.",
+  "Teacher-z* decoding floor (B1 decoder): 0.510 on TACO, 0.709 on ARCTIC; it rises along the horizon on TACO (0.40 to 0.61) and is flat on ARCTIC (0.63-0.75). Relative to B0 it is more than three times lower on TACO but less than three times lower on ARCTIC.",
+  "Initial-map detail the z path does not reproduce, ||D_z(z*_0) - s_0||: 0.382 (TACO) vs 0.541 (ARCTIC).",
+  "Latent predictability on the test set: mean per-dimension R^2 of the predicted z 0.487 (TACO) vs 0.349 (ARCTIC); test L_z 0.494 against a train-mean reference of 0.986 (TACO) and 0.510 against 0.829 (ARCTIC).",
+  "Share of test sequences on which B1 has the lower dense error: 48 % (TACO) vs 27 % (ARCTIC).",
+  "Frame-to-frame change: on TACO every model changes less per frame than the ground truth (0.315; B0 0.203, B1 0.157); on ARCTIC every model changes more than the ground truth (0.161; B0 0.186, B1 0.178, B2 0.184). The deviation from the ground truth is larger for B1 than B0 on both (31 % / 19 %).",
+  "Predicted r: the residual correction is 3 % (TACO) / 7 % (ARCTIC) of the z path's displacement from s_0 and improves 52 % / 56 % of sequences; only on ARCTIC does B2 get a 'worse' verdict against B1 (dense frame-to-frame change and its deviation, about 3 %).",
+  "Rule outcome: case B with best supported model B1 on TACO; case E with best supported model B0 on ARCTIC. No representation is supported on both datasets.",
+  "Training / disclosure differs by dataset: TACO B1 ran to 20 000 steps and ended by patience, TACO B2 was stopped by hand at 14 000; on ARCTIC both latent runs were stopped by hand (B1 at 18 000, B2 at 12 000), and ARCTIC B1 is the run for which a later validation best is not excluded. B0 was selected at 79 000 steps (TACO) and 33 000 (ARCTIC).",
+  "Sample size and interval width: TACO 364 test sequences from 186 takes; ARCTIC 186 test sequences from 44 takes, so ARCTIC per-model intervals are wide (B0 E_C 1.63-2.17) although the paired differences are not.",
+  "Against the previous direct model D0: on TACO B1 is still better on centroid, normal, wrench and the dense error (2-5 %), participation not distinguishable; on ARCTIC B1 is worse on the dense error (-9.8 %) and amount (-8.4 %) but better on centroid (+5.6 %) and normal (+4.3 %).",
+  "OakInk2 is not part of this experiment: every result in these blocks exists for TACO and ARCTIC only."
+ ],
+ "do_not_claim": [
+  "'z failed as a temporal state' or 'z is a bad state' -- the report states the opposite reading: the latent trajectory, if it could be predicted, would be more than enough; what is not supported is that z is an easier prediction target under this formulation.",
+  "'Z-mediated generation is better on TACO' without qualification -- the dense error is tied (nominally 1.8 % worse); only four structural / wrench metrics are better, by 2.7-7.0 %, and only at long horizon. 'Case B' is the rule's label, not a dense-error win.",
+  "'The structural benefit holds over the whole sequence' -- in the first 16 frames the direct model is better on dense error, participation, centroid, normal and wrench.",
+  "'B0 is 42 % better at t = 1-8' -- the report's figure is 'B1 is 42 % worse' (1.146 vs 0.806).",
+  "'On ARCTIC z-mediation is worse on every structural metric' -- only the contact amount is worse by the rule; participation, centroid, normal and wrench are within their intervals.",
+  "Any pooled or averaged statement across TACO and ARCTIC (for example an average percentage change of B1 versus B0).",
+  "'Decoding the teacher z shows what a z-based generator can reach' -- the teacher latent is computed from the true future frames and is unavailable at inference; it bounds what the representation and decoder allow.",
+  "'The teacher-z error is three times lower than any model' as a statement for both datasets -- against B0 it is less than a factor of three on ARCTIC (0.709 vs 1.890).",
+  "'90 % of the error is caused by latent prediction' as a variance decomposition or causal attribution -- the number is one minus a ratio of squared mean errors.",
+  "'The missing copy of s_0 is the cause of the gap' or 'giving the model the encoded s_0 fixes it' -- the report names this asymmetry as a limitation and did not test such a model; the stateful-z / s_0-preserving design is a motivated current hypothesis, not a result.",
+  "'z is disentangled from r' or 'z and r are independent' -- nothing here measures that; use 'structure-oriented' / 'structure information is concentrated in z'.",
+  "'r is noise' or 'r is useless' -- the result is that a PREDICTED r (not supervised against the Stage-1 r, at checkpoints selected at 4 000 steps) provides little additional information; r remains a realization residual / complementary dense detail.",
+  "'Adding r does not damage z' as a positive finding -- the report calls this test vacuous because the r pathway does almost nothing.",
+  "'z mediation makes trajectories more stable' or 'closer to the true temporal statistics' -- the deviation from the ground truth's frame-to-frame change is larger for B1 on both datasets.",
+  "'The results are robust across seeds' or 'all models were trained to convergence under equal budgets' -- one seed; three latent runs were stopped by hand before the 20 000-step minimum after a preliminary test pass; B0 was selected at 79 k / 33 k steps and the latent models at 4 k.",
+  "'The checkpoints were selected with test data' -- they were not (validation only; sanity check 13 passes); what was not test-blind is the decision to stop three runs.",
+  "'The comparison isolates the representation' -- B1 / B2 also differ from B0 in decoder geometry access, in absolute versus residual output, and in the frame subsampling of their dense loss.",
+  "'B1 beats (or does not beat) persistence on ARCTIC' as a tested statement -- no paired test against persistence exists in the tables (2.157 vs 2.242 are unpaired means).",
+  "'The larger direct model B0 is better than the previous D0 on everything' -- on TACO it is worse than the previous D0 on participation and centroid.",
+  "'The latent is harder to predict because of poor temporal geometry / because the future is stochastic' -- this report gives no test of the reason; it only reports that about half (TACO) / a third (ARCTIC) of the teacher's variance is predicted.",
+  "Any statement about human intent, robot null-space motion, 'contact does not move over time', or universal determinism from these blocks; the wrench profile is a proxy for functional grasp capability only.",
+  "Any OakInk2 claim: the experiment has no OakInk2 result."
+ ],
+ "candidate_images": [
+  {
+   "path": "reports/contact_latent_temporal_stage2/figures/fig5a_taco.png",
+   "block": "F3-C",
+   "shows": "TACO test example 727 (plate, left hand): rows ground truth / B0 / B1 / B2, columns t = 0, 4, 8, 16, 32, 48, 63, canonical object points in a 2-D view coloured by contact; a bottom row of small diagnostic panels (participation raster, per-frame dense error, total contact amount, wrench error, frame-to-frame change). The true contact leaves the lower-left corner and re-forms at the upper-left corner / top edge; B0 shows only weak diffuse contact there; B1 and B2 place contact on the top edge, shifted toward its centre, with less total amount than the ground truth. Raw matplotlib; the bottom row is tiny and partly unlabeled, so cropping to the four point-cloud rows is advisable.",
+   "caption": "A sequence where the contact structure changes far from the initial map (TACO test example 727, plate, left hand). The direct model B0 moves too little contact to the new region (dense error 3.33, participation Hamming 0.53); the z-mediated models B1 / B2 place it on the correct edge with too little amount (2.06 / 2.04; 0.21 / 0.23). This example was selected by rule as the largest structural improvement of B1 over B0, so it is a best case for B1, not a typical one.",
+   "size": "1770 x 1155 px, 1023317 bytes"
+  },
+  {
+   "path": "reports/contact_latent_temporal_stage2/figures/fig5c_taco.png",
+   "block": "F3-C",
+   "shows": "TACO test example 866 (plate, left hand), same layout. The true contact moves from the bottom-right region to the right rim and its total amount drops; B0, B1 and B2 all keep the contact near the initial region and over-predict the amount. Same raw-matplotlib caveats; crop to the four point-cloud rows.",
+   "caption": "A shared failure (TACO test example 866, selected by rule as the largest dense error of the best model): the true contact is rearranged in a way none of the three models anticipates from the initial map, the geometry and the object trajectory; the direct and the latent models fail in the same way (dense error 5.01 / 5.21 / 5.18 for B0 / B1 / B2).",
+   "size": "1770 x 1155 px, 1086784 bytes"
+  },
+  {
+   "path": "reports/contact_latent_temporal_stage2/figures/fig5a_arctic.png",
+   "block": "F3-C",
+   "shows": "ARCTIC test example 542 (laptop, right hand), same layout. The true contact intensifies along the left edge over the window; B0 keeps moderate contact at the upper-left; B1 / B2 build up contact on the left edge; all three under-predict the total amount. Same raw-matplotlib caveats.",
+   "caption": "The ARCTIC counterpart of the best case for B1 (test example 542, laptop, right hand; selected by rule as the largest structural improvement of B1 over B0): dense error 1.57 / 1.28 / 1.41 for B0 / B1 / B2. Such sequences exist on ARCTIC, but on average the z-mediated model is worse there (dense error 2.157 vs 1.890).",
+   "size": "1770 x 1155 px, 1137503 bytes"
+  },
+  {
+   "path": "reports/contact_latent_temporal_stage2/figures/fig5c_arctic.png",
+   "block": "F3-C",
+   "shows": "ARCTIC test example 1030 (scissors, left hand), same layout. The true contact moves from the lower handle loop (t = 0-16) to the upper loop (t = 48-63); all three models keep the contact on the lower loop. Same raw-matplotlib caveats.",
+   "caption": "A shared failure on ARCTIC (test example 1030, scissors, left hand; selected by rule as the largest dense error of the best model): the contact switches from one handle loop to the other and none of the three models follows (dense error 5.90 / 6.17 / 6.14 for B0 / B1 / B2).",
+   "size": "1770 x 1155 px, 316418 bytes"
+  },
+  {
+   "path": "reports/contact_latent_temporal_stage2/figures/fig6_validation_curves.png",
+   "block": "F3-C",
+   "shows": "Not a qualitative contact example: the report's validation curves (2 x 3 panels, log step axis: validation dense term, validation dense error, validation L_z; circles mark the selected step). B0 keeps descending to its selected step (79 k TACO / 33 k ARCTIC); the latent curves reach their minimum at 4 k steps, flatten or rise, and visibly end early (12-20 k). Small fonts but readable. It is the evidence figure for the Section 8 disclosure and is not reproduced by the figure module.",
+   "caption": "Validation curves of the six runs (EMA weights, all 63 frames decoded); circles mark the selected step. The direct model keeps improving for tens of thousands of steps, while the four latent runs reach their validation optimum at 4 000 steps; three of them were then stopped by hand before the protocol's 20 000-step minimum, after a preliminary test pass.",
+   "size": "1755 x 832 px, 176216 bytes"
+  }
+ ],
+ "verification": {
+  "reliability": "high",
+  "numbers_confirmed": 119,
+  "numbers_checked": 120,
+  "number_corrections": [
+   {
+    "block": "expected (F3-C)",
+    "label": "TACO 'at t = 1-8 B0 is 42 % better'",
+    "reported": "B0 42 % better at t = 1-8",
+    "found": "bin means 0.8061877320079864 (B0) vs 1.1460665571400999 (B1); B1/B0 = 1.4216, so the report's '42 % worse' describes B1 relative to B0. Expressed relative to B1, B0 is about 30 % lower, not 42 %. Write 'B1 is 42 % worse than B0' or give the two bin means. Prose figure, no table column, no paired per-bin test",
+    "verdict": "corrected",
+    "source_checked": "reports/contact_latent_temporal_stage2/horizon_metrics.csv rows taco, dense, bin 1-8; report.md Section 12 line 516"
+   }
+  ],
+  "claims_supported_as_extracted": 8,
+  "claims_checked": 14,
+  "figure_checks": [
+   {
+    "id": "f3c_dense_error_b0_b1_b2",
+    "verdict": "ok",
+    "note": "Bars, lo, hi = value, ci_lo, ci_hi of main_metrics.csv rows (B0, B1, B2; E_C) per dataset; reference line = PERSIST E_C; TACO left, ARCTIC right; direction lower_better. All values equal the table exactly. Note correctly says the intervals are per-model and unpaired. No plotted value is typed into the code."
+   },
+   {
+    "id": "f3c_dense_error_paired_diff",
+    "verdict": "ok",
+    "note": "Values and error bars = diff, ci_lo, ci_hi of paired_comparisons.csv rows (B1,B0,E_C) and (B2,B1,E_C) per dataset; exact match. Error bars are the paired intervals, as the note says. Zero line is the only literal."
+   },
+   {
+    "id": "f3c_structure_rel_change_b1_vs_b0",
+    "verdict": "ok",
+    "note": "Values = rel_improvement of rows a=B1, b=B0 for E_C, part_hamming, amount_l1, centroid, normal, q_rel_l1; exact match. Stars follow the verdict column (TACO: participation, centroid, normal, wrench; ARCTIC: dense error, amount). No error bars, and the note says why. Page text next to it should say these are 63-frame averages."
+   },
+   {
+    "id": "f3c_dense_error_by_horizon",
+    "verdict": "fixed",
+    "note": "Plotted values were already correct (exact match with horizon_metrics.csv, curve=dense, B0 / B1, five bins, both datasets) and are unchanged. Two edits in the module: (1) rows are now sorted by h_lo and the module raises if two series of a panel do not share the same bins (before, it relied on file order and took the labels from the last model only); (2) the note now states that the bars are each curve's own unpaired interval and that the tables hold no paired per-bin test. Re-run: panels identical to the previous output."
+   },
+   {
+    "id": "f3c_participation_by_horizon",
+    "verdict": "fixed",
+    "note": "Same two edits as above (shared function). Values exact: curve=part for B0, B1 and GT (the floor, true map through the same extraction), both datasets. Panels identical before and after the edit."
+   },
+   {
+    "id": "f3diaga_teacher_z_vs_predicted_z",
+    "verdict": "ok",
+    "note": "Four bars per dataset with their own intervals: B0 (main_metrics.csv E_C), B1 predicted z (E_C_pred), B1 decoder with teacher z* (E_C_oracle_z, highlighted), Stage-1 autoencoder z-only (stage1_E_zonly), rows model=B1 of bottleneck_metrics.csv. Exact match. The note states that the teacher latents come from the true frames and are never available at inference."
+   },
+   {
+    "id": "f3diaga_dense_error_per_frame",
+    "verdict": "ok",
+    "note": "63 points per series: temporal_curves.npz <ds>|B0|dense[1:], <ds>|B1|dense[1:] and <ds>/bottleneck_curves.npz B1|oracle_z (index 0 = frame 1, checked against B1|pred[0] = B1 dense[1]). Exact match. Means only, no intervals, as the note says. From the curves: teacher z* is below B1 at every frame; B0 is at or below the teacher curve at frame 1 (TACO) and frames 1-2 (ARCTIC); on TACO B1's mean is below B0's at frame 20 and from frame 25 on, on ARCTIC at no frame."
+   },
+   {
+    "id": "f3diaga_first_frame_error",
+    "verdict": "ok",
+    "note": "Four bars per dataset at t = 1: persistence, B0, B1 (element [1] of temporal_curves.npz) and the B1 decoder with teacher z* (element [0] of bottleneck_curves.npz). Exact match: TACO 0.437 / 0.361 / 0.941 / 0.402; ARCTIC 0.537 / 0.402 / 1.270 / 0.634. No error bars exist in the source."
+   }
+  ],
+  "image_checks": [
+   {
+    "path": "reports/contact_latent_temporal_stage2/figures/fig5a_taco.png",
+    "exists": true,
+    "note": "1770 x 1155 px, 1023317 bytes. Title in the image: 'B1 improves most over B0 (structural composite) - test example 727 (plate, L); E_C B0 3.33 / B1 2.06 / B2 2.04'. Caption supported: per-example values 3.3268 / 2.0550 / 2.0397 and participation Hamming 0.529 / 0.212 / 0.230 confirmed in the per-sequence files. Suggested precision: B1 / B2 place the contact on the top edge, shifted toward its centre relative to the true upper-left corner, with less total amount. Keep the sentence that this is the rule-selected best case for B1. Bottom diagnostic row is small; cropping to the four point-cloud rows is reasonable."
+   },
+   {
+    "path": "reports/contact_latent_temporal_stage2/figures/fig5c_taco.png",
+    "exists": true,
+    "note": "1770 x 1155 px, 1086784 bytes. Title: 'failure case (largest dense error of the best model) - test example 866 (plate, L); E_C B0 5.01 / B1 5.21 / B2 5.18'. Caption supported: true contact moves from the bottom-right region to the right rim and its total amount drops, all three models keep contact near the initial region and over-predict the amount. Selection rule re-derived from the per-sequence files (example 866 is the argmax of the best model's E_C)."
+   },
+   {
+    "path": "reports/contact_latent_temporal_stage2/figures/fig5a_arctic.png",
+    "exists": true,
+    "note": "1770 x 1155 px, 1137503 bytes. Title: 'test example 542 (laptop, R); E_C B0 1.57 / B1 1.28 / B2 1.41'. Caption supported, including the closing sentence that on average the z-mediated model is worse on ARCTIC (2.157 vs 1.890). All three models under-predict the total amount (bottom panel)."
+   },
+   {
+    "path": "reports/contact_latent_temporal_stage2/figures/fig5c_arctic.png",
+    "exists": true,
+    "note": "1770 x 1155 px, 316418 bytes. Title: 'failure case - test example 1030 (scissors, L); E_C B0 5.90 / B1 6.17 / B2 6.14'. Caption supported: true contact switches from the lower handle loop to the upper loop, all three models stay on the lower loop."
+   },
+   {
+    "path": "reports/contact_latent_temporal_stage2/figures/fig6_validation_curves.png",
+    "exists": true,
+    "note": "1755 x 832 px, 176216 bytes. Six panels (TACO / ARCTIC x validation dense term, validation E_C, validation L_z), log step axis, circles at the selected step. Caption supported by the image and by training_summary.csv (B0 selected at 79 000 / 33 000 steps; all four latent runs at 4 000; three stopped by hand). Add to the caption that TACO B1 ran to 20 000 steps and ended by the patience rule, and that TACO B0 reached the 80 000-step cap. Not reproduced by the figure module."
+   }
+  ],
+  "attached_by_the_verifier": [
+   "B2 against B0 is not delivered as numbers although the page compares all three models. From paired_comparisons.csv (a=B2, b=B0): TACO E_C +0.026574421919636673 [-0.013732233333636795, +0.06962103864106801], similar, with 4 of 5 structural / wrench metrics better; ARCTIC E_C +0.2638217314917554 [+0.18406464413828727, +0.34524520072528603], rel_improvement -0.13957729510213912, worse, and 3 of 5 structural / wrench metrics worse (part_hamming -0.058678922796376876, amount_l1 -0.08599584133235295, q_rel_l1 -0.043843666282232595) against 1 of 5 for B1.",
+   "TACO B0 reached the 80 000-step cap with its best step at 79 000 (training_summary.csv: stopped_by max_steps, converged False; report: 'the cap was reached with the curve nearly flat'). Attach to any statement about training budgets: the direct model on TACO was still improving slowly when training ended.",
+   "jitter_dense (and therefore jitter_dev_dense) averages the 62 steps between generated frames 1..63 and excludes the step from s_0 to frame 1 (evaluate.py, lo = 1 under the fixed-s_0 protocol). The first-step jump of the latent models (0.93 / 1.21 versus 0.34 / 0.43 for B0) is therefore outside the stability metric and must be reported separately, as the extractor does.",
+   "The 2.7-7.0 % TACO figure and the relative-change figure are 63-frame averages; the figure note does not say that they net an early disadvantage against a late advantage. Put that sentence next to f3c_structure_rel_change_b1_vs_b0 on the page.",
+   "The bottleneck inspection was run after the test results were known (scripts/research/contact_latent_temporal_stage2/s2_diag_bottleneck.py dated 23:03, table 23:12, preliminary test pass 22:33-22:58). The report presents it as the step its plan prescribes when z hurts and labels it analysis only; say both, not only 'post hoc'.",
+   "TACO 'test' is the dataset's test_1 label only (364 sequences); the test_2..4 sequences are held in test_extra and unused (taco/50_hier_contact_gen/manifests/fixed0.json, field rule).",
+   "No figure shows the latent-prediction quality behind 'the predicted z is the problem' (test L_z against the train-mean and hold-z*_0 references, per-dimension R^2, z RMSE by horizon). The numbers are in the entry (z_metrics.csv) and could feed a small figure if the block needs one; the module does not read z_metrics.csv.",
+   "The extractor's expected_number_checks uses the verdict 'differs' for the 42 % item; the finding itself is right (B1 is 42 % worse than B0 at t = 1-8; 'B0 is 42 % better' must not be written).",
+   "Report prose versus table, small: Section 10 prints the ARCTIC B1-vs-previous-D0 dense figure as 9.9 %, the table gives 0.09847663688286269 (9.8 %); Section 18 Q1 prints the ARCTIC interval as '+0.19 to +0.34', Section 14 as '+0.19 to +0.35', the table is [+0.18890297390399916, +0.3447021090804569]. Use the table values.",
+   "The fig6 validation-curve image is the only visual evidence for the Section 8 disclosure and is not rebuilt by the module; if the page shows it, it is a raw matplotlib image with small fonts."
+  ]
+ }
+}

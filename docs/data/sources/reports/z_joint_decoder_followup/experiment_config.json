@@ -1,0 +1,515 @@
+{
+  "question": "Did adapting the decoder (jointly, on predicted z, with more capacity and time) rescue z-mediated temporal generation?",
+  "models": {
+    "M0": {
+      "arch": "B0",
+      "reuse": "B0",
+      "joint": false,
+      "dual": false,
+      "label": "direct dense baseline: backbone -> MLP head -> rho_hat_1:63, C_hat_t = s_0 + sigma_r rho_hat_t (Stage-2 B0, reused)"
+    },
+    "M1": {
+      "arch": "B1",
+      "reuse": "B1",
+      "joint": true,
+      "dual": false,
+      "label": "previous z-mediated formulation: backbone -> z_hat -> Stage-1 D_z (4 blocks, fine-tuned), selected on L_C + L_z (Stage-2 B1, reused)"
+    },
+    "M2": {
+      "arch": "B1",
+      "reuse": null,
+      "joint": true,
+      "dual": false,
+      "label": "jointly adapted: backbone -> z_hat -> D_phi (Stage-1 D_z + 2 identity-initialised blocks, fully fine-tuned), L_C(D_phi(z_hat)) + lambda_z L_z"
+    },
+    "M3": {
+      "arch": "B1",
+      "reuse": null,
+      "joint": true,
+      "dual": true,
+      "label": "dual-input decoder (optional): M2 + beta_gt L_C(D_phi(z*)); the predicted-z term dominates"
+    },
+    "M0r": {
+      "arch": "B0",
+      "reuse": null,
+      "joint": false,
+      "dual": false,
+      "label": "budget-parity check: M0 retrained under this study's 100 k-step protocol (conditional, see M0_REUSE)"
+    }
+  },
+  "decoder": {
+    "extra_blocks": 2
+  },
+  "backbone": {
+    "width": 768,
+    "depth": 8,
+    "heads": 12,
+    "mlp_ratio": 4,
+    "dropout": 0.1,
+    "cond_width": 256,
+    "ckpt_dec": true,
+    "b0_head_hidden": 2048
+  },
+  "train": {
+    "lr": 0.0001,
+    "wd": 0.01,
+    "warmup": 5000,
+    "batch": 128,
+    "grad_clip": 1.0,
+    "ema": 0.999,
+    "max_steps": 100000,
+    "final_lr_frac": 0.05,
+    "eval_every": 1000,
+    "min_steps": 25000,
+    "patience": 15,
+    "log_every": 100,
+    "n_dec_frames": 4,
+    "n_gt_frames": 1,
+    "dec_chunk": 128,
+    "lambda_z": 1.0,
+    "beta_pred": 1.0,
+    "beta_gt": 0.25,
+    "select": "L_C",
+    "grad_inspect_steps": [
+      500,
+      1000,
+      2000,
+      3000,
+      5000
+    ]
+  },
+  "m0_reuse": {
+    "reused": "Stage-2 B0 checkpoint",
+    "why": "identical backbone, inputs, loss and recipe (AdamW 1e-4, wd 0.01, 5 k warm-up, cosine, batch 128, clip 1.0, EMA 0.999, patience 15); its budget was 80 k steps (TACO used all 80 k, best at 79 k; ARCTIC stopped by patience at 48 k, best at 33 k)",
+    "parity_check": "M0r = the same model retrained under this study's 100 k / 25 k protocol; lowest priority in the GPU queue; the M2-vs-M0 verdict is re-read against it when it exists"
+  },
+  "decision_rule": {
+    "rel_min": 0.02,
+    "struct_majority": 3,
+    "z_better": "test L_z of M2 lower than M1's by the same rule (paired, >= 2 %, CI excludes 0)",
+    "robust": "same predicted z into both decoders: D_M2 gives a lower dense error than D_M1 on M1's z_hat AND on M2's z_hat (yes), on one of them (partial), on neither (no)",
+    "ambiguous": "extra seed for M2 only if the M2-vs-M0 dense difference is >= 2 % in either direction while its CI includes 0",
+    "control_4blk": "only if M2 is better than M1: one control run with the 4-block decoder under the M2 protocol, to separate capacity from budget / selection",
+    "heldout_probe_trigger": 0.5
+  },
+  "noise": {
+    "seed": 0,
+    "n_draws": 1,
+    "primary": "gaussian: eps_t ~ N(mu_bin, Sigma_bin), the mean and covariance of the model's test errors z_hat - z* in the horizon bin of t",
+    "secondary": "permuted: the error trajectory z_hat - z* of ANOTHER test sequence (same frames) added to the teacher z* (exact error distribution, independent of the content)"
+  },
+  "protocol": "A",
+  "n_boot": 1000,
+  "horizon_bins": [
+    [
+      1,
+      8
+    ],
+    [
+      9,
+      16
+    ],
+    [
+      17,
+      32
+    ],
+    [
+      33,
+      48
+    ],
+    [
+      49,
+      63
+    ]
+  ],
+  "seed": 0,
+  "runs": {
+    "taco/M0": {
+      "ckpt": "/ckpt/uhnam/dexcore/contact_latent_temporal_stage2/taco/B0_seed0.pt",
+      "md5": "2bb8bfe01963",
+      "best_step": 79000,
+      "best_step_objective": 79000,
+      "steps": 80000,
+      "stopped_by": "max_steps",
+      "teacher": {
+        "ckpt": "/ckpt/uhnam/dexcore/contact_factorization_stage1/taco/A3_seed0.pt",
+        "md5": "88e5878deb88",
+        "best_step": 12000,
+        "dz": 64,
+        "dr": 64,
+        "ckpt_md5_at_training": "88e5878deb88"
+      },
+      "n_params": {
+        "backbone": 67923712,
+        "head": 6820352,
+        "total": 74744064
+      },
+      "cfg": {
+        "lr": 0.0001,
+        "wd": 0.01,
+        "warmup": 5000,
+        "batch": 128,
+        "grad_clip": 1.0,
+        "ema": 0.999,
+        "max_steps": 80000,
+        "final_lr_frac": 0.05,
+        "eval_every": 1000,
+        "min_steps": 20000,
+        "patience": 15,
+        "log_every": 100,
+        "n_dec_frames": 4,
+        "lambda_z": 1.0,
+        "lambda_c": 0.5,
+        "lambda_res": 0.01,
+        "grad_inspect_steps": [
+          500,
+          1000,
+          2000,
+          3000,
+          5000
+        ]
+      }
+    },
+    "taco/M1": {
+      "ckpt": "/ckpt/uhnam/dexcore/contact_latent_temporal_stage2/taco/B1_seed0.pt",
+      "md5": "32950189bd51",
+      "best_step": 4000,
+      "best_step_objective": 4000,
+      "steps": 20000,
+      "stopped_by": "patience",
+      "teacher": {
+        "ckpt": "/ckpt/uhnam/dexcore/contact_factorization_stage1/taco/A3_seed0.pt",
+        "md5": "88e5878deb88",
+        "best_step": 12000,
+        "dz": 64,
+        "dr": 64,
+        "ckpt_md5_at_training": "88e5878deb88"
+      },
+      "n_params": {
+        "backbone": 67923712,
+        "head": 49216,
+        "D_z": 5627393,
+        "total": 73600321
+      },
+      "cfg": {
+        "lr": 0.0001,
+        "wd": 0.01,
+        "warmup": 5000,
+        "batch": 128,
+        "grad_clip": 1.0,
+        "ema": 0.999,
+        "max_steps": 80000,
+        "final_lr_frac": 0.05,
+        "eval_every": 1000,
+        "min_steps": 20000,
+        "patience": 15,
+        "log_every": 100,
+        "n_dec_frames": 4,
+        "lambda_z": 1.0,
+        "lambda_c": 0.5,
+        "lambda_res": 0.01,
+        "grad_inspect_steps": [
+          500,
+          1000,
+          2000,
+          3000,
+          5000
+        ]
+      }
+    },
+    "taco/M2": {
+      "ckpt": "/ckpt/uhnam/dexcore/z_joint_decoder_followup/taco/M2_seed0.pt",
+      "md5": "13f859bed2bb",
+      "best_step": 7000,
+      "best_step_objective": 4000,
+      "steps": 25000,
+      "stopped_by": "patience",
+      "teacher": {
+        "ckpt": "/ckpt/uhnam/dexcore/contact_factorization_stage1/taco/A3_seed0.pt",
+        "md5": "88e5878deb88",
+        "best_step": 12000,
+        "dz": 64,
+        "dr": 64,
+        "ckpt_md5_at_training": "88e5878deb88"
+      },
+      "n_params": {
+        "backbone": 67923712,
+        "head": 49216,
+        "D_z": 7994369,
+        "total": 75967297
+      },
+      "cfg": {
+        "lr": 0.0001,
+        "wd": 0.01,
+        "warmup": 5000,
+        "batch": 128,
+        "grad_clip": 1.0,
+        "ema": 0.999,
+        "max_steps": 100000,
+        "final_lr_frac": 0.05,
+        "eval_every": 1000,
+        "min_steps": 25000,
+        "patience": 15,
+        "log_every": 100,
+        "n_dec_frames": 4,
+        "n_gt_frames": 1,
+        "dec_chunk": 128,
+        "lambda_z": 1.0,
+        "beta_pred": 1.0,
+        "beta_gt": 0.25,
+        "select": "L_C",
+        "grad_inspect_steps": [
+          500,
+          1000,
+          2000,
+          3000,
+          5000
+        ],
+        "extra_blocks": 2
+      }
+    },
+    "arctic/M0": {
+      "ckpt": "/ckpt/uhnam/dexcore/contact_latent_temporal_stage2/arctic/B0_seed0.pt",
+      "md5": "98bd67f5b5a8",
+      "best_step": 33000,
+      "best_step_objective": 33000,
+      "steps": 48000,
+      "stopped_by": "patience",
+      "teacher": {
+        "ckpt": "/ckpt/uhnam/dexcore/contact_factorization_stage1/arctic/A3_seed0.pt",
+        "md5": "2d0e55d2e34f",
+        "best_step": 12000,
+        "dz": 64,
+        "dr": 64,
+        "ckpt_md5_at_training": "2d0e55d2e34f"
+      },
+      "n_params": {
+        "backbone": 67833856,
+        "head": 6820352,
+        "total": 74654208
+      },
+      "cfg": {
+        "lr": 0.0001,
+        "wd": 0.01,
+        "warmup": 5000,
+        "batch": 128,
+        "grad_clip": 1.0,
+        "ema": 0.999,
+        "max_steps": 80000,
+        "final_lr_frac": 0.05,
+        "eval_every": 1000,
+        "min_steps": 20000,
+        "patience": 15,
+        "log_every": 100,
+        "n_dec_frames": 4,
+        "lambda_z": 1.0,
+        "lambda_c": 0.5,
+        "lambda_res": 0.01,
+        "grad_inspect_steps": [
+          500,
+          1000,
+          2000,
+          3000,
+          5000
+        ]
+      }
+    },
+    "arctic/M1": {
+      "ckpt": "/ckpt/uhnam/dexcore/contact_latent_temporal_stage2/arctic/B1_seed0.pt",
+      "md5": "60cf23d4c0da",
+      "best_step": 4000,
+      "best_step_objective": 4000,
+      "steps": 18000,
+      "stopped_by": "manual_stop",
+      "teacher": {
+        "ckpt": "/ckpt/uhnam/dexcore/contact_factorization_stage1/arctic/A3_seed0.pt",
+        "md5": "2d0e55d2e34f",
+        "best_step": 12000,
+        "dz": 64,
+        "dr": 64,
+        "ckpt_md5_at_training": "2d0e55d2e34f"
+      },
+      "n_params": {
+        "backbone": 67833856,
+        "head": 49216,
+        "D_z": 5627393,
+        "total": 73510465
+      },
+      "cfg": {
+        "lr": 0.0001,
+        "wd": 0.01,
+        "warmup": 5000,
+        "batch": 128,
+        "grad_clip": 1.0,
+        "ema": 0.999,
+        "max_steps": 80000,
+        "final_lr_frac": 0.05,
+        "eval_every": 1000,
+        "min_steps": 20000,
+        "patience": 15,
+        "log_every": 100,
+        "n_dec_frames": 4,
+        "lambda_z": 1.0,
+        "lambda_c": 0.5,
+        "lambda_res": 0.01,
+        "grad_inspect_steps": [
+          500,
+          1000,
+          2000,
+          3000,
+          5000
+        ]
+      }
+    },
+    "arctic/M2": {
+      "ckpt": "/ckpt/uhnam/dexcore/z_joint_decoder_followup/arctic/M2_seed0.pt",
+      "md5": "9fdafd6e7e0f",
+      "best_step": 8000,
+      "best_step_objective": 8000,
+      "steps": 25000,
+      "stopped_by": "patience",
+      "teacher": {
+        "ckpt": "/ckpt/uhnam/dexcore/contact_factorization_stage1/arctic/A3_seed0.pt",
+        "md5": "2d0e55d2e34f",
+        "best_step": 12000,
+        "dz": 64,
+        "dr": 64,
+        "ckpt_md5_at_training": "2d0e55d2e34f"
+      },
+      "n_params": {
+        "backbone": 67833856,
+        "head": 49216,
+        "D_z": 7994369,
+        "total": 75877441
+      },
+      "cfg": {
+        "lr": 0.0001,
+        "wd": 0.01,
+        "warmup": 5000,
+        "batch": 128,
+        "grad_clip": 1.0,
+        "ema": 0.999,
+        "max_steps": 100000,
+        "final_lr_frac": 0.05,
+        "eval_every": 1000,
+        "min_steps": 25000,
+        "patience": 15,
+        "log_every": 100,
+        "n_dec_frames": 4,
+        "n_gt_frames": 1,
+        "dec_chunk": 128,
+        "lambda_z": 1.0,
+        "beta_pred": 1.0,
+        "beta_gt": 0.25,
+        "select": "L_C",
+        "grad_inspect_steps": [
+          500,
+          1000,
+          2000,
+          3000,
+          5000
+        ],
+        "extra_blocks": 2
+      }
+    }
+  },
+  "teacher": {
+    "taco": {
+      "ckpt": "/ckpt/uhnam/dexcore/contact_factorization_stage1/taco/A3_seed0.pt",
+      "md5": "88e5878deb88",
+      "best_step": 12000,
+      "n_params_teacher": 23682242,
+      "dz": 64,
+      "dr": 64,
+      "n_sequences": 1817,
+      "n_train_frames": 83968,
+      "z_train_std_range": [
+        2.7498722076416016,
+        8.538326263427734
+      ],
+      "r_train_mean_abs": 0.026878949254751205,
+      "agreement_with_stage1_cache": {
+        "train": {
+          "max_abs_diff": 0.0,
+          "mean_abs_diff": 0.0,
+          "z_std": 4.527403831481934
+        },
+        "val": {
+          "max_abs_diff": 0.0,
+          "mean_abs_diff": 0.0,
+          "z_std": 4.543846130371094
+        },
+        "test": {
+          "max_abs_diff": 0.0,
+          "mean_abs_diff": 0.0,
+          "z_std": 4.507031440734863
+        }
+      },
+      "seconds": 163.7354555130005
+    },
+    "arctic": {
+      "ckpt": "/ckpt/uhnam/dexcore/contact_factorization_stage1/arctic/A3_seed0.pt",
+      "md5": "2d0e55d2e34f",
+      "best_step": 12000,
+      "n_params_teacher": 23682242,
+      "dz": 64,
+      "dr": 64,
+      "n_sequences": 1297,
+      "n_train_frames": 64320,
+      "z_train_std_range": [
+        3.0414345264434814,
+        8.956005096435547
+      ],
+      "r_train_mean_abs": 0.04226112738251686,
+      "agreement_with_stage1_cache": {
+        "train": {
+          "max_abs_diff": 0.0,
+          "mean_abs_diff": 0.0,
+          "z_std": 5.463325500488281
+        },
+        "val": {
+          "max_abs_diff": 0.0,
+          "mean_abs_diff": 0.0,
+          "z_std": 5.800948619842529
+        },
+        "test": {
+          "max_abs_diff": 0.0,
+          "mean_abs_diff": 0.0,
+          "z_std": 5.107611179351807
+        }
+      },
+      "seconds": 143.34639716148376
+    }
+  },
+  "cases": {
+    "taco": "C+D",
+    "arctic": "D+E"
+  },
+  "sources": {
+    "stage2": "/result/uhnam/dexcore/reports/contact_latent_temporal_stage2",
+    "stage1": "/result/uhnam/dexcore/reports/contact_factorization_stage1",
+    "z_temporal_diagnostic": "/result/uhnam/dexcore/reports/z_temporal_diagnostic"
+  },
+  "code_dir": "/home/uhnam/workspace/dexcore/scripts/research/z_joint_decoder_followup",
+  "code_md5": {
+    "zj_aggregate.py": "4c75c766c115",
+    "zj_common.py": "3a024975d7d3",
+    "zj_dashboard.py": "24e67ea4df9d",
+    "zj_diag.py": "45532eadf568",
+    "zj_evaluate.py": "5af3bd727043",
+    "zj_figures.py": "4487a500ac26",
+    "zj_generate.py": "f534dfd5f2e6",
+    "zj_infer.py": "268881381aba",
+    "zj_models.py": "ee631b74a1ba",
+    "zj_probe.py": "e150fa360002",
+    "zj_queue.py": "f5a644b3d7a7",
+    "zj_report.py": "b65414a4c0cf",
+    "zj_sanity.py": "588a253607a4",
+    "zj_snapshot.py": "f71dc29cf336",
+    "zj_train.py": "c0e3f6986218",
+    "pipeline.sh": "3fe870eb64ce",
+    "zj_chain_arctic.sh": "1d4f58b648d7",
+    "zj_post.sh": "9cd150211adf",
+    "zj_status.sh": "fbb2219edfe5"
+  }
+}

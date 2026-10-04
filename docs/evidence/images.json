@@ -1,0 +1,12 @@
+{
+ "assets/img/f1b_taco_knife_rollout.png": {
+  "from": "taco/50_hier_contact_gen/figures/fig6_qual_high_drift_fixed.png",
+  "edit": "cropped to the column header and the first three rows (ground truth; true first map + evolution; sampled first map, best of ten, + evolution); the title strip and the fourth row were removed; no pixel was redrawn",
+  "shows": "TACO test example 3011 (knife, tool role, right hand; take '(scrape off, knife, plate)/20231020_226'): contact maps on the 512 canonical points at t = 0, 8, 16, 32, 48, 63"
+ },
+ "assets/img/f1d_taco_pan_equivalent.png": {
+  "from": "reports/wrench_counterfactual/figures/figF_taco_equivalent_1190_8.png",
+  "edit": "title strip cropped; resized to 1400 px width; no pixel was redrawn",
+  "shows": "TACO persistent spatial event 1190_8 (pan, target role, left hand): contact vertices by hand part at the frame before and after the event in three views, and the capability profiles over the 76 shared directions"
+ }
+}

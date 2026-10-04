@@ -1,0 +1,765 @@
+{
+ "unit": "hypothesis",
+ "figure_module": null,
+ "entries": [
+  {
+   "block": "HYP",
+   "claim": "A 2 x 2 factorial experiment, in progress on TACO and ARCTIC (one training seed, each dataset read separately), crosses how the structure-oriented latent z evolves in time (whole-sequence prediction vs stateful rollout) with how z is decoded to contact (absolute decoding vs s_0-preserving decoding); in the model names the first digit is the stateful factor and the second the s_0-preserving decoder, and M00 is the reused whole-sequence + absolute model of the previous follow-up (its M2), not a new run.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "No report exists yet (reports/z_stateful_s0_factorial/report.md is absent). Design sources: scripts/research/z_stateful_s0_factorial/zf_common.py and narrative_templates/01_research_question.md, 05_design.md",
+   "source_files": [
+    "scripts/research/z_stateful_s0_factorial/zf_common.py",
+    "scripts/research/z_stateful_s0_factorial/zf_train.py",
+    "scripts/research/z_stateful_s0_factorial/narrative_templates/01_research_question.md",
+    "scripts/research/z_stateful_s0_factorial/narrative_templates/05_design.md",
+    "scripts/research/contact_latent_temporal_stage2/s2_common.py"
+   ],
+   "metric": "Design facts only, no outcome. Planned primary metric (not yet computed): dense error E_C = mean over generated frames 1..63 of the L2 norm over the 512 canonical points of (C_hat_t - C_t), on the test sequences, one deterministic trajectory per sequence; lower is better.",
+   "numbers": {
+    "TACO and ARCTIC (same design, read separately) | 2 x 2 table in code: rows 'whole z' / 'stateful z', columns 'absolute C' / 's_0-residual C'": {
+     "value": "whole z: M00, M01; stateful z: M10, M11",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "module docstring, lines 3-9"
+    },
+    "TACO and ARCTIC | 2 x 2 table in the narrative template: rows 'whole-sequence z' / 'stateful z', columns 'absolute decoding' / 's_0-preserving decoding'": {
+     "value": "| whole-sequence z | M00 | M01 | ; | stateful z | M10 | M11 |",
+     "source": "scripts/research/z_stateful_s0_factorial/narrative_templates/01_research_question.md",
+     "locator": "lines 10-13"
+    },
+    "TACO and ARCTIC | M00 definition": {
+     "value": "stateful=False, residual=False, reuse=\"zj:M2\"; label \"whole-sequence z + absolute decoder (the previous follow-up's M2, reused)\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "MODELS[\"M00\"], line 50"
+    },
+    "TACO and ARCTIC | M01 definition": {
+     "value": "stateful=False, residual=True, reuse=None; label \"whole-sequence z + s_0-preserving decoder: C_t = s_0 + D_delta(s_0, z_hat_t, G_t)\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "MODELS[\"M01\"], line 51"
+    },
+    "TACO and ARCTIC | M10 definition": {
+     "value": "stateful=True, residual=False, reuse=None; label \"stateful z (z_hat_0 = I(s_0, G), z_hat_t+1 = z_hat_t + F_state(z_hat_t, G, tau_t:t+4)) + absolute decoder\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "MODELS[\"M10\"], line 52"
+    },
+    "TACO and ARCTIC | M11 definition": {
+     "value": "stateful=True, residual=True, reuse=None; label \"stateful z + s_0-preserving decoder\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "MODELS[\"M11\"], line 53"
+    },
+    "TACO and ARCTIC | Models trained in this study (per dataset)": {
+     "value": "TRAINED_HERE = (\"M01\", \"M10\", \"M11\") -> 3 per dataset, 6 training runs",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "line 56; zf_train.py line 98 (--model choices)"
+    },
+    "TACO and ARCTIC | M00 checkpoint is the earlier study's file": {
+     "value": "model_ckpt returns ZJ.model_ckpt(ds, \"M2\") when reuse is set; /ckpt/uhnam/dexcore/z_joint_decoder_followup/{taco,arctic}/M2_seed0.pt exist",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "lines 118-119; checkpoint directory listing 2026-10-04 16:05 KST"
+    },
+    "TACO and ARCTIC | External reference D0": {
+     "value": "DIRECT = \"D0\": the direct dense model of Stage 2 (its B0), reused, not retrained",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "line 57; narrative_templates/05_design.md line 13"
+    },
+    "TACO, ARCTIC (no OakInk2) | Datasets of the experiment": {
+     "value": "DATASETS = (\"taco\", \"arctic\")",
+     "source": "scripts/research/contact_latent_temporal_stage2/s2_common.py",
+     "locator": "line 38 (imported by zf_common.py line 32)"
+    },
+    "TACO and ARCTIC | Training seeds": {
+     "value": "SEED = 0; EXTRA_SEED = 1 (\"only for the relevant pair if a decisive comparison is ambiguous\")",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "lines 35-36"
+    },
+    "TACO and ARCTIC | Task size": {
+     "value": "T = 64 frames per sequence, 63 generated frames (1..63), 512 canonical points, 64-D z",
+     "source": "scripts/research/contact_latent_temporal_stage2/s2_common.py",
+     "locator": "lines 40-42, 45-47 (dz=64 in contact_factorization_stage1/cf_common.py line 50)"
+    }
+   },
+   "caveats": [
+    "Only three of the four cells are trained in this study; M00 (and the reference D0) are reused checkpoints / metric files of earlier finished studies.",
+    "One training seed, one fixed take-level split; a second seed is run only if the code's ambiguity rule fires.",
+    "The experiment is in progress: this is a design description, not a result.",
+    "The code directory was untracked in git when this was checked (first committed on 2026-10-04) and is still being edited while runs are in progress (templates 07 and 92 modified 15:48 and 15:57 on 2026-10-04)."
+   ]
+  },
+  {
+   "block": "HYP",
+   "claim": "Hypothesis A (motivated, untested): the previous z-mediated generator predicts all 63 future latents in one pass from (s_0, G, tau); the candidate instead initialises a latent state z_hat_0 = I(s_0, G) and advances it with a learned residual transition z_hat_t+1 = z_hat_t + F(z_hat_t, G, tau_t..tau_t+4), trained and run as a free 63-step rollout on its own predicted latents with no teacher forcing.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "No report yet. Sources: scripts/research/z_stateful_s0_factorial/narrative_templates/03_hypotheses.md, 06_architecture.md, 07_training.md; code zf_models.py, zf_train.py",
+   "source_files": [
+    "scripts/research/z_stateful_s0_factorial/zf_models.py",
+    "scripts/research/z_stateful_s0_factorial/zf_train.py",
+    "scripts/research/z_stateful_s0_factorial/zf_common.py",
+    "scripts/research/z_stateful_s0_factorial/zf_infer.py",
+    "scripts/research/z_stateful_s0_factorial/narrative_templates/03_hypotheses.md",
+    "scripts/research/z_stateful_s0_factorial/narrative_templates/06_architecture.md",
+    "scripts/research/z_stateful_s0_factorial/narrative_templates/07_training.md",
+    "scripts/research/contact_latent_temporal_stage2/s2_models.py"
+   ],
+   "metric": "Design facts only. What the hypothesis predicts, per the template: M10 better than M00 and M11 better than M01 on dense error E_C (lower is better), and a smaller gap between training and test latent error.",
+   "numbers": {
+    "TACO and ARCTIC | Hypothesis A as written": {
+     "value": "\"Hypothesis A: open-loop latent prediction is the problem. The whole-sequence model must produce frame 40 of the latent trajectory from s_0 and the object trajectory alone. The diagnostic showed that knowing the current latent helps, especially on TACO. A model that carries its latent state forward could use that. It predicts that M10 beats M00 and M11 beats M01, and that the gap between training and test latent error shrinks.\"",
+     "source": "scripts/research/z_stateful_s0_factorial/narrative_templates/03_hypotheses.md",
+     "locator": "lines 1-4"
+    },
+    "TACO and ARCTIC | Whole-sequence path (M00, M01)": {
+     "value": "Stage-2 backbone unchanged: one token per future frame from (s_0, tau_local,t), 768 x 8 blocks, FiLM on (s_0, G); linear head -> z_hat_1:63 in one pass",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_models.py",
+     "locator": "docstring lines 4-5; lines 77-79, 111-112"
+    },
+    "TACO and ARCTIC | Initial state of the stateful path": {
+     "value": "z_hat_0 = I(s_0, G): point-token contact encoder over the 512 canonical points (token = frame-0 geometry + s_0 value, FiLM on G); init_width=256, init_depth=4, init_heads=8, init_pool=4; \"the Stage-1 encoder's architecture, trained from scratch: no Stage-1 weights\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_models.py",
+     "locator": "docstring lines 6-7; lines 69-74, 98-100; zf_common.py STATE line 62"
+    },
+    "TACO and ARCTIC | Transition": {
+     "value": "z_hat_t+1 = z_hat_t + F(z_hat_t, G, tau_t .. tau_t+k), k=4 (\"not swept\"); F = residual MLP, width=1024, depth=6, dropout=0.1, FiLM on G in every block; update read from a zero-initialised layer (\"the model starts as latent persistence\")",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_models.py",
+     "locator": "class StateTransition lines 32-58 (zero init line 46); zf_common.py STATE lines 60-61"
+    },
+    "TACO and ARCTIC | Rollout: what is fed back": {
+     "value": "\"The same F is applied 63 times on its OWN output (rollout); the teacher latent is never an input.\" Code: for t in range(steps): ... z = z + dz.float(); out.append(z)",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_models.py",
+     "locator": "docstring line 11; rollout() lines 102-109"
+    },
+    "TACO and ARCTIC | Training of the stateful models": {
+     "value": "\"63-step rollout on the model's OWN latents, full back-propagation through the rollout (no teacher forcing)\"; TRAIN has bptt=\"full\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_train.py",
+     "locator": "docstring lines 7-8; step_losses lines 41-45; zf_common.py line 74"
+    },
+    "TACO and ARCTIC | Narrative statement of rollout training": {
+     "value": "\"The stateful models are trained on their own rollout. ẑ_0 comes from I(s_0, G), every later state from the model's previous output, and the loss is back-propagated through all 63 steps. There is no teacher forcing and no truncation.\"",
+     "source": "scripts/research/z_stateful_s0_factorial/narrative_templates/07_training.md",
+     "locator": "lines 4-5"
+    },
+    "TACO and ARCTIC | Inputs at generation": {
+     "value": "\"The generated trajectory of every model depends on (s_0, G, tau) only.\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_infer.py",
+     "locator": "docstring line 2"
+    },
+    "TACO and ARCTIC | Stage-1 encoder excluded from the model": {
+     "value": "assert not any(k.startswith((\"E_z\", \"E_r\")) for k in net.state_dict()), \"the Stage-1 encoder must not be part of the model\"; teacher latents are loss targets only",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_train.py",
+     "locator": "line 128; lines 41-53"
+    },
+    "TACO and ARCTIC | Objective of the stateful models": {
+     "value": "L_C + lambda_z L_z + lambda_z0 L_z0 (lambda_z = 1.0, lambda_z0 = 1.0); L_z0 on frame 0 only (init_aug_frames = 0)",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_train.py",
+     "locator": "docstring line 7; zf_common.py line 74; reports/z_stateful_s0_factorial/init_aug_decision.json key init_aug_frames"
+    },
+    "TACO | Size of the stateful temporal part (architecture fact)": {
+     "value": "init 6137664 + transition 55697216 = temporal 61834880 parameters; total M10 69829249",
+     "source": "reports/z_stateful_s0_factorial/logs/train_taco_M10_seed0.log",
+     "locator": "line 11 (run header, params dict)"
+    },
+    "ARCTIC | Size of the stateful temporal part (architecture fact)": {
+     "value": "init 6137664 + transition 55098176; total M10 69230209 (printed by a discarded attempt; the current ARCTIC M10 run has not started; the architecture is unchanged)",
+     "source": "reports/z_stateful_s0_factorial/logs/discarded_attempts/train_arctic_M10_seed0_shared_init.log",
+     "locator": "line 11 (run header, params dict)"
+    }
+   },
+   "caveats": [
+    "Untested: no run of the experiment has finished; the hypothesis must be presented as a motivated current hypothesis, never as a result.",
+    "The transition is not a function of z_t alone: it also reads G and a 5-frame window of the given object trajectory (frames t..t+4, i.e. a 4-frame look-ahead of tau). s_0 enters the stateful path only through z_hat_0.",
+    "The stateful model observes nothing during the rollout; it feeds back its own predicted latent. It is not closed-loop on observations and not teacher-forced.",
+    "z_hat_0 comes from a separately trained module with the Stage-1 encoder's architecture, not from the Stage-1 encoder (the predecessor report had proposed allowing z_0 = E_z(s_0) at inference; the running study does not do that).",
+    "The transition is a residual MLP, not a transformer or recurrent network; chosen before training for rollout time and memory (the measurement is recorded only as a sentence in the code). Look-ahead k = 4 is not swept.",
+    "The stateful models are smaller than the whole-sequence models (design bound in the code: within 15 % of the parameter count).",
+    "The predecessor report cautions: \"The diagnostic did not show that an iterative model would beat Stage 2\" and \"A rollout feeds its own errors back\" (z_joint_decoder_followup/report.md, Section 19, lines 743-744, 754)."
+   ]
+  },
+  {
+   "block": "HYP",
+   "claim": "Hypothesis B (motivated, untested): the previous decoder rebuilds every contact map from z_t and the geometry alone, C_t = D_abs(z_t, G_t), without access to the given s_0; the candidate keeps the known initial map and decodes only its change, C_t = s_0 + D_delta(s_0, z_hat_t, G_t), with s_0 added as a per-point input and a zero-initialised output so that the model starts as contact persistence.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "No report yet. Sources: scripts/research/z_stateful_s0_factorial/narrative_templates/03_hypotheses.md, 06_architecture.md; code zf_models.py",
+   "source_files": [
+    "scripts/research/z_stateful_s0_factorial/zf_models.py",
+    "scripts/research/z_stateful_s0_factorial/zf_common.py",
+    "scripts/research/z_stateful_s0_factorial/narrative_templates/03_hypotheses.md",
+    "scripts/research/z_stateful_s0_factorial/narrative_templates/06_architecture.md",
+    "scripts/research/contact_latent_temporal_stage2/s2_models.py",
+    "reports/z_joint_decoder_followup/report.md"
+   ],
+   "metric": "Design facts only. What the hypothesis predicts, per the template: M01 better than M00 and M11 better than M10 on dense error E_C (lower is better), most of all in the first frames (frames 1-16 bin in the code's rule).",
+   "numbers": {
+    "TACO and ARCTIC | Hypothesis B as written": {
+     "value": "\"Hypothesis B: decoding throws away s_0. The absolute decoder has to rebuild the initial dense realisation from a 64-D latent that does not keep every detail, although s_0 is given. Decoding only the change from s_0 keeps that detail. It predicts that M01 beats M00 and M11 beats M10, most of all in the first frames.\"",
+     "source": "scripts/research/z_stateful_s0_factorial/narrative_templates/03_hypotheses.md",
+     "locator": "lines 6-8"
+    },
+    "TACO and ARCTIC | Absolute decoder (M00, M10)": {
+     "value": "B0 absolute decoding C_t = D_abs(z_t, G_t): per-frame point-token transformer over 512 points (tokens = geometry of frame t), FiLM on [G | z_hat_t]; the Stage-1 D_z blocks (loaded) + 2 identity-initialised blocks, width 256",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_models.py",
+     "locator": "docstring lines 12-13; lines 80-86; zf_common.py docstring line 5 and DECODER line 72"
+    },
+    "TACO and ARCTIC | s_0-preserving decoder (M01, M11)": {
+     "value": "\"residual (B1) tokens = geometry of frame t | s_0 at that point -> Delta_C_t ; C_t = s_0 + Delta_C_t. The s_0 channel is a new input column (zero-initialised) and the output layer is zero-initialised, so the model starts as contact persistence C_t = s_0.\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_models.py",
+     "locator": "docstring lines 14-15; lines 81, 87-95, 121-122"
+    },
+    "TACO and ARCTIC | Decoding formula in code": {
+     "value": "return s0_raw + data.s * y if net.residual else data.std_to_raw(y)",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_models.py",
+     "locator": "decode_raw, line 184"
+    },
+    "TACO and ARCTIC | No penalty on the size of the change": {
+     "value": "\"No residual-size penalty is used.\"",
+     "source": "scripts/research/z_stateful_s0_factorial/narrative_templates/06_architecture.md",
+     "locator": "line 24"
+    },
+    "TACO (decoder size is the same on ARCTIC: 7994625 in the ARCTIC M01 header) | Decoder sizes (architecture fact)": {
+     "value": "absolute 7994369 parameters; s_0-preserving 7994625 parameters",
+     "source": "reports/z_stateful_s0_factorial/logs/train_taco_M10_seed0.log and train_taco_M01_seed0.log",
+     "locator": "line 11 of each, key 'D_z'"
+    },
+    "TACO and ARCTIC | The whole-sequence temporal backbone is conditioned on s_0": {
+     "value": "c = self.cond_out(self.static(Sg) + self.s0enc(s0_in)); h = self.inp(torch.cat([s0_in[:, None].expand(...), tau], -1)) + self.pos",
+     "source": "scripts/research/contact_latent_temporal_stage2/s2_models.py",
+     "locator": "TemporalBackbone.forward, lines 50-53"
+    },
+    "TACO and ARCTIC | Predecessor limitation that this factor addresses": {
+     "value": "\"The path was fixed. The decoder sees ẑ, G and the geometry tokens of the object, not s_0. A decoder that also sees s_0, or a temporal network that starts from the encoded s_0, was not tested. The first-frame deficit is therefore part of every result here.\"",
+     "source": "reports/z_joint_decoder_followup/report.md",
+     "locator": "Section 17 Limitations, lines 690-691"
+    },
+    "TACO and ARCTIC | Objective of M01": {
+     "value": "L_C + lambda_z L_z; L_C = MSE in the residual units rho = (C - s_0) / sigma_r on 4 random future frames per sequence per step (all 63 at validation)",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_train.py",
+     "locator": "docstring lines 6, 9; lines 54-63"
+    }
+   },
+   "caveats": [
+    "Untested: no run of the experiment has finished; present as a motivated current hypothesis.",
+    "\"Discards s_0\" is true of the decoding step only: in the previous model the temporal backbone is conditioned on s_0 (and the stateful path derives z_hat_0 from s_0); what the absolute decoder lacks is direct access to the dense s_0.",
+    "G_t in the formulas is the frame's per-point geometry tokens (512 x 10 channels) together with the static vector G; it is not the same object as G alone.",
+    "The two decoders are the same family and size (6 blocks, width 256); the s_0-preserving one differs by one input column.",
+    "The predecessor report notes a limit of any z-mediated model: \"with ideal predictors, decoding alone cannot do better than direct prediction in dense error. The realistic target is the TACO pattern: equal dense error with better structure, without the early-frame loss\" (z_joint_decoder_followup/report.md, Section 19, lines 755-757)."
+   ]
+  },
+  {
+   "block": "HYP",
+   "claim": "The two hypotheses are motivated by earlier finished studies, read per dataset. After the decoder was adapted, the z-mediated model was similar to the direct model in dense error on TACO (E_C 1.698 vs 1.700, verdict similar, with better structure / wrench) and worse on ARCTIC (2.158 vs 1.890, 14.2 % worse). On both datasets its latent error is small on training sequences and large on test sequences (z RMSE 0.088 vs 0.702 on TACO, 0.064 vs 0.717 on ARCTIC), and it is worse than the direct model in frames 1-8 (dense-error gap 0.294 on TACO, 0.481 on ARCTIC). Given the true current z, a learned predictor improves on persistence on TACO at 4 and 8 frames ahead (11.3 % [10.0, 12.5] and 17.8 % [16.5, 19.1] lower RMSE); on ARCTIC the gain is not distinguishable from zero at 4 frames (0.2 % [-4.0, 4.0]) and small at 8 frames (6.9 % [1.6, 12.2]). These are window-averaged direct predictions from the true latent, not rollouts; the predecessor report states that the diagnostic 'did not show that an iterative model would beat Stage 2' and rates the stateful test 'a reasonable next test on TACO and a weak one on ARCTIC'.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_joint_decoder_followup/report.md (Sections 17-19) and reports/z_temporal_diagnostic/report.md; cited through placeholders in narrative_templates/02_background.md and 04_taco_arctic_prior.md",
+   "source_files": [
+    "reports/z_joint_decoder_followup/main_metrics.csv",
+    "reports/z_joint_decoder_followup/paired_comparisons.csv",
+    "reports/z_joint_decoder_followup/z_metrics.csv",
+    "reports/z_joint_decoder_followup/report_values.json",
+    "reports/z_joint_decoder_followup/training_summary.csv",
+    "reports/z_temporal_diagnostic/persistence_comparison.csv",
+    "reports/z_temporal_diagnostic/report_values.json",
+    "scripts/research/z_stateful_s0_factorial/narrative_templates/02_background.md",
+    "scripts/research/z_stateful_s0_factorial/narrative_templates/04_taco_arctic_prior.md"
+   ],
+   "metric": "All values are from EARLIER finished studies (not from the 2 x 2 experiment). E_C: dense error on test sequences, lower is better, 95 % take-cluster bootstrap interval. z RMSE: error of the predicted latent in standardised units, lower is better. Probe gain: relative RMSE reduction over holding the true z_t (persistence) h frames ahead, higher is better.",
+   "numbers": {
+    "TACO | E_C of M00 (= joint-decoder M2), test, n = 364 sequences": {
+     "value": "1.6978020246 (95 % CI 1.5914790153 .. 1.8064783666)",
+     "source": "reports/z_joint_decoder_followup/main_metrics.csv",
+     "locator": "row dataset=taco, model=M2, metric=E_C; cols value, ci_lo, ci_hi, n_examples"
+    },
+    "TACO | E_C of D0 (= Stage-2 B0 = joint-decoder M0), test, n = 364": {
+     "value": "1.7003522075 (95 % CI 1.5975254761 .. 1.8006890369)",
+     "source": "reports/z_joint_decoder_followup/main_metrics.csv",
+     "locator": "row taco, M0, E_C"
+    },
+    "ARCTIC | E_C of M00 (= joint-decoder M2), test, n = 186": {
+     "value": "2.1583889410 (95 % CI 1.8591838354 .. 2.4923342014)",
+     "source": "reports/z_joint_decoder_followup/main_metrics.csv",
+     "locator": "row arctic, M2, E_C"
+    },
+    "ARCTIC | E_C of D0, test, n = 186": {
+     "value": "1.8901479019 (95 % CI 1.6294874954 .. 2.1734381413)",
+     "source": "reports/z_joint_decoder_followup/main_metrics.csv",
+     "locator": "row arctic, M0, E_C"
+    },
+    "TACO | M2 vs M0 paired comparison on E_C (verdict by the 2 % + CI rule)": {
+     "value": "diff -0.0025501829, CI [-0.0379191185, 0.0377407573], rel_improvement 0.0014997969, verdict \"similar\"",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=M2, b=M0, metric=E_C"
+    },
+    "ARCTIC | M2 vs M0 paired comparison on E_C": {
+     "value": "relative -0.1419153701440799, verdict \"worse\"",
+     "source": "reports/z_joint_decoder_followup/report_values.json",
+     "locator": "keys p_arctic_M2_vs_M0_E_C_rel, p_arctic_M2_vs_M0_E_C_verdict"
+    },
+    "TACO / ARCTIC (separate answers) | M2 vs M0, structure and wrench (decision answer)": {
+     "value": "TACO \"yes\"; ARCTIC \"worse\"",
+     "source": "reports/z_joint_decoder_followup/report_values.json",
+     "locator": "keys dec_taco_q3, dec_arctic_q3"
+    },
+    "TACO | z RMSE of M2, train vs test sequences": {
+     "value": "0.0880351412 (train) vs 0.7019863136 (test)",
+     "source": "reports/z_joint_decoder_followup/z_metrics.csv",
+     "locator": "row taco, M2; cols rmse_train, rmse_test"
+    },
+    "ARCTIC | z RMSE of M2, train vs test sequences": {
+     "value": "0.0640115871 (train) vs 0.7171768979 (test)",
+     "source": "reports/z_joint_decoder_followup/z_metrics.csv",
+     "locator": "row arctic, M2; cols rmse_train, rmse_test"
+    },
+    "TACO | Dense-error gap of M2 against M0 in the first eight frames": {
+     "value": "0.2940407501406339",
+     "source": "reports/z_joint_decoder_followup/report_values.json",
+     "locator": "key early_gap_taco_M2"
+    },
+    "ARCTIC | Dense-error gap of M2 against M0 in the first eight frames": {
+     "value": "0.48126699336333756",
+     "source": "reports/z_joint_decoder_followup/report_values.json",
+     "locator": "key early_gap_arctic_M2"
+    },
+    "TACO | Probe gain over persistence in RMSE, 4 frames ahead from the true z_t (test)": {
+     "value": "0.1128451381 (95 % CI 0.0995395928 .. 0.1253639680)",
+     "source": "reports/z_temporal_diagnostic/persistence_comparison.csv",
+     "locator": "row dataset=taco, h=4, method=probe; cols gain_rmse, gain_rmse_lo, gain_rmse_hi"
+    },
+    "TACO | Probe gain over persistence in RMSE, 8 frames ahead": {
+     "value": "0.1781508066 (95 % CI 0.1651390674 .. 0.1912662636)",
+     "source": "reports/z_temporal_diagnostic/persistence_comparison.csv",
+     "locator": "row taco, h=8, probe"
+    },
+    "ARCTIC | Probe gain over persistence in RMSE, 4 frames ahead": {
+     "value": "0.0019462685221723",
+     "source": "reports/z_temporal_diagnostic/report_values.json",
+     "locator": "key p_arctic_4_probe_gain_rmse"
+    },
+    "ARCTIC | Probe gain over persistence in RMSE, 8 frames ahead": {
+     "value": "0.0694230505726087",
+     "source": "reports/z_temporal_diagnostic/report_values.json",
+     "locator": "key p_arctic_8_probe_gain_rmse"
+    },
+    "TACO | Rank correlation of z change with contact change (mean over h = 1, 4, 8)": {
+     "value": "0.8533173616054195",
+     "source": "reports/z_temporal_diagnostic/report_values.json",
+     "locator": "key mean_spearman_taco"
+    },
+    "ARCTIC | Rank correlation of z change with contact change (mean over h = 1, 4, 8)": {
+     "value": "0.8099254204543621",
+     "source": "reports/z_temporal_diagnostic/report_values.json",
+     "locator": "key mean_spearman_arctic"
+    },
+    "ARCTIC (TACO: none, per template 04 line 9) | Test takes of a subject absent from training": {
+     "value": "\"21 of the 44 test takes come from a subject that is absent from training\"",
+     "source": "reports/z_temporal_diagnostic/report.md",
+     "locator": "line 525 (also z_joint_decoder_followup/report.md line 625; 44 = report_values.json key split_arctic_n_test_takes)"
+    },
+    "TACO first, ARCTIC as a check | Predecessor's recommended next step": {
+     "value": "\"The plan names a stateful or recurrent z-dynamics experiment as the next step if M2 does not improve on M1. This study did not test it. ... That makes it a reasonable next test on TACO and a weak one on ARCTIC.\"",
+     "source": "reports/z_joint_decoder_followup/report.md",
+     "locator": "Section 19, lines 735-737"
+    }
+   },
+   "caveats": [
+    "These numbers belong to the earlier findings (F3 blocks); they are repeated here only as the stated motivation and must stay per dataset.",
+    "The z temporal diagnostic measured direct prediction 1, 4 and 8 frames ahead from the TRUE z_t, not a rollout; it \"did not show that an iterative model would beat Stage 2\" (z_joint_decoder_followup/report.md line 743-744, 754).",
+    "One seed in every earlier study; M2 and M0 budgets differ (M2: 100000 max / stopped by patience at 25000; M0: 80000 budget) per z_joint_decoder_followup/training_summary.csv.",
+    "On ARCTIC the reused direct model may understate the direct approach: \"at 25 000 steps its validation loss on ARCTIC was already below the reused M0's best\" (z_joint_decoder_followup/report.md line 692); the running study carries a partial retrained direct model D0r as a sensitivity row only.",
+    "The running study differs from the predecessor's concrete proposal (TACO first, z_0 = E_z(s_0) allowed at inference, three success criteria): it runs both datasets, uses a separately trained initial-state module, and has its own decision rule."
+   ],
+   "claim_as_extracted": "The two hypotheses are motivated by earlier finished studies, per dataset: adapting the decoder left the z-mediated model similar to the direct model in dense error on TACO and worse on ARCTIC, its latent error is small on training sequences and large on test sequences on both datasets, it loses dense error to the direct model in the first eight frames on both, and a learned local predictor given the true current z improves on persistence clearly on TACO and only marginally on ARCTIC.",
+   "correction_reason": "All numbers confirmed in the CSV / JSON tables. 'Clearly on TACO and only marginally on ARCTIC' is looser than the source: the ARCTIC 4-frame interval includes zero (persistence_comparison.csv), and the diagnostic report itself labels TACO 'Case A (borderline)' (z_temporal_diagnostic/report.md line 26). The caution from z_joint_decoder_followup/report.md lines 735-744, 754 should stay attached to the motivation."
+  },
+  {
+   "block": "HYP",
+   "claim": "The experiment's code contains a decision rule written down in advance. A paired difference on identical test sequences counts as better or worse only if it is at least 2 % and its 95 % take-cluster bootstrap interval excludes zero; this threshold is the rule of the previous studies and the template describes it as fixed before any result was read. From these verdicts the code assigns each dataset an outcome: A (stateful is the main fix), B (s_0 preservation is the main fix), C (both help: M11 better than M00, M01 and M10), E (nothing beats M00 or D0), or 'mixed' when none applies; D (stateful helps on TACO only) is a separate statement about the two datasets together. The timing cannot be checked independently: the code directory is not under version control and was still being edited while the runs were in progress.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "No report yet. Sources: scripts/research/z_stateful_s0_factorial/zf_common.py (DECISION), zf_aggregate.py (decide), narrative_templates/01_research_question.md",
+   "source_files": [
+    "scripts/research/z_stateful_s0_factorial/zf_common.py",
+    "scripts/research/z_stateful_s0_factorial/zf_aggregate.py",
+    "scripts/research/z_stateful_s0_factorial/narrative_templates/01_research_question.md",
+    "scripts/research/z_stateful_s0_factorial/narrative_templates/05_design.md",
+    "scripts/research/contact_latent_temporal_stage2/s2_aggregate.py"
+   ],
+   "metric": "Rule for reading the planned comparisons; primary metric dense error E_C on test sequences (lower is better); intervals are 95 % paired take-cluster bootstrap intervals (1000 replicates) of the mean per-sequence difference.",
+   "numbers": {
+    "TACO and ARCTIC, applied per dataset | Threshold for 'better' / 'worse'": {
+     "value": "rel_min=0.02: \"|relative change| >= 2 % AND the paired take-cluster bootstrap 95 % CI excludes 0; otherwise 'similar'\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "DECISION, line 81"
+    },
+    "TACO and ARCTIC | Bootstrap replicates": {
+     "value": "N_BOOT = 1000",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "line 38"
+    },
+    "per dataset | Stateful effect on contact": {
+     "value": "\"M10 vs M00 and M11 vs M01 on dense E_C: both better -> yes; one better and none worse -> partial; any worse and none better -> worse; else no\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "DECISION[\"stateful_contact\"], line 83"
+    },
+    "per dataset | Decoder effect on contact": {
+     "value": "\"M01 vs M00 and M11 vs M10 on dense E_C, same reading\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "DECISION[\"decoder_contact\"], line 84"
+    },
+    "per dataset | Stateful effect on latent generalisation": {
+     "value": "\"test L_z (frames 1..63) of M10 vs M00 and M11 vs M01 by the same rule, and the gap test - train of the z RMSE\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "DECISION[\"stateful_generalisation\"], line 85"
+    },
+    "per dataset | Early-frame reading": {
+     "value": "\"residual vs absolute at frames 1-16 (both pairs better -> the decoder helps early); 'fixes' additionally requires the residual model not to be worse than D0 in frames 1-16\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "DECISION[\"early_fix\"], line 86"
+    },
+    "per dataset | Complementarity": {
+     "value": "\"M11 better than both M01 and M10 on dense E_C -> yes; better than exactly one -> partial; else no (the interaction contrast is reported with its CI)\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "DECISION[\"complementary\"], line 87"
+    },
+    "per dataset | Best z model vs the direct model": {
+     "value": "\"the z model with the lowest VALIDATION dense error E_C (never the test error) is compared with D0\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "DECISION[\"best_z\"], line 88"
+    },
+    "A, B, C, E per dataset; D across the two datasets | Outcome cases": {
+     "value": "\"A stateful is the main fix | B s_0 preservation is the main fix | C both help (M11 better than M00, M01 and M10) | D stateful helps TACO only (cross-dataset) | E nothing beats M00 or D0\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "DECISION[\"cases\"], line 89; implemented in zf_aggregate.py decide() lines 152-164 and lines 289-292 (Case D)",
+     "verifier_note": "The string on zf_common.py line 89 is verbatim. The zf_aggregate.py locator is stale (file edited 16:06): decide() is lines 129-176, case logic lines 161-173, Case D lines 298-301. In the code a dataset's 'case' answer is the '+'-join of the cases that apply, or 'mixed' when none of A / B / C / E applies; A needs the stateful effect 'yes' and the decoder effect not 'yes' and M11 not best; B the mirror; C needs M11 better than M00, M01 and M10; E needs no trained model better than M00 and the best z model not better than D0; D is a separate yes / no row written only when both datasets have answers (TACO 'yes' and ARCTIC in no / worse / mixed)."
+    },
+    "per dataset | Extra-seed rule": {
+     "value": "\"one extra seed for the relevant pair only if a decisive dense comparison differs by >= 2 % while its CI includes 0\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "DECISION[\"ambiguous\"], line 90"
+    },
+    "per dataset | Structure / wrench reading": {
+     "value": "struct_majority=3: \">= 3 of the 5 structural / wrench metrics better and none worse\"; the five: part_hamming, amount_l1, centroid, normal, q_rel_l1",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "line 82; contact_latent_temporal_stage2/s2_common.py line 78"
+    },
+    "per dataset | Factorial contrasts": {
+     "value": "stateful main effect = mean(M10 - M00, M11 - M01); decoder main effect = mean(M01 - M00, M11 - M10); interaction = (M11 - M10) - (M01 - M00); on per-sequence values of identical test sequences",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_aggregate.py",
+     "locator": "docstring lines 4-5; narrative_templates/05_design.md lines 18-20"
+    },
+    "TACO and ARCTIC | Template statement of the rule": {
+     "value": "\"'Better', 'worse' and 'similar' follow the rule of the previous studies, fixed before any result was read: a paired difference on identical test sequences counts only if it is at least 2 % and its 95 % take-cluster bootstrap interval excludes zero.\"",
+     "source": "scripts/research/z_stateful_s0_factorial/narrative_templates/01_research_question.md",
+     "locator": "lines 16-18"
+    },
+    "TACO and ARCTIC | Order of comparisons": {
+     "value": "\"The four z models are compared with each other first and then with the direct dense model D0.\"",
+     "source": "scripts/research/z_stateful_s0_factorial/narrative_templates/01_research_question.md",
+     "locator": "lines 15-16"
+    }
+   },
+   "caveats": [
+    "'Pre-registered' is the code's own word (zf_aggregate.py docstring line 6) and cannot be checked independently: the code directory was untracked in git when this was checked (first committed on 2026-10-04) and zf_common.py was last modified at 15:31 on 2026-10-04, after the first launch at 12:59. Supported wording: 'a decision rule fixed in code before any result was read'.",
+    "The template sentence 'No test quantity was computed before training ended' (07_training.md line 11) is not literally true: a dry run of the analysis chain in a scratch directory outside the result tree wrote test-part metric files from early snapshot checkpoints (file names seen, files not opened). Checkpoint selection itself uses validation L_C only.",
+    "Case D is by construction a statement about TACO and ARCTIC together; it does not pool their numbers.",
+    "The rule produces verdicts for a single seed on a single split; the intervals describe test takes, not training randomness."
+   ],
+   "claim_as_extracted": "A decision rule is fixed in the experiment's code and described in its template as fixed before any result was read: a paired difference on identical test sequences counts as better or worse only if it is at least 2 % and its 95 % take-cluster bootstrap interval excludes zero, and each dataset is then labelled A (stateful is the main fix), B (s_0 preservation is the main fix), C (both help), D (stateful helps on TACO only, a cross-dataset statement) or E (nothing beats M00 or D0).",
+   "correction_reason": "The template's 'fixed before any result was read' (01_research_question.md lines 16-18) refers to the better / worse / similar threshold; the cases A-E are in zf_common.DECISION line 89 and the word 'pre-registered' appears only in zf_aggregate.py line 6. The implementation (zf_aggregate.py lines 161-173, 298-301) also yields 'mixed' and treats D as a separate row, so 'each dataset is labelled A, B, C, D or E' is not exact. No dated plan document exists in the repository; git tracked no file of the when this was checked (first committed on 2026-10-04) directory; zf_common.py was last modified 15:31 and zf_aggregate.py 16:06 on 2026-10-04, after the first launch (12:59) and after a dry run had written test-part metric files of partial snapshots to a scratch directory."
+  },
+  {
+   "block": "HYP",
+   "claim": "Apart from the two factors, the four z models share the earlier setting: the same data, split, 64-frame sequences, Stage-1 teacher latents, decoder family and size, optimiser, 100 000-step budget with no stop before 25 000 steps, selection on validation L_C, seed and evaluation code, and z only (no r, no diffusion, no new latent). Each factor is a bundle rather than a single change. The stateful level replaces the transformer backbone by an initial-state module plus a residual-MLP transition, adds the loss term L_z0, has fewer parameters (stated design bound: within 15 %), and sees a local window of the object trajectory instead of the whole trajectory. The s_0-preserving level both feeds s_0 to the decoder and decodes a change from s_0. The reused direct reference D0 was trained under the older 80 000-step budget.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "No report yet. Sources: scripts/research/z_stateful_s0_factorial/narrative_templates/05_design.md, 07_training.md; code zf_common.py, zf_train.py, z_joint_decoder_followup/zj_common.py",
+   "source_files": [
+    "scripts/research/z_stateful_s0_factorial/zf_common.py",
+    "scripts/research/z_stateful_s0_factorial/zf_train.py",
+    "scripts/research/z_joint_decoder_followup/zj_common.py",
+    "scripts/research/z_stateful_s0_factorial/narrative_templates/05_design.md",
+    "scripts/research/z_stateful_s0_factorial/narrative_templates/07_training.md",
+    "reports/z_stateful_s0_factorial/init_aug_decision.json",
+    "reports/z_stateful_s0_factorial/logs/train_taco_M01_seed0.log",
+    "reports/z_stateful_s0_factorial/logs/train_arctic_M01_seed0.log",
+    "reports/z_stateful_s0_factorial/logs/train_taco_M10_seed0.log",
+    "reports/z_stateful_s0_factorial/logs/train_taco_M11_seed0.log",
+    "reports/z_joint_decoder_followup/training_summary.csv",
+    "reports/z_joint_decoder_followup/report_values.json"
+   ],
+   "metric": "Design facts only (training recipe, model sizes, split sizes). No outcome.",
+   "numbers": {
+    "TACO and ARCTIC | What is held fixed": {
+     "value": "\"Data, split, 64-frame sequences, the canonical 512-point map, s_0, G, tau, all normalisation, the frozen Stage-1 A3 teacher and its cached latents, the decoder family and its size, the losses, the optimiser, the budget, the selection rule, the seed, and the evaluation code.\"",
+     "source": "scripts/research/z_stateful_s0_factorial/narrative_templates/05_design.md",
+     "locator": "lines 5-7"
+    },
+    "TACO and ARCTIC | What is not used": {
+     "value": "\"Nothing else changes: no r, no diffusion, no new latent, no Stage-1 training, no loss other than L_C + lambda_z L_z (+ lambda_z0 L_z0 for the stateful models).\"",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_common.py",
+     "locator": "docstring lines 13-14"
+    },
+    "TACO and ARCTIC | Recipe (inherited from the previous follow-up)": {
+     "value": "lr=1e-4, wd=0.01, warmup=5000, batch=128, grad_clip=1.0, ema=0.999, max_steps=100000, final_lr_frac=0.05, eval_every=1000, min_steps=25000, patience=15, n_dec_frames=4, lambda_z=1.0; plus lambda_z0=1.0, bptt=\"full\"",
+     "source": "scripts/research/z_joint_decoder_followup/zj_common.py",
+     "locator": "TRAIN, lines 62-67; zf_common.py line 74"
+    },
+    "TACO and ARCTIC | Checkpoint selection": {
+     "value": "EMA state at the minimum validation L_C (\"validation L_C of the predicted-z path\")",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_train.py",
+     "locator": "lines 199-204, 221, 224"
+    },
+    "TACO and ARCTIC | Initial-state supervision decided by a validation-only pilot": {
+     "value": "init_aug_frames = 0 (L_z0 on frame 0 only); rule threshold 1.5; \"decided\": \"2026-10-04 15:44 KST; validation data only\" (pilot values not transcribed)",
+     "source": "reports/z_stateful_s0_factorial/init_aug_decision.json",
+     "locator": "keys init_aug_frames, rule, decided; zf_common.py INIT_AUG lines 65-71"
+    },
+    "TACO | Total parameters, M01 (trained here)": {
+     "value": "75967553",
+     "source": "reports/z_stateful_s0_factorial/logs/train_taco_M01_seed0.log",
+     "locator": "line 11, params 'total'"
+    },
+    "ARCTIC | Total parameters, M01 (trained here)": {
+     "value": "75877697",
+     "source": "reports/z_stateful_s0_factorial/logs/train_arctic_M01_seed0.log",
+     "locator": "line 11, params 'total'"
+    },
+    "TACO | Total parameters, M10 / M11 (trained here)": {
+     "value": "69829249 / 69829505",
+     "source": "reports/z_stateful_s0_factorial/logs/train_taco_M10_seed0.log and train_taco_M11_seed0.log",
+     "locator": "line 11 of each, params 'total'"
+    },
+    "TACO / ARCTIC | Total parameters, M00 (reused M2)": {
+     "value": "75967297 / 75877441",
+     "source": "reports/z_joint_decoder_followup/training_summary.csv",
+     "locator": "rows model=M2, col n_params_total"
+    },
+    "TACO / ARCTIC | Total parameters, D0 (reused M0)": {
+     "value": "74744064 / 74654208",
+     "source": "reports/z_joint_decoder_followup/training_summary.csv",
+     "locator": "rows model=M0, col n_params_total"
+    },
+    "TACO | Training / validation sequences": {
+     "value": "1312 train / 141 val",
+     "source": "reports/z_stateful_s0_factorial/logs/train_taco_M10_seed0.log",
+     "locator": "line 11"
+    },
+    "ARCTIC | Training / validation sequences": {
+     "value": "1005 train / 106 val",
+     "source": "reports/z_stateful_s0_factorial/logs/train_arctic_M01_seed0.log",
+     "locator": "line 11"
+    },
+    "TACO | Test sequences (takes)": {
+     "value": "364 (186)",
+     "source": "reports/z_joint_decoder_followup/report_values.json",
+     "locator": "keys split_taco_n_test, split_taco_n_test_takes"
+    },
+    "ARCTIC | Test sequences (takes)": {
+     "value": "186 (44)",
+     "source": "reports/z_joint_decoder_followup/report_values.json",
+     "locator": "keys split_arctic_n_test, split_arctic_n_test_takes"
+    },
+    "TACO / ARCTIC | Training of the reused M00 (earlier study)": {
+     "value": "max_steps 100000, min_steps 25000, patience 15; 25000 steps, stopped_by patience; best_step 7000 / 8000",
+     "source": "reports/z_joint_decoder_followup/training_summary.csv",
+     "locator": "rows model=M2"
+    },
+    "TACO / ARCTIC | Training of the reused D0 (earlier study)": {
+     "value": "max_steps 80000, min_steps 20000; TACO 80000 steps (max_steps), best_step 79000; ARCTIC 48000 steps (patience), best_step 33000",
+     "source": "reports/z_joint_decoder_followup/training_summary.csv",
+     "locator": "rows model=M0"
+    }
+   },
+   "caveats": [
+    "M00 was trained under the same recipe as the models trained here, but D0 under the older 80 000 / 20 000 budget; a retrained direct model (D0r) is partial and kept as a sensitivity row only.",
+    "The stateful models have fewer parameters than the whole-sequence models (bound stated in the code: within 15 %).",
+    "ARCTIC parameter totals for M10 / M11 (69230209 / 69230465) are printed only in logs of discarded attempts so far; the architecture is unchanged but the current ARCTIC stateful runs have not started.",
+    "Stateful runs were restarted from step 1 three times before any result was read (bf16 rollout state, GPU sharing, shared random initial weights of the initial-state module with the Stage-1 encoder); the template states the discarded runs are used nowhere."
+   ],
+   "claim_as_extracted": "Apart from the two factors, the experiment keeps the earlier setting fixed: the same data, split, 64-frame sequences, Stage-1 teacher latents, decoder family and size, the losses L_C + L_z (plus L_z0 for the stateful models), optimiser, 100 000-step budget with no stop before 25 000 steps, selection on validation L_C, seed and evaluation code, and it uses z only (no r, no diffusion, no new latent).",
+   "correction_reason": "The list is the template's own (05_design.md lines 5-7; zf_common.py lines 13-14; zj_common.py TRAIN). What is missing is that 'only the two factors change' does not mean each factor is one minimal change: zf_models.py lines 61-95, parameter counts in the log headers (69 829 249 vs 75 967 297 on TACO), template 06 lines 9-13 and 23-25, and training_summary.csv rows M0 (max_steps 80000, min_steps 20000)."
+  },
+  {
+   "block": "HYP",
+   "claim": "As of 2026-10-04 16:18 KST the experiment has produced no result: 0 of 6 training runs have finished (running: TACO M10, TACO M11, TACO M01, ARCTIC M01; pending: ARCTIC M10, ARCTIC M11), and the study's result directory holds no test metric, table, figure or report. On the page: 'experiment in progress; no result yet'.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "No report: reports/z_stateful_s0_factorial/ contains only init_aug_decision.json, logs/, wandb/ and per-dataset pilot JSON files",
+   "source_files": [
+    "reports/z_stateful_s0_factorial/logs/queue.txt",
+    "reports/z_stateful_s0_factorial/logs/queue_status.json",
+    "reports/z_stateful_s0_factorial/logs/queue.log",
+    "reports/z_stateful_s0_factorial/logs/train_taco_M10_seed0.log",
+    "reports/z_stateful_s0_factorial/logs/train_taco_M11_seed0.log",
+    "reports/z_stateful_s0_factorial/logs/train_taco_M01_seed0.log",
+    "reports/z_stateful_s0_factorial/logs/train_arctic_M01_seed0.log",
+    "scripts/research/z_stateful_s0_factorial/zf_report.py"
+   ],
+   "metric": "Status only (run states and step counters). No outcome value is reported.",
+   "numbers": {
+    "TACO and ARCTIC | Runs planned": {
+     "value": "6: taco M10, taco M11, arctic M10, arctic M11, taco M01, arctic M01 (file order = priority)",
+     "source": "reports/z_stateful_s0_factorial/logs/queue.txt",
+     "locator": "lines 3-8"
+    },
+    "TACO and ARCTIC | Runs finished": {
+     "value": "0 (no state \"done\"; no 'done' line in any training log; only *_last.pt resumable checkpoints exist)",
+     "source": "reports/z_stateful_s0_factorial/logs/queue_status.json",
+     "locator": "all six entries, read 16:09 KST; /ckpt/uhnam/dexcore/z_stateful_s0_factorial/{taco,arctic} listing"
+    },
+    "TACO | M10 state": {
+     "value": "running",
+     "source": "reports/z_stateful_s0_factorial/logs/queue_status.json",
+     "locator": "key taco/M10_seed0"
+    },
+    "TACO | M11 state": {
+     "value": "running",
+     "source": "reports/z_stateful_s0_factorial/logs/queue_status.json",
+     "locator": "key taco/M11_seed0"
+    },
+    "TACO | M01 state": {
+     "value": "running",
+     "source": "reports/z_stateful_s0_factorial/logs/queue_status.json",
+     "locator": "key taco/M01_seed0"
+    },
+    "ARCTIC | M01 state": {
+     "value": "running",
+     "source": "reports/z_stateful_s0_factorial/logs/queue_status.json",
+     "locator": "key arctic/M01_seed0"
+    },
+    "ARCTIC | M10 state": {
+     "value": "pending, 0 attempts (\"waiting: arctic/M10_seed0 needs 35500 MiB\")",
+     "source": "reports/z_stateful_s0_factorial/logs/queue_status.json",
+     "locator": "key arctic/M10_seed0; queue.log lines of 15:49:33 and 16:08:44"
+    },
+    "ARCTIC | M11 state": {
+     "value": "pending, 0 attempts",
+     "source": "reports/z_stateful_s0_factorial/logs/queue_status.json",
+     "locator": "key arctic/M11_seed0"
+    },
+    "TACO | Last step marker in the text logs (step counter only)": {
+     "value": "M10: step 1000; M11: step 1000; M01: step 3000 (earliest allowed stop 25000, maximum 100000)",
+     "source": "reports/z_stateful_s0_factorial/logs/train_taco_{M10,M11,M01}_seed0.log",
+     "locator": "last 'step' / 'grad inspection step' lines, read 16:06 KST"
+    },
+    "ARCTIC | Last step marker in the text logs (step counter only)": {
+     "value": "M01: step 3000; M10 and M11 not started",
+     "source": "reports/z_stateful_s0_factorial/logs/train_arctic_M01_seed0.log",
+     "locator": "last 'grad inspection step' line, read 16:06 KST"
+    },
+    "TACO and ARCTIC | Stateful runs restarted from step 1": {
+     "value": "\"the four stateful runs are pending again and start from step 1 (wandb ids with the suffix _indep); order: TACO M10, TACO M11, ARCTIC M10, ARCTIC M11; scheduler restarted\"",
+     "source": "reports/z_stateful_s0_factorial/logs/queue.log",
+     "locator": "line 33 (10-04 15:44:31)"
+    },
+    "TACO and ARCTIC | Report sections written as templates": {
+     "value": "sections 1-7 of 21 (research question, background, hypotheses, TACO/ARCTIC prior, design, architecture, training) plus the reproduction appendix; result sections 8-21 have no template",
+     "source": "scripts/research/z_stateful_s0_factorial/zf_report.py",
+     "locator": "SECTIONS lines 19-22; narrative_templates/ listing (01-07, 92)"
+    }
+   },
+   "caveats": [
+    "Status is a snapshot (2026-10-04 16:03-16:10 KST) of a moving target; the queue and the code were both modified during the day and the scheduler restarted again at 16:08.",
+    "Training logs, W&B summaries, the pilot file and a scratch directory outside the result tree contain preliminary values; none of them is a result and none is reported here.",
+    "ARCTIC stateful runs wait for a GPU to themselves; TACO stateful runs are ahead of ARCTIC purely because of queue order.",
+    "The thread is not yet listed in INDEX.md or scripts/research/README.md, and its code directory was untracked in git when this was checked (first committed on 2026-10-04)."
+   ],
+   "claim_as_extracted": "As of 2026-10-04 16:10 KST the experiment has produced no result: 0 of 6 training runs have finished (running: TACO M10, TACO M11, TACO M01, ARCTIC M01; pending: ARCTIC M10, ARCTIC M11), and no test metric, table, figure or report of this study exists.",
+   "correction_reason": "Status re-read at 16:15-16:18 KST and unchanged (queue_status.json, four live training processes, only *_last.pt checkpoints, no report.md). 'No test metric ... exists' is exact only for the study's result directory: a pipeline dry run in a scratch directory outside the result tree holds test-part metric files, tables and figures computed from partial snapshots (file names seen, not opened). They are pipeline tests, not results, and must not be used."
+  }
+ ],
+ "dataset_differences": [
+  "The experiment covers TACO and ARCTIC only (DATASETS = (\"taco\", \"arctic\")); OakInk2 is not part of it.",
+  "The plan asks for the two datasets to be read separately: \"The two datasets entered this experiment with different prior evidence, and the plan asks for them to be read separately\" (narrative_templates/04_taco_arctic_prior.md line 1).",
+  "Prior evidence for Hypothesis A differs by dataset: probe gain over persistence from the true z_t at 4 / 8 frames is 0.1128 / 0.1782 on TACO and 0.0019 / 0.0694 on ARCTIC (z_temporal_diagnostic). Template: TACO \"has state-dependent latent dynamics that a local predictor can learn. The stateful hypothesis has its best chance here\"; ARCTIC \"is locally close to persistence. There the plan expects the s_0-preserving decoder to matter more than the stateful change, and allows for the direct model to stay ahead.\"",
+  "Starting point differs: the reused z model M00 is similar to the direct model D0 in dense error on TACO (E_C 1.6978 vs 1.7004, verdict similar) with better structure / wrench (decision answer \"yes\"), and worse on ARCTIC (E_C 2.1584 vs 1.8901, relative -0.1419, verdict worse; structure \"worse\") (z_joint_decoder_followup).",
+  "Early-frame gap of M00 against D0 in the first eight frames: 0.2940 on TACO, 0.4813 on ARCTIC (z_joint_decoder_followup/report_values.json).",
+  "ARCTIC only: 21 of the 44 test takes come from a subject absent from training; TACO has none (z_temporal_diagnostic/report.md line 525; template 04 line 9).",
+  "Split sizes differ: TACO 1312 train / 141 val / 364 test sequences (186 test takes); ARCTIC 1005 / 106 / 186 (44 test takes).",
+  "One outcome label, Case D (\"stateful helps TACO only\"), is by design a statement about the two datasets together; it compares the per-dataset answers and does not pool numbers.",
+  "The reused direct reference D0 was trained to 80000 steps on TACO and stopped by patience at 48000 on ARCTIC; on ARCTIC the predecessor report says the reused D0 \"may understate the direct model there\", which is why the partial retrained row D0r exists as a sensitivity check.",
+  "Status differs: both stateful runs are running on TACO, both are still pending on ARCTIC (queue order puts TACO first); M01 is running on both datasets.",
+  "Model sizes differ slightly by dataset (input dimensions): M01 75967553 (TACO) vs 75877697 (ARCTIC); M10 69829249 (TACO) vs 69230209 (ARCTIC, from a discarded attempt's header).",
+  "The predecessor report rates the stateful test \"a reasonable next test on TACO and a weak one on ARCTIC\" (z_joint_decoder_followup/report.md lines 736-737)."
+ ],
+ "do_not_claim": [
+  "Any result, direction or size of effect of the 2 x 2 experiment (e.g. 'stateful z improves ...', 's_0-preserving decoding fixes early frames', 'M11 is best'): 0 of 6 runs have finished and no test metric of this study exists.",
+  "Any preliminary value: validation readings in the training logs or W&B, pilot RMSEs / ratios in init_aug_decision.json, the dry-run metric files in a scratch directory outside the result tree, or numbers from the discarded attempts.",
+  "That M00 is a new or retrained run: it is the reused M2 of the z joint-decoder follow-up; only M01, M10 and M11 are trained here. D0 is also reused.",
+  "That the previous model 'discards s_0' or 'does not use s_0': only its decoder lacks s_0; the whole-sequence temporal backbone is conditioned on s_0.",
+  "That the stateful model is 'closed-loop', 'feedback-controlled', 'teacher-forced' or 'conditioned on observed contact during the rollout': it is a free rollout that feeds back its own predicted latent and depends on (s_0, G, tau) only.",
+  "That the stateful model starts from the Stage-1 encoder (z_0 = E_z(s_0)): z_hat_0 comes from a separately trained module with the same architecture; the Stage-1 encoder is not part of the model or of inference.",
+  "That the transition is a transformer or a recurrent network with a hidden state, or that z_t+1 depends on z_t alone: it is a residual MLP on the 64-D latent state that also reads G and a 5-frame object-trajectory window (4-frame look-ahead).",
+  "That the hypotheses are established causes of the earlier shortfall ('the problem is open-loop prediction', 'the cause is the loss of s_0'): the templates call them remaining, untested architectural assumptions; one planned outcome is 'neither'.",
+  "That the experiment is expected to make z-mediated generation beat the direct model: the predecessor report says the diagnostic 'did not show that an iterative model would beat Stage 2' and names as the realistic target 'equal dense error with better structure, without the early-frame loss' (the TACO pattern), and calls the test weak on ARCTIC.",
+  "That the decision rule is formally pre-registered or externally time-stamped: it is a dict in a code file that was untracked when this was checked; supported wording is 'fixed in code before any result was read' (the template's claim, not independently verifiable).",
+  "'No test quantity was computed before training ended' as a factual statement about the project: a pipeline dry run produced test-part metric files from early snapshots in a scratch directory (selection is nevertheless on validation L_C only).",
+  "Pooled or averaged TACO + ARCTIC statements; Case D compares per-dataset answers and is not a pooled number.",
+  "That OakInk2 is part of this experiment.",
+  "That r, diffusion, new latents or extra losses are involved: the study uses z only, with L_C + L_z (+ L_z0).",
+  "That results are multi-seed or cross-validated: one training seed on one fixed split; a second seed is conditional on the ambiguity rule.",
+  "That 'z_1:T' frames are predicted with T the window length: 63 future frames (1..63) of a 64-frame window are generated; frame 0 is the given s_0.",
+  "That the stateful and whole-sequence models have identical capacity: the stateful models are smaller (design bound in the code: within 15 %).",
+  "That the absolute and s_0-preserving decoders differ in size or family: same 6-block width-256 decoder, one extra input column.",
+  "That the stateful runs have been running since the first launch: all stateful runs were discarded and restarted from step 1 at 15:44-15:47 on 2026-10-04 after an initialisation defect was found; the discarded runs are used nowhere.",
+  "Describing the s_0-preserving change as r, 'noise removal' or a 'null-space' residual: Delta_C_t is the decoded change of the contact map from s_0, nothing more.",
+  "Calling z 'disentangled' or 'independent' when describing why it is kept: the sources use a 64-D structure latent from Stage 1; stay with 'structure-oriented'."
+ ],
+ "candidate_images": [],
+ "verification": {
+  "reliability": "high",
+  "numbers_confirmed": 98,
+  "numbers_checked": 99,
+  "number_corrections": [
+   {
+    "block": "HYP",
+    "label": "Outcome cases",
+    "reported": "'A stateful is the main fix | B s_0 preservation is the main fix | C both help (M11 better than M00, M01 and M10) | D stateful helps TACO only (cross-dataset) | E nothing beats M00 or D0'; implemented in zf_aggregate.py decide() lines 152-164 and 289-292 (Case D)",
+    "found": "The string on zf_common.py line 89 is verbatim. The zf_aggregate.py locator is stale (file edited 16:06): decide() is lines 129-176, case logic lines 161-173, Case D lines 298-301. In the code a dataset's 'case' answer is the '+'-join of the cases that apply, or 'mixed' when none of A / B / C / E applies; A needs the stateful effect 'yes' and the decoder effect not 'yes' and M11 not best; B the mirror; C needs M11 better than M00, M01 and M10; E needs no trained model better than M00 and the best z model not better than D0; D is a separate yes / no row written only when both datasets have answers (TACO 'yes' and ARCTIC in no / worse / mixed).",
+    "verdict": "corrected",
+    "source_checked": "zf_common.py line 89; zf_aggregate.py lines 129-176, 298-301",
+    "applied_to": "A, B, C, E per dataset; D across the two datasets | Outcome cases"
+   }
+  ],
+  "claims_supported_as_extracted": 3,
+  "claims_checked": 7,
+  "figure_checks": [],
+  "image_checks": [],
+  "attached_by_the_verifier": [
+   "The stateful factor is not a single change (design facts from the code, to attach wherever the 2 x 2 is described): besides carrying a state it (a) replaces the transformer backbone with an initial-state module I plus a residual-MLP transition F, (b) adds the loss term L_z0, (c) has fewer parameters (TACO total 69 829 249 vs 75 967 297 for M00; design bound 'within 15 %'), and (d) changes how much of the object trajectory is visible: the whole-sequence backbone uses unmasked self-attention over all 63 frame tokens (cf_models.py lines 26-60, s2_models.py lines 50-56), while the transition at step t reads tau_t..tau_t+4, i.e. object motion from t-8 to t+12 (narrative_templates/06_architecture.md lines 10-12). A difference between M10 and M00 could therefore not be attributed to statefulness alone.",
+   "The decoder factor is two changes made together: s_0 as a per-point decoder input and the output re-defined as a change from s_0 (06_architecture.md lines 23-25, 'The same decoder with two changes'). The experiment does not separate them.",
+   "The direct reference D0 already decodes a change from s_0: 'C_hat_t = s_0 + sigma_r rho_hat_t', with a zero-initialised head so that it 'starts as the persistence predictor C_t = s_0' (s2_models.py lines 9-10; zj_common.py line 49). Template 02 lines 15-16 says the direct model 'starts from s_0'. Hypothesis B gives the z path something the direct model already has; worth one sentence in the motivation.",
+   "The extractor's caveat on the transition input ('5-frame window of the object trajectory, frames t..t+4, a 4-frame look-ahead') is incomplete. Each tau feature is itself a summary of object states from 8 frames before to 8 frames after its frame, so the template (edited at 16:06, after the extraction) now states that the transition at step t 'sees object motion from t-8 to t+12 and nothing about hands or contact'.",
+   "Intervals for the ARCTIC motivation numbers were not delivered: probe gain over persistence at 4 frames 0.0019 with 95 % interval [-0.0400, 0.0396] (includes zero), at 8 frames 0.0694 [0.0161, 0.1217] (z_temporal_diagnostic/persistence_comparison.csv). Also not delivered: the diagnostic's own qualification that the TACO label is 'Case A (borderline)' and that the gains are window averages (z_temporal_diagnostic/report.md line 26).",
+   "'Pre-registered' has no independent evidence. There is no dated plan document in the repository (the templates refer to 'the plan', which is not a file there), git tracked no file of scripts/research/z_stateful_s0_factorial/, when this was checked (first committed on 2026-10-04) zf_common.py (the DECISION dict) was last modified at 15:31 and zf_aggregate.py (which turns verdicts into cases) at 16:06 on 2026-10-04, and a decision_summary.csv dated 16:07 exists in the dry-run scratch directory. Supported page wording: 'a decision rule written into the experiment's code in advance'; avoid 'pre-registered'.",
+   "The case logic in code is more specific than the one-line labels: a dataset's answer is the '+'-join of the cases that apply or 'mixed' when none does; A requires both stateful comparisons better, the decoder effect not 'yes' and M11 not better than all three others; B is the mirror; E requires that no trained model is better than M00 and the best z model (chosen on validation E_C) is not better than D0; D is a separate yes / no row over the two datasets (zf_aggregate.py lines 161-173, 298-301). The two-pair reading can also return 'mixed', which the DECISION strings fold into 'else no' (zf_aggregate.py lines 120-126).",
+   "The early-frame reading of this experiment uses frames 1-16 (zf_common.py lines 39, 86), while the predecessor's 'first eight frames' gap used frames 1-8. Do not present the 0.294 / 0.481 gap as the quantity this experiment's rule will test.",
+   "Terminology: the code calls the whole-sequence model '(open-loop)' (zf_common.py line 4), but the stateful rollout also receives no observation during generation, and the predecessor diagnostic calls this kind of rollout 'closed-loop' (z_temporal_diagnostic/report.md line 523). If the page uses 'open-loop', it should say what it means (all 63 latents predicted in one pass, no latent state carried forward) and should not call the stateful model closed-loop or feedback-controlled.",
+   "Page notation to fix: z_1:63 of a 64-frame window (not z_1:T); C_t = D_abs(z_t, G_t), where G_t is the frame's per-point geometry tokens together with the static vector G; 'z_t -> z_t+1' needs the note that the transition also reads G and the local object trajectory and that z_hat_0 comes from a separately trained module, not from the Stage-1 encoder.",
+   "No figure or image exists for this block in the study's result directory. The only design diagram (fig1_design.png) sits in a scratch directory outside the result tree next to figures made from partial snapshots; it is not a deliverable and was not opened. The page should draw the 2 x 2 table itself.",
+   "The status and all locators are a snapshot of a moving target: 06_architecture.md, zf_aggregate.py, zf_report.py and zf_sanity.py were modified at 16:06 and zf_queue.py at 16:08 on 2026-10-04, after the extraction; two of the extractor's locators had already shifted (06_architecture.md 'No residual-size penalty' is now line 26; zf_aggregate.py decide() is now lines 129-176, Case D lines 298-301). Re-check the status and quote by sentence rather than by line number before publishing.",
+   "The step markers in the text logs understate progress (the logs print at step 1000, then every 5000 steps, plus inspection steps up to 5000). The page should not quote a step count; 'running' / 'pending' is what the sources support.",
+   "The template sentence 'Every run reported here was trained from step 1 with the final code' (07_training.md line 25) needs care if quoted: the two M01 runs were resumed from their step-1000 checkpoints when moved between GPUs (training logs), which is a continuation, not a restart; and 'each before any result was read' is the template's own statement and cannot be verified independently.",
+   "'Test takes of a subject absent from training: TACO none' is stated only in template 04 line 9; the ARCTIC count (21 of 44) is in two finished reports, the TACO 'none' was not found in a table. Use the ARCTIC statement; attribute the TACO one to the template or leave it out."
+  ]
+ }
+}

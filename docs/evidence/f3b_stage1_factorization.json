@@ -1,0 +1,733 @@
+{
+ "unit": "H_stage1_factorization",
+ "figure_module": "docs/build/figs/f3b_stage1_factorization.py",
+ "entries": [
+  {
+   "block": "F3-B",
+   "claim": "Stage 1 trains, per dataset, a single-frame autoencoder that splits the dense contact map C into a structure-oriented latent z (shaped by its own reconstruction and by a relational loss that matches pairwise z distances to R2 + wrench teacher distances) and a complementary code r that only adds a residual correction on top of the z-only map; the r branch reads z through a stop-gradient and no independence term is used.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_factorization_stage1/report.md",
+   "source_files": [
+    "scripts/research/contact_factorization_stage1/cf_models.py",
+    "scripts/research/contact_factorization_stage1/cf_train.py",
+    "scripts/research/contact_factorization_stage1/cf_common.py",
+    "reports/contact_factorization_stage1/model_table.csv",
+    "reports/contact_factorization_stage1/experiment_config.json",
+    "reports/contact_factorization_stage1/sanity_summary.json"
+   ],
+   "metric": "Architecture description (no metric). For the redrawn diagram: C (512 values, one per canonical surface point) and geometry G -> E_z (point transformer over 512 tokens [geo | C], conditioned on G, 4 attention-pool queries) -> z; D_z (geometry tokens only, conditioned on [G | z]) -> z-only map C_bar; E_r (tokens [geo | C | 10 x (C - sg(C_bar))], conditioned on [G | sg(z)]) -> r; D_r (tokens [geo | sg(C_bar)], conditioned on [G | sg(z) | r], output = per-point scalar readout + a structure-conditioned 64-D linear basis combined by r) -> Delta_C; C_hat = C_bar + Delta_C. Losses: L_coarse = MSE(C_bar, C) -> E_z, D_z; L_rel = SmoothL1 between batch-normalised pairwise distances of z and of the teacher (1/2 R2-descriptor distance + 1/2 wrench-profile distance) over the 8128 pairs of a 128-frame batch -> z only; L_full = MSE(C_hat, C) -> E_r, D_r and, through C_bar, the z branch; 0.01 x mean|Delta_C| -> r branch. Phase A trains the z branch alone, phase B adds the r branch (z frozen 3000 steps, 0.1 x lr 3000 steps, then joint).",
+   "numbers": {
+    "both | A0 plain autoencoder: latent h / relational loss / r branch / parameters": {
+     "value": "128 / False / False / 11814273",
+     "source": "reports/contact_factorization_stage1/model_table.csv",
+     "locator": "row model=A0; columns latent_h, relational_loss, residual_branch, n_params"
+    },
+    "both | A1 z only + relational loss: z / relational loss / r branch / parameters": {
+     "value": "64 / True / False / 11765057",
+     "source": "reports/contact_factorization_stage1/model_table.csv",
+     "locator": "row model=A1"
+    },
+    "both | A2 z / r without the relational loss: z / r / relational loss / parameters": {
+     "value": "64 / 64 / False / 23682242",
+     "source": "reports/contact_factorization_stage1/model_table.csv",
+     "locator": "row model=A2"
+    },
+    "both | A3 proposed: z / r / relational loss / parameters": {
+     "value": "64 / 64 / True / 23682242",
+     "source": "reports/contact_factorization_stage1/model_table.csv",
+     "locator": "row model=A3"
+    },
+    "both | transformer width / depth / heads / dropout / pooling queries": {
+     "value": "256 / 4 / 8 / 0.1 / 4",
+     "source": "reports/contact_factorization_stage1/experiment_config.json",
+     "locator": "key arch"
+    },
+    "both | teacher weights (R2 block / wrench block)": {
+     "value": "0.5 / 0.5",
+     "source": "reports/contact_factorization_stage1/experiment_config.json",
+     "locator": "key teacher (w_r2, w_q)"
+    },
+    "both | loss weights lambda_rel / lambda_coarse / lambda_delta; batch; phase-B steps; z frozen / slow steps": {
+     "value": "1.0 / 1.0 / 0.01; 128; 12000; 3000 / 3000",
+     "source": "reports/contact_factorization_stage1/experiment_config.json",
+     "locator": "key train"
+    },
+    "both | training seed": {
+     "value": "0 (one seed per model)",
+     "source": "reports/contact_factorization_stage1/experiment_config.json",
+     "locator": "key seed; sanity_summary.json check 14_one_seed"
+    },
+    "TACO | unique training frames (take-object groups / takes)": {
+     "value": "82241 (1258 / 688)",
+     "source": "reports/contact_factorization_stage1/data_summary.json",
+     "locator": "taco.frames.train"
+    },
+    "ARCTIC | unique training frames (take-object groups / takes)": {
+     "value": "63094 (458 / 231)",
+     "source": "reports/contact_factorization_stage1/data_summary.json",
+     "locator": "arctic.frames.train"
+    }
+   },
+   "caveats": [
+    "z is taught, not found unsupervised: the only thing that makes z structural is the relational R2 + wrench teacher; no network output is compared with R2 and no independence, mutual-information, adversarial or orthogonality loss is used (sanity checks 15 and 16).",
+    "r is conditional on z by design (E_r and D_r both read z and the z-only map), so the claim under test is role separation, not independence (report Section 3, H4).",
+    "Single-frame representation experiment: nothing temporal is trained; trajectories are used only at evaluation time.",
+    "The existing fig1_architecture.png carries stale text (zero-init output, lambda_delta 0.05, 0.1 x lr for 2k steps); the final recipe is non-zero FiLM gates, lambda_delta 0.01, 3000 frozen + 3000 slow steps.",
+    "The residual branch needed three failed launches before it activated; the reported r is the r of one specific decoder recipe (report Sections 13 and 15).",
+    "The primary A2 / A3 phase B started from the z branch of an earlier 16 000-step launch (training logs: 'z branch initialised from A3_seed0_phaseA (16000 steps)'), although report Section 6 also says the runs are from scratch.",
+    "Bottleneck variants with a 16-D z (A1_z16, A2_z16, A3_z16) exist and reach the same verdict."
+   ]
+  },
+  {
+   "block": "F3-B",
+   "claim": "A small MLP probe reading the 64-D z of the proposed model recovers the R2 structure descriptor and the wrench profile about as well as the same probe reading the full 512-D dense map (structure retention, a mean over five quantities, 1.07 on TACO and 1.10 on ARCTIC; z is not above the dense-map probe on every quantity), while the probe reading r recovers little of it on average (0.03 on TACO; -0.53 on ARCTIC, i.e. worse than predicting the training mean), which supports that structure information is concentrated in z. The ratio has no interval, the probed quantities are the ones the relational teacher was built from, and one training seed was run.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_factorization_stage1/report.md",
+   "source_files": [
+    "reports/contact_factorization_stage1/probe_metrics.csv",
+    "reports/contact_factorization_stage1/decision_summary.csv",
+    "scripts/research/contact_factorization_stage1/eval_probes.py"
+   ],
+   "metric": "Structure retention (dimensionless; higher = more structure information recoverable). A 2-layer MLP probe (hidden 256) is trained on frozen codes of the training frames and scored on the unique test frames (TACO 22 938, ARCTIC 11 560). For each of five quantities (part-participation AUPRC, amount R2, centroid error, normal angle, wrench explained variance) retention = (probe - trivial) / (dense-map probe - trivial); structure retention is the mean of the five. 1 = as good as the probe on the full dense map, 0 = as good as predicting the training mean, negative = worse than that. No interval is given for this ratio.",
+   "numbers": {
+    "TACO | structure retention, z of A3 (MLP probe)": {
+     "value": "1.0671261081855512",
+     "source": "reports/contact_factorization_stage1/probe_metrics.csv",
+     "locator": "row dataset=taco, input=A3:z, probe=mlp; column structure_retention"
+    },
+    "TACO | structure retention, r of A3 (MLP probe)": {
+     "value": "0.0340336525176347",
+     "source": "reports/contact_factorization_stage1/probe_metrics.csv",
+     "locator": "row dataset=taco, input=A3:r, probe=mlp; column structure_retention"
+    },
+    "ARCTIC | structure retention, z of A3 (MLP probe)": {
+     "value": "1.1031762906540568",
+     "source": "reports/contact_factorization_stage1/probe_metrics.csv",
+     "locator": "row dataset=arctic, input=A3:z, probe=mlp; column structure_retention"
+    },
+    "ARCTIC | structure retention, r of A3 (MLP probe)": {
+     "value": "-0.5343104974263759",
+     "source": "reports/contact_factorization_stage1/probe_metrics.csv",
+     "locator": "row dataset=arctic, input=A3:r, probe=mlp; column structure_retention"
+    },
+    "both | structure retention, dense map C (reference, 1 by definition)": {
+     "value": "1.0",
+     "source": "reports/contact_factorization_stage1/probe_metrics.csv",
+     "locator": "rows input=C, probe=mlp; column structure_retention"
+    },
+    "TACO | per-quantity retention of z (participation, amount, centroid, normal, wrench)": {
+     "value": "1.0545133828768898 / 1.0592428218445962 / 0.9958442877851912 / 1.1081680244439474 / 1.1178620239771315",
+     "source": "reports/contact_factorization_stage1/probe_metrics.csv",
+     "locator": "row taco, A3:z, mlp; columns ret_part_auprc, ret_amount_r2, ret_centroid, ret_normal, ret_wrench_ev"
+    },
+    "TACO | per-quantity retention of r (participation, amount, centroid, normal, wrench)": {
+     "value": "0.6516360728406032 / -0.3771990397973866 / 0.0624674566211729 / 0.3387047455793923 / -0.5054409726556082",
+     "source": "reports/contact_factorization_stage1/probe_metrics.csv",
+     "locator": "row taco, A3:r, mlp; same columns"
+    },
+    "ARCTIC | per-quantity retention of z (participation, amount, centroid, normal, wrench)": {
+     "value": "1.0654875251643954 / 1.303491303868891 / 1.0875923223869846 / 0.9452981877328296 / 1.1140121141171826",
+     "source": "reports/contact_factorization_stage1/probe_metrics.csv",
+     "locator": "row arctic, A3:z, mlp; same columns"
+    },
+    "ARCTIC | per-quantity retention of r (participation, amount, centroid, normal, wrench)": {
+     "value": "0.3002273767592844 / -2.085008200433277 / -0.2399688599346256 / 0.0703654369306449 / -0.7171682404539061",
+     "source": "reports/contact_factorization_stage1/probe_metrics.csv",
+     "locator": "row arctic, A3:r, mlp; same columns"
+    },
+    "TACO | participation AUPRC: r probe vs trivial predictor vs z probe": {
+     "value": "0.8431224541702004 vs 0.6654677827186327 vs 0.9529583566514545",
+     "source": "reports/contact_factorization_stage1/probe_metrics.csv",
+     "locator": "rows taco A3:r mlp, trivial, A3:z mlp; column part_auprc"
+    },
+    "TACO / ARCTIC | structure retention of the combined [z, r] probe": {
+     "value": "0.9760495039213446 / 0.8603204638994004",
+     "source": "reports/contact_factorization_stage1/probe_metrics.csv",
+     "locator": "rows input=A3:zr, probe=mlp; column structure_retention"
+    },
+    "TACO / ARCTIC | structure retention of the plain autoencoder latent h (A0)": {
+     "value": "0.8009633165442995 / 0.8079298634168444",
+     "source": "reports/contact_factorization_stage1/probe_metrics.csv",
+     "locator": "rows input=A0:h, probe=mlp; column structure_retention"
+    },
+    "TACO / ARCTIC | report wording of the same result": {
+     "value": "\"keeps 107 % of the dense-C probe's gain\" / \"110 %\"; \"structure retention z 1.07 vs r 0.03\" / \"z 1.10 vs r -0.53\"; threshold 0.70 and margin 0.20",
+     "source": "reports/contact_factorization_stage1/decision_summary.csv",
+     "locator": "rows model=A3, questions 1 and 3; column evidence"
+    }
+   },
+   "caveats": [
+    "107 % / 110 % is a mean of five ratios relative to a small MLP probe on the 512-D map, not an information-theoretic quantity; it does not mean z holds more information than the map it was computed from (the report's explanation: the probes are small and z removes variation they would otherwise fit).",
+    "z is not above the dense-map probe on every quantity: TACO centroid retention 0.996, ARCTIC normal retention 0.945.",
+    "The probes measure exactly the quantities (R2 + wrench) that the relational teacher used to train z; evaluation is on held-out test takes, but this is not an independent notion of structure.",
+    "r is not empty of structure: on TACO its probe recovers part participation well above the trivial predictor (retention 0.65, AUPRC 0.843 vs 0.665) and part of the normal (0.34); the mean is near 0 because amount and wrench retentions are negative.",
+    "The negative ARCTIC value means the r probe is worse than predicting the training mean; the report reads it as a probe overfitting a code with little structural signal, not as r being 'anti-structural' (Section 15).",
+    "No error bars for the retention ratios; one training seed."
+   ],
+   "claim_as_extracted": "A small probe reading the 64-D z of the proposed model recovers the R2 structure descriptor and the wrench profile at least as well as the same probe reading the full 512-D dense map (structure retention 1.07 on TACO, 1.10 on ARCTIC), while the probe reading r recovers little of it on average (0.03 on TACO, -0.53 on ARCTIC), which supports that structure information is concentrated in z.",
+   "correction_reason": "Numbers are right. 'At least as well' holds only for the five-quantity mean: TACO centroid retention 0.996 and ARCTIC normal 0.945 are below 1. The retention ratio has no interval, and the unpaired 95 % intervals of the underlying probe metrics of z and of the dense map overlap for every quantity that has one on ARCTIC and for all but wrench EV on TACO (probe_metrics.csv lo / hi columns), so 107 % / 110 % should read 'about as well as', not 'more than'. -0.53 is worse than the trivial predictor, which 'little' hides."
+  },
+  {
+   "block": "F3-B",
+   "claim": "In the proposed model, adding r to z lowers the test reconstruction error of the dense map from 0.449 to 0.151 on TACO and from 0.645 to 0.205 on ARCTIC (mean per-frame L2, lower is better): the L2 error falls by 66 % / 68 %, and the squared error that z alone leaves falls by 73 % / 87 %. r therefore carries complementary dense detail that z does not reconstruct; that detail is a small part of the map (z alone already explains 98.4 % / 95.7 % of its variance).",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_factorization_stage1/report.md",
+   "source_files": [
+    "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+    "reports/contact_factorization_stage1/residual_localisation.csv",
+    "reports/contact_factorization_stage1/data_summary.json",
+    "scripts/research/contact_factorization_stage1/eval_recon.py"
+   ],
+   "metric": "E = mean over the unique test frames (TACO 22 938 frames of 186 takes; ARCTIC 11 560 of 44 takes) of the L2 distance between the reconstructed and the true 512-point contact map, in raw contact units (map values in [0, 1]); lower is better. E_zonly uses the z-only map, E_full the z + r map, both of the same model A3. Gain_r = (E_zonly - E_full) / E_zonly (relative reduction of the L2 error). explained_by_r = 1 - sum of squared errors (z + r) / sum of squared errors (z only) (share of the z-residual energy removed). Brackets = 95 % take-cluster bootstrap interval, 1000 resamples (test-set uncertainty, not training variance).",
+   "numbers": {
+    "TACO | E_zonly of A3 (z-only map)": {
+     "value": "0.4488290211349681 [0.4142191243175745, 0.4870461089181962]",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row dataset=taco, model=A3; columns E_zonly, E_zonly_lo, E_zonly_hi"
+    },
+    "TACO | E_full of A3 (z + r)": {
+     "value": "0.1508865981156584 [0.130876128309133, 0.1768123517570791]",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row dataset=taco, model=A3; columns E_full, E_full_lo, E_full_hi"
+    },
+    "TACO | Gain_r of A3 (relative L2-error reduction)": {
+     "value": "0.663821653660797 [0.6337808764257754, 0.6900546291272037]",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row taco, A3; columns gain_r, gain_r_lo, gain_r_hi"
+    },
+    "TACO | explained_by_r of A3 (share of z-residual squared error removed)": {
+     "value": "0.7327555060993103 [0.6414543368567548, 0.8346068068246711]",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row taco, A3; columns explained_by_r, explained_by_r_lo, explained_by_r_hi"
+    },
+    "ARCTIC | E_zonly of A3 (z-only map)": {
+     "value": "0.645155618915489 [0.551613650749373, 0.7484322210644484]",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row dataset=arctic, model=A3; columns E_zonly, E_zonly_lo, E_zonly_hi"
+    },
+    "ARCTIC | E_full of A3 (z + r)": {
+     "value": "0.204889352459164 [0.1707917579459938, 0.2416997236221285]",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row dataset=arctic, model=A3; columns E_full, E_full_lo, E_full_hi"
+    },
+    "ARCTIC | Gain_r of A3": {
+     "value": "0.6824187111406668 [0.6637295474225288, 0.7008163244621656]",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row arctic, A3; columns gain_r, gain_r_lo, gain_r_hi"
+    },
+    "ARCTIC | explained_by_r of A3": {
+     "value": "0.8721518997918193 [0.8561148349261014, 0.8864537230364257]",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row arctic, A3; columns explained_by_r, explained_by_r_lo, explained_by_r_hi"
+    },
+    "TACO | plain 128-D autoencoder A0, E_full": {
+     "value": "0.6088788202562706 [0.561114499711675, 0.6657697657154592]",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row taco, model=A0; columns E_full, _lo, _hi"
+    },
+    "ARCTIC | plain 128-D autoencoder A0, E_full": {
+     "value": "0.9436676170369191 [0.7753249109592111, 1.1199281039052782]",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row arctic, model=A0; columns E_full, _lo, _hi"
+    },
+    "TACO | linear PCA-128 of the training frames (stricter reference, same total latent size)": {
+     "value": "0.3528884775570863 [0.335134927279095, 0.3721272894423595]",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row taco, model=pca128; columns E_full, _lo, _hi"
+    },
+    "ARCTIC | linear PCA-128 of the training frames": {
+     "value": "0.7599894861661697 [0.6622298664178772, 0.8564356205742321]",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row arctic, model=pca128; columns E_full, _lo, _hi"
+    },
+    "TACO | R2 of the z-only map / of the full map against the standardised dense map (A3)": {
+     "value": "0.9840835460161468 / 0.9957464150404772",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row taco, A3; columns R2_zonly, R2_full"
+    },
+    "ARCTIC | R2 of the z-only map / of the full map (A3)": {
+     "value": "0.9570504212529296 / 0.9945089783458652",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row arctic, A3; columns R2_zonly, R2_full"
+    },
+    "TACO / ARCTIC | share of the z-residual energy that lies off the contact patch (GT contact < 0.05)": {
+     "value": "0.0164992251189871 / 0.0248987136628647",
+     "source": "reports/contact_factorization_stage1/residual_localisation.csv",
+     "locator": "rows model=A3, bin=off; column resid_z_energy_share"
+    },
+    "TACO | train / validation / test E_full of A3": {
+     "value": "0.0497847832739353 / 0.0901010259985923 / 0.1508865981156584",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row taco, A3; columns train_E_full, val_E_full, E_full"
+    },
+    "ARCTIC | train / validation / test E_full of A3": {
+     "value": "0.0711752027273178 / 0.3100037574768066 / 0.204889352459164",
+     "source": "reports/contact_factorization_stage1/reconstruction_metrics.csv",
+     "locator": "row arctic, A3; columns train_E_full, val_E_full, E_full"
+    }
+   },
+   "caveats": [
+    "Two different quantities: Gain_r 0.66 / 0.68 is the reduction of the L2 error; 73 % / 87 % (explained_by_r) is the reduction of the squared error (energy). Do not write 'r removes 73 % of the error'.",
+    "The part r completes is small: the 64-D z alone already explains 98.4 % (TACO) / 95.7 % (ARCTIC) of the standardised map variance, so 'r matters' concerns the 1.6 % / 4.3 % that z leaves (report Sections 7 and 13: at |z| = 64 the premise of a large residual is weak by construction).",
+    "The plain autoencoder A0 is a weak control (collapsed latent, effective rank 3.4 / 3.3 of 128; worse than linear PCA-128, sanity warning 01); the report names linear PCA-128 the stricter reference. On TACO the z-only map (0.449) is worse than PCA-128 (0.353); on ARCTIC it is better (0.645 vs 0.760).",
+    "The correction acts on the contact patches (about 98 % of the z-residual energy lies on points with GT contact >= 0.05); r adjusts amplitude and fine shape of patches that z places.",
+    "The TACO interval of explained_by_r is wide ([0.64, 0.83]).",
+    "One training seed; intervals are test-set uncertainty. Most runs had their best validation step at the last evaluation (sanity check 11), so absolute errors are not converged values.",
+    "The ARCTIC validation takes are harder than its test takes for every model (A3 val 0.310 vs test 0.205)."
+   ],
+   "claim_as_extracted": "In the proposed model, adding r to z lowers the test reconstruction error of the dense map from 0.449 to 0.151 on TACO and from 0.645 to 0.205 on ARCTIC (a 66 % / 68 % lower L2 error, 73 % / 87 % of the squared error that z alone leaves), so r carries complementary dense detail that z does not reconstruct.",
+   "correction_reason": "Values and direction confirmed in reconstruction_metrics.csv (gain_r 0.664 / 0.682; explained_by_r 0.733 / 0.872). The parenthesis '73 % / 87 % of the squared error that z alone leaves' can be read as 'remains' instead of 'is removed'; state the verb. The size caveat (1.6 % / 4.3 % left by z; report Sections 7 and 13) must stay next to the number. Intervals are test-set bootstrap, one seed."
+  },
+  {
+   "block": "F3-B",
+   "claim": "In latent swaps between structurally similar test frames, the structure of the decoded map follows the frame that supplied z in 97 % (TACO) and 98 % (ARCTIC) of swaps, whereas the transplanted dense detail follows the frame that supplied r in 77 % of swaps on TACO but only 44 % on ARCTIC, which is consistent with a preferential, not a complete, factorization.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_factorization_stage1/report.md",
+   "source_files": [
+    "reports/contact_factorization_stage1/swap_metrics.csv",
+    "reports/contact_factorization_stage1/taco/swap_pairs_selected.csv",
+    "reports/contact_factorization_stage1/arctic/swap_pairs_selected.csv",
+    "reports/contact_factorization_stage1/experiment_config.json",
+    "reports/contact_factorization_stage1/decision_summary.csv",
+    "scripts/research/contact_factorization_stage1/eval_swap.py"
+   ],
+   "metric": "Share of swaps (higher = cleaner role separation). Pairs (A, B) are test frames of the same mesh from different takes whose R2 + wrench teacher distance is in the lowest 20 % of that mesh's cross-take pairs and whose dense distance is above its median; each pair is swapped both ways (decode z of A with r of B and the reverse). 'Structure follows z' = the decoded map's R2 + wrench distance to the z donor is smaller than to the r donor. 'Detail follows r' = the cosine between the added correction and the r donor's own residual is larger than with the host's residual. Brackets = 95 % take-cluster bootstrap interval (1000 resamples, clustered on the z donor's take). Pre-registered thresholds 0.70 (structure) and 0.60 (detail).",
+   "numbers": {
+    "TACO | share of swaps in which the structure follows the z donor (A3)": {
+     "value": "0.97125 [0.9597908500040984, 0.9818194497273997]",
+     "source": "reports/contact_factorization_stage1/swap_metrics.csv",
+     "locator": "row dataset=taco, model=A3; columns frac_struct_follows_z, _lo, _hi"
+    },
+    "TACO | share of swaps in which the dense detail follows the r donor (A3)": {
+     "value": "0.766875 [0.7179358392741413, 0.8179324852248823]",
+     "source": "reports/contact_factorization_stage1/swap_metrics.csv",
+     "locator": "row dataset=taco, model=A3; columns frac_detail_follows_r, _lo, _hi"
+    },
+    "ARCTIC | share of swaps in which the structure follows the z donor (A3)": {
+     "value": "0.9793103448275862 [0.9540096473033904, 0.9973572779136876]",
+     "source": "reports/contact_factorization_stage1/swap_metrics.csv",
+     "locator": "row dataset=arctic, model=A3; columns frac_struct_follows_z, _lo, _hi"
+    },
+    "ARCTIC | share of swaps in which the dense detail follows the r donor (A3)": {
+     "value": "0.4413793103448276 [0.3877931531945637, 0.4969634073150066]",
+     "source": "reports/contact_factorization_stage1/swap_metrics.csv",
+     "locator": "row dataset=arctic, model=A3; columns frac_detail_follows_r, _lo, _hi"
+    },
+    "TACO | pairs / swaps / meshes": {
+     "value": "800 / 1600 / 40",
+     "source": "reports/contact_factorization_stage1/swap_metrics.csv",
+     "locator": "row taco, A3; columns n_pairs, n_swaps; mesh count = distinct mesh values in taco/swap_pairs_selected.csv"
+    },
+    "ARCTIC | pairs / swaps / meshes": {
+     "value": "725 / 1450 / 11",
+     "source": "reports/contact_factorization_stage1/swap_metrics.csv",
+     "locator": "row arctic, A3; columns n_pairs, n_swaps; mesh count = distinct mesh values in arctic/swap_pairs_selected.csv"
+    },
+    "TACO | structural distance of the swapped map to the z donor / to the r donor / reconstruction floor": {
+     "value": "0.0830610205566699 / 0.4504197877534898 / 0.0235978645529235",
+     "source": "reports/contact_factorization_stage1/swap_metrics.csv",
+     "locator": "row taco, A3; columns struct_to_zdonor, struct_to_rdonor, struct_floor"
+    },
+    "ARCTIC | structural distance to the z donor / to the r donor / reconstruction floor": {
+     "value": "0.1581872828606443 / 0.7271368220037427 / 0.0450130985185136",
+     "source": "reports/contact_factorization_stage1/swap_metrics.csv",
+     "locator": "row arctic, A3; columns struct_to_zdonor, struct_to_rdonor, struct_floor"
+    },
+    "TACO | detail cosine with the r donor's residual / with the host's residual; paired difference": {
+     "value": "0.4430484720623645 / 0.1129142180253984; 0.330134254036966 [0.2804986940729316, 0.3863661367350938]",
+     "source": "reports/contact_factorization_stage1/swap_metrics.csv",
+     "locator": "row taco, A3; columns detail_cos_rdonor, detail_cos_zdonor, detail_cos_diff, _lo, _hi"
+    },
+    "ARCTIC | detail cosine with the r donor's residual / with the host's residual; paired difference": {
+     "value": "0.0213168885346486 / 0.0656563429775294; -0.0443394544428808 [-0.0730596709158061, -0.0133825327505532]",
+     "source": "reports/contact_factorization_stage1/swap_metrics.csv",
+     "locator": "row arctic, A3; columns detail_cos_rdonor, detail_cos_zdonor, detail_cos_diff, _lo, _hi"
+    },
+    "TACO | dense change caused by swapping r / dense distance between the two frames of a pair": {
+     "value": "0.4771315834065899 / 3.4640416783839463",
+     "source": "reports/contact_factorization_stage1/swap_metrics.csv",
+     "locator": "row taco, A3; columns dense_change, dense_AB"
+    },
+    "ARCTIC | dense change caused by swapping r / dense distance of the pair": {
+     "value": "0.8937039828762926 / 5.541103105873897",
+     "source": "reports/contact_factorization_stage1/swap_metrics.csv",
+     "locator": "row arctic, A3; columns dense_change, dense_AB"
+    },
+    "both | thresholds fixed in advance (structure / detail)": {
+     "value": "0.7 / 0.6",
+     "source": "reports/contact_factorization_stage1/experiment_config.json",
+     "locator": "decision_thresholds.swap_struct_frac_min, decision_thresholds.swap_detail_frac_min"
+    },
+    "TACO / ARCTIC | rule's answer to the swap question": {
+     "value": "yes / partial",
+     "source": "reports/contact_factorization_stage1/decision_summary.csv",
+     "locator": "rows model=A3, question 'Does swapping r alter the realisation without destroying the z-defined structure?'; column answer"
+    }
+   },
+   "caveats": [
+    "The structure half is largely built into the architecture: the swapped map is the host's z-only map plus a small correction (swapping r moves the map by 14 % / 16 % of the distance between the two frames, report Section 10: 'a fine correction, never a change of structure'), so structure staying with the z donor is expected. The informative half is the detail half.",
+    "On ARCTIC the transplanted detail resembles neither the r donor's nor the host's residual (cosines 0.02 and 0.07, paired difference -0.04 [-0.07, -0.01]); the report reads r as a correction conditioned on the structure it is attached to. No experiment isolates the cause.",
+    "On ARCTIC the two frames of a pair differ in articulation and are structurally less similar to begin with (mean teacher distance 0.575 vs 0.503 on TACO), so 'the same detail on another structure' is less well defined there (report Sections 10 and 15).",
+    "Structure of a decoded map is extracted with the reference frame's ground-truth part labels (report Section 15).",
+    "The same split holds without the relational loss (A2: 96 % / 72 % on TACO, 92 % / 42 % on ARCTIC), so the swap result does not by itself show the effect of the relational loss.",
+    "fig6_swap.png is not page-ready (see notes file): the maps of a row look alike, all examples of a dataset come from one mesh, and the ARCTIC example pairs have teacher distances 0.83 / 0.62 / 0.83.",
+    "One training seed; intervals are test-set uncertainty."
+   ]
+  },
+  {
+   "block": "F3-B",
+   "claim": "Read off frame by frame along real test trajectories, r is about as persistent as the dense residual it encodes (autocorrelation at 8 frames 0.65 vs 0.69 on TACO, 0.80 vs 0.77 on ARCTIC) and less persistent than z and than the plain autoencoder latent, so the results do not support treating r as a fixed sequence-level code.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_factorization_stage1/report.md",
+   "source_files": [
+    "reports/contact_factorization_stage1/temporal_persistence.csv",
+    "reports/contact_factorization_stage1/decision_summary.csv",
+    "reports/contact_factorization_stage1/experiment_config.json",
+    "scripts/research/contact_factorization_stage1/eval_temporal.py",
+    "scripts/research/contact_factorization_stage1/aggregate.py"
+   ],
+   "metric": "Autocorrelation at lag h = 8 frames (30 Hz) of a code when the frozen encoders are applied frame by frame to the ground-truth test trajectories (TACO 364, ARCTIC 186 sequences of 64 frames; nothing temporal trained): sum over dimensions of Cov(x_t, x_t+h) / sum of Var(x); higher = the code changes more slowly; no interval in the table. Ridge R2: linear ridge regression fitted on training trajectories and scored on test trajectories, predicting a code 8 frames ahead (higher = more predictable). Displacement ratio: mean ||x_t+8 - x_t|| divided by the mean distance between random frames of different sequences, with a 95 % take-cluster bootstrap interval.",
+   "numbers": {
+    "TACO | autocorrelation at h = 8: r of A3": {
+     "value": "0.6491491794586182",
+     "source": "reports/contact_factorization_stage1/temporal_persistence.csv",
+     "locator": "row dataset=taco, code=A3:r, h=8, metric=autocorrelation; column value"
+    },
+    "TACO | autocorrelation at h = 8: dense residual C - z-only map (A3)": {
+     "value": "0.6876913905143738",
+     "source": "reports/contact_factorization_stage1/temporal_persistence.csv",
+     "locator": "row taco, code=A3:resid_z, h=8, metric=autocorrelation"
+    },
+    "TACO | autocorrelation at h = 8: z of A3 / plain autoencoder latent h (A0) / dense map C": {
+     "value": "0.7988950610160828 / 0.8779147267341614 / 0.961968719959259",
+     "source": "reports/contact_factorization_stage1/temporal_persistence.csv",
+     "locator": "rows taco, codes A3:z, A0:h, dense_C, h=8, metric=autocorrelation"
+    },
+    "ARCTIC | autocorrelation at h = 8: r of A3": {
+     "value": "0.7950990796089172",
+     "source": "reports/contact_factorization_stage1/temporal_persistence.csv",
+     "locator": "row dataset=arctic, code=A3:r, h=8, metric=autocorrelation"
+    },
+    "ARCTIC | autocorrelation at h = 8: dense residual (A3)": {
+     "value": "0.7730572819709778",
+     "source": "reports/contact_factorization_stage1/temporal_persistence.csv",
+     "locator": "row arctic, code=A3:resid_z, h=8, metric=autocorrelation"
+    },
+    "ARCTIC | autocorrelation at h = 8: z of A3 / plain autoencoder latent h (A0) / dense map C": {
+     "value": "0.8762466311454773 / 0.9377154111862184 / 0.956397294998169",
+     "source": "reports/contact_factorization_stage1/temporal_persistence.csv",
+     "locator": "rows arctic, codes A3:z, A0:h, dense_C, h=8, metric=autocorrelation"
+    },
+    "TACO / ARCTIC | autocorrelation at h = 8 of the hand-designed R2 + wrench teacher descriptor": {
+     "value": "0.6831264495849609 / 0.7857162952423096",
+     "source": "reports/contact_factorization_stage1/temporal_persistence.csv",
+     "locator": "rows code=teacher, h=8, metric=autocorrelation"
+    },
+    "TACO | displacement ratio at h = 8: r vs dense residual": {
+     "value": "0.5447835216073544 [0.5182226435016637, 0.5741680137885355] vs 0.5368757736510955 [0.5039839936171177, 0.5756955913345639]",
+     "source": "reports/contact_factorization_stage1/temporal_persistence.csv",
+     "locator": "rows taco, codes A3:r and A3:resid_z, h=8, metric=displacement_ratio; columns value, lo, hi"
+    },
+    "ARCTIC | displacement ratio at h = 8: r vs dense residual": {
+     "value": "0.3863152329639722 [0.33958291254728, 0.4347021078024443] vs 0.3876400289516295 [0.3248576224361442, 0.4573958034617857]",
+     "source": "reports/contact_factorization_stage1/temporal_persistence.csv",
+     "locator": "rows arctic, codes A3:r and A3:resid_z, h=8, metric=displacement_ratio"
+    },
+    "TACO | ridge R2 of r(t+8) from r(t) / of z(t+8) from z(t)": {
+     "value": "0.3145207166671753 / 0.6937667727470398",
+     "source": "reports/contact_factorization_stage1/temporal_persistence.csv",
+     "locator": "rows taco, codes A3:r and A3:z, h=8, metric=r2_from_past_self"
+    },
+    "ARCTIC | ridge R2 of r(t+8) from r(t) / of z(t+8) from z(t)": {
+     "value": "0.3448635339736938 / 0.7600665092468262",
+     "source": "reports/contact_factorization_stage1/temporal_persistence.csv",
+     "locator": "rows arctic, codes A3:r and A3:z, h=8, metric=r2_from_past_self"
+    },
+    "TACO / ARCTIC | ridge R2 of r(t+8) from the current structure z(t+8)": {
+     "value": "0.0297814011573791 / 0.0221316218376159",
+     "source": "reports/contact_factorization_stage1/temporal_persistence.csv",
+     "locator": "rows code=A3:r, h=8, metric=r2_from_current_z3"
+    },
+    "TACO | ridge R2 of r(t+8) from [r(t), z(t+8)] and the rule's 'gain of r(t) beyond z(t+8)' (see caveat: unreliable)": {
+     "value": "0.0966467857360839 and 0.0668653845787048",
+     "source": "reports/contact_factorization_stage1/temporal_persistence.csv",
+     "locator": "rows taco, code=A3:r, h=8, metrics r2_from_both and r2_gain_past_beyond_z3"
+    },
+    "ARCTIC | ridge R2 of r(t+8) from [r(t), z(t+8)] and the rule's 'gain of r(t) beyond z(t+8)' (see caveat: unreliable)": {
+     "value": "0.1572865843772888 and 0.1351549625396728",
+     "source": "reports/contact_factorization_stage1/temporal_persistence.csv",
+     "locator": "rows arctic, code=A3:r, h=8, metrics r2_from_both and r2_gain_past_beyond_z3"
+    },
+    "TACO / ARCTIC | copy-forward R2 (predict r(t+8) = r(t)); in the table, not discussed in the report": {
+     "value": "0.3632853627204895 / 0.6300221681594849",
+     "source": "reports/contact_factorization_stage1/temporal_persistence.csv",
+     "locator": "rows code=A3:r, h=8, metric=r2_persistence_copy"
+    },
+    "TACO / ARCTIC | rule's answer 'Is r temporally persistent?'": {
+     "value": "partial / partial",
+     "source": "reports/contact_factorization_stage1/decision_summary.csv",
+     "locator": "rows model=A3, question 'Is r temporally persistent?'; column answer"
+    }
+   },
+   "caveats": [
+    "Correction to the page brief: 'its future is barely predictable beyond the current structure' rests on the gain 0.07 / 0.14, which is r2_from_both minus r2_from_current_z3; in the table r2_from_both (0.097 / 0.157) is lower than the R2 from r(t) alone (0.315 / 0.345), and the report prose 'from both 0.38 / 0.48' is not in the table. In eval_temporal.py the ridge penalty is scaled by the mean feature variance of the concatenated input while z has a far larger scale than r, so this gain is not a reliable measure. Supported wording: the current structure z linearly predicts almost none of r (R2 0.03 / 0.02), and r's own past predicts it only partly (ridge R2 0.31 / 0.34 against 0.69 / 0.76 for z; copy-forward 0.36 / 0.63).",
+    "'About as persistent as', not 'equal': r is slightly below the residual on TACO (0.65 vs 0.69) and slightly above on ARCTIC (0.80 vs 0.77).",
+    "The verdict 'partial' rests on the comparison with A0's plain latent h (0.65 vs 0.88; 0.80 vs 0.94), a control the report itself calls weak; on ARCTIC it is the only persistence criterion that fails, on TACO the gain criterion (the unreliable number) and, marginally, the displacement criterion (0.5448 vs 0.5369) fail too. The two reference-relative criteria were fixed after an untrained smoke run (report Section 3).",
+    "The hand-designed R2 + wrench descriptor has about the same autocorrelation as r (0.68 / 0.79), so a low value is not specific to the realization code.",
+    "Persistence is measured by frame-wise encoding and a linear ridge only; a temporal model over r might extract more (report Section 15). Autocorrelations have no interval.",
+    "r is still a real, non-collapsed code (effective rank 15.2 / 14.2 of 64): describe it as a per-frame realization residual / complementary dense detail, never as noise.",
+    "One training seed; one residual-decoder recipe."
+   ]
+  },
+  {
+   "block": "F3-B",
+   "claim": "By the study's own decision rule, with thresholds fixed in advance, the outcome is Case B, partial factorization, on both TACO and ARCTIC: the questions on the z side (structure probes, reconstruction through z + r, z neighbourhoods) are answered yes, the persistence of r is answered 'partial' on both datasets, and on ARCTIC the swap question is answered 'partial' because the detail half misses its threshold (44 % against 60 %). One training seed.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/contact_factorization_stage1/report.md",
+   "source_files": [
+    "reports/contact_factorization_stage1/decision_summary.csv",
+    "reports/contact_factorization_stage1/experiment_config.json",
+    "reports/contact_factorization_stage1/sanity_summary.json",
+    "reports/contact_factorization_stage1/probe_metrics.csv",
+    "reports/contact_factorization_stage1/latent_statistics.csv",
+    "scripts/research/contact_factorization_stage1/aggregate.py"
+   ],
+   "metric": "Categorical verdict from the rule in aggregate.py::decide with thresholds in cf_common.DECISION: six questions answered yes / partial / no per dataset; Case A = all yes and full reconstruction within 10 % of A0; Case C = clearly worse than A0 or a 'no' on z structure, concentration, swap or r persistence; Case B otherwise. Structure retention (higher = more structure recoverable) is used for the A2 vs A3 comparison.",
+   "numbers": {
+    "TACO / ARCTIC | Case (primary model A3)": {
+     "value": "B / B",
+     "source": "reports/contact_factorization_stage1/experiment_config.json",
+     "locator": "key cases"
+    },
+    "TACO / ARCTIC | Case (bottleneck variant A3_z16, 16-D z)": {
+     "value": "B / B",
+     "source": "reports/contact_factorization_stage1/experiment_config.json",
+     "locator": "key cases_bottleneck_variant"
+    },
+    "TACO | answers to the six questions (z keeps structure, r improves reconstruction, concentration in z, z neighbourhoods, swap, r persistence)": {
+     "value": "yes / yes / yes / yes / yes / partial",
+     "source": "reports/contact_factorization_stage1/decision_summary.csv",
+     "locator": "rows dataset=taco, model=A3; column answer (first six questions)"
+    },
+    "ARCTIC | answers to the six questions": {
+     "value": "yes / yes / yes / yes / partial / partial",
+     "source": "reports/contact_factorization_stage1/decision_summary.csv",
+     "locator": "rows dataset=arctic, model=A3; column answer (first six questions)"
+    },
+    "TACO | answer to 'Is Stage 1 sufficiently supported to proceed to Stage 2?'": {
+     "value": "partial (Case B); evidence 'not yet: r persistence'",
+     "source": "reports/contact_factorization_stage1/decision_summary.csv",
+     "locator": "row taco, A3, last question; columns answer, evidence"
+    },
+    "ARCTIC | answer to 'Is Stage 1 sufficiently supported to proceed to Stage 2?'": {
+     "value": "partial (Case B); evidence 'not yet: swap, r persistence'",
+     "source": "reports/contact_factorization_stage1/decision_summary.csv",
+     "locator": "row arctic, A3, last question; columns answer, evidence"
+    },
+    "TACO | structure retention without the relational loss (A2): z / r": {
+     "value": "0.7740857522678974 / 0.2969523299200161",
+     "source": "reports/contact_factorization_stage1/probe_metrics.csv",
+     "locator": "rows taco, inputs A2:z and A2:r, probe=mlp; column structure_retention"
+    },
+    "ARCTIC | structure retention without the relational loss (A2): z / r": {
+     "value": "0.6290937368511604 / -0.0047584740464253",
+     "source": "reports/contact_factorization_stage1/probe_metrics.csv",
+     "locator": "rows arctic, inputs A2:z and A2:r, probe=mlp; column structure_retention"
+    },
+    "TACO | effective rank of z with (A3) / without (A2) the relational loss, of 64": {
+     "value": "6.477246284484863 / 2.651686191558838",
+     "source": "reports/contact_factorization_stage1/latent_statistics.csv",
+     "locator": "rows taco, (A3, z) and (A2, z); column eff_rank"
+    },
+    "ARCTIC | effective rank of z with (A3) / without (A2) the relational loss, of 64": {
+     "value": "7.958710670471191 / 2.489241361618042",
+     "source": "reports/contact_factorization_stage1/latent_statistics.csv",
+     "locator": "rows arctic, (A3, z) and (A2, z); column eff_rank"
+    },
+    "TACO and ARCTIC (each) | sanity checks pass / warn / fail / info": {
+     "value": "12 / 2 / 0 / 2",
+     "source": "reports/contact_factorization_stage1/sanity_summary.json",
+     "locator": "key counts; warnings 01_a0_reconstructs_well and 06_z_not_collapsed"
+    },
+    "TACO | z-neighbourhood teacher distance (10 nearest neighbours): z of A3 vs dense map": {
+     "value": "0.5077172142730956 [0.4895249798539611, 0.5281004139874379] vs 0.5301927645469144 [0.5102997701703604, 0.5506001166200798]",
+     "source": "reports/contact_factorization_stage1/neighborhood_metrics.csv",
+     "locator": "rows taco, space=A3:z and space=C; columns teacher, teacher_lo, teacher_hi; n_anchors 12505"
+    },
+    "ARCTIC | z-neighbourhood teacher distance: z of A3 vs dense map": {
+     "value": "0.5631599855768614 [0.5117174873298708, 0.6144522968732172] vs 0.622674283494489 [0.5600900278440485, 0.6905645565970419]",
+     "source": "reports/contact_factorization_stage1/neighborhood_metrics.csv",
+     "locator": "rows arctic, space=A3:z and space=C; columns teacher, teacher_lo, teacher_hi; n_anchors 4400"
+    }
+   },
+   "caveats": [
+    "One training seed per model; every interval is test-set (take-cluster bootstrap) uncertainty, not training variance.",
+    "The split is produced by the relational R2 + wrench teacher, not by the architecture alone: without it (A2) z retains 0.77 / 0.63 and collapses to an effective rank of 2.7 / 2.5; part of the structure then appears in r on TACO (0.30) and is simply lost on ARCTIC (r about 0).",
+    "The literal table answer to 'proceed to Stage 2?' is 'partial (Case B)'; 'Stage 2 is justified' is the wording of the index, not of the decision table.",
+    "The control A0 is weak, so the criterion 'A3 reconstructs about as well as A0' is met trivially (A3 is 75 % / 78 % below A0).",
+    "z's variance is concentrated in few directions (effective rank 6.5 / 8.0 of 64; sanity warning 06).",
+    "The z-neighbourhood margin over the dense map is small and the unpaired intervals overlap on both datasets; the rule compares point estimates only.",
+    "The teacher mixes R2 and the wrench profile half and half; an R2-only teacher was not run, so the wrench's contribution is not attributed (report Section 15). Wrench capability is a proxy for functional grasp capability.",
+    "Results exist for TACO and ARCTIC only; there is no OakInk2 result in this study."
+   ],
+   "claim_as_extracted": "By the study's pre-registered rule the outcome is Case B, partial factorization, on both TACO and ARCTIC: the z side (structure probes, reconstruction through z + r, z neighbourhoods) is supported, while the persistence of r is only partial on both datasets and the transfer of r's detail is only partial on ARCTIC.",
+   "correction_reason": "Cases and answers confirmed (experiment_config.json, decision_summary.csv, aggregate.py::decide). 'Pre-registered' is the project's own term for thresholds stored in cf_common.DECISION; there is no external registration and two of the four persistence criteria were fixed after an untrained smoke run (report Section 3), so 'fixed in advance' is safer. 'Transfer only partial on ARCTIC' softens a failed threshold: 'partial' is the label of the two-part swap question. The neighbourhood 'yes' compares point estimates only (intervals of z and dense map overlap on both datasets)."
+  }
+ ],
+ "dataset_differences": [
+  "Swap, detail half: the transplanted dense detail follows the r donor in 77 % [72, 82] of swaps on TACO but 44 % [39, 50] on ARCTIC (threshold 60 %); detail cosine to the r donor vs to the host 0.44 vs 0.11 on TACO, 0.02 vs 0.07 on ARCTIC (paired difference +0.33 vs -0.04). Rule answer to the swap question: yes on TACO, partial on ARCTIC.",
+  "Swap, structure half: 97 % (TACO) and 98 % (ARCTIC), similar on both; the ARCTIC pairs are structurally less similar to begin with (mean teacher distance 0.575 vs 0.503) and differ in articulation.",
+  "Structure in r: retention 0.03 on TACO (participation 0.65 and normal 0.34 still recoverable) versus -0.53 on ARCTIC (probe worse than the training-mean predictor; amount retention -2.1).",
+  "Structure in z: 1.07 (TACO) and 1.10 (ARCTIC); the quantity on which z is below the dense-map probe differs (centroid on TACO, normal on ARCTIC).",
+  "Reconstruction: absolute errors are higher on ARCTIC (z only 0.645, z + r 0.205) than on TACO (0.449, 0.151); r removes a larger share of the z-residual energy on ARCTIC (87 % [86, 89]) than on TACO (73 % [64, 83], wide interval); z alone leaves 4.3 % of the map variance on ARCTIC and 1.6 % on TACO.",
+  "References: on TACO the z-only map (0.449) is worse than linear PCA-128 (0.353); on ARCTIC it is better (0.645 vs 0.760). The plain autoencoder A0 is weaker on ARCTIC (0.944) than on TACO (0.609).",
+  "Persistence of r: autocorrelation at 8 frames 0.65 on TACO and 0.80 on ARCTIC; relative to the dense residual it is slightly lower on TACO (0.65 vs 0.69) and slightly higher on ARCTIC (0.80 vs 0.77). TACO misses three of the four persistence criteria (one marginally, one on an unreliable number), ARCTIC misses one; both get 'partial'.",
+  "Copy-forward R2 of r eight frames ahead: 0.36 on TACO, 0.63 on ARCTIC (ridge self-prediction 0.31 / 0.34).",
+  "What stops Case A: TACO 'not yet: r persistence'; ARCTIC 'not yet: swap, r persistence'. Both are Case B.",
+  "Without the relational loss (A2): on TACO part of the structure moves into r (z 0.77, r 0.30); on ARCTIC it is lost from both codes (z 0.63, r about 0).",
+  "Data: TACO 22 938 unique test frames from 186 takes, swap pairs over 40 rigid-object meshes; ARCTIC 11 560 test frames from 44 takes, 11 articulated objects. ARCTIC validation takes are harder than its test takes for every model (A3 val 0.310 vs test 0.205).",
+  "OakInk2: no result exists for this study; TACO and ARCTIC only."
+ ],
+ "do_not_claim": [
+  "z and r are disentangled / independent. The model has no independence term, E_r and D_r both read z, and the report states the claim is role separation, not disentanglement.",
+  "The network discovered the structure / realization boundary by itself. z is taught by a relational R2 + wrench teacher; the same architecture without it (A2) gives a collapsed z with retention 0.77 / 0.63. The block title 'discovers the boundary' overstates this.",
+  "z contains more information than the dense map (from 107 % / 110 %). The number is relative to a small probe on the 512-D map, and the probed quantities are the ones the teacher was built from.",
+  "r contains no structure, or r is noise. On TACO the r probe recovers part participation well above the trivial predictor; r has an effective rank of about 15 of 64 and removes 73 % / 87 % of the z-residual energy. Call it a realization residual / complementary dense detail.",
+  "r is 'anti-structural' on ARCTIC. The negative retention is a probe that is worse than the training mean; the report reads it as overfitting.",
+  "r removes 73 % / 87 % of the reconstruction error. That is the squared-error (energy) share; the L2 error falls by 66 % / 68 % (Gain_r).",
+  "The swap test shows the model learned that structure lives in z. Structure following z is largely by construction (z-only map plus a small correction that moves the map by 14 % / 16 % of the pair distance); the same 92-96 % appears without the relational loss.",
+  "r's detail transfers between frames. It does on TACO (77 %) but not on ARCTIC (44 %); never state the transfer without the dataset.",
+  "Articulation causes the ARCTIC transfer failure. The report offers this as a reading; no experiment isolates it.",
+  "r is a persistent or sequence-level identity, or a fixed code per grasp. The persistence question is answered 'partial' on both datasets and r tracks the dense residual frame by frame.",
+  "r's future is barely predictable beyond the current structure (gain 0.07 / 0.14), or 'from both 0.38 / 0.48'. The gain rests on a joint ridge fit that scores below the fit from r alone in the same table, and 0.38 / 0.48 is not in any table.",
+  "r is unpredictable. Its copy-forward R2 eight frames ahead is 0.36 (TACO) / 0.63 (ARCTIC) and only a linear ridge was tried.",
+  "The factorization is 4 x better than a standard autoencoder, without saying that A0 is a weak control with a collapsed latent and that linear PCA-128 is the stricter reference (2.3 x / 3.7 x).",
+  "r is a large part of the contact map. z alone already explains 98.4 % / 95.7 % of the map variance.",
+  "The result is robust to training randomness. One seed per model; every interval is test-set bootstrap uncertainty.",
+  "Stage 1 fully justified Stage 2, or Case A. The table answer is 'partial (Case B)'.",
+  "The models were trained to convergence or from scratch. Most runs had their best validation step at the last evaluation, and the primary A2 / A3 phase B started from an earlier 16 000-step z branch.",
+  "The finding holds on OakInk2 or across datasets in general. Only TACO and ARCTIC were run, separately.",
+  "z captures human intent, or the wrench term makes z functional by itself. The wrench profile is a proxy for functional grasp capability, mixed half and half with R2 in the teacher; its separate contribution was not tested.",
+  "z-space neighbourhoods are clearly more structural than dense-map neighbourhoods. The margin is small and the unpaired intervals overlap on both datasets."
+ ],
+ "candidate_images": [
+  {
+   "path": "reports/contact_factorization_stage1/figures/fig2_reconstruction_examples.png",
+   "block": "F3-B",
+   "shows": "Six test frames (TACO meshes 166, 165, 161; ARCTIC scissors, ketchup, waffleiron) in four columns: true contact map, z-only map, the correction Delta_C added by r (red / blue), full z + r map. Points are the 512 canonical object-surface points in a 2-D PCA view; the per-frame errors are printed in the panel titles (e.g. ARCTIC ketchup 1.03 -> 0.19, TACO mesh 161 0.57 -> 0.13). Frames were chosen by rule (the frame with the median z-residual energy of each of the three most frequent test meshes), not by hand. Usable with a caption; weak points: no colour bar, point clouds do not look like objects, small math-notation titles, z-only and full maps differ little to the eye. Best cropped to two or three rows.",
+   "caption": "Reconstruction of single test frames by the proposed model (TACO top three rows, ARCTIC bottom three). From left: true contact map, map decoded from z alone, the correction added through r (red = more contact, blue = less; scale -0.3 to +0.3), and the full z + r map; each dot is one of the 512 canonical surface points of the object, shown in a 2-D projection. z alone already places the contact patch; r adds a small local correction on that patch. Frames are the median-residual frame of each of the three most frequent test objects per dataset.",
+   "size": "1 215 995 bytes (1.2 MB), 1526 x 2026 px"
+  }
+ ],
+ "verification": {
+  "reliability": "high",
+  "numbers_confirmed": 96,
+  "numbers_checked": 98,
+  "number_corrections": [
+   {
+    "block": "F3-B",
+    "label": "EXPECTED: r's future barely predictable beyond the current structure: R2 gain 0.07 / 0.14 (INDEX)",
+    "reported": "TACO 0.0668653845787048; ARCTIC 0.1351549625396728 (extractor: 'confirmed', with a warning)",
+    "found": "The values are in the table (r2_gain_past_beyond_z3 = r2_from_both - r2_from_current_z3), but they do not measure what the label says: r2_from_both (0.0966 / 0.1573) is lower than r2_from_past_self (0.3145 / 0.3449). I reproduced all four values from the saved latents with eval_temporal.py::ridge_r2; the joint fit depends on the penalty scaling (penalty tied to the mean variance of the concatenated [r, z] features; z variance about 1000 x r's). No valid project number for this quantity exists; do not use 0.07 / 0.14 or the phrase 'barely predictable beyond the current structure'.",
+    "verdict": "corrected",
+    "source_checked": "temporal_persistence.csv rows A3:r, h=8 (r2_gain_past_beyond_z3, r2_from_both, r2_from_past_self, r2_from_current_z3); eval_temporal.py; {taco,arctic}/latents/A3_seed0_{train,test}.npz"
+   },
+   {
+    "block": "F3-B",
+    "label": "EXPECTED: R2 of r(t+8) from both r(t) and z(t+8): 0.38 / 0.48 (report Section 11 prose)",
+    "reported": "prose 0.38 / 0.48; table 0.0966467857360839 / 0.1572865843772888 (extractor verdict 'differs')",
+    "found": "table r2_from_both = 0.0966467857360839 (TACO) / 0.1572865843772888 (ARCTIC). 0.38 / 0.48 is in no table (it equals r2_from_past_self + gain); the same wrong prose appears once each in report.md, narrative/11_temporal_persistence.md, narrative/dashboard_text.json and dashboard.html",
+    "verdict": "corrected",
+    "source_checked": "temporal_persistence.csv rows A3:r, h=8, r2_from_both; grep of the four files"
+   }
+  ],
+  "claims_supported_as_extracted": 3,
+  "claims_checked": 9,
+  "figure_checks": [
+   {
+    "id": "f3b_structure_retention",
+    "verdict": "fixed",
+    "note": "Values: all 6 bars and both reference lines identical to probe_metrics.csv (rows probe=mlp, input C / A3:z / A3:r, col structure_retention; TACO left, ARCTIC right; nothing typed in). No error bars, as the table has none; direction 'none' is appropriate. Changed (note text only): added that z was trained with a relational loss built from the same R2 + wrench descriptors the probes predict (scored on held-out test takes) and that the ratio is relative to a small probe on the 512-D map, not a measure of information content. Re-ran: clean."
+   },
+   {
+    "id": "f3b_structure_retention_by_quantity",
+    "verdict": "ok",
+    "note": "20 plotted values identical to probe_metrics.csv cols ret_part_auprc, ret_amount_r2, ret_centroid, ret_normal, ret_wrench_ev for A3:z and A3:r (mlp), correct dataset per panel; reference line 1.0 read from the C row. Higher = better holds for all five (the ratio is sign-consistent for the error metrics). The ARCTIC r amount bar is -2.085, so the y range must reach about -2.1. No error bars exist."
+   },
+   {
+    "id": "f3b_relational_loss_ablation",
+    "verdict": "ok",
+    "note": "8 values identical to probe_metrics.csv (A3:z, A3:r, A2:z, A2:r; mlp; structure_retention): TACO 1.067 / 0.034 vs 0.774 / 0.297; ARCTIC 1.103 / -0.534 vs 0.629 / -0.005. Note text accurate (same architecture, 23 682 242 parameters each, one seed per model, no error bars). For the page: on ARCTIC without the loss the structure is not recoverable from either code (r about 0), it does not move into r."
+   },
+   {
+    "id": "f3b_reconstruction_error",
+    "verdict": "fixed",
+    "note": "8 values and 16 interval bounds identical to reconstruction_metrics.csv (A0 E_full, pca128 E_full, A3 E_zonly, A3 E_full with _lo / _hi); direction lower_better correct; error bars are 2.5 / 97.5 percentiles of 1000 take-cluster resamples (checked in sv_common / tce_common), i.e. test-set uncertainty. Changed (note text only): added that A0, PCA-128 and z + r use 128 latent dimensions in total while the z-only bar uses the 64-D z alone, so the z-only vs PCA-128 comparison is not read as like-for-like. The same-size linear reference PCA-64 (0.658 TACO / 1.192 ARCTIC) is in the table but not plotted."
+   },
+   {
+    "id": "f3b_swap_follows_donor",
+    "verdict": "fixed",
+    "note": "4 values and 8 bounds identical to swap_metrics.csv (model=A3; frac_struct_follows_z, frac_detail_follows_r with _lo / _hi); reference lines 0.7 / 0.6 read from experiment_config.json decision_thresholds; n in the note (1600 / 800 / 40; 1450 / 725 / 11) verified. Changed (note text only): added that the swapped map is by design the z donor's z-only map plus a residual correction decoded with the other frame's r, so a high structure share is the expected outcome of the architecture and the detail share is the test of transfer. Label 'pre-registered threshold' is the project's term; the page may prefer 'threshold fixed in advance'."
+   },
+   {
+    "id": "f3b_code_autocorrelation",
+    "verdict": "fixed",
+    "note": "56 values identical to temporal_persistence.csv (metric=autocorrelation, codes A3:r, A3:resid_z, A3:z, A0:h, lags 1, 2, 4, 8, 16, 32, 63 read from the table); lo / hi are empty in the table, so no error bars is correct. Changed (note text only): added that at lag 63 each 64-frame sequence contributes a single frame pair. The extractor's reading in the JSON needs correcting: 'r lies below z and h on both datasets' fails at TACO lag 63 (z -0.140 below r 0.101), and r is not on the residual curve exactly: on TACO r is below the residual at lags 1-16 and above it at 32 and 63, on ARCTIC r is above it at every lag (gaps up to about 0.05). Use 'close to the dense-residual curve and, up to lag 32, below z and h'."
+   }
+  ],
+  "image_checks": [
+   {
+    "path": "reports/contact_factorization_stage1/figures/fig2_reconstruction_examples.png",
+    "exists": true,
+    "note": "Opened: 1526 x 2026 px, 1 215 995 bytes. Six rows as described (TACO mesh 166, 165, 161; ARCTIC scissors, ketchup, waffleiron), four columns (GT C, z-only map, Delta_C, full map); title errors 0.47 -> 0.16, 0.57 -> 0.16, 0.57 -> 0.13, 0.18 -> 0.06, 1.03 -> 0.19, 0.64 -> 0.17. The proposed caption is supported: Delta_C colour scale is -0.3 to +0.3 with red = positive (figures.py: vmin=-0.3, vmax=0.3, RdBu_r); points are a 2-D PCA projection of the canonical points (valid points only); frames are chosen by rule (eval_recon.py: the frame with the median z-residual energy of each of the three most frequent test meshes), not by hand; the z-only map visibly places the patch and Delta_C is a faint local correction on it (mean |Delta_C| 0.004-0.023 in the titles). Add to the caption: contact colour scale 0 to 1 (dark = no contact, bright = more contact) since there is no colour bar, and that the numbers in the panel titles are that frame's L2 error. The image carries a baked-in title 'Figure 2 — ...' and math-notation panel titles; crop to two or three rows as the extractor suggests."
+   },
+   {
+    "path": "reports/contact_factorization_stage1/figures/fig6_swap.png",
+    "exists": true,
+    "note": "Not recommended by the extractor; I opened it (1485 x 2098 px, 1 315 675 bytes) and agree it is not page-ready: all three TACO examples are mesh 005 and all three ARCTIC examples are mesh box, the information sits in small title numbers, and the ARCTIC example pairs have teacher distances 0.83 / 0.62 / 0.83 (two at the random-pair level 0.868), so they do not show 'same structure, different realization'. The extractor's remark that the maps of a row look alike holds for the TACO rows; in the ARCTIC rows A and B are visibly different."
+   },
+   {
+    "path": "reports/contact_factorization_stage1/figures/fig1_architecture.png",
+    "exists": true,
+    "note": "Not recommended; opened (1458 x 728 px). Layout is correct but the text is stale against the final recipe: 'zero-init output' in the D_r box, 'lambda_delta mean|Delta C| (0.05)', 'z branch at 0.1 x lr for 2k steps'. Final values: non-zero FiLM gates with a 0.1 x output-layer scale, lambda_delta 0.01, 3000 frozen + 3000 slow steps. Redraw from the architecture description; do not reuse."
+   }
+  ],
+  "attached_by_the_verifier": [
+   "A1 (z only + relational loss, no r branch) is listed among the models but no A1 number was delivered: its z has structure retention 1.0586643154499351 (TACO) / 1.104343687537432 (ARCTIC) (probe_metrics.csv, input=A1:z, mlp) and E 0.510382908283144 / 0.6581722094293903 (reconstruction_metrics.csv). It shows that z's structure retention comes from the relational loss, not from adding the r branch (report Section 9: 'A1 matches A3').",
+   "Like-for-like linear reference for the 64-D z-only map is PCA-64: 0.658383 [0.633482, 0.685826] (TACO) / 1.192481 [1.040023, 1.337286] (ARCTIC) (reconstruction_metrics.csv row pca64). The z-only map is below it on both datasets; the delivered 'z-only worse than PCA-128 on TACO' compares 64 against 128 dimensions and should say so.",
+   "Caveat to attach to the 107 % / 110 % card: the unpaired 95 % intervals of the underlying probe metrics of z and of the dense map overlap (ARCTIC: all five that have intervals; TACO: all but wrench explained variance, 0.634 [0.609, 0.659] vs 0.567 [0.531, 0.598]), the ratio itself has no interval, and it is the MLP-probe number (linear probes give 1.11 / 1.45 for z and -0.27 / -0.91 for r).",
+   "The limit 'r's future is barely predictable beyond the current structure' has no valid supporting number. I reproduced the table values from the saved latents; the gain 0.07 / 0.14 comes from a joint ridge fit whose penalty is dominated by z's scale. Replace it with the autocorrelation limit plus the self-prediction numbers (ridge 0.31 / 0.34, copy-forward 0.36 / 0.63; z 0.69 / 0.76 and 0.59 / 0.75). The TACO 'gain' criterion of the persistence verdict rests on the same number.",
+   "The wrong prose value 'from both 0.38 / 0.48' is also in narrative/11_temporal_persistence.md, narrative/dashboard_text.json and dashboard.html, and INDEX.md line 84 repeats 'R2 gain 0.07 / 0.14'; the existing dashboard should not be linked from the page as it stands.",
+   "Other report prose that disagrees with the tables and must not be copied: 'ARCTIC A2 1.168, worse than PCA-64' (PCA-64 is 1.192); 'a 4.6 x error reduction' on ARCTIC (that is A0 / A3; z-only to z + r is 3.1 x); 'r not faster than the residual' shown as passed on TACO (0.5448 / 0.5369 = 1.015 fails the coded criterion); 'single uninterrupted trainings from scratch' (primary A2 / A3 ran phase B only, from an earlier 16 000-step z branch).",
+   "'Pre-registered' has no external registration behind it: thresholds live in cf_common.DECISION, no plan file is stored in the report folder, and two of the four persistence criteria were fixed after an untrained smoke run. Use 'thresholds fixed in advance' on the page and in figure labels.",
+   "'Structurally similar' swap pairs are selected relatively (lowest 20 % of teacher distance per mesh, dense distance at or above the median): mean teacher distance 0.503 (TACO) / 0.575 (ARCTIC) against 0.835 / 0.868 for random pairs and 0.341 / 0.411 for oracle teacher neighbours (neighborhood_metrics.csv). Say 'relatively similar'.",
+   "No usable qualitative image for the swap test and no usable architecture figure exist (fig6 and fig1 are not page-ready); the page needs a redrawn diagram and either no swap image or a new one.",
+   "Bottleneck variant (16-D z) numbers are available if the page wants the robustness line (A3_z16: retention z 1.05 / 1.09, r 0.26 / -0.09; swap 97 % / 74 % TACO, 96 % / 39 % ARCTIC; Case B), with the disclosed confound that the 16-D z branch had 4 000 phase-A steps against 16 000 for the 64-D one.",
+   "The report's explanation of retention above 1 ('the probes are small; z removes the nuisance variation they would otherwise fit') and of the ARCTIC swap result (articulation, host-specific correction) are untested readings and must be presented as the report's interpretation, not as findings."
+  ]
+ }
+}

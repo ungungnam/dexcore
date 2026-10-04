@@ -1,0 +1,133 @@
+{
+  "models": {
+    "A0": {
+      "dz": 128,
+      "dr": 0,
+      "rel": false,
+      "label": "standard autoencoder, one latent h (128)"
+    },
+    "A1": {
+      "dz": 64,
+      "dr": 0,
+      "rel": true,
+      "label": "z-only structure autoencoder (64) + relational loss"
+    },
+    "A2": {
+      "dz": 64,
+      "dr": 64,
+      "rel": false,
+      "label": "factorised z / r (64 / 64), no relational loss"
+    },
+    "A3": {
+      "dz": 64,
+      "dr": 64,
+      "rel": true,
+      "label": "factorised z / r (64 / 64) + relational R2 + wrench teacher"
+    }
+  },
+  "variants": {
+    "A1_z16": {
+      "dz": 16,
+      "dr": 0,
+      "rel": true,
+      "label": "bottleneck variant: z-only (16) + relational loss"
+    },
+    "A2_z16": {
+      "dz": 16,
+      "dr": 64,
+      "rel": false,
+      "label": "bottleneck variant: factorised z / r (16 / 64), no relational loss"
+    },
+    "A3_z16": {
+      "dz": 16,
+      "dr": 64,
+      "rel": true,
+      "label": "bottleneck variant: factorised z / r (16 / 64) + relational teacher"
+    }
+  },
+  "arch": {
+    "width": 256,
+    "depth": 4,
+    "heads": 8,
+    "dropout": 0.1,
+    "cond_width": 256,
+    "n_pool": 4
+  },
+  "train": {
+    "batch": 128,
+    "lr": 0.0003,
+    "wd": 0.01,
+    "warmup": 500,
+    "ema": 0.999,
+    "final_lr_frac": 0.1,
+    "steps_single": 12000,
+    "steps_phase_a": 4000,
+    "steps_phase_b": 12000,
+    "steps_override": {
+      "A0": 24000
+    },
+    "z_freeze_steps": 3000,
+    "z_slow_steps": 3000,
+    "lambda_rel": 1.0,
+    "lambda_coarse": 1.0,
+    "lambda_delta": 0.01,
+    "res_scale": 10.0,
+    "eval_every": 1000,
+    "log_every": 100,
+    "balance_power": 0.5
+  },
+  "teacher": {
+    "w_r2": 0.5,
+    "w_q": 0.5
+  },
+  "probe": {
+    "hidden": 256,
+    "lr": 0.001,
+    "wd": 0.0001,
+    "batch": 1024,
+    "max_epochs": 60,
+    "patience": 6
+  },
+  "knn_k": 10,
+  "n_boot": 1000,
+  "decision_thresholds": {
+    "recon_close_to_a0": 0.1,
+    "gain_r_min": 0.25,
+    "z_keeps_min": 0.7,
+    "z_over_r_margin": 0.2,
+    "knn_z_vs_random_max": 0.7,
+    "swap_struct_frac_min": 0.7,
+    "swap_detail_frac_min": 0.6,
+    "r_acf_h8_min": 0.5,
+    "r_acf_vs_h_margin": 0.05,
+    "r_init_gain_min": 0.1,
+    "r_slower_than_dense": 1.0
+  },
+  "seed": 0,
+  "datasets": [
+    "taco",
+    "arctic"
+  ],
+  "cases": {
+    "taco": "B",
+    "arctic": "B"
+  },
+  "cases_bottleneck_variant": {
+    "taco": "B",
+    "arctic": "B"
+  },
+  "data_root": {
+    "taco": "/result/uhnam/dexcore/taco/50_hier_contact_gen",
+    "arctic": "/result/uhnam/dexcore/arctic/40_hier_contact_gen"
+  },
+  "feature_cache": {
+    "taco": "/result/uhnam/dexcore/reports/structure_variance_boundary/taco/cache/features.npz",
+    "arctic": "/result/uhnam/dexcore/reports/structure_variance_boundary/arctic/cache/features.npz"
+  },
+  "mask_cache": {
+    "taco": "/result/uhnam/dexcore/reports/structure_aware_temporal_generation/taco/cache/masks.npz",
+    "arctic": "/result/uhnam/dexcore/reports/structure_aware_temporal_generation/arctic/cache/masks.npz"
+  },
+  "checkpoints": "/ckpt/uhnam/dexcore/contact_factorization_stage1",
+  "scripts": "scripts/research/contact_factorization_stage1"
+}

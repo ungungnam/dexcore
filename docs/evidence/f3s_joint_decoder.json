@@ -1,0 +1,773 @@
+{
+ "unit": "K_joint_decoder",
+ "figure_module": "docs/build/figs/f3s_joint_decoder.py",
+ "entries": [
+  {
+   "block": "F3-subA",
+   "claim": "Giving the z-mediated generator a larger contact decoder, a longer optimisation budget and checkpoint selection on the dense loss (M2) left its test dense error similar to the previous z-mediated model (M1) on both datasets by the study's rule (fixed in advance, according to the report): on TACO the reduction is 1.96 % (interval excludes 0, but below the 2 % threshold), on ARCTIC there is no change.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_joint_decoder_followup/report.md",
+   "source_files": [
+    "reports/z_joint_decoder_followup/main_metrics.csv",
+    "reports/z_joint_decoder_followup/paired_comparisons.csv",
+    "reports/z_joint_decoder_followup/decision_summary.csv",
+    "reports/z_joint_decoder_followup/training_summary.csv",
+    "reports/z_joint_decoder_followup/model_table.csv",
+    "reports/z_joint_decoder_followup/experiment_config.json"
+   ],
+   "metric": "Test dense contact error E_C: per frame the L2 norm over the 512 canonical object points of (predicted minus true contact map), raw contact units, averaged over frames 1-63 and then over test sequences; lower is better. Paired difference = mean per-sequence (M2 - M1) on identical test sequences with a 95 % take-cluster bootstrap interval (1000 resamples); rel_improvement > 0 means the first-named model has the lower error; the rule fixed in advance calls a difference better / worse only if it is at least 2 % of the reference AND its interval excludes 0, otherwise 'similar'. n = 364 test sequences (186 takes) on TACO, 186 (44 takes) on ARCTIC; one training seed.",
+   "numbers": {
+    "TACO | E_C of M2 (adapted, 6-block decoder) [95 % CI]": {
+     "value": "1.6978020245557304 [1.5914790152696963, 1.8064783666048831]",
+     "source": "reports/z_joint_decoder_followup/main_metrics.csv",
+     "locator": "row dataset=taco, model=M2, metric=E_C; columns value, ci_lo, ci_hi (n_examples 364)"
+    },
+    "TACO | E_C of M1 (previous z-mediated model, 4-block decoder) [95 % CI]": {
+     "value": "1.7317861767669955 [1.6239584995702177, 1.8456560345574091]",
+     "source": "reports/z_joint_decoder_followup/main_metrics.csv",
+     "locator": "row dataset=taco, model=M1, metric=E_C"
+    },
+    "TACO | Paired M2 - M1 difference in E_C [95 % CI]; relative improvement; verdict": {
+     "value": "-0.03398415221126525 [-0.049552877960479365, -0.016764187196091396]; 0.019623757636585915; similar",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=M2, b=M1, metric=E_C; columns diff, ci_lo, ci_hi, rel_improvement, verdict (n 364)"
+    },
+    "TACO | M2 at M1's selection criterion (state at step 4000, the step M1 was selected at) minus M1: difference [CI]; relative improvement; verdict": {
+     "value": "-0.00801408405487354 [-0.016584237685289247, 0.0018874196857051994]; 0.004627640618909848; similar",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=M2_seltotal, b=M1, metric=E_C"
+    },
+    "ARCTIC | E_C of M2 [95 % CI]": {
+     "value": "2.1583889410380395 [1.8591838353991574, 2.4923342014011682]",
+     "source": "reports/z_joint_decoder_followup/main_metrics.csv",
+     "locator": "row dataset=arctic, model=M2, metric=E_C (n_examples 186)"
+    },
+    "ARCTIC | E_C of M1 [95 % CI]": {
+     "value": "2.156583450213876 [1.8606065641012814, 2.4872730774292955]",
+     "source": "reports/z_joint_decoder_followup/main_metrics.csv",
+     "locator": "row dataset=arctic, model=M1, metric=E_C"
+    },
+    "ARCTIC | Paired M2 - M1 difference in E_C [95 % CI]; relative improvement; verdict": {
+     "value": "0.001805490824163601 [-0.0255759327325302, 0.03167825517836529]; -0.0008371996103301935; similar",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=arctic, a=M2, b=M1, metric=E_C (n 186)"
+    },
+    "TACO and ARCTIC (same decoder size on both) | Decoder parameters M1 / M2 (decoder blocks 4 / 6)": {
+     "value": "5627393 / 7994369",
+     "source": "reports/z_joint_decoder_followup/training_summary.csv",
+     "locator": "rows model=M1 and model=M2; columns n_params_decoder, decoder_blocks"
+    },
+    "TACO | M2 training: schedule maximum; steps actually run; stopped by; selected step": {
+     "value": "100000; 25000; patience; 7000",
+     "source": "reports/z_joint_decoder_followup/training_summary.csv",
+     "locator": "row dataset=taco, model=M2; columns max_steps, steps, stopped_by, best_step"
+    },
+    "ARCTIC | M2 training: schedule maximum; steps actually run; stopped by; selected step": {
+     "value": "100000; 25000; patience; 8000",
+     "source": "reports/z_joint_decoder_followup/training_summary.csv",
+     "locator": "row dataset=arctic, model=M2"
+    },
+    "TACO and ARCTIC (model definition) | M1 training loss and decoder (M1 was already trained jointly on the predicted z)": {
+     "value": "loss 'L_C(D(z_hat)) + 1.0 L_z'; decoder 'Stage-1 D_z, 4 point-token blocks, width 256 (loaded, fine-tuned)'",
+     "source": "reports/z_joint_decoder_followup/model_table.csv",
+     "locator": "row model=M1; columns loss, decoder"
+    },
+    "TACO and ARCTIC (rule) | Pre-registered threshold on the relative size of a paired difference": {
+     "value": "0.02",
+     "source": "reports/z_joint_decoder_followup/experiment_config.json",
+     "locator": "decision_rule.rel_min"
+    }
+   },
+   "caveats": [
+    "M1 is NOT a frozen-decoder baseline: the Stage-2 model already fine-tuned its decoder end to end on the predicted z (L_C + 1.0 L_z). M2 differs from M1 in three things changed together (2 extra decoder blocks at width 256, a longer schedule with no stop before 25 000 steps, selection on validation L_C instead of L_C + L_z), not in 'joint versus frozen'; the three are not separated from each other.",
+    "The TACO verdict is a close call: the interval excludes 0 and the size (1.96 %) is just under the 2 % threshold; the report says a second training seed could move it to either side. Every model has one training seed; intervals describe the test takes, not training randomness.",
+    "The TACO gain is absent at a matched step (M2's state at step 4000 is +0.46 % against M1, similar); the report states this does not cleanly separate selection from capacity. That the gain 'travels with the predicted z, not the decoder' is the report's reading of the swapped-decoder table (old decoder on M2's latents 1.693 against 1.732 on its own); no paired test of that exact comparison exists in the tables.",
+    "'Similar' applies to the dense error. Resolved secondary differences exist: participation Hamming is better on both datasets (rel 0.0216 TACO, 0.0485 ARCTIC), frames 1-8 are better on both (0.0400, 0.0393), and on ARCTIC the deviation of the frame-to-frame dense change from the true one is worse (-0.169).",
+    "'Longer budget' needs its qualifier: both M2 runs stopped by the patience rule at 25 000 steps (the earliest allowed) and the selected states are step 7000 (TACO) and 8000 (ARCTIC); M1 ran 20 000 (TACO) and 18 000 (ARCTIC, stopped by hand) and was selected at step 4000.",
+    "Untested: a wider decoder (the plan recommended 512-768), the 4-block control under the M2 protocol, and a decoder trained on many held-out predictions. The source conclusion is 'no evidence that decoder mismatch caused the failure', not 'decoder mismatch is excluded'.",
+    "The unpaired per-model intervals overlap heavily; the test is the paired difference."
+   ]
+  },
+  {
+   "block": "F3-subA",
+   "claim": "Fed the same predicted z, the old (M1) and the new (M2) decoder reach the same test dense error within half a percent on both datasets, with the new decoder the slightly higher one in all four comparisons; by the test fixed in advance the new decoder is not more robust to predicted-z error.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_joint_decoder_followup/report.md",
+   "source_files": [
+    "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+    "reports/z_joint_decoder_followup/paired_comparisons.csv",
+    "reports/z_joint_decoder_followup/decision_summary.csv"
+   ],
+   "metric": "Test dense error E_C (lower is better) of a trained decoder fed a given latent trajectory on the test sequences; 'swapped' = the z predicted by one model decoded by the other model's decoder. Paired difference = D_M2 - D_M1 on the identical latent, 95 % take-cluster bootstrap interval; rel_improvement < 0 means the new decoder is higher (worse).",
+   "numbers": {
+    "TACO | M1's predicted z: new decoder / old decoder": {
+     "value": "1.7372902265926782 / 1.7317888186810795",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "rows dataset=taco, split=test: decoder=M2,input=zhat_M1 and decoder=M1,input=pred; column E_C"
+    },
+    "TACO | M1's predicted z: D_M2 - D_M1 [CI]; relative improvement; verdict": {
+     "value": "0.00550140791159849 [0.0014588018730925176, 0.009674627128751405]; -0.003176719847278106; similar",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=D_M2(zhat_M1), b=D_M1(zhat_M1), metric=E_C"
+    },
+    "TACO | M2's predicted z: new decoder / old decoder": {
+     "value": "1.6978018232851118 / 1.6933458583150365",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "rows dataset=taco, split=test: decoder=M2,input=pred and decoder=M1,input=zhat_M2; column E_C"
+    },
+    "TACO | M2's predicted z: D_M2 - D_M1 [CI]; relative improvement; verdict": {
+     "value": "0.00445596497007507 [0.00018190390846884008, 0.008733162773917743]; -0.002631455912089322; similar",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=D_M2(zhat_M2), b=D_M1(zhat_M2), metric=E_C"
+    },
+    "ARCTIC | M1's predicted z: new decoder / old decoder": {
+     "value": "2.1649730419921287 / 2.1565765985272627",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "rows dataset=arctic, split=test: decoder=M2,input=zhat_M1 and decoder=M1,input=pred"
+    },
+    "ARCTIC | M1's predicted z: D_M2 - D_M1 [CI]; relative improvement; verdict": {
+     "value": "0.008396443464866536 [0.0006543807445865555, 0.0158555090749011]; -0.003893413046678013; similar",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=arctic, a=D_M2(zhat_M1), b=D_M1(zhat_M1), metric=E_C"
+    },
+    "ARCTIC | M2's predicted z: new decoder / old decoder": {
+     "value": "2.158389478384937 / 2.1519968111863106",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "rows dataset=arctic, split=test: decoder=M2,input=pred and decoder=M1,input=zhat_M2"
+    },
+    "ARCTIC | M2's predicted z: D_M2 - D_M1 [CI]; relative improvement; verdict": {
+     "value": "0.0063926671986264776 [-0.0011405861003174458, 0.012940063725607272]; -0.0029705746613548434; similar",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=arctic, a=D_M2(zhat_M2), b=D_M1(zhat_M2), metric=E_C"
+    },
+    "TACO / ARCTIC | Pre-registered answer to 'Is the decoder more robust to predicted-z error?'": {
+     "value": "no / no",
+     "source": "reports/z_joint_decoder_followup/decision_summary.csv",
+     "locator": "rows question='Is the decoder more robust to predicted-z error?', column answer"
+    },
+    "TACO | Not part of the rule fixed in advance: identical randomly perturbed teacher latents through both decoders, relative improvement of the new decoder (four comparisons)": {
+     "value": "0.028148350577001695 / 0.027667615836960004 / 0.027997861875219632 / 0.026766477502964965 (all 'better')",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "rows dataset=taco, a=D_M2(noisy_gauss of M1 | noisy_gauss of M2 | noisy_perm of M1 | noisy_perm of M2), b=the same input through D_M1; column rel_improvement"
+    },
+    "ARCTIC | Not part of the rule fixed in advance: identical randomly perturbed teacher latents through both decoders, relative improvement of the new decoder (four comparisons)": {
+     "value": "0.02508638455777475 (better) / 0.02419842685830705 (better) / 0.019931648780212582 (similar) / 0.018714321433283988 (similar)",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "rows dataset=arctic, same four comparisons; columns rel_improvement, verdict"
+    }
+   },
+   "caveats": [
+    "The two decoders reach the same dense ERROR on the same predicted latent; the sources do not say they produce the same maps.",
+    "All four swap differences are 'similar' by the rule (under 2 %), although three of the four intervals exclude 0 with the new decoder slightly worse.",
+    "Outside the test fixed in advance the new decoder is 1.9 to 2.8 % lower than the old one on identical randomly perturbed teacher latents (6 of 8 comparisons 'better' by the rule: TACO 4 of 4, ARCTIC 2 of 4); the report's reading is that this tolerance to random errors around the teacher latent does not carry over to the model's own predicted latents.",
+    "Only two decoder variants were compared (4 blocks versus 6 blocks, both width 256, both trained jointly on predicted z); a decoder trained on held-out predictions was not tested.",
+    "One training seed per model."
+   ]
+  },
+  {
+   "block": "F3-subA",
+   "claim": "Through the same decoder, the teacher latent z* of the true frames decodes with about a third of the dense error of the predicted latent on both datasets (new decoder: 0.505 against 1.698 on TACO, 0.694 against 2.158 on ARCTIC), which is consistent with most of the generator's error arising between the teacher latent and the predicted latent.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_joint_decoder_followup/report.md",
+   "source_files": [
+    "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+    "reports/z_joint_decoder_followup/paired_comparisons.csv",
+    "reports/z_joint_decoder_followup/report_values.json"
+   ],
+   "metric": "Test dense error E_C (lower is better) of one trained decoder fed (a) the teacher latent z* = frozen Stage-1 encoder applied to the true frame (a diagnostic input that is never available at generation time), (b) the latent predicted by the temporal network, (c) z* plus a perturbation of the size of the model's own test latent error. 95 % take-cluster bootstrap intervals.",
+   "numbers": {
+    "TACO | New decoder (M2) fed teacher z* [95 % CI]": {
+     "value": "0.5050833751807324 [0.46616162603747213, 0.5507282121159321]",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "row dataset=taco, decoder=M2, input=oracle, split=test; columns E_C, ci_lo, ci_hi"
+    },
+    "TACO | New decoder (M2) fed its own predicted z [95 % CI]": {
+     "value": "1.6978018232851118 [1.5914789262563644, 1.8064777667420453]",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "row dataset=taco, decoder=M2, input=pred, split=test"
+    },
+    "TACO | Old decoder (M1) fed teacher z* / its own predicted z": {
+     "value": "0.5100206288977088 / 1.7317888186810795",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "rows dataset=taco, decoder=M1, input=oracle and input=pred, split=test"
+    },
+    "TACO | Gap predicted z minus teacher z* through the new decoder [95 % CI]": {
+     "value": "1.1927184481043795 [1.1101151649767613, 1.2769029284474347]",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=D_M2(pred), b=D_M2(oracle), metric=E_C"
+    },
+    "TACO | Gap as a share of M2's dense error": {
+     "value": "0.702507460968892",
+     "source": "reports/z_joint_decoder_followup/report_values.json",
+     "locator": "key gapshare_taco_M2 (report.md section 12: '70%')"
+    },
+    "ARCTIC | New decoder (M2) fed teacher z* [95 % CI]": {
+     "value": "0.6935824144674224 [0.5787300804955992, 0.8174383885620021]",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "row dataset=arctic, decoder=M2, input=oracle, split=test"
+    },
+    "ARCTIC | New decoder (M2) fed its own predicted z [95 % CI]": {
+     "value": "2.158389478384937 [1.8591836032874125, 2.492335567111657]",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "row dataset=arctic, decoder=M2, input=pred, split=test"
+    },
+    "ARCTIC | Old decoder (M1) fed teacher z* / its own predicted z": {
+     "value": "0.7086475028857183 / 2.1565765985272627",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "rows dataset=arctic, decoder=M1, input=oracle and input=pred, split=test"
+    },
+    "ARCTIC | Gap predicted z minus teacher z* through the new decoder [95 % CI]": {
+     "value": "1.4648070639175146 [1.2377754490638502, 1.7055666873805042]",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=arctic, a=D_M2(pred), b=D_M2(oracle), metric=E_C"
+    },
+    "ARCTIC | Gap as a share of M2's dense error": {
+     "value": "0.6786574335108366",
+     "source": "reports/z_joint_decoder_followup/report_values.json",
+     "locator": "key gapshare_arctic_M2 (report.md section 12: '68%')"
+    },
+    "TACO | Teacher-latent floor, new minus old decoder [CI]; relative improvement; verdict": {
+     "value": "-0.004937253716976337 [-0.008807982590741099, -0.0013265291893750839]; 0.009680498076415193; similar",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=D_M2(oracle), b=D_M1(oracle)"
+    },
+    "ARCTIC | Teacher-latent floor, new minus old decoder [CI]; relative improvement; verdict": {
+     "value": "-0.015065088418295996 [-0.021575034342675638, -0.007685630617948108]; 0.02125893107214618; better",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=arctic, a=D_M2(oracle), b=D_M1(oracle)"
+    },
+    "TACO | New decoder fed z* + matched Gaussian noise / z* + another test sequence's error": {
+     "value": "1.4263944426116422 / 1.324033055918773",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "rows dataset=taco, decoder=M2, input=noisy_gauss and input=noisy_perm, split=test"
+    },
+    "ARCTIC | New decoder fed z* + matched Gaussian noise / z* + another test sequence's error": {
+     "value": "1.9444129230865623 / 1.8193258108025314",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "rows dataset=arctic, decoder=M2, input=noisy_gauss and input=noisy_perm, split=test"
+    },
+    "TACO | Perturbed-teacher error as a share of the PREDICTED-latent error (other-sequence error / Gaussian), new decoder": {
+     "value": "0.7798513570664414 / 0.8401418958613687",
+     "source": "reports/z_joint_decoder_followup/report_values.json",
+     "locator": "keys share_taco_M2_perm, share_taco_M2_gauss (report.md section 12: '78% to 84%')"
+    },
+    "ARCTIC | Perturbed-teacher error as a share of the PREDICTED-latent error (other-sequence error / Gaussian), new decoder": {
+     "value": "0.8429089508738167 / 0.9008628621288094",
+     "source": "reports/z_joint_decoder_followup/report_values.json",
+     "locator": "keys share_arctic_M2_perm, share_arctic_M2_gauss (report.md section 12: '84% to 90%')"
+    }
+   },
+   "caveats": [
+    "The teacher z* is computed from the TRUE future frames; it is a diagnostic input and a training target, never available at generation time, so 0.51 / 0.69 is a decoder floor, not an achievable generator error.",
+    "'0.51 / 0.69' is the new decoder (0.5051 / 0.6936); through the old decoder the same teacher latent gives 0.5100 / 0.7086.",
+    "The decoder is sensitive to latent error: random perturbations of the teacher latent of the same size as the model's test error already give 78-84 % (TACO) and 84-90 % (ARCTIC) of the predicted-latent error. These shares are of the predicted-latent error, not of the teacher-to-predicted gap. The report therefore states that the study 'cannot separate the latent error from the decoder's sensitivity to it, because a decoder trained on held-out predictions was not tested'.",
+    "The model's own latent errors cost somewhat more than random errors of the same size (TACO both perturbations 'better' than the predicted latent; ARCTIC the Gaussian perturbation through the old decoder is only 'similar', interval [-0.347, +0.058]).",
+    "The perturbation is one level only (matched to each model's own test error), one draw.",
+    "One training seed per model."
+   ]
+  },
+  {
+   "block": "F3-subA",
+   "claim": "Against the direct dense model (M0), the adapted z-mediated model (M2) has a similar dense error on TACO with four of the five structural / wrench error metrics better and none worse, whereas on ARCTIC its dense error is 14.2 % higher and one of the five metrics (contact amount) is worse and none better.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_joint_decoder_followup/report.md",
+   "source_files": [
+    "reports/z_joint_decoder_followup/paired_comparisons.csv",
+    "reports/z_joint_decoder_followup/main_metrics.csv",
+    "reports/z_joint_decoder_followup/decision_summary.csv",
+    "reports/z_joint_decoder_followup/structural_metrics.csv",
+    "reports/z_joint_decoder_followup/wrench_metrics.csv",
+    "reports/z_joint_decoder_followup/horizon_metrics.csv",
+    "reports/z_joint_decoder_followup/logs/stopped_runs.json"
+   ],
+   "metric": "Test dense error E_C (lower is better) and the five error metrics of the decision rule extracted from the generated maps with the same rule for every model: participation Hamming, contact amount L1, contact centroid error / object size, contact normal angle (degrees), wrench relative L1 (a proxy for functional grasp capability); all lower is better. Paired M2 - M0 on identical test sequences, 95 % take-cluster bootstrap; rel_improvement > 0 = M2 lower; verdict by the 2 % + interval rule; 'structure improves' = at least 3 of 5 better and none worse.",
+   "numbers": {
+    "TACO | E_C M2 vs M0; paired difference [CI]; relative improvement; verdict": {
+     "value": "1.6978020245557304 vs 1.700352207481206; -0.0025501829254758225 [-0.0379191185129045, 0.03774075732215627]; 0.0014997968739979477; similar",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=M2, b=M0, metric=E_C; columns value_a, value_b, diff, ci_lo, ci_hi, rel_improvement, verdict"
+    },
+    "TACO | Relative improvement M2 vs M0: participation / amount / centroid / normal / wrench (verdicts)": {
+     "value": "0.08697483551016805 (better) / 0.008984575551161774 (similar) / 0.07672964074699198 (better) / 0.028947906718020104 (better) / 0.03999097808417071 (better)",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "rows dataset=taco, a=M2, b=M0, metric in {part_hamming, amount_l1, centroid, normal, q_rel_l1}; columns rel_improvement, verdict"
+    },
+    "TACO | Count by the rule, M2 vs M0": {
+     "value": "4 better / 0 worse of 5 (answer: yes)",
+     "source": "reports/z_joint_decoder_followup/decision_summary.csv",
+     "locator": "row dataset=taco, question='Does M2 beat M0 in structural / wrench quality?'"
+    },
+    "TACO | Same five metrics, M1 vs M0 (the advantage was already present before the decoder changes)": {
+     "value": "0.0667917715576303 (better) / 0.0027720476614449797 (similar) / 0.06992691277041688 (better) / 0.0271983009948389 (better) / 0.032486766487475546 (better)",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "rows dataset=taco, a=M1, b=M0, same five metrics"
+    },
+    "TACO | E_C in frames 1-8, M2 vs M0; difference; relative improvement; verdict": {
+     "value": "1.1002284821486203 vs 0.8061877320079864; 0.2940407501406338; -0.3647298742791101; worse",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=M2, b=M0, metric=E_C_h1_8"
+    },
+    "TACO | E_C in the last 16 frames, M2 - M0 [CI]; relative improvement; verdict": {
+     "value": "-0.08735978984079518 [-0.1389293554864017, -0.030251746277940694]; 0.04415474247296855; better",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=taco, a=M2, b=M0, metric=E_C_last16"
+    },
+    "ARCTIC | E_C M2 vs M0; paired difference [CI]; relative improvement; verdict": {
+     "value": "2.1583889410380395 vs 1.8901479019112484; 0.268241039126791 [0.19581427811228896, 0.3441173656181558]; -0.14191537014407998; worse",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=arctic, a=M2, b=M0, metric=E_C"
+    },
+    "ARCTIC | Relative improvement M2 vs M0: participation / amount / centroid / normal / wrench (verdicts)": {
+     "value": "0.0003171889551107873 (similar) / -0.08131516293300806 (worse) / 0.024921091888295895 (similar) / 0.030400366208647184 (similar) / -0.02217810828110403 (similar)",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "rows dataset=arctic, a=M2, b=M0, metric in {part_hamming, amount_l1, centroid, normal, q_rel_l1}"
+    },
+    "ARCTIC | Count by the rule, M2 vs M0": {
+     "value": "0 better / 1 worse of 5 (answer: worse)",
+     "source": "reports/z_joint_decoder_followup/decision_summary.csv",
+     "locator": "row dataset=arctic, question='Does M2 beat M0 in structural / wrench quality?'"
+    },
+    "ARCTIC | E_C in frames 1-8, M2 vs M0; difference; relative improvement; verdict": {
+     "value": "1.5367360305546793 vs 1.0554690371913416; 0.48126699336333784; -0.45597452545269784; worse",
+     "source": "reports/z_joint_decoder_followup/paired_comparisons.csv",
+     "locator": "row dataset=arctic, a=M2, b=M0, metric=E_C_h1_8"
+    },
+    "ARCTIC | E_C of the persistence baseline C_t = s_0 [CI] (no paired test against it exists)": {
+     "value": "2.2421078891843877 [1.975344062473828, 2.5234731272501163]",
+     "source": "reports/z_joint_decoder_followup/main_metrics.csv",
+     "locator": "row dataset=arctic, model=PERSIST, metric=E_C"
+    },
+    "TACO / ARCTIC | Result case of the study's rule (fixed in advance, according to the report)": {
+     "value": "C+D / D+E",
+     "source": "reports/z_joint_decoder_followup/decision_summary.csv",
+     "locator": "rows question='case'"
+    }
+   },
+   "caveats": [
+    "The TACO structural advantage is not new: M1 already had four of the five metrics better than M0 before the decoder changes (report section 10: 'It is not new'). What M2 adds on TACO is a dense point estimate level with M0's.",
+    "On TACO the equal sequence mean hides a horizon split: M2 is worse than M0 in frames 1-8 (-36.5 %) and 9-16 (-6.7 %), similar in 17-32, better in 33-48 and 49-63; the structural advantage also arises only from frame 17 on (frames 1-8: participation -13.7 % worse, centroid -9.4 % worse; report Table 7b). The z path rebuilds the map from z and geometry and does not see s_0.",
+    "On ARCTIC M2 is worse than M0 in every horizon bin (-45.6 % in frames 1-8 down to -8.1 % in frames 49-63).",
+    "M0 is the reused Stage-2 checkpoint (80 000-step schedule). The budget-parity retraining (M0r) was stopped unfinished with no test evaluation; on ARCTIC its validation loss at 25 000 steps (0.9648) was already below the reused M0's best (0.9764), so the report says the reused M0 'may understate the direct model there'.",
+    "On ARCTIC M1 / M2 (2.157 / 2.158) are only slightly below the trivial persistence baseline (2.242) with overlapping intervals and no paired test; in frames 1-8 persistence (1.345) is below M2 (1.537) and M1 (1.600).",
+    "Wrench relative L1 is a proxy for functional grasp capability, not a measure of human intent. One training seed."
+   ]
+  },
+  {
+   "block": "F3-subB",
+   "claim": "With the same selected weights, the temporal network's predicted z is close to the teacher z* on the training sequences (RMSE 0.088 on TACO, 0.064 on ARCTIC, standardised units) and much further from it on held-out sequences (validation / test 0.630 / 0.702 on TACO, 0.803 / 0.717 on ARCTIC); the decoder changes did not change the held-out latent error.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_joint_decoder_followup/report.md",
+   "source_files": [
+    "reports/z_joint_decoder_followup/z_metrics.csv",
+    "reports/z_joint_decoder_followup/paired_comparisons.csv",
+    "reports/z_joint_decoder_followup/sanity_summary.json",
+    "scripts/research/z_joint_decoder_followup/zj_diag.py",
+    "scripts/research/z_joint_decoder_followup/zj_aggregate.py"
+   ],
+   "metric": "RMSE between the predicted latent and the teacher latent z* (z of the true frame from the frozen Stage-1 encoder): square root of the mean squared error pooled over sequences, the 63 future frames and the 64 latent dimensions, in coordinates standardised with training-set mean / std; lower is better. All frames are predicted at once from (s_0, G, object trajectory), no rollout. Train = all 1312 (TACO) / 1005 (ARCTIC) training sequences, validation 141 / 106, test 364 / 186. No interval is given for the RMSE; test L_z (the same quantity squared, per-sequence mean) has a 95 % take-cluster bootstrap interval.",
+   "numbers": {
+    "TACO | z RMSE of M2 on train / validation / test": {
+     "value": "0.08803514124963373 / 0.6297627931110291 / 0.7019863135702169",
+     "source": "reports/z_joint_decoder_followup/z_metrics.csv",
+     "locator": "row dataset=taco, model=M2; columns rmse_train, rmse_val, rmse_test"
+    },
+    "TACO | z RMSE of M1 on train / validation / test": {
+     "value": "0.21778743140956586 / 0.6260610143260495 / 0.7025909190603624",
+     "source": "reports/z_joint_decoder_followup/z_metrics.csv",
+     "locator": "row dataset=taco, model=M1"
+    },
+    "TACO | Train RMSE divided by validation RMSE, M2 (report prose: validation error '7 ... times larger')": {
+     "value": "0.1397909533758576",
+     "source": "reports/z_joint_decoder_followup/z_metrics.csv",
+     "locator": "row dataset=taco, model=M2; column train_over_val_rmse"
+    },
+    "TACO | RMSE of predicting the constant training-mean z, on test (reference)": {
+     "value": "0.9930792726335146",
+     "source": "reports/z_joint_decoder_followup/z_metrics.csv",
+     "locator": "row dataset=taco; column rmse_train_mean"
+    },
+    "TACO | Test L_z (standardised MSE) M2 [CI] vs M1; paired difference [CI]; verdict": {
+     "value": "0.4927847844399029 [0.4600194230295237, 0.5273068848686235] vs 0.49363399954608483; -0.0008492151061818579 [-0.0076176754161012845, 0.006151254162007507]; similar",
+     "source": "reports/z_joint_decoder_followup/z_metrics.csv",
+     "locator": "rows dataset=taco, model=M2 / M1; columns L_z_test, L_z_lo, L_z_hi; paired row in paired_comparisons.csv: dataset=taco, a=M2, b=M1, metric=L_z"
+    },
+    "TACO | Test R2 of the predicted z: mean over the 64 dimensions / pooled (M2)": {
+     "value": "0.4880849924426329 / 0.5003228902324874",
+     "source": "reports/z_joint_decoder_followup/z_metrics.csv",
+     "locator": "row dataset=taco, model=M2; columns r2_per_dim_mean, r2_pooled"
+    },
+    "ARCTIC | z RMSE of M2 on train / validation / test": {
+     "value": "0.06401158708002681 / 0.8026869275837919 / 0.7171768979152001",
+     "source": "reports/z_joint_decoder_followup/z_metrics.csv",
+     "locator": "row dataset=arctic, model=M2; columns rmse_train, rmse_val, rmse_test"
+    },
+    "ARCTIC | z RMSE of M1 on train / validation / test": {
+     "value": "0.18701881122332797 / 0.8051521995315741 / 0.7141629910111094",
+     "source": "reports/z_joint_decoder_followup/z_metrics.csv",
+     "locator": "row dataset=arctic, model=M1"
+    },
+    "ARCTIC | Train RMSE divided by validation RMSE, M2 (report prose: validation error '13 times larger')": {
+     "value": "0.07974664203478596",
+     "source": "reports/z_joint_decoder_followup/z_metrics.csv",
+     "locator": "row dataset=arctic, model=M2; column train_over_val_rmse"
+    },
+    "ARCTIC | RMSE of predicting the constant training-mean z, on test (reference)": {
+     "value": "0.91045913163147",
+     "source": "reports/z_joint_decoder_followup/z_metrics.csv",
+     "locator": "row dataset=arctic; column rmse_train_mean"
+    },
+    "ARCTIC | Test L_z (standardised MSE) M2 [CI] vs M1; paired difference [CI]; verdict": {
+     "value": "0.5143427029032693 [0.42680440607957015, 0.6020702231686428] vs 0.510028777729934; 0.004313925173335324 [-0.008297877900117732, 0.017911207713989342]; similar",
+     "source": "reports/z_joint_decoder_followup/z_metrics.csv",
+     "locator": "rows dataset=arctic, model=M2 / M1; paired row in paired_comparisons.csv: dataset=arctic, a=M2, b=M1, metric=L_z"
+    },
+    "ARCTIC | Test R2 of the predicted z: mean over the 64 dimensions / pooled (M2)": {
+     "value": "0.34471262747127807 / 0.37951445207406675",
+     "source": "reports/z_joint_decoder_followup/z_metrics.csv",
+     "locator": "row dataset=arctic, model=M2; columns r2_per_dim_mean, r2_pooled"
+    },
+    "TACO | Split sizes train / validation / test sequences (test takes)": {
+     "value": "1312 / 141 / 364 (186)",
+     "source": "reports/z_joint_decoder_followup/sanity_summary.json",
+     "locator": "taco / 07_identical_split: n_train, n_val, n_test, n_test_takes"
+    },
+    "ARCTIC | Split sizes train / validation / test sequences (test takes)": {
+     "value": "1005 / 106 / 186 (44)",
+     "source": "reports/z_joint_decoder_followup/sanity_summary.json",
+     "locator": "arctic / 07_identical_split: n_train, n_val, n_test, n_test_takes"
+    }
+   },
+   "caveats": [
+    "One training seed; the RMSE values have no interval in the source.",
+    "The held-out prediction is not uninformative: it is below the constant train-mean reference (0.993 TACO, 0.910 ARCTIC), and the report puts it as 'about half of the variance of the teacher trajectory on TACO, and two thirds on ARCTIC, is not predicted'.",
+    "The train-to-held-out gap is wider for M2 than for M1 because M2's training error is lower (0.088 / 0.064 against 0.218 / 0.187) while the held-out error is unchanged; M1's validation error is 2.9 and 4.3 times its training error, M2's 7 and 13 times (report prose).",
+    "'0.6-0.8 held out' mixes validation and test of both datasets: on TACO validation (0.630) is below test (0.702), on ARCTIC validation (0.803) is above test (0.717).",
+    "ARCTIC: 21 of the 44 test takes are of a subject that is not in the training set (report section 14).",
+    "The report describes this as the network fitting the training sequences without carrying the fit over ('It fits them and does not carry that fit over'); it did not test a cause (no regularisation, data-size or capacity ablation of the temporal network)."
+   ]
+  },
+  {
+   "block": "F3-subB",
+   "claim": "On a fixed subset of 160 training sequences the predicted z decodes at about the same dense error as the teacher z* (new decoder: 0.193 against 0.179 on TACO, where it is slightly higher; 0.217 against 0.234 on ARCTIC, where it is slightly lower; no intervals), whereas on test sequences it decodes at 1.698 against 0.505 (TACO) and 2.158 against 0.694 (ARCTIC); this suggests that the remaining error is associated with predicting the whole future z trajectory of unseen sequences, which the report rates as 'most likely' the remaining bottleneck without being able to separate it from the decoder's sensitivity to latent error.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_joint_decoder_followup/report.md",
+   "source_files": [
+    "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+    "reports/z_joint_decoder_followup/z_metrics.csv",
+    "reports/z_joint_decoder_followup/taco/train_logs/M2_seed0_train.csv",
+    "reports/z_joint_decoder_followup/arctic/train_logs/M2_seed0_train.csv"
+   ],
+   "metric": "Dense error E_C (lower is better) of the trained decoder fed its own model's predicted z or the teacher z*, on a fixed random subset of 160 training sequences (no interval in the source) and on the test sequences (95 % take-cluster bootstrap interval). Training-batch L_z = standardised MSE between predicted and teacher z on the training batch at a given step (lower = closer to the teacher).",
+   "numbers": {
+    "TACO | New decoder on 160 training sequences: predicted z / teacher z*": {
+     "value": "0.19291934432916433 / 0.17861650863307574",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "rows dataset=taco, decoder=M2, input=pred and input=oracle, split='train (160 sequences)'; column E_C"
+    },
+    "TACO | New decoder on test: predicted z / teacher z*": {
+     "value": "1.6978018232851118 / 0.5050833751807324",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "rows dataset=taco, decoder=M2, input=pred and input=oracle, split=test"
+    },
+    "TACO | Old decoder on 160 training sequences: predicted z / teacher z*": {
+     "value": "0.3256921667234218 / 0.20406927936322367",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "rows dataset=taco, decoder=M1, input=pred and input=oracle, split='train (160 sequences)'"
+    },
+    "TACO | Training-batch L_z of M2 at step 1000 / 2000 / 3000 (test L_z is 0.4927847844399029)": {
+     "value": "0.45364102721214294 / 0.12090569734573364 / 0.05213317647576332",
+     "source": "reports/z_joint_decoder_followup/taco/train_logs/M2_seed0_train.csv",
+     "locator": "rows step=1000, 2000, 3000; column L_z"
+    },
+    "TACO | Per-sequence correlation between latent error L_z and dense error E_C (M2, test)": {
+     "value": "0.6921572966252566",
+     "source": "reports/z_joint_decoder_followup/z_metrics.csv",
+     "locator": "row dataset=taco, model=M2; column corr_Lz_EC"
+    },
+    "ARCTIC | New decoder on 160 training sequences: predicted z / teacher z*": {
+     "value": "0.21737513107687442 / 0.23406873870583708",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "rows dataset=arctic, decoder=M2, input=pred and input=oracle, split='train (160 sequences)'"
+    },
+    "ARCTIC | New decoder on test: predicted z / teacher z*": {
+     "value": "2.158389478384937 / 0.6935824144674224",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "rows dataset=arctic, decoder=M2, input=pred and input=oracle, split=test"
+    },
+    "ARCTIC | Old decoder on 160 training sequences: predicted z / teacher z*": {
+     "value": "0.39891645782109764 / 0.2879630339073224",
+     "source": "reports/z_joint_decoder_followup/decoder_diagnostic.csv",
+     "locator": "rows dataset=arctic, decoder=M1, input=pred and input=oracle, split='train (160 sequences)'"
+    },
+    "ARCTIC | Training-batch L_z of M2 at step 1000 / 2000 / 3000 (test L_z is 0.5143427029032693)": {
+     "value": "0.5316002368927002 / 0.11375012248754501 / 0.04162948206067085",
+     "source": "reports/z_joint_decoder_followup/arctic/train_logs/M2_seed0_train.csv",
+     "locator": "rows step=1000, 2000, 3000; column L_z"
+    },
+    "ARCTIC | Per-sequence correlation between latent error L_z and dense error E_C (M2, test)": {
+     "value": "0.6880931976802732",
+     "source": "reports/z_joint_decoder_followup/z_metrics.csv",
+     "locator": "row dataset=arctic, model=M2; column corr_Lz_EC"
+    }
+   },
+   "caveats": [
+    "The bottleneck statement is hedged in the source: Appendix B Q5 'Most likely yes ... The study cannot separate the latent error from the decoder's sensitivity to it, because a decoder trained on held-out predictions was not tested. A second, smaller part is the first frames, where the latent path cannot continue s_0.'",
+    "Joint training exposed the decoder to test-sized latent errors only in roughly its first thousand steps (training L_z 0.45 / 0.53 at step 1000 against 0.49 / 0.51 on test; 0.12 / 0.11 at step 2000); the report's wording is that 'trained on predicted z' therefore did not amount to 'adapted to the held-out predicted-z distribution'. Do not say the decoder never saw such errors.",
+    "The training-subset values come from 160 fixed random training sequences and have no interval; the teacher z* is a diagnostic input never available at generation time.",
+    "On the ARCTIC training subset the predicted z decodes slightly lower than the teacher z* (0.217 against 0.234); on TACO slightly higher (0.193 against 0.179).",
+    "One training seed. The stateful-z follow-up is a motivated current hypothesis proposed by the report ('Proposed, not shown'), not a result of this study."
+   ],
+   "claim_as_extracted": "On training sequences the predicted z decodes almost as well as the teacher z* (new decoder: 0.193 against 0.179 on TACO, 0.217 against 0.234 on ARCTIC), whereas on test sequences it decodes at 1.698 against 0.505 and 2.158 against 0.694; this suggests that the remaining error is associated with predicting the whole future z trajectory of unseen sequences, which the report rates as 'most likely' the remaining bottleneck without being able to separate it from the decoder's sensitivity to latent error.",
+   "correction_reason": "All numbers exact. 'Almost as well as' has the wrong direction for ARCTIC, where the predicted z decodes slightly lower than the teacher z* on the training subset. The training values come from 160 sequences without an interval and that should be in the sentence. Also visible in the same table and not to be hidden: the teacher-z* error itself is about three times higher on test than on the training subset (0.179 vs 0.505 TACO, 0.234 vs 0.694 ARCTIC), so the train-test difference of the decoded error is not only the latent's."
+  },
+  {
+   "block": "F3-subB",
+   "claim": "Two small post-hoc probes that fitted the decoder side to the temporal network's validation latents found no gain on either dataset: when the whole decoder was fine-tuned, the out-of-fold validation error rose within the first 100 steps, so zero steps were chosen and the test error is unchanged by construction; five fitted shrinkage factors changed the test error by 0.000 (TACO) and +0.001 (ARCTIC, interval includes 0). The report states that the fine-tuning probe 'cannot bound what a decoder trained on many held-out predictions could do'; such a decoder was not tested.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_joint_decoder_followup/report.md",
+   "source_files": [
+    "reports/z_joint_decoder_followup/heldout_probe.csv",
+    "reports/z_joint_decoder_followup/experiment_config.json",
+    "scripts/research/z_joint_decoder_followup/zj_probe.py"
+   ],
+   "metric": "Probe A: the temporal network is frozen, a copy of M2's decoder is fine-tuned on (predicted z, geometry) -> true map of the VALIDATION sequences; the number of steps s* is chosen by two-fold cross-fitting over validation takes (out-of-fold validation E_C), then scored on test. Probe B: the decoder is untouched, one shrinkage factor of the predicted z per horizon bin (grid 0.5 to 1.0) is chosen on validation. E_C lower is better; test differences are paired with 95 % take-cluster bootstrap intervals.",
+   "numbers": {
+    "TACO | Validation sequences (takes); sizes of the two fitting folds": {
+     "value": "141 (76); 70 / 71",
+     "source": "reports/z_joint_decoder_followup/heldout_probe.csv",
+     "locator": "row dataset=taco; columns n_val, n_val_takes, fit_fold_sizes"
+    },
+    "TACO | Probe A: chosen number of fine-tuning steps s*": {
+     "value": "0",
+     "source": "reports/z_joint_decoder_followup/heldout_probe.csv",
+     "locator": "row dataset=taco; column s_star"
+    },
+    "TACO | Probe A: out-of-fold validation E_C un-adapted -> after 100 steps -> at the last step": {
+     "value": "1.2550889191691716 -> 1.424283799719639 -> 1.537101005223418",
+     "source": "reports/z_joint_decoder_followup/heldout_probe.csv",
+     "locator": "row dataset=taco; columns oof_val_E_C_unadapted, oof_val_E_C_step100, oof_val_E_C_last"
+    },
+    "TACO | Probe A: test E_C un-adapted -> adapted (paired difference, verdict)": {
+     "value": "1.6978018232851118 -> 1.6978018232851118 (0.0, similar)",
+     "source": "reports/z_joint_decoder_followup/heldout_probe.csv",
+     "locator": "row dataset=taco; columns test_E_C_unadapted, test_E_C_adapted, test_diff, test_verdict"
+    },
+    "TACO | Probe B: shrinkage factors per horizon bin (1-8 / 9-16 / 17-32 / 33-48 / 49-63); test E_C after; difference [CI]": {
+     "value": "1.0 / 1.0 / 1.0 / 1.0 / 1.0; 1.6978018232851118; 0.0 [0.0, 0.0]",
+     "source": "reports/z_joint_decoder_followup/heldout_probe.csv",
+     "locator": "row dataset=taco; columns shrink_factors, shrink_test_E_C, shrink_test_diff, shrink_test_lo, shrink_test_hi"
+    },
+    "ARCTIC | Validation sequences (takes); sizes of the two fitting folds": {
+     "value": "106 (26); 56 / 50",
+     "source": "reports/z_joint_decoder_followup/heldout_probe.csv",
+     "locator": "row dataset=arctic; columns n_val, n_val_takes, fit_fold_sizes"
+    },
+    "ARCTIC | Probe A: chosen number of fine-tuning steps s*": {
+     "value": "0",
+     "source": "reports/z_joint_decoder_followup/heldout_probe.csv",
+     "locator": "row dataset=arctic; column s_star"
+    },
+    "ARCTIC | Probe A: out-of-fold validation E_C un-adapted -> after 100 steps -> at the last step": {
+     "value": "2.618007211843586 -> 2.9672470550027996 -> 3.04745753188446",
+     "source": "reports/z_joint_decoder_followup/heldout_probe.csv",
+     "locator": "row dataset=arctic; columns oof_val_E_C_unadapted, oof_val_E_C_step100, oof_val_E_C_last"
+    },
+    "ARCTIC | Probe A: test E_C un-adapted -> adapted (paired difference, verdict)": {
+     "value": "2.158389478384937 -> 2.158389478384937 (0.0, similar)",
+     "source": "reports/z_joint_decoder_followup/heldout_probe.csv",
+     "locator": "row dataset=arctic; columns test_E_C_unadapted, test_E_C_adapted, test_diff, test_verdict"
+    },
+    "ARCTIC | Probe B: shrinkage factors per horizon bin; test E_C after; difference [CI]; verdict": {
+     "value": "0.9 / 0.9 / 1.0 / 1.0 / 1.0; 2.159238779183619; 0.0008493007986817044 [-0.0015177167443187257, 0.0032564081942978874]; similar",
+     "source": "reports/z_joint_decoder_followup/heldout_probe.csv",
+     "locator": "row dataset=arctic; columns shrink_factors, shrink_test_E_C, shrink_test_diff, shrink_test_lo, shrink_test_hi, shrink_test_verdict"
+    },
+    "TACO and ARCTIC (rule) | Trigger of the probe: training z RMSE below this share of the validation z RMSE (observed 0.1398 TACO, 0.0797 ARCTIC)": {
+     "value": "0.5",
+     "source": "reports/z_joint_decoder_followup/experiment_config.json",
+     "locator": "decision_rule.heldout_probe_trigger; observed values in z_metrics.csv column train_over_val_rmse"
+    }
+   },
+   "caveats": [
+    "Probe A's test result is 'unchanged' because zero fine-tuning steps were chosen: the out-of-fold validation error rose within the first 100 steps and never came back. The report names overfitting of the 8 M-parameter decoder on 50-71 sequences per fold as the likely cause, but the fitting-fold error was not recorded and the recipe (learning rate 3e-5, no warm-up, up to 1500 steps) was not varied.",
+    "Exact report sentence to keep: 'This probe shows no benefit, and it cannot bound what a decoder trained on many held-out predictions could do.'",
+    "Probe A was fixed in advance as a conditional diagnostic (trigger: train z RMSE under half the validation value); Probe B was added after Probe A chose zero steps. Both are post-hoc diagnostics, not compared generators.",
+    "Not run: a decoder trained on held-out predictions of the whole training set obtained by cross-fitting the temporal network; other forms of hedging against an uncertain latent.",
+    "The probes use the validation contact maps, which no compared model has seen."
+   ],
+   "claim_as_extracted": "Two small post-hoc probes that fitted the decoder side to the temporal network's validation latents (fine-tuning the whole decoder; fitting five shrinkage factors) found no test gain on either dataset, and the report states they cannot bound what a decoder trained on many held-out predictions could do.",
+   "correction_reason": "heldout_probe.csv: s_star 0 on both datasets, so no adapted decoder was ever scored on test ('no test gain' is trivially true and could be read as a tested failure). The quoted 'cannot bound' sentence in report section 12 is about probe A only; for probe B the report says 'A scalar shrinkage of the latent does not help. Other forms of hedging were not tried.' Probes used 141 (TACO) / 106 (ARCTIC) validation sequences."
+  }
+ ],
+ "dataset_differences": [
+  "Only TACO and ARCTIC exist in this study; there is no OakInk2 result for these blocks.",
+  "M2 vs M1 dense error: TACO -0.034 [-0.050, -0.017], a 1.96 % reduction whose interval excludes 0 but which is under the 2 % threshold ('similar', close call); ARCTIC +0.002 [-0.026, +0.032] (-0.08 %, interval includes 0).",
+  "M2 vs M0 dense error: TACO 'similar' (+0.15 %, -0.003 [-0.038, +0.038]); ARCTIC 'worse' (-14.19 %, +0.268 [+0.196, +0.344]). M1 vs M0 was already 'similar' on TACO (-1.85 %) and 'worse' on ARCTIC (-14.10 %).",
+  "Structural / wrench metrics of M2 vs M0: TACO 4 better / 0 worse of 5 (participation +8.7 %, centroid +7.7 %, normal +2.9 %, wrench +4.0 %; amount similar); ARCTIC 0 better / 1 worse (amount -8.1 %).",
+  "Result case of the study's rule (fixed in advance, according to the report): TACO C+D (structure better than direct, dense similar, no gain over M1); ARCTIC D+E (no gain over M1, worse than direct).",
+  "Horizon: on TACO M2 is worse than M0 in frames 1-8 (-36.5 %) and 9-16 (-6.7 %), similar in 17-32 and better in 33-48 (+4.0 %) and 49-63 (+4.5 %); on ARCTIC M2 is worse than M0 in every bin (-45.6 % down to -8.1 %).",
+  "Selected checkpoint: on TACO the two selection criteria differ (step 7000 on validation L_C, step 4000 on L_C + L_z) and the matched-step comparison with M1 exists; on ARCTIC both criteria chose step 8000, so the sensitivity row is the same state.",
+  "Latent error by split (M2): TACO train 0.088, validation 0.630, test 0.702 (validation below test); ARCTIC train 0.064, validation 0.803, test 0.717 (validation above test). Report prose: validation error 7 times (TACO) and 13 times (ARCTIC) the training error.",
+  "Predictability of the held-out latent: test R2 (mean over dimensions) 0.488 on TACO, 0.345 on ARCTIC; pooled 0.500 vs 0.380; train-mean reference RMSE 0.993 vs 0.910.",
+  "Teacher-latent decoder floor: 0.505 (TACO) vs 0.694 (ARCTIC) for the new decoder; the floor moved +1.0 % ('similar') on TACO and +2.1 % ('better') on ARCTIC with the larger decoder.",
+  "Random-perturbation share of the predicted-latent error: 78-84 % on TACO, 84-90 % on ARCTIC; on ARCTIC the Gaussian-perturbed latent through the old decoder is only 'similar' to the predicted latent (interval includes 0), on TACO it is 'better'.",
+  "New vs old decoder on identical perturbed teacher latents (not part of the rule fixed in advance): 'better' in 4 of 4 comparisons on TACO, in 2 of 4 on ARCTIC.",
+  "Persistence baseline (C_t = s_0): 3.539 on TACO (far above every model); 2.242 on ARCTIC, only slightly above M1 / M2 (2.157 / 2.158) with overlapping intervals and no paired test; in ARCTIC frames 1-8 persistence (1.345) is below M2 (1.537) and M1 (1.600).",
+  "Held-out shrinkage probe: best factors all 1.0 on TACO; 0.9 / 0.9 / 1.0 / 1.0 / 1.0 on ARCTIC (test change +0.0008, similar).",
+  "ARCTIC test set: 21 of the 44 test takes are of a subject that is not in the training set; both ARCTIC failure examples shown in the report are of that subject. TACO has 186 test takes, ARCTIC 44, so ARCTIC intervals are wider.",
+  "Budget-parity check of the direct model (stopped unfinished, validation only): on ARCTIC the retrained M0 was already below the reused M0's best validation loss (0.9648 vs 0.9764), on TACO not (0.2303 vs 0.2223); the reused M0 may understate the direct model on ARCTIC only.",
+  "Frame-to-frame behaviour vs M1: on TACO M2's dense frame-to-frame change is closer to the data (deviation +23.5 % better); on ARCTIC it is further (-16.9 % worse, M2 moves more than the data)."
+ ],
+ "do_not_claim": [
+  "'Decoder mismatch is not the bottleneck' / 'the decoder is excluded as the cause'. The source says 'Not shown ... No evidence was found that this mismatch caused the failure': only two extra blocks at width 256, a longer budget, selection on the dense loss and two small held-out probes were tested; a wider decoder and a decoder trained on many held-out predictions were not.",
+  "'A jointly trained decoder was compared with a frozen decoder.' M1 was already trained end to end on the predicted z; M2 differs in capacity, budget and selection, changed together.",
+  "'M2 equals M1' or 'no difference at all'. The verdict 'similar' is for the dense error under the 2 % + interval rule; on TACO the interval excludes 0, and participation and frames 1-8 are 'better' on both datasets while the ARCTIC frame-to-frame deviation is 'worse'.",
+  "'The TACO improvement is not significant' or, conversely, 'M2 improves on M1 on TACO'. It is resolved (interval excludes 0) and below the size threshold fixed in advance; one seed, 'a second seed could move it to either side'.",
+  "'The TACO gain comes from the larger decoder.' It is absent at a matched step and the report reads it as travelling with the predicted latent; selection, capacity and budget are not separated.",
+  "'The old and the new decoder produce the same maps.' They reach the same dense error on the same predicted latent.",
+  "'The decoder never saw test-sized latent errors during training.' It did in roughly its first thousand steps.",
+  "'M2 was trained much longer (100 k steps).' Both M2 runs stopped by the patience rule at 25 000 steps and were selected at step 7000 / 8000.",
+  "'The remaining bottleneck is proven to be z trajectory prediction.' The source says 'Most likely yes' and that the latent error cannot be separated from the decoder's sensitivity to it; a second, smaller part is the first frames, where the latent path cannot continue s_0.",
+  "'Random latent noise explains 78-90 % of the teacher-to-predicted gap.' Those shares are of the predicted-latent dense error, not of the gap.",
+  "'The temporal network memorises the training set and that causes the failure' as an established cause, or any claim about regularisation, data size or model size fixing it: no such ablation was run.",
+  "'Held-out adaptation of the decoder does not help' as a general statement. Two small probes on 141 / 106 validation sequences found no gain; Probe A chose zero steps (likely overfitting, fitting-fold error not recorded) and 'cannot bound what a decoder trained on many held-out predictions could do'.",
+  "'The teacher z error 0.51 / 0.69 is what a better z predictor would achieve at generation time.' The teacher z* is computed from the true future frames; it is a decoder floor.",
+  "'z-mediated generation is better for structure' without the qualifiers: TACO only, already true for M1 before the decoder changes, arising only from frame 17 on, with frames 1-8 worse than the direct model; on ARCTIC there is no structural advantage and the amount is worse.",
+  "'z-mediated models beat the persistence baseline on ARCTIC.' No paired test exists; 2.158 vs 2.242 with overlapping intervals, and persistence is lower in frames 1-8.",
+  "'ARCTIC is exactly 14 % worse than direct prediction' as a property of the method: the reused direct model may understate direct prediction on ARCTIC (budget-parity run stopped unfinished).",
+  "'The Stage-1 z is a poor representation' or 'z is at fault'. The source: 'The Stage-1 z is not shown to be at fault'.",
+  "'Decoder adaptation cannot beat the direct model' as a fact. It is an ideal-predictor argument in the report ('an argument, not a measurement').",
+  "'This result shows that a stateful / recurrent z model will fix the problem' or presenting the stateful-z experiment as a result: the report says 'Proposed, not shown'; it is a motivated current hypothesis.",
+  "Any pooled or averaged TACO + ARCTIC number, or any OakInk2 statement for these blocks.",
+  "'Wrench error measures human intent'; wrench relative L1 is a proxy for functional grasp capability.",
+  "Reading the overlapping unpaired intervals of the per-model bars as the test: the verdicts come from paired differences on identical sequences.",
+  "Results for the optional models M3 (decoder also fed the teacher latent) and M0r (direct model retrained): both were stopped unfinished and have validation-log numbers only, no test evaluation."
+ ],
+ "candidate_images": [
+  {
+   "path": "reports/z_joint_decoder_followup/figures/fig6_taco_fails.png",
+   "block": "F3-subA",
+   "shows": "TACO test example 915 (plate; take '(dust, roller, plate)/20231020_014'), picked by the fixed rule 'M2 loses most against M0'. Grid: rows true maps / M0 / M1 / M2, columns t = 0, 4, 8, 16, 32, 48, 63; each cell is a 2-D projection of the 512 object points coloured by contact. Bottom row: participation raster, dense error over time, total contact amount, wrench relative L1, frame-to-frame change. In the picture the true contact appears at the lower right from frame 16, while M1 and M2 both put a sharp contact region on the right edge and M0 stays close to the initial pattern. Weaknesses for a public page: baked-in title with the internal names M0 / M1 / M2, no colour bar, unlabelled participation raster, small bottom panels.",
+   "caption": "A TACO test sequence selected as the one where the adapted z-mediated model loses most against the direct model (an extreme case, not a typical one). Rows: true contact, direct model, previous z-mediated model, adapted z-mediated model; columns: frames 0 to 63. Both z-mediated models, with the old and the new decoder, place a sharp contact region in the wrong part of the object (dense error 5.02 and 4.98, direct model 3.38).",
+   "size": "1246718 bytes, 1770 x 1155 px"
+  },
+  {
+   "path": "reports/z_joint_decoder_followup/figures/fig6_arctic_fails.png",
+   "block": "F3-subB",
+   "shows": "ARCTIC test example 997 (phone, take phone_grab_01/s10, a subject not in the training set), picked by the fixed rule 'M2 loses most against M0'. Same grid layout. In the picture M1 and M2 produce a confident contact region that differs from the true one from frame 4 on, and the contact-amount panel shows both z models peaking well above the true amount and falling below it late in the sequence; M0 stays close to the initial pattern. Same weaknesses: internal names in the title, no colour bar, small bottom panels.",
+   "caption": "An ARCTIC test sequence of a subject that is not in the training set, selected as the one where the adapted z-mediated model loses most against the direct model (an extreme case). With a wrongly predicted latent the decoder still outputs a clean, confident contact pattern, here of a different grasp: the z-mediated models' total contact peaks at 0.22 where the data peak at 0.15 (dense error 5.00 and 4.94, direct model 3.12).",
+   "size": "1078422 bytes, 1770 x 1155 px"
+  },
+  {
+   "path": "reports/z_joint_decoder_followup/figures/fig6_taco_helps.png",
+   "block": "F3-subA",
+   "shows": "TACO test example 893 (plate; take '(brush, roller, plate)/20231020_015'), picked by the fixed rule 'M2 gains most over M1'. Same grid layout. In the picture the true contact grows towards the upper edge after frame 16; M0 keeps the initial pattern and drifts to the other side; M1 and M2 both put the new contact in the upper-right region. Same weaknesses: internal names in the title, no colour bar, small bottom panels.",
+   "caption": "The TACO test sequence with the largest gain of the adapted z-mediated model over the previous one (selected by that rule). Both z-mediated models place the new contact in the right region while the direct model drifts to the wrong side; dense error 3.20 (direct), 3.60 (previous z-mediated), 2.91 (adapted z-mediated).",
+   "size": "1179208 bytes, 1770 x 1155 px"
+  }
+ ],
+ "verification": {
+  "reliability": "high",
+  "numbers_confirmed": 95,
+  "numbers_checked": 95,
+  "number_corrections": [],
+  "claims_supported_as_extracted": 5,
+  "claims_checked": 7,
+  "figure_checks": [
+   {
+    "id": "f3suba_dense_error_models",
+    "verdict": "ok",
+    "note": "18 plotted numbers (value, lo, hi for M0 / M1 / M2 per dataset) equal main_metrics.csv rows metric=E_C exactly; TACO and ARCTIC in separate panels; direction lower_better; error bars are each model's own unpaired 95 % take-cluster bootstrap interval as the note says; n in the note is read from n_examples (364 / 186). Nothing typed in."
+   },
+   {
+    "id": "f3suba_paired_dense_differences",
+    "verdict": "fixed",
+    "note": "Plotted values were already correct (18 numbers = paired_comparisons.csv diff, ci_lo, ci_hi for M2-M1, M2-M0, M1-M0, metric E_C; direction 'none'; threshold text read from experiment_config.json). Changed the note only: it now appends the rule's verdict for every bar, read from the verdict column at run time (TACO: similar, similar, similar; ARCTIC: similar, worse, worse), because the TACO M2 - M1 bar has an interval excluding 0 and would otherwise be read as 'better'. Locator updated to name the verdict column. Panels byte-identical before and after."
+   },
+   {
+    "id": "f3suba_structure_relative",
+    "verdict": "fixed",
+    "note": "Plotted values were already correct (30 rel_improvement values for 3 pairs x 5 metrics x 2 datasets, and the +/-0.02 lines from decision_rule.rel_min); no error bars, as the note says; direction higher_better is right (positive = first model has the lower error). Changed the note only: it now lists, from the verdict column at run time, the bars that lie beyond a threshold line but are 'similar' because the paired interval includes 0 (TACO: none; ARCTIC: M2 vs M0 centroid, normal, wrench; M1 vs M0 participation, normal, wrench). Without it six ARCTIC bars would look resolved. Panels byte-identical before and after. Residual wording: the note says 'centroid / object size'; the source column is 'centroid / l' (l = the object's mesh length)."
+   },
+   {
+    "id": "f3suba_decoder_same_input",
+    "verdict": "ok",
+    "note": "36 numbers equal decoder_diagnostic.csv split=test. Row mapping checked: 'predicted z of M1' = (decoder M1, input pred) and (decoder M2, input zhat_M1); 'predicted z of M2' = (decoder M1, input zhat_M2) and (decoder M2, input pred); 'teacher z*' = input oracle. Error bars are unpaired 95 % take-cluster intervals of each mean, as stated; the paired test of old vs new is in paired_comparisons.csv, not in this figure."
+   },
+   {
+    "id": "f3suba_decoder_perturbed_teacher",
+    "verdict": "ok",
+    "note": "48 numbers equal decoder_diagnostic.csv rows input in {oracle, noisy_gauss, noisy_perm, pred}, split=test, per decoder and dataset. The note's description of the perturbations (Gaussian with the mean and covariance of the model's own test error per horizon bin; another test sequence's error trajectory; matched to each decoder's own model, so the two series do not get identical perturbed latents) matches zj_diag.py and experiment_config.json (one draw, seed 0)."
+   },
+   {
+    "id": "f3subb_z_rmse_splits",
+    "verdict": "ok",
+    "note": "12 bar values equal z_metrics.csv rmse_train / rmse_val / rmse_test for M1 and M2 per dataset; the reference line equals rmse_train_mean (0.9930792726335146 TACO, 0.91045913163147 ARCTIC), which the code defines as the RMS of the standardised teacher z on the test sequences, i.e. the error of the constant training mean on test, as labelled. No error bars, and the source has none. Direction lower_better."
+   },
+   {
+    "id": "f3subb_dense_train_vs_test",
+    "verdict": "ok",
+    "note": "32 bar values equal decoder_diagnostic.csv (inputs pred / oracle, splits 'train (160 sequences)' / test); lo and hi are None for the training bars because the cells are empty in the source, and equal ci_lo / ci_hi for the test bars. Note text matches. Also edited in this pass: the module docstring, which said the decoder change 'did not change the dense error'; it now says the error stayed 'similar' by the rule with a small resolved TACO reduction below the threshold (docstring only, no output change). Re-run after the edits: exit 0, 214 of 214 plotted values match the tables."
+   }
+  ],
+  "image_checks": [
+   {
+    "path": "reports/z_joint_decoder_followup/figures/fig6_taco_fails.png",
+    "exists": true,
+    "note": "1246718 bytes, 1770 x 1155 px, opened. Caption supported: fig6_selection_taco.csv row 'fails' = example 915, take '(dust, roller, plate)/20231020_014', rule 'M2 loses most against M0', E_C M0 3.3826 / M1 5.0210 / M2 4.9798 (caption 3.38, 5.02, 4.98). In the picture the true contact grows at the lower-right corner from frame 16 while M1 and M2 put a bright region along the right / upper-right edge; M0 stays near the initial pattern with a fainter right-edge region. Title has internal names M0 / M1 / M2 and '(plate, L)' where L is the hand; no colour bar."
+   },
+   {
+    "path": "reports/z_joint_decoder_followup/figures/fig6_arctic_fails.png",
+    "exists": true,
+    "note": "1078422 bytes, 1770 x 1155 px, opened. Numbers supported: example 997, phone_grab_01/s10, E_C M0 3.1230 / M1 5.0017 / M2 4.9431; contact-amount peak 0.154 (data), 0.223 (M1), 0.218 (M2); late in the sequence the z models fall to 0.068 / 0.064 against 0.147 in the data. s10 has no training or validation take (checked in arctic sequences_meta.csv). NOT supported by the picture: 'a clean, confident contact pattern, here of a different grasp'. In this 2-D projection the M1 / M2 maps at frames 4-32 are scattered bright points over much of the object and nearly empty at frames 48 and 63; the phrase is a general statement of report section 16, not tied to this sequence. Suggested caption: 'An ARCTIC test sequence of a subject that is not in the training set, selected as the one where the adapted z-mediated model loses most against the direct model (an extreme case). The z-mediated models' contact pattern departs from the true one from frame 4 on; their total contact peaks at 0.22 where the data peak at 0.15 and falls below the data late in the sequence (dense error 5.00 and 4.94, direct model 3.12).'"
+   },
+   {
+    "path": "reports/z_joint_decoder_followup/figures/fig6_taco_helps.png",
+    "exists": true,
+    "note": "1179208 bytes, 1770 x 1155 px, opened. Numbers supported: example 893, take '(brush, roller, plate)/20231020_015', rule 'M2 gains most over M1', E_C M0 3.1999 / M1 3.5994 / M2 2.9099. Picture: the true contact grows at the upper edge after frame 16; M2 puts new contact near the upper-right edge, M1 further down the right edge, M0 keeps the initial pattern and adds contact at the lower right late. 'Right region' is the report's phrase but is ambiguous (correct vs right-hand side) and generous for M1, whose dense error on this sequence is higher than the direct model's. Suggested: 'Both z-mediated models place the new contact towards the upper edge where the true contact appears (the adapted model closer), while the direct model adds contact at the lower right; dense error 3.20 (direct), 3.60 (previous z-mediated), 2.91 (adapted z-mediated).' All three models produce about half the true contact amount (peak 0.052-0.063 against 0.113)."
+   }
+  ],
+  "attached_by_the_verifier": [
+   "The page's planned message 'decoder mismatch is not the main bottleneck' is stronger than the source. Report Appendix B Q1: 'Not shown ... No evidence was found that this mismatch caused the failure.' Tested: two extra blocks at width 256, a longer schedule, selection on the dense loss, two small held-out probes. Not tested: a wider decoder (512-768), the 4-block control under the M2 protocol, a decoder trained on many held-out predictions. The block heading has to carry this limit (the extractor has it only under do_not_claim).",
+   "The framing 'old decoder versus the jointly adapted decoder' is wrong for this study: M1 was already trained end to end on the predicted z. M2 differs by three changes made together (decoder 4 -> 6 blocks, 100 k schedule with no stop before 25 k, selection on validation L_C). Both M2 runs stopped by patience at 25 000 steps and were selected at step 7000 / 8000.",
+   "Prose versus table: report.md rounds the TACO M2-vs-M1 reduction to '2.0%' in section 11 ('That is the 2.0% of Section 9') and in the section 14 table ('+2.0%, similar (close call)'). The table value is rel_improvement 0.019623757636585915 (1.96 %), below the 0.02 threshold. Use 1.96 %; '2.0 %' would read as meeting the threshold.",
+   "Sign convention must be stated on the page: raw differences are first model minus second (negative = first lower); percentages are 'relative improvement' (positive = first model lower error). '+1.96 %' is a reduction, '-14.19 %' is worse.",
+   "No horizon figure was delivered. The TACO 'similar' dense mean against M0 hides a split (paired_comparisons.csv E_C_h*: frames 1-8 -36.5 % worse, 9-16 -6.7 % worse, 17-32 similar, 33-48 +4.0 % better, 49-63 +4.5 % better); ARCTIC is worse in every bin (-45.6 % to -8.1 %). If the page states 'TACO similar with better structure', this caveat has to be in the text, or a figure built from horizon_metrics.csv.",
+   "Caveat for F3-subB not delivered: the decoder fed the TEACHER z* is also about three times worse on test than on the 160 training sequences (new decoder 0.179 -> 0.505 TACO, 0.234 -> 0.694 ARCTIC; decoder_diagnostic.csv; training subset has no interval). The figure f3subb_dense_train_vs_test shows it. The page should not attribute the whole train-test difference of the decoded error to the predicted latent.",
+   "Context for the train-test latent gap that the report gives and the entries omit: the temporal network has about 68 M parameters (67,923,712 backbone) and the training sets have 1,312 (TACO) and 1,005 (ARCTIC) sequences (report section 11); the dense loss term uses 4 random future frames per sequence per step while L_z uses all 63 (report section 17).",
+   "Probe caveat wording: 'the validation contact maps, which no compared model has seen' comes from the zj_probe.py docstring. Every compared model used the validation set for checkpoint selection, so write 'trained on', not 'seen'. Also use the report's sentence ('cannot bound ...'), not the docstring's older 'bound the benefit from above'.",
+   "The extractor's list of resolved M2-vs-M1 secondary differences is not exhaustive. Also in paired_comparisons.csv: TACO frames 9-16 better (+2.25 %), TACO deviation of the dense frame-to-frame change better (+23.5 %) and of the R2 change better (+6.8 %).",
+   "No figure for the held-out probes (heldout_probe.csv is text-only evidence), and none of the report's own plots (fig4_z_prediction.png, fig5_decoder_mismatch.png, fig8_train_vs_heldout.png) was recommended; the module redraws their content, so this is not a gap unless the page wants the originals.",
+   "The three qualitative images carry internal model names (M0 / M1 / M2), a hand label (L / R) in the title, no colour bar and an unlabelled participation raster; each shows one sequence chosen by an extreme-case rule. A caption has to say so (the proposed captions do for the selection rule).",
+   "Results exist for TACO and ARCTIC only; there is no OakInk2 result for these blocks. One training seed per model throughout; intervals describe the test takes, not training randomness."
+  ]
+ }
+}

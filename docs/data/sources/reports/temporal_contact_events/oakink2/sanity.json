@@ -1,0 +1,63 @@
+{
+  "dataset": "oakink2",
+  "n_test_sequences": 201,
+  "n_takes": 34,
+  "n_transitions": 12663,
+  "n_train_transitions": 101556,
+  "q90": 0.2924117147922516,
+  "q95": 0.4179777354001999,
+  "decomposition_max_rel_residual": 2.645785571075976e-05,
+  "n_valid_decomp": 12663,
+  "frac_valid_decomp": 1.0,
+  "n_spike_frames_q90": 1179,
+  "frac_spike_frames_q90": 0.09310589907604833,
+  "n_events_q90": 510,
+  "n_events_q90_gap1": null,
+  "events_per_sequence": 2.537313432835821,
+  "n_spike_frames_q95": 623,
+  "spike_energy_share_of_all": 0.720731582880717,
+  "spike_magnitude_share_of_all": 0.34845055179871837,
+  "n_onset_transitions": 7,
+  "n_release_transitions": 8,
+  "frac_frames_firm": 0.9951828160783385,
+  "smoothing_energy_ratio_s3": 0.4775354984708444,
+  "smoothing_energy_ratio_s5": 0.34224006472343116,
+  "smoothing_spike_energy_ratio_s3": 0.45986363861469937,
+  "smoothing_spike_energy_ratio_s5": 0.3222189820621818,
+  "persistence_h2_quantiles": {
+    "0.05": 0.11767517998814583,
+    "0.1": 0.15009283125400544,
+    "0.25": 0.31244395673274994,
+    "0.5": 0.5727028250694275,
+    "0.75": 0.8007279932498932,
+    "0.9": 0.9255479335784913
+  },
+  "persistence_event_quantiles": {
+    "0.05": 0.15028372219280323,
+    "0.1": 0.23517246014996834,
+    "0.25": 0.7575388282006167,
+    "0.5": 0.9999999966445486,
+    "0.75": 0.9999999972581491,
+    "0.9": 0.9999999979933232
+  },
+  "category_counts": {
+    "mixed": 281,
+    "spatial": 198,
+    "amount": 24,
+    "release": 4,
+    "onset+release": 2,
+    "onset": 1
+  },
+  "kinematics_available": [
+    "obj_lin_speed",
+    "obj_ang_speed"
+  ],
+  "transient_thr": 0.5,
+  "models": [
+    "B0_static",
+    "B1_gtinit_vf",
+    "B2_samplerG_vf_K10",
+    "B2_samplerG_vf_K1",
+    "B3_samplerGT_vf_K10"
+  ]
+}

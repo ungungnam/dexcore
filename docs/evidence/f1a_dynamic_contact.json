@@ -1,0 +1,606 @@
+{
+ "unit": "A_dynamic_contact",
+ "figure_module": "docs/build/figs/f1a_dynamic_contact.py",
+ "entries": [
+  {
+   "block": "F1-A",
+   "claim": "On TACO, early and late frames of one take differ in contact amount about twice as much as two takes of the same mesh and verb at matched phase (time/take 2.12, above 1 in 8 of 8 groups), while their normalised spatial pattern differs about as much as between two such takes (time/take 1.04, above 1 in 3 of 8 groups); a different mesh at matched phase changes the pattern more than a different take does (mesh/take 1.48, 8 of 8 groups), and the within-take pattern change stays below the mesh-to-mesh difference in every group (time/mesh 0.69, 0 of 8 groups above 1).",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO"
+   ],
+   "report": "taco/40_representation_study/time_decomp/dynamic_contact/dynamic_contact_report.md",
+   "source_files": [
+    "reports/crossdataset_exp1.csv",
+    "taco/40_representation_study/time_decomp/dynamic_contact/exp1/ratios.csv",
+    "taco/40_representation_study/time_decomp/dynamic_contact/tables/exp1.md",
+    "scripts/research/canonical_contact/dyn/exp1_amount_vs_pattern.py",
+    "scripts/research/canonical_contact/dyn/dc_common.py"
+   ],
+   "metric": "Unitless ratio of two mean pair distances of the SAME metric inside one group (category x role x hand): numerator = pairs along one axis, denominator = pairs of two different takes of the same mesh and verb at matched phase (phase difference < 0.10). time = two frames of one take with phase difference > 0.5 (early vs late); mesh = other mesh, same verb, matched phase. amount = |difference of mass|, mass = sum of the 512-D soft contact map (soft = exp(-d / 2 cm)); pattern = L2 distance between maps normalised to sum 1 (defined only when neither frame is zero-contact). Headline = macro (unweighted mean of the 8 per-group ratios), mean over pairs. 1 = as different as two takes at the same phase; no direction is better. Experiment 1 of the dynamic-contact study; frames = every 2nd frame of 64-frame windows with touch fraction >= 0.2; up to 4000 cross pairs per group and axis, 3074-13369 time pairs per group.",
+   "numbers": {
+    "TACO | time/take, amount (mass_abs), macro over 8 groups; 8 groups > 1": {
+     "value": "2.1235419511795044",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row dataset=TACO, ratio=time/take, metric=mass_abs; column macro (n_groups 8, groups_gt_1 8)"
+    },
+    "TACO | time/take, normalised pattern (pattern_L2), macro over 8 groups; 3 groups > 1": {
+     "value": "1.035969227552414",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row TACO, time/take, pattern_L2; column macro (n_groups 8, groups_gt_1 3)"
+    },
+    "TACO | mesh/take, normalised pattern, macro over 8 groups; 8 groups > 1": {
+     "value": "1.4829091131687164",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row TACO, mesh/take, pattern_L2; column macro (n_groups 8, groups_gt_1 8)"
+    },
+    "TACO | time/mesh, normalised pattern, macro; 0 groups > 1": {
+     "value": "0.6888557523488998",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row TACO, time/mesh, pattern_L2; column macro (groups_gt_1 0)"
+    },
+    "TACO | mesh/take, amount, macro; 8 groups > 1 (mesh moves the amount too)": {
+     "value": "1.6208048164844513",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row TACO, mesh/take, mass_abs; column macro"
+    },
+    "TACO | time/take, log-amount (mass_log), macro; 8 groups > 1": {
+     "value": "2.398210123181343",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row TACO, time/take, mass_log; column macro"
+    },
+    "TACO | time/take pattern, per-group range (min bowl target/L, max roller tool/R); groups above 1 are spoon 1.433, roller 1.480, knife 1.309": {
+     "value": "0.5854860544204712 to 1.4797219038009644",
+     "source": "taco/40_representation_study/time_decomp/dynamic_contact/exp1/ratios.csv",
+     "locator": "rows ratio=time/take, metric=pattern_L2, stat=mean; column value (lo / hi = 95 % paired sequence-bootstrap interval per group)"
+    },
+    "TACO | time/take amount, per-group range (min plate target/L, max spoon tool/R)": {
+     "value": "1.110275149345398 to 2.765807628631592",
+     "source": "taco/40_representation_study/time_decomp/dynamic_contact/exp1/ratios.csv",
+     "locator": "rows ratio=time/take, metric=mass_abs, stat=mean; column value"
+    },
+    "TACO | pooled (pair-weighted) instead of macro: time amount / time pattern / mesh pattern": {
+     "value": "1.928 / 0.964 / 1.484",
+     "source": "taco/40_representation_study/time_decomp/dynamic_contact/tables/exp1.md",
+     "locator": "Table E1c, columns 'time pooled' and 'mesh pooled', rows mass_abs and pattern_L2"
+    },
+    "TACO | leave-one-category-out range of time/take: amount; pattern": {
+     "value": "2.0317897942601517 to 2.2682944296266494; 0.9725760397770449 to 1.1300527637470206",
+     "source": "taco/40_representation_study/time_decomp/dynamic_contact/verifier_verdicts.json",
+     "locator": "V3_leave_one_category_out: mass_macro_time_over_take_range, pattern_macro_time_over_take_range"
+    }
+   },
+   "caveats": [
+    "The two ratios are in different metrics, each divided by its own cross-take level; '2.12 vs 1.04' is a comparison relative to take-to-take variation, not an absolute amount-versus-pattern comparison.",
+    "Pattern time/take is 1.036 as a macro mean but 0.964 pooled, and three of eight groups (spoon, roller, knife; all tool / right hand) are 1.3-1.5: say 'about the same as between two takes', not 'smaller than between takes'.",
+    "The macro values have no confidence interval in the sources; intervals exist per group only (95 % paired sequence-level bootstrap, 500 replicates).",
+    "'Mesh' on TACO is confounded with subject / session (report: tool meshes are used by 1-6 subjects, mean 2.1): the mesh ratio is 'the mesh and whoever used it', not pure geometry.",
+    "Phase is the position inside the touching span of a take, not an alignment of task events; 'time' means early vs late (phase difference > 0.5) inside takes of 64-448 windowed frames (median 128 = 4.3 s).",
+    "No grasp label exists in this study: the axes are take, mesh, action (verb); 'grasp identity' is not measured here.",
+    "Statement is about 512-D canonical contact maps only, not about hand motion."
+   ]
+  },
+  {
+   "block": "F1-A",
+   "claim": "On ARCTIC, where a take lasts 18-37 s, early and late frames of one take differ in normalised spatial pattern slightly less than two takes do (time/take 0.94, above 1 in 6 of 22 groups); in contact amount they differ about as much on |delta mass| (1.10, 14 of 22 groups) and more on log-mass (1.57, 22 of 22), and that excess is associated with pairs in which one frame is zero-contact (0.90 and 0.98 when neither frame is zero-contact); frames from a different subject differ in pattern 1.16 times the same-subject cross-take level (22 of 22 groups), which is 1.01 times the any-subject cross-take level that the time ratio uses (16 of 22 groups).",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "ARCTIC"
+   ],
+   "report": "arctic/30_dynamic_contact/dynamic_contact_report_arctic.md",
+   "source_files": [
+    "reports/crossdataset_exp1.csv",
+    "arctic/30_dynamic_contact/exp1/ratios.csv",
+    "arctic/30_dynamic_contact/verify/v1_v2_ordering_configs.csv",
+    "arctic/30_dynamic_contact/tables/exp1.md",
+    "arctic/30_dynamic_contact/exp1/zero_transition_share.csv"
+   ],
+   "metric": "Same ratio definition as TACO, group = (object, hand), 22 groups, macro mean of per-group ratios, 1 = cross-take level, no direction is better. ARCTIC has one mesh per object, so the identity axis is the SUBJECT: 'subject' = other subject, same verb; the table divides it by 'take_same_subject' (same subject, other take, same verb), NOT by the 'take' level (other take, same verb, any subject) that time/take uses.",
+   "numbers": {
+    "ARCTIC | time/take, amount (mass_abs), macro over 22 groups; 14 groups > 1": {
+     "value": "1.0987825258211656",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row ARCTIC, time/take, mass_abs; column macro (n_groups 22, groups_gt_1 14)"
+    },
+    "ARCTIC | time/take, log-amount (mass_log), macro; 22 groups > 1": {
+     "value": "1.5712847384539517",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row ARCTIC, time/take, mass_log; column macro (groups_gt_1 22)"
+    },
+    "ARCTIC | time/take, normalised pattern, macro; 6 groups > 1": {
+     "value": "0.9405823864720084",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row ARCTIC, time/take, pattern_L2; column macro (groups_gt_1 6)"
+    },
+    "ARCTIC | subject / same-subject take, normalised pattern, macro; 22 groups > 1": {
+     "value": "1.155891857363961",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row ARCTIC, subject/take_same_subject, pattern_L2; column macro (groups_gt_1 22)"
+    },
+    "ARCTIC | subject / take with the SAME denominator as time/take (any-subject take level), normalised pattern, macro": {
+     "value": "1.0110327517782915",
+     "source": "arctic/30_dynamic_contact/verify/v1_v2_ordering_configs.csv",
+     "locator": "row config='pattern_L2|mean|all|tol0.10', column macro_subject_over_take (1.011 in tables/exp1.md Table E1c 'subject macro'; 'take_same_subject macro' there is 0.887)"
+    },
+    "ARCTIC | time/take amount when both frames are non-zero: mass_abs / mass_log (3 and 4 of 22 groups > 1)": {
+     "value": "0.9041445794425265 / 0.9762238595102162",
+     "source": "arctic/30_dynamic_contact/verify/v1_v2_ordering_configs.csv",
+     "locator": "rows 'mass_abs|mean|both_nonzero|tol0.10' and 'mass_log|mean|both_nonzero|tol0.10', column macro_time_over_take"
+    },
+    "ARCTIC | share of time pairs with exactly one zero-contact frame, range over 22 groups; share of the squared time distance they carry": {
+     "value": "0.2238 to 0.3601; 0.2392 to 0.5813",
+     "source": "arctic/30_dynamic_contact/exp1/zero_transition_share.csv",
+     "locator": "rows axis=time; columns frac_one_zero, d2share_one_zero (min-max over groups)"
+    },
+    "ARCTIC | action/take (grab vs use), normalised pattern, macro; 15 groups > 1": {
+     "value": "1.1798041300340132",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row ARCTIC, action/take, pattern_L2; column macro"
+    },
+    "ARCTIC | time/take pattern per-group range (six groups above 1: laptop R, phone L, scissors L, scissors R 1.400, waffleiron L, waffleiron R)": {
+     "value": "0.7383 to 1.4000",
+     "source": "arctic/30_dynamic_contact/exp1/ratios.csv",
+     "locator": "rows ratio=time/take, metric=pattern_L2, stat=mean; column value (min-max over 22 groups)"
+    }
+   },
+   "caveats": [
+    "The subject ratio 1.16 is over the SAME-SUBJECT cross-take level; against the take level used by the time ratios the subject ratio is 1.011. Do not draw both against one unlabelled reference line.",
+    "Takes are 512-1088 windowed frames (median 704 = 23.5 s) and contain several contact episodes; 17 % of frames are zero-contact. A phase gap of 0.5 is at least 10 s here against 1-2 s on TACO, so phase-based ratios are on a coarser time scale (report caveat).",
+    "On |delta mass| the temporal excess is weak (1.10, 14 of 22 groups); the strong value (1.57) is the log-mass metric, which is sensitive to on/off pairs.",
+    "Few within-take pairs: 473-612 time pairs per group (4000 for the cross axes), hence wide per-group intervals.",
+    "One mesh per object: nothing here tests geometry; the subject axis is confounded with session and hand size (report caveat).",
+    "The ARCTIC report states that on articulated objects amount and pattern grow together in the lag curves ('the location drifts with the amount'); the simple TACO picture is weakest here."
+   ],
+   "claim_as_extracted": "On ARCTIC, where a take lasts 18-37 s, early and late frames of one take differ in normalised spatial pattern slightly less than two takes do (time/take 0.94, above 1 in 6 of 22 groups) and in contact amount about as much (1.10 on |delta mass|, 14 of 22 groups; 1.57 on log-mass, 22 of 22), and that amount excess is associated with pairs in which one frame has no contact (0.90 and 0.98 once both frames are in contact); a different subject changes the pattern 1.16 times the same-subject cross-take level (22 of 22 groups).",
+   "correction_reason": "Every number is confirmed. Three wording fixes: 1.57 is not 'about as much'; 'in contact' should be 'neither frame zero-contact' (the both_nonzero variant; zero = mass < 4.0 and no vertex within 1 cm); and the subject ratio must carry its like-for-like value 1.011 in the same sentence, otherwise 1.16 is read against the 0.94 time ratio, which has a different denominator."
+  },
+  {
+   "block": "F1-A",
+   "claim": "On OakInk2, whose takes are interaction-only segments without approach and retreat, early and late frames of one take differ less than two takes do on both the amount (time/take 0.60, above 1 in 2 of 39 groups) and the normalised spatial pattern (0.45, 0 of 39 groups), while frames from a different object instance of the same category differ in pattern 1.69 times the cross-take level (16 of the 17 groups that have this axis); in a control run with the annotated approach and retreat included (39 common groups, a larger take sample), the amount ratio is above 1 (1.38 against 0.60; 33 against 2 groups above 1) and the pattern ratio is higher but still below 1 (0.61 against 0.45; 2 against 0 groups).",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "OakInk2"
+   ],
+   "report": "oakink2/10_dynamic_contact/dynamic_contact_report_oakink2.md",
+   "source_files": [
+    "reports/crossdataset_exp1.csv",
+    "oakink2/10_dynamic_contact/exp1/ratios.csv",
+    "oakink2/11_dynamic_contact_extended/control_vs_interaction_only.csv",
+    "oakink2/10_dynamic_contact/verify/v1_v2_ordering_configs.csv",
+    "oakink2/10_dynamic_contact/cache/window_index.csv",
+    "oakink2/10_dynamic_contact/takes_index.csv"
+   ],
+   "metric": "Same ratio definition, group = (category, hand), macro mean of per-group ratios; 39 groups for time/take, 17 groups for mesh/take (groups where two instances share a verb). take = other take, same instance and verb, matched phase (subject free); mesh = other instance of the category, same verb. 1 = cross-take level; no direction is better.",
+   "numbers": {
+    "OakInk2 | time/take, amount (mass_abs), macro over 39 groups; 2 groups > 1": {
+     "value": "0.6013318006044779",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row OakInk2, time/take, mass_abs; column macro (n_groups 39, groups_gt_1 2)"
+    },
+    "OakInk2 | time/take, normalised pattern, macro over 39 groups; 0 groups > 1": {
+     "value": "0.4521745386031958",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row OakInk2, time/take, pattern_L2; column macro (groups_gt_1 0)"
+    },
+    "OakInk2 | mesh (instance)/take, normalised pattern, macro over 17 groups; 16 groups > 1": {
+     "value": "1.6860250900773441",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row OakInk2, mesh/take, pattern_L2; column macro (n_groups 17, groups_gt_1 16)"
+    },
+    "OakInk2 | mesh (instance)/take, amount, macro over 17 groups; 14 groups > 1": {
+     "value": "2.448133615886464",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row OakInk2, mesh/take, mass_abs; column macro"
+    },
+    "OakInk2 | subject/take (other actor, same instance and verb; denominator = any-subject take level), normalised pattern, macro over 39 groups; 35 groups > 1": {
+     "value": "1.0658799440432818",
+     "source": "oakink2/11_dynamic_contact_extended/control_vs_interaction_only.csv",
+     "locator": "row 'subject/take [pattern_L2]', columns macro / interaction_only and groups_gt_1 / interaction_only (equals the mean of the 39 stat=mean rows of oakink2/10_dynamic_contact/exp1/ratios.csv; not in crossdataset_exp1.csv)"
+    },
+    "OakInk2 | time/take pattern over the 17 groups that carry the mesh axis (like-for-like with mesh/take)": {
+     "value": "0.5223977432784461",
+     "source": "oakink2/10_dynamic_contact/verify/v1_v2_ordering_configs.csv",
+     "locator": "row 'pattern_L2|mean|all|tol0.10', column macro_time_over_take (n_groups 17)"
+    },
+    "OakInk2 | control, 39 common groups: time/take amount, interaction only -> approach + interaction + retreat (groups > 1: 2 -> 33)": {
+     "value": "0.6013318006044779 -> 1.3819498412120037",
+     "source": "oakink2/11_dynamic_contact_extended/control_vs_interaction_only.csv",
+     "locator": "row 'time/take [mass_abs]', columns macro / interaction_only and macro / extended"
+    },
+    "OakInk2 | control, 39 common groups: time/take pattern, interaction only -> extended (groups > 1: 0 -> 2)": {
+     "value": "0.4521745386031958 -> 0.6058272849290799",
+     "source": "oakink2/11_dynamic_contact_extended/control_vs_interaction_only.csv",
+     "locator": "row 'time/take [pattern_L2]', columns macro / interaction_only and macro / extended"
+    },
+    "OakInk2 | takes: rows extracted / rows with an empty frame count / distinct takes analysed (39 groups)": {
+     "value": "4603 / 1780 / 1985",
+     "source": "oakink2/10_dynamic_contact/takes_index.csv",
+     "locator": "row count; n_frames empty; distinct take_id in cache/window_index.csv"
+    }
+   },
+   "caveats": [
+    "An OakInk2 take is the interaction range of one program primitive: approach and retreat are excluded by construction (0.16 % zero-contact frames), so this dataset samples the in-contact regime only; the low time ratios are a property of how the take is cut, as the control shows.",
+    "mesh/take is over 17 of the 39 groups; time/take over all 39 (0.45) or over those 17 (0.52).",
+    "1,985 takes were analysed, not the 4,603 extracted that the reports quote (rows without a frame count were dropped by the cache builder); the control run uses a complete index, so it compares different take samples as well as a different time range.",
+    "Categories are derived from object names; 'instance' sometimes means a different object of the same type, and instances differ in size (the report's explanation for mesh/take 2.45 on the amount).",
+    "The control re-ran Experiments 1-2 only.",
+    "Many groups are small (20-40 takes)."
+   ],
+   "claim_as_extracted": "On OakInk2, whose takes are interaction-only segments without approach and retreat, early and late frames of one take differ less than two takes do on both the amount (time/take 0.60, above 1 in 2 of 39 groups) and the normalised spatial pattern (0.45, 0 of 39 groups), while a different object instance of the same category changes the pattern 1.69 times the cross-take level (16 of 17 groups); adding the annotated approach and retreat back raises the amount ratio above 1 (0.60 to 1.38) while the pattern ratio rises but stays below 1 (0.45 to 0.61).",
+   "correction_reason": "All values confirmed in crossdataset_exp1.csv and control_vs_interaction_only.csv. The last clause reads as an intervention on identical takes, but the two runs contain different take samples (1,985 against 3,239 takes in the 39 common groups, because the interaction-only index lost 1,780 rows without a frame count); state it as a comparison of two runs. 'Changes' replaced by a descriptive verb; the 17-of-39 group scope moved into the sentence."
+  },
+  {
+   "block": "F1-A",
+   "claim": "On each of the three datasets the early-vs-late difference of the normalised spatial pattern within a take is near or below the take-to-take difference (time/take 1.04 on TACO, 0.94 on ARCTIC, 0.45 on OakInk2), and an identity axis exceeds its own cross-take reference (mesh/take 1.48 on TACO; object-instance/take 1.69 on OakInk2, over 17 of 39 groups; on ARCTIC subject over same-subject take 1.16, which is 1.01 against the any-subject take level used by the time ratio). The temporal excess of the amount differs by dataset in line with what a take contains (2.12 on TACO takes with approach and release, 1.10 on long multi-episode ARCTIC takes, 0.60 on interaction-only OakInk2 segments); the OakInk2 control run with approach and retreat included (1.38) is consistent with this reading.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "report": "reports/dynamic_contact_crossdataset.md",
+   "source_files": [
+    "reports/crossdataset_exp1.csv",
+    "reports/crossdataset_narrative.md",
+    "reports/dynamic_contact_crossdataset.md"
+   ],
+   "metric": "Per dataset: macro mean over that dataset's groups of the ratio 'mean pair distance along an axis / mean matched-phase cross-take pair distance', same metric (amount = |delta mass|, pattern = L2 of the sum-normalised map). Values are reported per dataset and are never averaged across datasets. 1 = cross-take level; no direction is better.",
+   "numbers": {
+    "TACO | time/take, pattern_L2 (groups > 1: 3 of 8)": {
+     "value": "1.035969227552414",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row TACO, time/take, pattern_L2; column macro"
+    },
+    "ARCTIC | time/take, pattern_L2 (6 of 22)": {
+     "value": "0.9405823864720084",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row ARCTIC, time/take, pattern_L2; column macro"
+    },
+    "OakInk2 | time/take, pattern_L2 (0 of 39)": {
+     "value": "0.4521745386031958",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row OakInk2, time/take, pattern_L2; column macro"
+    },
+    "TACO | time/take, mass_abs (8 of 8)": {
+     "value": "2.1235419511795044",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row TACO, time/take, mass_abs; column macro"
+    },
+    "ARCTIC | time/take, mass_abs (14 of 22)": {
+     "value": "1.0987825258211656",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row ARCTIC, time/take, mass_abs; column macro"
+    },
+    "OakInk2 | time/take, mass_abs (2 of 39)": {
+     "value": "0.6013318006044779",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row OakInk2, time/take, mass_abs; column macro"
+    },
+    "TACO | identity ratio on the pattern: mesh/take (8 of 8)": {
+     "value": "1.4829091131687164",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row TACO, mesh/take, pattern_L2; column macro"
+    },
+    "ARCTIC | identity ratio on the pattern: subject/take_same_subject (22 of 22)": {
+     "value": "1.155891857363961",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row ARCTIC, subject/take_same_subject, pattern_L2; column macro"
+    },
+    "OakInk2 | identity ratio on the pattern: mesh/take (16 of 17)": {
+     "value": "1.6860250900773441",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row OakInk2, mesh/take, pattern_L2; column macro"
+    },
+    "TACO | within-take pattern change relative to the identity axis: time/mesh (0 of 8)": {
+     "value": "0.6888557523488998",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row TACO, time/mesh, pattern_L2; column macro"
+    },
+    "ARCTIC | within-take pattern change relative to the identity axis: time/subject (6 of 22)": {
+     "value": "0.9310801543972709",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row ARCTIC, time/subject, pattern_L2; column macro"
+    },
+    "OakInk2 | within-take pattern change relative to the identity axis: time/mesh (0 of 17)": {
+     "value": "0.35807931510841146",
+     "source": "reports/crossdataset_exp1.csv",
+     "locator": "row OakInk2, time/mesh, pattern_L2; column macro"
+    }
+   },
+   "caveats": [
+    "The three identity ratios are not the same quantity: TACO and OakInk2 use mesh / take; ARCTIC uses subject / same-subject take (a different denominator); OakInk2 mesh/take covers 17 of 39 groups.",
+    "The amount ordering across datasets (2.12, 1.10, 0.60) follows how much approach, release and on/off each take contains, as the reports and the OakInk2 control state; it is not a statement about the datasets' objects.",
+    "The cross-dataset narrative's sentence 'whatever temporal excess exists is amount, not location' sits beside an ARCTIC report that marks the lag structure as a NOT-same conclusion (amount and pattern grow together on articulated objects) and an OakInk2 report that calls the residual within-take change 'spatial re-adjustment as much as amount'.",
+    "The table 'OakInk2-ext' column of the cross-dataset report is over all 65 extended groups (time/take amount 1.3596); the control comparison over the 39 common groups gives 1.3819.",
+    "No cross-dataset figure exists in the sources (reports/figures is empty); the page figure is built from crossdataset_exp1.csv."
+   ],
+   "claim_as_extracted": "Across the three datasets the within-take change of the normalised spatial pattern is near or below the take-to-take difference (time/take 1.04 TACO, 0.94 ARCTIC, 0.45 OakInk2) while an identity axis is above it (mesh 1.48 on TACO, subject 1.16 over the same-subject take level on ARCTIC, object instance 1.69 on OakInk2); whether the amount shows a temporal excess depends on how a take is cut (2.12 on TACO takes with approach and release, 1.10 on long multi-episode ARCTIC takes, 0.60 on interaction-only OakInk2 segments).",
+   "correction_reason": "Values confirmed. Two problems in the wording: (1) 'an identity axis is above it' puts ARCTIC's 1.16 against the take-to-take level, but its denominator is the same-subject take level; against the take level it is 1.011 (16 of 22 groups). (2) 'depends on how a take is cut' is a causal statement across datasets that differ in many other ways; the only direct evidence is the OakInk2 control, which also changes the take sample. Use 'differs in line with' and 'is consistent with'."
+  },
+  {
+   "block": "F1-A",
+   "claim": "The temporal excess of the amount is associated with pairs in which at least one frame has low or zero contact: on TACO the amount time/take is 0.94 when both frames are at or above the group-median amount (4 of 8 groups above 1) but 1.44 when both frames have a vertex within 1 cm (6 of 8), and the pattern ratio is below 1 under both restrictions (0.65 and 0.80); on ARCTIC the amount ratio is 0.90 (|delta mass|) and 0.98 (log-mass) when neither frame is zero-contact. The reports read this as approach / release grading on TACO and as on/off between contact episodes on ARCTIC.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "taco/40_representation_study/time_decomp/dynamic_contact/dynamic_contact_report.md",
+   "source_files": [
+    "taco/40_representation_study/time_decomp/dynamic_contact/verify/v1_v2_ordering_configs.csv",
+    "arctic/30_dynamic_contact/verify/v1_v2_ordering_configs.csv",
+    "taco/40_representation_study/time_decomp/dynamic_contact/exp1/zero_transition_share.csv"
+   ],
+   "metric": "Macro time/take ratio (mean over pairs, phase tolerance 0.10, touching windows) recomputed on restricted pair sets: both_nonzero (neither frame zero-contact), high_contact (both frames at or above the group-median mass), both_hard (both frames have an object vertex within 1 cm of the hand). 1 = cross-take level; no direction is better.",
+   "numbers": {
+    "TACO | high_contact: time/take raw / amount / pattern (groups > 1: 1, 4, 1 of 8)": {
+     "value": "0.7118514853664055 / 0.9361228628626492 / 0.6490595670450735",
+     "source": "taco/40_representation_study/time_decomp/dynamic_contact/verify/v1_v2_ordering_configs.csv",
+     "locator": "rows 'raw|mean|high_contact|tol0.10', 'mass_abs|mean|high_contact|tol0.10', 'pattern_L2|mean|high_contact|tol0.10'; column macro_time_over_take"
+    },
+    "TACO | both_hard (1 cm rule): time/take raw / amount / pattern (groups > 1: 3, 6, 3 of 8)": {
+     "value": "0.9205787638560409 / 1.4390321229260232 / 0.803359779622818",
+     "source": "taco/40_representation_study/time_decomp/dynamic_contact/verify/v1_v2_ordering_configs.csv",
+     "locator": "rows '*|mean|both_hard|tol0.10'; column macro_time_over_take"
+    },
+    "TACO | mesh/take pattern under high_contact / both_hard (8 of 8 groups in both)": {
+     "value": "1.691301501632514 / 1.5852516681179767",
+     "source": "taco/40_representation_study/time_decomp/dynamic_contact/verify/v1_v2_ordering_configs.csv",
+     "locator": "rows 'pattern_L2|mean|high_contact|tol0.10' and 'pattern_L2|mean|both_hard|tol0.10'; column macro_mesh_over_take"
+    },
+    "TACO | share of time pairs with exactly one zero-contact frame (range over 8 groups); share of the squared time distance they carry": {
+     "value": "0.0066 to 0.0665; 0.0111 to 0.1453",
+     "source": "taco/40_representation_study/time_decomp/dynamic_contact/exp1/zero_transition_share.csv",
+     "locator": "rows axis=time; columns frac_one_zero, d2share_one_zero"
+    },
+    "ARCTIC | high_contact: time/take raw / amount / pattern": {
+     "value": "0.8413149316558024 / 0.8059293735924679 / 0.8590077456110702",
+     "source": "arctic/30_dynamic_contact/verify/v1_v2_ordering_configs.csv",
+     "locator": "rows '*|mean|high_contact|tol0.10'; column macro_time_over_take"
+    },
+    "ARCTIC | both_nonzero: time/take amount (mass_abs) / log-amount": {
+     "value": "0.9041445794425265 / 0.9762238595102162",
+     "source": "arctic/30_dynamic_contact/verify/v1_v2_ordering_configs.csv",
+     "locator": "rows 'mass_abs|mean|both_nonzero|tol0.10', 'mass_log|mean|both_nonzero|tol0.10'; column macro_time_over_take"
+    }
+   },
+   "caveats": [
+    "Keep both TACO restrictions: 'the time excess disappears in firm contact' holds for the above-median restriction (0.94) and not for the 1 cm rule (1.44).",
+    "On TACO the excess is hovering-to-firm-contact grading, not on/off (at most 6.6 % of time pairs have one zero frame); on ARCTIC it is on/off (22-36 % of time pairs). The mechanisms differ by dataset.",
+    "Soft contact has a long tail (a hand hovering 4 cm away still gives about 0.13 per vertex), so 'amount' includes near-contact, not only touching.",
+    "These restricted values are from the verification table (float32 recomputation; they differ from ratios.csv in the 8th digit)."
+   ],
+   "claim_as_extracted": "The temporal excess of the amount is associated with approach / release and on-off phases of a take: on TACO it disappears when both frames are above the group-median amount (time/take 0.94) but remains 1.44 when both frames merely have a vertex within 1 cm, and in both restrictions the pattern ratio is below 1 (0.65 and 0.80); on ARCTIC it disappears once both frames are in contact.",
+   "correction_reason": "Numbers confirmed in the two verify tables. Approach and release phases are not labelled on TACO or ARCTIC; the restrictions select pairs by contact amount, so 'associated with approach / release phases' is the reports' interpretation, not the measured condition. 'Disappears' for 0.94 hides that 4 of 8 groups are still above 1. ARCTIC values should be stated, and 'in contact' means 'neither frame zero-contact'."
+  },
+  {
+   "block": "F1-A",
+   "claim": "Secondary (lag structure): within a take the normalised pattern does change with time lag on every dataset; at about 1 s (lag 32 frames) it reaches 0.67 of the cross-take level on TACO, 0.54 on ARCTIC and 0.25 on OakInk2, against 1.28, 0.56 and 0.32 for the amount, so the amount outruns the pattern on TACO while the two grow together on ARCTIC and OakInk2.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "report": "reports/dynamic_contact_crossdataset.md",
+   "source_files": [
+    "reports/dynamic_contact_crossdataset.md",
+    "reports/crossdataset_exp2.csv",
+    "arctic/30_dynamic_contact/dynamic_contact_report_arctic.md",
+    "oakink2/10_dynamic_contact/dynamic_contact_report_oakink2.md"
+   ],
+   "metric": "Experiment 2: mean distance between frames t and t + lag of one take (frames at 30 fps, 'touching' set = both frames non-zero, per-take means), divided by the group's matched-phase cross-take distance of the same metric; macro over groups. 1 = cross-take level. 'top-10 % share' = fraction of a take's summed frame-to-frame change carried by its 10 % largest frames, against an iid half-normal null. No direction is better.",
+   "numbers": {
+    "TACO | lag 32 level / cross-take: raw, amount, pattern (macro over 8 groups)": {
+     "value": "0.882 / 1.282 / 0.666",
+     "source": "reports/dynamic_contact_crossdataset.md",
+     "locator": "table 'Experiment 2 - lag structure', rows raw_lag32_over_take, mass_abs_lag32_over_take, pattern_L2_lag32_over_take, column TACO (header row is broken: dataset names are in the first data row); per-group values in crossdataset_exp2.csv"
+    },
+    "ARCTIC | lag 32 level / cross-take: raw, amount, pattern (macro over 22 groups)": {
+     "value": "0.554 / 0.556 / 0.541",
+     "source": "reports/dynamic_contact_crossdataset.md",
+     "locator": "same table, column ARCTIC"
+    },
+    "OakInk2 | lag 32 level / cross-take: raw, amount, pattern (macro over 39 groups)": {
+     "value": "0.250 / 0.324 / 0.252",
+     "source": "reports/dynamic_contact_crossdataset.md",
+     "locator": "same table, column OakInk2"
+    },
+    "ARCTIC | lag 64 (2.1 s) level / cross-take: raw / amount / pattern": {
+     "value": "0.76 / 0.72 / 0.75",
+     "source": "arctic/30_dynamic_contact/dynamic_contact_report_arctic.md",
+     "locator": "section 3 table, column 'lag 64 (2.1 s)' (re-derived from lag_curves.csv and exp1/four_axes_long.csv: 0.758 / 0.718 / 0.746)"
+    },
+    "OakInk2 | lag 64 (2.1 s) level / cross-take: raw / amount / pattern": {
+     "value": "0.33 / 0.43 / 0.33",
+     "source": "oakink2/10_dynamic_contact/dynamic_contact_report_oakink2.md",
+     "locator": "section 3 table, column 'lag 64 (2.1 s)'"
+    },
+    "TACO | top-10 % share of the frame-to-frame change (iid null), macro": {
+     "value": "0.338 (0.268)",
+     "source": "reports/dynamic_contact_crossdataset.md",
+     "locator": "same Experiment 2 table, rows top10 / null10, column TACO"
+    },
+    "ARCTIC | top-10 % share of the frame-to-frame change (iid null), macro": {
+     "value": "0.435 (0.259)",
+     "source": "reports/dynamic_contact_crossdataset.md",
+     "locator": "rows top10 / null10, column ARCTIC"
+    },
+    "OakInk2 | top-10 % share of the frame-to-frame change (iid null), macro": {
+     "value": "0.273 (0.267)",
+     "source": "reports/dynamic_contact_crossdataset.md",
+     "locator": "rows top10 / null10, column OakInk2"
+    }
+   },
+   "caveats": [
+    "Notes only; no figure was built for this.",
+    "TACO report: the pattern stays below the cross-take level through lag 48 in 6 of 8 groups and crosses it for roller and knife; the amount crosses at 16-26 frames in 7 of 8 groups. TACO lag 64 exists only in takes with at least two windows (a selection effect).",
+    "ARCTIC report marks the lag structure as NOT the same conclusion as TACO: 'on articulated objects the location drifts with the amount'.",
+    "The labels 'Case A / B / C' used in the reports' Experiment-2 answers are not defined in the reports; use the words (smooth, power-law, no plateau-and-jump)."
+   ]
+  },
+  {
+   "block": "F1-A",
+   "claim": "Secondary (object-trajectory predictability): the current object state predicts part of the contact amount on held-out takes on TACO (R2 0.67, 0.70 with a short context) and less on ARCTIC (0.32, 0.30), and provides no gain on average on OakInk2 (R2 negative; error above the per-instance mean).",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "report": "reports/dynamic_contact_crossdataset.md",
+   "source_files": [
+    "reports/crossdataset_exp3.csv"
+   ],
+   "metric": "Experiment 3: one small MLP per group predicts the 512-D contact map of a frame from geometry (A), plus the current object state (B), plus +-8 frames of object states (C); held-out takes, 3 folds, macro over groups. r2_mass = 1 - MSE(predicted mass) / variance(true mass), higher is better; raw = L2 error of the 512-D map, lower is better.",
+   "numbers": {
+    "TACO | R2 of the amount, held-out takes: current state (mlp_B) / + local context (mlp_C)": {
+     "value": "0.6701252268006405 / 0.6992850303649902",
+     "source": "reports/crossdataset_exp3.csv",
+     "locator": "rows dataset=TACO, split=take, model=mlp_B_current_state / mlp_C_local_context; column r2_mass"
+    },
+    "TACO | R2 of the amount, unseen meshes: mlp_B / mlp_C": {
+     "value": "0.0034477437535921363 / 0.22217434023817376",
+     "source": "reports/crossdataset_exp3.csv",
+     "locator": "rows TACO, split=mesh, mlp_B / mlp_C; column r2_mass"
+    },
+    "ARCTIC | R2 of the amount, held-out takes: mlp_B / mlp_C": {
+     "value": "0.3183229351134011 / 0.3018894511641878",
+     "source": "reports/crossdataset_exp3.csv",
+     "locator": "rows ARCTIC, split=take, mlp_B / mlp_C; column r2_mass"
+    },
+    "OakInk2 | R2 of the amount, held-out takes: mlp_B / mlp_C": {
+     "value": "-1.6092901631361907 / -1.781334934167118",
+     "source": "reports/crossdataset_exp3.csv",
+     "locator": "rows OakInk2, split=take, mlp_B / mlp_C; column r2_mass"
+    },
+    "OakInk2 | raw L2 error, held-out takes: per-instance mean / mlp_B / mlp_C / oracle take mean": {
+     "value": "3.162996808717245 / 3.3877227272676578 / 3.377684801604057 / 0.8815004535443964",
+     "source": "reports/crossdataset_exp3.csv",
+     "locator": "rows OakInk2, split=take, base_mesh_mean / mlp_B / mlp_C / oracle_seq_mean; column raw"
+    },
+    "TACO | raw L2 error, held-out takes: geometry only (mlp_A) / mlp_B / mlp_C / full 64-frame window (mlp_D)": {
+     "value": "2.7403660236944125 / 1.812796817265183 / 1.7528136250216568 / 2.456074863846185",
+     "source": "reports/crossdataset_exp3.csv",
+     "locator": "rows TACO, split=take, mlp_A / mlp_B / mlp_C / mlp_D; column raw"
+    }
+   },
+   "caveats": [
+    "Notes only; no figure was built for this.",
+    "Small predictors, one MLP and one ridge, no per-condition hyper-parameter search, fold seeds only; training sets outside TACO are small, so the weaker predictability on ARCTIC and OakInk2 is partly a data-size statement.",
+    "OakInk2: 'none on average'; the report says the object state helps in most of the larger groups and hurts in the small ones.",
+    "Nothing here measures whether a better contact representation improves the hand-motion stage (stated by the TACO report)."
+   ]
+  }
+ ],
+ "dataset_differences": [
+  "Amount, time/take (macro): TACO 2.12 (8 of 8 groups above 1), ARCTIC 1.10 (14 of 22; log-mass 1.57, 22 of 22), OakInk2 0.60 (2 of 39). 'The amount changes much more over time' is a TACO result; on ARCTIC it is weak on |delta mass| and on OakInk2 there is no temporal excess.",
+  "Pattern, time/take (macro): TACO 1.04 (3 of 8 groups above 1), ARCTIC 0.94 (6 of 22), OakInk2 0.45 (0 of 39). On TACO the within-take pattern change is about equal to the take-to-take difference, not smaller.",
+  "Identity axis differs by dataset: TACO mesh/take 1.48 (8 of 8); OakInk2 object-instance/take 1.69 (16 of 17 groups, the other 22 groups have no mesh axis); ARCTIC has one mesh per object and uses subject / SAME-SUBJECT take 1.16 (22 of 22). Against the take level used by the time ratios, ARCTIC subject/take is 1.011.",
+  "OakInk2 also has a subject axis: subject/take 1.066 on the pattern (35 of 39), measured against the any-subject take level, so it is the analogue of ARCTIC's 1.011, not of ARCTIC's 1.156.",
+  "What a take is: TACO one (verb, tool, target) recording with approach and release, 64-448 windowed frames (median 128 = 4.3 s), 2.8 % zero-contact frames; ARCTIC one recording of one articulated object, 512-1088 frames (median 704 = 23.5 s), 17 % zero-contact frames; OakInk2 the interaction range of one program primitive, 64-1856 frames (median 128), 0.16 % zero-contact frames.",
+  "Source of the temporal amount change: TACO hovering-to-firm-contact grading (0.7-6.6 % of time pairs have one zero frame; time/take amount 0.94 when both frames are above median mass, 1.44 under the 1 cm rule); ARCTIC on/off between episodes (22-36 % of time pairs; 0.90 / 0.98 once both frames are non-zero); OakInk2 none.",
+  "OakInk2 control with approach and retreat put back (39 common groups): time/take amount 0.60 to 1.38 (2 to 33 groups above 1), pattern 0.45 to 0.61 (0 to 2 groups). The control exists for OakInk2 only and for Experiments 1-2 only.",
+  "Lag structure: on TACO the amount outruns the pattern (lag 32: 1.28 vs 0.67 of the cross-take level); on ARCTIC (0.56 vs 0.54) and OakInk2 (0.32 vs 0.25) the two grow together and stay below the cross-take level within 2 s.",
+  "Group structure and size: TACO 8 groups (category x role x hand), 222-897 takes per group; ARCTIC 22 groups (object x hand), 23-30 takes per group; OakInk2 39 groups (category x hand), 20-160 takes per group, 1,985 takes analysed of 4,603 extracted.",
+  "Within-take pairs per group: TACO 3074-13369, ARCTIC 473-612, OakInk2 291-2839 (cross axes up to 4000 each), so ARCTIC per-group intervals are the widest.",
+  "Robustness checks differ: the aligned-canonicalisation rerun exists for TACO only (amount 2.27, pattern 1.03); it was not run on ARCTIC or OakInk2.",
+  "Qualitative renders exist for TACO only.",
+  "Object-trajectory predictability of the amount on held-out takes: TACO R2 0.67 / 0.70, ARCTIC 0.32 / 0.30, OakInk2 negative."
+ ],
+ "do_not_claim": [
+  "'Contact does not move over time' or 'the spatial pattern is constant within a take': the pattern changes with lag on all three datasets, exceeds the take level in 3 of 8 TACO groups and 6 of 22 ARCTIC groups, and the reports show a migrating take.",
+  "'Within a take the spatial pattern varies less than between takes' as a general statement: true on OakInk2 (0.45), marginal on ARCTIC (0.94), not true on TACO as a macro mean (1.04; pooled 0.96).",
+  "'On all datasets the amount changes much more over time than the pattern': only TACO shows it (2.12 vs 1.04); ARCTIC 1.10 vs 0.94, OakInk2 0.60 vs 0.45 with both below the take level.",
+  "That the amount ratio and the pattern ratio are directly comparable magnitudes: they are different metrics, each divided by its own cross-take level.",
+  "'Grasp identity changes the pattern': no grasp label or grasp axis exists in this study; the measured axes are take, mesh / object instance, subject and action (verb).",
+  "'Geometry changes the pattern by 1.48x' as a pure geometry effect: TACO meshes are confounded with the subjects who used them; on ARCTIC the subject axis is confounded with session and hand size.",
+  "A single 'subject/take' number comparable across ARCTIC and OakInk2: ARCTIC's 1.16 is over the same-subject take level, OakInk2's 1.07 over the any-subject take level.",
+  "'The temporal amount excess disappears in firm contact' without the second number: on TACO it is 0.94 above median mass but 1.44 under the 1 cm hard-contact rule.",
+  "Any confidence interval or significance statement for the macro ratios: the sources give bootstrap intervals per group only.",
+  "That OakInk2 was analysed on 4,603 takes: 1,985 takes entered the analysis.",
+  "That the OakInk2 control isolates the effect of approach and retreat on identical takes: the two runs contain different take samples (1,985 vs 3,239 takes in the common groups).",
+  "A pooled or averaged cross-dataset ratio: none exists in the sources and none should be computed.",
+  "That these ratios show time is 'irrelevant' or 'noise', or that a static contact map is sufficient: the ARCTIC report states that one static map per take is not enough on long articulated takes.",
+  "That this study shows a better contact representation improves hand-motion generation: the TACO report says it does not measure that.",
+  "Causal wording such as 'approach and release cause the amount change': the sources show an association through pair restrictions and one control, not an intervention on the same takes."
+ ],
+ "candidate_images": [
+  {
+   "path": "taco/40_representation_study/time_decomp/dynamic_contact/qualitative/qual_on_off.png",
+   "block": "F1-A",
+   "shows": "One TACO take (scrape off, knife, plate; left hand on the plate, 256 frames = 8.5 s). Top: summed soft contact over time, zero, then a flat plateau near 100, then zero. Middle: contact centroid coordinates, flat during the plateau. Bottom: six renders of the soft contact on the plate mesh, the same region lit at 1.7 s, 3.4 s and 5.1 s and empty at the ends.",
+   "caption": "One TACO take: the contact amount switches on, stays near 100 for about 4.5 s and switches off, while the contact region on the plate stays in place (41 % of the frames are zero-contact). Selected automatically as an on/off example; the report calls it the extreme case, the general finding being a smoothly varying amount on a slowly drifting pattern.",
+   "size": "535,817 bytes; 1980 x 935 px. Embedded title is a debug string (crop or cover the top strip); the centroid panel covers only the non-zero span (about 0.9-5.9 s) on a different x-axis than the amount panel (0-8.5 s)."
+  },
+  {
+   "path": "taco/40_representation_study/time_decomp/dynamic_contact/qualitative/qual_migration.png",
+   "block": "F1-A",
+   "shows": "One TACO take (dust, roller, bowl; left hand on the bowl, 64 frames = 2.1 s). Top: summed soft contact stays between about 25 and 42. Middle: centroid coordinates drift. Bottom: six renders in which the contact region moves along the bowl from the rim towards the inner wall.",
+   "caption": "Counter-example from TACO: the contact amount stays between 25 and 42 while the contact region moves along the bowl (centroid net shift 0.48 canonical units). Selected automatically as the largest centroid shift at near-constant amount: individual takes can migrate, so the finding is relative, not 'contact does not move'.",
+   "size": "491,228 bytes; 1980 x 935 px. Embedded title is a debug string."
+  },
+  {
+   "path": "taco/40_representation_study/time_decomp/dynamic_contact/qualitative/qual_stable.png",
+   "block": "F1-A",
+   "shows": "One TACO take (empty, plate, bowl; left hand on the bowl, 128 frames = 4.3 s). Top: summed soft contact between 44 and 66. Middle: centroid coordinates nearly constant. Bottom: six renders with the same rim region lit throughout.",
+   "caption": "One TACO take in which the bowl is held at the rim for 4.3 s: the contact amount stays between 44 and 66 and the contact region does not move (centroid net shift 0.05 canonical units). Selected automatically as the lowest mean frame-to-frame change among firm-contact takes.",
+   "size": "470,021 bytes; 1980 x 935 px. Embedded title is a debug string."
+  }
+ ],
+ "verification": {
+  "reliability": "high",
+  "numbers_confirmed": 63,
+  "numbers_checked": 63,
+  "number_corrections": [],
+  "claims_supported_as_extracted": 3,
+  "claims_checked": 7,
+  "figure_checks": [
+   {
+    "id": "f1a_time_vs_identity_ratios",
+    "verdict": "fixed",
+    "note": "Module ran (exit 0). All 9 plotted values equal the macro column of reports/crossdataset_exp1.csv for the right dataset, ratio and metric (TACO 2.1235 / 1.0360 / 1.4829; ARCTIC 1.0988 / 0.9406 / 1.1559; OakInk2 0.6013 / 0.4522 / 1.6860); group counts in the note match n_groups / groups_gt_1; direction 'none'; no error bars, as the note says. No plotted value is typed in the code (numeric literals in the module: 0 and the reference value 1.0). Problem fixed: the ARCTIC third bar (subject / same-subject take) was drawn against a reference line labelled 'cross-take level' although its denominator differs from the first two bars. Changes, labels and note only: ARCTIC reference line is now labelled 'cross-take level (same-subject takes for the subject bars)'; the OakInk2 third bar is labelled 'object instance / take' instead of 'mesh / take'; the note names the identity axis per dataset and ends with the like-for-like ARCTIC value read at run time from arctic/30_dynamic_contact/verify/v1_v2_ordering_configs.csv (row pattern_L2|mean|all|tol0.10: 1.011, 16 of 22 groups), which was added to SOURCES and to the figure's sources. Re-run: all values still match."
+   },
+   {
+    "id": "f1a_axes_amount_vs_pattern",
+    "verdict": "fixed",
+    "note": "All 27 plotted values equal the macro column of reports/crossdataset_exp1.csv (three series mass_abs, mass_log, pattern_L2 by time/take, identity ratio, action/take, per dataset). Group counts in the note (TACO 8 / 8 / 8; ARCTIC 22 / 22 / 22; OakInk2 39 / 17 / 38) match n_groups for all three metrics. Same fix as the first figure: ARCTIC reference-line label, OakInk2 category label 'object instance / take', and the ARCTIC like-for-like sentence (1.011, 16 of 22) appended to the note with its source. No plotted value changed."
+   },
+   {
+    "id": "f1a_per_group_time_over_take",
+    "verdict": "ok",
+    "note": "69 points (8 + 22 + 39 groups), every x and y equal to the value column of each dataset's exp1/ratios.csv for ratio = time/take, stat = mean, metric = mass_abs (x) and pattern_L2 (y); no group is dropped by the hand split (suffix __L / __R); TACO left = target groups, right = tool groups, as the note says. Counts read off the points agree with the table: x > 1 in 8 / 14 / 2 groups, y > 1 in 3 / 6 / 0. The per-group 95 % intervals (columns lo, hi) are not drawn, as stated. Unchanged."
+   }
+  ],
+  "image_checks": [
+   {
+    "path": "taco/40_representation_study/time_decomp/dynamic_contact/qualitative/qual_on_off.png",
+    "exists": true,
+    "note": "Opened; 1980 x 935 px, 535,817 bytes. Caption supported with one correction: the contact region is constant during the plateau only. The centroid panel shows it moving at onset and release (qualitative_examples.csv: centroid_net 0.3086), so write 'stays in place during the plateau'. Values match the csv and the report: frac_zero 0.40625 (41 %), 256 frames = 8.5 s, mass_max 101.4, plateau about 4.5 s per the report (about 1.4 s to 5.7 s in the plot). Title is a debug string; the centroid panel has a different x-axis (0.9 to 5.9 s) from the amount panel (0 to 8.5 s). Keep 'the report calls it the extreme case'."
+   },
+   {
+    "path": "taco/40_representation_study/time_decomp/dynamic_contact/qualitative/qual_migration.png",
+    "exists": true,
+    "note": "Opened; 1980 x 935 px, 491,228 bytes. Caption supported: mass_min 24.84, mass_max 41.59, centroid_net 0.4831, 64 frames = 2.1 s, frac_zero 0; the renders show the lit region moving from a small patch at the rim (t = 0) to the inner wall, most of it within the first 0.5 to 0.8 s. Selection rule matches the report (largest centroid shift at near-constant mass). Title is a debug string."
+   },
+   {
+    "path": "taco/40_representation_study/time_decomp/dynamic_contact/qualitative/qual_stable.png",
+    "exists": true,
+    "note": "Opened; 1980 x 935 px, 470,021 bytes. Caption supported: mass_min 44.46, mass_max 66.31, centroid_net 0.0533, 128 frames = 4.3 s; same rim region lit in all six renders. Prefer 'the contact region stays in place (centroid net shift 0.05)' to 'does not move'. Selection rule matches the report (lowest mean frame-to-frame change among firm-contact takes). Title is a debug string."
+   }
+  ],
+  "attached_by_the_verifier": [
+   "The page's own 'correct statement' is not supported as written for TACO: within-take pattern variation is NOT smaller than take-to-take variation there (time/take 1.04 macro, 0.96 pooled, 3 of 8 groups above 1). Supported wording for TACO: about the same as between two takes of the same mesh, and smaller than between meshes (time/mesh 0.69, 0 of 8 groups). 'Grasp' is not an axis in this study (axes: time, take, mesh / object instance, subject, action).",
+   "'The amount changes much more over time than the pattern' is a TACO result only (2.12 against 1.04). ARCTIC: 1.10 against 0.94 (log-amount 1.57). OakInk2: 0.60 against 0.45, both below the take level. The two ratios are in different metrics, each divided by its own cross-take level.",
+   "Caveat not delivered for the mesh ratio: it depends on the canonicalisation. TACO mesh/take on the pattern is 1.4829 with the 'normalized' backend and 1.9753 with the 'aligned' backend (verify/v5_backend_summary.csv, row pattern_L2,mesh/take; time/take 1.036 against 1.034). The TACO report states the backend is a geometric normalisation, not a correspondence, and that absolute pattern distances depend on the 512-point support. The aligned rerun exists for TACO only.",
+   "Group counts 'N of M above 1' are point estimates. Per-group 95 % intervals (exp1/ratios.csv, columns lo / hi) often include 1: TACO plate/L amount time/take 1.110 [0.995, 1.249]; on ARCTIC only 5 of 22 groups have a subject / same-subject-take pattern interval above 1 and 2 of 22 an amount time/take interval above 1 (verifier's count from the lo / hi columns, not a number printed in any report; use only qualitatively). No interval exists for any macro value.",
+   "Scope against a later analysis: reports/temporal_contact_events/temporal_contact_event_report.md (Conclusion 2) reports that among large frame-to-frame changes 'amount-dominant' events are rare (5 % of events on TACO and OakInk2, 14 % on ARCTIC). F1-A is about early-vs-late pair distances relative to cross-take levels; word it so the two blocks do not contradict each other. Only the head of that report was read here; it belongs to another unit.",
+   "Figure descriptions in the extractor JSON are now slightly out of date: in both bar figures the OakInk2 identity bar is labelled 'object instance / take', the ARCTIC reference line has its own label, and the notes end with the ARCTIC like-for-like subject/take value (1.011, 16 of 22 groups). The ARCTIC verify table is now a declared source of the module.",
+   "Robustness available but not delivered: phase tolerance 0.05 / 0.10 / 0.20 gives TACO amount time/take 2.19 / 2.12 / 1.94 and pattern 1.034 / 1.036 / 1.022; ARCTIC pattern 0.941 / 0.941 / 0.938 (verify/v1_v2_ordering_configs.csv, rows *|mean|all|tol*). Median-based macro ratios point the same way (TACO pattern time/take 1.03).",
+   "Zero-contact shares 2.8 % / 17 % / 0.16 % are over the full stride-1 cache (exp2/per_sequence.csv, frame-weighted 0.0284 / 0.1697 / 0.0016); the OakInk2 report prints 0.2 %. In the frame set Experiment 1 actually uses, the per-group shares are 0.2-1.9 % (TACO), 8.5-18.2 % (ARCTIC) and 0.0-0.5 % (OakInk2) (logs/exp1.log).",
+   "Takes per group: ARCTIC '23-30' and TACO '222-897' are the Experiment-1 frame set (logs/exp1.log); the reports and the full cache give 24-30 and 235-926. State which one is meant.",
+   "Lag statement 'stay below the cross-take level within 2 s' (ARCTIC, OakInk2) holds for the macro means only; keep it worded as a macro statement.",
+   "Qualitative images exist for TACO only and all carry a debug-string title that must be cropped or covered; the on/off example is the report's 'extreme case' (41 % zero frames), not a typical take."
+  ]
+ }
+}

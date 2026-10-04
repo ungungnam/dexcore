@@ -1,0 +1,142 @@
+{
+  "blocks": {
+    "part": 6,
+    "amount": 6,
+    "geom": 36,
+    "topo": 12,
+    "hand": 42,
+    "C": 512,
+    "H": 300
+  },
+  "block_labels": {
+    "part": "participation a_k",
+    "amount": "contact amount m_k",
+    "geom": "centroid p_k + normal n_k",
+    "topo": "spread s_k + patch count c_k",
+    "hand": "coarse hand kinematics H_coarse",
+    "C": "dense canonical contact C_t (512)",
+    "H": "100 MANO surface points H_t (300)"
+  },
+  "ladder": {
+    "R0": [
+      "part"
+    ],
+    "R1": [
+      "part",
+      "amount"
+    ],
+    "R2": [
+      "part",
+      "amount",
+      "geom"
+    ],
+    "R3": [
+      "part",
+      "amount",
+      "geom",
+      "topo"
+    ],
+    "R4": [
+      "part",
+      "amount",
+      "geom",
+      "hand"
+    ],
+    "R5": [
+      "part",
+      "amount",
+      "geom",
+      "topo",
+      "hand"
+    ],
+    "CONTACT_FULL": [
+      "C"
+    ],
+    "FULL": [
+      "C",
+      "H"
+    ]
+  },
+  "dims": {
+    "R0": 6,
+    "R1": 12,
+    "R2": 48,
+    "R3": 60,
+    "R4": 90,
+    "R5": 102,
+    "CONTACT_FULL": 512,
+    "FULL": 812
+  },
+  "window_frames": 8,
+  "participation": "n_hard >= 3 vertices within 1 cm, causal 3-frame majority",
+  "amount": "area-weighted soft mass sum exp(-d/0.02) A_v / A_total over the part's vertices (<= 2 cm)",
+  "geometry": "centroid / l and mean toward-hand normal of the hard-contact vertices; RMS spread / l; patch count (1 cm / merge 1 cm)",
+  "hand_coarse": "wrist / l, palm frame (toward fingers, toward thumb side, dorsal), fingertips / l, MCP->tip directions",
+  "T1_proxy_for_paired_gaps": "per-frame mean |p(a_k) - a_k| over the 6 parts (a proper score of the participation probabilities)",
+  "table": [
+    {
+      "representation": "R0",
+      "label": "R0 participation",
+      "blocks": "part",
+      "dim": 6,
+      "window_dim": 48,
+      "components": "participation a_k"
+    },
+    {
+      "representation": "R1",
+      "label": "R1 + amount",
+      "blocks": "part + amount",
+      "dim": 12,
+      "window_dim": 96,
+      "components": "participation a_k; contact amount m_k"
+    },
+    {
+      "representation": "R2",
+      "label": "R2 + centroid / normal",
+      "blocks": "part + amount + geom",
+      "dim": 48,
+      "window_dim": 384,
+      "components": "participation a_k; contact amount m_k; centroid p_k + normal n_k"
+    },
+    {
+      "representation": "R3",
+      "label": "R3 + spread / patches",
+      "blocks": "part + amount + geom + topo",
+      "dim": 60,
+      "window_dim": 480,
+      "components": "participation a_k; contact amount m_k; centroid p_k + normal n_k; spread s_k + patch count c_k"
+    },
+    {
+      "representation": "R4",
+      "label": "R4 = R2 + coarse hand",
+      "blocks": "part + amount + geom + hand",
+      "dim": 90,
+      "window_dim": 720,
+      "components": "participation a_k; contact amount m_k; centroid p_k + normal n_k; coarse hand kinematics H_coarse"
+    },
+    {
+      "representation": "R5",
+      "label": "R5 = R3 + coarse hand",
+      "blocks": "part + amount + geom + topo + hand",
+      "dim": 102,
+      "window_dim": 816,
+      "components": "participation a_k; contact amount m_k; centroid p_k + normal n_k; spread s_k + patch count c_k; coarse hand kinematics H_coarse"
+    },
+    {
+      "representation": "CONTACT_FULL",
+      "label": "dense contact",
+      "blocks": "C",
+      "dim": 512,
+      "window_dim": 4096,
+      "components": "dense canonical contact C_t (512)"
+    },
+    {
+      "representation": "FULL",
+      "label": "dense contact + hand",
+      "blocks": "C + H",
+      "dim": 812,
+      "window_dim": 6496,
+      "components": "dense canonical contact C_t (512); 100 MANO surface points H_t (300)"
+    }
+  ]
+}

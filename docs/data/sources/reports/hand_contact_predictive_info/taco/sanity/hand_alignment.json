@@ -1,0 +1,122 @@
+{
+  "all": {
+    "n_frames": 21952,
+    "n_sequences": 343,
+    "pearson": 0.9815120861714755,
+    "median_abs_diff_mm": 0.750057035873632,
+    "p95_abs_diff_mm": 3.0213051520157244,
+    "frac_hand100_below_contact": 0.0,
+    "hard_frames": 20971,
+    "hard_frac_hand100_within_2cm": 1.0,
+    "hard_median_hand100_mm": 1.5355093102033717,
+    "nonhard_median_hand100_mm": 20.40954019129359
+  },
+  "target": {
+    "n_frames": 11776,
+    "n_sequences": 184,
+    "pearson": 0.9864460335093741,
+    "median_abs_diff_mm": 0.7822615141865662,
+    "p95_abs_diff_mm": 2.9317514661335013,
+    "frac_hand100_below_contact": 0.0,
+    "hard_frames": 11112,
+    "hard_frac_hand100_within_2cm": 1.0,
+    "hard_median_hand100_mm": 1.608672983736058,
+    "nonhard_median_hand100_mm": 21.373405944298582
+  },
+  "tool": {
+    "n_frames": 10176,
+    "n_sequences": 159,
+    "pearson": 0.9670887683655982,
+    "median_abs_diff_mm": 0.7167644194833466,
+    "p95_abs_diff_mm": 3.1275377323677263,
+    "frac_hand100_below_contact": 0.0,
+    "hard_frames": 9859,
+    "hard_frac_hand100_within_2cm": 1.0,
+    "hard_median_hand100_mm": 1.4505234860367207,
+    "nonhard_median_hand100_mm": 18.745177953156087
+  },
+  "tool_wrong_6d_layout": {
+    "n_frames": 10176,
+    "n_sequences": 159,
+    "pearson": 0.2385725991057149,
+    "median_abs_diff_mm": 4.6469852570764045,
+    "p95_abs_diff_mm": 55.3383110721476,
+    "frac_hand100_below_contact": 0.11920204402515723,
+    "hard_frames": 9859,
+    "hard_frac_hand100_within_2cm": 0.7246171011258749,
+    "hard_median_hand100_mm": 4.604178887749526,
+    "nonhard_median_hand100_mm": 21.055083508660857
+  },
+  "event_labels": {
+    "q90": 0.6155718564987183,
+    "q90_previous": 0.6155718564987183,
+    "n_events_all": 12720,
+    "n_events_test": 1464,
+    "n_events_test_previous": 1464,
+    "test_events_identical_to_previous": true,
+    "n_positive_events": 5216,
+    "positive_by_split": {
+      "test": 684,
+      "test_extra": 2389,
+      "train": 1945,
+      "val": 198
+    },
+    "events_by_split": {
+      "test": 1464,
+      "test_extra": 6433,
+      "train": 4379,
+      "val": 444
+    },
+    "positive_rule": "persistent spatial / persistent mixed (persistence_h4 >= 0.5, or the event-level persistence when the h=4 window leaves the sequence) + release, onset+release and onset (regrasp) events"
+  },
+  "spearman_d_vs_hand_speed_test": {
+    "rho": 0.7848196562645295,
+    "lo": 0.7673831816020958,
+    "hi": 0.800600452072939,
+    "n": 22932
+  },
+  "agreement_with_previous_test_table": {
+    "n_frames": 22932,
+    "firm_state": 1.0,
+    "spike": 1.0,
+    "hand_speed_pearson": 0.5281382568890628,
+    "hand_speed_max_abs_diff": 0.1547097811363414
+  },
+  "spearman_d_vs_hand_speed_test_with_wrong_6d_layout": {
+    "rho": 0.6750419653107493,
+    "lo": 0.649788048785031,
+    "hi": 0.6942257556227169
+  },
+  "event_label_balance": {
+    "h4_train": {
+      "n_valid": 77408,
+      "n_pos": 5654,
+      "prevalence": 0.07304154609342704
+    },
+    "h4_val": {
+      "n_valid": 8319,
+      "n_pos": 551,
+      "prevalence": 0.06623392234643587
+    },
+    "h4_test": {
+      "n_valid": 21476,
+      "n_pos": 2099,
+      "prevalence": 0.09773700875395791
+    },
+    "h8_train": {
+      "n_valid": 72160,
+      "n_pos": 8970,
+      "prevalence": 0.12430709534368072
+    },
+    "h8_val": {
+      "n_valid": 7755,
+      "n_pos": 849,
+      "prevalence": 0.10947775628626692
+    },
+    "h8_test": {
+      "n_valid": 20020,
+      "n_pos": 3360,
+      "prevalence": 0.16783216783216784
+    }
+  }
+}

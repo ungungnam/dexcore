@@ -1,0 +1,996 @@
+{
+ "unit": "G_structure_aware",
+ "figure_module": "docs/build/figs/f3a_structure_aware.py",
+ "entries": [
+  {
+   "block": "F3-A",
+   "claim": "With the true initial contact s_0 given, adding the explicit R2 output loss to the deterministic dense generator (D1 versus D0) did not improve it. TACO: participation, centroid, normal and wrench-profile errors are 1.8-5.4 % higher and the dense error 1.4 % higher (all intervals exclude zero). ARCTIC: centroid, normal and wrench-profile errors are 3.1-4.9 % higher (intervals exclude zero), while participation (+0.8 % [-2.1, +3.4]) and dense error (+0.7 % [-0.7, +2.0]) are not distinguishable from no change. Of the six reported errors only the contact amount is lower, by under 1 % (TACO -0.9 % [-1.4, -0.4]; ARCTIC -0.8 % [-1.8, +0.3], interval includes zero). This holds for the one surrogate tested (differentiable grid R2 operator, weights 0.3 / 1 / 3, validation chose 0.3).",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_aware_temporal_generation/report.md",
+   "source_files": [
+    "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+    "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+    "reports/structure_aware_temporal_generation/taco/lambda_choice.json",
+    "reports/structure_aware_temporal_generation/arctic/lambda_choice.json"
+   ],
+   "metric": "Relative change (%) of the test-mean error of D1 against D0, paired per test sequence, protocol A (true s_0 given, frames 1-63), 3 training seeds averaged per sequence; positive = D1 worse (all metrics are errors, lower is better). Brackets = 95 % take-cluster bootstrap interval of the ratio (1000 reps). n = 364 test sequences (TACO), 186 (ARCTIC). Metrics: participation Hamming (fraction of 6 hand parts wrong), centroid distance (object lengths), normal angle (deg), wrench-profile relative L1 (proxy for functional grasp capability), amount L1, dense error E_C.",
+   "numbers": {
+    "TACO | D1 vs D0 participation error, rel. change % [95 % CI]": {
+     "value": "3.490045395446195 [2.140503300652652, 4.905689297526439]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D0, b=D1, metric=part_hamming, stat=K1; columns rel_change_pct, rel_lo, rel_hi"
+    },
+    "ARCTIC | D1 vs D0 participation error, rel. change % [95 % CI]": {
+     "value": "0.7943380618535612 [-2.063134892872409, 3.399851700402401]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D0, b=D1, metric=part_hamming, stat=K1"
+    },
+    "TACO | D1 vs D0 centroid error, rel. change % [95 % CI]": {
+     "value": "5.354459661047839 [4.28337524606357, 6.561118077649386]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D0, b=D1, metric=centroid, stat=K1"
+    },
+    "ARCTIC | D1 vs D0 centroid error, rel. change % [95 % CI]": {
+     "value": "4.870230341240722 [1.4473504523440983, 8.039006419789029]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D0, b=D1, metric=centroid, stat=K1"
+    },
+    "TACO | D1 vs D0 normal-angle error, rel. change % [95 % CI]": {
+     "value": "2.164676653750175 [1.3708333317153487, 2.8113849026750737]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D0, b=D1, metric=normal, stat=K1"
+    },
+    "ARCTIC | D1 vs D0 normal-angle error, rel. change % [95 % CI]": {
+     "value": "3.947100200262943 [1.2541019440243995, 7.1002470787112415]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D0, b=D1, metric=normal, stat=K1"
+    },
+    "TACO | D1 vs D0 wrench-profile error, rel. change % [95 % CI]": {
+     "value": "1.7898194727603345 [0.7692297596159969, 2.765691147725602]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D0, b=D1, metric=q_rel_l1, stat=K1"
+    },
+    "ARCTIC | D1 vs D0 wrench-profile error, rel. change % [95 % CI]": {
+     "value": "3.1451738459486567 [0.44673826645076353, 6.202876258037193]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D0, b=D1, metric=q_rel_l1, stat=K1"
+    },
+    "TACO | D1 vs D0 amount error, rel. change % [95 % CI] (the only improvement)": {
+     "value": "-0.9479339896501515 [-1.368306473278802, -0.44985891914998133]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D0, b=D1, metric=amount_l1, stat=K1"
+    },
+    "ARCTIC | D1 vs D0 amount error, rel. change % [95 % CI] (interval includes 0; seed_consistent False)": {
+     "value": "-0.7669952369567024 [-1.8218555013165272, 0.2554126153321734]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D0, b=D1, metric=amount_l1, stat=K1"
+    },
+    "TACO | D1 vs D0 dense error E_C, rel. change % [95 % CI]": {
+     "value": "1.4170260146734615 [0.5694118884769006, 2.2708875732991185]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D0, b=D1, metric=E_C, stat=K1"
+    },
+    "ARCTIC | D1 vs D0 dense error E_C, rel. change % [95 % CI] (interval includes 0; seed_consistent False)": {
+     "value": "0.6608249027359347 [-0.7349907134939881, 1.9930670385623683]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D0, b=D1, metric=E_C, stat=K1"
+    },
+    "TACO | Participation error level D0 -> D1 (fraction of 6 parts wrong)": {
+     "value": "0.18179837694296086 -> 0.18814322282645457",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=taco, protocol=A, metric=part_hamming, stat=K1, model=D0 and model=D1; column value"
+    },
+    "ARCTIC | Participation error level D0 -> D1 (fraction of 6 parts wrong)": {
+     "value": "0.19159035304708133 -> 0.1931122281441739",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=arctic, protocol=A, metric=part_hamming, stat=K1, model=D0 and model=D1; column value"
+    },
+    "TACO | Validation score for lambda_struct 0.3 / 1 / 3 (D1 seed 0; mean of 6 errors relative to persistence; lower better) - validation picked the smallest weight": {
+     "value": "0.5613182229615824 / 0.5832987999292858 / 0.6157391755702372",
+     "source": "reports/structure_aware_temporal_generation/taco/lambda_choice.json",
+     "locator": "scores_struct: D1_seed0_ls0.3, D1_seed0_ls1, D1_seed0_ls3"
+    },
+    "ARCTIC | Validation score for lambda_struct 0.3 / 1 / 3 (D1 seed 0; lower better) - validation picked the smallest weight": {
+     "value": "0.7500988533394795 / 0.8038402458261036 / 0.8308067565910124",
+     "source": "reports/structure_aware_temporal_generation/arctic/lambda_choice.json",
+     "locator": "scores_struct: D1_seed0_ls0.3, D1_seed0_ls1, D1_seed0_ls3"
+    },
+    "TACO | Same comparison with sampled s_0 (protocol B): D1 vs D0 participation, rel. change % [95 % CI]": {
+     "value": "2.9960104582973823 [1.8187791064659065, 4.195999088403002]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=B, a=D0, b=D1, metric=part_hamming, stat=K1"
+    },
+    "ARCTIC | Same comparison with sampled s_0 (protocol B): D1 vs D0 participation, rel. change % [95 % CI]": {
+     "value": "0.010383172652295158 [-1.3983319951026862, 1.2759280890339175]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=B, a=D0, b=D1, metric=part_hamming, stat=K1"
+    }
+   },
+   "caveats": [
+    "The effects are small (under 6 %) and sit on top of an extraction floor: the same R2 extraction applied to the real map already gives participation error 0.102 (TACO) / 0.047 (ARCTIC) and wrench error 0.372 / 0.326 (GT rows of fixed_s0_metrics.csv).",
+    "One structural surrogate only (differentiable grid R2 operator) and weights 0.3 / 1 / 3; nothing between 0 and 0.3 was tried. The report's own wording is 'this surrogate under this recipe does not help' (report.md section 16).",
+    "ARCTIC: participation, dense error and amount are not distinguishable from no change (intervals include 0); test set is 186 sequences from 44 takes.",
+    "The structural metrics are extracted from a generated map with the ground-truth hand-part label of each surface point (evaluate.py line 68), so they measure whether contact appears where the real hand's parts are, not whether the model identifies fingers.",
+    "On parts active in both the generated and the real map the centroid error of D1 is nominally lower: -3.47 % [-7.87, +0.43] (TACO), -0.53 % [-3.28, +2.88] (ARCTIC) (metric centroid_both); the reported centroid metric mixes participation and location errors.",
+    "decision_summary.csv labels the TACO deterministic case 'marginal (< 5 %)': that is a rule output (a metric counts as worse only at +5 % or more), not a marginal gain.",
+    "Models were selected by early stopping (all runs stopped by patience), not trained to a step cap (run_config.csv)."
+   ],
+   "claim_as_extracted": "With the true initial contact s_0 given, adding the explicit R2 output loss to the deterministic dense generator (D1 versus D0) did not improve it: on TACO the participation, centroid, normal and wrench-profile errors are 1.8-5.4 % higher with intervals that exclude zero; on ARCTIC centroid, normal and wrench-profile errors are 3.1-4.9 % higher (intervals exclude zero) while participation is not distinguishable from no change; only the contact-amount error improves, by under 1 %.",
+   "correction_reason": "All numbers and directions are confirmed in paired_comparisons.csv. Two small imprecisions: 'only the amount improves' is stated without saying that on ARCTIC the amount interval includes zero and the sign differs between seeds (it is only in the caveats), and the claim omits the dense error (worse on TACO, tie on ARCTIC). Scope ('this surrogate under this recipe', report section 16) should travel with the claim."
+  },
+  {
+   "block": "F3-A",
+   "claim": "The hidden R2 auxiliary head does not rescue the supervised deterministic generator: D2 is worse than D1 on dense error, participation, centroid, normal and wrench-profile error on TACO (2.2-6.4 %, intervals exclude zero) and nominally worse on ARCTIC (1.0-6.5 %; only the centroid and normal intervals exclude zero); only the frame-to-frame change decreases.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_aware_temporal_generation/report.md",
+   "source_files": [
+    "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+    "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+    "reports/structure_aware_temporal_generation/taco/lambda_choice.json",
+    "reports/structure_aware_temporal_generation/arctic/lambda_choice.json"
+   ],
+   "metric": "Relative change (%) of the test-mean error of D2 against D1 (D1 = output R2 loss; D2 = D1 + linear head predicting the 48-number R2 from the hidden state, training only), paired per test sequence, protocol A, 3 seeds averaged; positive = D2 worse (lower error is better). Brackets = 95 % take-cluster bootstrap interval of the ratio.",
+   "numbers": {
+    "TACO | D2 vs D1 participation error, rel. change % [95 % CI]": {
+     "value": "6.381582095689509 [4.648220528907321, 8.254300386028524]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D1, b=D2, metric=part_hamming, stat=K1"
+    },
+    "ARCTIC | D2 vs D1 participation error, rel. change % [95 % CI] (interval includes 0)": {
+     "value": "5.258764110033298 [-0.10369603885882483, 12.139252165531067]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D1, b=D2, metric=part_hamming, stat=K1"
+    },
+    "TACO | D2 vs D1 centroid error, rel. change % [95 % CI]": {
+     "value": "5.541159292848619 [3.837254071110774, 7.277379309894383]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D1, b=D2, metric=centroid, stat=K1"
+    },
+    "ARCTIC | D2 vs D1 centroid error, rel. change % [95 % CI]": {
+     "value": "6.509052858872444 [1.0835275668360955, 12.652766920910864]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D1, b=D2, metric=centroid, stat=K1"
+    },
+    "TACO | D2 vs D1 normal-angle error, rel. change % [95 % CI]": {
+     "value": "2.227133572887241 [1.4488330758008594, 3.089937004361576]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D1, b=D2, metric=normal, stat=K1"
+    },
+    "ARCTIC | D2 vs D1 normal-angle error, rel. change % [95 % CI]": {
+     "value": "6.375383343155594 [1.974540536551661, 11.679286231353526]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D1, b=D2, metric=normal, stat=K1"
+    },
+    "TACO | D2 vs D1 wrench-profile error, rel. change % [95 % CI]": {
+     "value": "3.1631700426545173 [2.1614880875405085, 4.162940193995257]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D1, b=D2, metric=q_rel_l1, stat=K1"
+    },
+    "ARCTIC | D2 vs D1 wrench-profile error, rel. change % [95 % CI] (interval includes 0)": {
+     "value": "2.720770157687191 [-1.9997087044466233, 8.208413776970813]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D1, b=D2, metric=q_rel_l1, stat=K1"
+    },
+    "TACO | D2 vs D1 dense error E_C, rel. change % [95 % CI]": {
+     "value": "5.110151912900984 [3.778512620670771, 6.265232945640675]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D1, b=D2, metric=E_C, stat=K1"
+    },
+    "ARCTIC | D2 vs D1 dense error E_C, rel. change % [95 % CI] (interval includes 0)": {
+     "value": "0.9999845223547243 [-2.5019452178865254, 5.311153869150131]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D1, b=D2, metric=E_C, stat=K1"
+    },
+    "TACO | D2 vs D1 frame-to-frame dense change, rel. change % [95 % CI] (the one quantity that drops)": {
+     "value": "-3.792043454866645 [-5.095622033925251, -2.404448636040901]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D1, b=D2, metric=jitter_dense, stat=K1",
+     "verifier_note": "value identical. The parenthetical is not exact: the frame-to-frame change of the R2 summary also drops, jitter_r2 -3.012661934480254 [-4.043705862566305, -2.0730302741156614] (TACO) and -6.248648988959593 [-8.908697188669956, -3.3224969287189765] (ARCTIC). Correct wording: the frame-to-frame change (dense and R2) is the only quantity that drops with an interval clear of zero."
+    },
+    "ARCTIC | D2 vs D1 frame-to-frame dense change, rel. change % [95 % CI]": {
+     "value": "-28.035094826780572 [-31.805084564144938, -23.464146572753407]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D1, b=D2, metric=jitter_dense, stat=K1"
+    },
+    "TACO | Participation error level D0 / D1 / D2": {
+     "value": "0.18179837694296086 / 0.18814322282645457 / 0.2001497370486008",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=taco, protocol=A, metric=part_hamming, stat=K1, model=D0, D1, D2; column value"
+    },
+    "ARCTIC | Participation error level D0 / D1 / D2": {
+     "value": "0.19159035304708133 / 0.1931122281441739 / 0.20326754468990535",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=arctic, protocol=A, metric=part_hamming, stat=K1, model=D0, D1, D2; column value"
+    },
+    "TACO | Dense error E_C level D0 / D1 / D2": {
+     "value": "1.7746110701790223 / 1.7997577707027341 / 1.8917281268498838",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=taco, protocol=A, metric=E_C, stat=K1, model=D0, D1, D2; column value"
+    },
+    "ARCTIC | Dense error E_C level D0 / D1 / D2": {
+     "value": "1.9632492652129532 / 1.9762229052602605 / 1.9959848284400918",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=arctic, protocol=A, metric=E_C, stat=K1, model=D0, D1, D2; column value"
+    },
+    "TACO | Validation score: D1 without head / D2 lambda_aux 0.3 / D2 lambda_aux 1 (seed 0; lower better)": {
+     "value": "0.5613182229615824 / 0.5856463410691749 / 0.6115159416870587",
+     "source": "reports/structure_aware_temporal_generation/taco/lambda_choice.json",
+     "locator": "scores_aux: D1_seed0_ls0.3, D2_seed0_ls0.3_la0.3, D2_seed0_ls0.3_la1"
+    },
+    "ARCTIC | Validation score: D1 without head / D2 lambda_aux 0.3 / D2 lambda_aux 1 (seed 0; lower better)": {
+     "value": "0.7500988533394795 / 0.8266850878788574 / 0.8315833010915551",
+     "source": "reports/structure_aware_temporal_generation/arctic/lambda_choice.json",
+     "locator": "scores_aux: D1_seed0_ls0.3, D2_seed0_ls0.3_la0.3, D2_seed0_ls0.3_la1"
+    }
+   },
+   "caveats": [
+    "There is no paired D2-versus-D0 comparison in paired_comparisons.csv; the D2-versus-D0 statement rests on the levels (per-model intervals overlap) plus the two chained paired comparisons.",
+    "ARCTIC: participation, wrench, dense error and amount intervals include zero; only centroid and normal are distinguishable.",
+    "Report section 9 prints the TACO lambda_aux validation scores as 0.586 / 0.592; the JSON holds 0.5856 / 0.6115 (use the JSON).",
+    "The frame-to-frame change falls with the head (-3.8 % TACO, -28.0 % ARCTIC): the report reads this as smoother trajectories at the expense of structure; the deterministic models already change less than the real data."
+   ]
+  },
+  {
+   "block": "F3-A",
+   "claim": "On the sequence-diffusion generator the explicit R2 output loss also did not help (S1 versus S0). TACO: participation +8.5 %, centroid +11.6 %, normal +5.4 %, wrench +2.8 %, dense error +6.8 % (intervals exclude zero). ARCTIC: centroid +8.6 %, normal +7.5 %, wrench +4.6 % (intervals exclude zero); participation +2.7 % [-2.0, +7.9] and dense error -0.0 % [-2.1, +2.3] are not distinguishable from no change. The amount error is lower on both (-1.0 % TACO, -6.8 % ARCTIC). Adding the hidden head (S2 versus S1) is a trade rather than a gain: participation, centroid, normal and wrench errors fall by 4.7-10.0 % on TACO and 6.6-13.1 % on ARCTIC, while the dense error rises by 14.6 % / 17.9 %, the frame-to-frame change by 72.9 % / 68.1 %, and on ARCTIC the amount error by 7.0 % [3.4, 11.5].",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_aware_temporal_generation/report.md",
+   "source_files": [
+    "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+    "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv"
+   ],
+   "metric": "Relative change (%) of the test-mean error of model b against model a, paired per test sequence, protocol A (true s_0, frames 1-63), one sample (K1) per sequence, 3 seeds averaged; positive = b worse (lower error is better). Brackets = 95 % take-cluster bootstrap interval of the ratio.",
+   "numbers": {
+    "TACO | S1 vs S0 participation error, rel. change % [95 % CI]": {
+     "value": "8.53577334736686 [5.861003289508782, 11.39208262528173]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=S0, b=S1, metric=part_hamming, stat=K1"
+    },
+    "ARCTIC | S1 vs S0 participation error, rel. change % [95 % CI] (interval includes 0)": {
+     "value": "2.668413060920738 [-2.0368299814783275, 7.912358376428785]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=S0, b=S1, metric=part_hamming, stat=K1"
+    },
+    "TACO | S1 vs S0 centroid error, rel. change % [95 % CI]": {
+     "value": "11.588559447630775 [8.90166242016932, 14.700032762282689]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=S0, b=S1, metric=centroid, stat=K1"
+    },
+    "ARCTIC | S1 vs S0 centroid error, rel. change % [95 % CI]": {
+     "value": "8.623439952982448 [4.748499831332187, 13.041805250847084]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=S0, b=S1, metric=centroid, stat=K1"
+    },
+    "TACO | S1 vs S0 wrench-profile error, rel. change % [95 % CI]": {
+     "value": "2.8364091209114983 [1.2743332684964415, 4.467009182455173]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=S0, b=S1, metric=q_rel_l1, stat=K1"
+    },
+    "ARCTIC | S1 vs S0 wrench-profile error, rel. change % [95 % CI]": {
+     "value": "4.649318405716052 [1.0597333508057138, 9.350072776294006]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=S0, b=S1, metric=q_rel_l1, stat=K1"
+    },
+    "TACO | S1 vs S0 dense error E_C, rel. change % [95 % CI]": {
+     "value": "6.826982113605862 [5.492501416025797, 8.212451116046072]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=S0, b=S1, metric=E_C, stat=K1"
+    },
+    "ARCTIC | S1 vs S0 dense error E_C, rel. change % [95 % CI] (no change)": {
+     "value": "-0.003813086904769225 [-2.108294120352494, 2.264140247594071]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=S0, b=S1, metric=E_C, stat=K1"
+    },
+    "TACO | S1 vs S0 amount error, rel. change % [95 % CI] (improves)": {
+     "value": "-1.0262256825868343 [-1.9480994653695571, -0.2539080585537645]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=S0, b=S1, metric=amount_l1, stat=K1"
+    },
+    "ARCTIC | S1 vs S0 amount error, rel. change % [95 % CI] (improves)": {
+     "value": "-6.7843596892406595 [-9.355404508884247, -4.38708661522681]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=S0, b=S1, metric=amount_l1, stat=K1"
+    },
+    "TACO | S2 vs S1 participation error, rel. change % [95 % CI]": {
+     "value": "-10.02453517658407 [-12.180995513275583, -7.705916499525312]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=S1, b=S2, metric=part_hamming, stat=K1"
+    },
+    "ARCTIC | S2 vs S1 participation error, rel. change % [95 % CI]": {
+     "value": "-12.697587173911728 [-17.170715462432984, -8.497935643331322]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=S1, b=S2, metric=part_hamming, stat=K1"
+    },
+    "TACO | S2 vs S1 wrench-profile error, rel. change % [95 % CI]": {
+     "value": "-5.3343296758795455 [-6.4906529059247315, -4.173898413446575]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=S1, b=S2, metric=q_rel_l1, stat=K1"
+    },
+    "ARCTIC | S2 vs S1 wrench-profile error, rel. change % [95 % CI]": {
+     "value": "-6.591360122120815 [-9.78178740166542, -3.5056653940012783]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=S1, b=S2, metric=q_rel_l1, stat=K1"
+    },
+    "TACO | S2 vs S1 dense error E_C, rel. change % [95 % CI]": {
+     "value": "14.600778974917894 [12.715218221798485, 16.66566740734101]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=S1, b=S2, metric=E_C, stat=K1"
+    },
+    "ARCTIC | S2 vs S1 dense error E_C, rel. change % [95 % CI]": {
+     "value": "17.896532750542548 [14.92639680732375, 21.20220658690719]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=S1, b=S2, metric=E_C, stat=K1"
+    },
+    "TACO | S2 vs S1 frame-to-frame dense change, rel. change % [95 % CI]": {
+     "value": "72.8736980912216 [71.6111867381602, 73.9665008052904]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=S1, b=S2, metric=jitter_dense, stat=K1"
+    },
+    "ARCTIC | S2 vs S1 frame-to-frame dense change, rel. change % [95 % CI]": {
+     "value": "68.11966002233314 [66.71897072302586, 69.54480843865511]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=S1, b=S2, metric=jitter_dense, stat=K1"
+    },
+    "TACO | Participation error level S0 / S1 / S2 (D0 for comparison)": {
+     "value": "0.1855897796672902 / 0.20143130261556763 / 0.18123875082821853 (D0 0.18179837694296086)",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=taco, protocol=A, metric=part_hamming, stat=K1, model=S0, S1, S2, D0; column value"
+    },
+    "ARCTIC | Participation error level S0 / S1 / S2 (D0 for comparison)": {
+     "value": "0.19544008096653342 / 0.20065522961331847 / 0.17517685691415463 (D0 0.19159035304708133)",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=arctic, protocol=A, metric=part_hamming, stat=K1, model=S0, S1, S2, D0; column value"
+    }
+   },
+   "caveats": [
+    "S2 is the one supervised model whose structural level is nominally at or below D0 (ARCTIC participation 0.175 vs 0.192; TACO 0.181 vs 0.182), at a dense error of 2.4935 (TACO) / 2.9311 (ARCTIC) against D0's 1.7746 / 1.9632 and the largest frame-to-frame change; no paired S2-versus-D0 test exists, and the per-model intervals overlap.",
+    "For the diffusion models the structural loss is applied to the model's clean-sample estimate at a random diffusion step (report section 6); lambda values were chosen on the deterministic family and reused.",
+    "ARCTIC: S1 vs S0 participation interval includes zero and the dense error does not change (-0.0 %)."
+   ],
+   "claim_as_extracted": "On the sequence-diffusion generator the explicit R2 output loss also did not help (S1 versus S0: participation, centroid, normal and wrench-profile errors 2.7-11.6 % higher), and adding the hidden head (S2 versus S1) is a trade rather than a gain: structural errors fall by 4.7-13.1 % while the dense error rises by 14.6 % (TACO) / 17.9 % (ARCTIC) and the frame-to-frame change by 72.9 % / 68.1 %.",
+   "correction_reason": "Values confirmed, but both ranges pool TACO and ARCTIC, the low end 2.7 % is the ARCTIC participation value whose interval includes zero, and 'structural errors fall' hides that the amount error (an R2 component) rises on ARCTIC with S2 (+6.97 % [3.45, 11.54]; TACO +0.71 % [-0.42, +1.95]). The S1-vs-S0 normal and the S2-vs-S1 centroid / normal / amount values used by the claim are missing from the extractor's numbers list (given under 'missing')."
+  },
+  {
+   "block": "F3-A",
+   "claim": "With s_0 fixed to the true initial contact, one sequence-diffusion sample (S0) does not improve the typical (K = 1) structural quality over the deterministic prediction (D0): participation, centroid and normal errors are not distinguishable (intervals include zero on both datasets), the wrench-profile error is +1.0 % on TACO (interval includes zero) and +2.7 % on ARCTIC (interval excludes zero), and the dense error is 14.8 % (TACO) / 26.6 % (ARCTIC) higher.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_aware_temporal_generation/report.md",
+   "source_files": [
+    "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+    "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv"
+   ],
+   "metric": "Relative change (%) of the test-mean error of the diffusion model against the deterministic model with the same supervision, paired per test sequence, protocol A (true s_0, frames 1-63); stat K1 = sample 0 of 10, 'mean' = mean of 10 samples, 'best10' = per-metric minimum over 10 samples (an oracle selection against the single observed future). Positive = diffusion worse (lower error is better). Brackets = 95 % take-cluster bootstrap interval of the ratio; 3 seeds averaged.",
+   "numbers": {
+    "TACO | S0 vs D0 dense error E_C (K1), rel. change % [95 % CI]": {
+     "value": "14.774018645088628 [12.326206140927344, 17.159138418308185]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D0, b=S0, metric=E_C, stat=K1"
+    },
+    "ARCTIC | S0 vs D0 dense error E_C (K1), rel. change % [95 % CI]": {
+     "value": "26.642005267433365 [22.70543770490572, 31.029655073721752]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D0, b=S0, metric=E_C, stat=K1"
+    },
+    "TACO | Dense error E_C level D0 vs S0 (K1)": {
+     "value": "1.7746110701790223 vs 2.036792440565078",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=taco, protocol=A, metric=E_C, stat=K1, model=D0 and model=S0; column value"
+    },
+    "ARCTIC | Dense error E_C level D0 vs S0 (K1)": {
+     "value": "1.9632492652129532 vs 2.486298237863835",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=arctic, protocol=A, metric=E_C, stat=K1, model=D0 and model=S0; column value"
+    },
+    "TACO | S0 vs D0 participation error (K1), rel. change % [95 % CI]": {
+     "value": "2.085498665105745 [-0.30633195484225384, 4.664197262824676]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D0, b=S0, metric=part_hamming, stat=K1"
+    },
+    "ARCTIC | S0 vs D0 participation error (K1), rel. change % [95 % CI]": {
+     "value": "2.009353737401409 [-3.603605760306361, 7.523902044059438]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D0, b=S0, metric=part_hamming, stat=K1"
+    },
+    "TACO | S0 vs D0 centroid error (K1), rel. change % [95 % CI]": {
+     "value": "-0.040102545361175856 [-2.4258270326304676, 2.138838053993908]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D0, b=S0, metric=centroid, stat=K1"
+    },
+    "ARCTIC | S0 vs D0 centroid error (K1), rel. change % [95 % CI]": {
+     "value": "1.369153005310375 [-2.0862986764733416, 5.083408279456747]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D0, b=S0, metric=centroid, stat=K1"
+    },
+    "TACO | S0 vs D0 normal-angle error (K1), rel. change % [95 % CI]": {
+     "value": "-0.4234707765317314 [-1.6334423457449176, 0.7139509295111202]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D0, b=S0, metric=normal, stat=K1"
+    },
+    "ARCTIC | S0 vs D0 normal-angle error (K1), rel. change % [95 % CI]": {
+     "value": "-1.8279186822342974 [-4.480572628140223, 0.47966395459733135]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D0, b=S0, metric=normal, stat=K1"
+    },
+    "TACO | S0 vs D0 wrench-profile error (K1), rel. change % [95 % CI]": {
+     "value": "0.9531324365876559 [-0.349213166497675, 2.2365205864775417]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D0, b=S0, metric=q_rel_l1, stat=K1"
+    },
+    "ARCTIC | S0 vs D0 wrench-profile error (K1), rel. change % [95 % CI] (interval excludes 0)": {
+     "value": "2.7144526214301967 [0.13365895641819225, 5.075387142510479]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D0, b=S0, metric=q_rel_l1, stat=K1"
+    },
+    "TACO | S0 vs D0 amount error (K1), rel. change % [95 % CI]": {
+     "value": "4.713719835845165 [3.2134386497682854, 6.2620874545086025]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D0, b=S0, metric=amount_l1, stat=K1"
+    },
+    "ARCTIC | S0 vs D0 amount error (K1), rel. change % [95 % CI]": {
+     "value": "20.874045800091267 [16.244944179630473, 27.121738274266338]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D0, b=S0, metric=amount_l1, stat=K1"
+    },
+    "TACO | S1 vs D1 dense error E_C (K1), rel. change % [95 % CI]": {
+     "value": "20.89648571563889 [18.56734417715551, 23.128285112599876]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D1, b=S1, metric=E_C, stat=K1"
+    },
+    "ARCTIC | S1 vs D1 dense error E_C (K1), rel. change % [95 % CI]": {
+     "value": "25.805820109340893 [22.352956813627767, 30.5001861831258]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D1, b=S1, metric=E_C, stat=K1"
+    },
+    "TACO | S2 vs D2 dense error E_C (K1), rel. change % [95 % CI]": {
+     "value": "31.81249561719777 [28.749931300517527, 35.02138659620613]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D2, b=S2, metric=E_C, stat=K1"
+    },
+    "ARCTIC | S2 vs D2 dense error E_C (K1), rel. change % [95 % CI]": {
+     "value": "46.85220063025783 [41.992118362063245, 53.5899256913251]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D2, b=S2, metric=E_C, stat=K1"
+    },
+    "TACO | Exception at the third supervision level: S2 vs D2 participation error (K1), rel. change % [95 % CI] (diffusion better)": {
+     "value": "-9.448419218152793 [-11.58054545890983, -7.171246117685781]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D2, b=S2, metric=part_hamming, stat=K1"
+    },
+    "ARCTIC | Exception at the third supervision level: S2 vs D2 participation error (K1), rel. change % [95 % CI] (diffusion better)": {
+     "value": "-13.819563678306068 [-21.819368970633224, -6.70342184034457]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D2, b=S2, metric=part_hamming, stat=K1"
+    },
+    "TACO | Oracle best-of-10: S0 vs D0 participation error, rel. change % [95 % CI]": {
+     "value": "-8.26603792159183 [-10.679653287604774, -5.82755874179165]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D0, b=S0, metric=part_hamming, stat=best10"
+    },
+    "ARCTIC | Oracle best-of-10: S0 vs D0 participation error, rel. change % [95 % CI]": {
+     "value": "-16.005543086395303 [-21.965909622678815, -10.968816825935523]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D0, b=S0, metric=part_hamming, stat=best10"
+    },
+    "TACO | Oracle best-of-10: S0 vs D0 dense error E_C, rel. change % [95 % CI] (still worse)": {
+     "value": "7.417754085789241 [5.106340092755701, 9.63481360075924]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D0, b=S0, metric=E_C, stat=best10"
+    },
+    "ARCTIC | Oracle best-of-10: S0 vs D0 dense error E_C, rel. change % [95 % CI] (still worse)": {
+     "value": "16.554263884225072 [13.35486137576114, 20.38388622446061]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D0, b=S0, metric=E_C, stat=best10"
+    },
+    "TACO | Mean of 10 samples: S0 vs D0 participation error, rel. change % [95 % CI]": {
+     "value": "2.375469577338052 [0.0014491807033945037, 4.921965849245269]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D0, b=S0, metric=part_hamming, stat=mean"
+    },
+    "ARCTIC | Mean of 10 samples: S0 vs D0 participation error, rel. change % [95 % CI]": {
+     "value": "2.3790549932994676 [-3.2120659118677786, 7.98795305377209]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D0, b=S0, metric=part_hamming, stat=mean"
+    }
+   },
+   "caveats": [
+    "Holds for the matched comparisons S0 vs D0 and S1 vs D1 only. At the third supervision level one S2 sample is better than D2 on participation, centroid and normal on both datasets (and on wrench on TACO), at a dense error 31.8 % / 46.9 % higher; report section 10's sentence 'never better on a K1 structural metric' is contradicted by its own table for S2 vs D2.",
+    "One diffusion recipe (residual parameterisation, v-prediction, cosine schedule, DDIM 100 steps, eta 0; about 26 M parameters trained on 1 312 / 1 005 sequences). The report states that the dense-error and jitter comparisons depend on this recipe (section 16).",
+    "Only one human future exists per conditioning tuple: best-of-10 is an oracle selection and is not evidence of multimodality; equally, the experiment cannot show that human futures given s_0 are unimodal.",
+    "With sampled s_0 (protocol B) the picture on ARCTIC differs: S0 vs D0 participation -5.10 % [-8.04, -1.76], centroid -2.66 %, normal -4.36 %, wrench -2.69 % (diffusion slightly better, intervals exclude zero) with dense error +10.84 %; on TACO participation +2.37 % [+0.25, +4.38], dense +10.90 % (paired_comparisons.csv, protocol=B).",
+    "Structural metrics use ground-truth hand-part labels for the extraction and include an extraction floor."
+   ]
+  },
+  {
+   "block": "F3-A",
+   "claim": "The fixed-s_0 diffusion samples change far more from frame to frame than real trajectories do: the mean frame-to-frame change of the dense map is 1.148 (S0) to 2.169 (S2) on TACO against 0.315 for the real data, and 1.586 (S0) to 2.769 (S2) on ARCTIC against 0.161. The deterministic D0 changes about half as much as the real data on TACO (0.160 vs 0.315) and is nominally lower on ARCTIC (0.144 [0.119, 0.167] vs 0.161 [0.135, 0.187]; the intervals overlap and no paired test against the real trajectories exists).",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_aware_temporal_generation/report.md",
+   "source_files": [
+    "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+    "reports/structure_aware_temporal_generation/sanity_summary.json",
+    "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+    "reports/structure_aware_temporal_generation/taco/diag_jitter_S0_seed2.json",
+    "reports/structure_aware_temporal_generation/arctic/diag_jitter_S0_seed0.json"
+   ],
+   "metric": "jitter_dense = mean over frames 1-63 of the L2 norm of the change of the 512-point contact map between consecutive frames (raw contact units), protocol A, sample 0 for diffusion models, mean over test sequences of the 3-seed average. Neither lower nor higher is better by itself: the reference is the same quantity for the real (GT) trajectories. Brackets = 95 % take-cluster bootstrap interval.",
+   "numbers": {
+    "TACO | Frame-to-frame change, real trajectories (GT)": {
+     "value": "0.31471776661391443 [0.2998915420755688, 0.32968507119156826]",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=taco, protocol=A, model=GT, metric=jitter_dense, stat=K1; columns value, ci_lo, ci_hi"
+    },
+    "ARCTIC | Frame-to-frame change, real trajectories (GT)": {
+     "value": "0.1612472171164168 [0.1350836988417919, 0.18663297048086047]",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=arctic, protocol=A, model=GT, metric=jitter_dense, stat=K1"
+    },
+    "TACO | Frame-to-frame change D0 / D1 / D2": {
+     "value": "0.1604550471563479 / 0.17774164948557866 / 0.17100160889968877",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=taco, protocol=A, metric=jitter_dense, stat=K1, model=D0, D1, D2; column value"
+    },
+    "ARCTIC | Frame-to-frame change D0 / D1 / D2": {
+     "value": "0.14394170499163075 / 0.15365490870463483 / 0.11057760934328735",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=arctic, protocol=A, metric=jitter_dense, stat=K1, model=D0, D1, D2; column value"
+    },
+    "TACO | Frame-to-frame change S0 / S1 / S2": {
+     "value": "1.1480126623814797 / 1.2548269083648373 / 2.1692656811340387",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=taco, protocol=A, metric=jitter_dense, stat=K1, model=S0, S1, S2; column value"
+    },
+    "ARCTIC | Frame-to-frame change S0 / S1 / S2": {
+     "value": "1.5858434712160445 / 1.646912530972539 / 2.7687837479362347",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=arctic, protocol=A, metric=jitter_dense, stat=K1, model=S0, S1, S2; column value"
+    },
+    "TACO | Largest diffusion-to-real ratio of the frame-to-frame change (stored; it is S2 / GT)": {
+     "value": "6.8927334623444505",
+     "source": "reports/structure_aware_temporal_generation/sanity_summary.json",
+     "locator": "taco / 18_no_independent_frame_noise / max_diffusion_to_GT_jitter_ratio (status: warn)"
+    },
+    "ARCTIC | Largest diffusion-to-real ratio of the frame-to-frame change (stored; it is S2 / GT)": {
+     "value": "17.171048266446896",
+     "source": "reports/structure_aware_temporal_generation/sanity_summary.json",
+     "locator": "arctic / 18_no_independent_frame_noise / max_diffusion_to_GT_jitter_ratio (status: warn)"
+    },
+    "TACO | Report prose multiplier of the real frame-to-frame change: S0 and S1 / S2": {
+     "value": "3.7x / 7x",
+     "source": "reports/structure_aware_temporal_generation/report.md",
+     "locator": "section 15, check 18: 'the stochastic samples change 3.7x / 10x (S0, S1) and 7x / 17x (S2) more from frame to frame than the GT' (first number of each pair = TACO). Dividing the table values gives S0 3.65, S1 3.99, S2 6.89 (derived, not stored)"
+    },
+    "ARCTIC | Report prose multiplier of the real frame-to-frame change: S0 and S1 / S2": {
+     "value": "10x / 17x",
+     "source": "reports/structure_aware_temporal_generation/report.md",
+     "locator": "section 15, check 18 (second number of each pair = ARCTIC). Dividing the table values gives S0 9.83, S1 10.21, S2 17.17 (derived, not stored)"
+    },
+    "TACO | S0 vs D0 frame-to-frame change, paired rel. change % [95 % CI]": {
+     "value": "615.473076557606 [585.1887756824862, 648.0166001159466]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=taco, protocol=A, a=D0, b=S0, metric=jitter_dense, stat=K1"
+    },
+    "ARCTIC | S0 vs D0 frame-to-frame change, paired rel. change % [95 % CI]": {
+     "value": "1001.7261962460781 [867.9055533433351, 1200.1639694402065]",
+     "source": "reports/structure_aware_temporal_generation/paired_comparisons.csv",
+     "locator": "dataset=arctic, protocol=A, a=D0, b=S0, metric=jitter_dense, stat=K1"
+    },
+    "TACO | Diagnostic (one S0 seed, first 96 test sequences): sample jitter at 50 / 100 / 250 / 1000 DDIM steps; subset GT": {
+     "value": "1.115312933921814 / 1.129878282546997 / 1.1395787000656128 / 1.145153522491455; GT 0.2679397761821747",
+     "source": "reports/structure_aware_temporal_generation/taco/diag_jitter_S0_seed2.json",
+     "locator": "keys ddim_50, ddim_100, ddim_250, ddim_1000; gt"
+    },
+    "ARCTIC | Diagnostic (one S0 seed, first 96 test sequences): sample jitter at 50 / 100 / 250 / 1000 DDIM steps; subset GT": {
+     "value": "1.4977691173553467 / 1.5204968452453613 / 1.5352829694747925 / 1.5429291725158691; GT 0.1296936273574829",
+     "source": "reports/structure_aware_temporal_generation/arctic/diag_jitter_S0_seed0.json",
+     "locator": "keys ddim_50, ddim_100, ddim_250, ddim_1000; gt"
+    }
+   },
+   "caveats": [
+    "Only the maximum ratio per dataset is stored in a table (6.89 TACO, 17.17 ARCTIC, both for S2); the other multipliers are report prose or a division of two table values. Do not quote one pooled range: per dataset it is about 3.6-6.9x on TACO and 9.8-17.2x on ARCTIC.",
+    "Sanity check 18 has status 'warn' on both datasets. The report's diagnostic (one seed per dataset, 96 sequences) finds the jitter unchanged across 50-1000 DDIM steps and attributes it to the trained denoiser of this recipe; a different recipe (temporal noise prior, smoothness term, guidance, more data) was not tried.",
+    "The deterministic model is not 'as stable as the data': it changes less than real trajectories (D0 0.160 vs 0.315 on TACO, about half; 0.144 vs 0.161 on ARCTIC).",
+    "In the structural (R2) space the gap is much smaller: frame-to-frame change of the R2 summary is S0 1.234 vs GT 1.096 (TACO) and 0.960 vs 0.547 (ARCTIC) (metric jitter_r2).",
+    "The page's wording rule on 'noise' concerns the residual r of a later experiment; here the report itself calls the diffusion's frame-to-frame scatter 'per-frame noise' - 'temporal jitter' is the safer page word."
+   ],
+   "claim_as_extracted": "The fixed-s_0 diffusion samples change far more from frame to frame than real trajectories do: the mean frame-to-frame change of the dense map is 1.148 (S0) to 2.169 (S2) on TACO against 0.315 for the real data, and 1.586 (S0) to 2.769 (S2) on ARCTIC against 0.161, while the deterministic models change less than the real data (0.160 on TACO, 0.144 on ARCTIC for D0).",
+   "correction_reason": "Diffusion part fully confirmed (stored maxima 6.89x TACO, 17.17x ARCTIC, sanity check 18 status 'warn'). 'The deterministic models change less than the real data' is clear on TACO only; on ARCTIC the D0 and D1 intervals overlap the real-trajectory interval (only D2, 0.111 [0.094, 0.129], is clearly below). Keep the word 'jitter' / 'frame-to-frame change' for the diffusion samples and the recipe caveat (one diffusion recipe; diagnostic on one seed and 96 sequences)."
+  },
+  {
+   "block": "F3-A",
+   "claim": "Sampling the initial contact s_0 produces more structural and wrench-profile diversity than sampling the future with s_0 fixed: ten sampled s_0 evolved deterministically (D0) give an R2 diversity of 1.63 (TACO) / 2.48 (ARCTIC) and a wrench-profile diversity of 0.273 / 0.554, against 0.82 / 1.15 and 0.107 / 0.176 for ten diffusion futures from the true s_0 (S0), while the dense diversity differs much less (1.65 / 2.73 against 1.25 / 1.80).",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_aware_temporal_generation/report.md",
+   "source_files": [
+    "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+    "reports/structure_aware_temporal_generation/decision_summary.csv"
+   ],
+   "metric": "Mean pairwise distance between the 10 trajectories generated for one test sequence, averaged over test sequences and 3 seeds; no better / worse direction (a spread). D_Z = distance between standardised 48-number R2 summaries; D_q = symmetric relative L1 between wrench profiles; D_part = participation Hamming; D_centroid in object lengths (over parts active in both samples); D_C = dense L2. 'Future' = protocol A (true s_0, 10 diffusion samples, frames 1-63); 'initial' = protocol B (10 draws of the frozen initial sampler, one deterministic trajectory each, frames 0-63). Brackets = 95 % take-cluster bootstrap interval.",
+   "numbers": {
+    "TACO | R2 diversity D_Z, future diffusion with s_0 fixed (S0, protocol A)": {
+     "value": "0.8167840026373611 [0.7826796289491084, 0.8510034511584601]",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=taco, source='future (fixed s_0, stochastic futures)', protocol=A, model=S0, metric=D_Z; columns value, ci_lo, ci_hi"
+    },
+    "ARCTIC | R2 diversity D_Z, future diffusion with s_0 fixed (S0, protocol A)": {
+     "value": "1.1516761897819443 [1.0622553794993748, 1.2499582338619184]",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=arctic, source='future (fixed s_0, stochastic futures)', protocol=A, model=S0, metric=D_Z"
+    },
+    "TACO | R2 diversity D_Z, sampled s_0 + deterministic future (D0, protocol B)": {
+     "value": "1.6284383936843154 [1.5351277625565987, 1.7233437118014758]",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=taco, source='initial (sampled s_0, one future each)', protocol=B, model=D0, metric=D_Z"
+    },
+    "ARCTIC | R2 diversity D_Z, sampled s_0 + deterministic future (D0, protocol B)": {
+     "value": "2.4830610616980486 [2.2504268272173626, 2.736657364471512]",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=arctic, source='initial (sampled s_0, one future each)', protocol=B, model=D0, metric=D_Z"
+    },
+    "TACO | Wrench-profile diversity D_q, future diffusion with s_0 fixed (S0, protocol A)": {
+     "value": "0.10723692571806757 [0.09393027746775189, 0.12086685549021728]",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=taco, protocol=A, model=S0, metric=D_q"
+    },
+    "ARCTIC | Wrench-profile diversity D_q, future diffusion with s_0 fixed (S0, protocol A)": {
+     "value": "0.1755378953893197 [0.14366111085417682, 0.20777242864060955]",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=arctic, protocol=A, model=S0, metric=D_q"
+    },
+    "TACO | Wrench-profile diversity D_q, sampled s_0 + deterministic future (D0, protocol B)": {
+     "value": "0.2732643526535304 [0.2539530126814903, 0.2906245011474667]",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=taco, protocol=B, model=D0, metric=D_q"
+    },
+    "ARCTIC | Wrench-profile diversity D_q, sampled s_0 + deterministic future (D0, protocol B)": {
+     "value": "0.5535802838149115 [0.5093117209860134, 0.6019465471649734]",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=arctic, protocol=B, model=D0, metric=D_q"
+    },
+    "TACO | Participation diversity D_part: future (S0, A) vs initial (D0, B)": {
+     "value": "0.033727524459026006 vs 0.10785908595063544",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=taco, metric=D_part; rows protocol=A model=S0 and protocol=B model=D0; column value"
+    },
+    "ARCTIC | Participation diversity D_part: future (S0, A) vs initial (D0, B)": {
+     "value": "0.06179414447540948 vs 0.1936729496935763",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=arctic, metric=D_part; rows protocol=A model=S0 and protocol=B model=D0; column value"
+    },
+    "TACO | Centroid diversity D_centroid (object lengths): future (S0, A) vs initial (D0, B)": {
+     "value": "0.02497057630036592 vs 0.11127209764532255",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=taco, metric=D_centroid; rows protocol=A model=S0 and protocol=B model=D0; column value"
+    },
+    "ARCTIC | Centroid diversity D_centroid (object lengths): future (S0, A) vs initial (D0, B)": {
+     "value": "0.05552861519860134 vs 0.307751409264238",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=arctic, metric=D_centroid; rows protocol=A model=S0 and protocol=B model=D0; column value"
+    },
+    "TACO | Dense diversity D_C: future (S0, A) vs initial (D0, B)": {
+     "value": "1.2508388988045982 vs 1.6478485369802396",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=taco, metric=D_C; rows protocol=A model=S0 and protocol=B model=D0; column value"
+    },
+    "ARCTIC | Dense diversity D_C: future (S0, A) vs initial (D0, B)": {
+     "value": "1.796772906216242 vs 2.7281750326835983",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=arctic, metric=D_C; rows protocol=A model=S0 and protocol=B model=D0; column value"
+    },
+    "TACO | R2 diversity D_Z with both sources (sampled s_0 + diffusion future, S0, protocol B)": {
+     "value": "1.878266079412712 [1.786434138686444, 1.974705939623968]",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=taco, source='initial + future (sampled s_0, one stochastic future each)', protocol=B, model=S0, metric=D_Z"
+    },
+    "ARCTIC | R2 diversity D_Z with both sources (sampled s_0 + diffusion future, S0, protocol B)": {
+     "value": "2.829104045092205 [2.61687196682241, 3.047666813095669]",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=arctic, source='initial + future (sampled s_0, one stochastic future each)', protocol=B, model=S0, metric=D_Z"
+    },
+    "TACO | R2 diversity D_Z of the 10 sampled s_0 held without any evolution": {
+     "value": "2.3742602820416074 [2.2916567177970264, 2.4630584187028086]",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=taco, source='initial, no evolution (sampled s_0 held)', protocol=B, model=PERSIST, metric=D_Z"
+    },
+    "ARCTIC | R2 diversity D_Z of the 10 sampled s_0 held without any evolution": {
+     "value": "1.7541954679995455 [1.4396704589210556, 2.054115904185429]",
+     "source": "reports/structure_aware_temporal_generation/diversity_metrics.csv",
+     "locator": "dataset=arctic, source='initial, no evolution (sampled s_0 held)', protocol=B, model=PERSIST, metric=D_Z"
+    },
+    "TACO | Stored ratio D_Z future / initial (mean of S0-S2 over mean of D0-D2)": {
+     "value": "0.51",
+     "source": "reports/structure_aware_temporal_generation/decision_summary.csv",
+     "locator": "question='Is future temporal diffusion justified?', dataset=taco, column evidence: 'D_Z future / initial = 0.51'"
+    },
+    "ARCTIC | Stored ratio D_Z future / initial (mean of S0-S2 over mean of D0-D2)": {
+     "value": "0.47",
+     "source": "reports/structure_aware_temporal_generation/decision_summary.csv",
+     "locator": "question='Is future temporal diffusion justified?', dataset=arctic, column evidence: 'D_Z future / initial = 0.47'"
+    },
+    "TACO | Report prose multipliers initial / future: R2 (D_Z), participation, centroid, wrench, dense": {
+     "value": "x2.0, x3.2, x4.4, x2.6, x1.3",
+     "source": "reports/structure_aware_temporal_generation/report.md",
+     "locator": "section 11, first paragraph (first number of each pair = TACO); division of the table values gives 1.99, 3.20, 4.46, 2.55, 1.32 (derived)"
+    },
+    "ARCTIC | Report prose multipliers initial / future: R2 (D_Z), participation, centroid, wrench, dense": {
+     "value": "x2.2, x3.1, x5.5, x3.1, x1.5",
+     "source": "reports/structure_aware_temporal_generation/report.md",
+     "locator": "section 11, first paragraph (second number of each pair = ARCTIC); division of the table values gives 2.16, 3.13, 5.54, 3.15, 1.52 (derived)"
+    },
+    "TACO | Rule-based verdict of the decision table": {
+     "value": "Case A (initial stochasticity sufficient) with the Case-C observation that the stochastic future adds dense noise",
+     "source": "reports/structure_aware_temporal_generation/decision_summary.csv",
+     "locator": "question='Is future temporal diffusion justified?', dataset=taco, column answer"
+    },
+    "ARCTIC | Rule-based verdict of the decision table": {
+     "value": "Case A (initial stochasticity sufficient) with the Case-C observation that the stochastic future adds dense noise",
+     "source": "reports/structure_aware_temporal_generation/decision_summary.csv",
+     "locator": "question='Is future temporal diffusion justified?', dataset=arctic, column answer"
+    }
+   },
+   "caveats": [
+    "The two sides are measured under different protocols: 'future' over frames 1-63 with the true s_0, 'initial' over frames 0-63 with sampled s_0, where frame 0 differs between the 10 draws by construction. The ratio is a comparison of spreads, not a like-for-like decomposition.",
+    "The multipliers (2.0-5.5x) exist only in report prose; the '5x' end is the centroid component (4.4x TACO, 5.5x ARCTIC). For the summary R2 distance D_Z and the wrench profile the multipliers are 2.0-3.2x.",
+    "Diversity measures spread, not coverage of real alternatives: one human future is observed per condition, and the initial-sampler draws themselves are far from the true s_0 (s_0 error 2.35 TACO / 2.40 ARCTIC, end_to_end_metrics.csv metric s0_err).",
+    "'Sampled s_0 held' shows that deterministic evolution shrinks the initial R2 spread on TACO (2.374 -> 1.628) but enlarges it on ARCTIC (1.754 -> 2.483); report section 11 states only the TACO direction.",
+    "The decision-table verdict is a rule output of aggregate.decision(), which has no branch for a standalone 'Case C' and reads S1 vs D1; the report's own wording is 'Case A, with a Case-C caveat for this diffusion recipe'.",
+    "The diffusion's dense diversity is about the size of its own frame-to-frame change (D_C 1.251 vs jitter 1.148 on TACO; 1.797 vs 1.586 on ARCTIC), which the report reads as mostly per-frame scatter.",
+    "The report's Figure D plots D1 / S1 and its decision table averages S0-S2 and D0-D2; the prose multipliers and the figure module use D0 / S0."
+   ]
+  },
+  {
+   "block": "F3-A",
+   "claim": "Context for reading the comparison: with the true s_0 the dense-only deterministic generator D0 lowers the participation error from 0.477 (holding s_0) to 0.182 on TACO and from 0.339 to 0.192 on ARCTIC, against an extraction floor of 0.102 / 0.047. With sampled s_0 the errors are higher (D0 dense error 2.525 TACO / 3.464 ARCTIC over frames 0-63, against 1.775 / 1.963 over frames 1-63 with the true s_0; error of the sampled s_0 itself 2.350 / 2.395), which the report reads as the end-to-end error being dominated by the sampled initial contact.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_aware_temporal_generation/report.md",
+   "source_files": [
+    "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+    "reports/structure_aware_temporal_generation/end_to_end_metrics.csv"
+   ],
+   "metric": "Test-mean errors (lower is better), 3 seeds averaged, K1; protocol A = true s_0, frames 1-63; protocol B = sampled s_0 (first of 10 draws), frames 0-63. 'Persistence' = keeping s_0 for all frames; 'GT map' = the same R2 extraction applied to the real map (extraction floor). Brackets = 95 % take-cluster bootstrap interval.",
+   "numbers": {
+    "TACO | Participation error: D0 / persistence / extraction floor (protocol A)": {
+     "value": "0.18179837694296086 / 0.4772588953396285 / 0.10220798589084502",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=taco, protocol=A, metric=part_hamming, stat=K1, model=D0, PERSIST, GT; column value"
+    },
+    "ARCTIC | Participation error: D0 / persistence / extraction floor (protocol A)": {
+     "value": "0.19159035304708133 / 0.3394066409448222 / 0.04702167995574494",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=arctic, protocol=A, metric=part_hamming, stat=K1, model=D0, PERSIST, GT; column value"
+    },
+    "TACO | Wrench-profile error: D0 / persistence / extraction floor (protocol A)": {
+     "value": "0.47619974081687644 / 0.7099910719770488 / 0.3718948107581217",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=taco, protocol=A, metric=q_rel_l1, stat=K1, model=D0, PERSIST, GT; column value"
+    },
+    "ARCTIC | Wrench-profile error: D0 / persistence / extraction floor (protocol A)": {
+     "value": "0.49515370328286434 / 0.6602339485800395 / 0.3263046392590128",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=arctic, protocol=A, metric=q_rel_l1, stat=K1, model=D0, PERSIST, GT; column value"
+    },
+    "TACO | Dense error E_C: D0 / persistence (protocol A)": {
+     "value": "1.7746110701790223 / 3.5385159840295604",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=taco, protocol=A, metric=E_C, stat=K1, model=D0, PERSIST; column value"
+    },
+    "ARCTIC | Dense error E_C: D0 / persistence (protocol A)": {
+     "value": "1.9632492652129532 / 2.2421078891843877",
+     "source": "reports/structure_aware_temporal_generation/fixed_s0_metrics.csv",
+     "locator": "dataset=arctic, protocol=A, metric=E_C, stat=K1, model=D0, PERSIST; column value"
+    },
+    "TACO | Sampled s_0 (protocol B): D0 dense error E_C / sampled map held / error of the sampled s_0 itself": {
+     "value": "2.524624928886637 / 4.163933448739105 / 2.3496105119094746",
+     "source": "reports/structure_aware_temporal_generation/end_to_end_metrics.csv",
+     "locator": "dataset=taco, protocol=B, stat=K1: model=D0 metric=E_C; model=PERSIST metric=E_C; model=D0 metric=s0_err; column value"
+    },
+    "ARCTIC | Sampled s_0 (protocol B): D0 dense error E_C / sampled map held / error of the sampled s_0 itself": {
+     "value": "3.4641473911782747 / 3.455130643742059 / 2.3954824989521377",
+     "source": "reports/structure_aware_temporal_generation/end_to_end_metrics.csv",
+     "locator": "dataset=arctic, protocol=B, stat=K1: model=D0 metric=E_C; model=PERSIST metric=E_C; model=D0 metric=s0_err; column value"
+    },
+    "TACO | Sampled s_0 (protocol B): D0 participation error / sampled map held": {
+     "value": "0.24866453769204 / 0.5404647590111491",
+     "source": "reports/structure_aware_temporal_generation/end_to_end_metrics.csv",
+     "locator": "dataset=taco, protocol=B, metric=part_hamming, stat=K1, model=D0 and PERSIST; column value"
+    },
+    "ARCTIC | Sampled s_0 (protocol B): D0 participation error / sampled map held": {
+     "value": "0.35959435609506446 / 0.45854335867108836",
+     "source": "reports/structure_aware_temporal_generation/end_to_end_metrics.csv",
+     "locator": "dataset=arctic, protocol=B, metric=part_hamming, stat=K1, model=D0 and PERSIST; column value"
+    }
+   },
+   "caveats": [
+    "'Sample s_0, then evolve deterministically' is the factorisation the report supports (its 'Option A'), not a solved pipeline: with sampled s_0 the ARCTIC dense error of the evolved trajectory (3.464) is no lower than holding the sampled map (3.455), although its structure is better (participation 0.360 vs 0.459).",
+    "On ARCTIC the dense future is only slightly more predictable than holding s_0 (1.963 vs 2.242 with the true s_0), whereas on TACO the dense error is halved (1.775 vs 3.539).",
+    "That R2 is a useful analysis representation is a result of the earlier structure / variance study, not of this experiment; this experiment only tested R2 as a training-time supervision signal."
+   ],
+   "claim_as_extracted": "Context for reading the comparison: with the true s_0 the dense-only deterministic generator D0 already recovers much of the R2-level structure relative to holding s_0 (participation error 0.182 against 0.477 on TACO, 0.192 against 0.339 on ARCTIC), and with sampled s_0 the end-to-end error is dominated by the sampled initial contact (D0 dense error 2.525 / 3.464 against 1.775 / 1.963 with the true s_0).",
+   "correction_reason": "Values confirmed. 'Recovers much of the structure' is an interpretation; the numbers with the floor say it directly. The protocol-A and protocol-B dense errors cover different frame ranges (B includes frame 0), so the comparison is not like-for-like, and 'dominated by the sampled s_0' is the report's reading (report section 8), which should be attributed."
+  }
+ ],
+ "dataset_differences": [
+  "Output R2 loss, deterministic (D1 vs D0): on TACO every interval excludes zero (participation +3.5 %, centroid +5.4 %, normal +2.2 %, wrench +1.8 %, dense +1.4 %); on ARCTIC participation (+0.8 % [-2.1, +3.4]), dense error (+0.7 % [-0.7, +2.0]) and amount (-0.8 % [-1.8, +0.3]) are not distinguishable from no change, while centroid (+4.9 %), normal (+3.9 %) and wrench (+3.1 %) are.",
+  "Hidden head, deterministic (D2 vs D1): TACO worse on all of dense / participation / centroid / normal / wrench with intervals clear of zero; ARCTIC only centroid (+6.5 %) and normal (+6.4 %) are distinguishable. The frame-to-frame change drops by 3.8 % on TACO but 28.0 % on ARCTIC.",
+  "Output R2 loss, diffusion (S1 vs S0): dense error +6.8 % on TACO, -0.0 % on ARCTIC; amount error -1.0 % on TACO, -6.8 % on ARCTIC; participation +8.5 % (TACO, interval excludes zero) vs +2.7 % [-2.0, +7.9] (ARCTIC).",
+  "Diffusion vs deterministic with the true s_0 (S0 vs D0): dense error +14.8 % on TACO, +26.6 % on ARCTIC; amount error +4.7 % vs +20.9 %; wrench-profile error +1.0 % [-0.3, +2.2] on TACO (tie) vs +2.7 % [+0.1, +5.1] on ARCTIC (slightly worse).",
+  "Temporal jitter: diffusion samples change about 3.6-6.9 times as much per frame as real TACO trajectories (S0 1.148, S2 2.169 vs GT 0.315) and about 9.8-17.2 times as much on ARCTIC (S0 1.586, S2 2.769 vs GT 0.161). The deterministic D0 changes about half as much as real data on TACO (0.160 vs 0.315) and nearly as much on ARCTIC (0.144 vs 0.161).",
+  "Diversity levels are larger on ARCTIC in absolute terms (future-only D_Z 1.152 vs 0.817; initial-only 2.483 vs 1.628), with a similar future / initial ratio (stored 0.47 ARCTIC, 0.51 TACO). Holding the sampled s_0 gives more R2 spread than evolving it on TACO (2.374 vs 1.628) but less on ARCTIC (1.754 vs 2.483).",
+  "Dense predictability: with the true s_0, D0 halves the dense error of holding s_0 on TACO (1.775 vs 3.539) but improves it only slightly on ARCTIC (1.963 vs 2.242); with sampled s_0 the ARCTIC dense error of the evolved trajectory (3.464) is no lower than holding the sample (3.455), TACO 2.525 vs 4.164.",
+  "With sampled s_0 (protocol B) the diffusion model is slightly better than the deterministic one on structure on ARCTIC (S0 vs D0 participation -5.1 % [-8.0, -1.8], wrench -2.7 % [-4.7, -0.6]) and slightly worse on TACO (participation +2.4 % [+0.3, +4.4]); dense error is about +11 % on both.",
+  "S2 (diffusion + output loss + hidden head) is nominally better than D0 on ARCTIC structure (participation 0.175 vs 0.192, centroid 0.286 vs 0.299, normal 47.3 vs 48.9 deg) and equal on TACO (0.181 vs 0.182), at a much higher dense error (2.931 vs 1.963 ARCTIC; 2.494 vs 1.775 TACO); no paired test of this pair exists.",
+  "Sample size: TACO 364 test sequences from 186 takes; ARCTIC 186 test sequences from 44 takes, so ARCTIC intervals are several times wider.",
+  "Extraction floor differs: participation 0.102 (TACO) vs 0.047 (ARCTIC); wrench 0.372 vs 0.326.",
+  "OakInk2 is not part of this experiment (excluded in report section 4); every statement of this block is for TACO and ARCTIC only."
+ ],
+ "do_not_claim": [
+  "Structural (R2) supervision cannot help, or R2 is the wrong structure: only one surrogate (a differentiable grid R2 operator with ground-truth part labels), weights 0.3 / 1 / 3 and one training recipe were tested; nothing between 0 and 0.3. The report's wording is 'this surrogate under this recipe does not help'.",
+  "R2 supervision significantly hurts every metric on both datasets: on ARCTIC participation, dense error and amount are not distinguishable from no change, and the amount error improves slightly on TACO.",
+  "The output loss gave a 'marginal gain' on TACO (the decision table's 'marginal (< 5 %)' is a rule label; the significant changes are all for the worse except the amount, -0.9 %).",
+  "The hidden head makes D2 significantly worse than D0: no paired D2-versus-D0 comparison exists; the claim rests on D2 vs D1 plus D1 vs D0.",
+  "Diffusion is worse on structure: at the dense-only level it ties (intervals include zero), and at the hidden-head level one S2 sample is better than D2 on participation / centroid / normal.",
+  "'S models are 15-26 % worse on dense error': true for S0 and S1 against their matched deterministic model (14.8-26.6 %), not for S2 vs D2 (+31.8 % TACO, +46.9 % ARCTIC).",
+  "'3.7-17x the real frame-to-frame change' as one range: it pools TACO (3.6-6.9x) with ARCTIC (9.8-17.2x) and S0 with S2.",
+  "Human futures given s_0 are deterministic or unimodal, or 'universally deterministic': only one future is observed per condition and the tested diffusion recipe is noisy; the supported statement is that this stochastic future model gave no K = 1 structural benefit.",
+  "Future stochasticity is unnecessary in general, or 'initial stochasticity is sufficient' as an established fact: 'Case A' is a rule output of aggregate.decision(), which has no branch for a standalone Case C; the report's wording is 'Case A, with a Case-C caveat for this diffusion recipe'.",
+  "Best-of-10 gains show that the diffusion captures alternative valid futures: best-of-10 is an oracle against the single observed future, and even then the dense error stays 7.4 % (TACO) / 16.6 % (ARCTIC) worse.",
+  "The 2-5x diversity multiplier is a like-for-like decomposition, or 'R2 and wrench diversity are 5x larger': the two sides use different protocols and frame ranges, the multipliers exist only in prose, D_Z and wrench are 2.0-3.2x, and the 5x end is the centroid component.",
+  "The initial sampler's diversity is 'meaningful' in the sense of covering real alternative grasps: diversity is a spread, the sampled s_0 are far from the true s_0 (error 2.35 TACO / 2.40 ARCTIC), and no coverage test was run.",
+  "The deterministic model reproduces real temporal dynamics: it changes less from frame to frame than the real data (about half on TACO).",
+  "D0 is the best model on every metric: it has the lowest dense error on both datasets, but S2 is nominally at or below it on ARCTIC structural metrics.",
+  "The generators know which finger touches: structural metrics are extracted with ground-truth hand-part labels; no model outputs finger identity.",
+  "This experiment shows that R2 is a useful analysis / relational representation: that comes from the earlier structure / variance study; here R2 was only a training-time loss and an evaluation lens.",
+  "The jitter is a sampler or implementation bug, or conversely an inherent property of diffusion: the diagnostic (one seed per dataset, 96 sequences) only shows it does not depend on the number of DDIM steps for this trained model.",
+  "End-to-end generation is solved by 'sample s_0, then evolve deterministically': with sampled s_0 the error is dominated by the sampled initial contact, and on ARCTIC the evolved dense error is no lower than holding the sample.",
+  "The models were trained to convergence, or the hypotheses were pre-registered: every run stopped by early-stopping patience, and the report does not use the word pre-registered.",
+  "Wrench results as statements about human intent, or any robot null-space reading: the wrench profile is a modelled proxy for functional grasp capability (one unit-force friction-cone patch per active hand part).",
+  "Any OakInk2 statement for this block, or any number pooled or averaged over TACO and ARCTIC."
+ ],
+ "candidate_images": [],
+ "verification": {
+  "reliability": "high",
+  "numbers_confirmed": 130,
+  "numbers_checked": 134,
+  "number_corrections": [
+   {
+    "block": "F3-A",
+    "label": "E2 TACO D2 vs D1 frame-to-frame dense change (labelled 'the one quantity that drops')",
+    "reported": "-3.792043454866645 [-5.095622033925251, -2.404448636040901]",
+    "found": "value identical. The parenthetical is not exact: the frame-to-frame change of the R2 summary also drops, jitter_r2 -3.012661934480254 [-4.043705862566305, -2.0730302741156614] (TACO) and -6.248648988959593 [-8.908697188669956, -3.3224969287189765] (ARCTIC). Correct wording: the frame-to-frame change (dense and R2) is the only quantity that drops with an interval clear of zero.",
+    "verdict": "corrected",
+    "source_checked": "reports/structure_aware_temporal_generation/paired_comparisons.csv : taco, arctic / A / D1->D2 / jitter_dense, jitter_r2 / K1",
+    "applied_to": "TACO | D2 vs D1 frame-to-frame dense change, rel. change % [95 % CI] (the one quantity that drops)"
+   },
+   {
+    "block": "F3-A",
+    "label": "EXPECTED 2: S models 15-26 % worse dense error than the deterministic model",
+    "reported": "S0 vs D0 +14.77 % (TACO), +26.64 % (ARCTIC); S1 vs D1 +20.90 %, +25.81 %; S2 vs D2 +31.81 %, +46.85 %. Verdict 'differs'.",
+    "found": "All six values confirmed. The '15-26 %' phrase is report prose (line 25, section 17 Q4) and covers S0 and S1 only; report section 7 itself writes '15 % / 27 %' for S0 vs D0. Corrected statement: one sample of the dense-only diffusion model S0 has a 14.8 % (TACO) / 26.6 % (ARCTIC) higher dense error than D0; S1 vs D1 +20.9 % / +25.8 %; S2 vs D2 +31.8 % / +46.9 %.",
+    "verdict": "corrected",
+    "source_checked": "reports/structure_aware_temporal_generation/paired_comparisons.csv (A, E_C, K1, D0->S0, D1->S1, D2->S2) ; report.md lines 25, 216, 773"
+   },
+   {
+    "block": "F3-A",
+    "label": "EXPECTED 3: diffusion samples carry 3.7-17x the GT frame-to-frame change",
+    "reported": "Stored maximum 6.8927 (TACO) and 17.171 (ARCTIC), both S2 / GT; levels GT 0.3147 / S0 1.1480 / S1 1.2548 / S2 2.1693 (TACO), GT 0.1612 / 1.5858 / 1.6469 / 2.7688 (ARCTIC). Verdict confirmed.",
+    "found": "Values confirmed, but the single range pools the two datasets and S0 with S2: 3.7x is TACO S0 (prose), 17x is ARCTIC S2 (stored 17.17). Report per dataset: TACO 3.7x (S0, S1; prose) and 6.89x (S2; stored); ARCTIC 10x (S0, S1; prose) and 17.17x (S2; stored). Do not print the pooled range.",
+    "verdict": "corrected",
+    "source_checked": "reports/structure_aware_temporal_generation/sanity_summary.json (18_no_independent_frame_noise) ; fixed_s0_metrics.csv (jitter_dense, K1) ; report.md line 688"
+   },
+   {
+    "block": "F3-A",
+    "label": "EXPECTED 4: initial sampler gives 2-5x more R2 / wrench diversity than the stochastic future",
+    "reported": "D_Z 1.6284 vs 0.8168 (TACO), 2.4831 vs 1.1517 (ARCTIC); D_q 0.2733 vs 0.1072, 0.5536 vs 0.1755; participation 0.1079 vs 0.0337, 0.1937 vs 0.0618; centroid 0.1113 vs 0.0250, 0.3078 vs 0.0555; prose multipliers D_Z x2.0 / x2.2, participation x3.2 / x3.1, centroid x4.4 / x5.5, wrench x2.6 / x3.1, dense x1.3 / x1.5; stored 0.51 / 0.47. Verdict confirmed.",
+    "found": "All values confirmed. Meaning correction: for the R2 summary distance D_Z and the wrench profile the prose multipliers are x2.0 / x2.2 and x2.6 / x3.1 (TACO / ARCTIC); the '5x' end is the centroid component only (x4.4 / x5.5). The multipliers exist only in report prose; the only stored ratio is D_Z future / initial = 0.51 (TACO) / 0.47 (ARCTIC). The two sides are measured under different protocols (A, frames 1-63, true s_0 vs B, frames 0-63, sampled s_0).",
+    "verdict": "corrected",
+    "source_checked": "reports/structure_aware_temporal_generation/diversity_metrics.csv ; decision_summary.csv ; report.md section 11 and section 17 Q7"
+   }
+  ],
+  "claims_supported_as_extracted": 4,
+  "claims_checked": 12,
+  "figure_checks": [
+   {
+    "id": "f3a_levels_dense_error",
+    "verdict": "fixed",
+    "note": "All 36 bar values and intervals plus the 2 reference values match fixed_s0_metrics.csv (protocol A, E_C, K1; D0/D1/D2 and S0/S1/S2; PERSIST as reference), TACO and ARCTIC in the right panels, direction lower_better correct, error bars are each model's own ci_lo / ci_hi as the note says. No plotted value is typed in the code. Fix (note text only, plotted data unchanged): the note now also states that the reference line is a test mean with its own 95 % interval and prints it from the table (hold s_0 3.539 [3.404, 3.674] TACO, 2.242 [1.975, 2.523] ARCTIC). Extractor's reading 'the error bars overlap' is true within a family only: on TACO the deterministic and diffusion intervals do not overlap (D0 [1.669, 1.879] vs S0 [1.933, 2.140])."
+   },
+   {
+    "id": "f3a_levels_participation",
+    "verdict": "fixed",
+    "note": "All values match fixed_s0_metrics.csv (part_hamming, K1; references GT = extraction floor and PERSIST). Direction and error bars correct. Fix (note only): added that the extraction uses the real hand's part label of every surface point (no model outputs which finger touches), and the reference-line intervals read from the table (floor 0.102 [0.093, 0.112] TACO, 0.047 [0.038, 0.058] ARCTIC; hold s_0 0.477 [0.454, 0.498], 0.339 [0.289, 0.403])."
+   },
+   {
+    "id": "f3a_levels_wrench",
+    "verdict": "fixed",
+    "note": "All values match fixed_s0_metrics.csv (q_rel_l1, K1; references GT and PERSIST). Direction lower_better correct; wording 'proxy for functional grasp capability' is within the rules. Fix (note only): same two additions as the participation figure (part-label caveat; reference intervals 0.372 [0.358, 0.386] / 0.326 [0.292, 0.364] floor, 0.710 [0.687, 0.730] / 0.660 [0.617, 0.709] hold s_0)."
+   },
+   {
+    "id": "f3a_levels_frame_change",
+    "verdict": "fixed",
+    "note": "All values match fixed_s0_metrics.csv (jitter_dense, K1; reference GT). Direction 'none' is right (the reference is the real trajectories). Fix (note only): the note now prints the reference interval (real trajectories 0.315 [0.300, 0.330] TACO, 0.161 [0.135, 0.187] ARCTIC), because on ARCTIC the D0 and D1 bars' intervals overlap it; the page must not say the deterministic models are clearly smoother than real data on ARCTIC."
+   },
+   {
+    "id": "f3a_paired_supervision_deterministic",
+    "verdict": "fixed",
+    "note": "All 72 values (2 series x 6 metrics x 2 datasets x value / lo / hi) match paired_comparisons.csv (protocol A, K1, D0->D1 and D1->D2; rel_change_pct, rel_lo, rel_hi). Positive = worse is correct because all six metrics are errors. Fix (note only): added that participation, amount, centroid, normal and wrench are extracted with the real hand's part labels. Extractor's reading is accurate."
+   },
+   {
+    "id": "f3a_paired_supervision_diffusion",
+    "verdict": "fixed",
+    "note": "All values match paired_comparisons.csv (A, K1, S0->S1 and S1->S2). Fix (note only): same part-label sentence. The extractor's reading needs the amount exception: for S2 vs S1 the amount bar is positive (+0.7 % TACO, +7.0 % [3.4, 11.5] ARCTIC), so 'structural bars negative' applies to participation / centroid / normal / wrench only; for S1 vs S0 the amount bar is negative (-1.0 % / -6.8 %) and the ARCTIC participation and dense-error intervals cross zero."
+   },
+   {
+    "id": "f3a_paired_diffusion_vs_deterministic",
+    "verdict": "fixed",
+    "note": "All 108 values match paired_comparisons.csv (A, K1, D0->S0, D1->S1, D2->S2). Fix (note only): same part-label sentence. The extractor's reading must be corrected: at the dense-only level the amount bar is clearly positive (+4.7 % TACO, +20.9 % ARCTIC) and the ARCTIC wrench bar excludes zero (+2.7 % [0.1, 5.1]), so 'structural bars near 0, intervals crossing 0' holds for participation / centroid / normal (and TACO wrench) only; at the hidden-head level the amount bar is positive (+4.6 % / +17.4 %) and the ARCTIC wrench interval crosses zero. The quoted jitter range (+600 % to +2400 %) is confirmed (605.98 to 2403.93)."
+   },
+   {
+    "id": "f3a_diversity_r2",
+    "verdict": "ok",
+    "note": "All 24 values match diversity_metrics.csv (D_Z; future A/S0, initial B/D0, initial + future B/S0, held B/PERSIST), right dataset per panel, direction 'none', error bars = ci_lo / ci_hi. The note discloses the protocol / frame-range difference between the first bar and the others. Reading confirmed (held-s_0 bar largest on TACO, below the evolved bars on ARCTIC)."
+   },
+   {
+    "id": "f3a_diversity_wrench",
+    "verdict": "ok",
+    "note": "All values match diversity_metrics.csv (D_q, same four rows). Reading confirmed: 0.107 / 0.176 against 0.273 / 0.554; adding the diffusion future changes it to 0.278 / 0.558 (report: +2 % / +1 %)."
+   },
+   {
+    "id": "f3a_diversity_dense",
+    "verdict": "ok",
+    "note": "All values match diversity_metrics.csv (D_C, same four rows). Reading confirmed (1.25 vs 1.65 TACO, 1.80 vs 2.73 ARCTIC)."
+   }
+  ],
+  "image_checks": [
+   {
+    "path": "reports/structure_aware_temporal_generation/figures/figH_taco_dense_variation.png",
+    "exists": true,
+    "note": "The extractor recommended no image; this one was opened to check that decision. It is a diagnostic sheet (rows GT, D1, three S1 samples at t = 0, 8, 16, 32, 48, 63, plus small axes, one of them empty) titled with internal names (D_C, D_Z, E_C(S1 mean), example 863) and shows D1 / S1, not the D0 / S0 pair the block quotes. Not page-ready without cropping and re-captioning; agreeing with 'no image' is reasonable."
+   },
+   {
+    "path": "reports/structure_aware_temporal_generation/figures/figD_initial_vs_future.png",
+    "exists": true,
+    "note": "Opened. 14 small bar panels of the diversity decomposition for D1 / S1 (not D0 / S0); the legend covers the first TACO panel. Superseded by the f3a_diversity_* figures; do not reuse."
+   }
+  ],
+  "attached_by_the_verifier": [
+   "Numbers used by the third claim but absent from the extractor's list (all paired_comparisons.csv, protocol A, K1): S1 vs S0 normal 5.400273712820147 [4.240677196876086, 6.659274260634196] (TACO), 7.4733058977299205 [3.555859885454038, 12.65075089796024] (ARCTIC); S2 vs S1 centroid -9.771726593958952 [-12.049979354142625, -7.500299256365716] (TACO), -13.1464353377451 [-16.295873115595494, -10.358316629971743] (ARCTIC); S2 vs S1 normal -4.659599402010695 [-5.585956900329547, -3.740811797468313] (TACO), -8.456493174054813 [-10.77876697932778, -6.317689645995761] (ARCTIC).",
+   "The amount error after adding the hidden head is missing and changes the reading of 'structural errors fall': S2 vs S1 amount 0.711068099101575 [-0.4248521581874165, 1.953820872568346] (TACO), 6.969855010342818 [3.449737623346727, 11.54028254506323] (ARCTIC, worse, interval excludes zero); D2 vs D1 amount 0.7122546095942317 [-0.12484931514088471, 1.525088143383324] (TACO, sign differs between seeds), 3.43843201175964 [-1.52847960553687, 8.65499089300954] (ARCTIC).",
+   "Matched comparison at the output-loss level (the pair the decision table actually reads) is only given for the dense error. S1 vs D1, K1: participation 7.062746980458678 [4.238141429947562, 10.038561901679909] (TACO), 3.906019593701293 [-1.5761405730130296, 10.219519918860676] (ARCTIC); centroid 5.8747868422706295 [3.1066925387169153, 8.651539340895997], 4.99706226188068 [1.420593946481996, 9.0064244919426]; normal 2.7301585957785424 [1.6674191309588249, 3.8369474279694282], 1.502380593146757 [-1.1242648684890888, 4.217848913193167]; wrench 1.9911193777556013 [0.623998501879508, 3.364791538758416], 4.2123160634052415 [1.8388094014648582, 6.674316138432812]. So at this level one diffusion sample is worse than the deterministic model on structure on TACO, not a tie.",
+   "Caveat to attach to the jitter claim: on ARCTIC the D0 (0.144 [0.119, 0.167]) and D1 (0.154 [0.128, 0.177]) frame-to-frame changes are not distinguishable from the real trajectories (0.161 [0.135, 0.187]); 'deterministic is smoother than real data' is clear on TACO only.",
+   "The frame-to-frame multipliers other than the per-dataset maximum (6.89 TACO, 17.17 ARCTIC, both S2) and the diversity multipliers exist only as report prose; the extractor's own divisions (3.65, 3.99, 9.83, 10.21; 1.99, 2.16, 2.55, 3.15, ...) are not stored in any table and should not be printed as source numbers. Use the stored maxima, the report's prose values with attribution, or the two levels side by side.",
+   "Two stored versions of the future / initial D_Z ratio exist and should not be mixed: decision_summary.csv 0.51 (TACO) / 0.47 (ARCTIC) = mean of S0-S2 over mean of D0-D2; report section 14 prose '0.50' / '0.46' = S0 over D0. The figure and the quoted levels use S0 / D0.",
+   "Context for 'the sampled s_0 are far from the true s_0': the 2.350 / 2.395 figure is the first of 10 draws; the report (section 8) also states that the oracle best of the 10 draws comes close to the fixed-s_0 level (D0 best-of-10 E_C 1.798 TACO / 2.348 ARCTIC in end_to_end_metrics.csv). Both are needed: neither shows coverage of real alternative grasps (single observed future, oracle selection).",
+   "The jitter diagnostic (diag_jitter_*.json) measures a slightly different quantity from the table's jitter_dense: all 63 transitions including frame 0 -> 1, one training seed, one generator seed, the first 96 test sequences (subset GT 0.268 TACO / 0.130 ARCTIC against 0.315 / 0.161 in the table). Quote it only for the within-diagnostic comparison across DDIM step counts.",
+   "The initial sampler is not part of this experiment's training: it is the frozen p(s_0 | G) diffusion sampler of the earlier hierarchical study (10 draws per test sequence, stored once in <ds>/s0_samples.npz). The page should say so where protocol B is introduced.",
+   "Training-time privilege: the R2 output loss and the hidden head use ground-truth hand-part masks and toward-hand normals as training-only signals (report section 6), and the evaluation extraction uses the same ground-truth part labels. The extractor has this in caveats / do_not_claim; it is now also in the figure notes and should be in the block text.",
+   "No existing qualitative image is recommended for this block (the extractor opened the report figures and judged them not page-ready; confirmed for the two opened here). If the block needs a qualitative panel it would have to be newly rendered, which is outside this evidence unit."
+  ]
+ }
+}

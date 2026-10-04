@@ -1,0 +1,763 @@
+{
+ "unit": "J_z_temporal_diagnostic",
+ "figure_module": "docs/build/figs/f3d_z_temporal_diagnostic.py",
+ "entries": [
+  {
+   "block": "F3-diagB",
+   "claim": "On the test transitions of both datasets the size of the latent step Δz follows the size of the dense-contact step ΔC (Spearman about 0.85 on TACO and 0.81 on ARCTIC at each of h = 1, 4, 8), which supports rejecting the report's Case C as defined in advance ('the steps of z do not follow the steps of the contact').",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_temporal_diagnostic/report.md",
+   "source_files": [
+    "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+    "reports/z_temporal_diagnostic/temporal_geometry_bins.csv",
+    "reports/z_temporal_diagnostic/report_values.json",
+    "reports/z_temporal_diagnostic/experiment_config.json",
+    "reports/z_temporal_diagnostic/directional_consistency.csv",
+    "reports/z_temporal_diagnostic/decision_summary.csv"
+   ],
+   "metric": "Spearman rank correlation between ΔC = ||C_t - C_{t+h}|| (L2 of the raw 512-point canonical contact maps) and Δz = ||z_t - z_{t+h}|| (Euclidean, train-standardised 64-D z) over all ground-truth test transitions (every (sequence, t) with t <= 63 - h); each step is divided by its mean over 200 000 random pairs of training frames. Higher = the latent step tracks the contact step more closely. No training involved (frozen Stage-1 A3 encoder). Brackets are 95 % take-cluster bootstrap intervals (300 replicates for correlations).",
+   "numbers": {
+    "TACO | Spearman(ΔC, Δz), h = 1 [95 % CI]": {
+     "value": "0.8530395787504902 [0.8363279688727736, 0.8664576215187921]",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+     "locator": "row dataset=taco, h=1; columns spearman_C_z, spearman_C_z_lo, spearman_C_z_hi"
+    },
+    "TACO | Spearman(ΔC, Δz), h = 4 [95 % CI]": {
+     "value": "0.848749580707297 [0.8326779943307507, 0.8637918391448601]",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+     "locator": "row dataset=taco, h=4; columns spearman_C_z(_lo,_hi)"
+    },
+    "TACO | Spearman(ΔC, Δz), h = 8 [95 % CI]": {
+     "value": "0.8581629253584713 [0.8432444752088998, 0.8722037936361511]",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+     "locator": "row dataset=taco, h=8; columns spearman_C_z(_lo,_hi)"
+    },
+    "ARCTIC | Spearman(ΔC, Δz), h = 1 [95 % CI]": {
+     "value": "0.8102962629052914 [0.7656896613196109, 0.858752107444999]",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+     "locator": "row dataset=arctic, h=1; columns spearman_C_z(_lo,_hi)"
+    },
+    "ARCTIC | Spearman(ΔC, Δz), h = 4 [95 % CI]": {
+     "value": "0.8139906114530944 [0.7637928820755225, 0.865709025002819]",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+     "locator": "row dataset=arctic, h=4; columns spearman_C_z(_lo,_hi)"
+    },
+    "ARCTIC | Spearman(ΔC, Δz), h = 8 [95 % CI]": {
+     "value": "0.8054893870047002 [0.7474713942032214, 0.8615098853599514]",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+     "locator": "row dataset=arctic, h=8; columns spearman_C_z(_lo,_hi)"
+    },
+    "TACO | mean Spearman over h = 1, 4, 8 (the rule input; rule needs >= 0.60, Case C if < 0.30)": {
+     "value": "0.8533173616054195",
+     "source": "reports/z_temporal_diagnostic/report_values.json",
+     "locator": "key mean_spearman_taco"
+    },
+    "ARCTIC | mean Spearman over h = 1, 4, 8 (the rule input)": {
+     "value": "0.8099254204543621",
+     "source": "reports/z_temporal_diagnostic/report_values.json",
+     "locator": "key mean_spearman_arctic"
+    },
+    "TACO | test transitions at h = 1 / 4 / 8 (test takes)": {
+     "value": "22932 / 21840 / 20384 (186 takes)",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+     "locator": "rows dataset=taco; columns n_test, n_takes"
+    },
+    "ARCTIC | test transitions at h = 1 / 4 / 8 (test takes)": {
+     "value": "11718 / 11160 / 10416 (44 takes)",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+     "locator": "rows dataset=arctic; columns n_test, n_takes"
+    },
+    "TACO | Pearson(ΔC, Δz) at h = 1 / 4 / 8": {
+     "value": "0.8343915939331055 / 0.8118252754211426 / 0.8239865303039551",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+     "locator": "rows dataset=taco, h=1,4,8; column pearson_C_z"
+    },
+    "ARCTIC | Pearson(ΔC, Δz) at h = 1 / 4 / 8": {
+     "value": "0.7773111462593079 / 0.7874161601066589 / 0.7770867347717285",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+     "locator": "rows dataset=arctic, h=1,4,8; column pearson_C_z"
+    },
+    "TACO | partial Spearman(Δz, ΔC | Stage-1 teacher step) at h = 1 / 4 / 8": {
+     "value": "0.8181414581745424 / 0.7894468772323919 / 0.7657266794575016",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+     "locator": "rows dataset=taco; column partial_spearman_z_C_given_T"
+    },
+    "ARCTIC | partial Spearman(Δz, ΔC | Stage-1 teacher step) at h = 1 / 4 / 8": {
+     "value": "0.7930149057080075 / 0.7636989617893198 / 0.7109775863842512",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+     "locator": "rows dataset=arctic; column partial_spearman_z_C_given_T"
+    },
+    "TACO | h = 4, lowest and highest train decile of ΔC: mean ΔC -> mean Δz": {
+     "value": "decile 1: 0.0100874891504645 -> 0.0374151431024074 ; decile 10: 0.3381211161613464 -> 0.5591593384742737",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_bins.csv",
+     "locator": "rows dataset=taco, h=4, decile=1 and 10; columns dC_mean, dz_mean"
+    },
+    "ARCTIC | h = 4, lowest and highest train decile of ΔC: mean ΔC -> mean Δz": {
+     "value": "decile 1: 0.0068494491279125 -> 0.0314116030931472 ; decile 10: 0.4489025473594665 -> 0.5241580605506897",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_bins.csv",
+     "locator": "rows dataset=arctic, h=4, decile=1 and 10; columns dC_mean, dz_mean"
+    },
+    "TACO | direction check at h = 4 (optional, moving transitions only): cos(Δz_i, Δz of nearest neighbour in another take of the same mesh) vs random partner": {
+     "value": "0.4713739438126643 [0.4528489289515974, 0.4917087521230279] vs 0.0323625027114433 (n = 12471)",
+     "source": "reports/z_temporal_diagnostic/directional_consistency.csv",
+     "locator": "row dataset=taco; columns cos_dz_nn(_lo,_hi), cos_dz_random, n_transitions"
+    },
+    "ARCTIC | direction check at h = 4: cos(Δz_i, Δz nearest neighbour) vs random partner": {
+     "value": "0.2736414854011658 [0.1968494147886609, 0.3572863671431974] vs 0.0100301560074178 (n = 4549)",
+     "source": "reports/z_temporal_diagnostic/directional_consistency.csv",
+     "locator": "row dataset=arctic; columns cos_dz_nn(_lo,_hi), cos_dz_random, n_transitions"
+    },
+    "TACO / ARCTIC (separate rows) | decision table answer to 'Does delta_z track actual contact change?'": {
+     "value": "yes / yes",
+     "source": "reports/z_temporal_diagnostic/decision_summary.csv",
+     "locator": "rows question='Does delta_z track actual contact change?'; column answer"
+    }
+   },
+   "caveats": [
+    "Scope of the rejection: the report rejects 'Case C as pre-registered (the steps of z do not follow the steps of the contact)' and says in the same paragraph that whether the lower persistence of z than of the dense map contributed to the Stage-2 failure was NOT tested. Do not widen it to 'z's temporal behaviour is not the problem'.",
+    "What is measured is alignment of step SIZES (plus an optional direction check at h = 4 only); it is a statement about ground-truth frame pairs, not about any generator.",
+    "Only h = 1, 4, 8 frames inside 64-frame windows; ΔC is the L2 distance of raw maps (dominated by strongly contacting points). The report: other metrics 'would change the numbers of Section 6, hardly its rank statistics' (not shown).",
+    "The rule and its thresholds are described by the report as written into the code before any probe was trained; there is no independent timestamp (no plan file, scripts folder untracked in git when this was checked (first committed on 2026-10-04)). Say 'fixed before the probes were trained, according to the report'.",
+    "ARCTIC intervals are wider (44 test takes against 186 on TACO).",
+    "z was trained in Stage 1 to organise frames by a teacher distance (R2 + wrench); the teacher step keeps a partial correlation with Δz once ΔC is accounted for (0.27 / 0.34 / 0.37 TACO, 0.38 / 0.43 / 0.49 ARCTIC, column partial_spearman_z_T_given_C). The latent moves when the contact moves 'and somewhat more when the R2 / wrench structure moves' (report Section 6)."
+   ]
+  },
+  {
+   "block": "F3-diagB",
+   "claim": "Transitions in which the contact hardly changes while z jumps (ΔC below the train 30 % quantile, Δz above the train 70 % quantile) are rare: 0.2 % of the TACO and 0.6 % of the ARCTIC test transitions on average over h = 1, 4, 8, against about 7.5 % and 8.1-8.5 % expected if the two steps were independent at the test marginals.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_temporal_diagnostic/report.md",
+   "source_files": [
+    "reports/z_temporal_diagnostic/quadrant_metrics.csv",
+    "reports/z_temporal_diagnostic/report_values.json",
+    "reports/z_temporal_diagnostic/experiment_config.json",
+    "reports/z_temporal_diagnostic/quadrant_B_kinds.csv"
+   ],
+   "metric": "Fraction of test transitions in the 'low ΔC / high Δz' quadrant; thresholds are the 30 % / 70 % quantiles of the TRAINING transitions at each horizon (recomputed in sanity check 07). Lower = fewer such transitions. The rule input is the mean over the three horizons (rule: at most 3 % for 'Δz tracks ΔC'; Case C needs >= 6 % together with probe R² at h = 1 below 0.5). Brackets: 95 % take-cluster bootstrap intervals (1000 replicates).",
+   "numbers": {
+    "TACO | mean low-ΔC / high-Δz fraction over h = 1, 4, 8 (rule input)": {
+     "value": "0.0019045438688295334",
+     "source": "reports/z_temporal_diagnostic/report_values.json",
+     "locator": "key mean_quadB_taco"
+    },
+    "ARCTIC | mean low-ΔC / high-Δz fraction over h = 1, 4, 8 (rule input)": {
+     "value": "0.006038430904022234",
+     "source": "reports/z_temporal_diagnostic/report_values.json",
+     "locator": "key mean_quadB_arctic"
+    },
+    "TACO | low-ΔC / high-Δz fraction, h = 1 [95 % CI]": {
+     "value": "0.0018315018315018 [0.0010901049917683, 0.0026236389872753]",
+     "source": "reports/z_temporal_diagnostic/quadrant_metrics.csv",
+     "locator": "row dataset=taco, h=1; columns B_lowC_highz, B_lowC_highz_lo, B_lowC_highz_hi"
+    },
+    "TACO | low-ΔC / high-Δz fraction, h = 4 [95 % CI]": {
+     "value": "0.0019688644688644 [0.000903342366757, 0.003055554521402]",
+     "source": "reports/z_temporal_diagnostic/quadrant_metrics.csv",
+     "locator": "row dataset=taco, h=4; columns B_lowC_highz(_lo,_hi)"
+    },
+    "TACO | low-ΔC / high-Δz fraction, h = 8 [95 % CI]": {
+     "value": "0.0019132653061224 [0.0009424603174603, 0.003059968491972]",
+     "source": "reports/z_temporal_diagnostic/quadrant_metrics.csv",
+     "locator": "row dataset=taco, h=8; columns B_lowC_highz(_lo,_hi)"
+    },
+    "ARCTIC | low-ΔC / high-Δz fraction, h = 1 [95 % CI]": {
+     "value": "0.0064857484212322 [0.0022183893757639, 0.012114674872836]",
+     "source": "reports/z_temporal_diagnostic/quadrant_metrics.csv",
+     "locator": "row dataset=arctic, h=1; columns B_lowC_highz(_lo,_hi)"
+    },
+    "ARCTIC | low-ΔC / high-Δz fraction, h = 4 [95 % CI]": {
+     "value": "0.0065412186379928 [0.0020517365775986, 0.012320155434982]",
+     "source": "reports/z_temporal_diagnostic/quadrant_metrics.csv",
+     "locator": "row dataset=arctic, h=4; columns B_lowC_highz(_lo,_hi)"
+    },
+    "ARCTIC | low-ΔC / high-Δz fraction, h = 8 [95 % CI]": {
+     "value": "0.0050883256528417 [0.0016464269953347, 0.0099215367965367]",
+     "source": "reports/z_temporal_diagnostic/quadrant_metrics.csv",
+     "locator": "row dataset=arctic, h=8; columns B_lowC_highz(_lo,_hi)"
+    },
+    "TACO | same quadrant expected under independence at the test marginals, h = 1 / 4 / 8": {
+     "value": "0.0743767230087032 / 0.0748700904178239 / 0.0751645140153634",
+     "source": "reports/z_temporal_diagnostic/quadrant_metrics.csv",
+     "locator": "rows dataset=taco, h=1,4,8; column indep_B_at_test_marginals"
+    },
+    "ARCTIC | same quadrant expected under independence at the test marginals, h = 1 / 4 / 8": {
+     "value": "0.0849530007401272 / 0.0849062833211289 / 0.0808432292662122",
+     "source": "reports/z_temporal_diagnostic/quadrant_metrics.csv",
+     "locator": "rows dataset=arctic, h=1,4,8; column indep_B_at_test_marginals"
+    },
+    "TACO | count of low-ΔC / high-Δz transitions at h = 4 (takes) of all test transitions": {
+     "value": "43 (19 takes) of 21840",
+     "source": "reports/z_temporal_diagnostic/quadrant_metrics.csv",
+     "locator": "row dataset=taco, h=4; columns B_n, B_n_takes, n_test"
+    },
+    "ARCTIC | count of low-ΔC / high-Δz transitions at h = 4 (takes) of all test transitions": {
+     "value": "73 (10 takes) of 11160",
+     "source": "reports/z_temporal_diagnostic/quadrant_metrics.csv",
+     "locator": "row dataset=arctic, h=4; columns B_n, B_n_takes, n_test"
+    },
+    "TACO | opposite quadrant (high ΔC / low Δz) fraction at h = 1 / 4 / 8": {
+     "value": "0.0023111808826094 / 0.0027014652014652 / 0.0016679748822605",
+     "source": "reports/z_temporal_diagnostic/quadrant_metrics.csv",
+     "locator": "rows dataset=taco; column C_highC_lowz"
+    },
+    "ARCTIC | opposite quadrant (high ΔC / low Δz) fraction at h = 1 / 4 / 8": {
+     "value": "0.0 / 8.960573476702509e-05 / 0.0002880184331797",
+     "source": "reports/z_temporal_diagnostic/quadrant_metrics.csv",
+     "locator": "rows dataset=arctic; column C_highC_lowz"
+    },
+    "TACO | post hoc composition of the quadrant at h = 4: weak-contact start / participation flip / large teacher step / none of the three": {
+     "value": "0.4651162790697674 / 0.3488372093023256 / 0.4186046511627907 / 0.2093023255813953",
+     "source": "reports/z_temporal_diagnostic/quadrant_metrics.csv",
+     "locator": "row dataset=taco, h=4; columns B_weak_frac, B_flip_frac, B_highT_frac, B_none_frac"
+    },
+    "ARCTIC | post hoc: share of the low-ΔC / high-Δz transitions in which the object articulates, h = 1 / 4 / 8, vs share among all test transitions": {
+     "value": "0.986842105263158 / 1.0 / 1.0 vs 0.3498890595664789 / 0.3446236559139785 / 0.3473502304147465",
+     "source": "reports/z_temporal_diagnostic/quadrant_metrics.csv",
+     "locator": "rows dataset=arctic, h=1,4,8; columns B_lowC_highz_articulating_frac, all_articulating_frac"
+    },
+    "both (rule constant) | rule thresholds for this fraction: 'few' (tracks) / 'many' (Case C branch)": {
+     "value": "0.03 / 0.06",
+     "source": "reports/z_temporal_diagnostic/experiment_config.json",
+     "locator": "decision_rule.quadrant_few, decision_rule.quadrant_many"
+    }
+   },
+   "caveats": [
+    "0.2 % / 0.6 % are means over the three horizons (the rule input). Per horizon ARCTIC is 0.6 % / 0.7 % / 0.5 %; TACO 0.2 % at each.",
+    "The '7.5 % / 8.5 % expected under independence' printed in the report head is the h = 4 value; the range over horizons is 7.4-7.5 % (TACO) and 8.1-8.5 % (ARCTIC). It is 9 % on the training set by construction (0.3 x 0.3).",
+    "'Low' and 'high' are defined by training quantiles, not by a physical threshold; 'pathological' is the page's word, the report says 'the critical quadrant' / 'exceptions'.",
+    "The composition of the quadrant (weak-contact starts, structural steps, articulation) was added post hoc. For ARCTIC the report says the coincidence with articulation is 'consistent with the encoder reading the per-frame articulated geometry' and 'No ablation of the geometry input was run to confirm it'.",
+    "The quadrant letters A-D of the report's Table 5 / Figure 4 are not the decision cases A-D."
+   ]
+  },
+  {
+   "block": "F3-diagB",
+   "claim": "The alignment statistics do not capture that z is less persistent than the dense contact map: in random-pair units the mean latent step is about 1.9-2.2 times the mean contact step on TACO and 1.5-1.6 times on ARCTIC, and copying the past explains less of z than of C at h = 8 (R² 0.61 / 0.75 for z against 0.90 / 0.88 for C); whether this contributed to the Stage-2 difficulty was not tested.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_temporal_diagnostic/report.md",
+   "source_files": [
+    "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+    "reports/z_temporal_diagnostic/temporal_geometry_bins.csv",
+    "reports/z_temporal_diagnostic/report_values.json"
+   ],
+   "metric": "(a) ratio of mean Δz to mean ΔC, each normalised by its random-training-pair mean distance (1.0 = as far apart as two unrelated frames); (b) persistence R² = explained variance of frame t+h by copying frame t, for z and for the dense map C (higher = more persistent). Descriptive, no direction is 'better'.",
+   "numbers": {
+    "TACO | mean Δz / mean ΔC at h = 1 / 4 / 8": {
+     "value": "2.2415357375151945 / 2.0642211109287296 / 1.9405707150359246",
+     "source": "reports/z_temporal_diagnostic/report_values.json",
+     "locator": "keys ratio_move_taco_1, ratio_move_taco_4, ratio_move_taco_8 (= mean_dz / mean_dC of temporal_geometry_metrics.csv)"
+    },
+    "ARCTIC | mean Δz / mean ΔC at h = 1 / 4 / 8": {
+     "value": "1.637957588694567 / 1.562409948042076 / 1.5279151880208108",
+     "source": "reports/z_temporal_diagnostic/report_values.json",
+     "locator": "keys ratio_move_arctic_1, _4, _8"
+    },
+    "TACO | persistence R² of z at h = 1 / 4 / 8": {
+     "value": "0.950194962322712 / 0.7958845943212509 / 0.6110853552818298",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+     "locator": "rows dataset=taco; column persistence_r2_z"
+    },
+    "TACO | persistence R² of the dense map C at h = 1 / 4 / 8": {
+     "value": "0.9915710892528296 / 0.9553984142839907 / 0.9006135016679764",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+     "locator": "rows dataset=taco; column persistence_r2_C"
+    },
+    "ARCTIC | persistence R² of z at h = 1 / 4 / 8": {
+     "value": "0.9847404034808278 / 0.8859277293086052 / 0.7489759027957916",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+     "locator": "rows dataset=arctic; column persistence_r2_z"
+    },
+    "ARCTIC | persistence R² of the dense map C at h = 1 / 4 / 8": {
+     "value": "0.9946907488629222 / 0.9502773806452752 / 0.8796548023819923",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+     "locator": "rows dataset=arctic; column persistence_r2_C"
+    },
+    "TACO | ratio mean Δz / mean ΔC in the lowest / highest train decile of ΔC, h = 4": {
+     "value": "3.70906400680542 / 1.653725028038025",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_bins.csv",
+     "locator": "rows dataset=taco, h=4, decile=1 and 10; column ratio_dz_over_dC"
+    },
+    "ARCTIC | ratio mean Δz / mean ΔC in the lowest / highest train decile of ΔC, h = 4": {
+     "value": "4.586004257202148 / 1.1676433086395264",
+     "source": "reports/z_temporal_diagnostic/temporal_geometry_bins.csv",
+     "locator": "rows dataset=arctic, h=4, decile=1 and 10; column ratio_dz_over_dC"
+    }
+   },
+   "caveats": [
+    "This is the caveat the report attaches to the 'aligned' verdict (Final diagnosis, first bullet; Section 6: 'The geometry is monotone and consistent, but copying the past is worth less in z than in C'). It should stay next to the F3-diagB claim.",
+    "The comparison of Δz with ΔC in size relies on the random-pair normalisation of each quantity; it is the report's own comparison.",
+    "Report Section 12: a temporal-smoothness term for z is 'neither indicated nor ruled out by this study'."
+   ]
+  },
+  {
+   "block": "F3-diagC",
+   "claim": "Given the true current latent, a learned probe predicts z_{t+h} with R² 0.95 / 0.84 / 0.74 on TACO and 0.98 / 0.89 / 0.78 on ARCTIC at h = 1 / 4 / 8, but copying z_t alone already gives 0.95 / 0.80 / 0.61 and 0.98 / 0.89 / 0.75: z is locally predictable, mostly by persistence, and ARCTIC z is the more persistent of the two.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_temporal_diagnostic/report.md",
+   "source_files": [
+    "reports/z_temporal_diagnostic/local_prediction_metrics.csv",
+    "reports/z_temporal_diagnostic/probe_training.csv",
+    "reports/z_temporal_diagnostic/sanity_summary.json"
+   ],
+   "metric": "RMSE_z = root mean squared error per dimension of the predicted z_{t+h} in train-standardised units (lower is better; the train-mean predictor scores about 1.0 on TACO and 0.91-0.92 on ARCTIC) and explained variance R² (higher is better), on all test pairs (t, t+h) of the 64-frame windows. Persistence = copy z_t. Probe = residual MLP P_h(z_t, G, tau_t, tau_{t+h}) (about 9.3 M / 9.2 M parameters), one per horizon, one seed, given the TRUE current latent (single-step, no rollout). Brackets: 95 % take-cluster bootstrap intervals (1000 replicates).",
+   "numbers": {
+    "TACO | RMSE_z persistence, h = 1 / 4 / 8 [95 % CI]": {
+     "value": "0.2198854085011485 [0.2080565767951466, 0.233206493129496] / 0.4458401537716395 [0.4321591695289047, 0.4597182064290335] / 0.6168601577043702 [0.6010922322204924, 0.6328219118251857]",
+     "source": "reports/z_temporal_diagnostic/local_prediction_metrics.csv",
+     "locator": "rows dataset=taco, method=persistence, h=1,4,8; columns rmse, rmse_lo, rmse_hi"
+    },
+    "TACO | RMSE_z learned probe, h = 1 / 4 / 8 [95 % CI]": {
+     "value": "0.2127178683056871 [0.2016469981864589, 0.2248812450136585] / 0.3955292600432017 [0.3823664488417644, 0.4087411278872638] / 0.5069660230702031 [0.4924660887641044, 0.5218793966939954]",
+     "source": "reports/z_temporal_diagnostic/local_prediction_metrics.csv",
+     "locator": "rows dataset=taco, method=probe, h=1,4,8; columns rmse, rmse_lo, rmse_hi"
+    },
+    "ARCTIC | RMSE_z persistence, h = 1 / 4 / 8 [95 % CI]": {
+     "value": "0.1103713087271138 [0.1027954613949447, 0.1182377640692644] / 0.3034284442815668 [0.2833486165067355, 0.3254474658285385] / 0.4522840411052154 [0.4198253892780866, 0.4862985929423442]",
+     "source": "reports/z_temporal_diagnostic/local_prediction_metrics.csv",
+     "locator": "rows dataset=arctic, method=persistence, h=1,4,8; columns rmse, rmse_lo, rmse_hi"
+    },
+    "ARCTIC | RMSE_z learned probe, h = 1 / 4 / 8 [95 % CI]": {
+     "value": "0.1132429785027498 [0.1057782893093276, 0.1207871960420288] / 0.3028378910517298 [0.2819908095838473, 0.3234105135543365] / 0.4208851032463842 [0.3862670050094002, 0.4536899093813249]",
+     "source": "reports/z_temporal_diagnostic/local_prediction_metrics.csv",
+     "locator": "rows dataset=arctic, method=probe, h=1,4,8; columns rmse, rmse_lo, rmse_hi"
+    },
+    "TACO | R² learned probe, h = 1 / 4 / 8 [95 % CI] (rule: 'predictable' if >= 0.50)": {
+     "value": "0.953389003284292 [0.948242307494744, 0.957990854734167] / 0.8393523018926177 [0.8288914436673867, 0.8485144669554319] / 0.7373130112250652 [0.7227054211879125, 0.7510547909175499]",
+     "source": "reports/z_temporal_diagnostic/local_prediction_metrics.csv",
+     "locator": "rows dataset=taco, method=probe; columns r2, r2_lo, r2_hi"
+    },
+    "TACO | R² persistence, h = 1 / 4 / 8": {
+     "value": "0.950194963014222 / 0.7958846654744726 / 0.6110853564972777",
+     "source": "reports/z_temporal_diagnostic/local_prediction_metrics.csv",
+     "locator": "rows dataset=taco, method=persistence; column r2"
+    },
+    "ARCTIC | R² learned probe, h = 1 / 4 / 8 [95 % CI]": {
+     "value": "0.983936015639728 [0.981996163946831, 0.9859133551950556] / 0.8863713348466017 [0.8710835754632553, 0.901768644565909] / 0.7826198062556721 [0.7508995267409434, 0.8144183469919726]",
+     "source": "reports/z_temporal_diagnostic/local_prediction_metrics.csv",
+     "locator": "rows dataset=arctic, method=probe; columns r2, r2_lo, r2_hi"
+    },
+    "ARCTIC | R² persistence, h = 1 / 4 / 8": {
+     "value": "0.98474040209828 / 0.8859277364362514 / 0.7489759166012389",
+     "source": "reports/z_temporal_diagnostic/local_prediction_metrics.csv",
+     "locator": "rows dataset=arctic, method=persistence; column r2"
+    },
+    "TACO | RMSE_z of the train-mean predictor, h = 1 / 4 / 8 (scale of the units)": {
+     "value": "0.9930792729430108 / 0.9957136467079614 / 1.0003719981693535",
+     "source": "reports/z_temporal_diagnostic/local_prediction_metrics.csv",
+     "locator": "rows dataset=taco, method=mean; column rmse"
+    },
+    "ARCTIC | RMSE_z of the train-mean predictor, h = 1 / 4 / 8": {
+     "value": "0.9104591311943 / 0.91347090980572 / 0.9167997176963996",
+     "source": "reports/z_temporal_diagnostic/local_prediction_metrics.csv",
+     "locator": "rows dataset=arctic, method=mean; column rmse"
+    },
+    "TACO | test pairs at h = 1 / 4 / 8 (test takes)": {
+     "value": "22932 / 21840 / 20384 (186 takes)",
+     "source": "reports/z_temporal_diagnostic/local_prediction_metrics.csv",
+     "locator": "rows dataset=taco, method=probe; columns n_pairs, n_takes"
+    },
+    "ARCTIC | test pairs at h = 1 / 4 / 8 (test takes)": {
+     "value": "11718 / 11160 / 10416 (44 takes)",
+     "source": "reports/z_temporal_diagnostic/local_prediction_metrics.csv",
+     "locator": "rows dataset=arctic, method=probe; columns n_pairs, n_takes"
+    },
+    "TACO | sequences train / val / test ; takes train / val / test": {
+     "value": "1312 / 141 / 364 ; 688 / 76 / 186",
+     "source": "reports/z_temporal_diagnostic/sanity_summary.json",
+     "locator": "taco.01_same_split.n_sequences, n_takes"
+    },
+    "ARCTIC | sequences train / val / test ; takes train / val / test": {
+     "value": "1005 / 106 / 186 ; 231 / 26 / 44",
+     "source": "reports/z_temporal_diagnostic/sanity_summary.json",
+     "locator": "arctic.01_same_split.n_sequences, n_takes"
+    },
+    "TACO | probe training: steps run -> selected (best-validation) step at h = 1 / 4 / 8": {
+     "value": "5000 -> 800 / 700 / 500",
+     "source": "reports/z_temporal_diagnostic/probe_training.csv",
+     "locator": "rows dataset=taco, variant=probe; columns steps, best_step"
+    },
+    "ARCTIC | probe training: steps run -> selected (best-validation) step at h = 1 / 4 / 8": {
+     "value": "5000 -> 600 / 600 / 800",
+     "source": "reports/z_temporal_diagnostic/probe_training.csv",
+     "locator": "rows dataset=arctic, variant=probe; columns steps, best_step"
+    }
+   },
+   "caveats": [
+    "Report wording (Final diagnosis): 'z is locally predictable in the R² sense when its current value is known (R² 0.74 / 0.78 at h = 8), but most of that is persistence.'",
+    "The probe is given the TRUE current latent and the object-trajectory windows of frames t and t+h (object states from t-8 to t+h+8): it is a teacher-forced, single-step prediction conditioned on the object trajectory, not an autonomous dynamics model and not a rollout.",
+    "One seed, one probe family, early-stopped (validation optimum after 500-800 steps, overfits afterwards). Report Appendix B: the gains 'are lower bounds on what is learnable, not estimates of irreducible uncertainty'.",
+    "No horizon beyond 8 frames and no closed-loop rollout were measured.",
+    "The first probe launch (validation every 500 steps) was discarded and all probes were retrained with validation every 100 steps; the report states that the decision thresholds were not touched."
+   ]
+  },
+  {
+   "block": "F3-diagC",
+   "claim": "Averaged over all test pairs of a window (the input of the rule the report describes as pre-registered), the single-step probe, given the true current latent and the object-trajectory windows around frames t and t+h, has a gain over persistence (1 - RMSE_probe / RMSE_persistence) of 3.3 % / 11.3 % / 17.8 % on TACO (rule labels marginal / clear / clear; the h = 4 label is borderline) and of -2.6 % / 0.2 % / 6.9 % on ARCTIC (no / no / marginal; intervals include zero at h = 1 and 4, i.e. no better than persistence there) at h = 1 / 4 / 8, which suggests learnable local change of z beyond persistence on TACO and provides little additional information over persistence on ARCTIC up to h = 4. One seed; no rollout; no horizon beyond 8.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_temporal_diagnostic/report.md",
+   "source_files": [
+    "reports/z_temporal_diagnostic/persistence_comparison.csv",
+    "reports/z_temporal_diagnostic/decision_summary.csv",
+    "reports/z_temporal_diagnostic/experiment_config.json",
+    "reports/z_temporal_diagnostic/report_values.json",
+    "reports/z_temporal_diagnostic/local_prediction_metrics.csv"
+   ],
+   "metric": "Gain_h = 1 - RMSE_probe / RMSE_persistence in train-standardised z on all test pairs of a window (fraction; higher is better; 0 = no better than copying z_t; negative = worse). Rule labels per horizon: 'clear' if >= 0.10 with a bootstrap interval excluding zero, 'marginal' if >= 0.02 with an interval excluding zero, else 'no'. Brackets: 95 % take-cluster bootstrap intervals (1000 replicates). One seed per probe.",
+   "numbers": {
+    "TACO | probe gain over persistence, h = 1 [95 % CI] (rule label: marginal)": {
+     "value": "0.0325967068225176 [0.0259355435291923, 0.0391111243242545]",
+     "source": "reports/z_temporal_diagnostic/persistence_comparison.csv",
+     "locator": "row dataset=taco, h=1, method=probe; columns gain_rmse, gain_rmse_lo, gain_rmse_hi"
+    },
+    "TACO | probe gain over persistence, h = 4 [95 % CI] (rule label: clear; lower bound just under 0.10)": {
+     "value": "0.1128451381124527 [0.0995395927896735, 0.1253639679761129]",
+     "source": "reports/z_temporal_diagnostic/persistence_comparison.csv",
+     "locator": "row dataset=taco, h=4, method=probe; columns gain_rmse(_lo,_hi)"
+    },
+    "TACO | probe gain over persistence, h = 8 [95 % CI] (rule label: clear)": {
+     "value": "0.1781508065671406 [0.1651390674388524, 0.1912662636202811]",
+     "source": "reports/z_temporal_diagnostic/persistence_comparison.csv",
+     "locator": "row dataset=taco, h=8, method=probe; columns gain_rmse(_lo,_hi)"
+    },
+    "ARCTIC | probe gain over persistence, h = 1 [95 % CI] (rule label: no)": {
+     "value": "-0.0260182633399408 [-0.0639857574702927, 0.0064923164979578]",
+     "source": "reports/z_temporal_diagnostic/persistence_comparison.csv",
+     "locator": "row dataset=arctic, h=1, method=probe; columns gain_rmse(_lo,_hi)"
+    },
+    "ARCTIC | probe gain over persistence, h = 4 [95 % CI] (rule label: no)": {
+     "value": "0.0019462685221723 [-0.0400334241901145, 0.0395556329951333]",
+     "source": "reports/z_temporal_diagnostic/persistence_comparison.csv",
+     "locator": "row dataset=arctic, h=4, method=probe; columns gain_rmse(_lo,_hi)"
+    },
+    "ARCTIC | probe gain over persistence, h = 8 [95 % CI] (rule label: marginal)": {
+     "value": "0.0694230505726087 [0.0160531381428982, 0.1217200179546849]",
+     "source": "reports/z_temporal_diagnostic/persistence_comparison.csv",
+     "locator": "row dataset=arctic, h=8, method=probe; columns gain_rmse(_lo,_hi)"
+    },
+    "TACO | rule labels at h = 1 / 4 / 8 ('Does the learned predictor beat persistence?')": {
+     "value": "marginal / clear / clear",
+     "source": "reports/z_temporal_diagnostic/decision_summary.csv",
+     "locator": "row dataset=taco, question='Does the learned predictor beat persistence?'; column answer"
+    },
+    "ARCTIC | rule labels at h = 1 / 4 / 8": {
+     "value": "no / no / marginal",
+     "source": "reports/z_temporal_diagnostic/decision_summary.csv",
+     "locator": "row dataset=arctic, question='Does the learned predictor beat persistence?'; column answer"
+    },
+    "both (rule constant) | rule thresholds: clear / marginal gain": {
+     "value": "0.1 / 0.02",
+     "source": "reports/z_temporal_diagnostic/experiment_config.json",
+     "locator": "decision_rule.gain_clear, decision_rule.gain_marginal"
+    },
+    "TACO | post-hoc reference: probe WITHOUT the object trajectory, gain at h = 4 [95 % CI] (would be 'marginal')": {
+     "value": "0.0925100061855158 [0.0738210450191691, 0.1090267803575497]",
+     "source": "reports/z_temporal_diagnostic/persistence_comparison.csv",
+     "locator": "row dataset=taco, h=4, method=probe_notau; columns gain_rmse(_lo,_hi)"
+    },
+    "ARCTIC | post-hoc reference: linear ridge on the probe's inputs, gain at h = 1 / 4 / 8 [95 % CI] (beats persistence at all three horizons)": {
+     "value": "0.0087543037422513 [0.0012180902724998, 0.016822915998568] / 0.0222449999682985 [0.0071886437810772, 0.0370640750033352] / 0.0457800885619775 [0.0268947180841042, 0.0644395167622558]",
+     "source": "reports/z_temporal_diagnostic/persistence_comparison.csv",
+     "locator": "rows dataset=arctic, method=linear, h=1,4,8; columns gain_rmse(_lo,_hi)"
+    },
+    "TACO | post-hoc reference: gain of a linear map of z_t alone at h = 1 / 4 / 8, and its share of the probe gain": {
+     "value": "0.0202450324574922 / 0.0665638859543558 / 0.1138323318337287 ; shares 0.6210760052456299 / 0.5898693294878457 / 0.6389661322741648",
+     "source": "reports/z_temporal_diagnostic/persistence_comparison.csv",
+     "locator": "rows dataset=taco, method=ar1; column gain_rmse. Shares: report_values.json keys ar_share_taco_1, _4, _8"
+    },
+    "TACO | decoded dense error E_C through the frozen Stage-1 decoder, probe latent vs persistence latent, h = 8 [95 % CI]": {
+     "value": "1.133035003805783 [1.0707086981313776, 1.196984179842134] vs 1.3118919763625256 [1.25046958729478, 1.3779234403724512]",
+     "source": "reports/z_temporal_diagnostic/local_prediction_metrics.csv",
+     "locator": "rows dataset=taco, h=8, method=probe and method=persistence; columns dec_E_C(_lo,_hi)"
+    },
+    "ARCTIC | decoded dense error E_C, probe latent vs persistence latent, h = 1 / 4 / 8 (probe not lower at any horizon)": {
+     "value": "0.693153143405627 / 0.9699852800754476 / 1.228866122448073 vs 0.6848356410512743 / 0.9312932543286312 / 1.2184382535202662",
+     "source": "reports/z_temporal_diagnostic/local_prediction_metrics.csv",
+     "locator": "rows dataset=arctic, method=probe and method=persistence, h=1,4,8; column dec_E_C"
+    }
+   },
+   "caveats": [
+    "Window average: these are the rule inputs; the pairs starting at t >= 8 carry 79 % (TACO) / 74 % (ARCTIC) of the persistence squared error at h = 4 and dominate the average (post-hoc split in the next entry).",
+    "TACO h = 4 'clear' is borderline: the interval reaches down to the 10 % line ([9.95 %, 12.54 %]) and the label depends on the trajectory input (without it 9.3 % [7.4, 10.9] = marginal; ridge 7.8 % [7.2, 8.4] = marginal).",
+    "ARCTIC: at h = 1 the probe is numerically WORSE than persistence (interval includes zero) and at h = 4 indistinguishable. The post-hoc ridge reference beats persistence at all three horizons (0.9 % / 2.2 % / 4.6 %, intervals exclude zero), so 'nothing beyond persistence is learnable on ARCTIC' is not supported; with the ridge in place of the probe the h = 4 label would be marginal and the case still B.",
+    "ARCTIC validation gains (5.9 % / 9.0 % / 12.8 % RMSE) do not transfer to the test takes (-2.6 % / 0.2 % / 6.9 %); on TACO they largely hold (4.9 % / 14.2 % / 18.3 % against 3.3 % / 11.3 % / 17.8 %). 21 of the 44 ARCTIC test takes are from a subject absent from training; the report shows post hoc that this explains the loss only in the first eight frames and that the Case B label does not depend on it.",
+    "One seed per probe; no closed-loop rollout; no horizon beyond 8 frames.",
+    "The gain is in latent RMSE. Through the frozen decoder it appears in decoded contact only on TACO at h = 8; on ARCTIC not at any horizon, including h = 8 (report Section 5).",
+    "On TACO about 62 % / 59 % / 64 % of the probe's gain is given by a linear map of z_t alone (post-hoc interpretation, report Section 7)."
+   ],
+   "claim_as_extracted": "Averaged over all pairs of a window (the input of the pre-registered rule), the learned probe lowers the latent RMSE of persistence by 3.3 % / 11.3 % / 17.8 % on TACO (rule labels marginal / clear / clear) and by -2.6 % / 0.2 % / 6.9 % on ARCTIC (no / no / marginal) at h = 1 / 4 / 8, which suggests learnable local change of z beyond persistence on TACO and provides little additional information over persistence on ARCTIC up to h = 4.",
+   "correction_reason": "All numbers and labels are confirmed (persistence_comparison.csv, decision_summary.csv). Two wording points: (1) 'lowers ... by -2.6 %' is the report's phrasing but reads as a reduction on a public page; state it as a gain that is negative / not different from zero. (2) 'local change of z' needs the conditions attached: the probe is teacher-forced and also receives object states up to t+h+8, so it is not an autonomous dynamics model (report Section 5, Appendix B 'Trajectory input')."
+  },
+  {
+   "block": "F3-diagC",
+   "claim": "Post hoc (not an input of the rule): for pairs that start at the first frame of a window the probe's gain over persistence is clear on both datasets (TACO 12 % / 25 % / 32 %, ARCTIC 23 % / 27 % / 28 % at h = 1 / 4 / 8); for pairs that start eight or more frames in it is 2 % / 9 % / 14 % on TACO and -9 % / -3 % / 6 % on ARCTIC, where the probe is worse than persistence one frame ahead.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_temporal_diagnostic/report.md",
+   "source_files": [
+    "reports/z_temporal_diagnostic/posthoc_splits.csv",
+    "reports/z_temporal_diagnostic/local_prediction_splits.csv"
+   ],
+   "metric": "Same gain (1 - RMSE_probe / RMSE_persistence; fraction; higher is better) on the test pairs, split by the frame t at which the pair starts inside the 64-frame window (windows start at the first frame of firm contact): t = 0, t = 1..7, t >= 8. Brackets: 95 % take-cluster bootstrap intervals. POST HOC: added after the test results had been seen.",
+   "numbers": {
+    "TACO | POST HOC gain, pairs starting at t = 0, h = 1 / 4 / 8 [95 % CI]; 364 pairs per horizon": {
+     "value": "0.12363001474172297 [0.09309934970032867, 0.15399773351947307] / 0.24643227721518224 [0.21123193947598437, 0.2832163542924532] / 0.3234147402658647 [0.29322773287016707, 0.3503895779907659]",
+     "source": "reports/z_temporal_diagnostic/posthoc_splits.csv",
+     "locator": "rows dataset=taco, eval_split=test, method=probe, subject=all, position=t0, h=1,4,8; columns gain_rmse(_lo,_hi), n_pairs"
+    },
+    "TACO | POST HOC gain, pairs starting at t = 1..7, h = 1 / 4 / 8 [95 % CI]; 2548 pairs per horizon": {
+     "value": "0.08933079982896741 [0.07123223098763845, 0.10666806076353849] / 0.2164669879694664 [0.187848550236616, 0.24229767902747434] / 0.2838450774168485 [0.25857115234931033, 0.30589698858565345]",
+     "source": "reports/z_temporal_diagnostic/posthoc_splits.csv",
+     "locator": "rows dataset=taco, eval_split=test, method=probe, subject=all, position=t1_7"
+    },
+    "TACO | POST HOC gain, pairs starting at t >= 8, h = 1 / 4 / 8 [95 % CI]; 20020 / 18928 / 17472 pairs": {
+     "value": "0.02218020611533833 [0.01576151837759305, 0.02869023053639551] / 0.08580748988803144 [0.07274960998650028, 0.09860609848607674] / 0.14499757325917495 [0.130171218024757, 0.15897064481057815]",
+     "source": "reports/z_temporal_diagnostic/posthoc_splits.csv",
+     "locator": "rows dataset=taco, eval_split=test, method=probe, subject=all, position=t8"
+    },
+    "ARCTIC | POST HOC gain, pairs starting at t = 0, h = 1 / 4 / 8 [95 % CI]; 186 pairs per horizon": {
+     "value": "0.225222326749542 [0.18722176157698153, 0.26758816291707116] / 0.26673626978787746 [0.21139483996084543, 0.32552892254227345] / 0.2756550305448989 [0.21947355166914623, 0.3261375716552942]",
+     "source": "reports/z_temporal_diagnostic/posthoc_splits.csv",
+     "locator": "rows dataset=arctic, eval_split=test, method=probe, subject=all, position=t0"
+    },
+    "ARCTIC | POST HOC gain, pairs starting at t = 1..7, h = 1 / 4 / 8 [95 % CI]; 1302 pairs per horizon (intervals include zero)": {
+     "value": "-0.0006775158235150514 [-0.07681430811745973, 0.0560253865246162] / 0.030995551892175843 [-0.06276895949500132, 0.10298592371495283] / 0.03656930232718625 [-0.06833426996626937, 0.13516912216522547]",
+     "source": "reports/z_temporal_diagnostic/posthoc_splits.csv",
+     "locator": "rows dataset=arctic, eval_split=test, method=probe, subject=all, position=t1_7"
+    },
+    "ARCTIC | POST HOC gain, pairs starting at t >= 8, h = 1 / 4 / 8 [95 % CI]; 10230 / 9672 / 8928 pairs": {
+     "value": "-0.0864743517782427 [-0.1309359272777831, -0.05050453547286047] / -0.031667640342980086 [-0.07714270095856443, 0.007523875628372634] / 0.06099187633813019 [0.00042883721242764367, 0.11525510192490651]",
+     "source": "reports/z_temporal_diagnostic/posthoc_splits.csv",
+     "locator": "rows dataset=arctic, eval_split=test, method=probe, subject=all, position=t8"
+    },
+    "TACO | share of the persistence squared error carried by the t >= 8 pairs at h = 1 / 4 / 8": {
+     "value": "0.8525329584260428 / 0.7871700223907122 / 0.7538379349397966",
+     "source": "reports/z_temporal_diagnostic/posthoc_splits.csv",
+     "locator": "rows dataset=taco, eval_split=test, method=probe, subject=all, position=t8; column share_of_persistence_sse"
+    },
+    "ARCTIC | share of the persistence squared error carried by the t >= 8 pairs at h = 1 / 4 / 8": {
+     "value": "0.6321038905141305 / 0.7423671319628676 / 0.7940407611263864",
+     "source": "reports/z_temporal_diagnostic/posthoc_splits.csv",
+     "locator": "rows dataset=arctic, eval_split=test, method=probe, subject=all, position=t8; column share_of_persistence_sse"
+    },
+    "ARCTIC | POST HOC, ARCTIC subject split, pairs starting at t >= 8, h = 1: test takes of subjects seen in training (23 takes) vs unseen subject s10 (21 takes) [95 % CI]": {
+     "value": "-0.08172209206498371 [-0.12720718383512417, -0.03288447838577981] vs -0.09033844374560762 [-0.1636554329945489, -0.03737644225415894]",
+     "source": "reports/z_temporal_diagnostic/posthoc_splits.csv",
+     "locator": "rows dataset=arctic, h=1, eval_split=test, method=probe, position=t8, subject=seen and subject=unseen"
+    },
+    "ARCTIC | POST HOC, ARCTIC seen-subject test takes only, all pairs, h = 1 / 4 / 8 [95 % CI] (labels still no / no / marginal)": {
+     "value": "0.023222879080601166 [-0.009204836447576591, 0.06173962654555143] / 0.03831903490817912 [-0.015323253754805444, 0.09895407189959937] / 0.0794797740354054 [0.0059415244325809885, 0.15979871871640416]",
+     "source": "reports/z_temporal_diagnostic/posthoc_splits.csv",
+     "locator": "rows dataset=arctic, eval_split=test, method=probe, subject=seen, position=all"
+    }
+   },
+   "caveats": [
+    "POST HOC. Report Appendix B: the split by window position, the subject split and their crossing 'were added after the test results had been seen ... They are interpretation, not verdicts'. It must not be presented as a pre-registered result.",
+    "The page brief's 'smaller for later pairs' is accurate for TACO only (2.2 % / 8.6 % / 14.5 %: marginal / marginal / clear by the rule's thresholds). On ARCTIC the probe is significantly worse than persistence at h = 1 for t >= 8 (-8.6 % [-13.1, -5.1]), indistinguishable at h = 4, and 6.1 % at h = 8 with an interval that only just excludes zero ([0.0004, 0.1153]); for t = 1..7 it is indistinguishable from zero at every horizon.",
+    "t = 0 is a small sample: 364 (TACO) / 186 (ARCTIC) pairs per horizon, one per test sequence; the window start is the onset of firm contact, so this is the regime where the contact is forming.",
+    "The ARCTIC null for t >= 8 holds on seen and unseen subjects alike; the unseen subject costs gain only in the first eight frames (report Table 13). The ARCTIC cross split is descriptive (23 / 21 takes per group).",
+    "One seed per probe; the same pooled probe is evaluated on every position (it was not trained per position)."
+   ]
+  },
+  {
+   "block": "F3-diagC",
+   "claim": "The rule that, according to the report, was fixed in the code before the probes were trained returns Case A on TACO, which the report calls borderline, and Case B on ARCTIC; the report states that these measurements do not decide whether the Stage-2 difficulty came from the open-loop formulation or from little learnable change of z beyond persistence (Q5: not decided between A and B): the rule splits across the two datasets, and neither a closed-loop rollout nor a horizon beyond eight frames was measured.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/z_temporal_diagnostic/report.md",
+   "source_files": [
+    "reports/z_temporal_diagnostic/decision_summary.csv",
+    "reports/z_temporal_diagnostic/experiment_config.json",
+    "reports/z_temporal_diagnostic/stage2_comparison.csv",
+    "reports/z_temporal_diagnostic/persistence_comparison.csv",
+    "scripts/research/z_temporal_diagnostic/zt_common.py"
+   ],
+   "metric": "Outcome of the decision rule (zt_common.DECISION). Case A = probe gain 'clear' at h = 4 and h = 8 with R² >= 0.25 at h = 8, and mean rescue from the true z_0 at h = 4, 8 >= 0.10. Case B = persistence R² at h = 1 >= 0.5 and probe gain < 0.10 at every horizon. Rescue = 1 - RMSE(probe started from the true z_0) / RMSE(Stage-2 B1) at the same target frame (higher = a known true latent helps more).",
+   "numbers": {
+    "TACO | rule outcome": {
+     "value": "Case A",
+     "source": "reports/z_temporal_diagnostic/decision_summary.csv",
+     "locator": "row dataset=taco, question='Is the bottleneck representation or open-loop dynamics?'; columns answer, case (also experiment_config.json cases.taco = 'A')"
+    },
+    "ARCTIC | rule outcome": {
+     "value": "Case B",
+     "source": "reports/z_temporal_diagnostic/decision_summary.csv",
+     "locator": "row dataset=arctic, same question; columns answer, case (also experiment_config.json cases.arctic = 'B')"
+    },
+    "TACO | rule input: mean rescue from the true z_0 at h = 4, 8 [95 % CI] (needs >= 0.10 for Case A; straddles the line)": {
+     "value": "0.11327087606038083 [0.07634923111498698, 0.1521620382343971]",
+     "source": "reports/z_temporal_diagnostic/stage2_comparison.csv",
+     "locator": "row dataset=taco, mode=rescue_mean_h4_h8; columns rescue, rescue_lo, rescue_hi"
+    },
+    "ARCTIC | rule input: mean rescue from the true z_0 at h = 4, 8 [95 % CI]": {
+     "value": "0.058453886113073394 [-0.025683261864166987, 0.13736008786238357]",
+     "source": "reports/z_temporal_diagnostic/stage2_comparison.csv",
+     "locator": "row dataset=arctic, mode=rescue_mean_h4_h8; columns rescue(_lo,_hi)"
+    },
+    "TACO | rule input: probe gain at h = 4 [95 % CI] (clear needs >= 0.10)": {
+     "value": "0.1128451381124527 [0.0995395927896735, 0.1253639679761129]",
+     "source": "reports/z_temporal_diagnostic/persistence_comparison.csv",
+     "locator": "row dataset=taco, h=4, method=probe; columns gain_rmse(_lo,_hi)"
+    },
+    "both (rule constants) | rule thresholds (gain clear / gain marginal / rescue partial / rescue yes / persistence-strong R²)": {
+     "value": "0.1 / 0.02 / 0.1 / 0.25 / 0.5",
+     "source": "reports/z_temporal_diagnostic/experiment_config.json",
+     "locator": "decision_rule.gain_clear, gain_marginal, rescue_partial, rescue_yes, persistence_strong_r2"
+    },
+    "TACO | decision table wording for Case A (evidence column, verbatim excerpt)": {
+     "value": "Pre-registered reading of Case A: 'local dynamics predictable, the problem is whole-trajectory open-loop prediction'; that explanation was not tested here (no rollout, no horizon beyond 8).",
+     "source": "reports/z_temporal_diagnostic/decision_summary.csv",
+     "locator": "row dataset=taco, question='Is the bottleneck representation or open-loop dynamics?'; column evidence"
+    },
+    "ARCTIC | decision table wording for Case B (evidence column, verbatim excerpt)": {
+     "value": "Pre-registered reading of Case B: 'locally smooth, little learnable dynamics beyond persistence'; this is a statement about the window average and does not hold for pairs starting at the first frame of a window (Table 12).",
+     "source": "reports/z_temporal_diagnostic/decision_summary.csv",
+     "locator": "row dataset=arctic, same question; column evidence"
+    }
+   },
+   "caveats": [
+    "TACO Case A is borderline (report, Final diagnosis): the h = 4 gain interval reaches the 10 % line, the rescue 11.3 % [7.6, 15.2] straddles its 10 % line (with a rescue below 10 % the rule would return 'mixed', not Case B), and the 'clear' label at h = 4 needs the trajectory input.",
+    "ARCTIC Case B is a property of the window average: for pairs starting at the first frame of a window the ARCTIC probe gains 27 % at h = 4. It is not an artefact of the unseen test subject (labels are no / no / marginal on seen-subject test takes too).",
+    "The case letters are rule outcomes, not established causes. Q5 (report): 'not decided between A and B'; the split across datasets 'is not a finding that both causes contribute, and it is not the rule's Case D'.",
+    "Report: 'Nothing here shows that z should be discarded. Nothing here shows either that an iterative z_t -> z_{t+1} model would beat Stage 2 at long horizons: no horizon beyond eight frames and no closed-loop rollout were measured.' A stateful / iterative latent model is 'the candidate the rule points to on TACO (Case A); its benefit is not established'.",
+    "'Pre-registered' is the report's own statement (thresholds written into zt_common.DECISION before any probe was trained; the file was edited once afterwards for the validation interval only; the rule implementation was corrected once after review to match the written rule, cases unchanged). There is no external registration or independent timestamp.",
+    "One seed per probe; the Stage-2 comparison uses the saved predictions of one Stage-2 B1 model."
+   ],
+   "claim_as_extracted": "The rule fixed before the probes were trained returns Case A on TACO, which the report calls borderline, and Case B on ARCTIC; the report states that these measurements do not decide whether the Stage-2 difficulty came from the open-loop formulation or from little learnable change of z beyond persistence (Q5: not decided), because neither a closed-loop rollout nor a horizon beyond eight frames was measured.",
+   "correction_reason": "Cases and Q5 status confirmed (decision_summary.csv, experiment_config.json, report.md lines 7, 26, 28, 512). The report joins the two facts with 'and' (rule split; no rollout / no horizon > 8) and does not say the non-decision is solely 'because' of the missing rollout; the report also says the split 'is not a finding that both causes contribute'. Add 'according to the report' to the timing of the rule (no independent timestamp; zt_common.py mtime 00:11:16 on 2026-10-04 precedes the retained probe logs 00:13-00:26 and the test evaluation logs 01:08, which is consistent with the report but is only a file timestamp)."
+  }
+ ],
+ "dataset_differences": [
+  "Only TACO and ARCTIC were analysed in this diagnostic; there is no OakInk2 result for these blocks.",
+  "Alignment (F3-diagB): Spearman(ΔC, Δz) is about 0.85 on TACO and 0.81 on ARCTIC at every horizon; ARCTIC intervals are wider (44 test takes against 186), e.g. h = 1: [0.766, 0.859] against [0.836, 0.866].",
+  "Rare exceptions (F3-diagB): low-ΔC / high-Δz transitions are 0.2 % on TACO and 0.5-0.7 % on ARCTIC (horizon mean 0.19 % / 0.60 %), i.e. about three times as frequent on ARCTIC. The opposite quadrant (high ΔC / low Δz) is 0.2-0.3 % on TACO and 0.0 % on ARCTIC.",
+  "What the exceptions are (post hoc): on TACO at h = 4, 47 % start from weak contact, 35 % carry a participation flip, 42 % a large teacher step, 21 % none of these; on ARCTIC the object articulates in 99 % / 100 % / 100 % of them (34-35 % of all test transitions do). The report calls the ARCTIC pattern 'consistent with the encoder reading the per-frame articulated geometry' and states that no ablation was run.",
+  "Persistence of z: ARCTIC z is more persistent (persistence R² at h = 1 / 4 / 8: 0.985 / 0.886 / 0.749) than TACO z (0.950 / 0.796 / 0.611). On both datasets z is less persistent than the dense map C (h = 8: C 0.90 TACO / 0.88 ARCTIC); the mean latent step is 2.2 / 2.1 / 1.9 times the mean contact step on TACO and 1.6 / 1.6 / 1.5 times on ARCTIC.",
+  "Window-averaged probe gain over persistence (rule input, F3-diagC): TACO 3.3 % / 11.3 % / 17.8 % (marginal / clear / clear); ARCTIC -2.6 % / 0.2 % / 6.9 % (no / no / marginal).",
+  "Rule outcome: Case A on TACO (borderline: h = 4 gain interval [9.95 %, 12.54 %], rescue 11.3 % [7.6, 15.2] on its 10 % line, and the h = 4 'clear' label needs the trajectory input) versus Case B on ARCTIC (a property of the window average). Rescue from the true z_0 (rule input): 11.3 % [7.6, 15.2] TACO versus 5.8 % [-2.6, 13.7] ARCTIC.",
+  "Post hoc by window position: at t = 0 the gain is clear on BOTH datasets (TACO 12 / 25 / 32 %, ARCTIC 23 / 27 / 28 %). For t = 1..7 TACO is 9 / 22 / 28 % while ARCTIC is indistinguishable from zero (-0.1 / 3.1 / 3.7 %). For t >= 8 TACO is 2 / 9 / 14 % while ARCTIC is -9 / -3 / 6 % (worse than persistence at h = 1).",
+  "Validation-to-test transfer: TACO validation gains largely hold on test (4.9 / 14.2 / 18.3 % against 3.3 / 11.3 / 17.8 %); ARCTIC validation gains (5.9 / 9.0 / 12.8 %) are gone on test at h = 1 and 4 and about halved at h = 8. 21 of the 44 ARCTIC test takes come from a subject (s10) absent from training; all ARCTIC validation takes are from training subjects. The report shows post hoc that the unseen subject costs gain only in the first eight frames and does not produce the Case B label.",
+  "Which predictor is best differs: on TACO the nonlinear probe with the trajectory is the best predictor at h = 4 and 8; on ARCTIC at h = 1 and 4 the nonlinear probe is not the best (the ridge gains 0.9 % / 2.2 % with intervals excluding zero, the probe -2.6 % / 0.2 %).",
+  "Decoded contact: the probe's latent gain shows up through the frozen decoder on TACO at h = 8 only (1.13 [1.07, 1.20] against 1.31 [1.25, 1.38]); on ARCTIC at no horizon (0.69 / 0.97 / 1.23 against 0.68 / 0.93 / 1.22).",
+  "Object-trajectory input (post hoc, paired): on TACO it adds +2.0 and +2.9 points at h = 4 and 8 (intervals exclude zero) and nothing at h = 1; on ARCTIC it costs -3.7 points [-6.4, -1.4] at h = 1 and adds +4.9 [-0.1, +9.3] at h = 8 (interval touches zero)."
+ ],
+ "do_not_claim": [
+  "Do not write that z's temporal behaviour is 'not the problem' or that the representation is cleared as a cause of the Stage-2 failure: only 'Case C as pre-registered (the steps of z do not follow the steps of the contact)' is rejected, and whether z's lower persistence than the dense map contributed was not tested.",
+  "Do not write 'the learned predictor beats persistence' for ARCTIC, or without the window-average qualifier: ARCTIC is -2.6 % / 0.2 % / 6.9 % (no / no / marginal), with intervals including zero at h = 1 and 4.",
+  "Do not write that ARCTIC z 'has no dynamics', 'is static' or that 'nothing beyond persistence is learnable': at the first frame of a window the ARCTIC gain is 23-28 %, and the ridge reference beats persistence at all three horizons.",
+  "Do not write 'the gain is smaller for later pairs on both datasets': on ARCTIC the probe is significantly worse than persistence at h = 1 for pairs starting at t >= 8 and indistinguishable at h = 4.",
+  "Do not present the window-position split (or the subject split, the linear references, the trajectory contrast, the composition of the exceptions) as pre-registered results or as rule inputs: they are post hoc ('interpretation, not verdicts').",
+  "Do not read the case letters as causes: 'Case A = Stage 2 failed because of open-loop prediction' and 'Case B = z has no learnable dynamics' are the pre-registered READINGS, which the decision table itself marks as not tested (no rollout, no horizon beyond 8) or as a window-average statement.",
+  "Do not write that a mixture of both causes was found, that neither hypothesis explains the Stage-2 failure, or that Q5 is answered: the report says 'not decided between A and B' and 'It is not a finding that both causes contribute'.",
+  "Do not write that a stateful / iterative / closed-loop z model will or does work better: no closed-loop rollout and no horizon beyond eight frames were measured; the report says 'its benefit is not established'. The stateful-z experiment is a motivated current hypothesis, not a result.",
+  "Do not call the probe result 'the dynamics of z' in an autonomous or causal sense: the probe is given the TRUE current latent plus the object-trajectory windows of frames t and t+h (including future object states), it is a single-step teacher-forced prediction, and on TACO about 60 % of its gain is linear in z_t alone.",
+  "Do not equate a latent gain with better contact: through the frozen decoder the gain appears only on TACO at h = 8, and on ARCTIC not at all.",
+  "Do not extrapolate the growth of the gain with the horizon (3 / 11 / 18 % on TACO) beyond h = 8.",
+  "Do not state the gains as seed-robust or as estimates of what is learnable: one seed, one probe family, early-stopped; the report calls them lower bounds on what is learnable.",
+  "Do not call the ARCTIC result a cross-subject artefact: on seen-subject test takes the labels are also no / no / marginal, and for t >= 8 the probe is as far below persistence on seen subjects (-8.2 %) as on the unseen one (-9.0 %).",
+  "Do not write that the articulated-geometry input explains the ARCTIC exceptions: the report says 'consistent with' and 'No ablation of the geometry input was run to confirm it'.",
+  "Do not pool or average the datasets (no 'Spearman 0.83 overall', no '0.4 % of transitions').",
+  "Do not present 0.2 % / 0.6 % as a per-horizon value (it is the mean over h = 1, 4, 8; ARCTIC is 0.7 % at h = 4) or the 7.5 % / 8.5 % independence expectation as a horizon mean (it is the h = 4 value).",
+  "Do not call the low-ΔC / high-Δz transitions 'errors' or 'noise' of the encoder: on TACO about a third to a half of them carry a structural (participation / teacher) step, i.e. z responds to the structure it was trained on at a small L2 footprint.",
+  "Do not write 'contact does not move over time' or 'z is smooth' without qualification: z moves 1.5-2.2 times as far as the dense map in random-pair units and is less persistent than C.",
+  "Do not describe the rule as externally pre-registered: say it was fixed in the code before the probes were trained, according to the report (no independent timestamp; one disclosed edit for the validation interval; the rule implementation was corrected once after review, cases unchanged).",
+  "Do not use 'disentangled', 'independent', 'proves', 'causes' or 'necessary' for anything in these blocks; z is 'structure-oriented' in the report's own wording."
+ ],
+ "candidate_images": [
+  {
+   "path": "reports/z_temporal_diagnostic/figures/fig3_deltaC_vs_deltaz.png",
+   "block": "F3-diagB",
+   "shows": "Report Figure 3: 2 x 3 log-density hexbin plots of the latent step Δz against the dense-contact step ΔC for every test transition (top row TACO, bottom row ARCTIC; columns h = 1, 4, 8). Each panel title prints Pearson, Spearman and n; dashed white lines are the train 30 % / 70 % quantiles of each quantity. A diagonal cloud in every panel; the upper-left box (low ΔC, high Δz) holds only scattered low-count hexagons.",
+   "caption": "Latent step versus dense-contact step for every test transition (top: TACO, bottom: ARCTIC; h = 1, 4, 8 frames), both in units of the mean distance between random training frames. Colour is the number of transitions per hexagon on a logarithmic scale, so single transitions remain visible; dashed lines are the train 30 % / 70 % quantiles. Spearman 0.85 / 0.85 / 0.86 (TACO) and 0.81 / 0.81 / 0.81 (ARCTIC); the upper-left region (contact hardly changes, z jumps) holds 0.2 % (TACO) and 0.5-0.7 % (ARCTIC) of the transitions.",
+   "size": "786875 bytes, 1820 x 1040 px"
+  }
+ ],
+ "verification": {
+  "reliability": "high",
+  "numbers_confirmed": 98,
+  "numbers_checked": 99,
+  "number_corrections": [
+   {
+    "block": "expected",
+    "label": "The gain is clear for pairs starting at the first frame of a window on both datasets and smaller for later pairs",
+    "reported": "t = 0: TACO 0.1236 / 0.2464 / 0.3234, ARCTIC 0.2252 / 0.2667 / 0.2757; t >= 8: TACO 0.0222 / 0.0858 / 0.1450; ARCTIC -0.0865 [-0.1309, -0.0505] / -0.0317 [-0.0771, 0.0075] / 0.0610 [0.0004, 0.1153] (extractor verdict: differs)",
+    "found": "First half confirmed (t = 0 lower bounds 0.0931 / 0.2112 / 0.2932 TACO and 0.1872 / 0.2114 / 0.2195 ARCTIC, all 'clear' by the rule's thresholds). Second half holds for TACO only: t >= 8 TACO 0.02218 / 0.08581 / 0.14500 (marginal / marginal / clear); ARCTIC -0.08647 [-0.13094, -0.05050] (significantly worse than persistence) / -0.03167 [-0.07714, 0.00752] / 0.06099 [0.00043, 0.11526]; ARCTIC t = 1..7 -0.00068 / 0.03100 / 0.03657 with intervals including zero",
+    "verdict": "corrected",
+    "source_checked": "posthoc_splits.csv rows eval_split=test, method=probe, subject=all, position=t0 / t1_7 / t8; report.md Final diagnosis first paragraph and Section 7 bullets. The whole split is POST HOC (report Appendix B)"
+   }
+  ],
+  "claims_supported_as_extracted": 5,
+  "claims_checked": 9,
+  "figure_checks": [
+   {
+    "id": "f3diagb_dz_vs_dc",
+    "verdict": "fixed",
+    "note": "Plotted values were all correct and are unchanged (panels byte-identical before and after my edit): x = dC_mean, y = dz_mean, range = dz_q25 / dz_q75, y = x line = dC_mean for deciles 1..10 at h = 4 of temporal_geometry_bins.csv, TACO in panel 1 and ARCTIC in panel 2; dashed line = thr_dz_high (0.2978 TACO / 0.2104 ARCTIC) and band upper edge = thr_dC_low (0.0430 / 0.0328) from temporal_geometry_metrics.csv h = 4; direction 'none'. No plotted value is typed into the code (only band x0 = 0.0, the axis origin). Fixed in the note only: (1) the renderer (docs/assets/js/charts.js) draws lo/hi of a line series as a ribbon, not error bars, so 'interquartile range as error bars' became 'interquartile range of Δz in the bin drawn around it (the spread of the transitions, not a confidence interval)'; (2) the renderer draws the band without a label, so the note now defines the shaded vertical band (low ΔC, train 30 % quantile) and the dashed line (high Δz, train 70 % quantile); (3) added a data-driven clause naming bins whose mean lies outside their own interquartile range - it fires for 'ARCTIC decile 1' (mean 0.0314 above q75 0.0309), where the point sits just above the ribbon; (4) 'transitions in the shaded band and above the dashed line' became 'individual transitions with low ΔC and high Δz', since the figure shows bin means. Note numbers (Spearman 0.85 / 0.85 / 0.86 and 0.81 / 0.81 / 0.81; shares 0.2 / 0.2 / 0.2 % and 0.6 / 0.7 / 0.5 %; n 21840 / 11160) match the tables."
+   },
+   {
+    "id": "f3diagb_lowc_highz_fraction",
+    "verdict": "fixed",
+    "note": "Plotted values correct and unchanged: observed bars = B_lowC_highz with B_lowC_highz_lo / _hi (95 % take-cluster bootstrap, 1000 replicates per experiment_config.json n_boot) and 'expected if independent' = indep_B_at_test_marginals (no interval) at h = 1, 4, 8 from quadrant_metrics.csv, per dataset; dashed line = decision_rule.quadrant_few 0.03 from experiment_config.json; direction lower_better. Fixed in the note: the 3 % limit of the rule applies to the MEAN over the three horizons, while the bars are per horizon (ARCTIC h = 4 bar is 0.65 %); the note now ends with 'The decision rule compares the mean of the three horizons with the dashed limit: TACO 0.2 %; ARCTIC 0.6 %', read from report_values.json keys mean_quadB_taco / mean_quadB_arctic. This adds report_values.json (363 KB) to the module's SOURCES and to this figure's sources."
+   },
+   {
+    "id": "f3diagc_persistence_vs_probe_rmse",
+    "verdict": "fixed",
+    "note": "Plotted values correct and unchanged: rmse, rmse_lo, rmse_hi of method = persistence and method = probe at h = 1, 4, 8 from local_prediction_metrics.csv, TACO and ARCTIC in separate panels; direction lower_better; intervals are the table's 95 % take-cluster bootstrap intervals (marginal, not paired). Note numbers (train-mean RMSE 0.99 / 1.00 / 1.00 and 0.91 / 0.91 / 0.92; pair counts) match. Fixed in the note: 'the object descriptor and the local object trajectory' became 'the static object descriptor and the object-trajectory windows around frames t and t+h' (the probe sees object states up to t+h+8, report Section 5), and '(a single step, no rollout)' and 'one probe per horizon, one seed' were added."
+   },
+   {
+    "id": "f3diagc_gain_over_persistence",
+    "verdict": "fixed",
+    "note": "Plotted values correct and unchanged: gain_rmse, gain_rmse_lo, gain_rmse_hi of method = probe at h = 1, 4, 8 from persistence_comparison.csv (TACO 0.0326 / 0.1128 / 0.1782; ARCTIC -0.0260 / 0.0019 / 0.0694), dashed lines = decision_rule.gain_clear 0.1 and gain_marginal 0.02 from experiment_config.json; direction higher_better; values are fractions. Fixed in the note: 'the decision rule that the report fixed before the probes were trained' became 'the decision rule, which according to the report was fixed before the probes were trained' (no independent timestamp exists), and 'given the true current latent z_t' / 'single-step prediction' were added so the figure cannot be read as an autonomous or closed-loop result when shown alone."
+   },
+   {
+    "id": "f3diagc_gain_by_window_position",
+    "verdict": "fixed",
+    "note": "Plotted values correct and unchanged: gain_rmse, gain_rmse_lo, gain_rmse_hi from posthoc_splits.csv filtered to eval_split = test, method = probe, subject = all, position = t0 / t1_7 / t8, h = 1, 4, 8, one panel per dataset (18 bars, each matched; negative ARCTIC t >= 8 bars at h = 1 and 4 are present); dashed line = gain_clear 0.1; title and note both say POST HOC and 'not an input of the decision rule'; pair counts in the note (364 / 2548 / 20020-18928-17472 TACO; 186 / 1302 / 10230-9672-8928 ARCTIC) match n_pairs. Fixed in the note: added 'negative = worse than persistence', 'the same probes as in the window average, given the true current latent z_t' and 'no closed-loop rollout'."
+   }
+  ],
+  "image_checks": [
+   {
+    "path": "reports/z_temporal_diagnostic/figures/fig3_deltaC_vs_deltaz.png",
+    "exists": true,
+    "note": "Opened: 1820 x 1040 px, 786875 bytes, 2 x 3 log-density hexbin grid (top TACO, bottom ARCTIC; h = 1, 4, 8), panel titles print Pearson / Spearman / n exactly as in the table (TACO 0.83/0.85 n=22932, 0.81/0.85 n=21840, 0.82/0.86 n=20384; ARCTIC 0.78/0.81 n=11718, 0.79/0.81 n=11160, 0.78/0.81 n=10416), dashed white lines at the train 30 % and 70 % quantiles of each quantity, a diagonal cloud and a sparsely populated upper-left region in every panel. The proposed caption is supported with one correction: the plotting code (scripts/research/z_temporal_diagnostic/zt_figures.py lines 77 and 82) cuts both axes at the 99.5 % quantile of each step, so the image does not show literally 'every test transition' (the correlations in the titles and the 0.2 % / 0.5-0.7 % shares are computed on all transitions). Suggested caption change: '... for the test transitions (axes cut at the 99.5 % quantile of each step; each panel has its own axis range and colour scale) ...'. The shares 0.2 % and 0.5-0.7 % come from quadrant_metrics.csv, not from the image; 'upper-left region' means the box left of the first vertical and above the second horizontal dashed line."
+   }
+  ],
+  "attached_by_the_verifier": [
+   "Page-brief hedge to correct: 'the gain is ... smaller for later pairs' holds for TACO only. For ARCTIC pairs starting at t >= 8 the probe is significantly worse than persistence at h = 1 (-0.0864743517782427 [-0.1309359272777831, -0.05050453547286047]), indistinguishable at h = 4 and 0.06099187633813019 [0.00042883721242764367, 0.11525510192490651] at h = 8; ARCTIC t = 1..7 is indistinguishable from zero at all horizons (posthoc_splits.csv).",
+   "Block title 'Local z dynamics exist, especially on TACO' needs the probe's conditions attached: single-step, given the TRUE z_t, and conditioned on object-trajectory windows covering object states from t-8 to t+h+8 (future object states). Not delivered with intervals by the extractor, and useful here because they do not use the trajectory: linear map of z_t alone (persistence_comparison.csv, method = ar1), TACO 0.0202450324574922 [0.0187032928725091, 0.021790510375909] / 0.0665638859543558 [0.0628947828869571, 0.0699565780425994] / 0.1138323318337287 [0.1083075604944013, 0.1187474598286448]; ARCTIC 0.0050660279768733 [-0.0019899625503426, 0.0129646926718787] / 0.0119017897676386 [-0.0005252049167332, 0.0252337746966904] / 0.0296720627708124 [0.0112323387600654, 0.0479444811260971] (ARCTIC intervals include zero at h = 1 and 4). Probe without trajectory (method = probe_notau), TACO 0.0346544328678135 [0.0232393391034244, 0.044308892854518] / 0.0925100061855158 [0.0738210450191691, 0.1090267803575497] / 0.1487455970248055 [0.1277729300305684, 0.1686958607144695]; ARCTIC 0.0112080746358421 [-0.0102042670077207, 0.0315292889108346] / -0.0087631082209798 [-0.0494588510591782, 0.0301524215938403] / 0.0206792281330682 [-0.0170926844422037, 0.055657985547388]: on ARCTIC the h = 8 'marginal' gain is not present without the trajectory input (paired difference +4.9 points [-0.1, +9.3], interval touches zero; trajectory_contribution.csv).",
+   "If this block leads into the stateful-z hypothesis, the report's 'against A' evidence should be on the page and was not delivered as numbers: rescue from the true z_0 at target frame 1 / 4 / 8 (stage2_comparison.csv, mode = from_start, col rescue): TACO 0.512411 [0.453443, 0.567915] / 0.173675 [0.131106, 0.217240] / 0.052867 [0.010793, 0.092846]; ARCTIC 0.417208 [0.360950, 0.468007] / 0.104707 [0.016345, 0.189970] / 0.012201 [-0.075761, 0.093240]. Report: 'Started from the true initial latent, a predictor is no longer clearly better than Stage 2 after eight frames' and 'the one-step gain over persistence for pairs starting at t >= 8 is 2% on TACO and negative on ARCTIC, and in closed loop the model feeds on its own predictions'.",
+   "Decoded-contact caveat is slightly compressed by the extractor ('only on TACO at h = 8'): on TACO the decoded error of the probe latent is equal at h = 1, slightly lower at h = 4 with overlapping intervals (0.8774995280920967 [0.8296573379474588, 0.9337752539922411] vs 0.9480835555440272 [0.9022466372163396, 0.9999747003397836]) and clearly lower at h = 8; even at TACO h = 8 it is only numerically below dense persistence C_t (1.133 [1.071, 1.197] vs 1.210 [1.159, 1.266], overlapping) - report Section 5, local_prediction_metrics.csv.",
+   "Image caption caveat not delivered: report Figure 3 axes are cut at the 99.5 % quantile of each step (zt_figures.py lines 77, 82), each panel with its own axis range and colour scale.",
+   "Derived ratio not in the report: the extractor's 'ARCTIC is about three times TACO' (0.60 % vs 0.19 %) for the low-ΔC / high-Δz share is arithmetic on two reported values, with wide ARCTIC intervals (h = 4: [0.21 %, 1.23 %]); state the two values instead of a ratio.",
+   "Extractor's reading of f3diagc_persistence_vs_probe_rmse says the ARCTIC bars are 'equal at h = 1 and 4'; at h = 1 the probe is numerically worse (0.1132 vs 0.1104, gain -2.6 % with an interval including zero). Say 'not distinguishable'.",
+   "0.2 % / 0.6 % (and Spearman 0.85 / 0.81) are means over h = 1, 4, 8 = the rule inputs; the per-horizon figure shows 0.65 % for ARCTIC at h = 1 and 4. The independence expectation quoted in the report head (7.5 % / 8.5 %) is the h = 4 value. The figure note now carries the horizon mean.",
+   "'Pre-registered' has no independent timestamp. What can be seen on disk: zt_common.py mtime 2026-10-04 00:11:16 (md5 55a02c299932 = code_md5 in experiment_config.json), discarded first launch logs 00:09-00:10, retained probe logs 00:13-00:26, test evaluation logs 01:08; the scripts folder was untracked in git when this was checked (first committed on 2026-10-04). Consistent with the report's account, not proof of it.",
+   "Only TACO and ARCTIC exist for these blocks (no OakInk2 result). Direction check exists at h = 4 only and on 'moving' transitions only (12471 TACO / 4549 ARCTIC). Partial correlations have no intervals in the table.",
+   "Module change to be aware of: f3d_z_temporal_diagnostic.py now also declares and reads reports/z_temporal_diagnostic/report_values.json (363 KB, snapshotted to docs/data/sources at a full build); only the five figure notes and one locator changed, no plotted value."
+  ]
+ }
+}

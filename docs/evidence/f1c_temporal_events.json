@@ -1,0 +1,784 @@
+{
+ "unit": "C_temporal_events",
+ "figure_module": "docs/build/figs/f1c_temporal_events.py",
+ "entries": [
+  {
+   "block": "F1-C",
+   "claim": "Large frame-to-frame contact changes are concentrated but not sparse: test transitions whose change magnitude d_t exceeds the training-set 90th percentile are 12.6 % (TACO), 5.7 % (ARCTIC) and 9.3 % (OakInk2) of the test transitions and hold 69.7 %, 62.4 % and 72.1 % of the summed squared change, but only 38.9 %, 29.3 % and 34.8 % of the summed unsquared change.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "report": "reports/temporal_contact_events/temporal_contact_event_report.md",
+   "source_files": [
+    "reports/temporal_contact_events/taco/sanity.json",
+    "reports/temporal_contact_events/arctic/sanity.json",
+    "reports/temporal_contact_events/oakink2/sanity.json",
+    "reports/temporal_contact_events/summary_table.csv",
+    "scripts/research/temporal_contact_events/tce_analysis.py"
+   ],
+   "metric": "d_t = L2 norm of C_{t+1} - C_t on the raw 512-point canonical contact map (raw contact units), one value per transition (63 per 64-frame window; windows start at the first firm-contact frame). Spike = TEST transition with d_t above the 90th percentile of d_t over the TRAIN transitions of the same dataset (fixed split). Reported: fraction of test transitions that are spikes, and the fraction of sum d_t^2 ('change energy') and of sum d_t they hold. Descriptive shares, no better direction, no interval reported for them.",
+   "numbers": {
+    "TACO | share of test transitions that are spikes (fraction)": {
+     "value": "0.1258067329495901",
+     "source": "reports/temporal_contact_events/taco/sanity.json",
+     "locator": "key frac_spike_frames_q90 (n_spike_frames_q90 2885 of n_transitions 22932)"
+    },
+    "ARCTIC | share of test transitions that are spikes (fraction)": {
+     "value": "0.05657962109575013",
+     "source": "reports/temporal_contact_events/arctic/sanity.json",
+     "locator": "key frac_spike_frames_q90 (n_spike_frames_q90 663 of n_transitions 11718)"
+    },
+    "OakInk2 | share of test transitions that are spikes (fraction)": {
+     "value": "0.09310589907604833",
+     "source": "reports/temporal_contact_events/oakink2/sanity.json",
+     "locator": "key frac_spike_frames_q90 (n_spike_frames_q90 1179 of n_transitions 12663)"
+    },
+    "TACO | spike share of sum d_t^2 over all test transitions (fraction)": {
+     "value": "0.6968162396251314",
+     "source": "reports/temporal_contact_events/taco/sanity.json",
+     "locator": "key spike_energy_share_of_all"
+    },
+    "ARCTIC | spike share of sum d_t^2 over all test transitions (fraction)": {
+     "value": "0.6236376798996892",
+     "source": "reports/temporal_contact_events/arctic/sanity.json",
+     "locator": "key spike_energy_share_of_all"
+    },
+    "OakInk2 | spike share of sum d_t^2 over all test transitions (fraction)": {
+     "value": "0.720731582880717",
+     "source": "reports/temporal_contact_events/oakink2/sanity.json",
+     "locator": "key spike_energy_share_of_all"
+    },
+    "TACO | spike share of sum d_t (unsquared) over all test transitions (fraction)": {
+     "value": "0.38948773903743145",
+     "source": "reports/temporal_contact_events/taco/sanity.json",
+     "locator": "key spike_magnitude_share_of_all"
+    },
+    "ARCTIC | spike share of sum d_t (unsquared) over all test transitions (fraction)": {
+     "value": "0.2933825975240143",
+     "source": "reports/temporal_contact_events/arctic/sanity.json",
+     "locator": "key spike_magnitude_share_of_all"
+    },
+    "OakInk2 | spike share of sum d_t (unsquared) over all test transitions (fraction)": {
+     "value": "0.34845055179871837",
+     "source": "reports/temporal_contact_events/oakink2/sanity.json",
+     "locator": "key spike_magnitude_share_of_all"
+    },
+    "TACO | rounded table: spike frames (% of test transitions) / spike share of sum d_t^2 / spike share of sum d_t": {
+     "value": "12.6 / 0.697 / 0.389",
+     "source": "reports/temporal_contact_events/summary_table.csv",
+     "locator": "row dataset=TACO; columns 'spike frames (% of test transitions)', 'spike share of Σd_t² (all frames)', 'spike share of Σd_t'"
+    },
+    "ARCTIC | rounded table: spike frames (% of test transitions) / spike share of sum d_t^2 / spike share of sum d_t": {
+     "value": "5.7 / 0.624 / 0.293",
+     "source": "reports/temporal_contact_events/summary_table.csv",
+     "locator": "row dataset=ARCTIC; same columns"
+    },
+    "OakInk2 | rounded table: spike frames (% of test transitions) / spike share of sum d_t^2 / spike share of sum d_t": {
+     "value": "9.3 / 0.721 / 0.348",
+     "source": "reports/temporal_contact_events/summary_table.csv",
+     "locator": "row dataset=OakInk2; same columns"
+    },
+    "TACO | spike threshold = train Q90 of d_t (raw contact units); number of train transitions it is taken over": {
+     "value": "0.6155718564987183; 82656",
+     "source": "reports/temporal_contact_events/taco/sanity.json",
+     "locator": "keys q90, n_train_transitions"
+    },
+    "ARCTIC | spike threshold = train Q90 of d_t (raw contact units); number of train transitions it is taken over": {
+     "value": "0.5642629623413083; 63315",
+     "source": "reports/temporal_contact_events/arctic/sanity.json",
+     "locator": "keys q90, n_train_transitions"
+    },
+    "OakInk2 | spike threshold = train Q90 of d_t (raw contact units); number of train transitions it is taken over": {
+     "value": "0.2924117147922516; 101556",
+     "source": "reports/temporal_contact_events/oakink2/sanity.json",
+     "locator": "keys q90, n_train_transitions"
+    },
+    "TACO | test sequences / takes (bootstrap unit) / merged spike events / events per 64-frame sequence": {
+     "value": "364 / 186 / 1464 / 4.021978021978022",
+     "source": "reports/temporal_contact_events/taco/sanity.json",
+     "locator": "keys n_test_sequences, n_takes, n_events_q90, events_per_sequence"
+    },
+    "ARCTIC | test sequences / takes (bootstrap unit) / merged spike events / events per 64-frame sequence": {
+     "value": "186 / 44 / 283 / 1.521505376344086",
+     "source": "reports/temporal_contact_events/arctic/sanity.json",
+     "locator": "keys n_test_sequences, n_takes, n_events_q90, events_per_sequence"
+    },
+    "OakInk2 | test sequences / recordings (bootstrap unit) / merged spike events / events per 64-frame sequence": {
+     "value": "201 / 34 / 510 / 2.537313432835821",
+     "source": "reports/temporal_contact_events/oakink2/sanity.json",
+     "locator": "keys n_test_sequences, n_takes, n_events_q90, events_per_sequence"
+    },
+    "TACO | share of the spike-frame sum d_t^2 that survives a 3-frame moving average of the contact map": {
+     "value": "0.2841588438195223",
+     "source": "reports/temporal_contact_events/taco/sanity.json",
+     "locator": "key smoothing_spike_energy_ratio_s3"
+    },
+    "ARCTIC | share of the spike-frame sum d_t^2 that survives a 3-frame moving average of the contact map": {
+     "value": "0.6290446015332664",
+     "source": "reports/temporal_contact_events/arctic/sanity.json",
+     "locator": "key smoothing_spike_energy_ratio_s3"
+    },
+    "OakInk2 | share of the spike-frame sum d_t^2 that survives a 3-frame moving average of the contact map": {
+     "value": "0.45986363861469937",
+     "source": "reports/temporal_contact_events/oakink2/sanity.json",
+     "locator": "key smoothing_spike_energy_ratio_s3"
+    }
+   },
+   "caveats": [
+    "The share of transitions is close to 10 % by construction: the threshold is the per-dataset TRAIN 90th percentile, so '12.6 % / 5.7 % / 9.3 % of transitions' is not a discovered sparsity; the finding is the energy share. 'Spike' means large for that dataset (thresholds 0.616 / 0.564 / 0.292 raw units), so absolute d_t is not comparable across datasets.",
+    "Squaring emphasises large changes: in unsquared magnitude the spikes hold 39 % / 29 % / 35 %, and the report's own wording is 'concentrated but not sparse' (the remaining 28-38 % of the change energy is a floor of small changes on non-spike frames).",
+    "Not every spike is a lasting reconfiguration: 46 % (TACO) and 53 % (OakInk2) of the events are low-persistence (the change cancels out within +-4 frames) against 7 % on ARCTIC, and a 3-frame moving average keeps only 28 % / 46 % of the spike energy on TACO / OakInk2 (63 % on ARCTIC). The report states it cannot decide whether these are real micro-adjustments or tracking jitter.",
+    "Test split of the fixed split only (TACO test_1; ARCTIC test; OakInk2 seeded 80/10/10 by recording); 64-frame windows that start at the first firm-contact frame; analysis of cached sequences, nothing retrained.",
+    "The report prose rounds the energy shares to 70 % / 62 % / 72 %; the tables give 0.697 / 0.624 / 0.721."
+   ]
+  },
+  {
+   "block": "F1-C",
+   "claim": "What the large changes are differs by dataset. By event count, TACO and OakInk2 spike events are mostly mixed or spatial-dominant (TACO 59 % and 28 % of events; OakInk2 55 % and 39 %). On ARCTIC mixed events are 48 % of the events, and firm-contact onset / release events are 26 % of the events and carry 46 % of the spike energy (wide intervals, 44 takes). At the canonical 0.7 / 0.3 cut amount-dominant events are a minority in each dataset - 4.9 % (TACO), 14.1 % (ARCTIC) and 4.7 % (OakInk2) of events, 2.8 % / 5.0 % / 1.9 % of the spike energy - but on ARCTIC that share depends on the cut (30 % of events at 0.6 / 0.4).",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "report": "reports/temporal_contact_events/temporal_contact_event_report.md",
+   "source_files": [
+    "reports/temporal_contact_events/taco/event_summary.csv",
+    "reports/temporal_contact_events/arctic/event_summary.csv",
+    "reports/temporal_contact_events/oakink2/event_summary.csv",
+    "reports/temporal_contact_events/summary_table.csv",
+    "reports/temporal_contact_events/threshold_sensitivity_all.csv"
+   ],
+   "metric": "Adjacent spike transitions merged into events. Event type, in priority order: onset / release / onset+release if the event contains a firm-contact transition; otherwise amount-dominant (amount ratio r >= 0.7), spatial-dominant (r <= 0.3) or mixed, with r from the exact decomposition dC = dm * P_bar + m_bar * dP aggregated over the event. Reported: share of events (frequency) and share of the spike-frame sum d_t^2 (energy) with a take-level cluster-bootstrap 95 % interval on the energy share. Descriptive, no better direction.",
+   "numbers": {
+    "TACO | mixed events: n / share of events / share of spike energy [95 % CI]": {
+     "value": "870 / 0.5942622950819673 / 0.6146082050560648 [0.5696134758101629, 0.6592885124293735]",
+     "source": "reports/temporal_contact_events/taco/event_summary.csv",
+     "locator": "row category=mixed; columns n_events, frequency, energy_share, energy_lo, energy_hi"
+    },
+    "TACO | spatial-dominant events: n / share of events / share of spike energy [95 % CI]": {
+     "value": "413 / 0.28210382513661203 / 0.2367950823905209 [0.19940172685319096, 0.2768494970330668]",
+     "source": "reports/temporal_contact_events/taco/event_summary.csv",
+     "locator": "row category=spatial"
+    },
+    "TACO | amount-dominant events: n / share of events / share of spike energy [95 % CI]": {
+     "value": "72 / 0.04918032786885246 / 0.027725608826190462 [0.019293390644364666, 0.03639884016944699]",
+     "source": "reports/temporal_contact_events/taco/event_summary.csv",
+     "locator": "row category=amount"
+    },
+    "TACO | onset / release / onset+release events: n and share of spike energy": {
+     "value": "69 (0.07333897504977151) / 32 (0.020473148535355565) / 8 (0.027058980142096664)",
+     "source": "reports/temporal_contact_events/taco/event_summary.csv",
+     "locator": "rows category=onset, release, onset+release; columns n_events, energy_share"
+    },
+    "ARCTIC | mixed events: n / share of events / share of spike energy [95 % CI]": {
+     "value": "136 / 0.48056537102473496 / 0.39026094418763335 [0.277940292085712, 0.515385903487182]",
+     "source": "reports/temporal_contact_events/arctic/event_summary.csv",
+     "locator": "row category=mixed"
+    },
+    "ARCTIC | spatial-dominant events: n / share of events / share of spike energy [95 % CI]": {
+     "value": "33 / 0.1166077738515901 / 0.09516232213026206 [0.043738622688364176, 0.1544458313327397]",
+     "source": "reports/temporal_contact_events/arctic/event_summary.csv",
+     "locator": "row category=spatial"
+    },
+    "ARCTIC | amount-dominant events: n / share of events / share of spike energy [95 % CI]": {
+     "value": "40 / 0.1413427561837456 / 0.04958012545649316 [0.031577955514991915, 0.0788876199722114]",
+     "source": "reports/temporal_contact_events/arctic/event_summary.csv",
+     "locator": "row category=amount"
+    },
+    "ARCTIC | release events: n / share of events / share of spike energy [95 % CI]": {
+     "value": "54 / 0.19081272084805653 / 0.3162082735841678 [0.21527241904781041, 0.39934293056491493]",
+     "source": "reports/temporal_contact_events/arctic/event_summary.csv",
+     "locator": "row category=release"
+    },
+    "ARCTIC | onset events: n / share of events / share of spike energy [95 % CI]": {
+     "value": "17 / 0.06007067137809187 / 0.1157951398763702 [0.021737625184040987, 0.2070801156490355]",
+     "source": "reports/temporal_contact_events/arctic/event_summary.csv",
+     "locator": "row category=onset"
+    },
+    "OakInk2 | mixed events: n / share of events / share of spike energy [95 % CI]": {
+     "value": "281 / 0.5509803921568628 / 0.4039721608227446 [0.2673879340959973, 0.6384968823320502]",
+     "source": "reports/temporal_contact_events/oakink2/event_summary.csv",
+     "locator": "row category=mixed"
+    },
+    "OakInk2 | spatial-dominant events: n / share of events / share of spike energy [95 % CI]": {
+     "value": "198 / 0.38823529411764707 / 0.2508412563607315 [0.11746271943810184, 0.48541175538823444]",
+     "source": "reports/temporal_contact_events/oakink2/event_summary.csv",
+     "locator": "row category=spatial"
+    },
+    "OakInk2 | amount-dominant events: n / share of events / share of spike energy [95 % CI]": {
+     "value": "24 / 0.047058823529411764 / 0.019099644908581976 [0.005651711454445335, 0.05055805861110631]",
+     "source": "reports/temporal_contact_events/oakink2/event_summary.csv",
+     "locator": "row category=amount"
+    },
+    "OakInk2 | onset / release / onset+release events: n and share of spike energy [95 % CI]": {
+     "value": "1 (0.04826582534876106 [0.0, 0.10117203605895833]) / 4 (0.14000364970734264 [0.0, 0.28823065066858333]) / 2 (0.13781746285183819 [0.0, 0.30353329282052594])",
+     "source": "reports/temporal_contact_events/oakink2/event_summary.csv",
+     "locator": "rows category=onset, release, onset+release"
+    },
+    "TACO | rounded table: onset/release family, share of events / share of spike energy": {
+     "value": "0.07 / 0.12",
+     "source": "reports/temporal_contact_events/summary_table.csv",
+     "locator": "row dataset=TACO; column 'onset/release: freq / energy'"
+    },
+    "ARCTIC | rounded table: onset/release family, share of events / share of spike energy": {
+     "value": "0.26 / 0.46",
+     "source": "reports/temporal_contact_events/summary_table.csv",
+     "locator": "row dataset=ARCTIC; column 'onset/release: freq / energy'"
+    },
+    "OakInk2 | rounded table: onset/release family, share of events / share of spike energy": {
+     "value": "0.01 / 0.33",
+     "source": "reports/temporal_contact_events/summary_table.csv",
+     "locator": "row dataset=OakInk2; column 'onset/release: freq / energy'"
+    },
+    "TACO | low-persistence events (persistence at h = 4 below 0.5; overlapping cut): n / share of events / share of spike energy": {
+     "value": "679 / 0.46379781420765026 / 0.5407004782446885",
+     "source": "reports/temporal_contact_events/taco/event_summary.csv",
+     "locator": "row category=transient"
+    },
+    "ARCTIC | low-persistence events: n / share of events / share of spike energy": {
+     "value": "19 / 0.06713780918727916 / 0.04364949161113804",
+     "source": "reports/temporal_contact_events/arctic/event_summary.csv",
+     "locator": "row category=transient"
+    },
+    "OakInk2 | low-persistence events: n / share of events / share of spike energy": {
+     "value": "268 / 0.5254901960784314 / 0.3913733817629267",
+     "source": "reports/temporal_contact_events/oakink2/event_summary.csv",
+     "locator": "row category=transient"
+    },
+    "ARCTIC | sensitivity to the amount / spatial cuts (0.6/0.4 -> 0.7/0.3 -> 0.8/0.2), share of events that are amount-dominant": {
+     "value": "0.3 -> 0.14 -> 0.02",
+     "source": "reports/temporal_contact_events/threshold_sensitivity_all.csv",
+     "locator": "rows dataset=ARCTIC, spike threshold=q90; column 'amount freq'"
+    },
+    "TACO | sensitivity to the amount / spatial cuts (0.6/0.4 -> 0.7/0.3 -> 0.8/0.2), share of events amount / spatial / mixed": {
+     "value": "0.14, 0.47, 0.31 -> 0.05, 0.28, 0.59 -> 0.01, 0.16, 0.76",
+     "source": "reports/temporal_contact_events/threshold_sensitivity_all.csv",
+     "locator": "rows dataset=TACO, spike threshold=q90; columns 'amount freq', 'spatial freq', 'mixed freq'"
+    }
+   },
+   "caveats": [
+    "The amount / spatial / mixed split depends on the cuts: on ARCTIC amount-dominant is 30 % of events with the looser 0.6/0.4 cut (14 % at the canonical 0.7/0.3, 2 % at 0.8/0.2); on TACO spatial moves 47 % -> 28 % -> 16 % and mixed 31 % -> 59 % -> 76 %. 'Mixed' is a residual class between two cuts, not a distinct kind of motion.",
+    "OakInk2's 33 % of spike energy in onset / release rests on 7 events from 1-2 recordings per class; every one of those energy intervals has a lower bound of 0.0. The report says classes below about 20 events (ARCTIC onset 17, OakInk2 onset / release) are reported but not interpreted.",
+    "Low-persistence is a descriptive cut that overlaps the types (not a type); no dataset shows a natural threshold in the persistence distribution, and persistence at h = 4 is undefined for events near the window edges (counted as not low-persistence in these shares).",
+    "The decomposition needs contact mass on both sides, so release-side transitions carry an amount-like change that the taxonomy labels onset / release rather than amount; one ARCTIC event (near_zero) has no valid decomposition.",
+    "Wide intervals on ARCTIC (44 takes) and OakInk2 (34 recordings)."
+   ],
+   "claim_as_extracted": "What the large changes are differs by dataset: on TACO and OakInk2 most spike events are mixed or spatial-dominant (TACO 59 % and 28 % of events, OakInk2 55 % and 39 %), whereas on ARCTIC firm-contact onset / release events are 26 % of the events and carry 46 % of the spike energy; amount-dominant events are a small class everywhere (4.9 % / 14.1 % / 4.7 % of events).",
+   "correction_reason": "Numbers verified (event_summary.csv, summary_table.csv, threshold_sensitivity_all.csv). 'A small class everywhere' is loose for ARCTIC: 14.1 % of events is more than ARCTIC's spatial-dominant class (11.7 %) and becomes 30 % at the looser cut, which the extractor only says in a caveat. Missing caveat: on TACO and OakInk2 most spatial-dominant and mixed events are low-persistence among events with a defined h=4 window (event_summary.csv low_persistence_frac_defined: TACO spatial 0.752, mixed 0.553; OakInk2 spatial 0.737, mixed 0.603; ARCTIC 0.212, 0.063), so 'reconfiguration' is not a supported name for them. The report's not-interpreted list also contains OakInk2 amount (24 events), which the extractor's caveat dropped."
+  },
+  {
+   "block": "F1-C",
+   "claim": "On spike frames the evolved model (B1: learned vector field rolled out from the ground-truth first map) stays close to the static baseline B0 in mean temporal error (B0 -> B1, lower is better: TACO 0.980 -> 0.917, ARCTIC 0.867 -> 0.803, OakInk2 0.533 -> 0.525). Spatial-dominant frames are essentially unchanged in all three datasets (0.972 -> 0.962, 0.811 -> 0.820, 0.485 -> 0.484). On TACO the largest reduction is on amount-dominant frames (0.877 -> 0.685, 107 frames, per-model intervals disjoint) and mixed frames are also lower (0.992 -> 0.917, intervals barely disjoint). On ARCTIC the amount (0.726 -> 0.646), onset (1.029 -> 0.942), release (0.943 -> 0.847) and mixed (0.825 -> 0.763) reductions are of similar size and all lie inside overlapping per-model intervals; on OakInk2 the point estimates are amount 0.453 -> 0.397 (34 frames from 8 recordings, a class the report does not interpret) and mixed 0.487 -> 0.473.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "report": "reports/temporal_contact_events/temporal_contact_event_report.md",
+   "source_files": [
+    "reports/temporal_contact_events/taco/model_error_by_event.csv",
+    "reports/temporal_contact_events/arctic/model_error_by_event.csv",
+    "reports/temporal_contact_events/oakink2/model_error_by_event.csv",
+    "reports/temporal_contact_events/event_type_table.csv"
+   ],
+   "metric": "Mean temporal error e_t = L2 norm of (predicted frame-to-frame change - ground-truth change), raw contact units, lower is better, averaged over the test transitions of a frame class; for B0 (hold the ground-truth first map) e_t = d_t by construction. Frame classes = spike frames grouped by the type of their event (plus non-spike / all spike / low-persistence). Brackets: take-level cluster-bootstrap 95 % interval per model (percentiles 2.5 / 97.5; script default 500 resamples), not a paired test.",
+   "numbers": {
+    "TACO | all spike frames (n=2885): B0 static; B1 GT-init + vector field": {
+     "value": "B0 0.9803531743418199 [0.9568167796782574, 1.0080042458830127]; B1 0.9174683918159591 [0.8903896549297794, 0.9472242275853431]",
+     "source": "reports/temporal_contact_events/taco/model_error_by_event.csv",
+     "locator": "row frame_class=spike; columns e_B0_static(_lo,_hi), e_B1_gtinit_vf(_lo,_hi), n_frames"
+    },
+    "TACO | amount-dominant frames (n=107): B0; B1": {
+     "value": "B0 0.8768366580811616 [0.8176296465045091, 0.9427484534956792]; B1 0.6850411625944566 [0.6078941114752257, 0.7525299039024245]",
+     "source": "reports/temporal_contact_events/taco/model_error_by_event.csv",
+     "locator": "row frame_class=amount"
+    },
+    "TACO | spatial-dominant frames (n=726): B0; B1": {
+     "value": "B0 0.971780149979368 [0.9432154385573185, 1.0024973352296014]; B1 0.9616173388379993 [0.9332585656661689, 0.9929915923704884]",
+     "source": "reports/temporal_contact_events/taco/model_error_by_event.csv",
+     "locator": "row frame_class=spatial"
+    },
+    "TACO | mixed frames (n=1700): B0; B1": {
+     "value": "B0 0.9915552995836033 [0.9592618990929824, 1.026496033951644]; B1 0.916666766887202 [0.8817782644609843, 0.9565843166308626]",
+     "source": "reports/temporal_contact_events/taco/model_error_by_event.csv",
+     "locator": "row frame_class=mixed"
+    },
+    "TACO | onset frames (n=213): B0; B1": {
+     "value": "B0 0.9826392917565896 [0.9208523823550447, 1.0617371246354146]; B1 0.882419873151421 [0.8138130499331291, 0.9722479940638084]",
+     "source": "reports/temporal_contact_events/taco/model_error_by_event.csv",
+     "locator": "row frame_class=onset"
+    },
+    "TACO | release frames (n=82): B0; B1": {
+     "value": "B0 0.8664449039028912 [0.7985901044253753, 0.9422014243957381]; B1 0.8437117203706648 [0.7703645502679519, 0.9237855025406538]",
+     "source": "reports/temporal_contact_events/taco/model_error_by_event.csv",
+     "locator": "row frame_class=release"
+    },
+    "TACO | low-persistence frames (n=1280, overlapping cut): B0; B1": {
+     "value": "B0 1.0663848299067467 [1.0261211896555245, 1.112287300455938]; B1 1.0621086384169758 [1.020732144650087, 1.1069072846209889]",
+     "source": "reports/temporal_contact_events/taco/model_error_by_event.csv",
+     "locator": "row frame_class=transient"
+    },
+    "ARCTIC | all spike frames (n=663): B0; B1": {
+     "value": "B0 0.8670135856034349 [0.804604633677375, 0.9139313690067801]; B1 0.8034006830748749 [0.7060594451696227, 0.8892585252841304]",
+     "source": "reports/temporal_contact_events/arctic/model_error_by_event.csv",
+     "locator": "row frame_class=spike"
+    },
+    "ARCTIC | amount-dominant frames (n=51): B0; B1": {
+     "value": "B0 0.7259698475108427 [0.6725981488823891, 0.793567544221878]; B1 0.6461234674149868 [0.5327022791761591, 0.7804357147623979]",
+     "source": "reports/temporal_contact_events/arctic/model_error_by_event.csv",
+     "locator": "row frame_class=amount"
+    },
+    "ARCTIC | spatial-dominant frames (n=74): B0; B1": {
+     "value": "B0 0.8107986192445498 [0.7141398450434208, 0.8682287552820362]; B1 0.8196177595370525 [0.7063160305586127, 0.8803591275071089]",
+     "source": "reports/temporal_contact_events/arctic/model_error_by_event.csv",
+     "locator": "row frame_class=spatial"
+    },
+    "ARCTIC | mixed frames (n=291): B0; B1": {
+     "value": "B0 0.8254846443015685 [0.7652561854632424, 0.8733178769383534]; B1 0.7634378713635644 [0.6878115724124587, 0.8189738915756529]",
+     "source": "reports/temporal_contact_events/arctic/model_error_by_event.csv",
+     "locator": "row frame_class=mixed"
+    },
+    "ARCTIC | release frames (n=180): temporal error B0; B1 - and absolute error |C_hat_t - C_t| B0 -> B1 on the same frames": {
+     "value": "B0 0.9427412023146947 [0.8618637378165853, 1.0268919472399196]; B1 0.8474918461508221 [0.6583690295244442, 1.0172768353665638] - absolute 2.0134035271902877 -> 2.888468362722132",
+     "source": "reports/temporal_contact_events/arctic/model_error_by_event.csv",
+     "locator": "row frame_class=release; columns e_B0_static(_lo,_hi), e_B1_gtinit_vf(_lo,_hi), abs_B0_static, abs_B1_gtinit_vf"
+    },
+    "ARCTIC | onset frames (n=49, 17 events from 8 takes): B0; B1": {
+     "value": "B0 1.0292446041593746 [0.8058348508694997, 1.1834920790503378]; B1 0.941796787539307 [0.6750507441114145, 1.1347574852980098]",
+     "source": "reports/temporal_contact_events/arctic/model_error_by_event.csv",
+     "locator": "row frame_class=onset"
+    },
+    "OakInk2 | all spike frames (n=1179): B0; B1": {
+     "value": "B0 0.532848406282899 [0.46055462864335855, 0.608377707402527]; B1 0.5249692034402876 [0.45008844572129636, 0.6017439479378529]",
+     "source": "reports/temporal_contact_events/oakink2/model_error_by_event.csv",
+     "locator": "row frame_class=spike"
+    },
+    "OakInk2 | amount-dominant frames (n=34, 8 recordings): B0; B1": {
+     "value": "B0 0.45274169392445507 [0.4037439808043716, 0.5621321871571919]; B1 0.39670276378884034 [0.33859536128491163, 0.5309109009017318]",
+     "source": "reports/temporal_contact_events/oakink2/model_error_by_event.csv",
+     "locator": "row frame_class=amount"
+    },
+    "OakInk2 | spatial-dominant frames (n=392): B0; B1": {
+     "value": "B0 0.484562556582446 [0.4460623940213851, 0.5234175022531284]; B1 0.48437873000393106 [0.44275824850923734, 0.524353711057669]",
+     "source": "reports/temporal_contact_events/oakink2/model_error_by_event.csv",
+     "locator": "row frame_class=spatial"
+    },
+    "OakInk2 | mixed frames (n=603): B0; B1": {
+     "value": "B0 0.48670629660288495 [0.43677747620221363, 0.5359876087080364]; B1 0.47281805301088203 [0.41872972385951485, 0.5239384458729147]",
+     "source": "reports/temporal_contact_events/oakink2/model_error_by_event.csv",
+     "locator": "row frame_class=mixed"
+    },
+    "TACO | rounded report table, spike row: B0 static e_t; B1 GT-init + VF e_t": {
+     "value": "0.980 [0.957, 1.008]; 0.917 [0.890, 0.947]",
+     "source": "reports/temporal_contact_events/event_type_table.csv",
+     "locator": "row dataset=TACO, event type=spike; columns 'B0 static e_t', 'B1 GT-init + VF e_t'"
+    }
+   },
+   "caveats": [
+    "Corrects the wanted wording: the per-class comparison is on SPIKE frames, so 'amount' here means large changes that are mostly a change of total contact mass - not slow evolution. Mixed frames are not untouched (lower on TACO and ARCTIC); the class that is unchanged everywhere is spatial-dominant.",
+    "No paired B1-vs-B0 test exists in this thread; the intervals are per model. Only TACO all-spike, TACO amount and TACO mixed (by 0.003) have disjoint B0 / B1 intervals; TACO onset and every ARCTIC and OakInk2 per-class difference lie inside overlapping intervals.",
+    "The amount-dominant class is small: 107 / 51 / 34 frames (72 / 40 / 24 events), 3 % / 5 % / 2 % of the spike energy. On TACO amount frames B1 still leaves 0.685 of the static 0.877.",
+    "B1 starts from the GROUND-TRUTH first map, so it isolates the evolution stage; it is not the full generative pipeline. B2 / B3 (sampled first map + vector field, best-of-10 selected against the ground truth for reconstruction) are within about 0.01 of B1 on the main classes and are in the notes file.",
+    "Report prose says 'within 7 % of static on spike frames'; the ARCTIC table pair 0.867 -> 0.803 is slightly more than 7 % (own arithmetic from the two table values), OakInk2 0.533 -> 0.525 is about 1.5 %.",
+    "On ARCTIC release frames the temporal error falls (0.943 -> 0.847) while the absolute error rises (2.01 -> 2.89); the report reads this as the map changing at the right time by the wrong amount / place.",
+    "OakInk2 onset (19 frames, 1 recording) and release (59 frames, 2 recordings) have degenerate or very wide intervals and are not interpreted."
+   ],
+   "claim_as_extracted": "On spike frames the evolved model (B1: learned vector field rolled out from the ground-truth first map) stays close to the static baseline in temporal error (TACO 0.980 -> 0.917, ARCTIC 0.867 -> 0.803, OakInk2 0.533 -> 0.525); by event class the largest reduction is on amount-dominant frames (TACO 0.877 -> 0.685), spatial-dominant frames are unchanged in all three datasets (0.972 -> 0.962, 0.811 -> 0.820, 0.485 -> 0.484), and mixed frames lie in between (0.992 -> 0.917, 0.825 -> 0.763, 0.487 -> 0.473).",
+   "correction_reason": "All values verified in <ds>/model_error_by_event.csv. 'The largest reduction is on amount-dominant frames' is established for TACO only: on ARCTIC the largest absolute reduction is on release frames (0.095) then onset (0.087) then amount (0.080), all with overlapping intervals; on OakInk2 it is a point estimate on a not-interpreted class. Intervals are per model (take-level bootstrap), no paired test exists. Otherwise direction and strength are right, and the wording avoids 'predicts sliding'."
+  },
+  {
+   "block": "F1-C",
+   "claim": "Averaged over all test transitions the evolved model's mean temporal error is not lower than the static baseline's (static B0 -> evolved B1: TACO 0.317 -> 0.318, ARCTIC 0.167 -> 0.194, OakInk2 0.142 -> 0.144), and most of B1's summed (unsquared) temporal error lies on non-spike frames (64 % / 77 % / 66 %). Spike frames hold 36 % / 23 % / 34 % of it; among them mixed plus spatial-dominant frames are the largest part on TACO (21 % + 10 %) and OakInk2 (16 % + 10 %), while on ARCTIC it is mixed (10 %) and release (7 %) frames, with spatial-dominant frames at 3 %.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "report": "reports/temporal_contact_events/temporal_contact_event_report.md",
+   "source_files": [
+    "reports/temporal_contact_events/taco/model_error_by_event.csv",
+    "reports/temporal_contact_events/arctic/model_error_by_event.csv",
+    "reports/temporal_contact_events/oakink2/model_error_by_event.csv",
+    "reports/temporal_contact_events/model_error_share_table.csv"
+   ],
+   "metric": "(a) mean temporal error e_t over all / non-spike test transitions (lower is better, take-level cluster-bootstrap 95 % interval); (b) share of a model's summed e_t (unsquared) that falls in a frame class (descriptive); (c) mean absolute error |C_hat_t - C_t| at the same frames (lower is better).",
+   "numbers": {
+    "TACO | mean e_t over all test transitions (n=22932): B0; B1": {
+     "value": "B0 0.31665958141802336 [0.30196561827373314, 0.33096558935636783]; B1 0.31794832076446217 [0.30356563751130095, 0.3336867256220123]",
+     "source": "reports/temporal_contact_events/taco/model_error_by_event.csv",
+     "locator": "row frame_class=all; columns e_B0_static(_lo,_hi), e_B1_gtinit_vf(_lo,_hi)"
+    },
+    "ARCTIC | mean e_t over all test transitions (n=11718): B0; B1": {
+     "value": "B0 0.1672059017706551 [0.14173441182579968, 0.19269678084201372]; B1 0.1940108008811005 [0.16813865648821474, 0.2214482567557085]",
+     "source": "reports/temporal_contact_events/arctic/model_error_by_event.csv",
+     "locator": "row frame_class=all"
+    },
+    "OakInk2 | mean e_t over all test transitions (n=12663): B0; B1": {
+     "value": "B0 0.14237695248013674 [0.121400878363803, 0.16800658200647994]; B1 0.14351833880459253 [0.12208904199791942, 0.16949083819694422]",
+     "source": "reports/temporal_contact_events/oakink2/model_error_by_event.csv",
+     "locator": "row frame_class=all"
+    },
+    "TACO | mean e_t on non-spike frames (n=20047): B0; B1": {
+     "value": "B0 0.2211462369981524 [0.21317518577614689, 0.2285856877391475]; B1 0.2316703038550209 [0.22340184962006449, 0.24011708418702954]",
+     "source": "reports/temporal_contact_events/taco/model_error_by_event.csv",
+     "locator": "row frame_class=non_spike"
+    },
+    "ARCTIC | mean e_t on non-spike frames (n=11055): B0; B1": {
+     "value": "B0 0.1252364314512401 [0.10899695032277408, 0.141666839061368]; B1 0.15746394498833957 [0.14034268602535663, 0.17511709505207596]",
+     "source": "reports/temporal_contact_events/arctic/model_error_by_event.csv",
+     "locator": "row frame_class=non_spike"
+    },
+    "OakInk2 | mean e_t on non-spike frames (n=11484): B0; B1": {
+     "value": "B0 0.10228936592201618 [0.0913079569116743, 0.11161190179138407]; B1 0.1043568472158182 [0.09333667871920287, 0.11401887967881806]",
+     "source": "reports/temporal_contact_events/oakink2/model_error_by_event.csv",
+     "locator": "row frame_class=non_spike"
+    },
+    "TACO | share of B1's summed e_t on non-spike / all spike / mixed / spatial / amount frames": {
+     "value": "0.6369733810424805 / 0.36302661895751953 / 0.21372826397418976 / 0.0957503691315651 / 0.010053145699203014",
+     "source": "reports/temporal_contact_events/taco/model_error_by_event.csv",
+     "locator": "rows frame_class=non_spike, spike, mixed, spatial, amount; column e_B1_gtinit_vf_share_of_total"
+    },
+    "ARCTIC | share of B1's summed e_t on non-spike / all spike / mixed / spatial / release / amount frames": {
+     "value": "0.7657032608985901 / 0.2342967987060547 / 0.09772086143493652 / 0.02667864039540291 / 0.06710094958543777 / 0.01449460256844759",
+     "source": "reports/temporal_contact_events/arctic/model_error_by_event.csv",
+     "locator": "rows frame_class=non_spike, spike, mixed, spatial, release, amount; column e_B1_gtinit_vf_share_of_total"
+    },
+    "OakInk2 | share of B1's summed e_t on non-spike / all spike / mixed / spatial / amount frames": {
+     "value": "0.6594321727752686 / 0.34056782722473145 / 0.15687991678714752 / 0.10447854548692703 / 0.007421643938869238",
+     "source": "reports/temporal_contact_events/oakink2/model_error_by_event.csv",
+     "locator": "rows frame_class=non_spike, spike, mixed, spatial, amount; column e_B1_gtinit_vf_share_of_total"
+    },
+    "TACO | mean absolute error B0 -> B1: all frames; non-spike frames; spike frames": {
+     "value": "3.468451157993497 -> 1.814826131273128; 3.422776507751428 -> 1.7737630005072387; 3.785830608046447 -> 2.1001615151427235",
+     "source": "reports/temporal_contact_events/taco/model_error_by_event.csv",
+     "locator": "rows frame_class=all, non_spike, spike; columns abs_B0_static, abs_B1_gtinit_vf"
+    },
+    "ARCTIC | mean absolute error B0 -> B1: all frames; non-spike frames; spike frames": {
+     "value": "2.2005306212118656 -> 2.1247692147012653; 2.2000795288859774 -> 2.1106489080435304; 2.2080522285462503 -> 2.3602141469806925",
+     "source": "reports/temporal_contact_events/arctic/model_error_by_event.csv",
+     "locator": "rows frame_class=all, non_spike, spike; columns abs_B0_static, abs_B1_gtinit_vf"
+    },
+    "OakInk2 | mean absolute error B0 -> B1: all frames; non-spike frames; spike frames": {
+     "value": "1.2514194986075964 -> 1.2354054051970207; 1.1348951387115975 -> 1.135716074121574; 2.386420133930455 -> 2.20642514910748",
+     "source": "reports/temporal_contact_events/oakink2/model_error_by_event.csv",
+     "locator": "rows frame_class=all, non_spike, spike; columns abs_B0_static, abs_B1_gtinit_vf"
+    },
+    "TACO | rounded table: B1 non-spike share of sum e_t / mean e_t (all) / mean e_t non-spike / mean e_t spike": {
+     "value": "0.637 / 0.318 / 0.232 / 0.917",
+     "source": "reports/temporal_contact_events/model_error_share_table.csv",
+     "locator": "row dataset=TACO, model='B1 GT-init + VF'"
+    },
+    "ARCTIC | rounded table: B1 non-spike share of sum e_t / mean e_t (all) / mean e_t non-spike / mean e_t spike": {
+     "value": "0.766 / 0.194 / 0.157 / 0.803",
+     "source": "reports/temporal_contact_events/model_error_share_table.csv",
+     "locator": "row dataset=ARCTIC, model='B1 GT-init + VF'"
+    },
+    "OakInk2 | rounded table: B1 non-spike share of sum e_t / mean e_t (all) / mean e_t non-spike / mean e_t spike": {
+     "value": "0.659 / 0.144 / 0.104 / 0.525",
+     "source": "reports/temporal_contact_events/model_error_share_table.csv",
+     "locator": "row dataset=OakInk2, model='B1 GT-init + VF'"
+    }
+   },
+   "caveats": [
+    "This corrects the block headline: the summed temporal error is NOT concentrated in spatial / mixed transitions - 64-77 % of B1's sum e_t is on non-spike frames, where its error is at or above the 'no change' floor (ARCTIC 0.125 -> 0.157). What the tables support is that the per-frame error is several times higher on spike frames and that, within spike frames, the spatial-dominant class is left unchanged.",
+    "The shares are of the unsquared sum e_t; no squared-error share is reported for the models, so they are not directly comparable with the 62-72 % share of sum d_t^2.",
+    "The 'slow evolution' statement is separate and TACO-only: the report attributes B1's TACO gain in ABSOLUTE error (3.42 -> 1.77 on non-spike frames) to 'the slow amount trend accumulated below the spike threshold'. That attribution is the report's interpretation, not a separately tested result, and there is no comparable absolute gain on ARCTIC (2.20 -> 2.12) or OakInk2 (1.25 -> 1.24).",
+    "On ARCTIC B1's temporal error is higher than static on non-spike frames and on all frames; the two intervals overlap only marginally on non-spike frames (B0 upper 0.1417, B1 lower 0.1403).",
+    "BimArt (B4, TACO and ARCTIC only) is in the notes file and not in the figure: its 'own support' error is not like-for-like with B0 / B1, and on TACO it is the project's own gen3 port trained on the same split (ARCTIC: BimArt's pretrained contact model)."
+   ],
+   "claim_as_extracted": "Averaged over all test transitions the evolved model's temporal error is not lower than the static baseline's (TACO 0.317 vs 0.318, ARCTIC 0.167 vs 0.194, OakInk2 0.142 vs 0.144), and most of its summed temporal error lies on non-spike frames (64 % / 77 % / 66 %); spike frames hold 36 % / 23 % / 34 % of it, of which mixed plus spatial frames are the largest part on TACO (21 % + 10 %) and OakInk2 (16 % + 10 %).",
+   "correction_reason": "Values verified (row 'all', row 'non_spike', column e_B1_gtinit_vf_share_of_total). The parenthesis lists static first and evolved second while the sentence names the evolved model first, so 'TACO 0.317 vs 0.318' can be read the wrong way round; label the order. ARCTIC's within-spike split was left out although it differs (mixed 0.098, release 0.067, spatial 0.027). One attached caveat mixes frame classes: 'no comparable absolute gain on ARCTIC (2.20 -> 2.12) or OakInk2 (1.25 -> 1.24)' quotes ALL-frame values next to TACO's NON-SPIKE value (3.42 -> 1.77); the like-for-like non-spike values are ARCTIC 2.20 -> 2.11 and OakInk2 1.13 -> 1.14."
+  },
+  {
+   "block": "F1-C",
+   "claim": "In the report's documented TACO example (a knife in a cutting take, one test sequence) the evolved model's mean temporal error is below the static baseline's (which equals the ground-truth change) on the amount-dominant event at transitions 7-8 (0.593 vs 0.726) and close to it on the representative spatial-dominant event at 34-35 (0.813 vs 0.792) and on the large mixed event at 39-42 (1.921 vs 2.014). In the same sequence it is above the static baseline on another spatial-dominant event at 19-20 (1.261 vs 0.673) and below it on a mixed event at 26-28 (0.542 vs 0.860). A single illustrative sequence, consistent with the per-class averages but carrying no statistical weight.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/temporal_contact_events/temporal_contact_event_report.md",
+   "source_files": [
+    "reports/temporal_contact_events/taco/events.csv",
+    "reports/temporal_contact_events/arctic/events.csv",
+    "reports/temporal_contact_events/taco/frames_test.csv",
+    "reports/temporal_contact_events/arctic/frames_test.csv"
+   ],
+   "metric": "Per-event mean temporal error e_t (raw contact units, lower is better) of B0 static (= mean d_t over the event) and B1; peak d_t of the event. Single test sequences, no interval.",
+   "numbers": {
+    "TACO | example 3023, (cut, knife, plate)/20231013_083, knife (tool role, right hand): amount event frames 7-8, mean e_t B0 / B1": {
+     "value": "0.7263480424880981 / 0.5927463173866272",
+     "source": "reports/temporal_contact_events/taco/events.csv",
+     "locator": "row event_id=3023_0; columns e_B0_static, e_B1_gtinit_vf"
+    },
+    "TACO | example 3023: representative spatial-dominant event frames 34-35 (peak d_t, persistence h2), mean e_t B0 / B1": {
+     "value": "peak 0.8661686778068542, h2 0.9397566318511963; 0.7921023368835449 / 0.8131184577941895",
+     "source": "reports/temporal_contact_events/taco/events.csv",
+     "locator": "row event_id=3023_4; columns peak_d, persistence_h2, e_B0_static, e_B1_gtinit_vf"
+    },
+    "TACO | example 3023: mixed event frames 39-42 (peak d_t), mean e_t B0 / B1": {
+     "value": "peak 3.1910006999969482; 2.0137574672698975 / 1.921123743057251",
+     "source": "reports/temporal_contact_events/taco/events.csv",
+     "locator": "row event_id=3023_5; columns peak_d, e_B0_static, e_B1_gtinit_vf"
+    },
+    "ARCTIC | example 1030, scissors_grab_01/s01 (left hand): representative spatial-dominant event frames 51-53 (peak d_t), mean e_t B0 / B1": {
+     "value": "peak 0.7066236734390259; 0.6425896883010864 / 0.6279907822608948",
+     "source": "reports/temporal_contact_events/arctic/events.csv",
+     "locator": "row event_id=1030_4; columns peak_d, e_B0_static, e_B1_gtinit_vf"
+    },
+    "ARCTIC | example 1030: release event frames 19-26 (peak d_t; contact mass before -> after), mean e_t B0 / B1": {
+     "value": "peak 1.8518743515014648; mass 146.97213745117188 -> 39.422340393066406; 1.2956026792526245 / 1.4371312856674194",
+     "source": "reports/temporal_contact_events/arctic/events.csv",
+     "locator": "row event_id=1030_2; columns peak_d, contact_mass_before, contact_mass_after, e_B0_static, e_B1_gtinit_vf"
+    },
+    "ARCTIC | example 1117, scissors_use_02/s10: amount event frame 17, mean e_t B0 / B1 (report text: 'the VF follows it (e_t 0.40 vs 0.60 static)'; not in the timeline figure)": {
+     "value": "0.6003149151802063 / 0.39924660325050354",
+     "source": "reports/temporal_contact_events/arctic/events.csv",
+     "locator": "row event_id=1117_1; columns e_B0_static, e_B1_gtinit_vf"
+    }
+   },
+   "caveats": [
+    "Illustration only: one sequence per dataset, chosen as the sequence that holds the report's representative spatial-dominant event (Figure G 'spatial (representative)' = the spatial event whose peak d_t is nearest the class median, peak in frames 4-58). It carries no statistical weight.",
+    "The per-frame table stores the ground-truth d_t and each model's temporal error e_t; it does NOT store the magnitude of the predicted change. A timeline of 'ground-truth vs predicted change magnitude' is not available as data; the timeline figure shows d_t and e_t(B1). e_t close to d_t means 'no better than holding the map still', not necessarily 'predicted zero change'.",
+    "In the ARCTIC example the spatial event follows a release and a regrasp on the other scissors ring; the report describes the rollout from the ground-truth first map as continuing to grow the original ring, and records that the arrays were verified to align (it was first taken for an indexing error).",
+    "No OakInk2 example is described in the report text; the timeline has TACO and ARCTIC panels only.",
+    "frames_test.csv is 12.3 MB (TACO) / 5.8 MB (ARCTIC), above the figure runner's 3 MB snapshot limit: f1c_timeline can be rebuilt only where the live result tree exists (the module skips it with a warning otherwise)."
+   ],
+   "claim_as_extracted": "In the report's documented TACO example (a knife in a cutting take) the evolved model's temporal error is below the ground-truth change on the amount-dominant event (0.593 vs 0.726) and equal to it on the representative spatial-dominant event (0.813 vs 0.792) and on the large mixed event that follows (1.921 vs 2.014), which is consistent with the per-class averages; this is a single illustrative sequence.",
+   "correction_reason": "The three quoted pairs are verified (taco/events.csv rows 3023_0, 3023_4, 3023_5) and the example is the one documented in report section 6 / figG_02_spatial_rep. 'Equal to' is too strong for 0.813 vs 0.792 and 1.921 vs 2.014 (the report writes 'e_t approx d_t'). The same sequence contains a spatial event where B1 is about twice the static error (row 3023_2: 0.6734 vs 1.2609) and a mixed event where it is clearly lower (row 3023_3: 0.8598 vs 0.5421); both are visible in the timeline figure and should not be left out of the text."
+  },
+  {
+   "block": "F1-subA",
+   "claim": "Where hand-surface motion was measured (TACO and ARCTIC; not OakInk2), the contact change magnitude d_t is associated with the hand's speed relative to the object at the same transition: Spearman 0.785 [0.767, 0.801] on TACO with the corrected tool-frame transform (0.675 [0.650, 0.694] as originally published) and 0.513 [0.413, 0.621] on ARCTIC. In each of these two datasets the association is stronger than with the other signals measured there: on TACO object linear / angular speed 0.199 / 0.197 and tool-versus-target linear / angular speed 0.111 / 0.142; on ARCTIC object linear / angular speed 0.014 / 0.177 and articulation rate 0.026. OakInk2 has no hand signal; its object linear / angular speed correlations are 0.167 / 0.333. This is a same-transition association, not a prediction result.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "report": "reports/temporal_contact_events/temporal_contact_event_report.md",
+   "source_files": [
+    "reports/temporal_contact_events/taco/kinematic_associations.csv",
+    "reports/temporal_contact_events/arctic/kinematic_associations.csv",
+    "reports/temporal_contact_events/oakink2/kinematic_associations.csv",
+    "reports/temporal_contact_events/kinematic_associations_all.csv",
+    "reports/hand_contact_predictive_info/taco/sanity/hand_alignment.json",
+    "reports/hand_contact_predictive_info/arctic/sanity/hand_alignment.json",
+    "reports/hand_contact_predictive_info/hand_contact_predictive_info_report.md",
+    "INDEX.md"
+   ],
+   "metric": "Spearman rank correlation over all test transitions between d_t and a per-frame kinematic signal of the same transition; bracket = take-level cluster-bootstrap 95 % interval (200 resamples). Hand-relative speed = mean over the 100 sampled hand-surface points of the frame-to-frame displacement in the object's canonical frame (m/frame). An association (no better direction), not a prediction score.",
+   "numbers": {
+    "TACO | Spearman(d_t, hand-relative speed), CORRECTED tool-frame transform [95 % CI], n test transitions": {
+     "value": "0.7848196562645295 [0.7673831816020958, 0.800600452072939], n=22932",
+     "source": "reports/hand_contact_predictive_info/taco/sanity/hand_alignment.json",
+     "locator": "key spearman_d_vs_hand_speed_test (rho, lo, hi, n)"
+    },
+    "TACO | Spearman(d_t, hand-relative speed) AS PUBLISHED in the temporal-event tables (wrong 6D rotation layout on tool-role sequences) [95 % CI], n": {
+     "value": "0.6750419653107493 [0.649788048785031, 0.6942257556227169], n=22932",
+     "source": "reports/temporal_contact_events/taco/kinematic_associations.csv",
+     "locator": "row signal=hand_rel_speed; columns spearman_d, spearman_lo, spearman_hi, n_frames"
+    },
+    "TACO | same value reproduced by the follow-up study with the wrong layout": {
+     "value": "0.6750419653107493 [0.649788048785031, 0.6942257556227169]",
+     "source": "reports/hand_contact_predictive_info/taco/sanity/hand_alignment.json",
+     "locator": "key spearman_d_vs_hand_speed_test_with_wrong_6d_layout"
+    },
+    "TACO | rounded report table: Spearman(d_t, hand_rel_speed) [95 % CI] (uncorrected)": {
+     "value": "+0.675 [+0.650, +0.694]",
+     "source": "reports/temporal_contact_events/kinematic_associations_all.csv",
+     "locator": "row dataset=TACO, signal=hand_rel_speed; column 'Spearman(d_t, signal) [95 % CI]' (report prose line 30: 0.68 [0.65, 0.69])"
+    },
+    "TACO | prose statements of the corrected value": {
+     "value": "0.785 [0.77, 0.80] (follow-up report); 0.79 (INDEX.md)",
+     "source": "reports/hand_contact_predictive_info/hand_contact_predictive_info_report.md",
+     "locator": "line 127 ('A correction to the earlier analysis'); INDEX.md line 82"
+    },
+    "ARCTIC | Spearman(d_t, hand-relative speed) [95 % CI], n (unaffected by the bug)": {
+     "value": "0.5133303347558287 [0.41293698012854174, 0.6214844773553845], n=11718",
+     "source": "reports/temporal_contact_events/arctic/kinematic_associations.csv",
+     "locator": "row signal=hand_rel_speed; columns spearman_d, spearman_lo, spearman_hi, n_frames"
+    },
+    "TACO | Spearman(d_t, object linear speed) / (d_t, object angular speed) [95 % CI]": {
+     "value": "0.19938205950754065 [0.16435145775764476, 0.23289930883381565] / 0.1969598368430897 [0.16167145756703663, 0.22884807437528604]",
+     "source": "reports/temporal_contact_events/taco/kinematic_associations.csv",
+     "locator": "rows signal=obj_lin_speed, obj_ang_speed"
+    },
+    "TACO | Spearman(d_t, tool-vs-target linear speed) / (d_t, tool-vs-target angular speed) [95 % CI]": {
+     "value": "0.11083825241155898 [0.07572519841777875, 0.13938591805319844] / 0.1415149278928058 [0.10806083341411105, 0.1745993033381983]",
+     "source": "reports/temporal_contact_events/taco/kinematic_associations.csv",
+     "locator": "rows signal=tool_rel_lin_speed, tool_rel_ang_speed"
+    },
+    "ARCTIC | Spearman(d_t, object linear speed) / (d_t, object angular speed) / (d_t, articulation rate) [95 % CI]": {
+     "value": "0.014278771461058238 [-0.12139132275339252, 0.15252024298336053] / 0.1767257654589009 [0.04275186848068942, 0.2946543208262827] / 0.026153833718321036 [-0.09522680054402999, 0.12908300558742652]",
+     "source": "reports/temporal_contact_events/arctic/kinematic_associations.csv",
+     "locator": "rows signal=obj_lin_speed, obj_ang_speed, arti_rate"
+    },
+    "OakInk2 | Spearman(d_t, object linear speed) / (d_t, object angular speed) [95 % CI]; no hand signal": {
+     "value": "0.16673158430905557 [0.07831585683561541, 0.27929294733908727] / 0.333348414684156 [0.23677611937318177, 0.44372633567630737]",
+     "source": "reports/temporal_contact_events/oakink2/kinematic_associations.csv",
+     "locator": "rows signal=obj_lin_speed, obj_ang_speed (table has no hand_rel_speed row)"
+    },
+    "ARCTIC | Cliff's delta spike vs non-spike frames for hand-relative speed; median hand-relative speed non-spike -> spike (m/frame)": {
+     "value": "0.6737043740573152; 0.0020126840099692345 -> 0.008473328314721584",
+     "source": "reports/temporal_contact_events/arctic/kinematic_associations.csv",
+     "locator": "row signal=hand_rel_speed; columns cliffs_delta_spike_vs_non, median_non_spike, median_spike"
+    },
+    "TACO | UNCORRECTED Cliff's delta and medians for hand-relative speed (not recomputed with the corrected transform)": {
+     "value": "0.7041272097053726; 0.0031972837168723345 -> 0.009955594316124916",
+     "source": "reports/temporal_contact_events/taco/kinematic_associations.csv",
+     "locator": "row signal=hand_rel_speed; columns cliffs_delta_spike_vs_non, median_non_spike, median_spike"
+    },
+    "TACO | mesh check that exposed the bug, tool-role sequences (159): Pearson(hand-point min distance, cached contact min distance) with the correct / wrong 6D layout": {
+     "value": "0.9670887683655982 / 0.2385725991057149",
+     "source": "reports/hand_contact_predictive_info/taco/sanity/hand_alignment.json",
+     "locator": "keys tool.pearson, tool_wrong_6d_layout.pearson"
+    }
+   },
+   "caveats": [
+    "Which value is which: 0.675 (prose 0.68) is the temporal-event report's published TACO value, computed with a wrong reading of the tool-frame 6D rotation on tool-role sequences; 0.785 (INDEX.md: 0.79) is the corrected value from the follow-up study's sanity file. The correction strengthens the association; target-role sequences and ARCTIC are unaffected.",
+    "The bug is not fixed in the temporal-event thread: its script, its tables (kinematic_associations*.csv, the frames_test.csv hand column, event_type_table.csv hand column), its Figure E and its report text still carry the uncorrected TACO hand numbers. TACO's Cliff's delta (0.70) and hand-speed medians (0.0032 -> 0.0100 m/frame) were not recomputed with the corrected transform in any source read here, so quote only the Spearman value for TACO.",
+    "An association between two quantities of the same transition, not a prediction result and not a causal one; the follow-up study (block F1-subB) concluded that hand and contact transitions are 'strongly coupled but mostly simultaneous'.",
+    "Hand-surface motion was measured on TACO and ARCTIC only; OakInk2 has no hand signal. Articulation exists only for ARCTIC, tool-versus-target motion only for TACO.",
+    "Object motion is weakly, not zero, associated: OakInk2's object angular speed has Spearman 0.333 [0.237, 0.444], and on TACO the median object / tool speeds are higher during spatial and mixed events than on non-spike frames (kinematic_associations_all.csv). On TACO 'object speed' is the target object's world speed for every sequence, including tool-role sequences whose contacted object is the tool.",
+    "The report states that hand-tracking jitter and real micro-adjustments would both raise the hand-relative speed, so the association does not show that the co-occurring spikes are physical contact changes.",
+    "Frame-level correlations are exploratory; uncertainty is clustered by take (186 / 44 / 34 clusters), hence the wide ARCTIC interval."
+   ],
+   "claim_as_extracted": "Where hand-surface motion was measured, the contact change magnitude d_t is associated with the hand's speed relative to the object at the same transition (Spearman 0.785 [0.767, 0.801] on TACO with the corrected tool-frame transform, 0.675 [0.650, 0.694] as originally published; 0.513 [0.413, 0.621] on ARCTIC), and more strongly than with object linear or angular speed (0.01 to 0.33), tool-versus-target motion (0.11 to 0.14) or ARCTIC's articulation rate (0.03).",
+   "correction_reason": "All values verified. The pooled range '0.01 to 0.33' takes its upper end from OakInk2 (object angular speed 0.333), a dataset with no hand signal, so 'hand more strongly than object (0.33)' compares across datasets; the page rule is per dataset. Which value is which is right: 0.785 (INDEX.md 0.79) is the corrected one, 0.675 (prose 0.68) the published one. 'Is associated with' is allowed wording; 'strongly' fits TACO, ARCTIC's 0.513 has a wide interval (44 takes). Attached caveats (simultaneous coupling in the follow-up study, jitter cannot be told from micro-adjustment, TACO Cliff's delta and medians not recomputed) are accurate."
+  }
+ ],
+ "dataset_differences": [
+  "Spike share of transitions and of squared change: TACO 12.6 % -> 69.7 %, ARCTIC 5.7 % -> 62.4 %, OakInk2 9.3 % -> 72.1 % (unsquared: 38.9 % / 29.3 % / 34.8 %). Thresholds are per dataset (train Q90 = 0.616 / 0.564 / 0.292 raw units), so shares and shapes are comparable, absolute d_t is not.",
+  "Event density: 4.02 (TACO), 1.52 (ARCTIC), 2.54 (OakInk2) merged spike events per 64-frame sequence (1464 / 283 / 510 test events).",
+  "Event types: TACO and OakInk2 are mostly mixed + spatial-dominant (TACO 59.4 % + 28.2 % of events, 61.5 % + 23.7 % of spike energy; OakInk2 55.1 % + 38.8 %, 40.4 % + 25.1 %). ARCTIC: onset / release family 26 % of events and 46 % of spike energy (release alone 19.1 % / 31.6 %), mixed 48.1 % / 39.0 %, spatial 11.7 % / 9.5 %. OakInk2 has only 7 onset / release events, which nevertheless carry 33 % of the spike energy (intervals reach 0).",
+  "Amount-dominant events: 4.9 % (TACO), 14.1 % (ARCTIC), 4.7 % (OakInk2) of events; 2.8 % / 5.0 % / 1.9 % of spike energy. On ARCTIC the share rises to 30 % of events with the looser 0.6/0.4 cut.",
+  "Persistence: TACO and OakInk2 spikes are largely transient (46 % / 53 % of events low-persistence; a 3-frame moving average keeps 28 % / 46 % of the spike energy), ARCTIC spikes are persistent (7 % low-persistence; 63 % kept).",
+  "Evolved model vs static on spike frames: TACO 0.980 -> 0.917 with disjoint intervals; ARCTIC 0.867 -> 0.803 with overlapping intervals; OakInk2 0.533 -> 0.525, essentially no difference. Disjoint per-class intervals exist only on TACO (all-spike, amount, mixed).",
+  "Evolved model vs static on non-spike and all frames: TACO and OakInk2 a tie (all frames 0.317 vs 0.318; 0.142 vs 0.144), ARCTIC worse (non-spike 0.125 -> 0.157, all 0.167 -> 0.194).",
+  "Absolute error: a large gain on TACO only (all frames 3.47 -> 1.81); ARCTIC 2.20 -> 2.12 with spike frames worse (2.21 -> 2.36) and release frames much worse (2.01 -> 2.89); OakInk2 1.25 -> 1.24.",
+  "Low-persistence frames: unchanged by the evolved model on TACO (1.066 -> 1.062) and OakInk2 (0.513 -> 0.512); lower on ARCTIC (0.811 -> 0.737) but that class is 35 frames from 19 events.",
+  "Hand association: TACO 0.785 (corrected; 0.675 published), ARCTIC 0.513 with a wide interval [0.413, 0.621]; OakInk2 has no hand signal. Articulation rate exists only on ARCTIC (0.026, interval spans 0; Cliff's delta -0.14), tool-vs-target motion only on TACO (0.11 / 0.14). OakInk2's strongest available signal is object angular speed (0.333).",
+  "Test-set size in independent units: TACO 364 sequences from 186 takes, ARCTIC 186 from 44 takes, OakInk2 201 from 34 recordings - ARCTIC and OakInk2 intervals are wide.",
+  "BimArt (B4) rows exist for TACO and ARCTIC only, and are different models (TACO: the project's gen3 port trained on the same split; ARCTIC: BimArt's pretrained contact model). Not used in the module's figures.",
+  "The timeline example exists for TACO and ARCTIC (described in the report text); none is described for OakInk2."
+ ],
+ "do_not_claim": [
+  "'Temporal failure (the temporal error) is concentrated in spatial / mixed transitions' as a statement about the total error: 61-77 % of every B0-B3 model's summed temporal error is on NON-spike frames (B1: 64 % / 77 % / 66 %).",
+  "'The temporal model's gains are in the slow evolution' as a per-class result: the per-class comparison is on spike frames only; on non-spike frames the evolved model's temporal error is not lower than static (ARCTIC: higher). The 'slow amount trend' reading is the report's interpretation of the TACO absolute-error gain and is TACO-only.",
+  "'The model predicts amount changes well' or 'the model perfectly predicts sliding': on TACO amount frames it still has 0.685 against 0.877 for static, and on spatial-dominant frames it is unchanged on every dataset.",
+  "'The model cannot predict any spatial or mixed change': mixed frames are lower on TACO (0.992 -> 0.917) and ARCTIC (0.825 -> 0.763).",
+  "'The evolved model beats the static baseline in temporal error': averaged over all transitions it does not (0.317 vs 0.318; 0.167 vs 0.194; 0.142 vs 0.144).",
+  "Any ARCTIC or OakInk2 per-class difference presented as significant: their B0 / B1 intervals overlap and no paired test exists in this thread.",
+  "'Only about 10 % of frames matter' or '12.6 % of frames' as a discovered sparsity: the threshold is the train 90th percentile, so the frame share is near 10 % by construction; the report's own conclusion is 'concentrated but not sparse'.",
+  "A pooled statement such as 'about 10 % of transitions hold about 70 % of the change' across datasets: report 12.6 % -> 69.7 % (TACO), 5.7 % -> 62.4 % (ARCTIC), 9.3 % -> 72.1 % (OakInk2) separately.",
+  "'Spikes are sliding / regrasp / reconfiguration events': on TACO and OakInk2 about half of the events are low-persistence oscillations that cancel within a few frames, and the report cannot tell real micro-adjustments from tracking jitter. Equally do not call them 'noise' or 'jitter' as a fact (the report's phrase 'treat the residual high-frequency part as noise' is a recommendation for a training target, not a finding).",
+  "'Contact does not move over time' or 'spatial changes are irrelevant': nothing in this thread supports either.",
+  "'Hand motion predicts (or causes, or drives) contact change': the Spearman values are same-transition associations; the follow-up study found the coupling mostly simultaneous.",
+  "'Object motion is unrelated to contact change': the correlations are weak (0.01-0.33), not zero; OakInk2's object angular speed is 0.333 and on TACO object / tool speeds are elevated during spatial and mixed events.",
+  "Quoting 0.68 as the TACO hand correlation without the correction, or quoting TACO's Cliff's delta 0.70 / 'median hand speed triples' as corrected values (they were not recomputed).",
+  "Any hand-motion statement for OakInk2 (no hand signal), or 'hand-relative speed is the strongest signal on all three datasets'.",
+  "Describing the timeline as 'ground-truth versus predicted contact change': the table holds the error of the predicted change, not its magnitude; and the two sequences are single illustrations, not typical-case statistics.",
+  "Attributing the TACO BimArt (B4) numbers to the released BimArt model, or comparing BimArt 'own support' errors with B0 / B1 as like-for-like.",
+  "Using the report's hypothesis letters (A-D): A and C are never defined in the saved files.",
+  "Presenting the report's recommendation (train on a 3-5 frame smoothed / persistent displacement) as a tested result: it was not tested in this thread.",
+  "'Amount-dominant changes are rare' as cut-independent on ARCTIC (30 % of events at the 0.6/0.4 cut)."
+ ],
+ "candidate_images": [
+  {
+   "path": "reports/temporal_contact_events/arctic/figures/figG_02_spatial_rep.png",
+   "block": "F1-C",
+   "shows": "ARCTIC scissors (scissors_grab_01/s01, left hand), representative spatial-dominant event at frames 51-53. Rows: ground truth, B1 (vector field from the ground-truth first map), B2 (sampled first map, best-of-10), B4 (BimArt); columns t = 47, 51, 52 (peak), 54, 58; contact drawn on a 2-D projection of the 512 canonical points. The ground truth has contact on the upper ring, B1 on the lower ring. Below: d_t, amount / spatial components and model e_t over the window, then contact mass with the firm-contact state and normalised kinematics.",
+   "caption": "After a release and a regrasp on the other ring earlier in the window, the model rolled out from the ground-truth first map keeps growing contact on the original ring: a persistent spatial change it has no signal for (ARCTIC, one test sequence; rows: ground truth, evolved model, sampled-start model, BimArt).",
+   "size": "765907 bytes (1950 x 1456 px)"
+  },
+  {
+   "path": "reports/temporal_contact_events/arctic/figures/figG_00_amount_rep.png",
+   "block": "F1-C",
+   "shows": "ARCTIC scissors (scissors_use_02/s10, left hand), representative amount-dominant event at frame 17: the contact on the blade brightens over one frame (mass 17.6 -> 22.5) with the pattern unchanged. Same row / strip layout; columns t = 13, 17 (peak), 18, 22.",
+   "caption": "An amount-dominant change: the grip builds up on the blade without moving, and the evolved model follows part of it (temporal error 0.40 against 0.60 for the static baseline on this event; ARCTIC, one test sequence).",
+   "size": "704912 bytes (1664 x 1456 px)"
+  },
+  {
+   "path": "reports/temporal_contact_events/arctic/figures/figG_09_release_fail.png",
+   "block": "F1-C",
+   "shows": "ARCTIC ketchup bottle (ketchup_grab_01/s10, right hand), the release event with the largest B1 temporal error (frames 17-25, peak d_t 2.59): the ground-truth map empties by t = 26 and reappears elsewhere by t = 30; B1's map is already almost empty before the release, B2 and B4 keep contact after the hand has left. Same layout; columns t = 13, 17, 18 (peak), 26, 30.",
+   "caption": "A release followed by a regrasp: the evolved model had already lost the map before the release and misses the regrasp, while the sampled-start model and BimArt keep contact after the hand has left (ARCTIC, the release event with the largest error of the evolved model).",
+   "size": "1202981 bytes (1950 x 1456 px)"
+  }
+ ],
+ "verification": {
+  "reliability": "high",
+  "numbers_confirmed": 97,
+  "numbers_checked": 97,
+  "number_corrections": [],
+  "claims_supported_as_extracted": 1,
+  "claims_checked": 8,
+  "figure_checks": [
+   {
+    "id": "f1c_spike_concentration",
+    "verdict": "fixed",
+    "note": "All 9 plotted values equal <ds>/sanity.json (frac_spike_frames_q90, spike_magnitude_share_of_all, spike_energy_share_of_all) to full precision; panels TACO / ARCTIC / OakInk2 read their own file; direction 'none'; no error bars; no value typed in code. Changed the note only: added that the threshold is a training quantile, so the share of transitions is close to a tenth by definition and the figure shows how much of the change those transitions hold. Panels unchanged after the edit."
+   },
+   {
+    "id": "f1c_event_composition",
+    "verdict": "ok",
+    "note": "All 36 bar values (frequency, energy_share) and the 18 lo / hi pairs equal <ds>/event_summary.csv for the six event types; error bars are on the energy series only and are what the note says (cluster_bootstrap_ratio over takes, percentiles 2.5 / 97.5, tce_common.py lines 216-225); event counts in the note come from sanity.json n_events_q90. The ARCTIC near_zero event is omitted and the note says so. No value typed in code (the '0.7 and 0.3' in the note is the definition, matching tce_analysis.py line 147)."
+   },
+   {
+    "id": "f1c_error_by_event_class",
+    "verdict": "fixed",
+    "note": "All 48 means and 96 interval bounds (8 classes x 2 models x 3 datasets) equal <ds>/model_error_by_event.csv columns e_B0_static / e_B1_gtinit_vf and their _lo / _hi; n in the category labels equals n_frames; direction lower_better; error bars are the per-model take-level bootstrap (cluster_bootstrap, not paired), as the note says; the eight classes are the same as the report's Figure F. Changed the note only: it now lists, read from the table, the classes drawn from one or two takes (OakInk2 onset 1, release 2) and the spike-frame classes that get no bar of their own (TACO onset+release n=57; ARCTIC near_zero n=1, onset+release n=17; OakInk2 onset+release n=72); source locator extended accordingly. Panels unchanged."
+   },
+   {
+    "id": "f1c_timeline",
+    "verdict": "fixed",
+    "note": "Both panels match frames_test.csv exactly (63 transitions each, example 3023 for TACO and 1030 for ARCTIC; columns d and e_B1_gtinit_vf, max difference 0.0); the reference line equals sanity.json q90; the bands equal the event rows of events.csv (start - 0.5 .. end + 0.5). The table has no predicted-change magnitude, so the figure correctly plots B1's error, not a predicted ||dC||. Two problems fixed in the note (plotted data unchanged): (1) docs/assets/js/charts.js lines 304-307 shade panel.bands but never print band.label, so the event types were invisible - the note now lists type and transitions per panel, built from the same table (TACO amount 7-8, onset 13-17, spatial 19-20, mixed 26-28, spatial 34-35, mixed 39-42, spatial 61-62; ARCTIC mixed 0-3, mixed 8-10, release 19-26, amount 36-37, spatial 51-53); (2) the reading rule covered only 'on' and 'below' the d_t line although B1 lies above it at TACO 19-20 and ARCTIC 19-26 - added 'above it means a larger error than holding the map still'. Skip path checked: without the two frames_test.csv files the module warns and returns the other four figures."
+   },
+   {
+    "id": "f1suba_kinematic_association",
+    "verdict": "ok",
+    "note": "All Spearman values and bounds equal <ds>/kinematic_associations.csv (spearman_d, spearman_lo, spearman_hi); the TACO hand-relative bar is the corrected hand_alignment.json value (0.7848 [0.7674, 0.8006]) and the reference line is the published 0.6750 read from the TACO table; OakInk2 has an empty hand category (null). Error bars are the take-level bootstrap of the Spearman coefficient with 200 resamples for every bar, the corrected one included (same spearman_cluster call in build_hand_cache.py line 204). Direction 'none'. Signals shown per dataset match KIN_AVAILABLE. No value typed in code."
+   }
+  ],
+  "image_checks": [
+   {
+    "path": "reports/temporal_contact_events/arctic/figures/figG_02_spatial_rep.png",
+    "exists": true,
+    "note": "Opened; 765907 bytes, 1950 x 1456 px. Title: ARCTIC spatial (representative), scissors__obj__L, scissors_grab_01/s01, event frames 51-53, e_t B0 0.64 B1 0.63. The ground truth has contact on the upper ring, B1 and BimArt on the lower ring, B2 almost none, as described; the release and regrasp are visible only in the mass / firm-contact strip (gap around t = 24-33), not in the map columns (t = 47-58). Caption is supported by the image plus report section 6, with one change: 'a persistent spatial change it has no signal for' is the report's untested explanation - write 'keeps contact on the original ring while the ground truth has moved to the other ring'. Also say that over the highlighted event itself the evolved model's temporal error equals the static one (0.63 vs 0.64), and that the BimArt row on ARCTIC is BimArt's pretrained contact model."
+   },
+   {
+    "path": "reports/temporal_contact_events/arctic/figures/figG_00_amount_rep.png",
+    "exists": true,
+    "note": "Opened; 704912 bytes, 1664 x 1456 px. Title: ARCTIC amount (representative), scissors_use_02/s10, event frame 17, peak d 0.60, A 0.52 S 0.13 r 0.80, e_t B0 0.60 B1 0.40; columns t = 13, 17 (peak), 18, 22. Caption numbers (0.40 against 0.60) match events.csv row 1117_1 (0.3992 / 0.6003; mass 17.60 -> 22.47). Reword 'without moving': the spatial component is small but not zero (S 0.13 against A 0.52, amount ratio 0.80) - 'with little change of pattern'. 'The grip builds up on the blade' is the report's description."
+   },
+   {
+    "path": "reports/temporal_contact_events/arctic/figures/figG_09_release_fail.png",
+    "exists": true,
+    "note": "Opened; 1202981 bytes, 1950 x 1456 px. Title: ARCTIC release (VF failure: max e_B1), ketchup__obj__R, ketchup_grab_01/s10, event frames 17-25, peak d 2.59, e_t B0 1.57 B1 1.58; columns t = 13, 17, 18 (peak), 26, 30. B1's map is almost empty already at t = 13, the ground truth empties by t = 26 and reappears elsewhere at t = 30, B2 and BimArt keep contact at t = 26: caption supported (report section 6 says the same). Add to the caption that this is a selected worst case (largest B1 temporal error among release events peaking in frames 4-58) and that over the event the evolved model's temporal error equals the static one (1.58 vs 1.57), so it is not evidence of a typical release."
+   }
+  ],
+  "attached_by_the_verifier": [
+   "The block headline has to change: 'temporal failure is concentrated in spatial / mixed transitions' is not supported as a statement about the total error (64 % / 77 % / 66 % of B1's summed temporal error is on non-spike frames). Supported form: per-transition error is far higher on spike frames, and on spatial-dominant spike frames the evolved model is no better than the static baseline in any dataset.",
+   "The allowed sentence 'slow / amount-related evolution is modelled better than large spatial / mixed reconfiguration events' needs two caveats the extractor did not attach to the claims: (a) on TACO and OakInk2 most spatial-dominant and mixed events are low-persistence among events with a defined h=4 window (event_summary.csv low_persistence_frac_defined: TACO spatial 0.752, mixed 0.553; OakInk2 spatial 0.737, mixed 0.603; ARCTIC spatial 0.212, mixed 0.063), so 'reconfiguration' is not a supported name; (b) 'slow evolution' rests on TACO's absolute-error gain only and is the report's interpretation.",
+   "OakInk2's amount-dominant class (24 events, 34 frames, 8 recordings) is in the report's own 'reported but not interpreted' list (report lines 389-391: 'ARCTIC onset, OakInk2 amount and onset / release'). The extractor's caveat lists only ARCTIC onset and OakInk2 onset / release while quoting OakInk2 amount 0.453 -> 0.397.",
+   "Models B2 - B4 are not in the delivered entries (only in the notes file). Verified rounded values from event_type_table.csv, mean e_t on all spike frames / spatial-dominant frames: TACO B2 best-of-10 0.917 / 0.964, B2 K=1 0.937 / 0.970, B3 best-of-10 0.919 / 0.967, B4 BimArt best-of-10 on its own support 1.217 / 1.510 and against the full ground truth 1.253 / 1.440; ARCTIC B2 0.798 / 0.801, B2 K=1 0.851 / 0.826, B3 0.799 / 0.822, B4 0.882 / 0.904 (own support) and 0.879 / 0.870 (full); OakInk2 B2 0.531 / 0.487, B2 K=1 0.535 / 0.490, B3 0.531 / 0.488, no B4. Best-of-10 rows are selected against the ground truth for reconstruction (report limitations); B4 on TACO is the project's gen3 port trained on the same split, on ARCTIC BimArt's pretrained contact model (hier_contact_gen_report.md line 192); 'own support' is not like-for-like with B0 / B1.",
+   "The extractor's statement that B2 / B3 are 'within about 0.01 of B1 on the main classes' (taken from report section 5) does not hold for ARCTIC spatial-dominant frames: B2 best-of-10 0.801 against B1 0.820 (difference 0.018).",
+   "Window definition: each 64-frame window starts at a firm-contact episode onset, and one take can contribute several windows (ARCTIC: 88 of 186 test windows are a take's first episode; TACO 354 of 364; OakInk2 199 of 201, from sequences_meta.csv episode_index). The extractor wrote 'the first firm-contact frame'.",
+   "Predicted change magnitude: no per-frame table stores it (frames_test.csv has d, e_* and abs_* only), so the 'ground-truth vs predicted ||dC_t||' timeline is not available as data; the delivered timeline shows d_t and B1's error. An aggregate does exist in another unit's report: reports/hier_contact_gen_report.md Q6 rows (lines 361 / 385 / 398) give 'predicted / true frame change (B1, B2 best-10)' as 0.126 & 0.128 vs 0.317 (TACO), 0.114 & 0.105 vs 0.167 (ARCTIC), 0.029 & 0.027 vs 0.142 (OakInk2); the 'true' values equal this thread's mean d_t. Take its exact definition from that report before using it.",
+   "The page renderer (docs/assets/js/charts.js lines 304-307) does not print band labels. The timeline note now carries the event types and transitions; the caption should name the events it discusses.",
+   "Timeline text must mention the events where B1 is worse than holding the map still: TACO spatial event at 19-20 (1.261 vs 0.673) and ARCTIC release event at 19-26 (1.437 vs 1.296).",
+   "All three recommended images are ARCTIC. An existing TACO image matches the timeline's TACO panel exactly: reports/temporal_contact_events/taco/figures/figG_02_spatial_rep.png (911276 bytes, 1950 x 1456 px; knife__tool__R, '(cut, knife, plate)/20231013_083', event frames 34-35, e_t B0 0.79 B1 0.81; its lower strip shows the mixed event at 39-42). No OakInk2 example is described in the report text.",
+   "No paired B1-vs-B0 test exists in this thread and the number of bootstrap resamples actually used is not logged (script default --n-boot 500; logs/analysis_*.log do not record the command line). Spearman intervals use 200 resamples (hard-coded).",
+   "The wrong 6D-layout read is still in the script that a public repository would carry (scripts/research/temporal_contact_events/tce_common.py lines 100-106, and the mirror under reports/temporal_contact_events/scripts/); re-running it reproduces 0.675. The temporal-event tables, frames_test.csv hand_rel_speed column, Figure E and the report text keep the uncorrected TACO hand values; TACO Cliff's delta 0.70 and the hand-speed medians were never recomputed.",
+   "Cliff's delta values are computed on a random subsample of at most 4000 frames per class (seed 0); say so wherever one is quoted.",
+   "The extractor's 'within 7 %' comment and any percentage change between B0 and B1 are its own arithmetic from two table values, not source numbers; quote the table pairs instead."
+  ]
+ }
+}

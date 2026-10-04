@@ -1,0 +1,121 @@
+{
+  "dataset": "taco",
+  "conditions": [
+    "F0",
+    "F1",
+    "F2k1",
+    "F2k4",
+    "F2k8",
+    "F2rel",
+    "F2shuf",
+    "Ffut",
+    "Ffut1"
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "event_conditions": [
+    "F0",
+    "F1",
+    "F2k1",
+    "F2k4",
+    "F2k8",
+    "F2rel",
+    "F2shuf",
+    "Ffut",
+    "Ffut1"
+  ],
+  "event_seeds": [
+    0,
+    1,
+    2
+  ],
+  "cos_threshold_train_median": {
+    "1": 0.18876239657402039,
+    "4": 0.48414111137390137,
+    "8": 0.7161548137664795
+  },
+  "zero_mass": 1.5,
+  "n_test": 364,
+  "n_takes": 186,
+  "n_boot": 1000,
+  "pairs": [
+    [
+      "F1",
+      "F0"
+    ],
+    [
+      "F2k8",
+      "F1"
+    ],
+    [
+      "F2k8",
+      "F0"
+    ],
+    [
+      "F2k4",
+      "F1"
+    ],
+    [
+      "F2k1",
+      "F1"
+    ],
+    [
+      "F2rel",
+      "F1"
+    ],
+    [
+      "F2rel",
+      "F0"
+    ],
+    [
+      "F2rel",
+      "F2k8"
+    ],
+    [
+      "F2shuf",
+      "F0"
+    ],
+    [
+      "F2k8",
+      "F2shuf"
+    ],
+    [
+      "F2rel",
+      "F2shuf"
+    ],
+    [
+      "Ffut",
+      "F2k8"
+    ],
+    [
+      "Ffut",
+      "F2rel"
+    ],
+    [
+      "Ffut",
+      "F0"
+    ],
+    [
+      "Ffut1",
+      "F2rel"
+    ],
+    [
+      "Ffut",
+      "Ffut1"
+    ]
+  ],
+  "frame_classes": [
+    "all",
+    "non_spike",
+    "spike",
+    "persistent_spatial",
+    "persistent_mixed",
+    "onset",
+    "release",
+    "transient",
+    "amount"
+  ]
+}

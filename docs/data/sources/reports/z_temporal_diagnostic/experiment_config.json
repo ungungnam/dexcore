@@ -1,0 +1,241 @@
+{
+  "horizons": [
+    1,
+    4,
+    8
+  ],
+  "probe": {
+    "width": 512,
+    "depth": 4,
+    "expansion": 4,
+    "dropout": 0.1
+  },
+  "variants": {
+    "probe": {
+      "tau": true,
+      "label": "nonlinear probe P_h(z_t, G, tau_t, tau_{t+h})"
+    },
+    "probe_notau": {
+      "tau": false,
+      "label": "ablation: nonlinear probe without the object trajectory, P_h(z_t, G)"
+    }
+  },
+  "train": {
+    "lr": 0.0001,
+    "wd": 0.01,
+    "warmup": 500,
+    "batch": 1024,
+    "max_steps": 30000,
+    "min_steps": 5000,
+    "patience": 10,
+    "eval_every": 100,
+    "final_lr_frac": 0.1
+  },
+  "ridge_lambdas": [
+    0.01,
+    0.1,
+    1.0,
+    10.0,
+    100.0,
+    1000.0
+  ],
+  "quantiles": {
+    "low": 0.3,
+    "high": 0.7
+  },
+  "n_random_pairs": 200000,
+  "decision_rule": {
+    "r2_yes": 0.5,
+    "r2_partial": 0.25,
+    "gain_clear": 0.1,
+    "gain_marginal": 0.02,
+    "spearman_yes": 0.6,
+    "spearman_partial": 0.3,
+    "quadrant_many": 0.06,
+    "quadrant_few": 0.03,
+    "rescue_yes": 0.25,
+    "rescue_partial": 0.1,
+    "persistence_strong_r2": 0.5
+  },
+  "n_boot": 1000,
+  "n_boot_correlations": 300,
+  "seed": 0,
+  "runs": {
+    "taco/probe_h1": {
+      "ckpt": "/ckpt/uhnam/dexcore/z_temporal_diagnostic/taco/probe_h1_seed0.pt",
+      "md5": "4f588e723038",
+      "best_step": 800,
+      "steps": 5000,
+      "n_params": 9274944
+    },
+    "taco/probe_h4": {
+      "ckpt": "/ckpt/uhnam/dexcore/z_temporal_diagnostic/taco/probe_h4_seed0.pt",
+      "md5": "898c7b694f0d",
+      "best_step": 700,
+      "steps": 5000,
+      "n_params": 9274944
+    },
+    "taco/probe_h8": {
+      "ckpt": "/ckpt/uhnam/dexcore/z_temporal_diagnostic/taco/probe_h8_seed0.pt",
+      "md5": "4c58a1b2fa43",
+      "best_step": 500,
+      "steps": 5000,
+      "n_params": 9274944
+    },
+    "taco/probe_notau_h1": {
+      "ckpt": "/ckpt/uhnam/dexcore/z_temporal_diagnostic/taco/probe_notau_h1_seed0.pt",
+      "md5": "144d2987eedd",
+      "best_step": 1500,
+      "steps": 5000,
+      "n_params": 8998464
+    },
+    "taco/probe_notau_h4": {
+      "ckpt": "/ckpt/uhnam/dexcore/z_temporal_diagnostic/taco/probe_notau_h4_seed0.pt",
+      "md5": "cacba38d2f4e",
+      "best_step": 1000,
+      "steps": 5000,
+      "n_params": 8998464
+    },
+    "taco/probe_notau_h8": {
+      "ckpt": "/ckpt/uhnam/dexcore/z_temporal_diagnostic/taco/probe_notau_h8_seed0.pt",
+      "md5": "3fa9809eeaed",
+      "best_step": 1000,
+      "steps": 5000,
+      "n_params": 8998464
+    },
+    "arctic/probe_h1": {
+      "ckpt": "/ckpt/uhnam/dexcore/z_temporal_diagnostic/arctic/probe_h1_seed0.pt",
+      "md5": "705f28775323",
+      "best_step": 600,
+      "steps": 5000,
+      "n_params": 9155136
+    },
+    "arctic/probe_h4": {
+      "ckpt": "/ckpt/uhnam/dexcore/z_temporal_diagnostic/arctic/probe_h4_seed0.pt",
+      "md5": "9e74be5154a2",
+      "best_step": 600,
+      "steps": 5000,
+      "n_params": 9155136
+    },
+    "arctic/probe_h8": {
+      "ckpt": "/ckpt/uhnam/dexcore/z_temporal_diagnostic/arctic/probe_h8_seed0.pt",
+      "md5": "5020f5d5604f",
+      "best_step": 800,
+      "steps": 5000,
+      "n_params": 9155136
+    },
+    "arctic/probe_notau_h1": {
+      "ckpt": "/ckpt/uhnam/dexcore/z_temporal_diagnostic/arctic/probe_notau_h1_seed0.pt",
+      "md5": "08b4f78a2a9d",
+      "best_step": 800,
+      "steps": 5000,
+      "n_params": 8998464
+    },
+    "arctic/probe_notau_h4": {
+      "ckpt": "/ckpt/uhnam/dexcore/z_temporal_diagnostic/arctic/probe_notau_h4_seed0.pt",
+      "md5": "92c4fb79fd6f",
+      "best_step": 700,
+      "steps": 5000,
+      "n_params": 8998464
+    },
+    "arctic/probe_notau_h8": {
+      "ckpt": "/ckpt/uhnam/dexcore/z_temporal_diagnostic/arctic/probe_notau_h8_seed0.pt",
+      "md5": "5b69ddc7c7f8",
+      "best_step": 400,
+      "steps": 5000,
+      "n_params": 8998464
+    }
+  },
+  "cases": {
+    "taco": "A",
+    "arctic": "B"
+  },
+  "frozen_encoder": {
+    "taco": {
+      "ckpt": "/ckpt/uhnam/dexcore/contact_factorization_stage1/taco/A3_seed0.pt",
+      "md5": "88e5878deb88",
+      "best_step": 12000,
+      "n_sequences": {
+        "train": 1312,
+        "val": 141,
+        "test": 364
+      },
+      "n_takes": {
+        "train": 688,
+        "val": 76,
+        "test": 186
+      },
+      "dz": 64,
+      "d_static": 1032,
+      "d_tau": 270,
+      "z_train_std_range": [
+        2.7498722076416016,
+        8.538326263427734
+      ],
+      "fresh_encoding_max_abs_diff_vs_stage2_cache": 0.0,
+      "fresh_encoding_max_abs_diff_in_train_std": 0.0,
+      "z_source": "Stage-2 teacher cache (frozen A3 encoder); re-encoded here as a check",
+      "manifest_md5": "b1d51742797f",
+      "seconds": 67.08638191223145
+    },
+    "arctic": {
+      "ckpt": "/ckpt/uhnam/dexcore/contact_factorization_stage1/arctic/A3_seed0.pt",
+      "md5": "2d0e55d2e34f",
+      "best_step": 12000,
+      "n_sequences": {
+        "train": 1005,
+        "val": 106,
+        "test": 186
+      },
+      "n_takes": {
+        "train": 231,
+        "val": 26,
+        "test": 44
+      },
+      "dz": 64,
+      "d_static": 1032,
+      "d_tau": 153,
+      "z_train_std_range": [
+        3.0414345264434814,
+        8.956005096435547
+      ],
+      "fresh_encoding_max_abs_diff_vs_stage2_cache": 0.03125,
+      "fresh_encoding_max_abs_diff_in_train_std": 0.008612663485109806,
+      "z_source": "Stage-2 teacher cache (frozen A3 encoder); re-encoded here as a check",
+      "manifest_md5": "b866d45bcb38",
+      "seconds": 55.09951162338257
+    }
+  },
+  "stage2_inputs": {
+    "taco": {
+      "b1_predictions": "/result/uhnam/dexcore/reports/contact_latent_temporal_stage2/taco/preds/B1_seed0_A.npz",
+      "md5": "ad7b80613056",
+      "b1_checkpoint": "/ckpt/uhnam/dexcore/contact_latent_temporal_stage2/taco/B1_seed0.pt",
+      "b1_checkpoint_md5": "32950189bd51"
+    },
+    "arctic": {
+      "b1_predictions": "/result/uhnam/dexcore/reports/contact_latent_temporal_stage2/arctic/preds/B1_seed0_A.npz",
+      "md5": "eef4f5ee9573",
+      "b1_checkpoint": "/ckpt/uhnam/dexcore/contact_latent_temporal_stage2/arctic/B1_seed0.pt",
+      "b1_checkpoint_md5": "60cf23d4c0da"
+    }
+  },
+  "code_md5": {
+    "zt_aggregate.py": "4c35a5ccf6e8",
+    "zt_cache.py": "75dbde92c413",
+    "zt_common.py": "55a02c299932",
+    "zt_dashboard.py": "afd8dc5776a6",
+    "zt_data.py": "359e2a4f31c4",
+    "zt_eval_local.py": "a9e63848d33c",
+    "zt_figures.py": "95899a4d1160",
+    "zt_geometry.py": "8b2bddd86368",
+    "zt_posthoc.py": "d12642785a0c",
+    "zt_probe.py": "eb0d7b8429af",
+    "zt_report.py": "0f0ec771eb04",
+    "zt_sanity.py": "ac0cc51bf6e7",
+    "zt_stage2.py": "7e41bd6c1338",
+    "zt_wandb_upload.py": "5e345ff8fb6c",
+    "pipeline.sh": "329d1f240d8c",
+    "run_probes.sh": "05e2d03e85f0"
+  }
+}

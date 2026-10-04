@@ -1,0 +1,691 @@
+{
+ "unit": "D_hand_information",
+ "figure_module": "docs/build/figs/f1s_hand_information.py",
+ "entries": [
+  {
+   "block": "F1-subB",
+   "claim": "On held-out test transitions the size of the frame-to-frame contact change is associated with the hand's speed relative to the contacted object: Spearman 0.785 [0.767, 0.801] on TACO (22,932 transitions) and 0.513 [0.413, 0.621] on ARCTIC (11,718). This same-step association, stronger on TACO than on ARCTIC, is what motivated asking whether the hand also predicts the change ahead of time.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/hand_contact_predictive_info/hand_contact_predictive_info_report.md",
+   "source_files": [
+    "reports/hand_contact_predictive_info/taco/sanity/hand_alignment.json",
+    "reports/hand_contact_predictive_info/arctic/sanity/hand_alignment.json",
+    "scripts/research/hand_contact_predictive_info/build_hand_cache.py"
+   ],
+   "metric": "Spearman rank correlation between d_t = ||C_{t+1} - C_t|| (one-step contact change) and the speed of the hand relative to the contacted object, over test transitions; interval = take-cluster bootstrap (200 replicates in build_hand_cache.py). Higher = stronger same-frame association; it is not a prediction score.",
+   "numbers": {
+    "TACO | Spearman(d_t, hand-relative speed), test transitions, with interval and n": {
+     "value": "rho 0.7848196562645295 [0.7673831816020958, 0.800600452072939], n 22932",
+     "source": "reports/hand_contact_predictive_info/taco/sanity/hand_alignment.json",
+     "locator": "key spearman_d_vs_hand_speed_test (rho, lo, hi, n)"
+    },
+    "ARCTIC | Spearman(d_t, hand-relative speed), test transitions, with interval and n": {
+     "value": "rho 0.5133303377735356 [0.4129370007502917, 0.6214844953543985], n 11718",
+     "source": "reports/hand_contact_predictive_info/arctic/sanity/hand_alignment.json",
+     "locator": "key spearman_d_vs_hand_speed_test (rho, lo, hi, n)"
+    },
+    "TACO | Same correlation with the earlier, wrong tool-frame rotation layout (the 0.68 first reported by the temporal-event study)": {
+     "value": "rho 0.6750419653107493 [0.649788048785031, 0.6942257556227169]",
+     "source": "reports/hand_contact_predictive_info/taco/sanity/hand_alignment.json",
+     "locator": "key spearman_d_vs_hand_speed_test_with_wrong_6d_layout"
+    }
+   },
+   "caveats": [
+    "This is a same-transition association (hand speed and contact change at the same step), not predictive information.",
+    "The TACO value uses the tool-frame transform corrected in this study; the earlier temporal-event report gives 0.68 for the same quantity.",
+    "It is a sanity statistic of the cache build, not one of the study's designed comparisons.",
+    "ARCTIC's interval is wide (44 takes in the test set)."
+   ],
+   "claim_as_extracted": "On held-out test transitions the size of the frame-to-frame contact change is strongly associated with the hand's speed relative to the object (Spearman 0.78 on TACO, 0.51 on ARCTIC); this association is why the study asks whether the hand also predicts the change ahead of time.",
+   "correction_reason": "Values confirmed. 'Strongly' fits TACO; ARCTIC's 0.51 with an interval down to 0.41 does not carry the same adjective. Use 0.785 for TACO: the report and INDEX print 0.79, the extractor 0.78, and the cell is 0.7848. It is a sanity statistic of the cache build (200 take-bootstrap replicates), same-step, not a prediction score. The motivating earlier report printed 0.68 for TACO (wrong tool-frame transform)."
+  },
+  {
+   "block": "F1-subB",
+   "claim": "Adding the current ground-truth hand pose to a predictor that already sees the current contact map, the object geometry and the object motion does not lower the error of the predicted 4-frame contact change on either dataset (TACO +2.3 % on the 3-seed mean, the same size as an uninformative shuffled-hand input; ARCTIC -0.3 %, interval includes 0).",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/hand_contact_predictive_info/hand_contact_predictive_info_report.md",
+   "source_files": [
+    "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+    "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+    "reports/hand_contact_predictive_info/taco/results/overall_delta_results.csv"
+   ],
+   "metric": "Paired per-frame difference of E_Delta(4) = L2 norm of (predicted - true C_{t+4} - C_t), raw contact units, seed mean of 3 seeds, condition F1 (F0 + current hand pose) minus F0 (no hand), over all valid test frames; rel_to_F0_pct = 100 * diff / mean error of F0. Lower (negative) = better. Interval = take-level cluster bootstrap 95 % (1000 replicates). Test set: TACO 364 sequences / 186 takes, ARCTIC 186 / 44.",
+   "numbers": {
+    "TACO | F1 - F0, h = 4, all test frames: diff [95 % interval]; % of F0's error; interval excludes 0?; n frames": {
+     "value": "diff 0.016840592074811787 [0.0064121976554325725, 0.028324569291087183]; rel_to_F0_pct 2.315566349016751; significant True; n_frames 21840",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=F1-F0; columns diff, diff_lo, diff_hi, rel_to_F0_pct, significant, n_frames"
+    },
+    "ARCTIC | F1 - F0, h = 4, all test frames": {
+     "value": "diff -0.0018751827786312736 [-0.011183879165679665, 0.007832637171870032]; rel_to_F0_pct -0.30960437618482706; significant False; n_frames 11160",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=F1-F0"
+    },
+    "TACO | Shuffled-hand control (F2shuf) - F0, h = 4, all test frames (the size of an uninformative 2700-D hand input)": {
+     "value": "diff 0.015744489172794224 [0.009811589269460002, 0.021469736349402614]; rel_to_F0_pct 2.1648531802815696; significant True",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=F2shuf-F0"
+    },
+    "TACO | F1 - F0, h = 8, all test frames": {
+     "value": "diff 0.003971202486688841 [-0.00927383419331805, 0.01830062821412367]; rel_to_F0_pct 0.38615704669662276; significant False",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "row h=8, frame_class=all, pair=F1-F0"
+    },
+    "ARCTIC | F1 - F0, h = 8, all test frames": {
+     "value": "diff 0.003687571663375137 [-0.012635100026417925, 0.02080274160188073]; rel_to_F0_pct 0.3716602748760523; significant False",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "row h=8, frame_class=all, pair=F1-F0"
+    },
+    "TACO | Per-seed mean E_Delta(4): F0 seeds 0/1/2 and F1 seeds 0/1/2": {
+     "value": "F0 0.7253962159156799 / 0.7273143529891968 / 0.729121744632721; F1 0.7522670030593872 / 0.7557307481765747 / 0.7243562340736389",
+     "source": "reports/hand_contact_predictive_info/taco/results/overall_delta_results.csv",
+     "locator": "rows cond=F0 and cond=F1, h=4; columns E_seed0, E_seed1, E_seed2"
+    }
+   },
+   "caveats": [
+    "TACO's 'worse' is seed-dependent: in seed 2 the pose model is slightly below the no-hand model; the interval is a take bootstrap of the 3-seed mean and carries no seed variance. Safe wording: no gain; worse on the 3-seed mean on TACO.",
+    "The pose is not useless for the other task on TACO: it gives the small transition-start AUPRC gain (+0.027, see the transition entry).",
+    "Hands are ground truth; one architecture (100 hand surface points, flattened, through a small encoder) under a recipe fixed on the no-hand model.",
+    "The no-hand predictor F0 already sees object motion up to 8 frames ahead (the object trajectory is a given input of the task)."
+   ]
+  },
+  {
+   "block": "F1-subB",
+   "claim": "A causal hand history (ground-truth hand positions at the current and the 8 previous frames) gives a small gain in predicting the 4-frame contact change (-2.4 % of the no-hand error on TACO, -2.1 % on ARCTIC; paired intervals exclude 0), and the 8 frame-to-frame hand displacements without absolute pose give more (-6.8 % / -4.2 %). Against a shuffled-hand control of the same input size the gains hold on TACO (-4.6 % history, -9.0 % motion-only) and are not distinguishable from zero on ARCTIC's all-frame mean L2 error (-0.1 %, -2.2 %; intervals include 0). At the 8-frame horizon TACO's gains stay (-2.9 % / -6.3 %) and ARCTIC's intervals include 0 (-1.1 % / -2.2 %).",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/hand_contact_predictive_info/hand_contact_predictive_info_report.md",
+   "source_files": [
+    "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+    "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv"
+   ],
+   "metric": "Paired per-frame difference of E_Delta(h) (L2 error of the predicted contact change, raw contact units, seed mean of 3 seeds) between two conditions over all valid test frames, with take-cluster bootstrap 95 % interval (1000 replicates); rel_to_F0_pct = difference in % of the no-hand model's mean error on the same frames. Lower (negative) = better. F2k8 = F0 + hand positions of frames t-8..t (the report's primary causal condition); F2rel = F0 + the 8 one-frame hand differences (motion only); F2shuf = F2k8 with the hand history of another sequence (capacity control).",
+   "numbers": {
+    "TACO | History k = 8 (F2k8) - F0, h = 4, all frames": {
+     "value": "diff -0.01749870368883341 [-0.024226942074388334, -0.010401767860623865]; rel_to_F0_pct -2.406056107367044; significant True; n_frames 21840",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=F2k8-F0"
+    },
+    "ARCTIC | History k = 8 (F2k8) - F0, h = 4, all frames": {
+     "value": "diff -0.012499650364648217 [-0.02403486989383401, -0.0027792496679193]; rel_to_F0_pct -2.063770261638225; significant True; n_frames 11160",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=F2k8-F0"
+    },
+    "TACO | Motion only (F2rel) - F0, h = 4, all frames": {
+     "value": "diff -0.049767436412241545 [-0.057912990810451696, -0.04115145391388031]; rel_to_F0_pct -6.842977997512324; significant True",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=F2rel-F0"
+    },
+    "ARCTIC | Motion only (F2rel) - F0, h = 4, all frames": {
+     "value": "diff -0.025559103944235377 [-0.038052360269700596, -0.014725375545384726]; rel_to_F0_pct -4.219967526725116; significant True",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=F2rel-F0"
+    },
+    "TACO | Motion only - absolute history (F2rel - F2k8), h = 4, all frames": {
+     "value": "diff -0.032268732723408126 [-0.041766587561845224, -0.023637935223046504]; rel_to_F0_pct -4.436921890145279; significant True",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=F2rel-F2k8"
+    },
+    "ARCTIC | Motion only - absolute history (F2rel - F2k8), h = 4, all frames": {
+     "value": "diff -0.013059453579587162 [-0.01905777088016848, -0.007406771193047703]; rel_to_F0_pct -2.1561972650868912; significant True",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=F2rel-F2k8"
+    },
+    "ARCTIC | Shuffled-hand control (F2shuf) - F0, h = 4, all frames": {
+     "value": "diff -0.011943668339361427 [-0.02643827247594758, 0.004815566639777563]; rel_to_F0_pct -1.9719741604418728; significant False",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=F2shuf-F0"
+    },
+    "TACO | History k = 8 - shuffled control (F2k8 - F2shuf), h = 4, all frames": {
+     "value": "diff -0.033243192861627635 [-0.04243856933750964, -0.023544995898806535]; rel_to_F0_pct -4.570909287648614; significant True",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=F2k8-F2shuf"
+    },
+    "ARCTIC | History k = 8 - shuffled control (F2k8 - F2shuf), h = 4, all frames": {
+     "value": "diff -0.0005559820252867902 [-0.013614076293395835, 0.012839880004655139]; rel_to_F0_pct -0.09179610119635227; significant False; (squared-error columns of the same row: rel_sq_to_F0_pct -4.746381119531542; significant_sq True)",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=F2k8-F2shuf"
+    },
+    "TACO | Motion only - shuffled control (F2rel - F2shuf), h = 4, all frames": {
+     "value": "diff -0.06551192558503577 [-0.0733132880167862, -0.05720781678472983]; rel_to_F0_pct -9.007831177793893; significant True",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=F2rel-F2shuf"
+    },
+    "ARCTIC | Motion only - shuffled control (F2rel - F2shuf), h = 4, all frames": {
+     "value": "diff -0.013615435604873952 [-0.02870337718195562, 0.0009556843791284954]; rel_to_F0_pct -2.247993366283244; significant False; (rel_sq_to_F0_pct -10.47398092360376; significant_sq True)",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=F2rel-F2shuf"
+    },
+    "TACO | h = 8, all frames: F2k8 - F0 and F2rel - F0 (% of F0's error; interval excludes 0?)": {
+     "value": "F2k8-F0 rel_to_F0_pct -2.905141471830623 (significant True); F2rel-F0 rel_to_F0_pct -6.324880675496573 (significant True)",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "rows h=8, frame_class=all, pairs F2k8-F0 and F2rel-F0"
+    },
+    "ARCTIC | h = 8, all frames: F2k8 - F0 and F2rel - F0": {
+     "value": "F2k8-F0 diff -0.010690549893530741 [-0.030938473166215494, 0.006717798386017677], rel_to_F0_pct -1.077471321159132 (significant False); F2rel-F0 diff -0.02218528781386633 [-0.04830075428514117, 0.0012552377043191308], rel_to_F0_pct -2.2359945567970616 (significant False)",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "rows h=8, frame_class=all, pairs F2k8-F0 and F2rel-F0"
+    }
+   },
+   "caveats": [
+    "Hands are ground truth; the report states a generator's own hand errors would erode these gains (it bounds the information, not the achievable gain).",
+    "ARCTIC: on the all-frame mean L2 error the absolute-history gain equals what the shuffled control gives (the report calls it regularisation, not information); in the squared-error columns of the same rows (the training criterion) the real history does beat the control at h = 4. The report does not discuss the squared columns.",
+    "ARCTIC: at h = 8 neither causal gain has an interval that excludes 0.",
+    "On ARCTIC these are percentages of a no-hand predictor that is itself worse than predicting no change in mean L2 (see the baseline entry).",
+    "Shorter histories do little: relative to F0 at h = 4 the report's Table 5 gives +2.3 / +0.4 / -2.4 % (TACO) and +0.9 / +0.3 / -2.1 % (ARCTIC) for k = 1 / 4 / 8; these are computed in report.py as E / E_F0 - 1 from history_length_ablation.csv.",
+    "'Motion more useful than absolute pose' holds for this error at h = 4 on both datasets; exceptions are ARCTIC persistent spatial frames (n.s.), ARCTIC all frames at h = 8 (n.s.) and TACO transition-start AUPRC (no difference).",
+    "One architecture and one recipe; a combined pose + motion input, k > 8 and a per-point hand encoder were not run."
+   ],
+   "claim_as_extracted": "A causal history of the last 8 ground-truth hand frames gives a small gain in predicting the 4-frame contact change (-2.4 % of the no-hand error on TACO, -2.1 % on ARCTIC), and frame-to-frame hand motion without absolute pose gives more (-6.8 % / -4.2 %); against a shuffled-hand control of the same size the gain holds on TACO (-4.6 % / -9.0 %) and is not distinguishable from zero on ARCTIC's all-frame mean error.",
+   "correction_reason": "Numbers confirmed. The history condition reads frames t-8..t, i.e. 9 frames, not 'the last 8'. The h = 8 dataset difference belongs in the claim, not only in a caveat. Per-seed means agree with the direction (history and motion-only below no hand in all 3 seeds on both datasets), but the intervals are take bootstraps of the seed mean and carry no seed variance."
+  },
+  {
+   "block": "F1-subB",
+   "claim": "A non-causal oracle that is also given the next 8 ground-truth hand frames lowers the same error much more (-17.7 % of the no-hand error on TACO, -15.6 % on ARCTIC; 10.8 % / 11.4 % of the no-hand error beyond the best causal input, intervals exclude 0). Adding only one future frame gives -0.7 % (TACO) / -2.4 % (ARCTIC) against the no-hand model on all frames at the 4-frame horizon (derived value, no interval), which is no more than the causal inputs give. This is consistent with most of the hand-contact coupling lying inside the predicted multi-frame window, with a smaller part visible in the past hand.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/hand_contact_predictive_info/hand_contact_predictive_info_report.md",
+   "source_files": [
+    "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+    "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+    "reports/hand_contact_predictive_info/taco/results/overall_delta_results.csv",
+    "reports/hand_contact_predictive_info/arctic/results/overall_delta_results.csv"
+   ],
+   "metric": "Same paired difference of E_Delta(h) as above (lower = better). Ffut = F0 + hand positions of frames t-8..t+8 (8 future frames); Ffut1 = F0 + frames t-8..t+1 (one future frame). Both are non-causal upper bounds on the information, not usable predictors.",
+   "numbers": {
+    "TACO | Oracle +8 (Ffut) - F0, h = 4, all frames": {
+     "value": "diff -0.12836477735784288 [-0.14292597258054401, -0.11374785677985791]; rel_to_F0_pct -17.650042084531062; significant True",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=Ffut-F0"
+    },
+    "ARCTIC | Oracle +8 (Ffut) - F0, h = 4, all frames": {
+     "value": "diff -0.09458971606437318 [-0.12486734741472272, -0.06281808435070244]; rel_to_F0_pct -15.617352275913102; significant True",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=Ffut-F0"
+    },
+    "TACO | Oracle +8 (Ffut) - F0, h = 8, all frames (% of F0's error)": {
+     "value": "rel_to_F0_pct -18.889966420921994; significant True",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "row h=8, frame_class=all, pair=Ffut-F0"
+    },
+    "ARCTIC | Oracle +8 (Ffut) - F0, h = 8, all frames (% of F0's error)": {
+     "value": "rel_to_F0_pct -17.236099103798434; significant True",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "row h=8, frame_class=all, pair=Ffut-F0"
+    },
+    "TACO | Oracle +8 - best causal model (Ffut - F2rel), h = 4, all frames": {
+     "value": "diff -0.07859734094560132 [-0.09084006381629824, -0.06652051587542898]; rel_to_F0_pct -10.807064087018738; significant True",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=Ffut-F2rel"
+    },
+    "ARCTIC | Oracle +8 - best causal model (Ffut - F2rel), h = 4, all frames": {
+     "value": "diff -0.0690306121201378 [-0.10227779275284052, -0.03487507748908242]; rel_to_F0_pct -11.397384749187983; significant True",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "row h=4, frame_class=all, pair=Ffut-F2rel"
+    },
+    "TACO | Oracle +1 (Ffut1) mean E_Delta(4) next to F0's, all frames": {
+     "value": "Ffut1 E 0.7220120282765246; F0 E 0.7272774331447337",
+     "source": "reports/hand_contact_predictive_info/taco/results/overall_delta_results.csv",
+     "locator": "rows cond=Ffut1 and cond=F0, h=4; column E"
+    },
+    "ARCTIC | Oracle +1 (Ffut1) mean E_Delta(4) next to F0's, all frames": {
+     "value": "Ffut1 E 0.5913192359880814; F0 E 0.6056706367310898",
+     "source": "reports/hand_contact_predictive_info/arctic/results/overall_delta_results.csv",
+     "locator": "rows cond=Ffut1 and cond=F0, h=4; column E"
+    },
+    "TACO | Oracle +1 vs F0 in % of F0's error, h = 4 — DERIVED: no direct paired row exists; sum of two table cells rel_to_F0_pct(Ffut1-F2rel) + rel_to_F0_pct(F2rel-F0); report Table 5 prints '-0.7 %'": {
+     "value": "6.118989537212874 + -6.842977997512324 = -0.7239884602994495",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "rows h=4, frame_class=all, pairs Ffut1-F2rel and F2rel-F0; column rel_to_F0_pct (report Table 5, row TACO / 4 / all valid frames, column 'oracle +1 frame')"
+    },
+    "ARCTIC | Oracle +1 vs F0 in % of F0's error, h = 4 — DERIVED the same way; report Table 5 prints '-2.4 %'": {
+     "value": "1.8504617243836754 + -4.219967526725116 = -2.369505802341441",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "rows h=4, frame_class=all, pairs Ffut1-F2rel and F2rel-F0; column rel_to_F0_pct (report Table 5, row ARCTIC / 4 / all valid frames)"
+    },
+    "TACO | One-step horizon (h = 1), mean E_Delta: F0 / motion only / oracle +1 / oracle +8": {
+     "value": "0.3144429509117634 / 0.2992800746772038 / 0.2744440859059883 / 0.2608957562034993",
+     "source": "reports/hand_contact_predictive_info/taco/results/overall_delta_results.csv",
+     "locator": "rows h=1, cond F0, F2rel, Ffut1, Ffut; column E"
+    },
+    "ARCTIC | One-step horizon (h = 1), mean E_Delta: F0 / motion only / oracle +1 / oracle +8 (zero-change reference E0 0.16720589995384216)": {
+     "value": "0.1842146929315167 / 0.1735322167999142 / 0.1780996650162837 / 0.16892737949164185",
+     "source": "reports/hand_contact_predictive_info/arctic/results/overall_delta_results.csv",
+     "locator": "rows h=1, cond F0, F2rel, Ffut1, Ffut; columns E, E0"
+    }
+   },
+   "caveats": [
+    "The oracles are given ground-truth FUTURE hand frames: an upper bound on the information, not a model that could be used; the oracle +8 window covers the whole 4-frame target interval.",
+    "'Mostly simultaneous' is the report's reading of this gap (its decision 'Case D'); the tables show where the information sits in time, not a mechanism.",
+    "The oracle +1 percentage is not a table cell (sum of two cells; no interval). On TACO it does recover the one-step change at h = 1; on ARCTIC it is not better than the causal motion-only model even at h = 1.",
+    "ARCTIC: even the +8 oracle is not significantly better than predicting no change in mean L2 (see the baseline entry).",
+    "The report ranks the +8 oracle 10.8 % (TACO) / 11.4 % (ARCTIC) of F0's error ahead of the best causal model: causal vs oracle is a matter of degree, and both numbers should be shown side by side."
+   ],
+   "claim_as_extracted": "A non-causal oracle that is also given the next 8 ground-truth hand frames lowers the same error far more (-17.7 % on TACO, -15.6 % on ARCTIC), while one future frame adds almost nothing at the 4-frame horizon (-0.7 % / -2.4 %); this is consistent with hand and contact changing together over the predicted window rather than the past hand announcing the change.",
+   "correction_reason": "Numbers confirmed. 'Rather than the past hand announcing the change' erases the small causal gains that the same tables show (intervals exclude 0). 'Adds almost nothing' is an all-frames statement: on TACO the +1 oracle gives -7.5 / -9.0 / -25.7 % on persistent spatial / mixed / release frames (report Table 5, confirmed in history_length_ablation.csv), and on all frames it is significantly worse than the causal motion-only model on both datasets (Ffut1-F2rel +6.1 % / +1.9 %)."
+  },
+  {
+   "block": "F1-subB",
+   "claim": "Per frame, the causal gain is largest on release frames on both datasets (motion-only: -20.4 % of the no-hand error on TACO, -15.4 % on ARCTIC), followed by onset and amount-dominant frames (motion-only -10.6 % / -11.1 % on TACO, -10.3 % / -8.0 % on ARCTIC); persistent mixed frames gain -7.0 % (TACO) / -5.6 % (ARCTIC). Persistent spatial frames gain -4.2 % (history) / -5.6 % (motion-only) on TACO and nothing on ARCTIC (+1.6 % / +3.0 %, intervals include 0), where the +8-frame oracle's -8.3 % also has an interval that includes 0. Transient frames gain least: TACO -0.4 % (interval includes 0) / -1.8 %; ARCTIC no gain, and motion-only is significantly worse there (+9.4 %, n = 76).",
+   "claim_status": "overstated",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/hand_contact_predictive_info/hand_contact_predictive_info_report.md",
+   "source_files": [
+    "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+    "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv"
+   ],
+   "metric": "Paired difference of E_Delta(4) vs the no-hand model F0 within one frame class, in raw units and in % of F0's mean error on that class (rel_to_F0_pct); lower = better; take-cluster bootstrap 95 % interval. Frame class = the dominant (largest) spike event among the transitions inside the 4-frame window: quiet (non_spike) when none is a spike; otherwise transient (a low-persistence change), onset, release (incl. onset+release), amount, persistent spatial, persistent mixed.",
+   "numbers": {
+    "TACO | Release frames, h = 4: F2k8-F0 | F2rel-F0 | Ffut-F0 (diff [interval]; % of F0's error); n = 202": {
+     "value": "F2k8-F0 -0.2134956518317213 [-0.2903382964293499, -0.13910365692800572], -10.926314483716373 | F2rel-F0 -0.39878509127267514 [-0.4891295412168816, -0.3029743901183211], -20.409086935865094 | Ffut-F0 -0.8746009070684414 [-0.9906631268010582, -0.7334684721747934], -44.760464563960404; all significant True",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "rows h=4, frame_class=release, pairs F2k8-F0, F2rel-F0, Ffut-F0"
+    },
+    "ARCTIC | Release frames, h = 4: F2k8-F0 | F2rel-F0 | Ffut-F0; n = 325": {
+     "value": "F2k8-F0 -0.15150876256135795 [-0.28701256221304516, -0.03965756690216559], -6.624853229174678 | F2rel-F0 -0.35277041994608366 [-0.5560458390559986, -0.1818788511735642], -15.425195323542171 | Ffut-F0 -1.0930811841671284 [-1.3698713847093882, -0.860406014182343], -47.79593133926509; all significant True",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "rows h=4, frame_class=release, pairs F2k8-F0, F2rel-F0, Ffut-F0"
+    },
+    "TACO | Release frames, h = 4, against the shuffled control: F2k8-F2shuf | F2rel-F2shuf (% of F0's error)": {
+     "value": "-18.251852975943212 | -27.734625428091935 (both significant True)",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "rows h=4, frame_class=release, pairs F2k8-F2shuf, F2rel-F2shuf; column rel_to_F0_pct"
+    },
+    "ARCTIC | Release frames, h = 4, against the shuffled control: F2k8-F2shuf | F2rel-F2shuf (% of F0's error)": {
+     "value": "-8.767115151454885 | -17.567457245822375 (both significant True)",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "rows h=4, frame_class=release, pairs F2k8-F2shuf, F2rel-F2shuf; column rel_to_F0_pct"
+    },
+    "TACO | Persistent spatial frames, h = 4: F2k8-F0 | F2rel-F0 | Ffut-F0; n = 488": {
+     "value": "F2k8-F0 -0.057201418811913395 [-0.08587720460754499, -0.024747333663981425], -4.175113465646409 | F2rel-F0 -0.07649711986667797 [-0.1108668795785839, -0.0422725048089903], -5.583500582192136 | Ffut-F0 -0.34059752407865446 [-0.39713585994613376, -0.28280824050020054], -24.86010554777444; all significant True",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "rows h=4, frame_class=persistent_spatial, pairs F2k8-F0, F2rel-F0, Ffut-F0"
+    },
+    "ARCTIC | Persistent spatial frames, h = 4: F2k8-F0 | F2rel-F0 | Ffut-F0; n = 131": {
+     "value": "F2k8-F0 0.030115141213395213 [-0.01683365756580606, 0.09221520146801448], 1.6307694793236862 (significant False) | F2rel-F0 0.0560251246881849 [-0.036980131622255635, 0.19847130004319108], 3.033824838123527 (False) | Ffut-F0 -0.15389230051113448 [-0.2752859178697072, 0.03430240373160757], -8.333444794369377 (False)",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "rows h=4, frame_class=persistent_spatial, pairs F2k8-F0, F2rel-F0, Ffut-F0"
+    },
+    "TACO | Persistent mixed frames, h = 4: F2k8-F0 | F2rel-F0 | Ffut-F0 (% of F0's error); n = 1790": {
+     "value": "-4.645384078391197 | -7.011838590649092 | -29.073250486107266 (all significant True)",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "rows h=4, frame_class=persistent_mixed; column rel_to_F0_pct"
+    },
+    "ARCTIC | Persistent mixed frames, h = 4: F2k8-F0 | F2rel-F0 | Ffut-F0 (% of F0's error); n = 494": {
+     "value": "-2.58102074900448 | -5.641000233924662 | -18.354323364796766 (all significant True)",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "rows h=4, frame_class=persistent_mixed; column rel_to_F0_pct"
+    },
+    "TACO | Onset frames, h = 4: F2k8-F0 | F2rel-F0 | Ffut-F0 (% of F0's error); n = 344": {
+     "value": "-6.429470921823226 | -10.604219077621233 | -26.0936279977283 (all significant True)",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "rows h=4, frame_class=onset; column rel_to_F0_pct"
+    },
+    "ARCTIC | Onset frames, h = 4: F2k8-F0 | F2rel-F0 | Ffut-F0 (% of F0's error); n = 90": {
+     "value": "-3.4737515501478025 | -10.341357090825746 | -18.978090043005306 (all significant True)",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "rows h=4, frame_class=onset; column rel_to_F0_pct"
+    },
+    "TACO | Transient frames, h = 4: F2k8-F0 | F2rel-F0 | Ffut-F0 (% of F0's error; interval excludes 0?); n = 2994": {
+     "value": "-0.3976887720710254 (False) | -1.771857475694821 (True) | -15.997506267359018 (True)",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "rows h=4, frame_class=transient; columns rel_to_F0_pct, significant"
+    },
+    "ARCTIC | Transient frames, h = 4: F2k8-F0 | F2rel-F0 | Ffut-F0 (% of F0's error; interval excludes 0?); n = 76": {
+     "value": "5.557094121459454 (False) | 9.423932726198077 (True, i.e. significantly worse) | -17.206357056012333 (False)",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "rows h=4, frame_class=transient; columns rel_to_F0_pct, significant"
+    },
+    "TACO | Quiet (non-spike) frames, h = 4: F2k8-F0 | F2rel-F0 | Ffut-F0 (% of F0's error; interval excludes 0?); n = 15846": {
+     "value": "-1.558269705020538 (True) | -7.716168383739089 (True) | -12.367620501319923 (True)",
+     "source": "reports/hand_contact_predictive_info/taco/results/incremental_information.csv",
+     "locator": "rows h=4, frame_class=non_spike; columns rel_to_F0_pct, significant"
+    },
+    "ARCTIC | Quiet (non-spike) frames, h = 4: F2k8-F0 | F2rel-F0 | Ffut-F0 (% of F0's error; interval excludes 0?); n = 9951": {
+     "value": "-1.4824426788344478 (False) | -2.5143162777697246 (False) | -9.694079911898456 (True)",
+     "source": "reports/hand_contact_predictive_info/arctic/results/incremental_information.csv",
+     "locator": "rows h=4, frame_class=non_spike; columns rel_to_F0_pct, significant"
+    }
+   },
+   "caveats": [
+    "'Largest on release / onset / mixed' is a statement about the per-frame size of the gain, not about its share of the total: on TACO the motion-only model also lowers the error on the many quiet frames (-7.7 %, n = 15846).",
+    "Small classes: ARCTIC persistent spatial 131 frames, transient 76, onset 90; TACO release 202. Intervals are wide.",
+    "Report prose vs table: section 11 of the report quotes '-0.184 [-0.282, -0.013]' for the oracle on ARCTIC persistent spatial; in the table that is the oracle - F2k8 row. Oracle - F0 is -0.154 [-0.275, +0.034] (-8.3 %, interval includes 0). The table is authoritative.",
+    "The report's '10-28 % on release' is a TACO range that mixes two baselines (k = 8 vs F0 = -10.9 %; motion-only vs shuffled control = -27.7 %); ARCTIC's corresponding values are -6.6 % and -17.6 %.",
+    "Persistent spatial is a dataset difference, not a universal null: on TACO the causal gain is small but its interval excludes 0, and the oracle removes about a quarter of the error.",
+    "The CSV also holds an 'amount' class (TACO n = 176, ARCTIC n = 89) that the report's tables do not show; it is not plotted.",
+    "Event classes follow the earlier temporal-event study's rules (training-90th-percentile spikes, 0.7 / 0.3 amount-ratio cut, persistence >= 0.5)."
+   ],
+   "claim_as_extracted": "Per frame, the causal gain is largest on release, onset and persistent mixed contact changes (motion-only on release: -20.4 % on TACO, -15.4 % on ARCTIC) and smallest where contact re-arranges at roughly constant amount: persistent spatial frames gain -4.2 % / -5.6 % on TACO and nothing on ARCTIC, where even the +8-frame oracle's -8.3 % has an interval that includes 0.",
+   "correction_reason": "Every quoted cell is confirmed, but the ranking is not what the table shows. (1) The amount-dominant class (TACO n = 176, ARCTIC n = 89) was left out; its causal gain is second only to release on both datasets. (2) On TACO the motion-only gain on persistent mixed frames (-7.0 %) is smaller than on quiet frames (-7.7 %) and close to persistent spatial (-5.6 %), so 'mixed' is not among the largest there. (3) The smallest gain is on transient frames on both datasets, not on persistent spatial frames. 'Roughly constant amount' is a paraphrase of the rule 'amount share of the change <= 0.3'."
+  },
+  {
+   "block": "F1-subB",
+   "claim": "For predicting whether a persistent contact transition starts within the next 4 frames, causal hand inputs provide little additional information (TACO: AUPRC 0.332 without the hand, 0.364 with the 8-frame history, a paired gain of +0.03 that comes from the current pose; ARCTIC: 0.133 without the hand and no significant gain), whereas the +8-frame oracle reaches 0.427 / 0.285 (+0.095 / +0.151).",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/hand_contact_predictive_info/hand_contact_predictive_info_report.md",
+   "source_files": [
+    "reports/hand_contact_predictive_info/taco/results/transition_prediction_results.csv",
+    "reports/hand_contact_predictive_info/arctic/results/transition_prediction_results.csv",
+    "reports/hand_contact_predictive_info/taco/results/transition_incremental.csv",
+    "reports/hand_contact_predictive_info/arctic/results/transition_incremental.csv"
+   ],
+   "metric": "AUPRC (area under the precision-recall curve), mean of 3 seeds, for the label 'a persistent contact-mode transition (persistent spatial / persistent mixed / release / onset+release / onset) starts at a transition s with t < s <= t + h'; chance = prevalence of positive frames; higher = better. Per-condition interval = take bootstrap 95 % recomputing the seed mean (500 replicates in evaluate.py). Paired dAUPRC between two conditions uses the same take bootstrap; 'significant' = interval excludes 0. Classifier: the same small MLP for every condition.",
+   "numbers": {
+    "TACO | AUPRC h = 4: no hand (F0) | current pose (F1) | history k = 8 (F2k8) | motion only (F2rel) | shuffled (F2shuf) | oracle +1 (Ffut1) | oracle +8 (Ffut); prevalence; positives / frames": {
+     "value": "0.33232677190094145 [0.2976652843092051, 0.36692804592282563] | 0.3589408475883514 | 0.3643765454225109 [0.32756529155838804, 0.40236367241426296] | 0.3633308639734743 | 0.28243389646061673 | 0.37152120310870745 | 0.42725502344056726 [0.3912575572634064, 0.46460435102012176]; prevalence 0.09773700875395791; 2099 / 21476",
+     "source": "reports/hand_contact_predictive_info/taco/results/transition_prediction_results.csv",
+     "locator": "rows h=4, cond F0, F1, F2k8, F2rel, F2shuf, Ffut1, Ffut; columns auprc, auprc_lo, auprc_hi, prevalence, n_pos, n_frames"
+    },
+    "ARCTIC | AUPRC h = 4: no hand (F0) | current pose (F1) | history k = 8 (F2k8) | motion only (F2rel) | shuffled (F2shuf) | oracle +1 (Ffut1) | oracle +8 (Ffut); prevalence; positives / frames": {
+     "value": "0.13347838566423104 [0.09739302649743815, 0.1824003644549212] | 0.13144508841264843 | 0.11985657751702332 [0.08791299632217167, 0.16676800134452155] | 0.1419739815211283 [0.10894041544949033, 0.1862860686594487] | 0.10852454176954611 | 0.11765891306986054 | 0.28457505885331186 [0.20327825665320157, 0.3618605551275996]; prevalence 0.06169127027519592; 677 / 10974",
+     "source": "reports/hand_contact_predictive_info/arctic/results/transition_prediction_results.csv",
+     "locator": "rows h=4, cond F0, F1, F2k8, F2rel, F2shuf, Ffut1, Ffut; columns auprc, auprc_lo, auprc_hi, prevalence, n_pos, n_frames"
+    },
+    "TACO | Paired dAUPRC vs no hand, h = 4: F1-F0 | F2k8-F0 | F2rel-F0 | Ffut-F0": {
+     "value": "0.02661407568740992 [0.00888489624312955, 0.044688628914512286] True | 0.03204977352156946 [0.006443651911146106, 0.060198977557317214] True | 0.03100409207253285 [0.006367215004878252, 0.05813117975578215] True | 0.09492825153962581 [0.06701698679268514, 0.12528530027395285] True",
+     "source": "reports/hand_contact_predictive_info/taco/results/transition_incremental.csv",
+     "locator": "rows h=4, metric=auprc, pairs F1-F0, F2k8-F0, F2rel-F0, Ffut-F0; columns diff, diff_lo, diff_hi, significant"
+    },
+    "ARCTIC | Paired dAUPRC vs no hand, h = 4: F1-F0 | F2k8-F0 | F2rel-F0 | Ffut-F0": {
+     "value": "-0.0020332972515826053 [-0.018742791175203492, 0.014729351666712076] False | -0.013621808147207717 [-0.034595989952870485, 0.0037956344361460294] False | 0.00849559585689727 [-0.016004151434195323, 0.03366096883744084] False | 0.15109667318908082 [0.06982437519025161, 0.22548390316543765] True",
+     "source": "reports/hand_contact_predictive_info/arctic/results/transition_incremental.csv",
+     "locator": "rows h=4, metric=auprc, pairs F1-F0, F2k8-F0, F2rel-F0, Ffut-F0"
+    },
+    "TACO | History on top of the current pose (F2k8 - F1), h = 4": {
+     "value": "0.005435697834159536 [-0.01489284201048768, 0.026484694611876667] False",
+     "source": "reports/hand_contact_predictive_info/taco/results/transition_incremental.csv",
+     "locator": "row h=4, metric=auprc, pair=F2k8-F1"
+    },
+    "ARCTIC | History on top of the current pose (F2k8 - F1), h = 4": {
+     "value": "-0.011588510895625112 [-0.0254935653803909, 0.0018411992381771375] False",
+     "source": "reports/hand_contact_predictive_info/arctic/results/transition_incremental.csv",
+     "locator": "row h=4, metric=auprc, pair=F2k8-F1"
+    },
+    "TACO | Shuffled control vs no hand (F2shuf - F0) and history vs shuffled control (F2k8 - F2shuf), h = 4": {
+     "value": "F2shuf-F0 -0.049892875440324724 [-0.06472369741906543, -0.03542017095861567] True; F2k8-F2shuf 0.08194264896189418 [0.058706157611884136, 0.10834964882166712] True",
+     "source": "reports/hand_contact_predictive_info/taco/results/transition_incremental.csv",
+     "locator": "rows h=4, metric=auprc, pairs F2shuf-F0, F2k8-F2shuf"
+    },
+    "ARCTIC | Shuffled control vs no hand (F2shuf - F0) and history vs shuffled control (F2k8 - F2shuf), h = 4": {
+     "value": "F2shuf-F0 -0.024953843894684927 [-0.04149659286216574, -0.011361397103706917] True; F2k8-F2shuf 0.01133203574747721 [-0.005707372667811702, 0.0289636757059152] False",
+     "source": "reports/hand_contact_predictive_info/arctic/results/transition_incremental.csv",
+     "locator": "rows h=4, metric=auprc, pairs F2shuf-F0, F2k8-F2shuf"
+    },
+    "TACO | AUPRC h = 8: F0 | F2k8 | Ffut; prevalence; paired F2k8-F0 and Ffut-F0": {
+     "value": "0.5010309915629644 | 0.5434637886335504 | 0.6052348885721938; prevalence 0.16783216783216784; F2k8-F0 0.042432797070586004 [0.015598729118150478, 0.0715978910802812] True; Ffut-F0 0.10420389700922938 [0.0744069242486754, 0.13480427801675648] True",
+     "source": "reports/hand_contact_predictive_info/taco/results/transition_prediction_results.csv",
+     "locator": "rows h=8, cond F0, F2k8, Ffut (auprc, prevalence); paired values from taco/results/transition_incremental.csv rows h=8, pairs F2k8-F0, Ffut-F0"
+    },
+    "ARCTIC | AUPRC h = 8: F0 | F2k8 | Ffut; prevalence; paired F2k8-F0 and Ffut-F0": {
+     "value": "0.23803833045832315 | 0.21158962799882178 | 0.35578851328902744; prevalence 0.11466275659824048; F2k8-F0 -0.026448702459501372 [-0.0641286831495216, 0.0021093900046955114] False; Ffut-F0 0.11775018283070429 [0.030447972032577847, 0.19006875201849793] True",
+     "source": "reports/hand_contact_predictive_info/arctic/results/transition_prediction_results.csv",
+     "locator": "rows h=8, cond F0, F2k8, Ffut (auprc, prevalence); paired values from arctic/results/transition_incremental.csv rows h=8, pairs F2k8-F0, Ffut-F0"
+    },
+    "TACO | Recall at precision >= 0.5 (mean of seeds), h = 4: F0 | F2k8 | Ffut; h = 8: F0 | F2k8 | Ffut": {
+     "value": "h=4: 0.13180879784024138 | 0.16690487533746232 | 0.37557567095442274; h=8: 0.5004960317460317 | 0.5743055555555556 | 0.6828373015873016",
+     "source": "reports/hand_contact_predictive_info/taco/results/transition_prediction_results.csv",
+     "locator": "rows h=4 and h=8, cond F0, F2k8, Ffut; column recall_at_p50"
+    },
+    "ARCTIC | Recall at precision >= 0.5 (mean of seeds), h = 4: F0 | F2k8 | Ffut; h = 8: F0 | F2k8 | Ffut": {
+     "value": "h=4: 0.015263417035942887 | 0.005908419497784343 | 0.11127523387493847; h=8: 0.024438761011651034 | 0.01932367149758454 | 0.21199204319408924",
+     "source": "reports/hand_contact_predictive_info/arctic/results/transition_prediction_results.csv",
+     "locator": "rows h=4 and h=8, cond F0, F2k8, Ffut; column recall_at_p50"
+    },
+    "ARCTIC | One-vs-rest AUPRC of release / regrasp positives, h = 4: F0 | F2rel | Ffut (no interval in the table)": {
+     "value": "0.042297104396139255 | 0.06561451681481155 | 0.25749349550347717 (n_pos 275)",
+     "source": "reports/hand_contact_predictive_info/arctic/results/transition_prediction_results.csv",
+     "locator": "rows h=4, cond F0, F2rel, Ffut; columns auprc_release_regrasp, n_pos_release_regrasp"
+    }
+   },
+   "caveats": [
+    "The no-hand model is already well above chance on TACO (0.332 vs 0.098 at h = 4; 0.501 vs 0.168 at h = 8): it sees the current contact map and object motion up to 8 frames ahead. The result is about what the hand ADDS, not that transition timing is unpredictable.",
+    "TACO's causal gain is small but its paired interval excludes 0, and it comes from the current pose (history on top of the pose: +0.005, interval includes 0). The report's summary wording ('does not predict when', 'not predictable at all') is stronger than its own table; its section 7 says 'barely'. ARCTIC: no causal condition differs significantly from no hand.",
+    "The shuffled-hand control lowers AUPRC below the no-hand classifier on both datasets (an uninformative 2700-D input costs the small MLP something); measured against that control the real hand history is worth +0.082 AUPRC on TACO and +0.011 (n.s.) on ARCTIC.",
+    "Per-condition intervals overlap between neighbouring bars although some paired differences exclude 0; the paired table is the test.",
+    "The report's 'recall at precision 0.5 <= 0.23 / 0.03 for every causal model' holds at h = 4 only; at h = 8 TACO's no-hand classifier already reaches recall 0.50 at precision 0.5.",
+    "ARCTIC intervals are wide (44 takes, 677 positive frames at h = 4); absolute AUPRC values are low (prevalence 6-17 %).",
+    "One future frame does not help this task (oracle +1: 0.372 TACO, 0.118 ARCTIC at h = 4); no paired row oracle +1 vs no hand exists."
+   ]
+  },
+  {
+   "block": "F1-subB",
+   "claim": "All percentages above are relative to the no-hand predictor. In mean L2 error at the 4-frame horizon that predictor removes 8.2 % [6.4, 10.0] of the error of the trivial prediction 'contact does not change' on TACO, but is 11.9 % [3.4, 20.0] worse than it on ARCTIC; on ARCTIC only the +8-frame oracle is above zero, with an interval that includes 0 (5.6 % [-3.9, 15.8]). On the squared error (the training criterion) ARCTIC's point estimates are positive (no hand 1.3 %, history 7.6 %, motion-only 13.2 %, oracle 33.9 %), with intervals that exclude 0 only for motion-only and the oracle.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/hand_contact_predictive_info/hand_contact_predictive_info_report.md",
+   "source_files": [
+    "reports/hand_contact_predictive_info/taco/results/overall_delta_results.csv",
+    "reports/hand_contact_predictive_info/arctic/results/overall_delta_results.csv"
+   ],
+   "metric": "improvement = 1 - sum(E) / sum(E0) over all valid test frames at h = 4, where E0 = ||C_{t+4} - C_t|| is the error of predicting no change; positive = better than predicting no change; interval = take-cluster bootstrap 95 % of the ratio (1000 replicates). improvement_sq is the same on squared errors (the criterion the models were trained on). E in raw contact units, seed mean of 3 seeds.",
+   "numbers": {
+    "TACO | No hand (F0), h = 4: mean E, zero-change E0, improvement [interval], improvement on squared error": {
+     "value": "E 0.7272774331447337; E0 0.7918857932090759; improvement 0.08158799128782501 [0.06365528735207582, 0.09950040375092495]; improvement_sq 0.2640188385752338",
+     "source": "reports/hand_contact_predictive_info/taco/results/overall_delta_results.csv",
+     "locator": "row cond=F0, h=4; columns E, E0, improvement, improvement_lo, improvement_hi, improvement_sq"
+    },
+    "ARCTIC | No hand (F0), h = 4: mean E, zero-change E0, improvement [interval], improvement on squared error": {
+     "value": "E 0.6056706367310898; E0 0.5413251519203186; improvement -0.11886655105412336 [-0.20032793251105363, -0.03444249601172222]; improvement_sq 0.012686275420563442",
+     "source": "reports/hand_contact_predictive_info/arctic/results/overall_delta_results.csv",
+     "locator": "row cond=F0, h=4; columns E, E0, improvement, improvement_lo, improvement_hi, improvement_sq"
+    },
+    "TACO | Improvement over no change, h = 4: history k = 8 | motion only | oracle +8": {
+     "value": "0.10368550026074874 [0.0822106273383747, 0.12335520017537915] | 0.1444347250936383 [0.1288651559049646, 0.15898910606701933] | 0.24368810281107955 [0.22013261791802075, 0.2661794047763649]",
+     "source": "reports/hand_contact_predictive_info/taco/results/overall_delta_results.csv",
+     "locator": "rows h=4, cond F2k8, F2rel, Ffut; columns improvement, improvement_lo, improvement_hi"
+    },
+    "ARCTIC | Improvement over no change, h = 4: history k = 8 | motion only | oracle +8": {
+     "value": "-0.09577571612714353 [-0.17286746113731954, -0.02186461849690957] | -0.07165074638433655 [-0.15031041067637219, 0.006498413762172528] | 0.0558707780482659 [-0.03927961306916128, 0.15814213845830993]",
+     "source": "reports/hand_contact_predictive_info/arctic/results/overall_delta_results.csv",
+     "locator": "rows h=4, cond F2k8, F2rel, Ffut; columns improvement, improvement_lo, improvement_hi"
+    },
+    "ARCTIC | Improvement on squared error, h = 4: history k = 8 | motion only | oracle +8": {
+     "value": "0.07561842806216379 | 0.13216780854671306 | 0.338721425736503",
+     "source": "reports/hand_contact_predictive_info/arctic/results/overall_delta_results.csv",
+     "locator": "rows h=4, cond F2k8, F2rel, Ffut; column improvement_sq"
+    }
+   },
+   "caveats": [
+    "Quote ARCTIC's -2 / -4 / -16 % only together with this: they are relative to a predictor that loses to 'predict no change' in mean L2.",
+    "The report's explanation (the models predict small changes on the many quiet frames; they stop training after about 300 steps on ARCTIC) is its reading; the table shows only the errors.",
+    "On the squared-error criterion the ARCTIC models are above zero; the two criteria disagree in sign for the causal models on ARCTIC.",
+    "Per-condition intervals are not a paired test between conditions."
+   ],
+   "claim_as_extracted": "All percentages above are relative to the no-hand predictor, which beats the trivial prediction 'contact does not change' on TACO (8.2 % at the 4-frame horizon) but is worse than it on ARCTIC (-11.9 %); on ARCTIC only the +8-frame oracle is above zero, and its interval includes 0 (5.6 % [-3.9, 15.8]).",
+   "correction_reason": "Cells confirmed, but the statement holds for the mean L2 error only and the claim does not say so; the same table's squared-error columns have the opposite sign on ARCTIC. The squared-error intervals were not delivered: F0 [-8.7, 12.4], history [-1.3, 16.0], motion-only [4.4, 21.3], oracle [20.4, 44.6] (%)."
+  },
+  {
+   "block": "F1-subB",
+   "claim": "The history, the motion-only input and the +8-frame oracle lower the amount component of the prediction error more than its spatial-pattern component on both datasets (motion-only: e_A 0.376 -> 0.329 and e_S 0.603 -> 0.575 on TACO; 0.428 -> 0.359 and 0.511 -> 0.501 on ARCTIC; means without intervals), while the current pose alone lowers neither. This suggests these hand inputs mostly indicate how much contact is about to be gained or lost, less where it moves.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/hand_contact_predictive_info/hand_contact_predictive_info_report.md",
+   "source_files": [
+    "reports/hand_contact_predictive_info/taco/results/overall_delta_results.csv",
+    "reports/hand_contact_predictive_info/arctic/results/overall_delta_results.csv"
+   ],
+   "metric": "Mean over test frames (where both contact masses exceed the zero threshold) of the amount-change error e_A = |predicted - true mass change| * ||mean pattern|| and the spatial-pattern error e_S = mean mass * ||predicted - true normalised pattern at t+4||, h = 4, seed mean; lower = better. The table gives means only, no intervals.",
+   "numbers": {
+    "TACO | e_A at h = 4: no hand | history k = 8 | motion only | oracle +8": {
+     "value": "0.3757169246673584 | 0.35156846046447754 | 0.3290483355522156 | 0.2546502351760864",
+     "source": "reports/hand_contact_predictive_info/taco/results/overall_delta_results.csv",
+     "locator": "rows h=4, cond F0, F2k8, F2rel, Ffut; column eA"
+    },
+    "TACO | e_S at h = 4: no hand | history k = 8 | motion only | oracle +8": {
+     "value": "0.6025593876838684 | 0.5966231226921082 | 0.5746780037879944 | 0.5222300887107849",
+     "source": "reports/hand_contact_predictive_info/taco/results/overall_delta_results.csv",
+     "locator": "rows h=4, cond F0, F2k8, F2rel, Ffut; column eS"
+    },
+    "ARCTIC | e_A at h = 4: no hand | history k = 8 | motion only | oracle +8": {
+     "value": "0.4283784329891205 | 0.39348524808883667 | 0.3587324619293213 | 0.27729660272598267",
+     "source": "reports/hand_contact_predictive_info/arctic/results/overall_delta_results.csv",
+     "locator": "rows h=4, cond F0, F2k8, F2rel, Ffut; column eA"
+    },
+    "ARCTIC | e_S at h = 4: no hand | history k = 8 | motion only | oracle +8": {
+     "value": "0.5111510157585144 | 0.5121251940727234 | 0.5005771517753601 | 0.46821829676628113",
+     "source": "reports/hand_contact_predictive_info/arctic/results/overall_delta_results.csv",
+     "locator": "rows h=4, cond F0, F2k8, F2rel, Ffut; column eS"
+    }
+   },
+   "caveats": [
+    "No interval or paired test exists for e_A / e_S; this is a descriptive split of the error defined in the study.",
+    "'How much rather than where' is the report's interpretation (section 5); it is consistent with the frame-class result but is not a separate test.",
+    "Not plotted by the figure module."
+   ],
+   "claim_as_extracted": "The hand inputs reduce the amount component of the prediction error more than its spatial-pattern component on both datasets, which suggests the hand mostly indicates how much contact is about to be gained or lost rather than where it moves.",
+   "correction_reason": "Cells confirmed. 'The hand inputs' is too broad: for the current pose both components are above the no-hand values on both datasets (e_A 0.379 / 0.439, e_S 0.620 / 0.514). There is no interval or paired test, and the frame sets differ by a few frames between conditions (n_decomp). 'Suggests' is allowed wording and it is the report's own interpretation (line 279)."
+  }
+ ],
+ "dataset_differences": [
+  "Only TACO and ARCTIC were run; OakInk2 has no result in this study (no cached hand state in the object frame).",
+  "Same-step association of contact change with hand speed: Spearman 0.785 on TACO, 0.513 on ARCTIC.",
+  "Current pose (h = 4, all frames): TACO +2.3 % (worse on the 3-seed mean, interval excludes 0, but seed-dependent); ARCTIC -0.3 % (interval includes 0).",
+  "Shuffled-hand control vs no hand (h = 4): TACO +2.2 % (worse), so TACO's causal gains exceed the control (history -4.6 %, motion -9.0 % of the no-hand error); ARCTIC -2.0 % (interval includes 0), so on ARCTIC's all-frame mean L2 neither the history (-0.1 %) nor motion-only (-2.2 %) is distinguishable from the control. On ARCTIC only the per-class gains (release, onset, persistent mixed) exceed the control; in squared error the ARCTIC history does beat the control at h = 4.",
+  "Size of the causal gain: motion-only -6.8 % on TACO vs -4.2 % on ARCTIC at h = 4; at h = 8 TACO stays significant (-2.9 % history, -6.3 % motion) while ARCTIC's intervals include 0 (-1.1 %, -2.2 %).",
+  "Persistent spatial frames (h = 4): TACO gains -4.2 % (history) / -5.6 % (motion), oracle +8 -24.9 %, all intervals exclude 0; ARCTIC +1.6 % / +3.0 % (no gain), oracle +8 -8.3 % with an interval that includes 0.",
+  "Transient frames (h = 4): TACO -0.4 % (n.s.) / -1.8 % (small, significant); ARCTIC +5.6 % (n.s.) / +9.4 % (motion-only significantly worse; n = 76).",
+  "Quiet (non-spike) frames (h = 4): TACO motion-only -7.7 % (significant, n = 15846); ARCTIC -2.5 % (interval includes 0).",
+  "Release frames (h = 4): history -10.9 % (TACO) vs -6.6 % (ARCTIC); motion-only -20.4 % vs -15.4 %; oracle +8 -44.8 % vs -47.8 %.",
+  "Baseline standing (h = 4): the no-hand predictor is 8.2 % better than predicting no change on TACO and 11.9 % worse on ARCTIC (mean L2); on ARCTIC even the oracle +8 is not significantly better than no change.",
+  "Transition-start AUPRC (h = 4): TACO 0.332 without the hand (chance 0.098), causal inputs +0.03 (paired intervals exclude 0, gain comes from the current pose); ARCTIC 0.133 (chance 0.062), no causal input differs significantly and the absolute history is lower (0.120). The oracle's gain is larger on ARCTIC (+0.151) than on TACO (+0.095) and on ARCTIC sits in the release / regrasp positives (one-vs-rest AUPRC 0.042 -> 0.257).",
+  "Motion-only vs absolute history on the transition task (h = 4): ARCTIC +0.022 AUPRC (interval excludes 0); TACO -0.001 (no difference).",
+  "Recall at precision 0.5: at h = 8 TACO's no-hand classifier already reaches 0.50 (history 0.57, oracle 0.68); ARCTIC stays at or below 0.04 for causal models (oracle 0.21).",
+  "One future frame at the one-step horizon (h = 1): on TACO the oracle +1 (0.274) is clearly below the causal motion-only model (0.299); on ARCTIC it is not (0.178 vs 0.174).",
+  "Sample and stability: TACO test set 364 sequences / 186 takes, ARCTIC 186 / 44, so ARCTIC intervals are much wider; ARCTIC causal models reach their best validation loss after about 300 steps."
+ ],
+ "do_not_claim": [
+  "Hand motion is irrelevant to (or independent of) contact change: the same-step association is strong (Spearman 0.78 TACO / 0.51 ARCTIC) and the future-hand oracle shows the information exists.",
+  "The hand causes, or does not cause, contact change: 'causal' here means only that the input uses hand frames at or before the current frame; nothing was intervened on.",
+  "Causal hand history carries no information / gives no gain: the gains are small but several have intervals that exclude 0 (TACO beyond the shuffled control; release, onset and persistent mixed frames on both datasets).",
+  "The past hand cannot predict transition timing at all, or transition timing is unpredictable: on TACO the causal inputs add a small significant AUPRC gain (+0.03) and the no-hand model is already far above chance (0.332 vs 0.098).",
+  "'10-28 % on release' as a result for both datasets or against one baseline: it is a TACO range mixing 'vs no hand' and 'vs shuffled control'; ARCTIC is 6.6-17.6 %.",
+  "'Causal history gives 2-7 %' as an ARCTIC statement without the control: ARCTIC's range is 2.1-4.2 % and its absolute-history gain equals the shuffled control in mean L2.",
+  "A single pooled number such as 'the oracle helps by about 17 %': report TACO (-17.7 %) and ARCTIC (-15.6 %) separately.",
+  "The oracle shows what a hand-contact co-evolution model would achieve: it uses ground-truth future hands and is an upper bound on information; generated hands were never tested.",
+  "Hand and contact are simultaneous, stated as an established mechanism: the tables are consistent with a largely simultaneous coupling (the report's 'Case D' reading).",
+  "Persistent spatial contact changes are unexplained by the hand in general: on TACO the +8 oracle removes 24.9 % and the causal inputs 4-6 %; the null is ARCTIC's.",
+  "On ARCTIC the +8 oracle beats predicting no change: its improvement interval includes 0; and every causal ARCTIC predictor is worse than predicting no change in mean L2.",
+  "The current hand pose makes prediction worse, as a robust effect: it is the 3-seed mean on TACO, reversed in one seed, and absent on ARCTIC; and the pose is what helps the TACO transition classifier.",
+  "Dynamics matter, static configuration does not, as a general law: it was measured with one architecture and one hand representation (100 surface points, flattened), with exceptions listed in the caveats.",
+  "The hypotheses or decision cases were pre-registered: no plan file exists for this study; say 'the hypotheses and decision cases stated in the report'.",
+  "The oracle +1 bar has a confidence interval or a paired test against the no-hand model: no such row exists; the value is the sum of two paired rows.",
+  "Overlapping per-condition error bars in the AUPRC figure mean 'no difference' (or non-overlap means a significant difference): the paired differences are the test.",
+  "The gain is confined to release / onset / mixed frames: on TACO the motion-only input also lowers the error on quiet frames (-7.7 %).",
+  "The Figure F example panels are representative: per dataset they are the two events where the 8-frame history helped most and the two where it hurt most, from seed-0 models; they are dense research panels with internal labels and are not page-ready.",
+  "Any OakInk2 statement for this block.",
+  "The 'No-Go for co-evolution' is an experimental result: it is the report's design decision drawn from these numbers."
+ ],
+ "candidate_images": [],
+ "verification": {
+  "reliability": "high",
+  "numbers_confirmed": 59,
+  "numbers_checked": 62,
+  "number_corrections": [
+   {
+    "block": "F1-subB",
+    "label": "E5 caveat: 'amount' class exists in the table but was not delivered",
+    "reported": "TACO n = 176, ARCTIC n = 89 (not plotted, no values given)",
+    "found": "n correct. Values at h=4 (% of F0's error) F2k8-F0 | F2rel-F0 | Ffut-F0: TACO -8.726209325918925 | -11.116062635640757 | -33.44106523935635; ARCTIC -4.595708221226486 | -8.029895627110124 | -31.23645168957449; all six significant True. Second-largest causal gain after release on both datasets",
+    "verdict": "corrected",
+    "source_checked": "reports/hand_contact_predictive_info/{taco,arctic}/results/incremental_information.csv rows h=4, frame_class=amount"
+   },
+   {
+    "block": "F1-subB",
+    "label": "INDEX: '10-28 % on release, through motion'",
+    "reported": "10-28 % on release",
+    "found": "TACO-only range that mixes two baselines: -10.926314483716373 (history vs no hand) to -27.734625428091935 (motion-only vs shuffled control). Single baseline (vs no hand): TACO -10.9 % history / -20.4 % motion-only (n = 202); ARCTIC -6.6 % / -15.4 % (n = 325). Vs shuffled control: TACO -18.3 % / -27.7 %; ARCTIC -8.8 % / -17.6 %",
+    "verdict": "corrected",
+    "source_checked": "reports/hand_contact_predictive_info/{taco,arctic}/results/incremental_information.csv rows h=4, release; report lines 38, 727, 778"
+   },
+   {
+    "block": "F1-subB",
+    "label": "INDEX: 'no transition timing' from causal history",
+    "reported": "no transition timing",
+    "found": "TACO: causal inputs add a small AUPRC gain whose paired interval excludes 0 (pose +0.0266, history +0.0320, motion-only +0.0310; h=8 history +0.0424 [0.0156, 0.0716]); history on top of the pose +0.0054 (interval includes 0). ARCTIC: none (-0.0020, -0.0136, +0.0085, intervals include 0). No-hand AUPRC is already 0.332 vs chance 0.098 on TACO. Correct wording: the past hand provides little additional information about when a transition starts",
+    "verdict": "corrected",
+    "source_checked": "reports/hand_contact_predictive_info/{taco,arctic}/results/transition_incremental.csv; transition_prediction_results.csv; INDEX.md line 79"
+   }
+  ],
+  "claims_supported_as_extracted": 2,
+  "claims_checked": 12,
+  "figure_checks": [
+   {
+    "id": "f1subb_delta_error_vs_no_hand",
+    "verdict": "fixed",
+    "note": "All 12 plotted values match the table (rel_to_F0_pct, h=4, frame_class=all, pairs F1-F0, F2k8-F0, F2rel-F0, F2shuf-F0, Ffut-F0; 'future +1' = sum of the cells Ffut1-F2rel and F2rel-F0, which I cross-checked against E_Ffut1 / E_F0 - 1 from overall_delta_results.csv). Panels, direction (lower_better) and the list of intervals that include 0 are right; no value is typed into the code. Plotted values unchanged. Changed the note only: (1) it now defines every input, because 'history (8 fr.)' is frames t-8..t (9 frames) and the note gave no definitions; (2) it lists, read from the table, the bars whose interval lies above 0 (TACO: current pose, shuffled control); (3) it says the paired interval is a take bootstrap of the seed mean with no seed-to-seed variance. docs/data/figures.{json,js} must be rebuilt to pick this up (I did not write them)."
+   },
+   {
+    "id": "f1subb_delta_error_by_frame_class",
+    "verdict": "fixed",
+    "note": "The 42 originally plotted values match the table (rel_to_F0_pct, h=4, pairs F2k8-F0, F2rel-F0, Ffut-F0, classes all / non_spike / transient / persistent_spatial / persistent_mixed / onset / release), and the per-class n and the not-significant list were right. Defect: the table's 'amount' class (TACO 176, ARCTIC 89 frames) was silently left out, so the classes did not add up to all frames and the figure hid the class with the second-largest causal gain. Fixed: added the category 'amount-dominant' (6 new values, all checked: TACO -8.73 / -11.12 / -33.44, ARCTIC -4.60 / -8.03 / -31.24); the note now reports frames in none of the classes (computed: TACO 0, ARCTIC 4), states the class rules exactly ('transient = one that reverts' replaced by the persistence rule), defines the three series, and lists the bar whose interval lies above 0 (ARCTIC motion only on transient). The extractor's reading 'on TACO every class except transient gains from the causal inputs' should be: on TACO transient the history gain's interval includes 0 and motion-only gains -1.8 %. Now 8 categories x 3 series per panel."
+   },
+   {
+    "id": "f1subb_transition_start_auprc",
+    "verdict": "fixed",
+    "note": "All 42 plotted values (auprc, auprc_lo, auprc_hi for F0, F1, F2k8, F2rel, F2shuf, Ffut1, Ffut at h=4) and both reference lines (prevalence 0.0977 TACO, 0.0617 ARCTIC) match transition_prediction_results.csv; direction higher_better; error bars are each condition's own take-bootstrap 95 % interval (500 replicates) as the note says; the paired outcome sentence matches transition_incremental.csv (TACO: pose, history, motion-only, oracle +8 higher, shuffled lower; ARCTIC: oracle +8 higher, shuffled lower, the three causal inputs include 0; no Ffut1-F0 row exists). Plotted values unchanged. Changed the note only: added what counts as a positive frame (start of a persistent spatial / mixed event or of any release / onset event at a step s with t < s <= t+4), that the same classifier is used for every input, and the input definitions."
+   },
+   {
+    "id": "f1subb_delta_error_vs_no_change",
+    "verdict": "fixed",
+    "note": "All 42 plotted values (improvement, improvement_lo, improvement_hi for the seven conditions at h=4) match overall_delta_results.csv; direction higher_better; error bars are the take-cluster bootstrap interval of each condition's ratio (improvement_lo = 1 - upper ratio bound in evaluate.py), not a paired test, as stated. Plotted values unchanged. Changed the note only: it now says this is the L2 error and that the table's squared-error columns (the training criterion, where ARCTIC's sign differs) are not plotted. For the reading: ARCTIC motion-only is negative with an interval that includes 0 (-0.072 [-0.150, +0.006]), so 'every causal predictor is worse than no change' holds for the point estimates."
+   }
+  ],
+  "image_checks": [
+   {
+    "path": "reports/hand_contact_predictive_info/figures/figD_event_prediction.png",
+    "exists": true,
+    "note": "The extractor recommended no image; I opened this one to test that decision. It shows the same AUPRC bars as f1subb_transition_start_auprc (values agree by eye: TACO h=4 about 0.33 / 0.36 / 0.36 / 0.36 / 0.28 / 0.37 / 0.43) with code-like legend labels ('F0: C_t + G + tau', 'Ffut1: NON-CAUSAL oracle (t-8..t+1)'). Superseded by the module figure; not needed on the page. Agree with not recommending it."
+   },
+   {
+    "path": "reports/hand_contact_predictive_info/arctic/figures/figF_arctic_help_387_11.png",
+    "exists": true,
+    "note": "Opened. Six dense research panels with internal labels (ex 387, E_Delta(4) F0 / F1 / F2k8). It is one of the selected extremes (per dataset the two persistent positive events where the history helped most and the two where it hurt most, seed-0 models; figures.py fig_f, figF_examples.csv). Not page-ready and not representative; agree with the extractor's empty image list. If the page ever uses a figF panel it must be captioned as a selected best / worst case."
+   }
+  ],
+  "attached_by_the_verifier": [
+   "History lengths k = 1 and k = 4 are asked for by the block but appear in no entry and no figure (only as report percentages in a caveat). Verified values, mean E_Delta(4) on all test frames: TACO k=1 0.7438453541174804 (+2.28 % vs no hand), k=4 0.729922534076961 (+0.36 %), k=8 0.7097787294559004 (-2.41 %); ARCTIC 0.6109822276524037 (+0.88 %), 0.6074144555178995 (+0.29 %), 0.5931709863664415 (-2.06 %) (history_length_ablation.csv). No paired row against the no-hand model exists for k=1 / k=4; paired against the current pose: TACO k=1 -0.0003 [-0.0031, 0.0027] (n.s.), k=4 -0.0142 [-0.0195, -0.0098]; ARCTIC k=1 +0.0072 (n.s.), k=4 +0.0036 (n.s.).",
+   "The one-frame horizon h = 1 is asked for but only four mean errors were delivered. Paired rows vs no hand at h = 1 (incremental_information.csv, all frames, % of the no-hand error): TACO pose +4.03 (worse, interval excludes 0), history -1.02, motion-only -4.82, shuffled +0.49 (n.s.), oracle +8 -17.03; ARCTIC pose -0.68 (n.s.), history -2.56, motion-only -5.80, shuffled -1.99 (interval excludes 0, i.e. the uninformative control also helps), oracle +8 -8.30. On ARCTIC at h = 1 every model including the oracle is at or below the no-change baseline in mean L2 (oracle improvement -0.010).",
+   "Amount-dominant frame class omitted by the extractor (now in the figure): h = 4, % of the no-hand error, history | motion-only | oracle +8: TACO -8.73 | -11.12 | -33.44 (n = 176); ARCTIC -4.60 | -8.03 | -31.24 (n = 89); all intervals exclude 0. Any ranking of classes on the page must include it.",
+   "Caveat missing on the +1 oracle: on all frames at h = 4 it is significantly worse than the causal motion-only model on both datasets (Ffut1-F2rel +6.12 % TACO, +1.85 % ARCTIC of the no-hand error), and on ARCTIC also at h = 1 (+0.0046 [0.0025, 0.0066]); but on TACO it helps the persistent classes more than the causal history (h = 4: -7.5 / -9.0 / -25.7 % on persistent spatial / mixed / release, report Table 5).",
+   "Transition task against the shuffled control: the extractor gave only history vs control. Motion-only vs control is +0.081 [0.056, 0.108] on TACO and +0.033 [0.015, 0.053] on ARCTIC (both exclude 0), so on ARCTIC the motion-only input does carry information beyond an uninformative input of similar size even though it does not beat the no-hand classifier.",
+   "Squared-error intervals on ARCTIC were not delivered and the related do-not-claim is unscoped: 'on ARCTIC the +8 oracle does not beat predicting no change' holds for mean L2 only; on squared error its improvement is 33.9 % [20.4, 44.6]. Conversely 'the ARCTIC models are above zero on squared error' holds for point estimates; the intervals of no hand, pose, k=1, k=4, k=8, shuffled and oracle +1 include 0.",
+   "ARCTIC, quiet frames at h = 4: the real history is significantly worse than the shuffled control (F2k8-F2shuf +2.77 % of the no-hand error, [0.0008, 0.0259] raw), while on spike frames it is better (-6.0 %). The all-frame 'equal to the control' is the sum of the two; the report calls the all-frame gain regularisation.",
+   "Scope of 'motion more useful than absolute pose': the extractor's exception list is incomplete (see the claim check). On persistent spatial frames the motion-only input is not distinguishable from the history on either dataset.",
+   "The label 'persistent contact transition' needs its definition on the page: positives are the starts of persistent spatial or persistent mixed events and of any release / onset (regrasp) event, the latter regardless of persistence; the label of frame t looks at steps s with t < s <= t+4.",
+   "Seed information beyond the one pose example: per-seed mean errors (overall_delta_results.csv E_seed0..2) show history and motion-only below no hand in all three seeds on both datasets; on ARCTIC the shuffled control is above no hand in seed 0 and below it in seeds 1 and 2. All 'significant' flags are take bootstraps of the 3-seed mean and carry no seed variance; the page should say so once.",
+   "The no-hand predictor's inputs must be stated next to the result: it sees the object's motion up to 8 frames ahead (the object trajectory is a given input), so 'causal' restricts the hand input only.",
+   "Rounding inconsistency to settle on the page: TACO Spearman is 0.7848 (the report and INDEX print 0.79, the extractor 0.78); the oracle's TACO AUPRC gain is 0.0949 (the report and INDEX print +0.10).",
+   "No qualitative image was recommended for this block; I agree after opening two (existing plots have code-like labels; the figF panels are selected best / worst cases).",
+   "INDEX.md line 79 still carries '10-28 % on release' and 'no transition timing'; both need the corrections above if the page quotes INDEX wording (I could not edit it: read-only).",
+   "The figure data on disk (docs/data/figures.json / figures.js) was not rebuilt by me; the by-class figure now has 8 categories and all four notes changed, so the page author must rebuild before using them."
+  ]
+ }
+}

@@ -1,0 +1,585 @@
+{
+ "unit": "motivation",
+ "figure_module": "docs/build/figs/m0_motivation.py",
+ "entries": [
+  {
+   "block": "MOTIVATION",
+   "claim": "In this project's port of the two-stage BimArt generator to TACO (generation 3, the current one), conditioning the motion stage on the contact stage's own prediction instead of the ground-truth contact map raises the mean hand-keypoint error on every official test split (37.1 -> 58.6, 48.8 -> 86.5, 63.4 -> 104.9, 50.9 -> 79.8 mm), which supports reading contact prediction as a major source of downstream hand error.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO"
+   ],
+   "report": "reports/bimart_taco_and_canonical_contact.md",
+   "source_files": [
+    "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+    "taco/30_bimart_gen3_scene_scale/evaluation/meta.json",
+    "taco/30_bimart_gen3_scene_scale/scene_reverification.md",
+    "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_eval_128w.csv",
+    "scripts/eval_bimart_taco.py"
+   ],
+   "metric": "Mean Euclidean distance (mm, lower is better) between generated and recorded hand keypoints, over 200 keypoints (100 MANO surface points per hand), the 64 frames of a window and 128 windows sampled per test split (seed 0, one sample per window, 50-step sampling, EMA weights, classifier-free guidance 0.5). Compared: the same motion model and the same noise seed, conditioned on the ground-truth (recorded) contact map versus on the contact stage's prediction. No interval is stored for these values.",
+   "numbers": {
+    "TACO | hand error, GT contact, test_1": {
+     "value": "37.09039464592934",
+     "source": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_1, column motion_kp_err_mm_gt_contact"
+    },
+    "TACO | hand error, predicted contact, test_1": {
+     "value": "58.60862322151661",
+     "source": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_1, column motion_kp_err_mm_pred_contact"
+    },
+    "TACO | hand error, GT contact, test_2": {
+     "value": "48.754408955574036",
+     "source": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_2, column motion_kp_err_mm_gt_contact"
+    },
+    "TACO | hand error, predicted contact, test_2": {
+     "value": "86.46991476416588",
+     "source": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_2, column motion_kp_err_mm_pred_contact"
+    },
+    "TACO | hand error, GT contact, test_3": {
+     "value": "63.353123143315315",
+     "source": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_3, column motion_kp_err_mm_gt_contact"
+    },
+    "TACO | hand error, predicted contact, test_3": {
+     "value": "104.90483045578003",
+     "source": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_3, column motion_kp_err_mm_pred_contact"
+    },
+    "TACO | hand error, GT contact, test_4": {
+     "value": "50.8646871894598",
+     "source": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_4, column motion_kp_err_mm_gt_contact"
+    },
+    "TACO | hand error, predicted contact, test_4": {
+     "value": "79.78921756148338",
+     "source": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_4, column motion_kp_err_mm_pred_contact"
+    },
+    "TACO | windows in split (test_1 / test_2 / test_3 / test_4) and windows scored per split": {
+     "value": "374 / 319 / 519 / 949 ; 128",
+     "source": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "columns windows and sampled"
+    },
+    "TACO | checkpoints and inference settings": {
+     "value": "contact model_best.pth (contact_epoch 62), motion model_best.pth+ema (motion_epoch 17), cfg_strength 0.5, ema true, seed 0, sample_windows 128",
+     "source": "taco/30_bimart_gen3_scene_scale/evaluation/meta.json",
+     "locator": "whole file"
+    },
+    "TACO | same table as quoted in the report prose (rounded): GT-contact / two-stage, generation 3": {
+     "value": "37.09 / 48.75 / 63.35 / 50.86 ; 58.61 / 86.47 / 104.9 / 79.79",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_eval_128w.csv",
+     "locator": "columns gt_scene and pred_scene, rows test_1..test_4"
+    }
+   },
+   "caveats": [
+    "This is the project's own port of BimArt to TACO (generation 3 of three), not a number published by BimArt's authors.",
+    "One training run, one sampling seed, one sample per window, 128 sampled windows per split; no confidence interval exists for the gap between the two columns.",
+    "The ground-truth-contact arm is an oracle condition: the map is computed from the recorded hands.",
+    "Even with the ground-truth map the motion stage is 37-63 mm off on the test splits, so contact prediction is a major source of error, not the only one.",
+    "The validation split was test_1 in every run, so model_best was selected on test_1; test_2, test_3 and test_4 are the unbiased splits (scene_reverification.md section 3; VERDICT_scene.json caveats).",
+    "Do not subtract the two columns to get a 'share due to contact': the attribution script's docstring states that distances do not add linearly.",
+    "The report prose gives the best epochs as contact 61 / motion 16; evaluation/meta.json stores 62 / 17 (checkpoint epoch + 1). Same checkpoints."
+   ]
+  },
+  {
+   "block": "MOTIVATION",
+   "claim": "Starting both samplings from the same initial noise (seed 0), the displacement between the hand generated with the predicted contact map and the hand generated with the ground-truth map (40.5 / 65.6 / 74.8 / 61.2 mm) is larger than the motion stage's own error under the ground-truth map (38.0 / 56.4 / 71.9 / 52.4 mm) on all four TACO test splits (64 sampled windows per split, generation 3, no interval, pooled over the two hands); the source table's ratio contact / (contact + motion) is 0.51-0.54, a ratio of two mean magnitudes and not a fraction of the total error.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO"
+   ],
+   "report": "reports/bimart_taco_and_canonical_contact.md",
+   "source_files": [
+    "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+    "taco/30_bimart_gen3_scene_scale/attribution/meta.json",
+    "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_attribution.csv",
+    "scripts/attribute_bimart_taco.py"
+   ],
+   "metric": "Same-seed stage attribution on 64 sampled windows per test split (seed 0), generation 3. The motion model is sampled twice from the same noise, on the recorded contact map (x_gt) and on the predicted one (x_pred). motion_mm = mean |x_gt - recorded|; contact_mm = mean |x_pred - x_gt|; total_mm = mean |x_pred - recorded|; all over 200 hand keypoints and 64 frames, in mm, lower is better. cos = mean cosine between the two displacement vectors. share_contact = contact_mm / (motion_mm + contact_mm), a ratio of two mean magnitudes. No interval stored.",
+   "numbers": {
+    "TACO | motion_mm, test_1": {
+     "value": "37.979835510253906",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "row split=test_1, column motion_mm"
+    },
+    "TACO | contact_mm, test_1": {
+     "value": "40.548072814941406",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "row split=test_1, column contact_mm"
+    },
+    "TACO | total_mm, test_1": {
+     "value": "59.783966064453125",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "row split=test_1, column total_mm"
+    },
+    "TACO | share_contact, test_1": {
+     "value": "0.5163523857916351",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "row split=test_1, column share_contact"
+    },
+    "TACO | motion_mm, test_2": {
+     "value": "56.39634704589844",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "row split=test_2, column motion_mm"
+    },
+    "TACO | contact_mm, test_2": {
+     "value": "65.63232421875",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "row split=test_2, column contact_mm"
+    },
+    "TACO | total_mm, test_2": {
+     "value": "95.91756439208984",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "row split=test_2, column total_mm"
+    },
+    "TACO | share_contact, test_2": {
+     "value": "0.5378434718543363",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "row split=test_2, column share_contact"
+    },
+    "TACO | motion_mm, test_3": {
+     "value": "71.85287475585938",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "row split=test_3, column motion_mm"
+    },
+    "TACO | contact_mm, test_3": {
+     "value": "74.7876968383789",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "row split=test_3, column contact_mm"
+    },
+    "TACO | total_mm, test_3": {
+     "value": "113.06782531738281",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "row split=test_3, column total_mm"
+    },
+    "TACO | share_contact, test_3": {
+     "value": "0.5100068557105749",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "row split=test_3, column share_contact"
+    },
+    "TACO | motion_mm, test_4": {
+     "value": "52.35865020751953",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "row split=test_4, column motion_mm"
+    },
+    "TACO | contact_mm, test_4": {
+     "value": "61.2232780456543",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "row split=test_4, column contact_mm"
+    },
+    "TACO | total_mm, test_4": {
+     "value": "85.68738555908203",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "row split=test_4, column total_mm"
+    },
+    "TACO | share_contact, test_4": {
+     "value": "0.5390230557557341",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "row split=test_4, column share_contact"
+    },
+    "TACO | cos between the two displacement vectors, test_1 / test_2 / test_3 / test_4": {
+     "value": "0.08483239263296127 / 0.0955449640750885 / 0.06893327087163925 / 0.04663952440023422",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/stage_attribution.csv",
+     "locator": "column cos, rows test_1..test_4"
+    },
+    "TACO | windows per split, seed": {
+     "value": "64 ; 0",
+     "source": "taco/30_bimart_gen3_scene_scale/attribution/meta.json",
+     "locator": "fields windows, seed"
+    },
+    "TACO | report PROSE for the same quantity": {
+     "value": "\"The contact stage still accounts for 51-54% of the total error\" / \"the contact stage is half of BimArt's error on TACO\"",
+     "source": "reports/bimart_taco_and_canonical_contact.md",
+     "locator": "section 2.2 (line 121) and section 4, J1 (line 282)"
+    },
+    "TACO | share_contact before the label fix (generation 1), test_1 / test_2 / test_3 / test_4": {
+     "value": "0.5349191410291309 / 0.5556223209045971 / 0.6111279675198399 / 0.5780609309844903",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_attribution.csv",
+     "locator": "rows run=orig, column share_contact"
+    }
+   },
+   "caveats": [
+    "PROSE vs TABLE: the report says '51-54% of the total error'; the table column is contact_mm / (motion_mm + contact_mm). The two displacement vectors are near-orthogonal (cos 0.05-0.10), so motion_mm + contact_mm exceeds total_mm (test_1: 37.98 + 40.55 against 59.78). It is a ratio of two stage magnitudes, not a fraction of the measured total error and not a causal share.",
+    "64 sampled windows per split, one seed, no interval. A different window sample than the 128-window evaluation and the all-window probe, so its totals (59.8 / 95.9 / 113.1 / 85.7 mm) differ from theirs; never mix the three in one comparison.",
+    "TACO only. No such ratio exists for ARCTIC or OakInk2.",
+    "Generation 3 only for the current state; the generation-1 row is the defective-label model and is legitimate only as the 'before' value."
+   ],
+   "claim_as_extracted": "With the sampling noise held fixed, the displacement of the generated hand caused by replacing the ground-truth contact map with the predicted one (40.5-74.8 mm) is at least as large as the motion stage's own error under the ground-truth map (38.0-71.9 mm) on all four TACO test splits; the source table's ratio contact / (contact + motion) is 0.51-0.54.",
+   "correction_reason": "Numbers confirmed in attribution/stage_attribution.csv. Two wording problems: (1) 'sampling noise held fixed' is not what the code does: only the starting noise x_T is seeded; sched.step is called without a generator, so the per-step DDPM noise differs between the two arms (eval_bimart_taco.py lines 94-114); (2) 'caused by' is on the avoid list and the displacement includes that unshared noise. The ratio wording is fine as long as its definition stays next to it."
+  },
+  {
+   "block": "MOTIVATION",
+   "claim": "Over every window of the four TACO test splits and pooled over the two hands, the same decomposition gives a contact-stage component (41.7 / 59.4 / 70.0 / 55.0 mm) larger than the motion-stage component (37.9 / 49.9 / 62.1 / 51.3 mm), whereas on the 640-window training subsample it is smaller (12.0 against 13.9 mm). Per hand the picture differs: the contact-stage component exceeds the motion-stage one for the left (target-holding) hand on all four test splits (49.0 / 70.7 / 76.8 / 62.6 against 36.6 / 43.8 / 50.9 / 42.3 mm) and is smaller for the right (tool-holding) hand (34.3 / 48.0 / 63.2 / 47.3 against 39.3 / 56.0 / 73.3 / 60.3 mm). The contact stage's test_1 / train ratio (3.46) is higher than the motion stage's (2.72), which is consistent with the contact stage generalising worse; no interval exists for these levels or ratios.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO"
+   ],
+   "report": "taco/30_bimart_gen3_scene_scale/scene_reverification.md",
+   "source_files": [
+    "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+    "taco/30_bimart_gen3_scene_scale/VERDICT_scene.json",
+    "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/compare.py",
+    "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/agg_windows.py",
+    "scripts/probe_contact_generalization.py"
+   ],
+   "metric": "Per-window probe of generation 3 (column 'scene'), same construction as the attribution: motion_mm = mean |x_gt - recorded| (hand error with the ground-truth contact map), contact_mm = mean |x_pred - x_gt|, total_mm = mean |x_pred - recorded| (hand error with the predicted map); mm, lower is better; mean over window-hands (every test window x 2 hands; train = a 640-window subsample). Ratios test_1 / train are of these split means.",
+   "numbers": {
+    "TACO | gen-3 motion_mm (GT-contact error), test_1 / test_2 / test_3 / test_4": {
+     "value": "37.945432928764326 / 49.89291539721681 / 62.098636842732944 / 51.313634426724576",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+     "locator": "rows metric=motion_mm, column scene"
+    },
+    "TACO | gen-3 contact_mm, test_1 / test_2 / test_3 / test_4": {
+     "value": "41.67121222644626 / 59.37998801011732 / 69.992739861465 / 54.951542008026365",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+     "locator": "rows metric=contact_mm, column scene"
+    },
+    "TACO | gen-3 total_mm (predicted-contact error), test_1 / test_2 / test_3 / test_4": {
+     "value": "60.091753421490765 / 85.49784023060134 / 99.35799415109533 / 79.88640514228914",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+     "locator": "rows metric=total_mm, column scene"
+    },
+    "TACO | gen-3 train subsample: motion_mm / contact_mm / total_mm": {
+     "value": "13.942092120060988 / 12.032324508091552 / 18.591502131440212",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+     "locator": "rows split=train, column scene"
+    },
+    "TACO | n window-hands / sequences: test_1, test_2, test_3, test_4, train": {
+     "value": "748 / 225, 638 / 224, 1038 / 354, 1898 / 551, 1280 / 431",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+     "locator": "columns n_window_hands, n_seq"
+    },
+    "TACO | test_1 / train ratio of the contact-stage component, generation 1 -> generation 3": {
+     "value": "2.84 -> 3.46",
+     "source": "taco/30_bimart_gen3_scene_scale/VERDICT_scene.json",
+     "locator": "claims.headline.relative_gap_test1_over_train.contact"
+    },
+    "TACO | test_1 / train ratio of the motion-stage component, generation 1 -> generation 3": {
+     "value": "2.71 -> 2.72",
+     "source": "taco/30_bimart_gen3_scene_scale/VERDICT_scene.json",
+     "locator": "claims.headline.relative_gap_test1_over_train.motion"
+    }
+   },
+   "caveats": [
+    "The train row is a 640-window subsample (1280 window-hands), the test rows are every window.",
+    "test_1 is the validation split used for checkpoint selection in every run; the ratio is against test_1 only.",
+    "The split means carry no interval in this table (the lo / hi columns are for the generation-3 minus generation-1 delta, not for these levels).",
+    "One training run and one sampling seed.",
+    "'Generalising worse' is the report's reading of a ratio of two split means; the report also states that the relative gap did not shrink after the label fix (2.84 -> 3.46)."
+   ],
+   "claim_as_extracted": "Over every window of the four TACO test splits, the same decomposition gives a contact-stage component (41.7 / 59.4 / 70.0 / 55.0 mm) larger than the motion-stage component (37.9 / 49.9 / 62.1 / 51.3 mm), whereas on the training subsample it is smaller (12.0 against 13.9 mm); the contact stage's test_1 / train ratio (3.46) is higher than the motion stage's (2.72), which is consistent with the contact stage generalising worse.",
+   "correction_reason": "Pooled values, n and ratios confirmed (r1_paired_deltas.csv column scene; VERDICT_scene.json; recomputed from window_level.pkl). The pooled statement hides a hand asymmetry that is in the source tables (r1_split_hand_run.csv and r1_hand_asymmetry.csv, run=scene; the synthesis report J2 states that after the fix the left hand is the worse contact half on all four test splits). Without 'pooled over the two hands' the sentence reads as holding for the hands in general, which the table contradicts for the right hand. Same starting-noise caveat as the attribution."
+  },
+  {
+   "block": "MOTIVATION",
+   "claim": "Between generation 1 and generation 3 of the TACO port (the scene-scale fix of the port's own contact-label scaling, which also changes the object input, with shorter training), the contact-stage component of the hand error on test_3 was lower by 30.38 mm [-34.61, -26.38] and the total hand error by 23.70 mm [-27.27, -20.14], while the motion-stage component changed by -3.63 mm [-6.20, -1.18] (paired over 1038 window-hands in 354 sequences, 95 % sequence-clustered bootstrap). test_3 is the largest effect; the contact-stage change on the other splits is -6.96, -7.40 and -12.26 mm. The gain is associated with the contact stage.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO"
+   ],
+   "report": "taco/30_bimart_gen3_scene_scale/scene_reverification.md",
+   "source_files": [
+    "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+    "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/compare.py",
+    "taco/30_bimart_gen3_scene_scale/VERDICT_scene.json",
+    "INDEX.md"
+   ],
+   "metric": "Paired difference generation 3 minus generation 1 (scene - orig) of the per-window-hand stage components (contact_mm, motion_mm, total_mm as defined in the probe; mm; negative = improvement), over the same windows of a split. Interval = 95 % sequence-clustered paired bootstrap (2000 resamples, percentiles 2.5 / 97.5). test_3: n = 1038 window-hands (519 windows x 2 hands) in 354 sequences.",
+   "numbers": {
+    "TACO | contact-stage delta gen3 - gen1, test_3 (delta [lo, hi])": {
+     "value": "-30.376253964316625 [-34.61423016360145, -26.375697106300027]",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+     "locator": "row split=test_3, metric=contact_mm, columns delta, lo, hi"
+    },
+    "TACO | contact-stage component, test_3: generation 1 -> generation 3": {
+     "value": "100.36899382578163 -> 69.992739861465",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+     "locator": "row split=test_3, metric=contact_mm, columns orig, scene"
+    },
+    "TACO | n window-hands / sequences, test_3": {
+     "value": "1038 / 354",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+     "locator": "row split=test_3, columns n_window_hands, n_seq"
+    },
+    "TACO | motion-stage delta gen3 - gen1, test_3": {
+     "value": "-3.6330553364145044 [-6.199006275294009, -1.1786098424637166]",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+     "locator": "row split=test_3, metric=motion_mm"
+    },
+    "TACO | total delta gen3 - gen1, test_3": {
+     "value": "-23.702994646766513 [-27.271350716457054, -20.144127970526885]",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+     "locator": "row split=test_3, metric=total_mm"
+    },
+    "TACO | contact-stage delta gen3 - gen1, test_1": {
+     "value": "-6.95607266945635 [-9.729311077301235, -4.154516018444218]",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+     "locator": "row split=test_1, metric=contact_mm"
+    },
+    "TACO | contact-stage delta gen3 - gen1, test_2": {
+     "value": "-7.402533532966944 [-11.014152463603436, -3.7215114589885006]",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+     "locator": "row split=test_2, metric=contact_mm"
+    },
+    "TACO | contact-stage delta gen3 - gen1, test_4": {
+     "value": "-12.263523289785613 [-14.576338144010691, -10.025013006892882]",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+     "locator": "row split=test_4, metric=contact_mm"
+    },
+    "TACO | motion-stage delta gen3 - gen1, test_2 (interval covers 0)": {
+     "value": "-0.34421110231441016 [-1.9898954569160985, 1.4525089497570336]",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+     "locator": "row split=test_2, metric=motion_mm"
+    },
+    "TACO | error of the predicted contact map itself, delta gen3 - gen1, test_2 (worse)": {
+     "value": "3.2121914108882317 [1.6936004047358069, 4.696174453199833]",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_paired_deltas.csv",
+     "locator": "row split=test_2, metric=contact_map_err_mm"
+    },
+    "TACO | two-stage hand error, 128-window evaluation, generation 1 -> generation 3, test_1 / test_2 / test_3 / test_4": {
+     "value": "69.3 -> 58.61 / 90.7 -> 86.47 / 125.5 -> 104.9 / 88.7 -> 79.79",
+     "source": "taco/30_bimart_gen3_scene_scale/contact_probe/gen/reverify/r1_eval_128w.csv",
+     "locator": "columns pred_orig and pred_scene"
+    }
+   },
+   "caveats": [
+    "This is a BETWEEN-GENERATION delta (after minus before the label fix), not the gap between predicted-contact and ground-truth-contact conditioning. It shows that repairing the contact stage's label moved the hand error, mostly through the contact-stage component.",
+    "test_3 is the largest effect; the other splits are -6.96, -7.40 and -12.26 mm. test_3 is dominated by an unseen target category (305 of 354 sequences have a bowl target; 0 bowl targets in train; my count of sequence_index.csv).",
+    "The defect that was fixed was the port's own (scaling of the contact label), stated as such in the report ('The single largest fault was mine, not BimArt's').",
+    "The two generations also differ in the object input normalisation and in training length (200 / 200 against 110 / 60 epochs), not only in the label.",
+    "The predicted contact map's own error against its label did not improve (test_2 significantly worse); each generation is scored against its own label.",
+    "Generation-1 numbers can no longer be recomputed, only read off the frozen tables (INDEX.md).",
+    "Rounding in prose: scene_reverification.md prints the test_1 bounds as -4.16 and -11.37 where the CSV has -4.1545 and -11.3646."
+   ],
+   "claim_as_extracted": "Correcting the contact stage's training label (generation 1 -> generation 3 of the TACO port) lowered the contact-stage component of the hand error on test_3 by 30.38 mm [-34.61, -26.38] and the total hand error by 23.70 mm [-27.27, -20.14], while the motion-stage component changed by -3.63 mm [-6.20, -1.18]: the gain is associated with the contact stage.",
+   "correction_reason": "All values and intervals confirmed and the bootstrap reproduced exactly from window_level.pkl. 'Correcting the label lowered' attributes the change to the label alone, but the generations also differ in the scaled BPS object input, the scale entry of the global state and the training length (200 / 200 against 110 / 60 epochs), as the extractor's own caveat says. The claim quotes only the largest split. This is a between-generation delta about a defect of the port, not a predicted-versus-ground-truth contact gap, so it is weak evidence for the MOTIVATION message and must never be captioned as 'the contribution of contact to hand error'."
+  },
+  {
+   "block": "MOTIVATION",
+   "claim": "For the released upstream BimArt on eight ARCTIC laptop test windows, the hand-keypoint RMSE is 22.4-126.4 mm with the ground-truth contact map and 68.2-322.7 mm with the contact stage's prediction, higher with the predicted map in every window, which is consistent with the contact stage contributing substantially to the hand error on BimArt's own data.",
+   "claim_status": "supported",
+   "datasets": [
+    "ARCTIC"
+   ],
+   "report": "arctic/10_bimart_upstream_analysis/README.md",
+   "source_files": [
+    "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+    "outputs/logs/viz_ablation.log",
+    "scripts/viz_bimart_contact_ablation.py",
+    "arctic/10_bimart_upstream_analysis/contact_ablation/final/plots/01_contact_ablation.png"
+   ],
+   "metric": "total_mm = per-hand RMSE over the 100 keypoints of the distance between generated and recorded hand keypoints, averaged over 3 samples per arm, the 64 frames of a window and the two hands; mm, lower is better. Two arms with the same pretrained motion model (model_final.pth, epoch 199) and the same upstream inference procedure (conditioning, cost guidance, CFG 0.5): 'GT contact' versus 'stage-1 contact' (stage 1 re-sampled for every sample). Windows: the first 8 windows of BimArt's ARCTIC test split restricted to laptop (5 of laptop_grab_01_s01, 3 of laptop_use_04_s09). No interval stored.",
+   "numbers": {
+    "ARCTIC | total_mm GT contact, grab_01_s01_100": {
+     "value": "63.408870697021484",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.grab_01_s01_100.'GT contact'.total_mm"
+    },
+    "ARCTIC | total_mm stage-1 contact, grab_01_s01_100": {
+     "value": "262.0243835449219",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.grab_01_s01_100.'stage-1 contact'.total_mm"
+    },
+    "ARCTIC | total_mm GT contact, grab_01_s01_164": {
+     "value": "126.3555908203125",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.grab_01_s01_164.'GT contact'.total_mm"
+    },
+    "ARCTIC | total_mm stage-1 contact, grab_01_s01_164": {
+     "value": "322.66973876953125",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.grab_01_s01_164.'stage-1 contact'.total_mm"
+    },
+    "ARCTIC | total_mm GT contact, grab_01_s01_228": {
+     "value": "78.49156188964844",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.grab_01_s01_228.'GT contact'.total_mm"
+    },
+    "ARCTIC | total_mm stage-1 contact, grab_01_s01_228": {
+     "value": "288.4568176269531",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.grab_01_s01_228.'stage-1 contact'.total_mm"
+    },
+    "ARCTIC | total_mm GT contact, grab_01_s01_292": {
+     "value": "82.7257308959961",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.grab_01_s01_292.'GT contact'.total_mm"
+    },
+    "ARCTIC | total_mm stage-1 contact, grab_01_s01_292": {
+     "value": "199.7228546142578",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.grab_01_s01_292.'stage-1 contact'.total_mm"
+    },
+    "ARCTIC | total_mm GT contact, grab_01_s01_356": {
+     "value": "55.398895263671875",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.grab_01_s01_356.'GT contact'.total_mm"
+    },
+    "ARCTIC | total_mm stage-1 contact, grab_01_s01_356": {
+     "value": "145.49681091308594",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.grab_01_s01_356.'stage-1 contact'.total_mm"
+    },
+    "ARCTIC | total_mm GT contact, use_04_s09_100": {
+     "value": "22.434919357299805",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.use_04_s09_100.'GT contact'.total_mm"
+    },
+    "ARCTIC | total_mm stage-1 contact, use_04_s09_100": {
+     "value": "80.8689956665039",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.use_04_s09_100.'stage-1 contact'.total_mm"
+    },
+    "ARCTIC | total_mm GT contact, use_04_s09_164": {
+     "value": "27.57892417907715",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.use_04_s09_164.'GT contact'.total_mm"
+    },
+    "ARCTIC | total_mm stage-1 contact, use_04_s09_164": {
+     "value": "68.17389678955078",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.use_04_s09_164.'stage-1 contact'.total_mm"
+    },
+    "ARCTIC | total_mm GT contact, use_04_s09_228": {
+     "value": "31.373498916625977",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.use_04_s09_228.'GT contact'.total_mm"
+    },
+    "ARCTIC | total_mm stage-1 contact, use_04_s09_228": {
+     "value": "90.5666732788086",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.use_04_s09_228.'stage-1 contact'.total_mm"
+    },
+    "ARCTIC | rigid-shift component (shift_mm) GT / stage-1, grab_01_s01_100 and use_04_s09_100 (examples; all 8 in the notes file)": {
+     "value": "57.287715911865234 / 260.0508728027344 ; 12.1185884475708 / 73.46723175048828",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "windows.<window>.<arm>.shift_mm"
+    },
+    "ARCTIC | samples per arm / motion checkpoint epoch": {
+     "value": "3 / 199",
+     "source": "arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json",
+     "locator": "fields samples_per_arm, motion_ckpt_epoch"
+    },
+    "ARCTIC | window selection": {
+     "value": "\"restricted to {'laptop'}: 4 test files\"; windows [1/8]..[8/8] = laptop_grab_01_s01_{100,164,228,292,356}, laptop_use_04_s09_{100,164,228}",
+     "source": "outputs/logs/viz_ablation.log",
+     "locator": "INFO lines of 2026-09-27 02:44-02:47"
+    }
+   },
+   "caveats": [
+    "Eight windows from two sequences of one object category (laptop), three samples per arm, no confidence interval: an illustration on BimArt's own data, not a split-level ARCTIC result.",
+    "Metric differs from the TACO table (per-hand RMSE here, mean keypoint distance there); levels are not comparable across the two datasets.",
+    "With the ground-truth map the hand is still 55.4-126.4 mm off on the five grab windows and 22.4-31.4 mm on the three use windows: the motion stage is not exonerated.",
+    "The ground-truth-contact arm is an oracle condition (map computed from the recorded hands); in this upstream path the contact map also drives the cost guidance, not only the conditioning.",
+    "No report prose exists for this ablation beyond the one-line README and the script docstring; the percentages 'share of the rigid shift removed by the GT map' (63-84 %) are plotted by the script (panel 4 of 01_contact_ablation.png, formula 100 * (1 - shift_GT / shift_stage1)) but are stored in no table. Quote mm values, or label any percentage as derived and as a share of the translation component, not of the hand error.",
+    "The run log lives in outputs/logs, which is git-ignored (not in the public repository)."
+   ]
+  }
+ ],
+ "dataset_differences": [
+  "Coverage: the predicted-contact versus ground-truth-contact comparison exists for TACO (this project's BimArt port, generation 3; four test splits) and for ARCTIC (released upstream BimArt; 8 windows of 2 laptop sequences). It does not exist for OakInk2: the BimArt -> OakInk2 models were trained but never evaluated (no hand-error number of any kind).",
+  "Different models: the TACO numbers come from a model retrained in this project (contact 110 epochs, motion 60); the ARCTIC numbers come from the authors' pretrained checkpoints on their own data.",
+  "Different metrics and sample sizes: TACO = mean keypoint distance over 128 sampled windows per split (and over every window in the probe); ARCTIC = per-hand RMSE on 8 windows, 3 samples per arm. Levels are not comparable across the two datasets and must not be pooled or averaged.",
+  "Size of the gap: TACO 37.1 -> 58.6, 48.8 -> 86.5, 63.4 -> 104.9, 50.9 -> 79.8 mm (test_1..test_4); ARCTIC 22.4-126.4 -> 68.2-322.7 mm per window, much larger on the five 'grab' windows (predicted-contact arm 145.5-322.7 mm) than on the three 'use' windows (68.2-90.6 mm).",
+  "The contact / (contact + motion) ratio (0.51-0.54) and every confidence interval in this unit exist for TACO only; ARCTIC has no ratio and no interval.",
+  "Within TACO the splits differ and must stay separate: test_3 has the largest errors (305 of its 354 sequences have a bowl target, a category absent from the training targets); test_1 was the validation split used for checkpoint selection, so test_2 / test_3 / test_4 are the unbiased splits.",
+  "Within TACO, train versus test: on the training subsample the contact-stage component (12.0 mm) is smaller than the motion-stage component (13.9 mm); on all four test splits it is larger (41.7 / 59.4 / 70.0 / 55.0 against 37.9 / 49.9 / 62.1 / 51.3 mm).",
+  "Qualitative images exist only for ARCTIC (upstream model). TACO generation 3 has no image; the TACO contact-mesh images under taco/00_dataset_analysis/bimart_contact_comparison come from generation 1 (defective label) and should not illustrate the current port."
+ ],
+ "do_not_claim": [
+  "That -30.38 mm [-34.61, -26.38] is the cost of predicted contact relative to ground-truth contact, or 'the contribution of contact to hand error'. It is the generation-3 minus generation-1 change (the label fix) of the contact-stage component on TACO test_3.",
+  "That contact prediction 'causes 51-54 % of the hand error'. The table value is contact_mm / (motion_mm + contact_mm), a ratio of two near-orthogonal displacement magnitudes on 64 windows per split, TACO only, without an interval; it is not a fraction of the total and not a causal share.",
+  "Any percentage share obtained by subtracting the two evaluation columns (for example (58.6 - 37.1) / 58.6). The attribution script states that distances do not add linearly and that the subtraction is not the contact stage's share.",
+  "A single pooled or cross-dataset figure ('contact accounts for X % of hand error in hand-motion generation'), or any share for ARCTIC or OakInk2. None is stated in a source.",
+  "That contact generation is 'the' bottleneck or that it is 'proven'. The sources support 'a major source of downstream hand error': with the ground-truth map the motion stage is still 37-63 mm off on TACO test splits and 22-126 mm (RMSE) on the ARCTIC windows, and the report's own headline finding after the fix is take-level overfitting of the motion model plus the unseen-target-category frame effect.",
+  "That a better contact model would recover the whole gap. The ground-truth-contact arm is an oracle whose map is computed from the recorded hands.",
+  "That the ARCTIC result is a dataset-level or split-level measurement. It is 8 windows from 2 sequences of one object category, with no interval.",
+  "That the published BimArt fails on TACO or is a weak method. The TACO numbers are from this project's port (one training run, shorter training, test_1 used for validation), and the largest fault found was the port's own label scaling.",
+  "That BimArt -> OakInk2 shows the same thing. The OakInk2 models were never evaluated.",
+  "Any generation-1 or pre-fix number as the current state, in particular the table taco/15_bimart_gen1_inference_bughunt/ablation_ladder/evaluation/test_split_results.csv (72.5 / 86.7 mm on test_1), which INDEX.md and scene_reverification.md say must not be used for comparison; generation 2 is abandoned.",
+  "That the contact map prediction itself became more accurate after the label fix: the predicted map's error against its label did not improve (test_2: +3.21 mm [1.69, 4.70]).",
+  "A mix of the three window samples for the same model (128-window evaluation 58.6 / 86.5 / 104.9 / 79.8; all-window probe 60.1 / 85.5 / 99.4 / 79.9; 64-window attribution 59.8 / 95.9 / 113.1 / 85.7 mm) inside one comparison.",
+  "That the ARCTIC '63-84 % of the shift removed' is a share of the hand error or a stored result. It is plotted by the script from summary.json and concerns the rigid-translation component only."
+ ],
+ "candidate_images": [
+  {
+   "path": "arctic/10_bimart_upstream_analysis/denoising/final/plots/02_contact_on_mesh_laptop_use_04_s09_100.png",
+   "block": "MOTIVATION",
+   "shows": "Stage 1 of the released upstream BimArt on one ARCTIC test window (laptop_use_04_s09_100, window frame 0, left hand): the contact estimate on the object's basis points at denoising steps 1 / 20 / 35 / 45 / 50 next to the ground truth. Top row: distance field (0 to 0.25 m); bottom row: slots closer than 20 mm.",
+   "caption": "The contact stage (ARCTIC, released BimArt): the predicted hand-to-object distance field on the object over the 50 denoising steps, next to the recorded one. At the last step 39 slots are within 20 mm in the prediction against 13 in the recording, and in a different place.",
+   "size": "567555 bytes, 2329x805 px"
+  },
+  {
+   "path": "arctic/10_bimart_upstream_analysis/denoising/final/plots/03_motion_keypoints_laptop_use_04_s09_100.png",
+   "block": "MOTIVATION",
+   "shows": "Stage 2 of the released upstream BimArt on the same ARCTIC test window (frame 32), run on the real two-stage path (conditioned on the stage-1 prediction, with cost guidance and CFG): hand keypoints (blue left, red right) around the grey laptop, noisy iterate and clean estimate at steps 1 / 15 / 30 / 40 / 45 / 48 / 50, next to the ground truth.",
+   "caption": "The motion stage (ARCTIC, released BimArt): hand keypoints generated from noise, conditioned on the object and on the predicted contact map, next to the recorded hands (blue = left, red = right).",
+   "size": "376197 bytes, 2603x766 px"
+  },
+  {
+   "path": "arctic/10_bimart_upstream_analysis/contact_mesh/arctic/plots/test_microwave_use_04_s09_summary.png",
+   "block": "MOTIVATION",
+   "shows": "Contact on the object mesh for one ARCTIC test window (microwave_use_04/s09, window 46, sequence frames 292-355; the window at quantile 0.50 of the split's ground-truth touch fraction): per hand and object part, 'recorded, dense', 'recorded, 512 slots' and 'predicted, 512 slots' from two views; colour = closest approach over the window in mm, dark = touching, clipped at 50. Predicted = released upstream contact model.",
+   "caption": "What a contact map is, and what the contact stage predicts (ARCTIC, released BimArt): recorded contact on the microwave door and body (dense, and at the model's 512 sample slots) next to the predicted contact, for the left and right hand.",
+   "size": "1225895 bytes, 2139x1339 px"
+  }
+ ],
+ "verification": {
+  "reliability": "high",
+  "numbers_confirmed": 64,
+  "numbers_checked": 65,
+  "number_corrections": [
+   {
+    "block": "MOTIVATION",
+    "label": "metric description of the attribution and of the probe: 'sampled twice from the same noise', 'sampling noise held fixed / cancelled'",
+    "reported": "same noise in both arms (x_gt and x_pred), so their difference is the effect of the contact map with the sampling noise cancelled",
+    "found": "Only the STARTING noise is shared. sample() seeds a generator for x_T (eval_bimart_taco.py lines 94-95) but calls sched.step(pred, t, x) without a generator (line 114); diffusers' DDPMScheduler.step then draws the per-step posterior noise for every t > 0 from the unseeded global RNG (scheduling_ddpm.py lines 479-492), so the per-step noise differs between the two arms. The docstring's 'noise cancelled' is the script's statement, not what the code guarantees. Size of the effect not measured in any source (for scale, r2_spread.csv: spread between fully independent samples 7.9 mm on test_1, 4.2 mm on train, generation 3).",
+    "verdict": "corrected",
+    "source_checked": "scripts/eval_bimart_taco.py (sample), scripts/attribute_bimart_taco.py, scripts/probe_contact_generalization.py, ~/miniconda3/envs/bimart/lib/python3.10/site-packages/diffusers/schedulers/scheduling_ddpm.py"
+   }
+  ],
+  "claims_supported_as_extracted": 3,
+  "claims_checked": 8,
+  "figure_checks": [
+   {
+    "id": "m0_hand_error_gt_vs_predicted_contact",
+    "verdict": "fixed",
+    "note": "Ran build_figures.py --only m0_motivation (clean, writes nothing) and compared all 24 plotted values programmatically with the two source files: every value is exactly the source value (TACO: rows test_1..test_4, columns motion_kp_err_mm_gt_contact and motion_kp_err_mm_pred_contact of evaluation/test_split_results.csv; ARCTIC: windows.<w>.'GT contact'.total_mm and 'stage-1 contact'.total_mm of contact_ablation/final/summary.json, file order). Panels are per dataset (TACO, ARCTIC), not pooled; direction lower_better on both; no lo / hi series, which is right because neither table stores an interval. No plotted value is typed into the code; 128, 8, 2 and 3 in the note are read from the files (the words 'laptop', '200 keypoints' and '64 frames' are fixed text, verified against the run log and the configs). The plotted values needed no change. What I changed (note text only, in docs/build/figs/m0_motivation.py): added the caveats the figure must carry on a public page: the ground-truth arm is an oracle (map computed from the recorded hands); TACO is this project's port, one training run, and test_1 was the validation split used to select the checkpoints, so test_2 to test_4 are the unbiased splits; the ARCTIC arms use the released checkpoints with upstream's cost guidance (which also reads the arm's contact map) while the two TACO columns are sampled without cost guidance. Re-ran after the edit: clean, values unchanged. For reference, the TACO table also has a guided column (58.53 / 86.51 / 105.03 / 79.86 mm) that is within 0.13 mm of the plotted predicted-contact column."
+   }
+  ],
+  "image_checks": [
+   {
+    "path": "arctic/10_bimart_upstream_analysis/denoising/final/plots/02_contact_on_mesh_laptop_use_04_s09_100.png",
+    "exists": true,
+    "note": "Opened (2329x805, 567555 bytes). Title: 'Stage 1 contact prior on the object surface, window frame 0 -- laptop_use_04_s09_100; top: distance field (0 to 0.25 m), bottom: thresholded contact'; columns step 1 / 20 / 35 / 45 / 50 and ground truth; colour bar 'left-hand distance (m)'. Printed counts '< 20 mm: 39 slots' at step 50/50 and '< 20 mm: 13 slots' for the ground truth, and the two red patches sit in different places (prediction along the lower right edge, recording mid-right). Caption supported. The 39 and 13 exist only as text in the image (no table stores them), and the panel is one stage-1 sample, one frame, left hand only: add 'left hand, first frame of the window, one sample' to the caption."
+   },
+   {
+    "path": "arctic/10_bimart_upstream_analysis/denoising/final/plots/03_motion_keypoints_laptop_use_04_s09_100.png",
+    "exists": true,
+    "note": "Opened (2603x766, 376197 bytes). Title: 'Stage 2 motion model at window frame 32 -- laptop_use_04_s09_100 (blue = left hand, red = right hand, grey = object, canonical space, metres)'; rows noisy iterate x_t and estimate x0_hat at steps 1 / 15 / 30 / 40 / 45 / 48 / 50, next to the ground truth. Caption supported: scripts/viz_bimart_denoising.py runs the motion stage on the stage-1 prediction (postprocess_oneshot_contact before run_motion_stage) with cost guidance and CFG. One sample, one frame; it shows the procedure, not an error measurement."
+   },
+   {
+    "path": "arctic/10_bimart_upstream_analysis/contact_mesh/arctic/plots/test_microwave_use_04_s09_summary.png",
+    "exists": true,
+    "note": "Opened (2139x1339, 1225895 bytes). Title: 'Contact on the object mesh — recorded against predicted; microwave_use_04/s09; top mesh microwave_top / bottom mesh microwave_bottom; split test; window 46, sequence frames 292–355; GT touch fraction 0.032, at quantile 0.50 of this split'. Rows L→top (19.6 % touched), L→bottom (0.1 %), R→top (0.0 %), R→bottom (5.8 %); columns recorded dense / recorded 512 slots / predicted 512 slots in two views; colour bar 'closest approach over the window (mm), dark = touching, clipped at 50'. Caption supported. 'Predicted' is the released upstream contact model (outputs/logs/dump_arctic.log: contact_model_pretrained, model_final.pth; dump_contact_maps_arctic.py). If the quantile is quoted, 'this split' is the dumped laptop + microwave test subset (8 files, 51 windows), not the whole ARCTIC test split; the proposed caption does not quote it, which is fine."
+   }
+  ],
+  "attached_by_the_verifier": [
+   "Scope of the main message. The evidence is for one two-stage model (BimArt): this project's TACO port (generation 3) and an 8-window illustration of the released model on ARCTIC. Nothing exists for OakInk2 and no other generator was tested. The page should say 'in the two-stage BimArt pipeline we studied', not 'in object-conditioned hand-motion generation' in general, and 'a major source of downstream hand error', not 'the bottleneck'.",
+   "Noise caveat for the stage decomposition (attribution and all-window probe). The scripts' docstrings say the two samplings share their noise and that it cancels; in the code only the starting noise is seeded, the per-step DDPM noise is drawn from the unseeded global RNG (scripts/eval_bimart_taco.py sample(): sched.step without generator). Write 'same starting noise (seed 0)', never 'sampling noise held fixed / cancelled' or 'exactly the effect of the contact map'. The size of the unshared-noise contribution to contact_mm was not measured; for scale only, r2_spread.csv gives a spread between independent samples of 7.9 mm (test_1) and 4.2 mm (train) for generation 3. For the same reason the stored values are not bit-reproducible on a re-run.",
+   "Hand asymmetry behind the pooled stage comparison (r1_split_hand_run.csv, run=scene). The statement 'contact-stage component larger than motion-stage component' holds pooled over hands and for the left (target-holding) hand, not for the right (tool-holding) hand: R contact 34.3 / 48.0 / 63.2 / 47.3 mm against R motion 39.3 / 56.0 / 73.3 / 60.3 mm on test_1..test_4. The main comparison (predicted-contact total above GT-contact error) does hold for both hands on all four splits (L 67.3 / 91.8 / 98.1 / 80.1 against 36.6 / 43.8 / 50.9 / 42.3; R 52.9 / 79.2 / 100.6 / 79.7 against 39.3 / 56.0 / 73.3 / 60.3 mm). No per-hand interval exists.",
+   "No interval exists for the predicted-versus-ground-truth gap on either dataset. The only intervals in this unit belong to the generation-3 minus generation-1 deltas. The frozen window_level.pkl would allow a paired interval for total_mm - motion_mm, but no source reports one, so none may be quoted; the page must describe the gap without significance language.",
+   "Cost guidance differs between the two figure panels: the plotted TACO columns are sampled without the contact cost guidance (the table's separate guided column is 58.53 / 86.51 / 105.03 / 79.86 mm), the ARCTIC arms run upstream's cost guidance, whose target is the arm's own contact map. Now stated in the figure note; the prose should not call the TACO predicted-contact column 'the full upstream pipeline' without that qualifier.",
+   "ARCTIC window selection is not representative: the first 8 laptop test windows, 5 of them 'grab' windows of one sequence. The upstream contact model is far worse on test 'grab' windows (train_vs_test/final/summary.json, normalised contact MSE: test_grab mean 3.39, n = 5; test_use 0.42, n = 10; multicat run 3.64 against 0.41, n = 20 each), so the size of the ARCTIC gap must not be read as typical. The arms are also not same-noise (stage 1 re-sampled for each of the 3 samples).",
+   "If the generation-1 to generation-3 delta is used at all: the gain is mostly on the tool-holding right hand (contact_mm R 46.8 -> 34.3, 61.6 -> 48.0, 106.9 -> 63.2, 71.4 -> 47.3; L 50.5 -> 49.0, 71.9 -> 70.7, 93.8 -> 76.8, 63.1 -> 62.6 on test_1..test_4, r1_split_hand_run.csv), and the generations also differ in the scaled object input and training length. It is evidence about a repaired port defect, not about the intrinsic difficulty of contact generation; I recommend keeping it out of the MOTIVATION block or in a footnote.",
+   "Absolute level and status of the TACO port: after every fix the two-stage error is still 58.6-104.9 mm on the test splits (about 18.6 mm total on the train subsample in the probe), from one training run of 110 / 60 epochs. The comparison is a diagnosis of this port, not a statement that published BimArt performs at this level on TACO.",
+   "Split descriptions: do not describe what each official TACO split holds out beyond what is verified. The evaluation script's docstring gives one reading (test_2 tool meshes, test_3 triplets, test_4 both), the synthesis report says the held-out axis of the official splits is documented nowhere. Verified here: test_3 has 305 of 354 sequences with a bowl target and train has none (sequence_index.csv); test_1 was the validation split in every run.",
+   "No qualitative image exists for TACO generation 3 (no png / gif under taco/30_bimart_gen3_scene_scale); the TACO contact-mesh images under taco/00_dataset_analysis/bimart_contact_comparison were rendered from the generation-1 probe (summary_test_1.json: probe = bimart_taco/contact_probe) and must not illustrate the current port. All three recommended images are ARCTIC, released model, single windows.",
+   "Provenance details a public page cannot verify from the repository: the ARCTIC window names and the 'laptop' restriction come from outputs/logs/viz_ablation.log, which is git-ignored; summary.json stores only short window names. evaluation/meta.json and attribution/meta.json record the pre-reorganisation paths (bimart_taco_scene/...), which resolve through the compatibility symlinks listed in INDEX.md."
+  ]
+ }
+}

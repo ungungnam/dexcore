@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Should a Temporal Contact Generator Actually Model?</title>
+<meta name="description" content="From dense hand-object contact trajectories to learned structural dynamics: what varies in a contact trajectory, what matters in it, and how to model what matters. Evidence from TACO, ARCTIC and OakInk2.">
+<meta property="og:title" content="What Should a Temporal Contact Generator Actually Model?">
+<meta property="og:description" content="From dense hand-object contact trajectories to learned structural dynamics.">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- arrowheads and the contact-tile glyph shared by the diagrams -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0b0b0b"/></marker>
+    <marker id="arr-key" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c5cab"/></marker>
+    <marker id="arr-mute" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b6a64"/></marker>
+    <marker id="arr-hyp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a5a00"/></marker>
+    <symbol id="tile" viewBox="0 0 56 56">
+      <rect x="0.75" y="0.75" width="54.5" height="54.5" rx="9" fill="#fff" stroke="#c3c2b7" stroke-width="1.25"/>
+      <g fill="#dddcd4">
+        <circle cx="13" cy="13" r="3"/><circle cx="23" cy="13" r="3"/><circle cx="33" cy="13" r="3"/><circle cx="43" cy="13" r="3"/>
+        <circle cx="13" cy="23" r="3"/><circle cx="23" cy="23" r="3"/><circle cx="33" cy="23" r="3"/><circle cx="43" cy="23" r="3"/>
+        <circle cx="13" cy="33" r="3"/><circle cx="23" cy="33" r="3"/><circle cx="33" cy="33" r="3"/><circle cx="43" cy="33" r="3"/>
+        <circle cx="13" cy="43" r="3"/><circle cx="23" cy="43" r="3"/><circle cx="33" cy="43" r="3"/><circle cx="43" cy="43" r="3"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top">dexcore</a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="#motivation">Motivation</a>
+      <a href="#finding-1">1<span class="nav-long"> · What varies?</span></a>
+      <a href="#finding-2">2<span class="nav-long"> · What matters?</span></a>
+      <a href="#finding-3">3<span class="nav-long"> · How to model it?</span></a>
+      <a href="#hypothesis">Hypothesis</a>
+      <a href="#scope">Scope</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================================ HERO ================================ -->
+<section class="hero">
+  <div class="wrap">
+    <p class="kicker">dexcore · hand–object contact generation</p>
+    <h1>What Should a Temporal Contact Generator Actually Model?</h1>
+    <p class="subtitle">From dense hand–object contact trajectories to learned structural dynamics.</p>
+    <div class="hero-meta">
+      <a class="btn btn-primary" href="#glance">The argument in 30 seconds</a>
+      <a class="btn" href="https://github.com/ungungnam/dexcore">Code</a>
+      <a class="btn" href="evidence_manifest.json">Evidence manifest</a>
+      <span class="hero-note">TACO · ARCTIC · OakInk2 where applicable</span>
+    </div>
+
+    <figure class="diagram">
+      <div class="diagram-scroll" tabindex="0">
+      <svg viewBox="0 0 1010 196" style="--dw:1010px" role="img" aria-label="A dense contact trajectory is split into a compact structural state and a realization residual; the structural state is learned as a latent z, and how z should evolve over time is the open question.">
+        <text x="16" y="20" class="d-t">Dense contact trajectory</text>
+        <text x="16" y="38" class="d-s">one 512-value contact map per frame</text>
+        <use href="#tile" x="16" y="58" width="56" height="56"/>
+        <g fill="#2a78d6"><circle cx="39" cy="81" r="3.4"/><circle cx="49" cy="81" r="3.4"/><circle cx="39" cy="91" r="3.4"/></g>
+        <use href="#tile" x="84" y="58" width="56" height="56"/>
+        <g fill="#2a78d6"><circle cx="107" cy="81" r="3.4"/><circle cx="117" cy="81" r="3.4"/><circle cx="107" cy="91" r="3.4"/><circle cx="117" cy="91" r="3.4"/><circle cx="127" cy="81" r="3.4"/></g>
+        <use href="#tile" x="152" y="58" width="56" height="56"/>
+        <g fill="#2a78d6"><circle cx="175" cy="81" r="3.4"/><circle cx="185" cy="81" r="3.4"/><circle cx="175" cy="91" r="3.4"/><circle cx="185" cy="91" r="3.4"/><circle cx="195" cy="81" r="3.4"/><circle cx="195" cy="91" r="3.4"/><circle cx="185" cy="101" r="3.4"/></g>
+        <use href="#tile" x="220" y="58" width="56" height="56"/>
+        <g fill="#2a78d6"><circle cx="243" cy="81" r="3.4"/><circle cx="253" cy="81" r="3.4"/><circle cx="253" cy="91" r="3.4"/><circle cx="263" cy="91" r="3.4"/></g>
+        <text x="44" y="134" text-anchor="middle" class="d-m">C<tspan dy="4" font-size="10">1</tspan></text>
+        <text x="112" y="134" text-anchor="middle" class="d-m">C<tspan dy="4" font-size="10">2</tspan></text>
+        <text x="180" y="134" text-anchor="middle" class="d-m">…</text>
+        <text x="248" y="134" text-anchor="middle" class="d-m">C<tspan dy="4" font-size="10">T</tspan></text>
+        <line x1="16" y1="158" x2="276" y2="158" class="d-dash" marker-end="url(#arr-mute)"/>
+        <text x="16" y="176" class="d-s">time</text>
+
+        <line x1="296" y1="86" x2="360" y2="86" class="d-line" marker-end="url(#arr)"/>
+        <text x="328" y="72" text-anchor="middle" class="d-a">FINDINGS 1–2</text>
+        <text x="328" y="106" text-anchor="middle" class="d-s">what varies,</text>
+        <text x="328" y="120" text-anchor="middle" class="d-s">what matters</text>
+
+        <text x="380" y="20" class="d-t">Structure + realization</text>
+        <text x="380" y="38" class="d-s">in every frame</text>
+        <rect x="380" y="54" width="292" height="52" rx="10" class="d-key"/>
+        <g fill="#2a78d6"><rect x="396" y="80" width="7" height="14" rx="2"/><rect x="407" y="72" width="7" height="22" rx="2"/><rect x="418" y="76" width="7" height="18" rx="2"/><rect x="429" y="84" width="7" height="10" rx="2"/></g>
+        <text x="452" y="72" class="d-t">structure</text>
+        <text x="452" y="87" class="d-s">compact; sufficient for the wrench</text>
+        <text x="452" y="100" class="d-s">and for future structured contact</text>
+        <rect x="380" y="118" width="292" height="52" rx="10" class="d-soft" stroke-dasharray="5 4"/>
+        <g fill="#b3b2a8"><circle cx="400" cy="136" r="2"/><circle cx="409" cy="142" r="2"/><circle cx="418" cy="135" r="2"/><circle cx="427" cy="147" r="2"/><circle cx="404" cy="152" r="2"/><circle cx="415" cy="154" r="2"/><circle cx="432" cy="138" r="2"/><circle cx="423" cy="156" r="2"/></g>
+        <text x="452" y="140" class="d-t">realization</text>
+        <text x="452" y="158" class="d-s">persistent, weakly determined</text>
+
+        <line x1="690" y1="86" x2="754" y2="86" class="d-line" marker-end="url(#arr)"/>
+        <text x="722" y="72" text-anchor="middle" class="d-a">FINDING 3</text>
+        <text x="722" y="106" text-anchor="middle" class="d-s">learn the</text>
+        <text x="722" y="120" text-anchor="middle" class="d-s">structure</text>
+
+        <text x="774" y="20" class="d-t">Learned structural state</text>
+        <text x="774" y="38" class="d-s">a latent z per frame</text>
+        <circle cx="796" cy="86" r="21" class="d-key"/><text x="796" y="91" text-anchor="middle" class="d-m">z<tspan dy="4" font-size="10">1</tspan></text>
+        <circle cx="872" cy="86" r="21" class="d-key"/><text x="872" y="91" text-anchor="middle" class="d-m">z<tspan dy="4" font-size="10">2</tspan></text>
+        <circle cx="980" cy="86" r="21" class="d-key"/><text x="980" y="91" text-anchor="middle" class="d-m">z<tspan dy="4" font-size="10">T</tspan></text>
+        <line x1="819" y1="86" x2="848" y2="86" class="d-line-key" marker-end="url(#arr-key)"/>
+        <line x1="895" y1="86" x2="912" y2="86" class="d-line-key"/>
+        <text x="926" y="91" text-anchor="middle" class="d-m">…</text>
+        <line x1="940" y1="86" x2="956" y2="86" class="d-line-key" marker-end="url(#arr-key)"/>
+        <text x="888" y="134" text-anchor="middle" class="d-a">HOW SHOULD z EVOLVE?</text>
+        <text x="888" y="152" text-anchor="middle" class="d-s">the likely remaining bottleneck</text>
+        <text x="888" y="166" text-anchor="middle" class="d-s">and the current hypothesis</text>
+      </svg>
+      </div>
+      <figcaption>The argument of this page as a schematic (not data).</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================ AT A GLANCE ============================ -->
+<section class="glance" id="glance">
+  <div class="wrap">
+    <h2>The argument in 30 seconds</h2>
+    <ol class="steps">
+      <li class="step">
+        <div class="step-tag">Motivation<small>How do we generate better hand motion?</small></div>
+        <p><a href="#motivation">Contact prediction is a major source of hand-motion error.</a> In the two-stage generator we studied (object motion → contact → hand motion), replacing the recorded contact with the predicted one raises the hand error on all four TACO test splits and in all eight ARCTIC windows we checked.</p>
+      </li>
+      <li class="step">
+        <div class="step-tag">Finding 1<small>What varies?</small></div>
+        <p><a href="#finding-1">A contact trajectory is an initial grasp mode plus a temporal evolution.</a> The evolution itself mixes structural change with reconfigurations that leave the grasp’s modelled wrench capability nearly unchanged.</p>
+      </li>
+      <li class="step">
+        <div class="step-tag">Finding 2<small>What matters?</small></div>
+        <p><a href="#finding-2">A compact structural state is enough for the modelled wrench capability, and predicts future structured contact at least as well as the full dense map.</a> Which parts touch, how much, where, and facing which way. The remaining dense detail is real and persistent, but its change is weakly determined.</p>
+      </li>
+      <li class="step">
+        <div class="step-tag">Finding 3<small>How should it be modelled?</small></div>
+        <p><a href="#finding-3">The structural state can be learned as a latent z; its dynamics remain the likely bottleneck.</a> Supervising the handcrafted structure did not help in the one form we tried. A latent z taught by distances between those structure descriptors concentrates the structure and is temporally meaningful. What most likely limits it is predicting its whole trajectory for sequences it was not trained on.</p>
+      </li>
+      <li class="step step-hyp">
+        <div class="step-tag">Current hypothesis<small>not a finding</small></div>
+        <p><a href="#hypothesis">Carry z statefully through time, and keep the known first contact map s<sub>0</sub> when decoding.</a> A 2 × 2 experiment is running; no result is reported here.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================= MOTIVATION ============================= -->
+<section class="block" id="motivation">
+  <div class="wrap">
+    <p class="kicker">Motivation</p>
+    <h2 class="question">How do we generate better hand motion?</h2>
+    <p class="claim">In the two-stage generator we studied, contact prediction is a major source of the downstream hand error.</p>
+    <p class="lead">One way to generate two-handed manipulation for a given object motion is to go through contact: first predict where the hands touch the object over time, then generate hand motion that realizes those contacts. BimArt (CVPR 2025) is a diffusion model of this kind, with a contact stage and a motion stage.</p>
+
+    <figure class="diagram" style="margin:1.75rem 0 0">
+      <div class="diagram-scroll" tabindex="0">
+      <svg viewBox="0 0 920 146" style="--dw:920px" role="img" aria-label="Object-conditioned hand-motion generation in two stages: the object trajectory is turned into a contact trajectory, and the contact trajectory into hand motion. This page is about the contact stage.">
+        <rect x="10" y="24" width="236" height="72" rx="12" class="d-box"/>
+        <text x="128" y="56" text-anchor="middle" class="d-t">Object trajectory</text>
+        <text x="128" y="76" text-anchor="middle" class="d-s">geometry G, motion τ</text>
+        <line x1="246" y1="60" x2="340" y2="60" class="d-line" marker-end="url(#arr)"/>
+        <text x="293" y="48" text-anchor="middle" class="d-s">contact stage</text>
+        <rect x="342" y="24" width="236" height="72" rx="12" class="d-key"/>
+        <text x="460" y="56" text-anchor="middle" class="d-t">Contact trajectory</text>
+        <text x="460" y="76" text-anchor="middle" class="d-s">where the hands touch, per frame</text>
+        <line x1="578" y1="60" x2="672" y2="60" class="d-line" marker-end="url(#arr)"/>
+        <text x="625" y="48" text-anchor="middle" class="d-s">motion stage</text>
+        <rect x="674" y="24" width="236" height="72" rx="12" class="d-box"/>
+        <text x="792" y="56" text-anchor="middle" class="d-t">Hand motion</text>
+        <text x="792" y="76" text-anchor="middle" class="d-s">both hands, every frame</text>
+        <path d="M342,108 v8 h236 v-8" class="d-line-key"/>
+        <text x="460" y="136" text-anchor="middle" class="d-a">THE STAGE THIS PAGE IS ABOUT</text>
+      </svg>
+      </div>
+    </figure>
+
+    <div class="main-ev flip" data-evidence="MOTIVATION">
+      <figure class="viz" data-fig="m0_hand_error_gt_vs_predicted_contact" data-height="200">
+        <figcaption>Hand-keypoint error (mm, lower is better) of the motion stage when it is given the recorded (ground-truth) contact map versus the contact stage’s own prediction. TACO: mean keypoint distance, 128 sampled windows per split. ARCTIC: per-hand RMSE, eight windows, three samples per arm. The two error definitions differ, so the panels are not comparable with each other.</figcaption>
+      </figure>
+      <div class="text">
+        <p class="evidence-label"><b>Evidence</b> · same motion model, two contact inputs</p>
+        <h3>With predicted contact, the hand error is higher on every split</h3>
+        <p>In our port of BimArt to TACO, the same motion model, started from the same initial noise, was conditioned once on the recorded contact map and once on the contact stage’s prediction. The mean hand-keypoint error rises on all four test splits: 37.1 → 58.6, 48.8 → 86.5, 63.4 → 104.9 and 50.9 → 79.8 mm.</p>
+        <p>The released BimArt model shows the same direction on its own data: on eight ARCTIC laptop test windows the error is higher with the predicted contact in every window.</p>
+        <p class="caveat">test_1 was the validation split used to select the checkpoints; test_2 to test_4 are the unbiased splits, and the error rises on all of them. Read as “a major source of error in this pipeline”, not “the only one” and not a statement about every generator: the evidence is for one two-stage model family, and with the recorded contact the motion stage is still 37–63 mm off on TACO. The recorded-contact arm is an oracle. The TACO numbers come from this project’s own port (one training run, 128 windows per split, no confidence interval). The ARCTIC numbers are eight windows from two sequences of one object, five of them from one sequence, so the size of that gap should not be read as typical. We do not quote a percentage share of the error due to contact: the stage contributions do not add linearly.</p>
+        <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: BimArt → TACO port (generation 3) · BimArt upstream analysis</span></p>
+      </div>
+    </div>
+
+    <p class="bridge">What should a temporal contact generator actually model?</p>
+  </div>
+</section>
+
+<!-- ============================== FINDING 1 ============================== -->
+<section class="block" id="finding-1">
+  <div class="wrap">
+    <p class="kicker">Finding 1 · What varies?</p>
+    <h2 class="question">A contact trajectory is an initial grasp mode plus a structured temporal evolution</h2>
+    <p class="claim">A large part of the multimodality is associated with which first contact map a sequence starts from. What follows is partly structural change and partly reconfiguration that leaves the grasp’s modelled function nearly unchanged.</p>
+    <p class="lead">Throughout, a contact map <span class="math"><i>C</i><sub><i>t</i></sub></span> is a soft contact value on 512 canonical points of the object surface, per hand and per frame. <span class="math"><i>G</i></span> is the object geometry, <span class="math"><i>τ</i></span> the object motion, and <span class="math"><i>s</i><sub>0</sub></span> the first contact map of a 64-frame sequence that starts at the onset of a contact episode (its first frame of firm contact; on ARCTIC about half of the test sequences start at a later episode of the same take). These studies use no grasp labels: “grasp mode” here means which <span class="math"><i>s</i><sub>0</sub></span> a sequence starts from.</p>
+
+    <!-- F1-A -->
+    <div class="main-ev stack" data-evidence="F1-A">
+      <div class="text prose">
+        <p class="evidence-label"><b>Main evidence A</b> · within-take and between-take variation</p>
+        <h3>On TACO the amount of contact changes more within a take than between takes; the spatial layout changes less within a take than across meshes (TACO) or object instances (OakInk2), and only slightly less than across subjects on ARCTIC</h3>
+        <p>On TACO, early and late frames of one take differ in contact <em>amount</em> about twice as much as two different takes do at the same phase (ratio 2.12). Their normalized <em>spatial pattern</em> differs about as much as between two takes (1.04) and less than between two meshes (mesh / take 1.48; time / mesh 0.69).</p>
+        <p>On ARCTIC and OakInk2 the within-take change of the pattern is at or below the take-to-take level (0.94 and 0.45). On OakInk2, frames from a different object instance differ in pattern 1.69 times as much as frames from a different take (over the 17 of 39 groups in which two instances share a verb). ARCTIC has one mesh per object, so its identity axis is the subject: frames from another subject differ in pattern 1.16 times as much as frames from another take of the same subject (1.01 against the take level used for the time ratio). The temporal excess of the amount differs by dataset, in line with what a take contains: 2.12 on TACO takes that include approach and release, 1.10 on ARCTIC’s long multi-episode takes, 0.60 on OakInk2’s interaction-only segments.</p>
+      </div>
+      <figure class="viz" data-fig="f1a_time_vs_identity_ratios" data-height="200" data-shared-y>
+        <figcaption>Each bar is a ratio of mean pair distances; 1 means “as different as two takes of the same object and action at the same phase”. Amount and pattern are different metrics, each divided by its own take-to-take level. Macro mean over groups; the sources give intervals per group only. ARCTIC’s third bar is relative to the same-subject take level; OakInk2’s third bar covers 17 of the 39 groups.</figcaption>
+      </figure>
+      <div class="text prose">
+        <p class="caveat">This does not say that contact does not move over time: the spatial pattern changes with the time lag on all three datasets. The statement is relative. Within a take, the temporal change of the pattern is smaller than the change associated with mesh (TACO, 0.69 of it) or object instance (OakInk2, 0.36), and slightly smaller than the change associated with subject on ARCTIC (0.93; 6 of 22 groups are above 1). On TACO a mesh is confounded with the people who used it.</p>
+        <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="chip">OakInk2</span><span class="src">Source: Dynamic contact representation · TACO / ARCTIC / OakInk2</span></p>
+      </div>
+    </div>
+
+    <!-- F1-B -->
+    <div class="main-ev stack" data-evidence="F1-B" style="margin-top:3.5rem">
+      <div class="text prose">
+        <p class="evidence-label"><b>Main evidence B</b> · sample the first contact, then evolve it</p>
+        <h3>Much of the multimodality is associated with the choice of the initial contact map</h3>
+        <p class="eq"><i>p</i>(<i>C</i><sub>1:<i>T</i></sub> | <i>G</i>, <i>τ</i>)<span class="op">≈</span><i>p</i>(<i>s</i><sub>0</sub> | <i>G</i>)<span class="op">·</span><i>p</i>(<i>C</i><sub>1:<i>T</i></sub> | <i>s</i><sub>0</sub>, <i>G</i>, <i>τ</i>)</p>
+        <p>A diffusion sampler draws <span class="math"><i>s</i><sub>0</sub></span> from the static object condition (its geometry and which hand); a deterministic vector field then evolves it with the object motion. On TACO, holding the true <span class="math"><i>s</i><sub>0</sub></span> for 64 frames gives a contact error of 3.48; evolving it gives 1.82. With a sampled <span class="math"><i>s</i><sub>0</sub></span> the error is 2.59 for one sample and 1.86 for the best of ten (picked with the ground truth), whose paired difference from the rollout started at the true <span class="math"><i>s</i><sub>0</sub></span> has an interval that contains zero (+0.04, 95% interval −0.04 to +0.12).</p>
+        <p>ARCTIC and OakInk2 do not show the same benefit from the evolution: the paired difference between evolving and holding the true <span class="math"><i>s</i><sub>0</sub></span> has an interval that contains zero (−0.07 [−0.26, +0.11] and −0.02 [−0.11, +0.06]), and the best of ten stays above the true-<span class="math"><i>s</i><sub>0</sub></span> rollout (+0.34 and +1.27). There the evolution from the true <span class="math"><i>s</i><sub>0</sub></span> makes no measurable difference, and the large differences between the variants come from the initial map: one sampled <span class="math"><i>s</i><sub>0</sub></span> adds +1.56 on ARCTIC and +2.85 on OakInk2 to the error of the true-<span class="math"><i>s</i><sub>0</sub></span> rollout (2.14 and 1.24), so the initial map is the larger part of the error on OakInk2 but not on ARCTIC.</p>
+      </div>
+      <figure class="viz" data-fig="f1b_sample_then_evolve" data-height="210">
+        <figcaption>Contact error over the 64 frames (raw contact units; compare within a dataset only). Error bars: 95% cluster-bootstrap intervals over takes. “Best of K” picks the sample with the ground truth, so it is an oracle: it shows that a good first map is among the samples, not that the generator finds it.</figcaption>
+      </figure>
+      <div class="cards">
+        <figure class="shot card wide">
+          <a href="assets/img/f1b_taco_knife_rollout.png"><img src="assets/img/f1b_taco_knife_rollout.png" alt="Contact maps on a knife over six time steps of one TACO sequence: ground truth, the true first map evolved by the model, and a sampled first map evolved by the same model. In all three rows the contact on the handle grows over time." width="1764" height="435" loading="lazy" decoding="async"></a>
+          <figcaption>One TACO test sequence (a knife, right hand), selected as the test sequence with the largest difference between its first and last contact map, so a case where the evolution has the most to do (this sequence: 4.53 holding the true first map, 0.96 evolving it). Rows: ground truth; the true first map plus the deterministic evolution; a sampled first map (best of ten, picked with the ground truth; shown on its own at the far left) plus the same evolution. Columns: frames 0, 8, 16, 32, 48 and 63 of the 64. Brighter means more contact.</figcaption>
+        </figure>
+        <div class="card">
+          <p class="evidence-label">How to read this</p>
+          <p>The interpretation the sources support is that a large part of the multimodality is associated with the choice of the initial contact map. They do not show that the future is deterministic once <span class="math"><i>s</i><sub>0</sub></span> is fixed; that question is tested in <a href="#f3-a">Finding 3, step A</a>.</p>
+          <p>One training seed and one fixed split per dataset. From a single sampled map on ARCTIC, evolving is significantly worse than holding that map (+0.25 [+0.07, +0.44]).</p>
+          <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="chip">OakInk2</span><span class="src">Source: Hierarchical contact generation</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- F1-C -->
+    <div class="main-ev stack" data-evidence="F1-C" style="margin-top:3.5rem">
+      <div class="text prose">
+        <p class="evidence-label"><b>Main evidence C</b> · where the temporal model does and does not help</p>
+        <h3>Contact change is concentrated in a minority of transitions, and on the spatial ones the evolved model is no better than holding the map still</h3>
+        <p>Transitions whose frame-to-frame change exceeds the training 90th percentile are 12.6% of the TACO test transitions, 5.7% on ARCTIC and 9.3% on OakInk2. They hold 70%, 62% and 72% of the squared change. On these large changes the model evolved from the true first map stays close to the static baseline. For spatial-dominant changes its temporal error (the error of the predicted frame-to-frame change; for holding the map still this equals the size of the true change) is essentially unchanged on all three datasets (0.97 → 0.96 on TACO, 0.81 → 0.82 on ARCTIC, 0.485 → 0.484 on OakInk2). Its clearest reduction is on amount-dominant changes on TACO (0.88 → 0.69); mixed changes on TACO sit in between (0.99 → 0.92).</p>
+      </div>
+      <figure class="viz" data-fig="f1c_timeline" data-height="210">
+        <figcaption>One documented test sequence each for TACO (a knife in a cutting take) and ARCTIC (scissors): single illustrations, not statistics. Solid blue: the ground-truth frame-to-frame change of the contact map, which is also the error of holding the map still. Dashed orange: the temporal error of the model evolved from the true first map. Shaded bands: spike events, labelled with their type. In the TACO example the model is below the blue curve on the amount-dominant event at transitions 7–8 (0.59 against 0.73) and on a mixed event at 26–28 (0.54 against 0.86), about level with it on the spatial-dominant event at 34–35 (0.81 against 0.79) and on the large mixed event at 39–42 (1.92 against 2.01), and above it on the spatial event at 19–20 (1.26 against 0.67). In the ARCTIC example it is above the blue curve on the release event at transitions 19–26 (1.44 against 1.30).</figcaption>
+      </figure>
+      <div class="cards">
+        <div class="card wide">
+          <figure class="viz" data-fig="f1c_error_by_event_class" data-height="180"></figure>
+          <p>Temporal error by kind of transition, for holding the first map and for the evolved model. On TACO the model’s large gain in <em>absolute</em> error is about the same on non-spike and on spike frames (3.42 → 1.77 and 3.79 → 2.10). The report attributes it to the slow trend of the contact amount accumulated over the window, not to following the large changes themselves, whose temporal error barely moves (0.98 → 0.92 on all spike frames).</p>
+          <p class="caveat">This is a statement per transition, not about the total: most of the model’s summed temporal error lies on non-spike frames (64%, 77% and 66%). No paired test between the two models exists in this analysis, and on TACO and OakInk2 many spatial-dominant and mixed spikes are short-lived (the change cancels within a few frames).</p>
+          <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="chip">OakInk2</span><span class="src">Source: Temporal contact events</span></p>
+        </div>
+        <div class="card wide">
+          <figure class="viz" data-fig="f1c_spike_concentration" data-height="170" data-format="pct" data-shared-y></figure>
+          <p>The share of transitions is near 10% by construction (the threshold is a training quantile). In unsquared magnitude the same transitions hold 39%, 29% and 35%: concentrated, but not sparse.</p>
+          <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="chip">OakInk2</span><span class="src">Source: Temporal contact events</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- F1 supporting evidence -->
+    <details class="more" id="f1-sub">
+      <summary>Supporting evidence: does the hand tell us when contact will change? <small>association is not prediction</small></summary>
+      <div class="inner">
+        <div class="cards">
+          <div class="card" data-evidence="F1-subA">
+            <p class="evidence-label"><b>Sub-evidence A</b></p>
+            <h3>Hand motion relative to the object is associated with contact change</h3>
+            <figure class="viz" data-fig="f1suba_kinematic_association" data-height="170" data-panels="TACO,ARCTIC"></figure>
+            <p>At the same transition, the size of the contact change correlates with the hand’s speed relative to the object: Spearman 0.78 on TACO and 0.51 on ARCTIC. Object motion alone correlates far less.</p>
+            <p class="caveat">The TACO value uses a corrected tool-frame transform; the original event analysis reported 0.68 for the same quantity (the reference line). On TACO, object speed is the target object’s world speed, also in sequences where the hand holds the tool. This is an association at the same frame, not a prediction result.</p>
+            <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: Temporal contact events · Hand-information diagnostic</span></p>
+          </div>
+          <div class="card" data-evidence="F1-subB">
+            <p class="evidence-label"><b>Sub-evidence B</b></p>
+            <h3>That association gives little prediction of the future contact from past hand frames</h3>
+            <figure class="viz" data-fig="f1subb_delta_error_vs_no_hand" data-height="170"></figure>
+            <p>Added to a predictor that already sees the current contact, the object and its motion (from eight frames back to eight frames ahead, since the object trajectory is a given input), the current hand pose does not lower the error of the contact change four frames ahead. Hand frames up to the current one (eight frames of history) give a small gain (−2.4% on TACO, −2.1% on ARCTIC); hand motion without absolute pose gives more (−6.8%, −4.2%). An oracle that is also given the next eight hand frames gains far more (−17.7%, −15.6%).</p>
+            <p class="caveat">Hand motion is not irrelevant: it is associated with contact change. The point is the difference between simultaneity and predictive information, and it is a matter of degree. Against a shuffled-hand control of the same size, the gain of the hand history holds on TACO and is not distinguishable from zero on ARCTIC, where the no-hand predictor is itself worse than predicting no change in mean error. Hands are ground truth; three seeds.</p>
+            <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: Hand-information diagnostic</span></p>
+          </div>
+          <div class="card wide" data-evidence="F1-subB">
+            <h3>Past hand frames add little to predicting when a persistent contact transition starts</h3>
+            <figure class="viz" data-fig="f1subb_transition_start_auprc" data-height="170"></figure>
+            <p>For “a persistent contact transition starts within four frames”, hand inputs up to the current frame add little: on TACO the area under the precision–recall curve goes from 0.33 without the hand (chance is 0.10) to 0.36 with eight frames of history, a paired gain of +0.03 that the current pose alone already gives; on ARCTIC there is no gain over 0.13. The future-hand oracle reaches 0.43 and 0.28. For the size of the contact change, the gain from past hand frames is largest on release, then onset and amount-dominant frames; where contact re-arranges at roughly constant amount (persistent spatial frames) it is small on TACO and absent on ARCTIC.</p>
+            <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: Hand-information diagnostic</span></p>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- F1-D -->
+    <div class="main-ev stack" data-evidence="F1-D" style="margin-top:3.5rem">
+      <div class="text prose">
+        <p class="evidence-label"><b>Main evidence D</b> · does a dense reconfiguration change what the grasp can do?</p>
+        <h3>Many persistent spatial reconfigurations preserve the modelled wrench capability</h3>
+        <p>For each persistent contact change inside a maintained grasp we compare the grasp just before and just after, using a friction-cone grasp model: how much force and torque the contacts can apply along 76 directions. Wrench capability is used here as a proxy for functional grasp capability, not as a measure of intent.</p>
+        <div class="stats">
+          <div class="stat"><div class="v">0.85 <small>TACO</small></div><div class="l">median share of the new grasp’s capability that the old grasp already had (119 persistent spatial events)</div></div>
+          <div class="stat"><div class="v">0.89 <small>ARCTIC</small></div><div class="l">the same, 26 persistent spatial events; 95% interval 0.76 to 0.96</div></div>
+          <div class="stat"><div class="v">0.97 <small>TACO</small></div><div class="l">median cosine between the capability profiles before and after</div></div>
+          <div class="stat"><div class="v">0.96 <small>ARCTIC</small></div><div class="l">the same on ARCTIC</div></div>
+        </div>
+        <p>For these persistent <em>spatial</em> events the median relative change of capability is small (+0.04 on TACO, +0.02 on ARCTIC). The size of the dense contact change is only weakly associated with it on TACO (Spearman 0.19) and moderately on ARCTIC (0.55, 26 events; the sources give no interval for either).</p>
+      </div>
+      <figure class="viz" data-fig="f1d_contact_change_vs_capability_change" data-height="250" data-shared-y>
+        <figcaption>One point per test event. Horizontal: how much the dense contact map changes. Vertical: relative change of the modelled wrench capability (0 = unchanged). Most persistent spatial events lie close to the zero line (73% on TACO and 65% on ARCTIC change by at most 25%). ARCTIC’s larger contact changes are the exception: of its 11 events with a contact change at or above the training median, only 1 keeps the capability change at or below the training median (0.09), and 5 gain more than 25%. Persistent mixed events, which also change the contact amount, spread upward.</figcaption>
+      </figure>
+      <div class="cards">
+        <div class="card">
+          <p class="evidence-label">The exception</p>
+          <h3>Events that change the amount, or the set of touching parts, change capability more often</h3>
+          <figure class="viz" data-fig="f1d_share_capability_change_by_event_class" data-height="170" data-format="pct"></figure>
+          <p>46% of persistent mixed events gain more than 25% capability on both datasets, against 20% (TACO) and 23% (ARCTIC) of persistent spatial ones; about half of the mixed events still stay within ±25%. Onset and release, the positive controls, change it almost by construction. The two series do not sum to 100%: the remainder loses more than 25%, and release shows no bar because every release loses all modelled capability.</p>
+          <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: Wrench counterfactual</span></p>
+        </div>
+        <div class="card">
+          <p class="evidence-label">What goes with the change</p>
+          <h3>Within spatial events, capability changes of more than 25% occur almost only when the set of touching hand parts changes</h3>
+          <figure class="viz" data-fig="f1d_spatial_events_by_finger_set" data-height="190" data-refs="no change"></figure>
+          <p>Persistent spatial events, split by whether the set of touching hand parts (palm and five fingers) stays the same, gains a part, or only loses parts. This three-way split is our own grouping of the study’s per-event table. By the report’s count of reconfigured parts (a part that slid more than 1 cm, appeared or disappeared), the median absolute change is 0.03 (TACO) and 0.07 (ARCTIC) with none; with one reconfigured part it is 0.20 and 0.18, with two or more 0.18 and 0.25.</p>
+          <p class="caveat">An association under one grasp model with unit force budgets per finger, where an added finger raises capability by construction. These class contrasts come without intervals.</p>
+          <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: Wrench counterfactual</span></p>
+        </div>
+        <figure class="shot card wide">
+          <a href="assets/img/f1d_taco_pan_equivalent.png"><img src="assets/img/f1d_taco_pan_equivalent.png" alt="A pan held by the left hand before and after a contact event, in three views with contact points coloured by hand part, and below them the two capability profiles over 76 directions, which have the same shape, the one after about 10% lower." width="1400" height="1009" loading="lazy" decoding="async"></a>
+          <figcaption>One TACO event (a pan held by the left hand), a selected example and not a typical one: among the persistent spatial events with a contact change at or above the training median, it is the one with the highest retention (class medians: retention 0.85, cosine 0.97). Top and middle: contact points by hand part at the frame before and the frame after the event; index, middle and ring finger slide. Bottom: the modelled capability over the 76 directions before (red) and after (blue). For this event the profile cosine is 1.00 and the relative change is −0.10.</figcaption>
+        </figure>
+      </div>
+      <div class="text prose">
+        <p class="caveat">These are medians over a small class of events (119 on TACO, 26 on ARCTIC) under a simplified single-hand model (unit finger budgets, linearized friction, no mass or force limits). The retention is one-sided, so it is quoted with the cosine and the relative change; under a stricter exact-direction measure the median retention is lower (0.66 on TACO, 0.75 on ARCTIC). No Jacobian null space was measured: “function-preserving reconfiguration” describes the modelled capability, not a literal null-space motion. Across the primary setting and nine one-at-a-time variations of it (friction, patch merging, contact threshold, force budget) the median retention stays between 0.82 and 0.92 on TACO and between 0.76 and 0.94 on ARCTIC; the lowest is ARCTIC with a 0.5 cm contact threshold.</p>
+      </div>
+    </div>
+
+    <div class="conclusion">
+      <p class="evidence-label">Finding 1 · conclusion</p>
+      <p>Temporal contact evolution contains both meaningful structural evolution and function-preserving realization variation.</p>
+      <p>Much of the multimodality is associated with the first contact map (clearly on TACO; on ARCTIC and OakInk2 the evolution shows no measurable benefit over holding the true first map). What follows is partly a change of how much and which parts touch, and partly a re-arrangement that, in the typical event on TACO and ARCTIC (the wrench analysis does not cover OakInk2), leaves the modelled capability almost unchanged.</p>
+    </div>
+    <p class="bridge">Which part of the dense contact state actually matters?</p>
+  </div>
+</section>
+
+<!-- ============================== FINDING 2 ============================== -->
+<section class="block" id="finding-2">
+  <div class="wrap">
+    <p class="kicker">Finding 2 · What matters?</p>
+    <h2 class="question">Dense contact contains a compact structural state</h2>
+    <p class="claim">On the tested ladder, forty-eight numbers per frame (which hand parts touch, how much, where, and facing which way) are the smallest level that keeps both the modelled wrench capability and the prediction of future structured contact at least as well as the full dense state does under fixed small models. The dense detail left over persists, but its change is hard to predict.</p>
+    <p class="lead">We describe each frame at increasing levels of detail and ask, for each level, two questions with fixed small models: can the grasp’s wrench capability be recovered from it, and can the future structured contact be predicted from it?</p>
+
+    <div class="table-scroll" style="margin:1.5rem 0 0">
+    <table class="plain" style="max-width:50rem">
+      <thead><tr><th scope="col">Level</th><th scope="col">What it holds, per frame</th><th scope="col">Size</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">R0</th><td>participation: which of six hand parts (palm, five fingers) touch</td><td>6</td></tr>
+        <tr><th scope="row">R1</th><td>+ contact amount per part</td><td>12</td></tr>
+        <tr><th scope="row"><strong>R2</strong></th><td><strong>+ contact centroid and mean contact normal per part</strong></td><td><strong>48</strong></td></tr>
+        <tr><th scope="row">R3</th><td>R2 + contact spread and number of patches per part</td><td>60</td></tr>
+        <tr><th scope="row">R4, R5</th><td>R2 and R3 + a coarse hand pose</td><td>90, 102</td></tr>
+        <tr><th scope="row">CONTACT_FULL</th><td>the dense contact map</td><td>512</td></tr>
+        <tr><th scope="row">FULL</th><td>the dense contact map + 100 hand surface points</td><td>812</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p class="caveat" style="max-width:50rem">R4 and R5 branch from R2 and R3. The two dense levels are a different parameterization of the same frame, not further additions to R5. The ladder is one path through the possible descriptions; nothing between 12 and 48 numbers was tried.</p>
+
+    <!-- F2-A / F2-B -->
+    <div class="cards" style="margin-top:2.25rem">
+      <div class="card" data-evidence="F2-A">
+        <p class="evidence-label"><b>Main evidence A</b> · the ladder has an elbow at R2</p>
+        <h3>Function: the wrench profile is recovered once location and direction are known</h3>
+        <figure class="viz" data-fig="f2a_wrench_error_by_rung" data-height="200" data-series="MLP probe" data-labels="none"></figure>
+        <p>Error of a fixed probe that reconstructs the 76-direction wrench profile from one frame. It drops sharply from R1 to R2 (0.35 → 0.18 on TACO, 0.51 → 0.18 on ARCTIC), stays within a narrow band from R2 to R5, and is higher again for the dense inputs.</p>
+        <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: Structure / variance boundary</span></p>
+      </div>
+      <div class="card" data-evidence="F2-B">
+        <p class="evidence-label"><b>Main evidence B</b> · the same level suffices over time</p>
+        <h3>Time: the future structured contact is predicted almost as well from R2 as from anything larger</h3>
+        <figure class="viz" data-fig="f2b_future_structure_gap_by_rung" data-height="200" data-format="pct" data-labels="none"></figure>
+        <p>Error of predicting participation, amount, centroid / normal and wrench profile 1, 4 and 8 frames ahead from an 8-frame window, relative to the full dense state. From R2 it is 18% lower on TACO and 32% lower on ARCTIC; R3 to R5 improve on R2 by a few per cent at most.</p>
+        <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: Structure / variance boundary</span></p>
+      </div>
+    </div>
+    <div class="prose" style="margin-top:1.25rem">
+      <p>R2 is therefore not only a wrench descriptor: adding centroid and normal also lowers the future-structure error relative to R1, by 12% (TACO) and 15% (ARCTIC) as a mean over the four targets. The gain comes from the future centroid / normal and the future wrench profile; the future amount (both datasets) and participation (ARCTIC) are not predicted better. By the study’s saturation rule, which compares each level with the full dense state, the same 48 numbers are the smallest level saturated on both questions on both datasets at the 2.5% and 5% tolerances (at 10%, R1 already passes on TACO; on the temporal question alone R1 passes on both datasets, so it is the wrench question that selects R2). The rule is passed because the dense state is worse under the fixed models, so R2 is close to the best level rather than the best: its wrench error is 13% (TACO) and 8% (ARCTIC) above the best level, its future-structure error 4% and 2% above.</p>
+      <p class="caveat">These are comparisons between inputs under one fixed probe and one fixed training recipe, not statements about information content. The report treats R2 as a function of the dense hand–contact state (contact map plus hand) and reads the dense inputs being worse as a statement about the parameterization (the 512-point map carries no finger labels and its point positions differ from object to object) and about the fixed small models; the dense inputs remain better at predicting the dense future itself. Nor is this good absolute prediction: by the per-frame errors, one frame ahead the R2 model does not beat carrying the current value forward on either dataset. Eight frames ahead it does on TACO for participation, amount, normal and wrench profile (not for the centroid); on ARCTIC it does not for amount, centroid, normal or wrench profile, and for participation the two scores disagree. The temporal models were early-stopped.</p>
+    </div>
+
+    <!-- F2-C -->
+    <div class="main-ev stack" data-evidence="F2-C" style="margin-top:3rem">
+      <div class="text prose">
+        <p class="evidence-label"><b>Main evidence C</b> · what R2 leaves out</p>
+        <h3>The remaining dense residual behaves differently</h3>
+        <figure class="diagram" style="margin:0.75rem 0 1rem">
+          <div class="diagram-scroll" tabindex="0">
+          <svg viewBox="0 0 560 210" style="--dw:560px" role="img" aria-label="A dense contact map splits into a compact structural state, which keeps the modelled wrench capability and is no worse an input than the dense state for predicting future structure, and a realization residual, which persists over time but whose change is weakly predictable.">
+            <rect x="8" y="72" width="128" height="66" rx="12" class="d-box"/>
+            <text x="72" y="101" text-anchor="middle" class="d-t">Dense contact</text>
+            <text x="72" y="120" text-anchor="middle" class="d-s">512 values</text>
+            <path d="M136,105 H164 V46 H198" class="d-line-key" marker-end="url(#arr-key)"/>
+            <path d="M136,105 H164 V164 H198" class="d-dash" marker-end="url(#arr-mute)"/>
+            <rect x="200" y="12" width="352" height="68" rx="12" class="d-key"/>
+            <text x="216" y="38" class="d-t">Structure (R2, 48 numbers)</text>
+            <text x="216" y="56" class="d-s">keeps the wrench capability</text>
+            <text x="216" y="70" class="d-s">no worse than the dense inputs for the future structure</text>
+            <rect x="200" y="130" width="352" height="68" rx="12" class="d-soft" stroke-dasharray="5 4"/>
+            <text x="216" y="156" class="d-t">Realization (the dense residual)</text>
+            <text x="216" y="174" class="d-s">persists over time</text>
+            <text x="216" y="188" class="d-s">its change is weakly predictable</text>
+          </svg>
+          </div>
+        </figure>
+      </div>
+      <div class="cards" style="margin-top:0.25rem">
+        <div class="card">
+          <h3>How much of the dense state R2 determines</h3>
+          <figure class="viz" data-fig="f2c_dense_explained_by_r2" data-height="170" data-series="from R2" data-format="pct" data-shared-y></figure>
+          <p>A decoder from R2 alone reproduces 89% of the variance of the contact map and 85% of the hand points on TACO, and 74% and 69% on ARCTIC. The residual is 11–15% of the dense variance on TACO and 26–31% on ARCTIC.</p>
+        </div>
+        <div class="card">
+          <h3>The residual persists, but its change is weakly predictable</h3>
+          <figure class="viz" data-fig="f2c_residual_change_vs_last" data-height="170" data-series="contact, causal|contact, oracle"></figure>
+          <p>Carrying the current contact-map residual forward leaves only 19% (TACO) and 9% (ARCTIC) of its energy unexplained one frame ahead, rising to 75% and 42% at eight frames. Against that persistence baseline (the line at 1), a causal predictor that sees the dense history, the residual’s own past and the object’s trajectory removes 4%, 14% and 20% of the error at 1, 4 and 8 frames on TACO and nothing measurable on ARCTIC. An oracle that is also given the future structure does no better.</p>
+        </div>
+      </div>
+      <div class="text prose">
+        <p class="caveat">The residual is what this particular decoder leaves, not a canonical decomposition, and it is real dense detail, not noise. The hand-point residual (not drawn) is an exception: on TACO its change is partly predicted even causally (22–46% of the last-value error, 31–62% with the future structure), and at eight frames its last value is no better than a zero residual; on ARCTIC the causal gain is 11% one frame ahead and not distinguishable from zero later (19–24% with the future structure). “Not predictable” means not by these models from this context.</p>
+        <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: Structure / variance boundary</span></p>
+      </div>
+    </div>
+
+    <details class="more">
+      <summary>Supporting evidence: would a richer description help? <small>coarse hand pose, contact topology</small></summary>
+      <div class="inner">
+        <div class="cards">
+          <div class="card" data-evidence="F2-subA">
+            <p class="evidence-label"><b>Sub-evidence A</b></p>
+            <h3>Coarse hand pose adds little</h3>
+            <figure class="viz" data-fig="f2suba_coarse_hand_gain" data-height="170" data-series="R2 → R4"></figure>
+            <p>Adding a coarse hand pose to R2 leaves the wrench error unchanged on both datasets (ratio 1.00 and 1.01). The future-structure error falls by about 2% on TACO, averaged over horizons (it rises one frame ahead and falls by 4–5% at four and eight frames), and not at all on ARCTIC. This is consistent with the report’s reading that the coarse hand pose is not part of the structural state; the full hand pose was not added to R2 in this study.</p>
+            <p class="caveat">The coarse hand does help predict the future hand itself and the dense contact map.</p>
+            <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: Structure / variance boundary</span></p>
+          </div>
+          <div class="card" data-evidence="F2-subB">
+            <p class="evidence-label"><b>Sub-evidence B</b></p>
+            <h3>Topology helps the wrench slightly, not the prediction</h3>
+            <figure class="viz" data-fig="f2subb_topology_gain" data-height="170" data-shared-y></figure>
+            <p>Adding contact spread and patch count (R3) lowers the wrench error by 10% on TACO and 7% on ARCTIC, but changes the future-structure error, averaged over horizons, by less than 1% (1.4% at one frame on TACO). When the wrench must match the best level within 2.5–5%, the rule’s wrench criterion selects R3 instead of R2 on both datasets.</p>
+            <p class="caveat">A caveat to the boundary, not a contradiction of it.</p>
+            <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: Structure / variance boundary</span></p>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <div class="conclusion">
+      <p class="evidence-label">Finding 2 · conclusion</p>
+      <p>Under the tested probes, the full dense contact map gave no advantage over a compact structural state for the wrench capability or for predicting future structured contact. The compact state captures most of that information, while the remaining dense realization is persistent but weakly determined.</p>
+      <p>The share left to the realization differs by dataset: 11–15% of the dense variance on TACO, 26–31% on ARCTIC.</p>
+    </div>
+    <p class="bridge">Can this boundary be learned instead of manually encoded?</p>
+  </div>
+</section>
+
+
+<!-- ============================== FINDING 3 ============================== -->
+<section class="block" id="finding-3">
+  <div class="wrap">
+    <p class="kicker">Finding 3 · How should we model what matters?</p>
+    <h2 class="question">The structural state can be learned as a latent z, but its dynamics remain the likely bottleneck</h2>
+    <p class="claim">Predicting the handcrafted structure explicitly does not help. A learned latent concentrates the structure and moves in step with the contact. What does not yet work is predicting its whole trajectory for a new sequence.</p>
+    <p class="lead">The task is fixed in this section: given the first contact map <span class="math"><i>s</i><sub>0</sub></span>, the object geometry <span class="math"><i>G</i></span> and the object motion <span class="math"><i>τ</i></span>, generate the next 63 contact maps of a 64-frame sequence. These experiments were run on TACO and ARCTIC, each read separately; OakInk2 was not part of them. Generation errors in this section are averages over the 63 generated frames, so holding the first map still scores 3.54 on TACO and 2.24 on ARCTIC here, against 3.48 and 2.21 in Finding 1, where the given first frame is counted too.</p>
+
+    <ol class="seq">
+
+      <!-- step A -->
+      <li id="f3-a" data-evidence="F3-A">
+        <p class="evidence-label"><b>Step A</b> · explicit structural supervision</p>
+        <h3>Explicit structural supervision does not help <span class="verdict">one surrogate tested</span></h3>
+        <p class="prose">The direct way to use Finding 2 is to add its structure as a training signal to a dense generator: a loss on the structure extracted from the generated map, and on top of that a hidden head that predicts it. Neither improves the deterministic generator. With the true <span class="math"><i>s</i><sub>0</sub></span> given, the output loss makes the participation, centroid, normal and wrench-profile errors 1.8–5.4% higher on TACO; on ARCTIC centroid, normal and wrench are 3.1–4.9% higher and participation is not distinguishable from no change (+0.8%, interval includes zero). Only the contact-amount error is lower, by under 1%, and on ARCTIC even that is not distinguishable from no change (interval includes zero). The hidden head does not rescue it.</p>
+        <div class="cards three">
+          <div class="card">
+            <h3>Structure loss: no gain</h3>
+            <figure class="viz" data-fig="f3a_paired_supervision_deterministic" data-height="170"></figure>
+            <p>Relative change of each test error when the supervision is added; above zero is worse. Bars: 95% take-bootstrap intervals.</p>
+          </div>
+          <div class="card">
+            <h3>A stochastic future adds dense jitter</h3>
+            <figure class="viz" data-fig="f3a_levels_frame_change" data-height="170"></figure>
+            <p>With <span class="math"><i>s</i><sub>0</sub></span> fixed, one sample of the sequence-diffusion model trained with the dense loss only has no better typical structure than the matching deterministic model, a higher dense error (+15% TACO, +27% ARCTIC), and maps that change far more from frame to frame than real ones (1.15 against 0.31 on TACO; 1.59 against 0.16 on ARCTIC).</p>
+          </div>
+          <div class="card">
+            <h3>Sampling the first map gives more structural spread than sampling the future</h3>
+            <figure class="viz" data-fig="f3a_diversity_r2" data-height="170" data-shared-y></figure>
+            <p>Ten sampled <span class="math"><i>s</i><sub>0</sub></span> evolved deterministically differ more in their structure than ten diffusion futures from one fixed <span class="math"><i>s</i><sub>0</sub></span>: 1.63 against 0.82 on TACO, 2.48 against 1.15 on ARCTIC. The wrench profiles show the same order (0.27 against 0.11; 0.55 against 0.18).</p>
+          </div>
+        </div>
+        <p class="caveat">Three training seeds. One structural surrogate and one diffusion recipe were tried. The structure loss and the structural test metrics both use the true hand-part label of each surface point. The initial sampler is the frozen sampler of Finding 1. The two diversity measurements use different protocols (true versus sampled <span class="math"><i>s</i><sub>0</sub></span>), and diversity measures spread, not coverage of real alternatives: only one human future is observed per condition. The supported reading is narrow: the structure, useful as an analysis representation, is not necessarily useful as an explicit output target; and the results are consistent with placing the stochasticity at the initial grasp selection rather than in a diffusion of the future after <span class="math"><i>s</i><sub>0</sub></span> is fixed.</p>
+        <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: Structure-aware temporal generation</span></p>
+      </li>
+
+      <!-- step B -->
+      <li id="f3-b" data-evidence="F3-B">
+        <p class="evidence-label"><b>Step B</b> · learn the representation instead</p>
+        <h3>A learned z / r factorization concentrates the structure in z <span class="verdict">partial</span></h3>
+        <p class="prose">Stage 1 is a single-frame autoencoder. One encoder maps the contact map to a 64-D latent <span class="math"><i>z</i></span>, and a decoder turns <span class="math"><i>z</i></span> back into a “z-only” map. A second encoder and decoder add a 64-D code <span class="math"><i>r</i></span> that only corrects what the z-only map misses. <span class="math"><i>z</i></span> is shaped by a relational loss: distances between the <span class="math"><i>z</i></span> of different frames are matched to distances between their structure and wrench descriptors from Finding 2. No output is ever compared with the handcrafted structure itself.</p>
+        <figure class="diagram" style="margin:1.25rem 0 0.5rem">
+          <div class="diagram-scroll" tabindex="0">
+          <svg viewBox="0 0 900 262" style="--dw:900px" role="img" aria-label="Stage-1 factorization. An encoder maps the contact map C to a structure latent z, and a decoder maps z to a z-only map. A second encoder sees C and what the z-only map misses and produces a realization code r; a second decoder turns it into a correction that is added to the z-only map. A relational loss acts on z only.">
+            <rect x="10" y="104" width="96" height="64" rx="12" class="d-box"/>
+            <text x="58" y="132" text-anchor="middle" class="d-m">C</text>
+            <text x="58" y="152" text-anchor="middle" class="d-s">contact map</text>
+
+            <text x="372" y="16" class="d-a">RELATIONAL LOSS ON z</text>
+            <text x="372" y="32" class="d-s">distances between frames in z match their structure + wrench distances</text>
+            <path d="M358,48 V38 H366" class="d-line-key"/>
+
+            <path d="M106,124 H150 V74 H186" class="d-line-key" marker-end="url(#arr-key)"/>
+            <rect x="188" y="50" width="92" height="48" rx="10" class="d-box"/>
+            <text x="234" y="79" text-anchor="middle" class="d-t">E<tspan dy="4" font-size="10">z</tspan></text>
+            <line x1="280" y1="74" x2="330" y2="74" class="d-line-key" marker-end="url(#arr-key)"/>
+            <circle cx="358" cy="74" r="26" class="d-key"/>
+            <text x="358" y="72" text-anchor="middle" class="d-m">z</text>
+            <text x="358" y="88" text-anchor="middle" class="d-s">64-D</text>
+            <line x1="384" y1="74" x2="434" y2="74" class="d-line-key" marker-end="url(#arr-key)"/>
+            <rect x="436" y="50" width="92" height="48" rx="10" class="d-box"/>
+            <text x="482" y="79" text-anchor="middle" class="d-t">D<tspan dy="4" font-size="10">z</tspan></text>
+            <line x1="528" y1="74" x2="578" y2="74" class="d-line-key" marker-end="url(#arr-key)"/>
+            <rect x="580" y="50" width="116" height="48" rx="10" class="d-key"/>
+            <text x="638" y="72" text-anchor="middle" class="d-t">z-only map</text>
+            <text x="638" y="88" text-anchor="middle" class="d-s">from z alone</text>
+
+            <path d="M106,148 H150 V198 H186" class="d-dash" marker-end="url(#arr-mute)"/>
+            <rect x="188" y="174" width="92" height="48" rx="10" class="d-box"/>
+            <text x="234" y="203" text-anchor="middle" class="d-t">E<tspan dy="4" font-size="10">r</tspan></text>
+            <line x1="280" y1="198" x2="330" y2="198" class="d-dash" marker-end="url(#arr-mute)"/>
+            <circle cx="358" cy="198" r="26" class="d-soft" stroke-dasharray="5 4"/>
+            <text x="358" y="196" text-anchor="middle" class="d-m">r</text>
+            <text x="358" y="212" text-anchor="middle" class="d-s">64-D</text>
+            <line x1="384" y1="198" x2="434" y2="198" class="d-dash" marker-end="url(#arr-mute)"/>
+            <rect x="436" y="174" width="92" height="48" rx="10" class="d-box"/>
+            <text x="482" y="203" text-anchor="middle" class="d-t">D<tspan dy="4" font-size="10">r</tspan></text>
+            <line x1="528" y1="198" x2="578" y2="198" class="d-dash" marker-end="url(#arr-mute)"/>
+            <rect x="580" y="174" width="116" height="48" rx="10" class="d-soft" stroke-dasharray="5 4"/>
+            <text x="638" y="196" text-anchor="middle" class="d-t">correction</text>
+            <text x="638" y="212" text-anchor="middle" class="d-s">dense detail</text>
+
+            <path d="M358,100 V136 H234 V172" class="d-dash" marker-end="url(#arr-mute)"/>
+            <path d="M482,136 V172" class="d-dash" marker-end="url(#arr-mute)"/>
+            <path d="M638,98 V136 H358" class="d-dash"/>
+            <text x="372" y="130" class="d-s">passed down without gradient</text>
+
+            <path d="M696,74 H746 V120" class="d-line" marker-end="url(#arr)"/>
+            <path d="M696,198 H746 V152" class="d-line" marker-end="url(#arr)"/>
+            <circle cx="746" cy="136" r="14" class="d-box"/>
+            <text x="746" y="141" text-anchor="middle" class="d-t">+</text>
+            <line x1="760" y1="136" x2="796" y2="136" class="d-line" marker-end="url(#arr)"/>
+            <rect x="798" y="104" width="94" height="64" rx="12" class="d-box"/>
+            <text x="845" y="132" text-anchor="middle" class="d-m">Ĉ</text>
+            <text x="845" y="152" text-anchor="middle" class="d-s">reconstruction</text>
+            <text x="10" y="252" class="d-s">Every module also receives the object geometry G. No independence loss is used.</text>
+          </svg>
+          </div>
+          <figcaption>Stage-1 architecture: <span class="math"><i>C</i> → (<i>z</i>, <i>r</i>) → <i>C</i></span>. Solid blue: the structure path. Dashed: the realization path, which reads <span class="math"><i>z</i></span> but does not change it.</figcaption>
+        </figure>
+        <div class="cards three">
+          <div class="card">
+            <h3>z keeps the probed structure; r keeps little of it</h3>
+            <figure class="viz" data-fig="f3b_structure_retention" data-height="170"></figure>
+            <p>A small probe reading <span class="math"><i>z</i></span> recovers the structure descriptor and the wrench profile about as well as the same probe reading the 512-D map (a mean over five quantities of 1.07 on TACO and 1.10 on ARCTIC; dense map = 1). Reading <span class="math"><i>r</i></span>, it recovers little on average: 0.03 on TACO, and −0.53 on ARCTIC, which is worse than predicting the training mean.</p>
+          </div>
+          <div class="card">
+            <h3>r completes the dense reconstruction</h3>
+            <figure class="viz" data-fig="f3b_reconstruction_error" data-height="170" data-emphasis="z + r (64 + 64-D)" data-shared-y></figure>
+            <p>Adding <span class="math"><i>r</i></span> lowers the reconstruction error on the unique test frames from 0.449 to 0.151 on TACO and from 0.645 to 0.205 on ARCTIC. The first two bars (plain autoencoder, PCA-128) are 128-D references; <span class="math"><i>z</i></span> alone has 64 dimensions, and the 64-D linear reference (PCA-64, not drawn) is at 0.66 and 1.19. <span class="math"><i>r</i></span> carries complementary dense detail that <span class="math"><i>z</i></span> does not reconstruct. That detail is a small part of the map: <span class="math"><i>z</i></span> alone already explains 98.4% and 95.7% of its variance.</p>
+          </div>
+          <div class="card">
+            <h3>In latent swaps, structure follows z</h3>
+            <figure class="viz" data-fig="f3b_swap_follows_donor" data-height="170" data-format="pct"></figure>
+            <p>Decoding the <span class="math"><i>z</i></span> of one frame with the <span class="math"><i>r</i></span> of another: the structure follows the <span class="math"><i>z</i></span> donor in 97% (TACO) and 98% (ARCTIC) of swaps. The dense detail follows the <span class="math"><i>r</i></span> donor in 77% on TACO but only 44% on ARCTIC.</p>
+          </div>
+        </div>
+        <p class="caveat">This is a preferential factorization, not disentanglement: <span class="math"><i>z</i></span> and <span class="math"><i>r</i></span> are not independent (the <span class="math"><i>r</i></span> branch reads <span class="math"><i>z</i></span>), and the split is taught by the relational teacher. Without that loss the same architecture gives a <span class="math"><i>z</i></span> that keeps less structure (probe score 0.77 on TACO and 0.63 on ARCTIC). The probes measure the same quantities the teacher was built from, on held-out takes, and their scores have no interval. The structure half of the swap is largely built into the architecture (a swapped map is the host’s z-only map plus a small correction); the detail half is the informative one. <span class="math"><i>r</i></span> is about as persistent as the dense residual it encodes (autocorrelation at 8 frames 0.65 against 0.69 on TACO, 0.80 against 0.77 on ARCTIC), so it is not a fixed sequence-level code. One training seed. By the study’s own rule the outcome is a partial factorization on both datasets.</p>
+        <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: Stage-1 latent factorization</span></p>
+      </li>
+
+      <!-- step C -->
+      <li id="f3-c" data-evidence="F3-C">
+        <p class="evidence-label"><b>Step C</b> · use z as the temporal state</p>
+        <h3>Can z serve as the temporal state? <span class="verdict">TACO: tie + better structure · ARCTIC: worse</span></h3>
+        <figure class="diagram" style="margin:1rem 0 0.25rem">
+          <div class="diagram-scroll" tabindex="0">
+          <svg viewBox="0 0 880 214" style="--dw:880px" role="img" aria-label="Two ways to generate the contact trajectory from the first contact map, the object geometry and the object motion: directly, or through a predicted trajectory of the structure latent z that a decoder turns into contact maps.">
+            <rect x="10" y="64" width="160" height="72" rx="12" class="d-box"/>
+            <text x="90" y="95" text-anchor="middle" class="d-m">s<tspan dy="4" font-size="10">0</tspan><tspan dy="-4">, G, τ</tspan></text>
+            <text x="90" y="116" text-anchor="middle" class="d-s">first contact, object</text>
+
+            <text x="206" y="26" class="d-a">DIRECT</text>
+            <path d="M170,84 H196 V44 H706" class="d-line" marker-end="url(#arr)"/>
+            <text x="452" y="36" text-anchor="middle" class="d-s">temporal model predicts the dense maps</text>
+
+            <path d="M170,116 H196 V156 H300" class="d-line-key" marker-end="url(#arr-key)"/>
+            <rect x="302" y="130" width="216" height="52" rx="10" class="d-key"/>
+            <text x="410" y="152" text-anchor="middle" class="d-t">predicted z, frames 1 to 63</text>
+            <text x="410" y="170" text-anchor="middle" class="d-s">same temporal model, latent output</text>
+            <line x1="518" y1="156" x2="566" y2="156" class="d-line-key" marker-end="url(#arr-key)"/>
+            <rect x="568" y="130" width="84" height="52" rx="10" class="d-box"/>
+            <text x="610" y="161" text-anchor="middle" class="d-t">D<tspan dy="4" font-size="10">z</tspan></text>
+            <path d="M652,156 H680 V118 H706" class="d-line-key" marker-end="url(#arr-key)"/>
+            <text x="206" y="204" class="d-a">z-MEDIATED</text>
+
+            <rect x="708" y="28" width="162" height="108" rx="12" class="d-box"/>
+            <text x="789" y="76" text-anchor="middle" class="d-t">contact maps</text>
+            <text x="789" y="96" text-anchor="middle" class="d-s">63 future frames,</text>
+            <text x="789" y="111" text-anchor="middle" class="d-s">512 values each</text>
+          </svg>
+          </div>
+        </figure>
+        <div class="cards">
+          <div class="card">
+            <h3>Dense error</h3>
+            <figure class="viz" data-fig="f3c_dense_error_b0_b1_b2" data-height="170" data-shared-y></figure>
+            <p><strong>TACO:</strong> statistically tied (direct 1.700, via z 1.732; paired difference +0.03, interval −0.01 to +0.08). <strong>ARCTIC:</strong> 14% worse via z (direct 1.890, via z 2.157; paired difference +0.27, interval +0.19 to +0.34). The whiskers in the chart are each model’s own interval; the comparison rests on the paired difference. Adding a predicted <span class="math"><i>r</i></span> changes nothing on either dataset.</p>
+          </div>
+          <div class="card">
+            <h3>Structure and wrench errors</h3>
+            <figure class="viz" data-fig="f3c_structure_rel_change_b1_vs_b0" data-height="170" data-format="pct"></figure>
+            <p><strong>TACO:</strong> four of five structural and wrench errors (starred) are 2.7–7.0% lower via z; the contact amount is unchanged. The gain is a long-horizon effect: in the first 16 frames the direct model is better. <strong>ARCTIC:</strong> none is better by the report’s rule and the contact amount is 8.8% worse; the other four are within their intervals (centroid and normal nominally 1.1% and 2.0% lower, participation and wrench nominally 5.1% and 3.7% higher). Bars above zero mean a lower error via z. A star marks a difference the rule counts: the paired 95% interval excludes zero and the change is at least 2%.</p>
+          </div>
+        </div>
+        <p class="caveat">Not “z failed”: the next step and the supporting evidence ask why. One training seed. Three of the four latent runs were stopped by hand before the planned minimum number of steps, after a preliminary test pass; the report discloses this. The latent models were selected early (4,000 steps) while the direct model kept improving for much longer, and the direct model predicts a change from <span class="math"><i>s</i><sub>0</sub></span> while the z path decodes absolute maps. The structural gains on TACO are 63-frame averages that net an early disadvantage against a late advantage.</p>
+        <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: Stage-2 z-mediated temporal generation</span></p>
+      </li>
+
+      <!-- step D -->
+      <li id="f3-d">
+        <p class="evidence-label"><b>Step D</b> · three diagnostics</p>
+        <h3>The information is in z, and z moves with the contact</h3>
+
+        <div class="main-ev" data-evidence="F3-diagA" style="margin-top:1.25rem">
+          <div class="text">
+            <p class="evidence-label"><b>Main diagnostic A</b></p>
+            <h3>The true z decodes well; the predicted z does not</h3>
+            <div class="stats">
+              <div class="stat"><div class="v">1.73 → 0.51 <small>TACO</small></div><div class="l">dense error with the predicted z, and with the z of the true frames, through the same decoder; the direct model is at 1.70</div></div>
+              <div class="stat"><div class="v">2.16 → 0.71 <small>ARCTIC</small></div><div class="l">the same; the direct model is at 1.89</div></div>
+            </div>
+            <p>This suggests that <span class="math"><i>z</i></span> preserves the information needed to reconstruct the contact, and that most of the error of the z-mediated generator arises in predicting <span class="math"><i>z</i></span>.</p>
+            <p class="caveat">The “teacher” <span class="math"><i>z</i></span> is computed from the true future frames: a diagnostic input that a generator never has. The inspection was run after the test results were known, as the step the study’s plan prescribes when z-mediation hurts; the report labels it analysis only.</p>
+            <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: Stage-2 z-mediated temporal generation</span></p>
+          </div>
+          <figure class="viz" data-fig="f3diaga_teacher_z_vs_predicted_z" data-height="220" data-emphasis="via z: teacher z* (same decoder)" data-shared-y></figure>
+        </div>
+
+        <div class="cards" style="margin-top:2rem">
+          <div class="card" data-evidence="F3-diagB">
+            <p class="evidence-label"><b>Main diagnostic B</b></p>
+            <h3>z has a meaningful temporal geometry</h3>
+            <figure class="viz" data-fig="f3diagb_dz_vs_dc" data-height="180"></figure>
+            <p>The size of the latent step follows the size of the contact step: Spearman 0.85 on TACO and 0.81 on ARCTIC. Transitions where the contact hardly changes while <span class="math"><i>z</i></span> jumps are rare: 0.2% and 0.6% of test transitions on average over the three horizons, against about 7.5% and 8–8.5% if the two steps were independent. The chart shows the four-frame horizon: the mean latent step in each decile of the contact step, with the interquartile range of the transitions around it (a spread, not a confidence interval); the shaded band marks a small contact step (below the training 30% quantile) and the horizontal line a large latent step (above the training 70% quantile).</p>
+            <p class="caveat"><span class="math"><i>z</i></span> is aligned with the contact, but it is less persistent than the dense map: its mean step is 1.9–2.2 times as large on TACO and 1.5–1.6 times on ARCTIC, in comparable units.</p>
+            <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: z temporal diagnostic</span></p>
+          </div>
+          <div class="card" data-evidence="F3-diagC">
+            <p class="evidence-label"><b>Main diagnostic C</b></p>
+            <h3>Local z dynamics exist, especially on TACO</h3>
+            <figure class="viz" data-fig="f3diagc_gain_over_persistence" data-height="180" data-format="pct"></figure>
+            <p>Given the true current <span class="math"><i>z</i></span> and the object motion around the two frames, how much does a learned single-step predictor improve on simply copying <span class="math"><i>z</i></span>? <strong>TACO:</strong> 3.3%, 11.3% and 17.8% at 1, 4 and 8 frames ahead. <strong>ARCTIC:</strong> −2.6% and 0.2% (both indistinguishable from zero) and 6.9%; <span class="math"><i>z</i></span> is more persistent there and the learned predictor adds much less.</p>
+            <p class="caveat">Window averages, one seed, a predictor that is handed the true current latent; no rollout and no horizon beyond 8 frames were measured. The report calls the TACO outcome borderline, and does not decide whether the Stage-2 difficulty comes from whole-sequence prediction or from little learnable change beyond persistence. In a split added after the results were seen, the gain is clear on both datasets for pairs that start at the first frame of a sequence; for pairs that start eight or more frames in, it is smaller on TACO (2%, 9% and 14%), and on ARCTIC the predictor is worse than persistence one frame ahead (−9%) and indistinguishable from it four frames ahead.</p>
+            <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: z temporal diagnostic</span></p>
+          </div>
+        </div>
+      </li>
+    </ol>
+
+    <details class="more" id="f3-sub" open>
+      <summary>Supporting evidence: is it the decoder, or the latent trajectory? <small>decoder adaptation, train–test gap</small></summary>
+      <div class="inner">
+        <p>The decoder changes we tried do not solve it; the predicted latent trajectory has a large train–test gap.</p>
+        <div class="cards">
+          <div class="card" data-evidence="F3-subA">
+            <p class="evidence-label"><b>Sub-evidence A</b></p>
+            <h3>Decoder adaptation does not solve the problem</h3>
+            <figure class="viz" data-fig="f3suba_decoder_same_input" data-height="170" data-shared-y></figure>
+            <p>A larger decoder, a longer training schedule and checkpoint selection on the dense loss, changed together, leave the dense error “similar” by the study’s rule: 1.698 against 1.732 on TACO (a 1.96% reduction whose interval excludes zero, but under the study’s 2% threshold and absent at a matched training step) and 2.158 against 2.157 on ARCTIC. Fed the same predicted latent, the old and the new decoder are within 0.5% of each other; fed the true latent, both decode at about 0.5 (TACO) and 0.7 (ARCTIC).</p>
+            <p class="caveat">The earlier model had already been trained jointly on predicted latents, so this is not “frozen versus adapted”. A wider decoder and a decoder trained on many held-out predictions were not tested; the report’s own answer on decoder mismatch is “no evidence was found that this mismatch caused the failure”.</p>
+            <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: z joint-decoder follow-up</span></p>
+          </div>
+          <div class="card" data-evidence="F3-subB">
+            <p class="evidence-label"><b>Sub-evidence B</b></p>
+            <h3>The latent trajectory is fitted on training sequences, not on new ones</h3>
+            <figure class="viz" data-fig="f3subb_z_rmse_splits" data-height="170"></figure>
+            <p>With the same weights of the adapted model, the predicted <span class="math"><i>z</i></span> is close to the true one on training sequences (error 0.09 on TACO, 0.06 on ARCTIC; the earlier model: 0.22 and 0.19) and far from it on held-out ones (validation / test 0.63 / 0.70 and 0.80 / 0.72). On a subset of 160 training sequences the adapted model’s predicted latent decodes at about the same error as the true one; on test sequences it decodes at 1.70 against 0.51 (TACO) and 2.16 against 0.69 (ARCTIC).</p>
+            <p class="caveat">The held-out prediction is not uninformative: it stays below the error of predicting the training mean (0.99 and 0.91). The decoder fed the true latent is itself about three times worse on test than on those training sequences, so not all of the train–test difference of the decoded error is due to the predicted latent. The report’s own wording for “the latent trajectory is the bottleneck” is “most likely”.</p>
+            <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: z joint-decoder follow-up</span></p>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <div class="conclusion">
+      <p class="evidence-label">Finding 3 · conclusion</p>
+      <p>A learned structural state z exists and is temporally meaningful. The evidence does not point to the existence of z, or to the decoders we tried, as what is missing. It points to how the latent trajectory is evolved and generalized from the initial observation.</p>
+      <p>The datasets differ and the difference is part of the result. On TACO the z-mediated generator ties the direct one on dense error and improves most structural errors, and local z dynamics beat persistence. On ARCTIC the z-mediated generator is worse on dense error and z is persistence-dominated. The test sets differ as well: every group, mesh and subject of the TACO test set is also seen in training, while 21 of the 44 ARCTIC test takes come from a subject absent from training (the diagnostic’s ARCTIC reading is the same on the takes of seen subjects).</p>
+    </div>
+    <p class="bridge">How should the learned structural state evolve?</p>
+  </div>
+</section>
+
+
+<!-- ========================== CURRENT HYPOTHESIS ========================== -->
+<section class="block hyp" id="hypothesis" data-evidence="HYP">
+  <div class="wrap">
+    <span class="hyp-banner">Current hypothesis · not a finding</span>
+    <p class="kicker">Next experiment</p>
+    <h2 class="question">How should the learned structural state evolve?</h2>
+    <p class="claim">Two changes are being tested: carry z forward as a state, and keep the known first contact map when decoding. Neither has a result yet.</p>
+    <p class="lead">Everything above is a completed study. This section is not. It states the two hypotheses the completed evidence motivates and the experiment that is running to test them.</p>
+
+    <div class="cards">
+      <div class="card">
+        <p class="evidence-label">Hypothesis A</p>
+        <h3>Stateful structural evolution</h3>
+        <figure class="diagram">
+          <div class="diagram-scroll" tabindex="0">
+          <svg viewBox="0 0 430 190" style="--dw:430px" role="img" aria-label="Hypothesis A. Today the whole latent trajectory is predicted in one pass from the initial observation. The candidate starts from an initial latent state and advances it step by step, each state from the previous one.">
+            <text x="10" y="18" class="d-s">today: the whole sequence in one pass</text>
+            <rect x="10" y="30" width="106" height="44" rx="10" class="d-box"/>
+            <text x="63" y="57" text-anchor="middle" class="d-m">s<tspan dy="4" font-size="10">0</tspan><tspan dy="-4">, G, τ</tspan></text>
+            <line x1="116" y1="52" x2="176" y2="52" class="d-line" marker-end="url(#arr)"/>
+            <rect x="178" y="30" width="240" height="44" rx="10" class="d-box"/>
+            <text x="298" y="57" text-anchor="middle" class="d-m">z<tspan dy="4" font-size="10">1</tspan><tspan dy="-4">, z</tspan><tspan dy="4" font-size="10">2</tspan><tspan dy="-4">, … , z</tspan><tspan dy="4" font-size="10">63</tspan></text>
+            <text x="10" y="94" style="font:400 11.5px system-ui,sans-serif;fill:#8a5a00">candidate: a state carried forward</text>
+            <circle cx="40" cy="150" r="22" class="d-hyp"/><text x="40" y="155" text-anchor="middle" class="d-m">z<tspan dy="4" font-size="10">0</tspan></text>
+            <line x1="64" y1="150" x2="116" y2="150" stroke="#8a5a00" stroke-width="1.5" marker-end="url(#arr-hyp)"/>
+            <circle cx="142" cy="150" r="22" class="d-hyp"/><text x="142" y="155" text-anchor="middle" class="d-m">z<tspan dy="4" font-size="10">1</tspan></text>
+            <line x1="166" y1="150" x2="218" y2="150" stroke="#8a5a00" stroke-width="1.5" marker-end="url(#arr-hyp)"/>
+            <circle cx="244" cy="150" r="22" class="d-hyp"/><text x="244" y="155" text-anchor="middle" class="d-m">z<tspan dy="4" font-size="10">2</tspan></text>
+            <line x1="268" y1="150" x2="320" y2="150" stroke="#8a5a00" stroke-width="1.5" marker-end="url(#arr-hyp)"/>
+            <text x="346" y="155" text-anchor="middle" class="d-m">…</text>
+          </svg>
+          </div>
+        </figure>
+        <p>Today all 63 future latents are predicted in one pass from <span class="math">(<i>s</i><sub>0</sub>, <i>G</i>, <i>τ</i>)</span>; no latent state is carried forward. The candidate predicts an initial state from <span class="math">(<i>s</i><sub>0</sub>, <i>G</i>)</span> with its own initial-state module (the Stage-1 encoder’s architecture, trained from scratch inside the model with none of its weights) and then advances it, <span class="math"><i>z</i><sub><i>t</i>+1</sub> = <i>z</i><sub><i>t</i></sub> + <i>F</i>(<i>z</i><sub><i>t</i></sub>, <i>G</i>, <i>τ</i>)</span>, where <span class="math"><i>τ</i></span> is the object motion around frame <span class="math"><i>t</i></span>. It is trained and run as a rollout on its own predictions, without teacher forcing.</p>
+        <p><strong>Why it is plausible:</strong> given the true current latent, a learned predictor beats persistence on TACO (on ARCTIC only marginally, and only eight frames ahead), and the true latent decodes well.</p>
+        <p class="caveat">The diagnostic that motivates this measured single steps from the <em>true</em> latent, not a rollout; a rollout feeds its own errors back and sees no observation while it runs. Started from the true first latent, the single-step predictor’s advantage over the whole-sequence model shrinks quickly with the target frame (51%, 17% and 5% at frames 1, 4 and 8 on TACO; 42%, 10% and 1% on ARCTIC). The joint-decoder follow-up rated the stateful test “a reasonable next test on TACO and a weak one on ARCTIC”.</p>
+      </div>
+      <div class="card">
+        <p class="evidence-label">Hypothesis B</p>
+        <h3>Preserve the initial dense realization</h3>
+        <figure class="diagram">
+          <div class="diagram-scroll" tabindex="0">
+          <svg viewBox="0 0 430 190" style="--dw:430px" role="img" aria-label="Hypothesis B. Today each contact map is decoded from the latent and the geometry. The candidate decoder also receives the known first contact map, decodes only the change and adds it to that map.">
+            <text x="10" y="18" class="d-s">today: absolute decoding</text>
+            <circle cx="40" cy="52" r="22" class="d-box"/><text x="40" y="57" text-anchor="middle" class="d-m">z<tspan dy="4" font-size="10">t</tspan></text>
+            <line x1="64" y1="52" x2="126" y2="52" class="d-line" marker-end="url(#arr)"/>
+            <rect x="128" y="30" width="70" height="44" rx="10" class="d-box"/><text x="163" y="57" text-anchor="middle" class="d-t">D</text>
+            <line x1="198" y1="52" x2="260" y2="52" class="d-line" marker-end="url(#arr)"/>
+            <rect x="262" y="30" width="70" height="44" rx="10" class="d-box"/><text x="297" y="57" text-anchor="middle" class="d-m">C<tspan dy="4" font-size="10">t</tspan></text>
+            <text x="10" y="94" style="font:400 11.5px system-ui,sans-serif;fill:#8a5a00">candidate: decode only the change</text>
+            <circle cx="40" cy="150" r="22" class="d-hyp"/><text x="40" y="155" text-anchor="middle" class="d-m">z<tspan dy="4" font-size="10">t</tspan></text>
+            <line x1="64" y1="150" x2="126" y2="150" stroke="#8a5a00" stroke-width="1.5" marker-end="url(#arr-hyp)"/>
+            <rect x="128" y="128" width="70" height="44" rx="10" class="d-hyp"/><text x="163" y="155" text-anchor="middle" class="d-t">D<tspan dy="4" font-size="10">Δ</tspan></text>
+            <line x1="198" y1="150" x2="232" y2="150" stroke="#8a5a00" stroke-width="1.5" marker-end="url(#arr-hyp)"/>
+            <circle cx="247" cy="150" r="13" class="d-hyp"/><text x="247" y="155" text-anchor="middle" class="d-t">+</text>
+            <line x1="260" y1="150" x2="296" y2="150" stroke="#8a5a00" stroke-width="1.5" marker-end="url(#arr-hyp)"/>
+            <rect x="298" y="128" width="70" height="44" rx="10" class="d-hyp"/><text x="333" y="155" text-anchor="middle" class="d-m">C<tspan dy="4" font-size="10">t</tspan></text>
+            <path d="M247,96 V135" stroke="#8a5a00" stroke-width="1.5" fill="none" marker-end="url(#arr-hyp)"/>
+            <path d="M247,108 H163 V126" stroke="#8a5a00" stroke-width="1.5" fill="none" marker-end="url(#arr-hyp)"/>
+            <text x="258" y="108" class="d-m">s<tspan dy="4" font-size="10">0</tspan></text>
+            <text x="274" y="108" class="d-s">the known first map</text>
+          </svg>
+          </div>
+        </figure>
+        <p>Today the decoder rebuilds every map from the latent and the geometry, <span class="math"><i>C</i><sub><i>t</i></sub> = <i>D</i>(<i>z</i><sub><i>t</i></sub>, <i>G</i>)</span>, without access to the given <span class="math"><i>s</i><sub>0</sub></span>. The candidate keeps the known first map and decodes only its change: <span class="math"><i>C</i><sub><i>t</i></sub> = <i>s</i><sub>0</sub> + <i>D</i><sub>Δ</sub>(<i>s</i><sub>0</sub>, <i>z</i><sub><i>t</i></sub>, <i>G</i>)</span>.</p>
+        <p><strong>Why it is plausible:</strong> the Stage-2 z-mediated model is already behind at the first generated frame (0.94 against 0.36 on TACO, 1.27 against 0.40 on ARCTIC), and the direct model already predicts a change from <span class="math"><i>s</i><sub>0</sub></span>.</p>
+        <p class="caveat"><span class="math"><i>s</i><sub>0</sub></span> preserves the initial realization while <span class="math"><i>z</i></span> controls the structural evolution: that is the intended reading, not a measured one. In the current model only the decoder lacks <span class="math"><i>s</i><sub>0</sub></span>; the temporal network is conditioned on it.</p>
+      </div>
+    </div>
+
+    <h4>The 2 × 2 experiment that is running</h4>
+    <div class="table-scroll">
+    <table class="grid2">
+      <thead>
+        <tr><th></th><th scope="col">Absolute decoding</th><th scope="col"><span class="math"><i>s</i><sub>0</sub></span>-preserving decoding</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Whole-sequence z</th><td><b>M00</b><span>reused from the previous study</span></td><td><b>M01</b><span>not finished</span></td></tr>
+        <tr><th scope="row">Stateful z</th><td><b>M10</b><span>not finished</span></td><td><b>M11</b><span>not finished</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="prose">
+      <p>The experiment runs on TACO and ARCTIC, read separately, with one training seed. M00 is the adapted z-mediated model of the previous follow-up, not a new run. Apart from the two factors the earlier setting is kept: the same data, split, teacher latents, losses, budget and evaluation code. Each factor is a bundle rather than a single minimal change: the stateful models use a different temporal network (an initial-state module plus a learned transition) and one extra loss term; the <span class="math"><i>s</i><sub>0</sub></span>-preserving decoder both receives <span class="math"><i>s</i><sub>0</sub></span> and outputs a change.</p>
+      <p class="caveat"><strong>Status at the time of writing (4 October 2026):</strong> the experiment is in progress and no result is reported here. The thresholds for “better” and “worse” are fixed in the experiment’s code and are those of the previous studies.</p>
+      <p class="foot"><span class="chip">TACO</span><span class="chip">ARCTIC</span><span class="src">Source: z stateful / s₀ factorial (experiment design, in progress) · motivating numbers: z temporal diagnostic, Stage-2 z-mediated temporal generation, z joint-decoder follow-up</span></p>
+    </div>
+  </div>
+</section>
+
+
+</main>
+<noscript><p class="wrap caveat">The charts on this page are drawn with JavaScript from <code>data/figures.js</code>; their values are in <a href="data/figures.json">data/figures.json</a>.</p></noscript>
+
+<!-- ================================ SCOPE ================================ -->
+<footer class="site" id="scope">
+  <div class="wrap">
+    <div class="scope-table">
+        <h2>Which evidence was run on which dataset</h2>
+        <div class="table-scroll">
+        <table class="plain">
+          <thead><tr><th scope="col">Evidence</th><th scope="col">TACO</th><th scope="col">ARCTIC</th><th scope="col">OakInk2</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Motivation: predicted vs recorded contact</th><td class="yes">4 test splits</td><td class="yes">8 windows</td><td class="no">–</td></tr>
+            <tr><th scope="row">1A · variation within and between takes</th><td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td></tr>
+            <tr><th scope="row">1B · sample, then evolve</th><td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td></tr>
+            <tr><th scope="row">1C · contact-change events</th><td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td></tr>
+            <tr><th scope="row">1 · hand association and hand information</th><td class="yes">yes</td><td class="yes">yes</td><td class="no">–</td></tr>
+            <tr><th scope="row">1D · wrench counterfactual</th><td class="yes">yes</td><td class="yes">yes</td><td class="no">–</td></tr>
+            <tr><th scope="row">2 · structure / variance boundary</th><td class="yes">yes</td><td class="yes">yes</td><td class="no">–</td></tr>
+            <tr><th scope="row">3 · all modelling steps and diagnostics</th><td class="yes">yes</td><td class="yes">yes</td><td class="no">–</td></tr>
+            <tr><th scope="row">Current hypothesis (in progress)</th><td class="yes">running</td><td class="yes">running</td><td class="no">–</td></tr>
+          </tbody>
+        </table>
+        </div>
+    </div>
+    <div class="cols">
+      <div>
+        <h2>How to read this page</h2>
+        <ul>
+          <li>Every number is read from the project’s result tables. Charts are drawn from those tables by <a href="https://github.com/ungungnam/dexcore/tree/main/docs/build"><code>docs/build</code></a>; each chart has a “Data table” with its values, a note on how to read them, and its source files.</li>
+          <li><a href="evidence_manifest.json">evidence_manifest.json</a> maps the claims of every evidence block to their report, result files, metric and numbers. <a href="https://github.com/ungungnam/dexcore/blob/main/docs/content_outline.md">content_outline.md</a> lists the evidence under each finding.</li>
+          <li>TACO and ARCTIC results are never pooled. Raw contact-error units differ between datasets: compare within a dataset.</li>
+          <li>From evidence 1B on, the TACO test set is the dataset’s <code>test_1</code> split (364 sequences from 186 takes; every group, mesh and subject also appears in training). The ARCTIC test set is 186 sequences from 44 takes, 21 of them from a subject absent from training.</li>
+          <li>Intervals are bootstrap intervals over takes. Most model experiments use one training seed (the structure / variance probes, the structure-aware generation and the hand-information studies use three), so the intervals describe the test set, not training randomness.</li>
+          <li>Wrench capability is a modelled proxy for functional grasp capability, under a simplified friction-cone model.</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Data and prior work</h2>
+        <ul>
+          <li>Datasets: TACO (two-handed tool–object manipulation), ARCTIC (two-handed manipulation of articulated objects), OakInk2. They are used under their own licences and are not redistributed here.</li>
+          <li>The motivation uses <a href="https://github.com/RosettaWYzhang/BimArt">BimArt</a> (CVPR 2025), both the released model and this project’s port to TACO.</li>
+          <li>Code, experiment scripts and this page: <a href="https://github.com/ungungnam/dexcore">github.com/ungungnam/dexcore</a>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="data/figures.js"></script>
+<script src="assets/js/charts.js"></script>
+</body>
+</html>

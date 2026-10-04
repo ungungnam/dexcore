@@ -1,0 +1,1216 @@
+{
+ "unit": "F_structure_variance",
+ "figure_module": "docs/build/figs/f2_structure_variance.py",
+ "entries": [
+  {
+   "block": "F2-A",
+   "claim": "The ladder adds one descriptor block at a time up to R3 and then branches: R0 participation of six hand parts - palm and five fingers (6 numbers per frame), R1 + contact amount (12), R2 + per-part contact centroid and mean contact normal (48), R3 + contact spread and patch count (60), R4 = R2 + coarse hand pose (90), R5 = R3 + coarse hand pose (102). The two dense rungs are a different parameterisation, not further additions: CONTACT_FULL = the dense canonical contact map (512), FULL = dense map + 100 hand surface points (812).",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_variance_boundary/structure_variance_report.md",
+   "source_files": [
+    "reports/structure_variance_boundary/representation_definitions.json",
+    "reports/structure_variance_boundary/structure_variance_report.md"
+   ],
+   "metric": "Size of each representation in numbers per frame (no direction); the same definitions are used on both datasets.",
+   "numbers": {
+    "TACO and ARCTIC (definition) | R0 = participation a_k of 6 hand parts": {
+     "value": "6",
+     "source": "reports/structure_variance_boundary/representation_definitions.json",
+     "locator": "dims.R0; ladder.R0 = [part]"
+    },
+    "TACO and ARCTIC (definition) | R1 = R0 + contact amount m_k": {
+     "value": "12",
+     "source": "reports/structure_variance_boundary/representation_definitions.json",
+     "locator": "dims.R1; ladder.R1 = [part, amount]"
+    },
+    "TACO and ARCTIC (definition) | R2 = R1 + centroid p_k + normal n_k (geom block 36 = 6 parts x (3 + 3))": {
+     "value": "48",
+     "source": "reports/structure_variance_boundary/representation_definitions.json",
+     "locator": "dims.R2; blocks.part = 6, blocks.amount = 6, blocks.geom = 36; table[R2].window_dim = 384"
+    },
+    "TACO and ARCTIC (definition) | R3 = R2 + spread s_k + patch count c_k (topo block 12)": {
+     "value": "60",
+     "source": "reports/structure_variance_boundary/representation_definitions.json",
+     "locator": "dims.R3; blocks.topo = 12"
+    },
+    "TACO and ARCTIC (definition) | R4 = R2 + coarse hand kinematics (hand block 42); not R3 plus something": {
+     "value": "90",
+     "source": "reports/structure_variance_boundary/representation_definitions.json",
+     "locator": "dims.R4; ladder.R4 = [part, amount, geom, hand]; blocks.hand = 42"
+    },
+    "TACO and ARCTIC (definition) | R5 = R3 + coarse hand kinematics": {
+     "value": "102",
+     "source": "reports/structure_variance_boundary/representation_definitions.json",
+     "locator": "dims.R5; ladder.R5 = [part, amount, geom, topo, hand]"
+    },
+    "TACO and ARCTIC (definition) | CONTACT_FULL = dense canonical contact C_t": {
+     "value": "512",
+     "source": "reports/structure_variance_boundary/representation_definitions.json",
+     "locator": "dims.CONTACT_FULL; blocks.C"
+    },
+    "TACO and ARCTIC (definition) | FULL = C_t + 100 MANO surface points H_t (300)": {
+     "value": "812",
+     "source": "reports/structure_variance_boundary/representation_definitions.json",
+     "locator": "dims.FULL; blocks.C = 512, blocks.H = 300"
+    },
+    "TACO and ARCTIC (definition) | participation rule": {
+     "value": "n_hard >= 3 vertices within 1 cm, causal 3-frame majority",
+     "source": "reports/structure_variance_boundary/representation_definitions.json",
+     "locator": "participation"
+    },
+    "TACO and ARCTIC (definition) | geometry definition": {
+     "value": "centroid / l and mean toward-hand normal of the hard-contact vertices; RMS spread / l; patch count (1 cm / merge 1 cm)",
+     "source": "reports/structure_variance_boundary/representation_definitions.json",
+     "locator": "geometry"
+    }
+   },
+   "caveats": [
+    "The ladder branches at R2: R2 -> R3 adds topology, R2 -> R4 adds the coarse hand, R5 has both; an ordinal x axis R0 ... FULL is ordered by size, not by strict nesting.",
+    "The six hand parts are palm, thumb, index, middle, ring, little; geometry is in the object frame, relative to the mesh centroid, divided by the object's characteristic length l; inactive parts carry zeros (report section 3).",
+    "The report states the ladder is one path through the space of representations; other coarse descriptors and block combinations were not tried (section 10).",
+    "OakInk2 was excluded from this study (report section 8: its cached event sequences carry no hand geometry in the object frame)."
+   ],
+   "claim_as_extracted": "The ladder adds one descriptor block at a time: R0 finger participation (6 numbers per frame), R1 + contact amount (12), R2 + per-part contact centroid and mean contact normal (48), R3 + contact spread and patch count (60), R4 = R2 + coarse hand pose (90), R5 = R3 + coarse hand pose (102), CONTACT_FULL = the dense canonical contact map (512), FULL = dense map + 100 hand surface points (812).",
+   "correction_reason": "All eight sizes and block lists match representation_definitions.json. Two wording points: the six participation numbers are palm + five fingers (report section 3), so 'finger participation (6)' is loose; and FULL = [C, H] contains none of the compact blocks, so 'adds one block at a time' does not describe the step to the dense rungs (R4 is also R2 + hand, not R3 + something - already in the extractor's caveat)."
+  },
+  {
+   "block": "F2-A",
+   "claim": "Under a fixed small probe, the wrench-profile reconstruction error drops sharply when the per-part contact centroid and mean normal are added (R1 -> R2), changes little between R2 and R5, and is higher again for the dense inputs CONTACT_FULL and FULL, on both TACO and ARCTIC.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_variance_boundary/structure_variance_report.md",
+   "source_files": [
+    "reports/structure_variance_boundary/functional_probe.csv",
+    "reports/structure_variance_boundary/incremental_gain.csv",
+    "reports/structure_variance_boundary/logs/probe_taco.log",
+    "reports/structure_variance_boundary/logs/probe_arctic.log"
+   ],
+   "metric": "Relative L1 error (sum|q_hat - q| / sum q) of a 2-layer MLP probe that reconstructs the 76-direction support-function wrench profile q_t of a frame from ONE frame of the representation plus the object descriptor G; lower is better; mean of 3 seeds over test frames in contact (TACO 22245 frames / 186 takes, ARCTIC 10567 / 44); brackets = take-cluster bootstrap 95 % CI. Ratios R_i -> R_j = error after / before, paired take bootstrap 95 % CI.",
+   "numbers": {
+    "TACO | train-mean profile (reference)": {
+     "value": "0.759860120244135 [0.7156141401554376, 0.8079365538877101]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=taco, rep=MEAN, probe=mlpG_seedavg, target=q: rel_l1, rel_l1_lo, rel_l1_hi"
+    },
+    "TACO | R0 rel. L1": {
+     "value": "0.3669927220117526 [0.3545875060021986, 0.37935324477247834]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=taco, rep=R0, probe=mlpG_seedavg, target=q"
+    },
+    "TACO | R1 rel. L1": {
+     "value": "0.3461025918017722 [0.3330272212733302, 0.3588404626650417]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=taco, rep=R1, probe=mlpG_seedavg, target=q"
+    },
+    "TACO | R2 rel. L1": {
+     "value": "0.17599461524188184 [0.17023281524418893, 0.18241142560308513]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=taco, rep=R2, probe=mlpG_seedavg, target=q"
+    },
+    "TACO | R3 rel. L1": {
+     "value": "0.15763036319607093 [0.15256587857306306, 0.16331737512744066]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=taco, rep=R3, probe=mlpG_seedavg, target=q"
+    },
+    "TACO | R4 rel. L1": {
+     "value": "0.17569189512803665 [0.17024900153883787, 0.1812233160144017]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=taco, rep=R4, probe=mlpG_seedavg, target=q"
+    },
+    "TACO | R5 rel. L1 (lowest on TACO)": {
+     "value": "0.15522131487646781 [0.15042634295933766, 0.16020271853764095]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=taco, rep=R5, probe=mlpG_seedavg, target=q"
+    },
+    "TACO | CONTACT_FULL rel. L1": {
+     "value": "0.3580521743596404 [0.34027005878797567, 0.37661812880643974]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=taco, rep=CONTACT_FULL, probe=mlpG_seedavg, target=q"
+    },
+    "TACO | FULL rel. L1": {
+     "value": "0.31610455014369254 [0.3055310262066023, 0.32824887300918226]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=taco, rep=FULL, probe=mlpG_seedavg, target=q"
+    },
+    "ARCTIC | train-mean profile (reference)": {
+     "value": "0.8896062442352635 [0.7659092552065537, 1.036708317776089]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=arctic, rep=MEAN, probe=mlpG_seedavg, target=q"
+    },
+    "ARCTIC | R0 rel. L1": {
+     "value": "0.5074972790021922 [0.48783298502116873, 0.5319504146445511]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=arctic, rep=R0, probe=mlpG_seedavg, target=q"
+    },
+    "ARCTIC | R1 rel. L1": {
+     "value": "0.5099504398541802 [0.4905400176279226, 0.5341941908742229]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=arctic, rep=R1, probe=mlpG_seedavg, target=q"
+    },
+    "ARCTIC | R2 rel. L1": {
+     "value": "0.18485391878943247 [0.17121992828843988, 0.20081019405646716]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=arctic, rep=R2, probe=mlpG_seedavg, target=q"
+    },
+    "ARCTIC | R3 rel. L1 (lowest on ARCTIC)": {
+     "value": "0.17187220161248204 [0.15978846669448585, 0.18595257034516868]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=arctic, rep=R3, probe=mlpG_seedavg, target=q"
+    },
+    "ARCTIC | R4 rel. L1": {
+     "value": "0.18718615602241837 [0.17200773246455237, 0.20455442232380536]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=arctic, rep=R4, probe=mlpG_seedavg, target=q"
+    },
+    "ARCTIC | R5 rel. L1": {
+     "value": "0.1736908366397239 [0.16004753302186633, 0.1897203967265331]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=arctic, rep=R5, probe=mlpG_seedavg, target=q"
+    },
+    "ARCTIC | CONTACT_FULL rel. L1": {
+     "value": "0.4043767984786931 [0.37051967486335285, 0.44174911706939235]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=arctic, rep=CONTACT_FULL, probe=mlpG_seedavg, target=q"
+    },
+    "ARCTIC | FULL rel. L1": {
+     "value": "0.3944746350799557 [0.3605403398567954, 0.4321433869772934]",
+     "source": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=arctic, rep=FULL, probe=mlpG_seedavg, target=q"
+    },
+    "TACO | R1 -> R2 wrench error ratio (adding centroid / normal)": {
+     "value": "0.5085041817389264 [0.49333360524662706, 0.5244166653850763]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=taco, frm=R1, to=R2: functional_ratio, functional_lo, functional_hi"
+    },
+    "ARCTIC | R1 -> R2 wrench error ratio (adding centroid / normal)": {
+     "value": "0.3624938902735161 [0.34128107993364065, 0.38446516758753674]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R1, to=R2: functional_ratio, functional_lo, functional_hi"
+    },
+    "TACO | R5 -> FULL wrench error ratio (adding the dense detail)": {
+     "value": "2.036476436211502 [1.9771452467195219, 2.089564353873836]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=taco, frm=R5, to=FULL: functional_ratio, functional_lo, functional_hi"
+    },
+    "ARCTIC | R5 -> FULL wrench error ratio (adding the dense detail)": {
+     "value": "2.271130951474371 [2.155988785886987, 2.384474351487685]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R5, to=FULL: functional_ratio, functional_lo, functional_hi"
+    }
+   },
+   "caveats": [
+    "The curve is U-shaped, not an elbow followed by a plateau up to FULL: the dense inputs are worse than R2 under this fixed probe. R2 is a function of the dense state, and the report says this is 'a statement about the parameterisation, not about the information' (section 4): a 2-layer probe on about 60-80 k training frames does not decode finger-labelled geometry from the 512 canonical points.",
+    "The functional target is the wrench report's modelled, normalised capability (unit finger budgets, linearised friction cone with mu = 0.5, one hand) - a proxy for functional grasp capability, not human force, intent or physical feasibility (report section 10).",
+    "Learned probes measure what a fixed small model can extract, not information content (report section 10). The probe also receives the object descriptor G; without G R2 reaches 0.17400455474853513 (TACO) / 0.19105257093906403 (ARCTIC) (functional_probe.csv, probe=mlp).",
+    "Three seeds; ARCTIC has 44 test takes and wider intervals than TACO (186).",
+    "The amount block (R0 -> R1) lowers the wrench error by 6 % on TACO (0.9430775354468436) and not on ARCTIC (1.0048338404036594); participation alone already halves the train-mean error."
+   ]
+  },
+  {
+   "block": "F2-A",
+   "claim": "R2 is close to, but not at, the lowest error: its wrench-probe error is 13 % (TACO) and 8 % (ARCTIC) above the best representation, and its composite future-structure error 4 % (TACO) and 2 % (ARCTIC) above the best.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_variance_boundary/structure_variance_report.md",
+   "source_files": [
+    "reports/structure_variance_boundary/saturation_summary.csv"
+   ],
+   "metric": "Gap to the best representation of each axis = error ratio to the lowest-error representation - 1 (0 = the best; lower is better); brackets = 95 % interval of the paired take bootstrap. Functional axis = wrench-probe relative-L1 error sum; temporal axis = composite T1-T4 error averaged over h = 1, 4, 8.",
+   "numbers": {
+    "TACO | R2 wrench gap to best (best = R5)": {
+     "value": "0.13383020483975638 [0.11442774598327039, 0.15515270663650443]",
+     "source": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=taco, rep=R2: functional_gap_best, _lo, _hi; best_functional=R5"
+    },
+    "TACO | R2 future-structure gap to best (best = R5)": {
+     "value": "0.03978444635541667 [0.030890407631405277, 0.049529531657494553]",
+     "source": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=taco, rep=R2: temporal_gap_best, _lo, _hi; best_temporal=R5"
+    },
+    "TACO | R3 wrench gap to best / future-structure gap to best": {
+     "value": "0.01552008705454111 [0.0027658291410470603, 0.031009903135487574] / 0.03382925109310131 [0.02420643290858181, 0.04451695502527955]",
+     "source": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=taco, rep=R3: functional_gap_best(_lo,_hi), temporal_gap_best(_lo,_hi)"
+    },
+    "TACO | R4 wrench gap to best / future-structure gap to best": {
+     "value": "0.13187995648574602 [0.1188045666331087, 0.145171156028063] / 0.004936532960559958 [0.0025097085320383186, 0.0074263026919013635]",
+     "source": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=taco, rep=R4: functional_gap_best(_lo,_hi), temporal_gap_best(_lo,_hi)"
+    },
+    "ARCTIC | R2 wrench gap to best (best = R3)": {
+     "value": "0.07553122061134787 [0.05781591703710389, 0.09502788056256875]",
+     "source": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=arctic, rep=R2: functional_gap_best, _lo, _hi; best_functional=R3"
+    },
+    "ARCTIC | R2 future-structure gap to best (best = R5)": {
+     "value": "0.01739949711586819 [-0.006014935439906726, 0.03911792221941465]",
+     "source": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=arctic, rep=R2: temporal_gap_best, _lo, _hi; best_temporal=R5"
+    },
+    "ARCTIC | R3 future-structure gap to best": {
+     "value": "0.018934879387370263 [-0.0059452278875936765, 0.03959065387590519]",
+     "source": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=arctic, rep=R3: temporal_gap_best(_lo,_hi)"
+    },
+    "ARCTIC | R4 wrench gap to best / future-structure gap to best": {
+     "value": "0.08910082180982659 [0.06520937679117958, 0.1160875702315768] / 0.009722596493866531 [0.004828929326772552, 0.01527650876913668]",
+     "source": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=arctic, rep=R4: functional_gap_best(_lo,_hi), temporal_gap_best(_lo,_hi)"
+    }
+   },
+   "caveats": [
+    "Report prose and table disagree on the INTERVAL of R2's temporal gap to the best: the decision table and section 5 print 4.0 % [2.7, 5.2] (TACO) and 1.7 % [-1.8, 5.1] (ARCTIC); saturation_summary.csv and the report's own Table 7 give [0.031, 0.050] and [-0.006, 0.039]. The CSV values are the ones quoted here; the point estimates agree.",
+    "Report section 8 names R4 (TACO) and R2 (ARCTIC) as the best temporal representation; saturation_summary.csv column best_temporal is R5 on both datasets (R4 is 0.5 % behind on TACO, R2 1.7 % behind on ARCTIC).",
+    "On ARCTIC the interval of R2's temporal gap to the best includes 0; on TACO it does not.",
+    "Same fixed-probe and fixed-recipe qualifiers as the other F2-A / F2-B entries."
+   ]
+  },
+  {
+   "block": "F2-B",
+   "claim": "Under one fixed temporal recipe, the composite error of predicting the future structured contact is 18 % (TACO) and 32 % (ARCTIC) lower from a window of R2 than from a window of the FULL dense state, and R3-R5 improve on R2 by at most a few per cent.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_variance_boundary/structure_variance_report.md",
+   "source_files": [
+    "reports/structure_variance_boundary/temporal_ratios.csv",
+    "reports/structure_variance_boundary/saturation_summary.csv",
+    "reports/structure_variance_boundary/incremental_gain.csv",
+    "scripts/research/structure_variance_boundary/aggregate.py"
+   ],
+   "metric": "Composite T1-T4 error ratio to FULL (lower is better; 1 = FULL): mean of four paired error ratios - future participation (per-frame mean |p(a_k) - a_k|), amount (L1 normalised by the train-mean total amount), centroid / normal (mean of the two ratios) and wrench profile (relative L1) - predicted 1, 4 and 8 frames ahead from a causal 8-frame window of the representation plus the object descriptor and the local object trajectory; the h=0 row is the mean over the three horizons. 3 seeds; test pairs valid at h = 1 / 4 / 8: TACO 22932 / 21840 / 20384 (186 takes), ARCTIC 11718 / 11160 / 10416 (44 takes); brackets = paired take-bootstrap 95 % interval.",
+   "numbers": {
+    "TACO | R0 composite ratio to FULL, mean over h": {
+     "value": "1.1534972360460254 [1.134690986132028, 1.17223557680781]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R0, vs=FULL, metric=composite_T1_T4, h=0: ratio, lo, hi"
+    },
+    "TACO | R1 composite ratio to FULL, mean over h": {
+     "value": "0.9893257712571053 [0.9749395919805379, 1.0050150481854614]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R1, vs=FULL, metric=composite_T1_T4, h=0"
+    },
+    "TACO | R2 composite ratio to FULL, mean over h": {
+     "value": "0.817569649875454 [0.8062405159531737, 0.8294777256784257]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R2, vs=FULL, metric=composite_T1_T4, h=0"
+    },
+    "TACO | R3 composite ratio to FULL, mean over h": {
+     "value": "0.8128871534959238 [0.8018128817260367, 0.8251779319343504]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R3, vs=FULL, metric=composite_T1_T4, h=0"
+    },
+    "TACO | R4 composite ratio to FULL, mean over h": {
+     "value": "0.790169166580107 [0.7780117828385212, 0.8012511890307273]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R4, vs=FULL, metric=composite_T1_T4, h=0"
+    },
+    "TACO | R5 composite ratio to FULL, mean over h (lowest)": {
+     "value": "0.7862876317693969 [0.7743942921506598, 0.7970980969125291]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R5, vs=FULL, metric=composite_T1_T4, h=0"
+    },
+    "TACO | CONTACT_FULL composite ratio to FULL, mean over h": {
+     "value": "1.1330050823904287 [1.1163722233134188, 1.15076021875655]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=CONTACT_FULL, vs=FULL, metric=composite_T1_T4, h=0"
+    },
+    "TACO | R2 composite ratio to FULL at h = 1 / h = 8": {
+     "value": "0.6478044466547508 [0.6353761084774165, 0.6594508496317649] / 0.9452563025626244 [0.9327983303605732, 0.9590848401121925]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R2, vs=FULL, metric=composite_T1_T4, h=1 and h=8"
+    },
+    "TACO | R2 future wrench-profile (T4) error ratio to FULL at h = 8": {
+     "value": "0.9958918404575495 [0.9741775443254612, 1.0216300368756004]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R2, vs=FULL, metric=T4_ratio, h=8"
+    },
+    "ARCTIC | R0 composite ratio to FULL, mean over h": {
+     "value": "1.2284378993926584 [1.1799917080076525, 1.290735386154467]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R0, vs=FULL, metric=composite_T1_T4, h=0"
+    },
+    "ARCTIC | R1 composite ratio to FULL, mean over h": {
+     "value": "1.015498806256173 [0.9731769818004974, 1.0634553754491232]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R1, vs=FULL, metric=composite_T1_T4, h=0"
+    },
+    "ARCTIC | R2 composite ratio to FULL, mean over h": {
+     "value": "0.6803160698510843 [0.6472930695734762, 0.7132067537874611]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=FULL, metric=composite_T1_T4, h=0"
+    },
+    "ARCTIC | R3 composite ratio to FULL, mean over h": {
+     "value": "0.6813427513421096 [0.6492076288242185, 0.7142112865674978]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R3, vs=FULL, metric=composite_T1_T4, h=0"
+    },
+    "ARCTIC | R4 composite ratio to FULL, mean over h": {
+     "value": "0.6751826695745923 [0.64778265625219, 0.7007408060160896]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R4, vs=FULL, metric=composite_T1_T4, h=0"
+    },
+    "ARCTIC | R5 composite ratio to FULL, mean over h (lowest)": {
+     "value": "0.6686813506195447 [0.6420960377901078, 0.6947891948090481]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R5, vs=FULL, metric=composite_T1_T4, h=0"
+    },
+    "ARCTIC | CONTACT_FULL composite ratio to FULL, mean over h": {
+     "value": "1.080882404279446 [1.0632287468647903, 1.0988996442111316]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=CONTACT_FULL, vs=FULL, metric=composite_T1_T4, h=0"
+    },
+    "ARCTIC | R2 composite ratio to FULL at h = 1 / h = 8": {
+     "value": "0.5104431643578825 [0.4852820529785124, 0.5372192176953893] / 0.8261633770076925 [0.7896495766299974, 0.8604619944132135]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=FULL, metric=composite_T1_T4, h=1 and h=8"
+    },
+    "TACO | R2 temporal gap to FULL (= composite - 1), as used by the saturation rule": {
+     "value": "-0.182430350124546 [-0.19375948404682627, -0.17052227432157435]",
+     "source": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=taco, rep=R2: temporal_gap, temporal_gap_lo, temporal_gap_hi"
+    },
+    "ARCTIC | R2 temporal gap to FULL (= composite - 1), as used by the saturation rule": {
+     "value": "-0.3196839301489157 [-0.35270693042652385, -0.2867932462125389]",
+     "source": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=arctic, rep=R2: temporal_gap, temporal_gap_lo, temporal_gap_hi"
+    },
+    "TACO | R1 -> R2 composite ratio (adding centroid / normal)": {
+     "value": "0.8846154038775554 [0.8759381230345432, 0.8929673284784952]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=taco, frm=R1, to=R2: temporal_ratio, temporal_lo, temporal_hi"
+    },
+    "ARCTIC | R1 -> R2 composite ratio (adding centroid / normal)": {
+     "value": "0.8525027608704332 [0.8330006826436447, 0.8744978019205334]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R1, to=R2: temporal_ratio, temporal_lo, temporal_hi"
+    }
+   },
+   "caveats": [
+    "This is a comparison BETWEEN inputs under one fixed recipe (same trunk, 512-D input projection, early stopping), not evidence of good absolute prediction: see the persistence entry of this block. The report itself says the comparisons across representations, which share the handicap, are the evidence (section 5, section 10).",
+    "R2's advantage over FULL shrinks with the horizon (composite 0.65 -> 0.95 on TACO, 0.51 -> 0.83 on ARCTIC from h = 1 to h = 8); at h = 8 on TACO R2's future wrench-profile error equals FULL's (T4 ratio 0.996 [0.974, 1.022]).",
+    "The geometry block does not help every future target: R1 -> R2 raises the future-amount error (T2 ratio at h = 1: 1.0611334683352922 TACO, 1.1156137517375937 ARCTIC) and on ARCTIC the participation-probability error (T1 ratio at h = 1: 1.1982685430054745); the composite gain comes from the future centroid / normal and wrench targets (incremental_gain.csv, frm=R1, to=R2).",
+    "The local object trajectory, including the object's states up to t + 8, is an input of every temporal model; 'causal' refers to the hand / contact window only (sanity_summary.json, object_trajectory_input).",
+    "Direct prediction at h = 1, 4, 8 only (no rollout), one hand per sequence, 3 seeds, ARCTIC 44 test takes.",
+    "T1 enters the composite through a per-frame probability error, not AUPRC; the amount metric was redefined after training (normalised by the train-mean total amount) because the planned per-frame relative L1 exploded on frames without contact (report section 5)."
+   ]
+  },
+  {
+   "block": "F2-B",
+   "claim": "By the report's pre-specified saturation rule against FULL, R2 is the smallest representation saturated on both the wrench axis and the future-structure axis on both datasets at the 2.5 % and 5 % thresholds; applied against the best representation of each axis, the same rule selects R3 or R5 instead (R2 only at 10 % on ARCTIC).",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_variance_boundary/structure_variance_report.md",
+   "source_files": [
+    "reports/structure_variance_boundary/saturation_choice.csv",
+    "reports/structure_variance_boundary/saturation_summary.csv",
+    "reports/structure_variance_boundary/plan.md",
+    "scripts/research/structure_variance_boundary/aggregate.py"
+   ],
+   "metric": "Saturation rule (plan.md 'Decisions'; aggregate.py::saturation): gap = error ratio to the reference - 1 for the wrench probe (functional) and for the T1-T4 composite (temporal); a representation is saturated on an axis when gap < threshold (0.025, 0.05 or 0.1) OR the lower end of the gap's bootstrap 95 % interval is <= 0; the choice is the smallest-dimensional representation saturated on both axes. Reference = FULL (the planned rule) or the lowest-error representation of the axis ('best').",
+   "numbers": {
+    "TACO | smallest saturated on both axes vs FULL at 2.5 % / 5 % / 10 %": {
+     "value": "R2 / R2 / R1",
+     "source": "reports/structure_variance_boundary/saturation_choice.csv",
+     "locator": "dataset=taco, reference=FULL, criterion=both, threshold=0.025 / 0.05 / 0.1: smallest_saturated"
+    },
+    "ARCTIC | smallest saturated on both axes vs FULL at 2.5 % / 5 % / 10 %": {
+     "value": "R2 / R2 / R2",
+     "source": "reports/structure_variance_boundary/saturation_choice.csv",
+     "locator": "dataset=arctic, reference=FULL, criterion=both, threshold=0.025 / 0.05 / 0.1: smallest_saturated"
+    },
+    "TACO | smallest saturated on both axes vs best at 2.5 % / 5 % / 10 %": {
+     "value": "R5 / R3 / R3",
+     "source": "reports/structure_variance_boundary/saturation_choice.csv",
+     "locator": "dataset=taco, reference=best, criterion=both, threshold=0.025 / 0.05 / 0.1"
+    },
+    "ARCTIC | smallest saturated on both axes vs best at 2.5 % / 5 % / 10 %": {
+     "value": "R3 / R3 / R2",
+     "source": "reports/structure_variance_boundary/saturation_choice.csv",
+     "locator": "dataset=arctic, reference=best, criterion=both, threshold=0.025 / 0.05 / 0.1"
+    },
+    "TACO | temporal axis alone, vs FULL at 2.5 % / 5 % / 10 %": {
+     "value": "R1 / R1 / R1",
+     "source": "reports/structure_variance_boundary/saturation_choice.csv",
+     "locator": "dataset=taco, reference=FULL, criterion=temporal"
+    },
+    "ARCTIC | temporal axis alone, vs FULL at 2.5 % / 5 % / 10 %": {
+     "value": "R1 / R1 / R1",
+     "source": "reports/structure_variance_boundary/saturation_choice.csv",
+     "locator": "dataset=arctic, reference=FULL, criterion=temporal"
+    },
+    "TACO | temporal axis alone, vs best at 2.5 % / 5 % / 10 %": {
+     "value": "R4 / R2 / R2",
+     "source": "reports/structure_variance_boundary/saturation_choice.csv",
+     "locator": "dataset=taco, reference=best, criterion=temporal"
+    },
+    "ARCTIC | temporal axis alone, vs best at 2.5 % / 5 % / 10 %": {
+     "value": "R2 / R2 / R2",
+     "source": "reports/structure_variance_boundary/saturation_choice.csv",
+     "locator": "dataset=arctic, reference=best, criterion=temporal"
+    },
+    "TACO | wrench axis alone, vs best at 2.5 % / 5 % / 10 %": {
+     "value": "R3 / R3 / R3",
+     "source": "reports/structure_variance_boundary/saturation_choice.csv",
+     "locator": "dataset=taco, reference=best, criterion=functional"
+    },
+    "ARCTIC | wrench axis alone, vs best at 2.5 % / 5 % / 10 %": {
+     "value": "R3 / R3 / R2",
+     "source": "reports/structure_variance_boundary/saturation_choice.csv",
+     "locator": "dataset=arctic, reference=best, criterion=functional"
+    },
+    "TACO | R2 wrench gap to FULL / future-structure gap to FULL": {
+     "value": "-0.44323922208054434 [-0.4603572788805312, -0.42382777010288714] / -0.182430350124546 [-0.19375948404682627, -0.17052227432157435]",
+     "source": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=taco, rep=R2: functional_gap(_lo,_hi), temporal_gap(_lo,_hi)"
+    },
+    "ARCTIC | R2 wrench gap to FULL / future-structure gap to FULL": {
+     "value": "-0.5313921293013819 [-0.5568837455325596, -0.5041952163932236] / -0.3196839301489157 [-0.35270693042652385, -0.2867932462125389]",
+     "source": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=arctic, rep=R2: functional_gap(_lo,_hi), temporal_gap(_lo,_hi)"
+    }
+   },
+   "caveats": [
+    "Against FULL the rule is passed with NEGATIVE gaps: every representation from R2 upward is 'saturated' because FULL is worse under the fixed probe and recipe, not because the dense state was matched. The report therefore reports the rule against the best representation side by side; the page should show both readings.",
+    "'Sufficient' means sufficient for the modelled wrench proxy and for the structured targets T1-T4 under these fixed models; it is the report's operational term, not a proof of sufficiency or optimality.",
+    "On the temporal axis alone R1 (participation + amount, 12 numbers) already passes the rule against FULL on both datasets (TACO gap -0.0107, ARCTIC gap 0.0155 with an interval reaching below 0); R2 is selected because of the wrench axis.",
+    "The rule accepts a representation when its gap's interval contains zero, which is lenient at small n (ARCTIC, 44 test takes) - stated in report section 10.",
+    "The report labels the outcome 'Case A of the request with the persistence qualification'; the list of alternative cases is not stored with the report."
+   ]
+  },
+  {
+   "block": "F2-B",
+   "claim": "Under the fixed probe and the fixed temporal recipe the full dense state shows no structured advantage: replacing R5 by FULL roughly doubles the wrench-probe error (x 2.04 TACO, x 2.27 ARCTIC) and raises the composite future-structure error by 34 % (TACO) and 67 % (ARCTIC); in these two experiments the dense input is better only at predicting the dense future itself. The report reads this as a statement about the parameterisation and the fixed models, not about information; at event level on TACO the dense change is the better tracker of the retention-based wrench change.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_variance_boundary/structure_variance_report.md",
+   "source_files": [
+    "reports/structure_variance_boundary/incremental_gain.csv",
+    "reports/structure_variance_boundary/temporal_ratios.csv"
+   ],
+   "metric": "Error ratio after / before adding the dense detail (R5 -> FULL); below 1 = the addition helps, lower is better; brackets = paired take-bootstrap 95 % interval. 'dense T5' = error of the predicted future contact map ||C_hat - C||, mean over h = 1, 4, 8, from a second network of the same recipe.",
+   "numbers": {
+    "TACO | R5 -> FULL wrench-probe error ratio": {
+     "value": "2.036476436211502 [1.9771452467195219, 2.089564353873836]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=taco, frm=R5, to=FULL: functional_ratio(_lo,_hi)"
+    },
+    "TACO | R5 -> FULL composite future-structure ratio (mean over h)": {
+     "value": "1.3423867081219847 [1.318787644092855, 1.3641123181969812]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=taco, frm=R5, to=FULL: temporal_ratio, temporal_lo, temporal_hi"
+    },
+    "TACO | R5 -> FULL future dense contact-map error ratio (T5)": {
+     "value": "0.7328942087546063 [0.7196868956786507, 0.7476771137752886]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=taco, frm=R5, to=FULL: dense_E_C_ratio, dense_E_C_lo, dense_E_C_hi"
+    },
+    "TACO | R2 future dense contact-map error ratio to FULL at h = 1 / 4 / 8": {
+     "value": "2.00160701223892 / 1.525591293466126 / 1.3088736255961566",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R2, vs=FULL, metric=E_C_ratio, h=1, 4, 8: ratio"
+    },
+    "ARCTIC | R5 -> FULL wrench-probe error ratio": {
+     "value": "2.271130951474371 [2.155988785886987, 2.384474351487685]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R5, to=FULL: functional_ratio(_lo,_hi)"
+    },
+    "ARCTIC | R5 -> FULL composite future-structure ratio (mean over h)": {
+     "value": "1.6684936521245632 [1.5909185072048455, 1.7475355906045877]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R5, to=FULL: temporal_ratio, temporal_lo, temporal_hi"
+    },
+    "ARCTIC | R5 -> FULL future dense contact-map error ratio (T5)": {
+     "value": "0.6234085005388091 [0.5891612737051231, 0.6574002449389221]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R5, to=FULL: dense_E_C_ratio, dense_E_C_lo, dense_E_C_hi"
+    },
+    "ARCTIC | R2 future dense contact-map error ratio to FULL at h = 1 / 4 / 8": {
+     "value": "2.2924800819362496 / 1.8533139182859633 / 1.5145042716154682",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=FULL, metric=E_C_ratio, h=1, 4, 8: ratio"
+    }
+   },
+   "caveats": [
+    "The report states this is about the parameterisation and the fixed models, not about information: R2 is computed from the dense state, the dense inputs are 'the ones most exposed' to the fixed 512-D projection and 2-layer probe (sections 4, 5, 10). 'Dense contact is over-specified' is page wording; the sources support 'no structured advantage under the tested fixed probe and recipe'.",
+    "The dense inputs ARE better for the dense future: an R2 window predicts the future dense contact map 1.3-2.3 times worse than FULL does. R2 must not be presented as sufficient for predicting dense contact.",
+    "All temporal models stopped by early stopping at 400-2600 steps of a 30000-step budget (training logs; noted in the earlier fact-check), so the temporal comparison is in an early-stopped regime."
+   ],
+   "claim_as_extracted": "The full dense state provides no structured advantage under the fixed probe and recipe: going from R5 to FULL roughly doubles the wrench-probe error and raises the composite future-structure error by 34 % (TACO) and 67 % (ARCTIC), while the dense input is better only at predicting the dense future itself.",
+   "correction_reason": "Numbers confirmed (incremental_gain.csv). Two fixes. (1) R5 -> FULL is not 'adding' anything: FULL = contact map + hand points and holds none of R5's blocks; the table merely labels the step 'dense detail'. (2) 'Better only at predicting the dense future' is too broad once Experiment C is counted: event_correlations.csv, TACO all persistent events, Spearman with 1 - retention is 0.421 [0.360, 0.485] for the dense change vs 0.214 [0.129, 0.295] for the R2 change (persistent spatial 0.274 vs 0.110; ARCTIC persistent spatial 0.595 vs 0.352), and on TACO the dense change misses fewer large wrench changes (event_quadrants.csv frac_large_w_missed 0.232-0.268 vs 0.339 for d_R2). The page phrase 'dense contact is over-specified' is not a measured property."
+  },
+  {
+   "block": "F2-B",
+   "claim": "Measured by the paired per-frame error ratios, the model fed the R2 window does not beat carrying the current target forward at a one-frame horizon on either dataset; at eight frames its error is below persistence on TACO for participation, amount, normal and wrench profile but not for the centroid, and on ARCTIC it is above persistence for every target at every horizon. For participation the ranking metric disagrees: by macro AUPRC the same model is above the persistence line at every horizon on both datasets.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_variance_boundary/structure_variance_report.md",
+   "source_files": [
+    "reports/structure_variance_boundary/temporal_ratios.csv",
+    "scripts/research/structure_variance_boundary/train_temporal.py"
+   ],
+   "metric": "Model error / persistence error (persistence = the true current target carried forward); below 1 the model beats persistence, lower is better; paired take-bootstrap 95 % interval; R2-input model, 3 seeds.",
+   "numbers": {
+    "TACO | h = 1: participation / amount / centroid / normal / wrench profile": {
+     "value": "1.840277293173007 / 1.5326987678526514 / 3.282145153209775 / 1.179073957134894 / 1.3243651519647806",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R2, vs=PERSIST, h=1, metric=T1_l1_ratio / T2_rel_l1_ratio / T3_cent_ratio / T3_ang_ratio / T4_rel_l1_ratio: ratio"
+    },
+    "TACO | h = 8: participation": {
+     "value": "0.9127354259853834 [0.8727138485154784, 0.9573722749436798]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R2, vs=PERSIST, metric=T1_l1_ratio, h=8"
+    },
+    "TACO | h = 8: amount": {
+     "value": "0.9135657417915269 [0.8865244948176924, 0.9449539292210929]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R2, vs=PERSIST, metric=T2_rel_l1_ratio, h=8"
+    },
+    "TACO | h = 8: centroid": {
+     "value": "1.7364512205966323 [1.6575974471161539, 1.8236989683532159]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R2, vs=PERSIST, metric=T3_cent_ratio, h=8"
+    },
+    "TACO | h = 8: normal": {
+     "value": "0.9367606583256284 [0.9211293578685785, 0.954983675639357]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R2, vs=PERSIST, metric=T3_ang_ratio, h=8"
+    },
+    "TACO | h = 8: wrench profile": {
+     "value": "0.9074063097031795 [0.8693935650217937, 0.9531453901881421]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R2, vs=PERSIST, metric=T4_rel_l1_ratio, h=8"
+    },
+    "ARCTIC | h = 1: participation / amount / centroid / normal / wrench profile": {
+     "value": "2.3255138996179756 / 2.7529375172235864 / 4.803352791872017 / 1.454340883958322 / 1.8176251359238613",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=PERSIST, h=1, metric=T1_l1_ratio / T2_rel_l1_ratio / T3_cent_ratio / T3_ang_ratio / T4_rel_l1_ratio: ratio"
+    },
+    "ARCTIC | h = 8: participation": {
+     "value": "1.4724401089377248 [1.354889788698394, 1.6117418969589918]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=PERSIST, metric=T1_l1_ratio, h=8"
+    },
+    "ARCTIC | h = 8: amount": {
+     "value": "1.342960614746509 [1.2536902271618524, 1.4638056415767633]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=PERSIST, metric=T2_rel_l1_ratio, h=8"
+    },
+    "ARCTIC | h = 8: centroid": {
+     "value": "1.6814108419577736 [1.4417131771277434, 2.0300125754459755]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=PERSIST, metric=T3_cent_ratio, h=8"
+    },
+    "ARCTIC | h = 8: normal": {
+     "value": "1.1062527870978964 [1.0663707413997257, 1.1599539158856371]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=PERSIST, metric=T3_ang_ratio, h=8"
+    },
+    "ARCTIC | h = 8: wrench profile": {
+     "value": "1.1004511762591946 [1.032605750524519, 1.1838229735677117]",
+     "source": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=PERSIST, metric=T4_rel_l1_ratio, h=8"
+    }
+   },
+   "caveats": [
+    "This caveat must stay attached to any 'R2 preserves future structured contact evolution' sentence: the evidence is the ranking of inputs under one recipe, not an absolute forecasting result. The report explains the level by the recipe (absolute targets, input noise, projection, early stopping; no model receives the current target explicitly) - section 5 'Persistence' and section 10.",
+    "By macro AUPRC (a ranking metric) the R2 model is above persistence for participation on ARCTIC at h = 8 (0.9286 vs 0.8383 in temporal_prediction.csv), while the per-frame probability error used in the composite is 1.47 times persistence's; the two measures disagree and the page should not cite only the favourable one.",
+    "Code reading, not in the report: for centroid and normal the persistence error is averaged over parts active at both t and t + h, the model error over parts active at t + h (train_temporal.py lines 149-153; n_frames 18069 vs 19353 on TACO), so the centroid ratio is not like for like.",
+    "The report's summary 'centroid 3-5 x, wrench profile 1.3-1.8 x, amount 1.4-1.6 x the persistence error at h = 1' fits R2 on TACO; on ARCTIC the amount ratio is 2.75."
+   ],
+   "claim_as_extracted": "In absolute terms the model fed the R2 window does not beat carrying the current target forward at a one-frame horizon on either dataset; at eight frames it beats persistence on TACO for participation, amount, normal and wrench profile but not for the centroid, and on ARCTIC it is worse than persistence for every target at every horizon.",
+   "correction_reason": "All 20 ratios confirmed in temporal_ratios.csv (vs = PERSIST), ARCTIC intervals exclude 1 at h = 1, 4, 8. But the participation ratio is the per-frame |p - a| error; temporal_prediction.csv gives macro AUPRC R2 0.997 / 0.984 / 0.974 vs persistence 0.978 / 0.930 / 0.899 (TACO) and 0.995 / 0.968 / 0.929 vs 0.970 / 0.899 / 0.838 (ARCTIC), and the report's own prose says the models beat persistence on ARCTIC 'only for participation'. Without the metric qualifier the sentence contradicts the report. The centroid / normal ratios are not like for like (model: parts active at t + h; persistence: parts active at both frames; train_temporal.py lines 149-153)."
+  },
+  {
+   "block": "F2-C",
+   "claim": "A frame-wise decoder from R2 alone reproduces 89 % (contact map) and 85 % (hand points) of the dense variance on TACO and 74 % and 69 % on ARCTIC, leaving a residual of about 11-15 % of the dense variance on TACO and 26-31 % on ARCTIC.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_variance_boundary/structure_variance_report.md",
+   "source_files": [
+    "reports/structure_variance_boundary/residual_prediction.csv",
+    "scripts/research/structure_variance_boundary/residual.py",
+    "reports/structure_variance_boundary/logs/residual_taco_R2_seed0.log"
+   ],
+   "metric": "Decoder test R2 per block = 1 - residual energy / centred energy of the standardised dense state on test frames (residual.py::decoder_r2); decoder = MLP 48 -> 512 -> 512 -> 812 fitted on train frames from one frame of R2; mean of 3 decoder seeds; the table gives the seed sd, no CI. Residual share = 1 - R2 (the report's derivation). Descriptive, no direction.",
+   "numbers": {
+    "TACO | decoder R2, contact map C (512-D), Z* = R2 -> residual share 10.7 %": {
+     "value": "0.8927482565244039 (seed sd 0.0018591458315831012)",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, model=decoder, block=C, metric=decoder_r2_test: value, seed_sd"
+    },
+    "TACO | decoder R2, hand points H (300-D), Z* = R2 -> residual share 15.2 %": {
+     "value": "0.8479247689247131 (seed sd 0.0027020338523353854)",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, model=decoder, block=H, metric=decoder_r2_test"
+    },
+    "ARCTIC | decoder R2, contact map C, Z* = R2 -> residual share 25.6 %": {
+     "value": "0.743804136912028 (seed sd 0.0016638993336468336)",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, model=decoder, block=C, metric=decoder_r2_test"
+    },
+    "ARCTIC | decoder R2, hand points H, Z* = R2 -> residual share 30.8 %": {
+     "value": "0.6921873291333517 (seed sd 0.0027989041888216467)",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, model=decoder, block=H, metric=decoder_r2_test"
+    },
+    "TACO | decoder R2 from R3 instead of R2, C / H": {
+     "value": "0.8967800339063009 / 0.847799022992452",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R3, model=decoder, block=C / H"
+    },
+    "ARCTIC | decoder R2 from R3 instead of R2, C / H": {
+     "value": "0.762550155321757 / 0.6978136698404948",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R3, model=decoder, block=C / H"
+    }
+   },
+   "caveats": [
+    "The two ends of each range are the two parts of the dense state (contact map, hand surface points), not a spread over runs or settings.",
+    "The percentages 11 / 15 / 26 / 31 are 1 - R2, written in the report prose (section 7); the CSV stores R2.",
+    "The residual is what THIS frame-wise MLP decoder leaves, 'not a canonical decomposition' (report section 10). The decoder sees only the 48 numbers of R2 (no object descriptor) and all three R2 decoders ran to the 60-epoch cap on both datasets (logs/residual_*_R2_seed*.log), so the residual share is an upper bound on what R2 leaves undetermined.",
+    "Wording: the residual is a realization residual / within-structure variation, never 'noise' - the report's Q6 heading is 'persistent variation, not structure and not noise'.",
+    "No page-ready qualitative image exists for 'same structure, different dense realization'. The six figures/figG_examples_*.png are four-row diagnostic sheets (1870 x 1540 px, 7-pt table, internal labels such as d_Cfull). The closest candidate, reports/structure_variance_boundary/figures/figG_examples_taco_variation_733_1.png (513106 bytes), would be usable only cropped to its top two rows (pre / post contact views, roughly y = 45-890 px) with a new caption: one TACO event in which the same five fingers stay on a plate with similar amounts while the contacts slide; dense change 5.07 (train median 1.05), R2 change 0.44 (median 0.66), wrench-profile change 0.13 (median 0.20), retention 0.77 (figures/figG_examples.csv). It is the LARGEST dense change among 52 candidates (figures.py::fig_g), and its R2 change is below the median, not zero - 'similar coarse structure', not 'same structure'."
+   ]
+  },
+  {
+   "block": "F2-C",
+   "claim": "The contact residual left by R2 is temporally persistent: carrying its current value forward leaves 19 % / 50 % / 75 % of its energy unexplained at 1 / 4 / 8 frames on TACO and 9 % / 26 % / 42 % on ARCTIC, whereas a learned causal predictor that is not given the current residual leaves more at every horizon (TACO 68 % / 74 % / 80 %, ARCTIC 64 % / 70 % / 76 %) - far more at one frame, only slightly more at eight frames on TACO.",
+   "claim_status": "overstated",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_variance_boundary/structure_variance_report.md",
+   "source_files": [
+    "reports/structure_variance_boundary/residual_prediction.csv"
+   ],
+   "metric": "MSE of the predicted future contact-map residual / the residual's own energy (1 = predicting a zero residual; lower is better; 1 - value = R2 against zero); Z* = R2, block C; paired take-bootstrap 95 % interval; values at h = 1 | 4 | 8.",
+   "numbers": {
+    "TACO | last value (persistence), h = 1 | 4 | 8": {
+     "value": "0.19371688010097768 [0.17841457217763207, 0.20994439944123514] | 0.5007560708397207 [0.46635809157512526, 0.5387917270989064] | 0.7474870891224278 [0.701483184148142, 0.8002159056492057]",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, block=C, model=last, metric=mse_ratio_to_zero, h=1, 4, 8: value, lo, hi"
+    },
+    "TACO | causal predictor from the dense history without the residual (history), h = 1 | 4 | 8": {
+     "value": "0.6782760957873939 | 0.7392791205823083 | 0.7970633857789173",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, block=C, model=history, metric=mse_ratio_to_zero, h=1, 4, 8: value"
+    },
+    "TACO | conditional mean given the current R2 only (condmean), h = 1 | 4 | 8": {
+     "value": "0.8862937481922725 | 0.9082180646882451 | 0.9270572702506612",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, block=C, model=condmean, metric=mse_ratio_to_zero"
+    },
+    "ARCTIC | last value (persistence), h = 1 | 4 | 8": {
+     "value": "0.08740987559005026 [0.07378385015307201, 0.10126751211188809] | 0.2601493665576969 [0.2157855355741882, 0.30519883868685294] | 0.422154516204974 [0.3510898405059563, 0.4941213332358322]",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, block=C, model=last, metric=mse_ratio_to_zero, h=1, 4, 8: value, lo, hi"
+    },
+    "ARCTIC | causal predictor from the dense history without the residual (history), h = 1 | 4 | 8": {
+     "value": "0.6425398879763012 | 0.6982875760738156 | 0.7622400345573487",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, block=C, model=history, metric=mse_ratio_to_zero"
+    },
+    "ARCTIC | conditional mean given the current R2 only (condmean), h = 1 | 4 | 8": {
+     "value": "0.9667805366831548 | 0.9711916886374858 | 0.9754703138593082",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, block=C, model=condmean, metric=mse_ratio_to_zero"
+    }
+   },
+   "caveats": [
+    "Persistence decays with the horizon: at 8 frames the last value explains only about a quarter of the contact residual's energy on TACO (58 % on ARCTIC). For the hand-point residual on TACO the last value is worse than a zero residual at h = 8 (1.2367774059236922).",
+    "Code reading (aggregate.py::aggregate_residual), not in the report: the residual energy and the last-value error come from the seed-0 decoder (n_seeds = 1 in the CSV), the learned predictors are 3-seed means with their own decoders; the 'zero' rows therefore read 0.987 (TACO) / 1.008 (ARCTIC) instead of 1, i.e. every ratio carries an offset of 1-2 %.",
+    "Horizons are 1, 4 and 8 frames only; no rollout."
+   ],
+   "claim_as_extracted": "The contact residual left by R2 is temporally persistent: carrying its current value forward leaves 19 % / 50 % / 75 % of its energy unexplained at 1 / 4 / 8 frames on TACO and 9 % / 26 % / 42 % on ARCTIC, whereas learned causal predictors that are not given the current residual stay far above that.",
+   "correction_reason": "Values confirmed. 'Stay far above' fails at TACO h = 8: history 0.797 vs last value 0.747 (ratio to last 1.066); on ARCTIC it is 1.81 x at h = 8 and 7.35 x at h = 1. Persistence itself decays (TACO: the last value explains only about a quarter at h = 8). The last-value row comes from the seed-0 decoder (n_seeds = 1)."
+  },
+  {
+   "block": "F2-C",
+   "claim": "Beyond its persistence the change of the contact residual left by R2 is only weakly predictable by the tested models: a causal predictor given the dense history, the residual's own past and the object trajectory removes 4 % / 14 % / 20 % of the last-value error on TACO (intervals exclude 1) and nothing measurable on ARCTIC (intervals include 1), and a non-causal oracle that also receives the future R2 does not do measurably better; the hand-point residual is the exception - its change is partly predictable, more so when the future R2 is given.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_variance_boundary/structure_variance_report.md",
+   "source_files": [
+    "reports/structure_variance_boundary/residual_prediction.csv"
+   ],
+   "metric": "MSE of predictors that start from the current residual and predict its change / MSE of keeping the current residual (1 = persistence; below 1 = part of the change is predicted; lower is better); Z* = R2; 3 seeds; paired take-bootstrap 95 % interval; values at h = 1 | 4 | 8. history_delta = causal (dense window + residual window + object descriptor + trajectory); oracle_delta = the same plus the ground-truth future R2 (non-causal).",
+   "numbers": {
+    "TACO | contact residual, causal (history_delta), h = 1 | 4 | 8": {
+     "value": "0.9589682629833769 [0.9387366563268537, 0.9802261151480955] | 0.8574315331111981 [0.8301671990857195, 0.8852950263744687] | 0.795970809037803 [0.7683041313533236, 0.8226650275615196]",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, block=C, model=history_delta, metric=mse_ratio_to_last, h=1, 4, 8"
+    },
+    "TACO | contact residual, non-causal oracle (oracle_delta), h = 1 | 4 | 8": {
+     "value": "1.0334436050519245 [0.9977131965071644, 1.0703615768611394] | 0.9380230390359746 [0.8954386715539427, 0.9812406554567538] | 0.8521156607132089 [0.8103319476220362, 0.8909309374531829]",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, block=C, model=oracle_delta, metric=mse_ratio_to_last, h=1, 4, 8"
+    },
+    "TACO | contact residual, causal without the residual's past (history), h = 1 | 4 | 8": {
+     "value": "3.501378379797531 | 1.4763258273486468 | 1.0663239504440052",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, block=C, model=history, metric=mse_ratio_to_last"
+    },
+    "TACO | hand residual, causal (history_delta), h = 1 | 4 | 8": {
+     "value": "0.7837839014775798 [0.7424246572565205, 0.8272057845008794] | 0.644870529146611 [0.5936604487126197, 0.706030675409292] | 0.5424168758305374 [0.4878898906610071, 0.6082278678371233]",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, block=H, model=history_delta, metric=mse_ratio_to_last"
+    },
+    "TACO | hand residual, non-causal oracle (oracle_delta), h = 1 | 4 | 8": {
+     "value": "0.6910712407327633 [0.6418741232504503, 0.7419803221354155] | 0.43052866204710305 [0.3876757013071663, 0.4802525469780712] | 0.3822604035799177 [0.33087747955615143, 0.44296051180465507]",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, block=H, model=oracle_delta, metric=mse_ratio_to_last"
+    },
+    "ARCTIC | contact residual, causal (history_delta), h = 1 | 4 | 8": {
+     "value": "1.0308185395706648 [0.9919300532691944, 1.0744275936545797] | 1.0225441678123186 [0.9619772178904238, 1.087082365615475] | 0.974801256924149 [0.9218316682974895, 1.034128877397109]",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, block=C, model=history_delta, metric=mse_ratio_to_last, h=1, 4, 8"
+    },
+    "ARCTIC | contact residual, non-causal oracle (oracle_delta), h = 1 | 4 | 8": {
+     "value": "1.0265759459376467 [0.9846874004218786, 1.0722627019422526] | 1.0098944735303215 [0.9413133193621799, 1.0824403761054844] | 0.962841520750875 [0.9032716689689063, 1.0266573454730346]",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, block=C, model=oracle_delta, metric=mse_ratio_to_last, h=1, 4, 8"
+    },
+    "ARCTIC | contact residual, causal without the residual's past (history), h = 1 | 4 | 8": {
+     "value": "7.350884366771032 | 2.684179420897982 | 1.8055948836213531",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, block=C, model=history, metric=mse_ratio_to_last"
+    },
+    "ARCTIC | hand residual, causal (history_delta), h = 1 | 4 | 8": {
+     "value": "0.8900122077339241 [0.8145094565070148, 0.9658319268068506] | 0.959176122637561 [0.834745845905727, 1.0769613206380253] | 0.9980635137008684 [0.8748368312137178, 1.1177184647047413]",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, block=H, model=history_delta, metric=mse_ratio_to_last"
+    },
+    "ARCTIC | hand residual, non-causal oracle (oracle_delta), h = 1 | 4 | 8": {
+     "value": "0.8126747504454229 [0.7535445784979599, 0.8768442964528914] | 0.7597276710488842 [0.6518945213456178, 0.8648251071921752] | 0.7956359756966787 [0.6789324227068929, 0.9048730863253011]",
+     "source": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, block=H, model=oracle_delta, metric=mse_ratio_to_last"
+    }
+   },
+   "caveats": [
+    "'Weakly predictable' is dataset-specific: on TACO the causal predictor's intervals exclude 1 at every horizon (4 / 14 / 20 % removed); on ARCTIC all intervals include 1. 'Unpredictable' without qualification is not supported for TACO.",
+    "The hand-point residual must stay visible as the exception: the oracle with the future R2 removes 31 / 57 / 62 % of the last-value error on TACO and 19 / 24 / 20 % on ARCTIC; the causal predictor 22 / 36 / 46 % on TACO and 11 / 4 / 0 % on ARCTIC.",
+    "The report: 'not predictable' means not by these models from this context (dense history, object descriptor, object trajectory incl. its future, future R2); 'it does not show that the residual is biological null-space motion, comfort- or fatigue-driven, or random' (section 10). Never 'noise', never a literal null-space claim.",
+    "Baseline offset of 1-2 % from the seed-0 decoder (see the previous entry) is of the same size as the 0 / 0 / 2 % effects on ARCTIC.",
+    "The R3-based residual gives values within 0.01-0.04 of the R2-based ones (report section 7; e.g. ARCTIC contact causal 1.000 / 0.972 / 0.925 for Z* = R3 in Table 6)."
+   ],
+   "claim_as_extracted": "Beyond its persistence the contact residual's change is only weakly predictable: a causal predictor given the dense history and the residual's own past removes 4 % / 14 % / 20 % of the last-value error on TACO and nothing measurable on ARCTIC, and a non-causal oracle that also receives the future R2 does no better; the hand-point residual is the exception and partly follows the future structure.",
+   "correction_reason": "All ratios confirmed for Z* = R2. Rewording needed for scope and verb: (a) 'follows the future structure' reads as a mechanism; the measurement is that the oracle with the future R2 lowers the error (0.69 / 0.43 / 0.38 TACO, 0.81 / 0.76 / 0.80 ARCTIC). (b) The ARCTIC null is specific to the R2 residual: for the residual left by R3 the same causal predictor reads 1.000 / 0.972 / 0.925 with the h = 8 interval [0.880, 0.974] excluding 1. (c) The learned ratios are 3-seed means over a seed-0 baseline, an offset of about 1-2 % - the size of the ARCTIC effects. Never 'noise', never null-space (report section 10)."
+  },
+  {
+   "block": "F2-C",
+   "claim": "At event level, among persistent spatial test events whose dense-contact change is above the train median, 24 % (TACO, n = 75, interval 15-34 %) and 18 % (ARCTIC, n = 11, interval 0-50 %) have both an R2 change and a wrench-profile change at or below their train medians; this minority is consistent with dense changes that move the coarse structure and the wrench proxy comparatively little.",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_variance_boundary/structure_variance_report.md",
+   "source_files": [
+    "reports/structure_variance_boundary/event_quadrants.csv",
+    "reports/structure_variance_boundary/event_by_finger_kind.csv"
+   ],
+   "metric": "Fraction of test events (persistent spatial class) with a dense change d_C above the TRAIN median that have both the R2 change d_R2 and the wrench-profile change d_q at or below their train medians; take-cluster bootstrap 95 % interval. A secondary, threshold-based view (report Table 5c); no direction.",
+   "numbers": {
+    "TACO | fraction with small d_R2 and small d_q among large-d_C persistent spatial events": {
+     "value": "0.24 [0.1492537313432835, 0.337842596117244] (n_large_C 75)",
+     "source": "reports/structure_variance_boundary/event_quadrants.csv",
+     "locator": "dataset=taco, subset=persistent_spatial, wrench=d_q, change=d_R2: frac_variation_candidates, lo1, hi1, n_large_C"
+    },
+    "TACO | same with participation only (d_R0) instead of d_R2": {
+     "value": "0.3333333333333333 [0.2360906862745098, 0.4358974358974359] (n_large_C 75)",
+     "source": "reports/structure_variance_boundary/event_quadrants.csv",
+     "locator": "dataset=taco, subset=persistent_spatial, wrench=d_q, change=d_R0"
+    },
+    "ARCTIC | fraction with small d_R2 and small d_q among large-d_C persistent spatial events": {
+     "value": "0.1818181818181818 [0.0, 0.5] (n_large_C 11)",
+     "source": "reports/structure_variance_boundary/event_quadrants.csv",
+     "locator": "dataset=arctic, subset=persistent_spatial, wrench=d_q, change=d_R2: frac_variation_candidates, lo1, hi1, n_large_C"
+    },
+    "TACO | median wrench-profile change d_q by finger kind, persistent spatial: finger exchange / sliding / stable set (n 39 / 41 / 43)": {
+     "value": "0.164247769099488 / 0.1362422779640675 / 0.1269029364025644",
+     "source": "reports/structure_variance_boundary/event_by_finger_kind.csv",
+     "locator": "data rows 4-6 (cls=persistent_spatial; the file has no dataset column, rows 1-6 are TACO by concatenation order): d_q"
+    },
+    "ARCTIC | median wrench-profile change d_q by finger kind, persistent spatial: finger exchange / sliding / stable set (n 10 / 9 / 7)": {
+     "value": "0.2656755202131797 / 0.0999159493682714 / 0.1009183463333097",
+     "source": "reports/structure_variance_boundary/event_by_finger_kind.csv",
+     "locator": "data rows 10-12 (cls=persistent_spatial; rows 7-12 are ARCTIC): d_q"
+    }
+   },
+   "caveats": [
+    "Three quarters or more of the large dense changes do NOT fall in this quadrant; the result is a minority share, with a very wide interval on ARCTIC (11 events, [0, 0.5]).",
+    "'Small' means at or below the train median of that quantity, not zero. The report explicitly rejects the reading that sliding is functionally irrelevant: sliding / stable-set events still change the wrench profile by a median 0.13-0.14 (TACO) / 0.10 (ARCTIC) (section 11).",
+    "The report's 'finger exchanges change the wrench twice as much as sliding' holds on ARCTIC (0.266 vs 0.100) but not on TACO (0.164 vs 0.136).",
+    "event_by_finger_kind.csv has no dataset column; the dataset is inferred from the concatenation order and confirmed by the class counts (TACO 123 persistent spatial, ARCTIC 26)."
+   ],
+   "claim_as_extracted": "At event level, among persistent spatial test events with a large dense-contact change, 24 % (TACO, n = 75) and 18 % (ARCTIC, n = 11) show both a small R2 change and a small wrench-profile change, which is consistent with dense changes that leave the coarse structure and the wrench proxy largely in place.",
+   "correction_reason": "Fractions, intervals and n confirmed (event_quadrants.csv). 'Largely in place' overstates a below-median criterion: 'small' means at or below the train median of persistent spatial events (R2 change threshold 0.598 on TACO, 0.574 on ARCTIC in z-scored RMS units), not near zero, and the report explicitly rejects 'sliding is functionally irrelevant'. The ARCTIC figure is 2 of 11 events. The share is a secondary, threshold-based view (report Table 5c)."
+  },
+  {
+   "block": "F2-subA",
+   "claim": "Adding the coarse hand pose to R2 provides little additional information: the wrench-probe error is unchanged on both datasets, and the composite future-structure error falls by about 2 % on TACO (averaged over horizons) and not at all on ARCTIC.",
+   "claim_status": "supported",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_variance_boundary/structure_variance_report.md",
+   "source_files": [
+    "reports/structure_variance_boundary/incremental_gain.csv",
+    "reports/structure_variance_boundary/functional_probe.csv"
+   ],
+   "metric": "Error ratio after / before adding the 42-number coarse hand block (wrist, palm frame, fingertips, finger directions): R2 -> R4 and R3 -> R5; below 1 = the block helps, lower is better; wrench probe (relative L1) and composite T1-T4 future-structure error; paired take-bootstrap 95 % interval.",
+   "numbers": {
+    "TACO | R2 -> R4 wrench-probe ratio": {
+     "value": "0.9982799467277499 [0.9823721041814537, 1.0129874083271895]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=taco, frm=R2, to=R4: functional_ratio, functional_lo, functional_hi"
+    },
+    "TACO | R2 -> R4 composite future-structure ratio, mean over h": {
+     "value": "0.9777716998155185 [0.969432270914191, 0.9862369602859278]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=taco, frm=R2, to=R4: temporal_ratio, temporal_lo, temporal_hi"
+    },
+    "TACO | R2 -> R4 composite ratio at h = 1 | 4 | 8": {
+     "value": "1.0231462918945102 [1.0166811239823046, 1.029801879593586] | 0.9607046410043276 [0.9515529554660811, 0.9693410499036949] | 0.9494641665477177 [0.9367966416731708, 0.9619996575023928]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=taco, frm=R2, to=R4: temporal_ratio_h1 / _h4 / _h8 with temporal_lo_h*, temporal_hi_h*"
+    },
+    "TACO | R3 -> R5 wrench-probe ratio / composite ratio (mean over h)": {
+     "value": "0.9847171048092646 [0.9695931531202282, 0.9970087222475651] / 0.9788799609125051 [0.9693774846540942, 0.9878512065978945]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=taco, frm=R3, to=R5: functional_ratio(_lo,_hi), temporal_ratio, temporal_lo, temporal_hi"
+    },
+    "TACO | R2 -> R4 future hand-points error ratio (dense T5, mean over h)": {
+     "value": "0.6381309064613491 [0.6198930947162119, 0.656762877244323]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=taco, frm=R2, to=R4: dense_E_H_ratio, dense_E_H_lo, dense_E_H_hi"
+    },
+    "ARCTIC | R2 -> R4 wrench-probe ratio": {
+     "value": "1.012616650208225 [0.9906846915424367, 1.0352469840266902]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R2, to=R4: functional_ratio, functional_lo, functional_hi"
+    },
+    "ARCTIC | R2 -> R4 composite future-structure ratio, mean over h": {
+     "value": "1.0120084015297346 [0.9925750293577246, 1.035229562710197]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R2, to=R4: temporal_ratio, temporal_lo, temporal_hi"
+    },
+    "ARCTIC | R2 -> R4 composite ratio at h = 1 | 4 | 8": {
+     "value": "1.0564001468369877 [1.0399860826008105, 1.073624730749027] | 0.9946053081932991 [0.9725041823586185, 1.0192022702597552] | 0.9850197495589172 [0.9579366247599373, 1.0196300100782372]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R2, to=R4: temporal_ratio_h1 / _h4 / _h8 with temporal_lo_h*, temporal_hi_h*"
+    },
+    "ARCTIC | R3 -> R5 wrench-probe ratio / composite ratio (mean over h)": {
+     "value": "1.0105813215294834 [0.9899177968639421, 1.031106728012089] / 0.9972485318717004 [0.977389353328115, 1.0213037197957886]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R3, to=R5: functional_ratio(_lo,_hi), temporal_ratio, temporal_lo, temporal_hi"
+    },
+    "ARCTIC | R2 -> R4 future hand-points error ratio (dense T5, mean over h)": {
+     "value": "0.5825197975795765 [0.5418086193683211, 0.6385540178142858]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R2, to=R4: dense_E_H_ratio, dense_E_H_lo, dense_E_H_hi"
+    }
+   },
+   "caveats": [
+    "The catalogue's '<= 2 %' is a rounding: the table gives a 2.2 % reduction of the horizon-averaged composite on TACO, made of a 2.3 % INCREASE at h = 1 and reductions of 3.9 % (h = 4) and 5.1 % (h = 8). On ARCTIC the hand makes h = 1 worse by 5.6 % and the other horizons are within their intervals of 1.",
+    "'Nothing functionally' holds for R2 -> R4 on both datasets; R3 -> R5 on TACO shows a 1.5 % wrench gain whose interval excludes 1 (0.985 [0.970, 0.997]).",
+    "In the strict-profile sensitivity (one seed) the coarse hand lowers the error: R2 1.8661796737357075 -> R4 1.7028241734660023 (TACO), 2.4850753788083133 -> 2.377616133708845 (ARCTIC), with overlapping intervals (functional_probe.csv, target=q_strict); the report describes the strict ordering as identical.",
+    "The coarse hand DOES help predict the future hand itself (future hand-points error x 0.64 TACO / x 0.58 ARCTIC) and the dense contact map (x 0.87 / x 0.88); 'adds little' refers to the wrench proxy and the structured contact targets only.",
+    "Report inconsistency: the decision table says 'centroid - 7 %' for TACO, section 8 says 'T3 centroid - 10 %'; incremental_gain.csv T3_ratio_h8 = 0.9300928913353002 is the mean of the centroid and normal ratios."
+   ]
+  },
+  {
+   "block": "F2-subB",
+   "claim": "Adding contact spread and patch count to R2 lowers the wrench-probe error by 10 % (TACO) and 7 % (ARCTIC) but changes the composite future-structure error by less than 1 %; with the best representation as reference the saturation rule selects R3 on the wrench axis at every threshold on TACO and at 2.5 % and 5 % on ARCTIC (R2 at 10 %).",
+   "claim_status": "needs_rewording",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "report": "reports/structure_variance_boundary/structure_variance_report.md",
+   "source_files": [
+    "reports/structure_variance_boundary/incremental_gain.csv",
+    "reports/structure_variance_boundary/saturation_choice.csv",
+    "reports/structure_variance_boundary/saturation_summary.csv"
+   ],
+   "metric": "Error ratio after / before adding the 12-number topology block (RMS spread and number of contact patches per part), R2 -> R3; below 1 = the block helps, lower is better; wrench probe (relative L1) and composite T1-T4 future-structure error; paired take-bootstrap 95 % interval.",
+   "numbers": {
+    "TACO | R2 -> R3 wrench-probe ratio": {
+     "value": "0.8956544663564188 [0.8856182903867458, 0.9051003213838551]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=taco, frm=R2, to=R3: functional_ratio, functional_lo, functional_hi"
+    },
+    "TACO | R2 -> R3 composite future-structure ratio, mean over h": {
+     "value": "0.9921303972952957 [0.9883296814456286, 0.9957069564264619]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=taco, frm=R2, to=R3: temporal_ratio, temporal_lo, temporal_hi"
+    },
+    "TACO | R2 -> R3 composite ratio at h = 1 | 4 | 8": {
+     "value": "0.9856854585652826 [0.980258020770728, 0.9905972233395447] | 0.9945509575026569 [0.9908121059892463, 0.9979915576624184] | 0.9961547758179476 [0.9925523275180409, 0.9995150934935313]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=taco, frm=R2, to=R3: temporal_ratio_h1 / _h4 / _h8 with temporal_lo_h*, temporal_hi_h*"
+    },
+    "TACO | R3 wrench gap to the best (R5) versus R2's": {
+     "value": "0.01552008705454111 [0.0027658291410470603, 0.031009903135487574] (R3) versus 0.13383020483975638 [0.11442774598327039, 0.15515270663650443] (R2)",
+     "source": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=taco, rep=R3 and rep=R2: functional_gap_best(_lo,_hi)"
+    },
+    "TACO | smallest wrench-saturated representation vs best at 2.5 % / 5 % / 10 %": {
+     "value": "R3 / R3 / R3",
+     "source": "reports/structure_variance_boundary/saturation_choice.csv",
+     "locator": "dataset=taco, reference=best, criterion=functional"
+    },
+    "ARCTIC | R2 -> R3 wrench-probe ratio": {
+     "value": "0.9297731026641749 [0.9147038506045948, 0.9455541250320939]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R2, to=R3: functional_ratio, functional_lo, functional_hi"
+    },
+    "ARCTIC | R2 -> R3 composite future-structure ratio, mean over h": {
+     "value": "1.0010592290536915 [0.9944790553958975, 1.007366782468987]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R2, to=R3: temporal_ratio, temporal_lo, temporal_hi"
+    },
+    "ARCTIC | R2 -> R3 composite ratio at h = 1 | 4 | 8": {
+     "value": "1.0002605528769257 [0.992262396725089, 1.0084820799136067] | 0.9994808733879516 [0.9922799999642822, 1.0059845834494578] | 1.0034362608961969 [0.9972831317249019, 1.0090915284336541]",
+     "source": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R2, to=R3: temporal_ratio_h1 / _h4 / _h8 with temporal_lo_h*, temporal_hi_h*"
+    },
+    "ARCTIC | R2 wrench gap to the best (R3 is the best on ARCTIC)": {
+     "value": "0.07553122061134787 [0.05781591703710389, 0.09502788056256875]",
+     "source": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=arctic, rep=R2: functional_gap_best(_lo,_hi); best_functional=R3"
+    },
+    "ARCTIC | smallest wrench-saturated representation vs best at 2.5 % / 5 % / 10 %": {
+     "value": "R3 / R3 / R2",
+     "source": "reports/structure_variance_boundary/saturation_choice.csv",
+     "locator": "dataset=arctic, reference=best, criterion=functional"
+    }
+   },
+   "caveats": [
+    "A caveat to the R2 boundary, not a contradiction: against FULL the rule still selects R2 on both datasets; R3 enters only when the wrench must be matched closely to the best representation. On both axes together the rule against the best gives R5 (2.5 %) / R3 (5 %, 10 %) on TACO and R3 (2.5 %, 5 %) / R2 (10 %) on ARCTIC.",
+    "'To the wrench only' is nearly exact: on TACO the temporal composite improves by 0.8 % with an interval that excludes 1 (0.992 [0.988, 0.996]); the report rounds this to 'nothing'. On ARCTIC there is no temporal change.",
+    "The report's explanation that spread and patch count 'change a part's lever arms' is an interpretation, not a tested mechanism.",
+    "The wrench target is the modelled normalised capability proxy; fixed probe; 3 seeds; ARCTIC 44 test takes."
+   ],
+   "claim_as_extracted": "Adding contact spread and patch count to R2 lowers the wrench-probe error by 10 % (TACO) and 7 % (ARCTIC) but changes the composite future-structure error by less than 1 %; R3 is the representation the rule selects on the wrench axis when the reference is the best representation.",
+   "correction_reason": "Ratios confirmed (0.896 / 0.930 wrench; 0.992 / 1.001 temporal). saturation_choice.csv, reference = best, criterion = functional: TACO R3 / R3 / R3, ARCTIC R3 / R3 / R2 - the unqualified sentence is wrong for ARCTIC at 10 %. On TACO the 0.8 % temporal change has an interval excluding 1, so 'no material temporal effect' is the accurate strength, not 'none'. The lever-arm explanation in the report is an interpretation, not a tested mechanism."
+  }
+ ],
+ "dataset_differences": [
+  "Scope: this study covers TACO and ARCTIC only. OakInk2 was excluded (report section 8: its cached event sequences carry no hand geometry in the object frame); nothing in F2-A / F2-B / F2-C / F2-subA / F2-subB may be extended to OakInk2.",
+  "Statistical weight: TACO has 186 test takes (22245 probe frames), ARCTIC 44 (10567); ARCTIC intervals are 2-3 times wider and the saturation rule (which accepts a gap whose interval reaches 0) is more lenient there.",
+  "Size of the R2 step on the wrench probe: R1 -> R2 multiplies the error by 0.51 on TACO and by 0.36 on ARCTIC; participation alone leaves a larger wrench error on ARCTIC (R0 0.507 vs 0.367). The amount block (R0 -> R1) helps the wrench on TACO (0.943 [0.932, 0.952]) and not on ARCTIC (1.005 [0.998, 1.012]).",
+  "Best representation on the wrench axis: R5 on TACO, R3 on ARCTIC; R2 is 13.4 % above the best on TACO and 7.6 % on ARCTIC.",
+  "R2 versus FULL on the future-structure composite: 18 % lower on TACO, 32 % lower on ARCTIC; the dense detail (R5 -> FULL) costs x 1.34 on TACO and x 1.67 on ARCTIC (wrench probe x 2.04 and x 2.27).",
+  "R2's temporal gap to the best: 4.0 % [3.1, 5.0] on TACO (interval excludes 0) versus 1.7 % [-0.6, 3.9] on ARCTIC (interval includes 0). Consequently the rule against the best picks R5 (2.5 %) / R3 (5 %, 10 %) on TACO and R3 (2.5 %, 5 %) / R2 (10 %) on ARCTIC; against FULL at the 10 % threshold it picks R1 on TACO and R2 on ARCTIC.",
+  "Coarse hand (F2-subA): lowers the horizon-averaged future-structure composite by 2.2 % on TACO (5.1 % at h = 8) and not on ARCTIC (1.012 [0.993, 1.035]); R3 -> R5 gives a small wrench gain on TACO only (0.985 [0.970, 0.997]).",
+  "Topology (F2-subB): wrench error -10.4 % on TACO, -7.0 % on ARCTIC; temporal composite -0.8 % on TACO (interval excludes 1), unchanged on ARCTIC.",
+  "Persistence: the R2-input model beats persistence at h = 8 on TACO for participation, amount, normal and wrench profile (ratios 0.91-0.94) but on ARCTIC it is worse than persistence for every target at every horizon (1.10-1.68 at h = 8).",
+  "Residual share left by R2 (1 - decoder R2): 10.7 % (contact map) / 15.2 % (hand points) on TACO versus 25.6 % / 30.8 % on ARCTIC - ARCTIC's dense state is less determined by the coarse state.",
+  "Residual persistence: the last value leaves 19 % / 50 % / 75 % of the contact residual's energy at h = 1 / 4 / 8 on TACO versus 9 % / 26 % / 42 % on ARCTIC (more persistent on ARCTIC).",
+  "Residual change: on TACO the causal change predictor removes 4 % / 14 % / 20 % of the last-value error (intervals exclude 1); on ARCTIC 0 % / 0 % / 2 % (intervals include 1). Hand-point residual: oracle removes 31 / 57 / 62 % on TACO versus 19 / 24 / 20 % on ARCTIC; causal 22 / 36 / 46 % versus 11 / 4 / 0 %.",
+  "Event level: the share of large dense changes with small R2 and small wrench change is 24 % [15, 34] on TACO (n = 75) and 18 % [0, 50] on ARCTIC (n = 11); a finger exchange changes the wrench profile about 2.6 times as much as sliding on ARCTIC (0.266 vs 0.100) but only about 1.2 times on TACO (0.164 vs 0.136)."
+ ],
+ "do_not_claim": [
+  "That R2 is the optimal, minimal or necessary representation: the ladder is one path through the space of descriptors, R2 is not the lowest-error rung on either axis, and the rule against FULL is passed because FULL is worse under the fixed models.",
+  "That the dense contact map contains less information than R2, or that dense detail is irrelevant: R2 is computed from the dense state; the report calls the dense inputs' higher error 'a statement about the parameterisation, not about the information'. 'Over-specified' is page wording, not a measured property.",
+  "That R2 predicts the future contact well in absolute terms: the R2-input model is worse than persistence at h = 1 on both datasets and at every horizon on ARCTIC; only the ranking of inputs under one fixed recipe is evidence.",
+  "That R2 is sufficient for predicting the dense future contact: from an R2 window the future dense contact map is predicted 1.3-2.3 times worse than from FULL.",
+  "That R2 preserves human intent, real grasp stability or physical feasibility: the functional target is a modelled, normalised wrench capability (unit finger budgets, mu = 0.5, one hand) - a proxy for functional grasp capability.",
+  "That R2 is only a wrench descriptor, or conversely that its temporal role is established independently of the wrench: one of the four composite targets (T4) is the future wrench profile, and on the temporal axis alone R1 already passes the rule against FULL.",
+  "That the residual is noise, random, or (biological / robot) null-space motion: it is persistent, the report says 'not structure and not noise', and no Jacobian null space was measured.",
+  "That the residual is unpredictable without qualification: on TACO the causal predictor removes 4 / 14 / 20 % of the last-value error, the hand-point residual partly follows the future structure on both datasets, and 'not predictable' means 'not by these models from this context'.",
+  "That '11-15 %' or '26-31 %' are confidence intervals or ranges over runs: the two ends are the contact-map block and the hand-point block; the values are 1 - R2 of one frame-wise decoder (an upper bound, decoder trained to the epoch cap, no object descriptor as input).",
+  "That the coarse hand pose is useless or 'adds <= 2 %' everywhere: it lowers the TACO composite by 5 % at h = 8, it helps predict the future hand (x 0.64 / x 0.58) and it lowers the strict-profile error in the one-seed sensitivity.",
+  "That topology does not matter: it lowers the wrench-probe error by 10 % (TACO) / 7 % (ARCTIC) and is what the rule selects when the wrench must match the best representation closely.",
+  "That all spatial changes are functionally irrelevant or that sliding does not change the wrench: sliding events still change the wrench profile by a median 0.10-0.14, and only 24 % (TACO) / 18 % (ARCTIC) of large dense changes fall in the small-R2-change and small-wrench-change quadrant.",
+  "A pooled or averaged TACO + ARCTIC number, or any statement about OakInk2, for these blocks.",
+  "That this study shows a generator should be built on R2 or that R2 supervision helps generation: it is a diagnostic with small probes and fixed predictors - no generative model and no rollout were run here.",
+  "The report's prose interval '4.0 % [2.7, 5.2]' / '1.7 % [-1.8, 5.1]' for R2's temporal gap to the best, or its section-8 statement that the best temporal representation is R4 (TACO) / R2 (ARCTIC): the tables give [3.1, 5.0] / [-0.6, 3.9] and R5 on both.",
+  "That 'finger exchanges change the wrench twice as much as sliding' on both datasets: it holds on ARCTIC only.",
+  "That the figG example sheets show 'the same structure with a different dense realization': the 'variation' examples are the largest dense change among events whose R2 change is below the train median (not zero), and the ARCTIC one has a large amount change."
+ ],
+ "candidate_images": [
+  {
+   "path": "reports/structure_variance_boundary/sanity/sequence_descriptors_taco.png",
+   "block": "F2-A",
+   "shows": "Sanity plot of ONE sampled TACO sequence (title: sequence 2426, (put out, spatula, plate), right hand): three stacked time series over the stored frames - per-part participation a_k as offset step lines (palm, thumb, index, middle, ring, little), per-part contact amount m_k (area fraction), and the scalar wrench capacity Q (support-function and strict). Readable as is (matplotlib defaults, small legend). It illustrates what the R0 / R1 descriptors and the wrench proxy look like over time; it is not a result and not an example of 'same structure, different dense realization'.",
+   "caption": "One TACO sequence: which of the six hand parts touch the object (top, one step line per part), how much each part touches (middle) and the modelled scalar wrench capacity of the grasp (bottom) along the frames. Illustration of the coarse descriptors only.",
+   "size": "147481 bytes, 1320 x 880 px"
+  },
+  {
+   "path": "reports/structure_variance_boundary/sanity/sequence_descriptors_arctic.png",
+   "block": "F2-A",
+   "shows": "The same sanity plot for ONE sampled ARCTIC sequence (title: sequence 792, mixer_use_01/s01, right hand): participation step lines per part, contact amount per part, scalar wrench capacity Q (support-function and strict). Readable as is; the legend of the top panel sits inside the plot area. Illustration only, not a result.",
+   "caption": "One ARCTIC sequence: which hand parts touch the object (top), how much each part touches (middle) and the modelled scalar wrench capacity of the grasp (bottom) along the frames. Illustration of the coarse descriptors only.",
+   "size": "116242 bytes, 1320 x 880 px"
+  }
+ ],
+ "verification": {
+  "reliability": "high",
+  "numbers_confirmed": 162,
+  "numbers_checked": 167,
+  "number_corrections": [
+   {
+    "block": "F2-A",
+    "label": "caveat: 'participation alone already halves the train-mean error'",
+    "reported": "halves (both datasets implied)",
+    "found": "TACO R0 0.3669927220117526 vs train-mean 0.759860120244135 (about half); ARCTIC R0 0.5074972790021922 vs 0.8896062442352635 (a reduction of about 43 %, not a halving). 'Halves' is the report's prose (section 4) and fits TACO only.",
+    "verdict": "corrected",
+    "source_checked": "reports/structure_variance_boundary/functional_probe.csv (rep=R0 and rep=MEAN, probe=mlpG_seedavg, target=q)"
+   },
+   {
+    "block": "F2-B",
+    "label": "caveat: 'all temporal models stopped by early stopping at 400-2600 steps of a 30000-step budget'",
+    "reported": "stopped at 400-2600 steps of 30000",
+    "found": "400-2600 is the step of the BEST validation checkpoint (the one kept), not the stopping step: all 96 runs end 'best val ... at step B of S (patience)' with B = 400-2600 and S = B + 2000 = 2400-4600; 55 of 96 have B = 400-600. max_steps = 30000, patience 20 checks of 100 steps. Report prose says 'best validation at 400-2 200 steps' (2 dense-head TACO runs are at 2500 / 2600).",
+    "verdict": "corrected",
+    "source_checked": "reports/structure_variance_boundary/logs/temporal_*_seed*.log ('done' lines, 96 files); scripts/research/structure_variance_boundary/train_temporal.py CFG"
+   },
+   {
+    "block": "F2-C",
+    "label": "caveat: 'the R3-based residual gives values within 0.01-0.04 of the R2-based ones' (ARCTIC contact causal 1.000 / 0.972 / 0.925 for Z* = R3)",
+    "reported": "within 0.01-0.04; 1.000 / 0.972 / 0.925",
+    "found": "The three R3 values are right: 0.9995719450207071 [0.9634720524761365, 1.0398993363942073] / 0.972427014009422 [0.9165322664883153, 1.0283425985532515] / 0.9253304485767967 [0.8796015867445194, 0.9739038220058871]. But 'within 0.01-0.04' is report prose that the table does not bear out for the change predictors: R3 minus R2 is -0.031 / -0.050 / -0.049 (ARCTIC contact causal), up to -0.056 (ARCTIC hand oracle, h = 8: 0.740112116262953 vs 0.7956359756966787). And for Z* = R3 the ARCTIC h = 8 intervals EXCLUDE 1 (causal [0.880, 0.974]; oracle 0.9200977400531426 [0.8615616451926736, 0.9816390032449583]), so the ARCTIC null is specific to the R2 residual.",
+    "verdict": "corrected",
+    "source_checked": "reports/structure_variance_boundary/residual_prediction.csv (arctic, zstar=R3 vs R2, block=C / H, model=history_delta / oracle_delta, metric=mse_ratio_to_last); structure_variance_report.md section 7 (line 566)"
+   },
+   {
+    "block": "F2-C",
+    "label": "dataset_differences: 'a finger exchange changes the wrench profile about 2.6 times as much as sliding on ARCTIC, about 1.2 times on TACO'",
+    "reported": "about 2.6 times (0.266 vs 0.100); about 1.2 times (0.164 vs 0.136)",
+    "found": "The medians are right; the quotient is the extractor's own arithmetic (not in any source): 0.2656755202131797 / 0.0999159493682714 rounds to 2.7, not 2.6; TACO 1.2. Quote the two medians rather than a multiple; the report's own 'twice' is prose.",
+    "verdict": "corrected",
+    "source_checked": "reports/structure_variance_boundary/event_by_finger_kind.csv"
+   },
+   {
+    "block": "expected",
+    "label": "coarse hand adds <= 2 % temporally (TACO only)",
+    "reported": "<= 2 % (INDEX wording); extractor found 2.2 % horizon mean and marked 'differs'",
+    "found": "R2 -> R4 composite, mean over h: TACO 0.9777716998155185 [0.969432270914191, 0.9862369602859278] = 2.2 % lower, made of +2.3 % at h = 1 (1.0231462918945102) and -3.9 % / -5.1 % at h = 4 / 8 (0.9607046410043276 / 0.9494641665477177); ARCTIC 1.0120084015297346 [0.9925750293577246, 1.035229562710197] (no gain; h = 1 is 5.6 % worse). 'TACO only' holds; '<= 2 %' is INDEX.md line 81 wording and is not literally true - write 'about 2 % on TACO averaged over horizons, none on ARCTIC'.",
+    "verdict": "corrected",
+    "source_checked": "reports/structure_variance_boundary/incremental_gain.csv (frm=R2, to=R4); INDEX.md line 81"
+   }
+  ],
+  "claims_supported_as_extracted": 6,
+  "claims_checked": 13,
+  "figure_checks": [
+   {
+    "id": "f2a_wrench_error_by_rung",
+    "verdict": "ok",
+    "note": "Module run: exit 0. All plotted values re-derived independently with pandas from functional_probe.csv and equal to the cell values: MLP probe rel_l1 / rel_l1_lo / rel_l1_hi for 8 rungs (probe = mlpG_seedavg, target = q), ridge probe rel_l1 (probe = ridgeG, n_seeds 1, no interval), reference line = MEAN row. TACO values in the TACO panel, ARCTIC in the ARCTIC panel; direction lower_better is right; error bars are the take-cluster bootstrap 2.5 / 97.5 percentiles, 1000 replicates (tce_common.cluster_bootstrap). Note text: frames 22245 / 10567 and 3 seeds are read from the table; the take counts 186 / 44 are read from temporal_prediction.csv, and the probe log confirms the same counts for the probe. No plotted value is typed (AST scan: the only numeric constants are 0, 1 and the 100 of the per-cent label). For the page: the x axis is ordered by size, R4 / R5 branch from R2 / R3 and the two dense rungs are a different parameterisation, so the connecting line is not a nested ladder."
+   },
+   {
+    "id": "f2a_block_gain",
+    "verdict": "fixed",
+    "note": "Values correct and unchanged (10 ratios x 2 series x 2 datasets with lo / hi = incremental_gain.csv functional_* and temporal_* of the rows R0->R1, R1->R2, R2->R3, R2->R4, R5->FULL). Fixed a misleading label: the x axis said 'block added to the representation' although the last step replaces R5 by the dense state (FULL = C + H holds none of R5's blocks). Changed the x label to 'step of the ladder (block added; the last step replaces R5 by the dense state)', the y label to '... (below 1 = the step helps)', and added a note sentence built from representation_definitions.json (ladder.FULL, block_labels) and the table's own name of the step (column added = 'dense detail'); the module now raises if FULL ever shares a block with R5. Sources list extended accordingly."
+   },
+   {
+    "id": "f2a_gap_to_best",
+    "verdict": "ok",
+    "note": "Values equal saturation_summary.csv functional_gap_best / temporal_gap_best with _lo / _hi for R2, R3, R4, R5 per dataset; reference lines 0.025 / 0.05 / 0.1 are the distinct threshold values of saturation_choice.csv and their labels are computed from them; the 'best' names in the note (TACO R5 / R5, ARCTIC R3 / R5) are read from best_functional / best_temporal. Error bars are the paired take bootstrap of the ratio to the best (same weights for both rungs, aggregate.py::saturation). The note's rule sentence matches the code (gap < threshold or lower bound <= 0)."
+   },
+   {
+    "id": "f2b_future_structure_gap_by_rung",
+    "verdict": "fixed",
+    "note": "Values correct and unchanged: temporal_gap / _lo / _hi of all 8 rungs from saturation_summary.csv, and I checked that each equals the temporal_ratios.csv composite_T1_T4 h=0 ratio minus 1; FULL is 0 with a zero-width interval as in the table. Note extended with two attached caveats that were missing from the figure: every model also receives the object descriptor and the local object trajectory including the object's future states, and the figure is a comparison between inputs, not an absolute forecasting result. Extractor's 'reading' is slightly off for ARCTIC: R3 (-0.3187) is not lower than R2 (-0.3197); only R4 / R5 are."
+   },
+   {
+    "id": "f2b_future_structure_ratio_by_horizon",
+    "verdict": "fixed",
+    "note": "Values correct and unchanged: temporal_ratios.csv, vs = FULL, metric = composite_T1_T4, h = 1 / 4 / 8, rungs R0 ... CONTACT_FULL, with lo / hi (63 values per dataset). R2: 0.648 / 0.860 / 0.945 (TACO), 0.510 / 0.704 / 0.826 (ARCTIC) as the reading says. Only change: the note now states the shared object-descriptor / object-trajectory inputs."
+   },
+   {
+    "id": "f2b_r2_vs_persistence",
+    "verdict": "fixed",
+    "note": "Values correct and unchanged: temporal_ratios.csv rep = R2, vs = PERSIST, metrics T1_l1_ratio, T2_rel_l1_ratio, T3_cent_ratio, T3_ang_ratio, T4_rel_l1_ratio at h = 1, 4, 8 with lo / hi. The note was incomplete in a way that would mislead: the 'participation' bar is the per-frame |p - a| error while the report's prose and Table 3 use AUPRC, by which the same model is above persistence, and the centroid / normal ratios are not like for like. Added both statements to the note: the participation metric text is read from representation_definitions.json (T1_proxy_for_paired_gaps), and the AUPRC sentence is guarded - the module compares auprc_macro of R2 and PERSIST in temporal_prediction.csv for both datasets and all three horizons and raises if the sentence stops being true. Sources list extended."
+   },
+   {
+    "id": "f2c_dense_explained_by_r2",
+    "verdict": "ok",
+    "note": "Values equal residual_prediction.csv decoder_r2_test (model = decoder) for zstar R2 and R3, blocks C and H, per dataset; no error bars, as the table has only a seed sd; category sizes 512 / 300 read from the definitions; direction 'none' is appropriate for a descriptive share. Note says 3 decoder seeds (read from the row)."
+   },
+   {
+    "id": "f2c_residual_predictability",
+    "verdict": "fixed",
+    "note": "Values correct and unchanged: residual_prediction.csv zstar = R2, block = C, metric = mse_ratio_to_zero, models last / history / history_delta / oracle_delta at h = 1, 4, 8 with lo / hi. Two note problems fixed. (1) '1 = predicting a zero residual' is only approximately true in this table because the denominator is the seed-0 decoder's residual energy; the note now says 'about 1' and quotes the table's own zero-predictor rows, read at run time (TACO 0.987 / 0.986 / 0.986, ARCTIC 1.008 / 1.008 / 1.008). (2) 'Learned predictors: mean of 3 seeds' was read from the decoder row; the module now reads n_seeds from the plotted rows (learned 3, last value 1), raises if they differ between rows, and the note states that the baseline comes from 1 decoder seed. Also added that the learned predictors receive the object descriptor and trajectory. Extractor's 'reading' overstates one point: the predictor without the residual is 'far worse than persistence' at h = 1 and 4, but on TACO at h = 8 it is 0.797 vs 0.747."
+   },
+   {
+    "id": "f2c_residual_change_vs_last",
+    "verdict": "fixed",
+    "note": "Values correct and unchanged: mse_ratio_to_last of history_delta / oracle_delta for blocks C and H at h = 1, 4, 8 with lo / hi; the reference line 1.0 is read from the row model = last, block = C, h = 1. Note changed: 'Mean of 3 seeds' replaced by the baseline statement (last-value error from 1 decoder seed, learned predictors means of 3 seeds with their own decoders - confirmed in aggregate.py::aggregate_residual and residual.py::main) and a warning that ratios very close to 1 should not be read as a gain or a loss. This matters on ARCTIC, where the contact ratios are 1.031 / 1.023 / 0.975."
+   },
+   {
+    "id": "f2suba_coarse_hand_gain",
+    "verdict": "ok",
+    "note": "Values equal incremental_gain.csv rows R2 -> R4 and R3 -> R5: functional_ratio, temporal_ratio_h1 / _h4 / _h8, temporal_ratio, each with its lo / hi columns (the per-horizon interval columns are named temporal_lo_h*, temporal_hi_h* and are mapped correctly). Block size 42 read from the definitions. Direction lower_better and the 'below 1 = helps' label are right."
+   },
+   {
+    "id": "f2subb_topology_gain",
+    "verdict": "ok",
+    "note": "Values equal incremental_gain.csv row R2 -> R3 (same five column triples); block size 12 read from the definitions. Extractor's reading 'future structure ... 1.000-1.003 on ARCTIC' should be 0.999-1.003 (h = 4 is 0.9994808733879516)."
+   },
+   {
+    "id": "module (whole)",
+    "verdict": "fixed",
+    "note": "docs/build/figs/f2_structure_variance.py. Before my edits: 11 figures, 686 plotted numbers (values, lo, hi, reference lines), every one equal to its source cell when parsed exactly; lo <= value <= hi everywhere; two panels (TACO, ARCTIC) per figure, nothing pooled. After my edits the same check gives 686 / 686 and the numeric payload of every figure is byte-identical to before; only notes, two axis labels and source locators changed. Re-run with the given command, exit 0, validation passed. The extractor's JSON 'figures[].sources' is therefore slightly out of date for f2a_block_gain and f2b_r2_vs_persistence (representation_definitions.json added). Backup of the original and my check scripts are in <session scratch>"
+   }
+  ],
+  "image_checks": [
+   {
+    "path": "reports/structure_variance_boundary/sanity/sequence_descriptors_taco.png",
+    "exists": true,
+    "note": "Opened (147481 bytes, 1320 x 880 px). Title: 'TACO sequence 2426 ((put out, spatula, plate)/20231104_173, R): participation, amount, capability along the stored frames'. Three stacked panels as described: per-part participation a_k as offset step lines with a six-entry legend, per-part amount m_k (area fraction), and two capacity curves, Q (support) and Q strict. The proposed caption is supported with two additions: the bottom panel shows two variants of the modelled capacity (support-function and strict), and the capacity is drawn only for frames 0-63 while the descriptors run from -8 to 71. It is one sampled sequence from the sanity script - an illustration of R0 / R1 and the wrench proxy, not a result, and it does not show centroid / normal (the R2 block). The title carries the dataset's sequence and take identifiers."
+   },
+   {
+    "path": "reports/structure_variance_boundary/sanity/sequence_descriptors_arctic.png",
+    "exists": true,
+    "note": "Opened (116242 bytes, 1320 x 880 px). Title: 'ARCTIC sequence 792 (mixer_use_01/s01, R): participation, amount, capability along the stored frames'. Same three panels; the legend of the top panel sits inside the plot at the right, as the extractor says. Caption supported with the same two additions (two capacity curves; capacity only for frames 0-63). In this sequence the palm and the little finger never touch (flat lines), which the caption could say to help reading the offsets. Illustration only; TACO and ARCTIC examples must stay separate images."
+   }
+  ],
+  "attached_by_the_verifier": [
+   "No page-ready qualitative image for 'similar coarse structure, different dense realization' was delivered (the extractor says so itself). I opened figures/figG_examples_taco_variation_733_1.png: it is a four-row diagnostic sheet with internal labels and a 7-pt table; the event is of class persistent_mixed (not persistent spatial), it is the largest dense change among 52 candidates, and its R2 change (0.44) is below the train median (0.66), not zero. If the page needs this picture it has to be drawn anew from the event geometry; do not caption the existing sheet as 'same structure'.",
+   "Report-internal inconsistency not listed by the extractor: sections 7 and 8 of structure_variance_report.md say R2 is the smallest representation saturated against FULL 'at 2.5 / 5 / 10 %' / 'at every threshold' on both datasets; Table 7 and saturation_choice.csv give R1 for TACO at 10 %. The page must quote the table (R2 at 2.5 % and 5 %; at 10 % R1 on TACO, R2 on ARCTIC).",
+   "Caveat to attach to F2-C: the ARCTIC 'nothing measurable' result is for the residual left by R2. For the residual left by R3 (residual_prediction.csv, zstar = R3) the causal change predictor on ARCTIC reads 0.9995719450207071 / 0.972427014009422 / 0.9253304485767967 with the h = 8 interval [0.8796015867445194, 0.9739038220058871] excluding 1 (oracle 0.9200977400531426 [0.8615616451926736, 0.9816390032449583]). The report's sentence that the R3 results are 'within 0.01-0.04 of R2's on every row' does not hold for these rows (differences up to 0.05-0.06).",
+   "Caveat to attach to F2-B ('full dense contact provides no structured advantage'): the event-level analysis is not uniformly in favour of R2. event_correlations.csv, Spearman with 1 - retention: TACO all persistent events 0.421 [0.360, 0.485] (dense change) vs 0.214 [0.129, 0.295] (R2 change), TACO persistent spatial 0.274 vs 0.110, ARCTIC persistent spatial 0.595 vs 0.352; with the wrench-profile change d_q the order is the other way on persistent spatial events (TACO 0.371 vs 0.320, ARCTIC 0.624 vs 0.400). On TACO the dense change also misses fewer large wrench changes (event_quadrants.csv frac_large_w_missed 0.232 for d_FULL, 0.268 for d_CONTACT_FULL, 0.339 for d_R2; ARCTIC 0.400 vs 0.267 the other way). The extractor's entries quote none of this.",
+   "Caveat to attach to every 'worse than persistence' statement: the participation comparison depends on the metric. Per-frame |p - a| error: R2 model above persistence (ratios in temporal_ratios.csv). Macro AUPRC: R2 model above the persistence line at every horizon on both datasets (temporal_prediction.csv), and the report prose says 'on ARCTIC only for participation' the models beat persistence. The extractor's caveat mentions only ARCTIC h = 8.",
+   "Training-regime caveat as worded by the extractor is imprecise: the logs give the best-validation step (400-2600; 55 of 96 runs at 400-600) and a stop by patience 2000 steps later (2400-4600) out of a 30000-step budget; the report prose says 'best validation at 400-2 200 steps'. Say 'early-stopped, checkpoint taken at step 400-2600'.",
+   "The against-best reading of the saturation rule is not pre-specified: plan.md defines the rule against FULL only ('CI of the gap includes 0 or the gap < 2.5 / 5 / 10 %'); the best-representation reference was added in aggregate.py when FULL turned out not to be the best. The implemented test is 'lower bound <= 0', which also passes a representation that is significantly better than the reference. The page should call only the FULL rule 'pre-specified'.",
+   "The step R5 -> FULL (and the x axis R5 -> CONTACT_FULL -> FULL in the ladder figures) is a change of parameterisation, not an added block: FULL = dense contact map + 100 hand points and contains none of the compact blocks explicitly; R2 is itself computed from the dense state. Any 'adding the dense detail' sentence on the page needs this qualifier (now in the note of f2a_block_gain).",
+   "Baseline of the residual ratios: verified in aggregate.py that the residual energy and the last-value error come from the seed-0 decoder while the learned predictors are 3-seed means with their own decoders. My check of the per-frame NPZ files shows the three-seed mean last-value error is about 1-2 % above the seed-0 value on the contact block of both datasets; this is a checker's diagnostic, not a page number, but it means ARCTIC contact ratios of 1.03 / 1.02 / 0.975 cannot be read as 'worse' or 'better' than persistence. The figure notes now say so.",
+   "'Fixed probe' needs one qualifier the extractor did not attach: the architecture is fixed (2 hidden layers of width 256, plus the 1032-D object descriptor G), but dropout / weight decay are chosen on validation per representation from a 2 x 2 grid (probe_functional.py docstring; report section 4).",
+   "Page wording to avoid, not covered by a source: 'dense contact is over-specified for the meaningful temporal task' (the sources support only 'no structured advantage under the tested fixed probe and recipe', and the report calls the dense inputs' higher error 'a statement about the parameterisation, not about the information'); '<= 2 %' for the coarse hand (INDEX.md wording; the table gives 2.2 % averaged over horizons and 5.1 % at h = 8 on TACO); 'finger exchanges change the wrench twice as much as sliding' (ARCTIC only) and the extractor's derived '2.6 times' (the quotient of the two medians rounds to 2.7 and is in no source - quote the medians); 'participation alone halves the error' (TACO only).",
+   "All five blocks are TACO and ARCTIC only; OakInk2 was excluded from this study (report section 8). Nothing here may be extended to OakInk2, and there is no pooled number anywhere in the tables."
+  ]
+ }
+}
