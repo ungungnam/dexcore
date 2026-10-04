@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Understanding Structure in Human–Object Contact Dynamics · Ongoing research</title>
+<meta name="description" content="Ongoing research on human–object contact dynamics: three empirical observations on recorded hand–object interaction, the hypothesis they suggest, and the research direction they motivate.">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="topbar" id="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Contact dynamics</a>
+    <span class="status">Ongoing research</span>
+    <nav class="topnav" aria-label="Sections">
+      <a href="#motivation">Motivation</a>
+      <span class="nav-label">Observations</span>
+      <a class="num" href="#obs1" aria-label="Observation 1">1</a>
+      <a class="num" href="#obs2" aria-label="Observation 2">2</a>
+      <a class="num" href="#obs3" aria-label="Observation 3">3</a>
+      <a href="#direction">Direction</a>
+      <a href="#datasets">Datasets</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<noscript><p class="wrap noscript">The charts of this page are drawn by a script. Without it, most captions still state the main numbers.</p></noscript>
+
+<!-- ================= hero ================= -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="badge">Ongoing research · Work in progress</p>
+      <h1>Understanding Structure in Human–Object Contact Dynamics</h1>
+      <p class="subtitle">Studying how dense human–object contact trajectories decompose into grasp-level structure, temporal evolution, and realization variation.</p>
+      <p class="hero-note">Observations from ongoing work, not a finished method or published result.</p>
+    </div>
+    <figure class="diagram hero-diagram">
+      <svg class="dg dg-hero" viewBox="0 0 320 276" width="320" height="276" role="img" aria-label="Conceptual sketch. Object motion leads to contact dynamics, and contact dynamics lead to hand interaction. The contact dynamics step is emphasised: it is what this page studies.">
+        <defs>
+          <marker id="arrow-hero" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+            <path class="d-head" d="M0 0.5L10 5L0 9.5z"/>
+          </marker>
+        </defs>
+        <rect class="d-soft" x="24" y="1" width="272" height="60" rx="10"/>
+        <text class="d-t" x="160" y="36" text-anchor="middle">Object motion</text>
+        <line class="d-line" x1="160" y1="61" x2="160" y2="97" marker-end="url(#arrow-hero)"/>
+        <rect class="d-key" x="2" y="99" width="316" height="78" rx="12"/>
+        <text class="d-a" x="160" y="126" text-anchor="middle">studied here</text>
+        <text class="d-tk" x="160" y="155" text-anchor="middle">Contact dynamics</text>
+        <line class="d-line" x1="160" y1="177" x2="160" y2="213" marker-end="url(#arrow-hero)"/>
+        <rect class="d-soft" x="24" y="215" width="272" height="60" rx="10"/>
+        <text class="d-t" x="160" y="250" text-anchor="middle">Hand interaction</text>
+      </svg>
+      <figcaption>Conceptual sketch, not data.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="glance" aria-labelledby="glance-title">
+  <div class="wrap">
+    <h2 id="glance-title">In one minute</h2>
+    <ol class="takeaways">
+      <li><a href="#obs1">Choosing a grasp realization and evolving it through time are different sources of contact variation: not the same problem.</a></li>
+      <li><a href="#obs2">Not every dense contact reconfiguration meaningfully changes the modelled wrench capability.</a></li>
+      <li><a href="#obs3">A compact structural state keeps much of what matters for modelled wrench capability and future structured contact.</a></li>
+      <li><a href="#direction">We are investigating whether contact generation should be modelled as structured contact dynamics, not unrestricted dense trajectory generation.</a></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= motivation ================= -->
+<section class="block" id="motivation">
+  <div class="wrap">
+    <p class="kicker">Motivation</p>
+    <h2 class="headline">Why contact?</h2>
+    <p class="lead">One way to generate hand motion goes through contact: <span class="chain">object trajectory → contact → hand motion</span>.</p>
+
+    <div class="panel">
+      <figure class="shot">
+        <div class="diagram-scroll">
+          <a class="zoom min-wide" href="assets/img/contact_trajectory.webp"><img src="assets/img/contact_trajectory.webp" width="2200" height="837" loading="lazy" decoding="async" alt="Renders of one recorded sequence of a right hand taking hold of a knife: the hand on the knife, the knife with the contact coloured on its handle, the same contact as coloured dots, and six frames over time in which the colour on the handle deepens as the hand closes."></a>
+        </div>
+        <figcaption><strong>A contact trajectory.</strong> One recorded sequence: its contact map as 512 stored values and, at six of its 64 frames, on the object. Soft proximity values, above zero before touch. Not typical: the test sequence that changes most.</figcaption>
+      </figure>
+      <div class="foot"><span class="chip">TACO</span></div>
+    </div>
+
+    <div class="prose finding">
+      <p>In the two-stage generator we studied (<a href="https://vcai.mpi-inf.mpg.de/projects/bimart/">BimArt</a>, CVPR 2025; our port to TACO), replacing the recorded contact with the contact stage’s prediction raises the mean hand error on all four TACO test splits: 37.1&nbsp;→&nbsp;58.6, 48.8&nbsp;→&nbsp;86.5, 63.4&nbsp;→&nbsp;104.9 and 50.9&nbsp;→&nbsp;79.8&nbsp;mm.</p>
+      <div class="foot"><span class="chip">TACO</span> <span class="src">Source: two-stage generator study</span></div>
+      <p>These results suggest that contact-stage errors can substantially affect downstream hand generation.</p>
+      <details class="tech-note">
+        <summary>Technical note</summary>
+        <p>One model family; one training run of our TACO port; split 1 also served for model selection. The recorded-contact input is an oracle, measured from the recorded hands; with it the hand is still 37 to 63 mm off, so contact is a major source of error, not the only one. We quote no percentage share: the two stages’ contributions do not add. No confidence interval exists for the gap.</p>
+      </details>
+    </div>
+    <p class="ask">What information does a temporal contact generator actually need to model?</p>
+  </div>
+</section>
+
+<!-- ================= observation 1 ================= -->
+<section class="block" id="obs1">
+  <div class="wrap">
+    <p class="kicker">Observation 1</p>
+    <p class="question">What varies across a human contact trajectory?</p>
+    <h2 class="headline">Choosing a grasp realization and evolving it through time are different sources of variation.</h2>
+    <p class="lead">Without grasp labels, “grasp realization” is proxied by take, object or subject identity and the first contact map.</p>
+
+    <div class="panel">
+      <figure class="viz" data-fig="pub_obs1_variation" data-height="200" data-shared-y>
+        <figcaption>Amount and pattern: separate measures, each relative to its own take-to-take level.</figcaption>
+      </figure>
+      <div class="foot"><span class="chip">TACO</span> <span class="chip">ARCTIC</span> <span class="chip">OakInk2</span> <span class="src">Source: dynamic-contact analysis</span></div>
+    </div>
+
+    <p class="lead after-fig">Within a take (one recording), the spatial pattern changes about as much as between two takes on TACO, slightly less on ARCTIC and clearly less on OakInk2, and less than across object meshes or instances. The contact amount differs about twice as much within a TACO take, which includes approach and release, as between takes; not within ARCTIC’s long multi-episode takes (1.10) or OakInk2’s interaction-only segments (0.60). The pattern does change over time: the statement is relative.</p>
+
+    <div class="cards single">
+      <article class="card">
+        <h3>This motivates a hierarchical view</h3>
+        <p class="eq"><i>p</i>(<i>C</i><sub>1:<i>T</i></sub> | <i>G</i>, <i>τ</i>) <span class="op">≈</span> <i>p</i>(<i>s</i><sub>0</sub> | <i>G</i>) <span class="op">·</span> <i>p</i>(<i>C</i><sub>1:<i>T</i></sub> | <i>s</i><sub>0</sub>, <i>G</i>, <i>τ</i>)</p>
+        <p class="symbols">Choose an initial contact realization (first contact map <i>s</i><sub>0</sub>), then model its evolution (<i>C</i>: contact maps; <i>G</i>: object geometry; <i>τ</i>: object motion). On TACO, a learned model that evolves the true first map clearly beats holding it (error 3.48&nbsp;→&nbsp;1.82); on ARCTIC and OakInk2 the difference is not distinguishable from zero, although contact still changes there.</p>
+        <div class="foot"><span class="chip">TACO</span> <span class="chip">ARCTIC</span> <span class="chip">OakInk2</span> <span class="src">Source: hold-versus-evolve comparison</span></div>
+      </article>
+    </div>
+
+    <details class="tech-note">
+      <summary>Technical note</summary>
+      <p>Ratios are means over groups; intervals exist per group only. On TACO an object mesh is confounded with the people who used it. ARCTIC’s third bar is relative to two takes of the same subject (1.01 against the level of its other bars); OakInk2’s covers fewer than half of its groups. Holding and evolving both start from the true first map: diagnostic conditions, not generators. Held → evolved: ARCTIC 2.21 → 2.14 (paired difference −0.07, 95% interval −0.26 to +0.11); OakInk2 1.26 → 1.24 (−0.02, −0.11 to +0.06). One model family, one training run; error units differ between datasets.</p>
+    </details>
+
+    <div class="reading">
+      <p class="reading-label">Interpretation</p>
+      <p>Which contact a sequence starts from and how it evolves are different problems; how much the second adds differs with the interaction regime.</p>
+    </div>
+    <p class="bridge">The evolution itself is not all of one kind.</p>
+  </div>
+</section>
+
+<!-- ================= observation 2 ================= -->
+<section class="block" id="obs2">
+  <div class="wrap">
+    <p class="kicker">Observation 2</p>
+    <p class="question">Does every visible contact reconfiguration change what the grasp can do?</p>
+    <h2 class="headline">Large contact change does not necessarily mean functional change.</h2>
+    <p class="lead">A friction-cone grasp model gives the force and torque a grasp can apply along 76 directions: its <strong>modelled wrench capability</strong>, a proxy for functional grasp capability. <em>Retention</em>: the share of the later grasp’s capability that the earlier one already had.</p>
+
+    <div class="panel">
+      <figure class="shot narrow">
+        <div class="diagram-scroll">
+          <a class="zoom min-mid" href="assets/img/reconfiguration_events.webp"><img src="assets/img/reconfiguration_events.webp" width="2167" height="2028" loading="lazy" decoding="async" alt="Four rows of pictures, one event each (a knife, a plate, a notebook, a phone): the object with a see-through hand on it before and after the event, coloured patches on the object where each hand part touches, and a line plot of the modelled capability before and after."></a>
+        </div>
+        <figcaption>Per dataset: the median-retention within-grasp spatial reconfiguration, then the median-change one among those where a hand part joins. Single examples, typical in retention only: on the knife the hand moves 4 mm and a part joins (capability +18%; class median +4%); on the notebook it moves 29 mm (+14%; +2%).</figcaption>
+      </figure>
+      <div class="foot"><span class="chip">TACO</span> <span class="chip">ARCTIC</span> <span class="src">Source: wrench-capability analysis</span></div>
+    </div>
+
+    <div class="cards">
+      <article class="card">
+        <h3>Within-grasp spatial reconfiguration keeps most modelled capability</h3>
+        <div class="stats">
+          <p class="stat-label">Median retention</p>
+          <p class="stat"><span class="chip">TACO</span> <span class="v">0.85</span> <span class="n">119 events</span></p>
+          <p class="stat"><span class="chip">ARCTIC</span> <span class="v">0.89</span> <span class="n">26 events; 95% interval 0.76 to 0.96</span></p>
+          <p class="stat-label">Median cosine of the capability profiles</p>
+          <p class="stat"><span class="chip">TACO</span> <span class="v">0.97</span></p>
+          <p class="stat"><span class="chip">ARCTIC</span> <span class="v">0.96</span></p>
+        </div>
+        <p>On TACO contact-change size says little about capability change (rank correlation 0.19); on ARCTIC (0.55) 5 of the 11 larger changes gain more than 25%.</p>
+        <div class="foot"><span class="chip">TACO</span> <span class="chip">ARCTIC</span></div>
+      </article>
+      <article class="card">
+        <h3>Counterpoint: other changes alter it more often</h3>
+        <figure class="viz" data-fig="pub_obs2_capability_by_class" data-height="150" data-format="pct" data-shared-y data-title="none">
+          <figcaption>Events that also change the contact amount gain more than 25% modelled capability more often: 46% on both datasets, against 20% (TACO) and 23% (ARCTIC). Among spatial reconfigurations, such gains occur almost only when a hand part joins, which adds capability by construction in this model.</figcaption>
+        </figure>
+        <div class="foot"><span class="chip">TACO</span> <span class="chip">ARCTIC</span></div>
+      </article>
+    </div>
+
+    <details class="tech-note">
+      <summary>Technical note</summary>
+      <p>Capability comes from a simplified single-hand grasp model: one unit of force per touching hand part, linearised friction, no object mass or force limits; values are relative, not physical forces. Events: persistent spatial reconfigurations in a maintained grasp; medians over small classes. Larger changes: at or above the training median. Retention is one-sided (a grasp that shrank still scores near one), and the cosine ignores overall scale. A stricter exact-direction measure gives lower medians: 0.66 (TACO), 0.75 (ARCTIC).</p>
+    </details>
+
+    <div class="reading">
+      <p class="reading-label">Interpretation</p>
+      <p>Dense contact trajectories mix structural change with realization variation that, in the typical event, leaves the modelled wrench capability nearly unchanged.</p>
+    </div>
+    <p class="bridge">Can the structural part be isolated?</p>
+  </div>
+</section>
+
+<!-- ================= observation 3 ================= -->
+<section class="block" id="obs3">
+  <div class="wrap">
+    <p class="kicker">Observation 3</p>
+    <p class="question">Can the functionally meaningful part of dense contact be represented more compactly?</p>
+    <h2 class="headline">A compact description keeps much of what matters: which hand parts touch, how much, roughly where, facing which way.</h2>
+
+    <div class="panel">
+      <figure class="shot narrow">
+        <div class="diagram-scroll">
+          <a class="zoom min-mid" href="assets/img/compact_state.webp"><img src="assets/img/compact_state.webp" width="2188" height="1712" loading="lazy" decoding="async" alt="Two rows of 3-D renders, a right hand on a knife and a left hand on a box, each shown as the hand on the object, as contact on the surface coloured by hand part, and as one disc and arrow per touching hand part, with bars underneath showing which parts touch over time."></a>
+        </div>
+        <figcaption>One recorded frame per dataset, reduced to the compact state: 48 numbers.</figcaption>
+      </figure>
+      <div class="foot"><span class="chip">TACO</span> <span class="chip">ARCTIC</span></div>
+    </div>
+
+    <p class="lead after-fig">Each frame is described at eight levels; fixed small models recover its modelled wrench profile (itself computed from contact positions and directions) and predict the compact quantities and that profile 1, 4 and 8 frames ahead. A ranking of inputs, not absolute prediction.</p>
+
+    <div class="panel">
+      <figure class="viz" data-fig="pub_obs3_future_ladder" data-height="190" data-format="pct" data-labels="none" data-shared-y>
+        <figcaption>The error falls over the first three levels, to 18% (TACO) and 32% (ARCTIC) below the full dense state; richer compact levels change little.</figcaption>
+      </figure>
+      <div class="foot"><span class="chip">TACO</span> <span class="chip">ARCTIC</span> <span class="src">Source: description-ladder analysis</span></div>
+    </div>
+
+    <p class="lead after-fig">Wrench-profile error (relative L1): 0.35 → 0.18 (TACO), 0.51 → 0.18 (ARCTIC) with coarse position and direction.</p>
+
+    <div class="cards">
+      <article class="card">
+        <h3>What richer compact levels add</h3>
+        <div class="stats">
+          <p class="stat-label">Wrench error, adding spread and patch count</p>
+          <p class="stat"><span class="chip">TACO</span> <span class="v">−10%</span></p>
+          <p class="stat"><span class="chip">ARCTIC</span> <span class="v">−7%</span></p>
+          <p class="stat-label">Future-structure error, adding a coarse hand pose</p>
+          <p class="stat"><span class="chip">TACO</span> <span class="v">−2%</span> <span class="n">averaged over horizons</span></p>
+          <p class="stat"><span class="chip">ARCTIC</span> <span class="v word">no reduction</span></p>
+        </div>
+        <div class="foot"><span class="chip">TACO</span> <span class="chip">ARCTIC</span></div>
+      </article>
+      <article class="card">
+        <h3>The remaining dense detail is real</h3>
+        <p>From the compact state alone, a small fitted model leaves 11% (TACO) and 26% (ARCTIC) of the contact-map variance unexplained.</p>
+        <p>That remainder persists from frame to frame; the predictors we tested capture little of its change.</p>
+        <div class="foot"><span class="chip">TACO</span> <span class="chip">ARCTIC</span></div>
+      </article>
+    </div>
+
+    <details class="tech-note">
+      <summary>Technical note</summary>
+      <p>The compact level is called R2 (48 numbers per frame). These are comparisons between inputs under fixed small models, on the levels we tested (nothing between 12 and 48 numbers was tried); they are not statements of absolute predictability or information content, and the compact level is close to, not at, the lowest error. Dense inputs score worse under these fixed models; that is no statement about the information they hold. The dense inputs remain better at predicting the dense future itself. The residual is what one particular reconstruction model leaves. TACO and ARCTIC only.</p>
+    </details>
+
+    <div class="reading">
+      <p class="reading-label">Interpretation</p>
+      <p>Dense contact reads as a structured contact state plus realization detail.</p>
+      <figure class="diagram">
+        <svg class="dg dg-sum" width="880" height="100" role="img" aria-label="Conceptual diagram: dense contact equals a structured contact state plus realization detail.">
+          <g class="n n1">
+            <rect class="d-box" width="272" height="96" rx="10"/>
+            <text class="d-t" x="136" y="42" text-anchor="middle">Dense contact</text>
+            <text class="d-s" x="136" y="64" text-anchor="middle">512 values</text>
+          </g>
+          <text class="d-op op1" text-anchor="middle">=</text>
+          <g class="n n2">
+            <rect class="d-key" width="272" height="96" rx="10"/>
+            <text class="d-t" x="136" y="33" text-anchor="middle">Structured contact state</text>
+            <text class="d-s d-s-key" x="136" y="55" text-anchor="middle">parts, amount, position, direction</text>
+            <text class="d-s d-s-key" x="136" y="74" text-anchor="middle">48 numbers</text>
+          </g>
+          <text class="d-op op2" text-anchor="middle">+</text>
+          <g class="n n3">
+            <rect class="d-dashed" width="272" height="96" rx="10"/>
+            <text class="d-t" x="136" y="53" text-anchor="middle">Realization detail</text>
+          </g>
+        </svg>
+        <figcaption>Conceptual: not an exact or unique decomposition.</figcaption>
+      </figure>
+    </div>
+    <p class="bridge">How should such a structured state evolve over time?</p>
+  </div>
+</section>
+
+<!-- ================= direction ================= -->
+<section class="block direction" id="direction">
+  <div class="wrap">
+    <p class="kicker">Current research direction</p>
+    <h2 class="headline">Toward structured contact dynamics</h2>
+    <p class="claim">Can human contact dynamics be modelled as the evolution of a compact structural state, while dense contact detail is treated as realization variation?</p>
+
+    <figure class="diagram chain-figure">
+      <svg class="dg dg-chain" width="948" height="60" role="img" aria-label="Conceptual sketch of the research direction, in five steps: an initial contact realization; a structured contact state; its temporal structural evolution; a dense contact trajectory; hand motion or retargeting. The structured state and its evolution are emphasised.">
+        <g class="n n1">
+          <rect class="d-soft" width="168" height="56" rx="10"/>
+          <text class="d-t" x="84" y="24" text-anchor="middle">Initial contact</text>
+          <text class="d-t" x="84" y="42" text-anchor="middle">realization</text>
+        </g>
+        <g class="ar ar1"><path class="d-line" d="M3 0H16"/><path class="d-head" d="M24 0L15 -4.5V4.5z"/></g>
+        <g class="n n2">
+          <rect class="d-key" width="168" height="56" rx="10"/>
+          <text class="d-t" x="84" y="24" text-anchor="middle">Structured</text>
+          <text class="d-t" x="84" y="42" text-anchor="middle">contact state</text>
+        </g>
+        <g class="ar ar2"><path class="d-line" d="M3 0H16"/><path class="d-head" d="M24 0L15 -4.5V4.5z"/></g>
+        <g class="n n3">
+          <rect class="d-key" width="168" height="56" rx="10"/>
+          <text class="d-t" x="84" y="24" text-anchor="middle">Temporal structural</text>
+          <text class="d-t" x="84" y="42" text-anchor="middle">evolution</text>
+        </g>
+        <g class="ar ar3"><path class="d-line" d="M3 0H16"/><path class="d-head" d="M24 0L15 -4.5V4.5z"/></g>
+        <g class="n n4">
+          <rect class="d-soft" width="168" height="56" rx="10"/>
+          <text class="d-t" x="84" y="24" text-anchor="middle">Dense contact</text>
+          <text class="d-t" x="84" y="42" text-anchor="middle">trajectory</text>
+        </g>
+        <g class="ar ar4"><path class="d-line" d="M3 0H16"/><path class="d-head" d="M24 0L15 -4.5V4.5z"/></g>
+        <g class="n n5">
+          <rect class="d-soft" width="168" height="56" rx="10"/>
+          <text class="d-t" x="84" y="24" text-anchor="middle">Hand motion</text>
+          <text class="d-t" x="84" y="42" text-anchor="middle">or retargeting</text>
+        </g>
+      </svg>
+      <figcaption>Conceptual sketch, not a built system.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <p>We are currently investigating how such structural states should evolve over time and how realization detail should be preserved.</p>
+      <p>This is a direction: no method and no result is claimed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= datasets, about, contact ================= -->
+<section class="block about" id="datasets">
+  <div class="wrap">
+    <h2 class="headline small">Datasets and scope</h2>
+    <div class="table-wrap">
+      <table class="scope">
+        <thead>
+          <tr><td></td><th scope="col">TACO</th><th scope="col">ARCTIC</th><th scope="col">OakInk2</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Motivation</th><td aria-label="used">●</td><td aria-label="not used">–</td><td aria-label="not used">–</td></tr>
+          <tr><th scope="row">Observation 1</th><td aria-label="used">●</td><td aria-label="used">●</td><td aria-label="used">●</td></tr>
+          <tr><th scope="row">Observations 2 and 3</th><td aria-label="used">●</td><td aria-label="used">●</td><td aria-label="not used">–</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prose">
+      <p>TACO shows the stronger effect of temporal evolution; on ARCTIC the predictors we tested rarely beat carrying the current contact forward, although contact does change there. We read this as contact dynamics depending on the interaction regime (the test sets also differ in composition), not as a failure of either dataset.</p>
+      <p class="credits">Data: <a href="https://taco2024.github.io/">TACO</a>, <a href="https://arctic.is.tue.mpg.de/">ARCTIC</a>, <a href="https://oakink.net/v2/">OakInk2</a> (their own licences). Prior work: <a href="https://vcai.mpi-inf.mpg.de/projects/bimart/">BimArt</a>; hands: <a href="https://mano.is.tue.mpg.de/">MANO</a> (Romero et al., 2017). Rendered images only; no data is redistributed.</p>
+      <p class="contact">Contact: <a href="mailto:01unghui@gmail.com">01unghui@gmail.com</a> · <a href="https://github.com/ungungnam">github.com/ungungnam</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">Last updated October 2026.</div>
+</footer>
+
+<script src="data/figures.js"></script>
+<script src="assets/js/charts.js"></script>
+</body>
+</html>
