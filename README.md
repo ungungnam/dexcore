@@ -1,6 +1,49 @@
 # dexcore
 
-Cross-object functional transfer of human hand-object demonstrations.
+Cross-object functional transfer of human hand-object demonstrations, and a study of what a temporal
+hand-object contact generator should model.
+
+**Project page: <https://ungungnam.github.io/dexcore/>** — the research argument (motivation, three
+findings, current hypothesis) with the evidence behind each claim. Its source is in [`docs/`](docs/).
+
+## What this repository contains
+
+| part | where | what |
+|---|---|---|
+| Transfer pipeline | `src/`, `scripts/*.py`, `configs/`, `eval/`, `tests/` | selection → transfer → reconstruction of hand-object demonstrations, the BimArt end-to-end baseline, metrics and a viewer. Documented in the rest of this README |
+| Dataset analysis and BimArt ports | `src/analysis/`, `scripts/*bimart*`, `configs/bimart_*/` | TACO / ARCTIC loaders and statistics; BimArt trained on TACO and on OakInk2 |
+| Contact-generation research | [`scripts/research/`](scripts/research/README.md) | the experiment scripts behind the project page, one directory per study, catalogued in `scripts/research/README.md` |
+| Project page | [`docs/`](docs/README.md) | the page, its figure-building scripts and the evidence manifest |
+
+Things to know before reading the research scripts:
+
+- They are **mirrors** of scripts that live beside their outputs on the development server, and they
+  carry that server's absolute paths (`/result/uhnam/dexcore/...`). They are the record of how each
+  number was produced; they do not run unchanged elsewhere.
+- Datasets (TACO, ARCTIC, OakInk2), checkpoints, generated demonstrations and result files are not in
+  this repository. The small result tables that the project page plots are snapshotted under
+  `docs/data/sources/`.
+- `scripts/research/z_stateful_s0_factorial/` belongs to an experiment that is still running; it is
+  a snapshot of work in progress and has no result.
+
+### Third-party code and attribution
+
+`third_party/` is not tracked. The checkouts used on the development server:
+
+| checkout | upstream | commit | used for |
+|---|---|---|---|
+| `BimArt` | <https://github.com/RosettaWYzhang/BimArt> | `bec093cd` | model code and pretrained checkpoints of the baseline; the ports in `src/analysis/bimart/` and `scripts/train_bimart_*.py` re-implement its preprocessing and training loop around the unmodified model code |
+| `dexmachina` | <https://github.com/MandiZhao/dexmachina> | `adae5bf6` | demo format, object assets, MANO hands, ADD-AUC |
+| `CorDex-Grasp` | <https://github.com/hxy-123/CorDex-Grasp> | `b19ea7ff` | reference only (see `src/transfer/cordex.py`) |
+| `video_to_data` | <https://github.com/nvidia-isaac/video_to_data> | `5654c50e` | CHORD adapter (stub) |
+| `gears`, `SSCF`, `CAMS` | <https://github.com/kzhou23/gears>, <https://github.com/Daisy-1227/SSCF>, <https://github.com/cams-hoi/CAMS> | `bef39220`, `49aec64a`, `7de39619` | read for reference; not imported by the code |
+
+BimArt's code is released under CC BY-NC 4.0 and DexMachina's under MIT. Treat the BimArt ports in this
+repository as subject to BimArt's non-commercial terms. three.js (MIT) is vendored under
+`eval/visualization/static/vendor/` with its licence. This repository does not yet carry a licence of
+its own.
+
+## The transfer pipeline
 
 A dense demonstration is factorized into a **dense object-state trajectory** and a **sparse set of
 hand-object interaction states**:
