@@ -1,0 +1,44 @@
+# OakInk2 port of BimArt's contact model config (review: /result/uhnam/dexcore/oakink2/30_bimart_port/review/).
+# Changed from the ARCTIC original: data paths; `base_frame` 100 -> 8 (OakInk2 has no T-pose
+# lead-in). `global_state_dim` stays 7 as upstream: [part1 rotvec, translation - window frame 0,
+# pair scale]. Architecture, lr (upstream hard-codes 1e-5) and the 200-epoch schedule horizon are
+# upstream's; validation (TaMF val, stride 16) may only stop training earlier.
+inherit: null
+exp_name: contact_model_oakink2
+# data and loading
+base_dir: /result/uhnam/dexcore/oakink2/30_bimart_port
+split: train
+end_frame: null
+base_frame: 8
+batch_size: 100
+num_workers: 8
+normalize_data: true
+pred_horizon: 64
+num_features: 3
+num_bps_points: 512
+global_state_dim: 7
+nonpair_m: 0.005
+stat_dict_path: /result/uhnam/dexcore/oakink2/30_bimart_port/assets/oakink2_contact_norm_stats.pkl
+# architecture -- unchanged from upstream
+ff_size: 1024
+activation: gelu
+dropout: 0.1
+latent_cond_dim: 512
+mlp_layer1_dim: 1024
+mlp_layer2_dim: 1024
+num_heads: 4
+num_layers: 8
+obj_latent_dim: 1024
+# training -- unchanged from upstream
+load_pretrained: false
+lr: 1.0e-05
+start_epochs: 0
+num_epochs: 200
+num_timesteps: 50
+pretrained_model_path: null
+# output: checkpoints on /ckpt, logs and wandb on /result
+save_root_dir: /ckpt/uhnam/dexcore/bimart_oakink2/
+run_root_dir: /result/uhnam/dexcore/oakink2/30_bimart_port/runs/
+use_wandb: true
+wandb_entity: null
+wandb_pj_name: bimart_oakink2_contact

@@ -1,0 +1,48 @@
+# OakInk2 port of BimArt's motion model config. See the contact config for what changed and why.
+# global_states: [part1 rotvec, translation - translation(start-1), pair scale], 7-D as upstream.
+inherit: null
+exp_name: motion_model_oakink2
+save_root_dir: /ckpt/uhnam/dexcore/bimart_oakink2/
+run_root_dir: /result/uhnam/dexcore/oakink2/30_bimart_port/runs/
+use_job_id: true
+data:
+  base_dir: /result/uhnam/dexcore/oakink2/30_bimart_port
+  split: train
+  stat_dict_path: /result/uhnam/dexcore/oakink2/30_bimart_port/assets/oakink2_motion_norm_stats.pkl
+  action_dim: 1200
+  pred_horizon: 64
+  global_state_dim: 7
+  base_frame: 8
+  end_frame: null
+  nonpair_m: 0.005
+  hand_keypoints: 100
+  hand_index_path: /home/uhnam/workspace/dexcore/third_party/BimArt/assets/part_fps_hand_index_100.npy
+  num_workers: 8
+  bps_feature_dim: 3
+  num_bps_points: 512
+model:
+  diffusion_step_embed_dim: 256
+  null_bps_token_dim: 128
+  null_contact_token_dim: 128
+  beta: squaredcos_cap_v2
+  noise_scheduler: ddpm
+  ff_size: 1024
+  num_layers: 8
+  num_heads: 4
+  dropout: 0.1
+  activation: gelu
+  latent_cond_dim: 512
+train:
+  num_diffusion_iters: 50
+  start_epochs: 0
+  num_epochs: 200
+  warmup_steps: 100
+  load_pretrained: false
+  pretrain_model_name: model_final.pth
+  train_batch_size: 100
+  save_checkpt_epoch: 100
+  contact_on_prob: 0.5
+  lr: 1.0e-4
+  use_wandb: true
+  wandb_pj_name: bimart_oakink2_motion
+  wandb_entity: null
