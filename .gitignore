@@ -6,7 +6,13 @@
 # Vendored upstream repos (28 GB, each with its own .git) and run outputs
 /third_party/
 /outputs/
-/.omc/
+
+# Agent / editor session state, at any depth
+.omc/
+.claude/
+
+# Generated demonstrations derived from ARCTIC (not redistributable); regenerate with scripts/synthesize.py
+/assets/**/*.npy
 
 # Model weights and large artefacts
 *.pt
