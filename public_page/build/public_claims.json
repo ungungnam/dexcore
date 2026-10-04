@@ -1,0 +1,2828 @@
+{
+ "about": [
+  "Claims of the public page and where each number comes from on the internal page. Read by build_public.py, which checks every entry",
+  "and writes public_evidence_manifest.json (development only, never shipped), and by check_public.py (rules T01 to T03).",
+  "claims[]: id, section, public_claim (the sentence as shown on the page, word for word), datasets, figure_asset (a public figure id pub_...,",
+  "a file under site/ such as assets/img/compact_state.webp, a list of those, or null), numbers[], and optionally shown[], support[], evidence_note.",
+  "shown[]: exact strings of the page that carry numbers of the claim outside its sentence (stat tiles such as 'TACO 0.85 119 events').",
+  "The claim sentence and every shown string must be on the page word for word, each inside one text block; a number of the page text is accepted",
+  "only inside such a string of a claim that lists it (or inside a structural phrase), so a number moved to another sentence or dataset stops the build.",
+  "numbers[]: displayed (the number as shown: '37.1', '46%', '0.85'), dataset, metric, full_value (the full-precision internal value),",
+  "transform (optional; how displayed derives from full_value: identity | percent | abs | abs_percent | one_minus_percent |",
+  "minus_one_percent), internal_block (block id of docs/evidence_manifest.json), internal_evidence, internal_report, source_file,",
+  "locator (optional; filled from the internal evidence when left out), where (optional: 'chart' for a number that the page shows only as a value",
+  "label of the public chart named in figure_asset; the build then checks that the chart plots that value for that dataset), note (optional, for readers).",
+  "support[]: values that back a claim shown without a digit ('unchanged', 'no reduction', 'almost only'). Same fields as a number, with shown_as (the words",
+  "of the page they back) instead of displayed; checked against the internal evidence like a number, never counted as a number of the page.",
+  "A supporting value marked where: 'chart' backs a number that is TYPED into a label of a public chart (the number of events of a kind in an",
+  "axis label): shown_as is then that label, word for word. The build checks that the label is written in the panel of that dataset of a chart",
+  "named in figure_asset and that it holds the value; a number typed into an axis label without such an entry stops the build.",
+  "A claim needs at least one of numbers, support or evidence_note (free text for readers; not machine-checked).",
+  "internal_evidence is one of: {evidence_file: 'docs/evidence/<unit>.json', key: '<label of the number>', value_index: n (which number of",
+  "the stored value, 0 = first; needed when it holds several), entry: i (optional)} | {figure: '<internal figure id>', panel, series,",
+  "category, bound: 'lo' | 'hi' (optional)} or {figure, panel, ref: '<reference line label>'} | {json_file: 'docs/...json', path: [...], value_index: n}.",
+  "structural_numbers[]: numbers of the page text that are not measurements (sizes, counts, names, dates, thresholds). Each entry is a",
+  "phrase ('text', matched without regard to case) or a 'regex', with the reason ('why').",
+  "chart_text_numbers{}: per public figure, the numbers written in its title, labels and note in the chart data file (sample sizes, sizes of the",
+  "descriptions, counts). A number of those strings that is not listed here (and is not structural) stops the build, and so does a listed number that is",
+  "no longer written. The build also requires every digit run of those strings to occur in the strings of the internal figure the chart is derived from."
+ ],
+ "claims": [
+  {
+   "id": "takeaway-1",
+   "section": "Hero: in one minute",
+   "public_claim": "Choosing a grasp realization and evolving it through time are different sources of contact variation: not the same problem.",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "figure_asset": "pub_obs1_variation",
+   "numbers": [],
+   "evidence_note": "Summary of Observation 1 (internal blocks F1-A and F1-B); the numbers are in the claims obs1-*."
+  },
+  {
+   "id": "takeaway-2",
+   "section": "Hero: in one minute",
+   "public_claim": "Not every dense contact reconfiguration meaningfully changes the modelled wrench capability.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": [
+    "assets/img/reconfiguration_events.webp",
+    "pub_obs2_capability_by_class"
+   ],
+   "numbers": [],
+   "evidence_note": "Summary of Observation 2 (internal block F1-D); the numbers are in the claims obs2-*. 'Meaningfully': the capability does change a little in the typical event (median relative change +4% on TACO, +2% on ARCTIC; 73% and 65% of the events change it by at most 25%)."
+  },
+  {
+   "id": "takeaway-3",
+   "section": "Hero: in one minute",
+   "public_claim": "A compact structural state keeps much of what matters for modelled wrench capability and future structured contact.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": [
+    "assets/img/compact_state.webp",
+    "pub_obs3_future_ladder"
+   ],
+   "numbers": [],
+   "evidence_note": "Summary of Observation 3 (internal blocks F2-A and F2-B); the numbers are in the claims obs3-*."
+  },
+  {
+   "id": "takeaway-4",
+   "section": "Hero: in one minute",
+   "public_claim": "We are investigating whether contact generation should be modelled as structured contact dynamics, not unrestricted dense trajectory generation.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": null,
+   "numbers": [],
+   "evidence_note": "A research direction stated as a question. No method and no result is claimed; no internal number backs it."
+  },
+  {
+   "id": "motivation-pipeline",
+   "section": "Motivation",
+   "public_claim": "One way to generate hand motion goes through contact: object trajectory → contact → hand motion.",
+   "datasets": [
+    "TACO"
+   ],
+   "figure_asset": null,
+   "numbers": [],
+   "evidence_note": "One two-stage generator family was studied (BimArt: a contact stage and a motion stage); the sentence makes no claim about how common the approach is. Internal block MOTIVATION."
+  },
+  {
+   "id": "motivation-contact-trajectory",
+   "section": "Motivation",
+   "public_claim": "One recorded sequence: its contact map as 512 stored values and, at six of its 64 frames, on the object.",
+   "datasets": [
+    "TACO"
+   ],
+   "figure_asset": "assets/img/contact_trajectory.webp",
+   "numbers": [],
+   "evidence_note": "512 values per contact map and 64 frames per sequence are structural numbers (docs/data/qual/contact_map_primer.json, meta.numbers). The picture draws the 512 stored values at one frame (frame 63) and the map on the object, with the hand, at six frames (0, 8, 16, 32, 48, 63): meta.panels and meta.examples[0].frames_drawn. The sequence is the test sequence with the largest first-to-last change of the contact map (rank 1 of 364 test sequences), so it is not typical. The value is exp(-distance to the hand / 2 cm), above zero before touch. Internal block F1-PRIMER."
+  },
+  {
+   "id": "motivation-hand-error",
+   "section": "Motivation",
+   "public_claim": "In the two-stage generator we studied (BimArt, CVPR 2025; our port to TACO), replacing the recorded contact with the contact stage’s prediction raises the mean hand error on all four TACO test splits: 37.1 → 58.6, 48.8 → 86.5, 63.4 → 104.9 and 50.9 → 79.8 mm.",
+   "datasets": [
+    "TACO"
+   ],
+   "figure_asset": null,
+   "numbers": [
+    {
+     "displayed": "37.1",
+     "dataset": "TACO",
+     "metric": "mean distance (mm) between generated and recorded hand keypoints, motion stage given the recorded contact, test split 1; lower is better",
+     "full_value": 37.09039464592934,
+     "internal_block": "MOTIVATION",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/m0_motivation.json",
+      "key": "TACO | hand error, GT contact, test_1"
+     },
+     "internal_report": "reports/bimart_taco_and_canonical_contact.md",
+     "source_file": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_1, column motion_kp_err_mm_gt_contact"
+    },
+    {
+     "displayed": "58.6",
+     "dataset": "TACO",
+     "metric": "mean distance (mm) between generated and recorded hand keypoints, motion stage given the predicted contact, test split 1; lower is better",
+     "full_value": 58.60862322151661,
+     "internal_block": "MOTIVATION",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/m0_motivation.json",
+      "key": "TACO | hand error, predicted contact, test_1"
+     },
+     "internal_report": "reports/bimart_taco_and_canonical_contact.md",
+     "source_file": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_1, column motion_kp_err_mm_pred_contact"
+    },
+    {
+     "displayed": "48.8",
+     "dataset": "TACO",
+     "metric": "mean distance (mm) between generated and recorded hand keypoints, motion stage given the recorded contact, test split 2; lower is better",
+     "full_value": 48.754408955574036,
+     "internal_block": "MOTIVATION",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/m0_motivation.json",
+      "key": "TACO | hand error, GT contact, test_2"
+     },
+     "internal_report": "reports/bimart_taco_and_canonical_contact.md",
+     "source_file": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_2, column motion_kp_err_mm_gt_contact"
+    },
+    {
+     "displayed": "86.5",
+     "dataset": "TACO",
+     "metric": "mean distance (mm) between generated and recorded hand keypoints, motion stage given the predicted contact, test split 2; lower is better",
+     "full_value": 86.46991476416588,
+     "internal_block": "MOTIVATION",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/m0_motivation.json",
+      "key": "TACO | hand error, predicted contact, test_2"
+     },
+     "internal_report": "reports/bimart_taco_and_canonical_contact.md",
+     "source_file": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_2, column motion_kp_err_mm_pred_contact"
+    },
+    {
+     "displayed": "63.4",
+     "dataset": "TACO",
+     "metric": "mean distance (mm) between generated and recorded hand keypoints, motion stage given the recorded contact, test split 3; lower is better",
+     "full_value": 63.353123143315315,
+     "internal_block": "MOTIVATION",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/m0_motivation.json",
+      "key": "TACO | hand error, GT contact, test_3"
+     },
+     "internal_report": "reports/bimart_taco_and_canonical_contact.md",
+     "source_file": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_3, column motion_kp_err_mm_gt_contact"
+    },
+    {
+     "displayed": "104.9",
+     "dataset": "TACO",
+     "metric": "mean distance (mm) between generated and recorded hand keypoints, motion stage given the predicted contact, test split 3; lower is better",
+     "full_value": 104.90483045578003,
+     "internal_block": "MOTIVATION",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/m0_motivation.json",
+      "key": "TACO | hand error, predicted contact, test_3"
+     },
+     "internal_report": "reports/bimart_taco_and_canonical_contact.md",
+     "source_file": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_3, column motion_kp_err_mm_pred_contact"
+    },
+    {
+     "displayed": "50.9",
+     "dataset": "TACO",
+     "metric": "mean distance (mm) between generated and recorded hand keypoints, motion stage given the recorded contact, test split 4; lower is better",
+     "full_value": 50.8646871894598,
+     "internal_block": "MOTIVATION",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/m0_motivation.json",
+      "key": "TACO | hand error, GT contact, test_4"
+     },
+     "internal_report": "reports/bimart_taco_and_canonical_contact.md",
+     "source_file": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_4, column motion_kp_err_mm_gt_contact"
+    },
+    {
+     "displayed": "79.8",
+     "dataset": "TACO",
+     "metric": "mean distance (mm) between generated and recorded hand keypoints, motion stage given the predicted contact, test split 4; lower is better",
+     "full_value": 79.78921756148338,
+     "internal_block": "MOTIVATION",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/m0_motivation.json",
+      "key": "TACO | hand error, predicted contact, test_4"
+     },
+     "internal_report": "reports/bimart_taco_and_canonical_contact.md",
+     "source_file": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_4, column motion_kp_err_mm_pred_contact"
+    }
+   ],
+   "evidence_note": "Mean distance in mm between the generated and the recorded hand keypoints, per test split, with the recorded contact and then with the contact stage's prediction (splits 1 to 4, in this order). The predicted-contact error is above the recorded-contact error in 4 of 4 test splits. Our port of BimArt to TACO, one training run; split 1 was the validation split used for model selection. The recorded-contact input is an oracle (measured from the recorded hands). No interval exists for the gap. The page shows no chart for these values (removed for length); the dataset chip and the source label stand under the sentence."
+  },
+  {
+   "id": "motivation-strength",
+   "section": "Motivation",
+   "public_claim": "These results suggest that contact-stage errors can substantially affect downstream hand generation.",
+   "datasets": [
+    "TACO"
+   ],
+   "figure_asset": null,
+   "numbers": [],
+   "evidence_note": "Qualitative statement on the four TACO test splits. No percentage share is quoted: the study states that the two stages’ contributions do not add. The check on the released model's own ARCTIC data (8 of 8 test windows in the same direction; two sequences of one object) is no longer on the page: it was an illustration only and was cut for length (docs/evidence/m0_motivation.json, entry 4)."
+  },
+  {
+   "id": "motivation-technical-note",
+   "section": "Motivation (technical note)",
+   "public_claim": "The recorded-contact input is an oracle, measured from the recorded hands; with it the hand is still 37 to 63 mm off, so contact is a major source of error, not the only one.",
+   "datasets": [
+    "TACO"
+   ],
+   "figure_asset": null,
+   "numbers": [
+    {
+     "displayed": "37",
+     "dataset": "TACO",
+     "metric": "hand error left with the recorded contact, lowest test split (mm)",
+     "full_value": 37.09039464592934,
+     "internal_block": "MOTIVATION",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/m0_motivation.json",
+      "key": "TACO | hand error, GT contact, test_1"
+     },
+     "internal_report": "reports/bimart_taco_and_canonical_contact.md",
+     "source_file": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_1, column motion_kp_err_mm_gt_contact"
+    },
+    {
+     "displayed": "63",
+     "dataset": "TACO",
+     "metric": "hand error left with the recorded contact, highest test split (mm)",
+     "full_value": 63.353123143315315,
+     "internal_block": "MOTIVATION",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/m0_motivation.json",
+      "key": "TACO | hand error, GT contact, test_3"
+     },
+     "internal_report": "reports/bimart_taco_and_canonical_contact.md",
+     "source_file": "taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv",
+     "locator": "row split=test_3, column motion_kp_err_mm_gt_contact"
+    }
+   ]
+  },
+  {
+   "id": "motivation-question",
+   "section": "Motivation",
+   "public_claim": "What information does a temporal contact generator actually need to model?",
+   "datasets": [
+    "TACO"
+   ],
+   "figure_asset": null,
+   "numbers": [],
+   "evidence_note": "The research question; not a claim."
+  },
+  {
+   "id": "obs1-headline",
+   "section": "Observation 1",
+   "public_claim": "Choosing a grasp realization and evolving it through time are different sources of variation.",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "figure_asset": "pub_obs1_variation",
+   "numbers": [],
+   "evidence_note": "No grasp labels are used: grasp realization means which take, object mesh, object instance or subject a frame comes from, and which first contact map a sequence starts from. Read per dataset, never pooled."
+  },
+  {
+   "id": "obs1-pattern",
+   "section": "Observation 1",
+   "public_claim": "Within a take (one recording), the spatial pattern changes about as much as between two takes on TACO, slightly less on ARCTIC and clearly less on OakInk2, and less than across object meshes or instances.",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "figure_asset": "pub_obs1_variation",
+   "numbers": [
+    {
+     "displayed": "1.04",
+     "dataset": "TACO",
+     "metric": "normalised spatial pattern, early versus late frames of a take / two takes (ratio of mean pair distances, mean over groups; 1 = as different as two takes of the same object and action at the same phase)",
+     "full_value": 1.035969227552414,
+     "internal_block": "F1-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1a_dynamic_contact.json",
+      "key": "TACO | time/take, pattern_L2 (groups > 1: 3 of 8)"
+     },
+     "internal_report": "reports/dynamic_contact_crossdataset.md",
+     "source_file": "reports/crossdataset_exp1.csv",
+     "locator": "row TACO, time/take, pattern_L2; column macro",
+     "where": "chart"
+    },
+    {
+     "displayed": "0.941",
+     "dataset": "ARCTIC",
+     "metric": "normalised spatial pattern, early versus late frames of a take / two takes (ratio of mean pair distances, mean over groups; 1 = as different as two takes of the same object and action at the same phase)",
+     "full_value": 0.9405823864720084,
+     "internal_block": "F1-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1a_dynamic_contact.json",
+      "key": "ARCTIC | time/take, pattern_L2 (6 of 22)"
+     },
+     "internal_report": "reports/dynamic_contact_crossdataset.md",
+     "source_file": "reports/crossdataset_exp1.csv",
+     "locator": "row ARCTIC, time/take, pattern_L2; column macro",
+     "where": "chart"
+    },
+    {
+     "displayed": "0.452",
+     "dataset": "OakInk2",
+     "metric": "normalised spatial pattern, early versus late frames of a take / two takes (ratio of mean pair distances, mean over groups; 1 = as different as two takes of the same object and action at the same phase)",
+     "full_value": 0.4521745386031958,
+     "internal_block": "F1-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1a_dynamic_contact.json",
+      "key": "OakInk2 | time/take, pattern_L2 (0 of 39)"
+     },
+     "internal_report": "reports/dynamic_contact_crossdataset.md",
+     "source_file": "reports/crossdataset_exp1.csv",
+     "locator": "row OakInk2, time/take, pattern_L2; column macro",
+     "where": "chart"
+    },
+    {
+     "displayed": "1.48",
+     "dataset": "TACO",
+     "metric": "normalised spatial pattern, another object mesh / two takes (ratio of mean pair distances, mean over groups; 1 = as different as two takes of the same object and action at the same phase)",
+     "full_value": 1.4829091131687164,
+     "internal_block": "F1-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1a_dynamic_contact.json",
+      "key": "TACO | identity ratio on the pattern: mesh/take (8 of 8)"
+     },
+     "internal_report": "reports/dynamic_contact_crossdataset.md",
+     "source_file": "reports/crossdataset_exp1.csv",
+     "locator": "row TACO, mesh/take, pattern_L2; column macro",
+     "where": "chart"
+    },
+    {
+     "displayed": "1.16",
+     "dataset": "ARCTIC",
+     "metric": "normalised spatial pattern, another subject / two takes of the SAME subject (ratio of mean pair distances, mean over groups)",
+     "full_value": 1.155891857363961,
+     "internal_block": "F1-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1a_dynamic_contact.json",
+      "key": "ARCTIC | identity ratio on the pattern: subject/take_same_subject (22 of 22)"
+     },
+     "internal_report": "reports/dynamic_contact_crossdataset.md",
+     "source_file": "reports/crossdataset_exp1.csv",
+     "locator": "row ARCTIC, subject/take_same_subject, pattern_L2; column macro",
+     "where": "chart"
+    },
+    {
+     "displayed": "1.69",
+     "dataset": "OakInk2",
+     "metric": "normalised spatial pattern, another object instance / two takes (ratio of mean pair distances, mean over groups; 1 = as different as two takes of the same object and action at the same phase); 17 of the 39 groups",
+     "full_value": 1.6860250900773441,
+     "internal_block": "F1-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1a_dynamic_contact.json",
+      "key": "OakInk2 | identity ratio on the pattern: mesh/take (16 of 17)"
+     },
+     "internal_report": "reports/dynamic_contact_crossdataset.md",
+     "source_file": "reports/crossdataset_exp1.csv",
+     "locator": "row OakInk2, mesh/take, pattern_L2; column macro",
+     "where": "chart"
+    }
+   ],
+   "evidence_note": "Within-take change relative to the identity axis (not shown): 0.69 of the mesh-to-mesh difference on TACO, 0.36 of the instance-to-instance difference on OakInk2, 0.93 of the subject-to-subject difference on ARCTIC (hence no statement about subjects in this sentence)."
+  },
+  {
+   "id": "obs1-amount",
+   "section": "Observation 1",
+   "public_claim": "The contact amount differs about twice as much within a TACO take, which includes approach and release, as between takes; not within ARCTIC’s long multi-episode takes (1.10) or OakInk2’s interaction-only segments (0.60).",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "figure_asset": "pub_obs1_variation",
+   "numbers": [
+    {
+     "displayed": "2.12",
+     "dataset": "TACO",
+     "metric": "summed contact amount, early versus late frames of a take / two takes (ratio of mean pair distances, mean over groups; 1 = as different as two takes of the same object and action at the same phase)",
+     "full_value": 2.1235419511795044,
+     "internal_block": "F1-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1a_dynamic_contact.json",
+      "key": "TACO | time/take, mass_abs (8 of 8)"
+     },
+     "internal_report": "reports/dynamic_contact_crossdataset.md",
+     "source_file": "reports/crossdataset_exp1.csv",
+     "locator": "row TACO, time/take, mass_abs; column macro",
+     "where": "chart",
+     "note": "'about twice' in the sentence; the value is the bar label"
+    },
+    {
+     "displayed": "1.10",
+     "dataset": "ARCTIC",
+     "metric": "summed contact amount, early versus late frames of a take / two takes (ratio of mean pair distances, mean over groups; 1 = as different as two takes of the same object and action at the same phase)",
+     "full_value": 1.0987825258211656,
+     "internal_block": "F1-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1a_dynamic_contact.json",
+      "key": "ARCTIC | time/take, mass_abs (14 of 22)"
+     },
+     "internal_report": "reports/dynamic_contact_crossdataset.md",
+     "source_file": "reports/crossdataset_exp1.csv",
+     "locator": "row ARCTIC, time/take, mass_abs; column macro"
+    },
+    {
+     "displayed": "0.60",
+     "dataset": "OakInk2",
+     "metric": "summed contact amount, early versus late frames of a take / two takes (ratio of mean pair distances, mean over groups; 1 = as different as two takes of the same object and action at the same phase)",
+     "full_value": 0.6013318006044779,
+     "internal_block": "F1-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1a_dynamic_contact.json",
+      "key": "OakInk2 | time/take, mass_abs (2 of 39)"
+     },
+     "internal_report": "reports/dynamic_contact_crossdataset.md",
+     "source_file": "reports/crossdataset_exp1.csv",
+     "locator": "row OakInk2, time/take, mass_abs; column macro"
+    },
+    {
+     "displayed": "0.601",
+     "dataset": "OakInk2",
+     "metric": "summed contact amount, early versus late frames of a take / two takes (ratio of mean pair distances, mean over groups; 1 = as different as two takes of the same object and action at the same phase)",
+     "full_value": 0.6013318006044779,
+     "internal_block": "F1-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1a_dynamic_contact.json",
+      "key": "OakInk2 | time/take, mass_abs (2 of 39)"
+     },
+     "internal_report": "reports/dynamic_contact_crossdataset.md",
+     "source_file": "reports/crossdataset_exp1.csv",
+     "locator": "row OakInk2, time/take, mass_abs; column macro",
+     "where": "chart",
+     "note": "the same value as the bar label prints it"
+    }
+   ],
+   "evidence_note": "Amount and pattern are different measures, each divided by its own take-to-take level. What a take is (docs/evidence/f1a_dynamic_contact.json, dataset_differences[4]): TACO one (verb, tool, target) recording with approach and release; ARCTIC one recording of one articulated object, 512 to 1088 frames, several contact episodes; OakInk2 the interaction range of one program primitive (approach and retreat excluded by construction). The amount ratios go with what a take contains (entry 3; entry 2, caveat 1: 'the low time ratios are a property of how the take is cut, as the control shows'); the wording is descriptive, not a tested cause: the datasets differ in other ways too."
+  },
+  {
+   "id": "obs1-not-static",
+   "section": "Observation 1",
+   "public_claim": "The pattern does change over time: the statement is relative.",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "figure_asset": "pub_obs1_variation",
+   "numbers": [],
+   "evidence_note": "The spatial pattern changes with the time lag on all three datasets; the finding is relative to the variation between takes, objects and subjects (internal block F1-A)."
+  },
+  {
+   "id": "obs1-technical-note",
+   "section": "Observation 1 (technical note)",
+   "public_claim": "ARCTIC’s third bar is relative to two takes of the same subject (1.01 against the level of its other bars); OakInk2’s covers fewer than half of its groups.",
+   "datasets": [
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "figure_asset": "pub_obs1_variation",
+   "numbers": [
+    {
+     "displayed": "1.01",
+     "dataset": "ARCTIC",
+     "metric": "normalised spatial pattern, another subject / two takes of any subject, the denominator of the time bars (ratio of mean pair distances, mean over groups)",
+     "full_value": 1.0110327517782915,
+     "internal_block": "F1-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1a_dynamic_contact.json",
+      "key": "ARCTIC | subject / take with the SAME denominator as time/take (any-subject take level), normalised pattern, macro"
+     },
+     "internal_report": "arctic/30_dynamic_contact/dynamic_contact_report_arctic.md",
+     "source_file": "arctic/30_dynamic_contact/verify/v1_v2_ordering_configs.csv",
+     "locator": "row config='pattern_L2|mean|all|tol0.10', column macro_subject_over_take (1.011 in tables/exp1.md Table E1c 'subject macro'; 'take_same_subject macro' there is 0.887)"
+    }
+   ],
+   "evidence_note": "OakInk2: the instance bar covers 17 of its 39 groups (those in which two object instances share an action). 'Ratios are means over groups; intervals exist per group only': docs/evidence/f1a_dynamic_contact.json, entry 0, caveat 3 (the macro values have no confidence interval in the sources; intervals exist per group only, 95% paired sequence-level bootstrap). 'On TACO an object mesh is confounded with the people who used it': same entry, caveat 4; taco/40_representation_study/time_decomp/dynamic_contact/dynamic_contact_report.md (tool meshes are used by 1 to 6 subjects, 2.1 on average). 'One model family, one training run; error units differ between datasets': docs/evidence/f1b_hier_contact_gen.json, entry 0 (one training run and one fixed split per dataset)."
+  },
+  {
+   "id": "obs1-technical-note-hold-evolve",
+   "section": "Observation 1 (technical note)",
+   "public_claim": "Held → evolved: ARCTIC 2.21 → 2.14 (paired difference −0.07, 95% interval −0.26 to +0.11); OakInk2 1.26 → 1.24 (−0.02, −0.11 to +0.06).",
+   "datasets": [
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "figure_asset": null,
+   "numbers": [
+    {
+     "displayed": "2.21",
+     "dataset": "ARCTIC",
+     "metric": "contact error: L2 distance between the predicted and the recorded contact maps, mean over 64 frames and the test sequences; raw units, lower is better; true first map held",
+     "full_value": 2.207074809458948,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "ARCTIC | B0 true s_0 held static, E_C [95 % CI]; n = 186 test sequences / 44 takes",
+      "value_index": 0
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "arctic/40_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=static_gt, K=0; columns E_C, E_C_lo, E_C_hi, n_examples, n_takes"
+    },
+    {
+     "displayed": "2.14",
+     "dataset": "ARCTIC",
+     "metric": "contact error: L2 distance between the predicted and the recorded contact maps, mean over 64 frames and the test sequences; raw units, lower is better; true first map evolved",
+     "full_value": 2.136841640036593,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "ARCTIC | B1 true s_0 + evolution, E_C [95 % CI]",
+      "value_index": 0
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "arctic/40_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=gtinit_vf, K=0; columns E_C, E_C_lo, E_C_hi"
+    },
+    {
+     "displayed": "−0.07",
+     "dataset": "ARCTIC",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences",
+     "full_value": -0.07023316942235475,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "ARCTIC | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 186)",
+      "value_index": 0
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "arctic/40_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "displayed": "−0.26",
+     "dataset": "ARCTIC",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences: lower end of the 95% interval",
+     "full_value": -0.2569484386296308,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "ARCTIC | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 186)",
+      "value_index": 1
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "arctic/40_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "displayed": "+0.11",
+     "dataset": "ARCTIC",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences: upper end of the 95% interval (above zero)",
+     "full_value": 0.10685708734752797,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "ARCTIC | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 186)",
+      "value_index": 2
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "arctic/40_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "displayed": "1.26",
+     "dataset": "OakInk2",
+     "metric": "contact error: L2 distance between the predicted and the recorded contact maps, mean over 64 frames and the test sequences; raw units, lower is better; true first map held",
+     "full_value": 1.2586076486837212,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "OakInk2 | B0 true s_0 held static, E_C [95 % CI]; n = 201 test sequences / 34 recordings",
+      "value_index": 0
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "oakink2/20_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=static_gt, K=0; columns E_C, E_C_lo, E_C_hi, n_examples, n_takes"
+    },
+    {
+     "displayed": "1.24",
+     "dataset": "OakInk2",
+     "metric": "contact error: L2 distance between the predicted and the recorded contact maps, mean over 64 frames and the test sequences; raw units, lower is better; true first map evolved",
+     "full_value": 1.242721739989608,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "OakInk2 | B1 true s_0 + evolution, E_C [95 % CI]",
+      "value_index": 0
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "oakink2/20_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=gtinit_vf, K=0; columns E_C, E_C_lo, E_C_hi"
+    },
+    {
+     "displayed": "−0.02",
+     "dataset": "OakInk2",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences",
+     "full_value": -0.015885908694113084,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "OakInk2 | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 201)",
+      "value_index": 0
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "oakink2/20_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "displayed": "−0.11",
+     "dataset": "OakInk2",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences: lower end of the 95% interval",
+     "full_value": -0.11042012348078607,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "OakInk2 | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 201)",
+      "value_index": 1
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "oakink2/20_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "displayed": "+0.06",
+     "dataset": "OakInk2",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences: upper end of the 95% interval (above zero)",
+     "full_value": 0.058809346471569005,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "OakInk2 | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 201)",
+      "value_index": 2
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "oakink2/20_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    }
+   ],
+   "evidence_note": "The two pairs that the card states in words ('not distinguishable from zero'): contact error with the true first map held and then evolved, and the paired difference evolved minus held over the same test sequences with its 95% bootstrap interval over takes (OakInk2: recordings). Both intervals contain zero. ARCTIC 186 test sequences from 44 takes, OakInk2 201 from 34 recordings; one training run and one fixed split per dataset; raw error units differ between datasets."
+  },
+  {
+   "id": "obs1-hold-vs-evolve",
+   "section": "Observation 1",
+   "public_claim": "On TACO, a learned model that evolves the true first map clearly beats holding it (error 3.48 → 1.82); on ARCTIC and OakInk2 the difference is not distinguishable from zero, although contact still changes there.",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "figure_asset": null,
+   "numbers": [
+    {
+     "displayed": "3.48",
+     "dataset": "TACO",
+     "metric": "contact error: L2 distance between the predicted and the recorded contact maps, mean over 64 frames and the test sequences; raw units, lower is better; true first map held",
+     "full_value": 3.483226440355673,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "TACO | B0 true s_0 held static, E_C [95 % CI]; n = 364 test sequences / 186 takes",
+      "value_index": 0
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "taco/50_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=static_gt, K=0; columns E_C, E_C_lo, E_C_hi, n_examples, n_takes"
+    },
+    {
+     "displayed": "1.82",
+     "dataset": "TACO",
+     "metric": "contact error: L2 distance between the predicted and the recorded contact maps, mean over 64 frames and the test sequences; raw units, lower is better; true first map evolved",
+     "full_value": 1.8194538629972017,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "TACO | B1 true s_0 + evolution, E_C [95 % CI]",
+      "value_index": 0
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "taco/50_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=gtinit_vf, K=0; columns E_C, E_C_lo, E_C_hi"
+    }
+   ],
+   "evidence_note": "Paired difference evolved minus held, same test sequences, with its 95% interval: TACO -1.66 [-1.78, -1.53] (excludes zero); ARCTIC -0.07 [-0.26, +0.11] and OakInk2 -0.02 [-0.11, +0.06] (both contain zero; the technical note gives them with the two error pairs, claim obs1-technical-note-hold-evolve). 'Contact still changes there': on ARCTIC 42% of the test sequences leave firm contact within the window and the error of the held first map rises from 2.09 (frame 16) to 2.62 (frame 63); on OakInk2 3% leave contact and the error of the held map rises to 1.71 at the last frame (mean 1.26), so there is less to evolve there; the null is change that the model does not predict, not absence of change (docs/evidence/f1b_hier_contact_gen.json, dataset_differences and do_not_claim). Both conditions start from the true first map (diagnostic conditions, not generators); one model family, one training run, one fixed split per dataset; raw error units are not comparable between datasets. The page shows no chart for this comparison (removed for length).",
+   "support": [
+    {
+     "shown_as": "clearly beats holding it",
+     "dataset": "TACO",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences",
+     "full_value": -1.663772577358471,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "TACO | B1 minus B0, paired E_C difference [95 % CI]; fraction of sequences where evolution is better (n = 364)",
+      "value_index": 0
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "taco/50_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)' (a=gtinit_vf K0, b=static_gt K0); columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "shown_as": "clearly beats holding it",
+     "dataset": "TACO",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences: lower end of the 95% interval",
+     "full_value": -1.7764469518614359,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "TACO | B1 minus B0, paired E_C difference [95 % CI]; fraction of sequences where evolution is better (n = 364)",
+      "value_index": 1
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "taco/50_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)' (a=gtinit_vf K0, b=static_gt K0); columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "shown_as": "clearly beats holding it",
+     "dataset": "TACO",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences: upper end of the 95% interval (below zero)",
+     "full_value": -1.5349612764135008,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "TACO | B1 minus B0, paired E_C difference [95 % CI]; fraction of sequences where evolution is better (n = 364)",
+      "value_index": 2
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "taco/50_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)' (a=gtinit_vf K0, b=static_gt K0); columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "shown_as": "the difference is not distinguishable from zero",
+     "dataset": "ARCTIC",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences",
+     "full_value": -0.07023316942235475,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "ARCTIC | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 186)",
+      "value_index": 0
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "arctic/40_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "shown_as": "the difference is not distinguishable from zero",
+     "dataset": "ARCTIC",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences: lower end of the 95% interval (below zero)",
+     "full_value": -0.2569484386296308,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "ARCTIC | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 186)",
+      "value_index": 1
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "arctic/40_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "shown_as": "the difference is not distinguishable from zero",
+     "dataset": "ARCTIC",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences: upper end of the 95% interval (above zero)",
+     "full_value": 0.10685708734752797,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "ARCTIC | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 186)",
+      "value_index": 2
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "arctic/40_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "shown_as": "the difference is not distinguishable from zero",
+     "dataset": "OakInk2",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences",
+     "full_value": -0.015885908694113084,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "OakInk2 | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 201)",
+      "value_index": 0
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "oakink2/20_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "shown_as": "the difference is not distinguishable from zero",
+     "dataset": "OakInk2",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences: lower end of the 95% interval (below zero)",
+     "full_value": -0.11042012348078607,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "OakInk2 | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 201)",
+      "value_index": 1
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "oakink2/20_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "shown_as": "the difference is not distinguishable from zero",
+     "dataset": "OakInk2",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences: upper end of the 95% interval (above zero)",
+     "full_value": 0.058809346471569005,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "OakInk2 | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 201)",
+      "value_index": 2
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "oakink2/20_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "shown_as": "although contact still changes there",
+     "dataset": "ARCTIC",
+     "metric": "error of holding the true first contact map, at frame 16 of the 64-frame window (it rises over the window: the recorded contact moves away from the first map)",
+     "full_value": 2.086419719281376,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "ARCTIC | B0 (true s_0 held), error at t = 16 / 32 / 63",
+      "value_index": 0
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "arctic/40_hier_contact_gen/results/curves.csv",
+     "locator": "rows split=fixed, metric=err, model=static_gt, K=0, t=16, 32, 63; column value"
+    },
+    {
+     "shown_as": "although contact still changes there",
+     "dataset": "ARCTIC",
+     "metric": "error of holding the true first contact map, at frame 63 of the 64-frame window (it rises over the window: the recorded contact moves away from the first map)",
+     "full_value": 2.6193583102956897,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "ARCTIC | B0 (true s_0 held), error at t = 16 / 32 / 63",
+      "value_index": 2
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "arctic/40_hier_contact_gen/results/curves.csv",
+     "locator": "rows split=fixed, metric=err, model=static_gt, K=0, t=16, 32, 63; column value"
+    },
+    {
+     "shown_as": "although contact still changes there",
+     "dataset": "OakInk2",
+     "metric": "error of holding the true first contact map, mean over the 64-frame window (above zero: the recorded contact differs from the first map)",
+     "full_value": 1.2586076486837212,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "OakInk2 | B0 true s_0 held static, E_C [95 % CI]; n = 201 test sequences / 34 recordings",
+      "value_index": 0
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "oakink2/20_hier_contact_gen/results/aggregate.csv",
+     "locator": "row split=fixed, model=static_gt, K=0; columns E_C, E_C_lo, E_C_hi, n_examples, n_takes"
+    },
+    {
+     "shown_as": "although contact still changes there",
+     "dataset": "OakInk2",
+     "metric": "error of holding the true first contact map at the last frame of the window (above its mean over the window: the error rises)",
+     "full_value": 1.7114608807127867,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "OakInk2 | B0 / B1 error at t = 63",
+      "value_index": 0
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "oakink2/20_hier_contact_gen/results/curves.csv",
+     "locator": "rows split=fixed, metric=err, t=63, model=static_gt K=0 and gtinit_vf K=0; column value"
+    }
+   ]
+  },
+  {
+   "id": "obs1-factorization",
+   "section": "Observation 1",
+   "public_claim": "Choose an initial contact realization (first contact map s0), then model its evolution (C: contact maps; G: object geometry; τ: object motion).",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "figure_asset": null,
+   "numbers": [],
+   "evidence_note": "A conceptual factorization p(C_1:T | G, τ) ≈ p(s_0 | G) · p(C_1:T | s_0, G, τ), not an established equality and not a validated generator. The report’s own scope statement: the decomposition is supported where there is temporal evolution to model, and that is TACO only (internal block F1-B); the next sentence of the card says so per dataset (claim obs1-hold-vs-evolve)."
+  },
+  {
+   "id": "obs1-interpretation",
+   "section": "Observation 1",
+   "public_claim": "Which contact a sequence starts from and how it evolves are different problems; how much the second adds differs with the interaction regime.",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "figure_asset": "pub_obs1_variation",
+   "numbers": [],
+   "evidence_note": "Reading of the two analyses of this observation (internal blocks F1-A and F1-B): the variation chart, and the hold-versus-evolve comparison told in the card and in the technical note (claims obs1-hold-vs-evolve and obs1-technical-note-hold-evolve)."
+  },
+  {
+   "id": "obs2-headline",
+   "section": "Observation 2",
+   "public_claim": "Large contact change does not necessarily mean functional change.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": [
+    "assets/img/reconfiguration_events.webp",
+    "pub_obs2_capability_by_class"
+   ],
+   "numbers": [],
+   "evidence_note": "Scope: persistent spatial reconfigurations inside a maintained grasp, medians over events, modelled wrench capability (a proxy). OakInk2 was not analysed."
+  },
+  {
+   "id": "obs2-model",
+   "section": "Observation 2",
+   "public_claim": "A friction-cone grasp model gives the force and torque a grasp can apply along 76 directions: its modelled wrench capability, a proxy for functional grasp capability.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": null,
+   "numbers": [],
+   "evidence_note": "76 shared force / torque directions is a constant of the model (structural number). One unit of normal force per touching hand part, linearised friction, one hand at a time, no object mass or force limits (internal block F1-D, report section 3)."
+  },
+  {
+   "id": "obs2-events-image",
+   "section": "Observation 2",
+   "public_claim": "Per dataset: the median-retention within-grasp spatial reconfiguration, then the median-change one among those where a hand part joins. Single examples, typical in retention only: on the knife the hand moves 4 mm and a part joins (capability +18%; class median +4%); on the notebook it moves 29 mm (+14%; +2%).",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": "assets/img/reconfiguration_events.webp",
+   "numbers": [
+    {
+     "displayed": "4 mm",
+     "dataset": "TACO",
+     "metric": "mean displacement of the hand surface between the frame before and the frame after the event (mm), TACO example (knife)",
+     "full_value": 3.8994521775375564,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "json_file": "docs/data/qual/reconfiguration_with_hand.json",
+      "path": [
+       "meta",
+       "events",
+       "taco_typical",
+       "hand_displacement_mm",
+       "mean"
+      ]
+     },
+     "internal_report": "docs/build/qual/q_reconfiguration_with_hand.py",
+     "source_file": "reports/project_page_qualitative/reconfiguration_with_hand/meta.json",
+     "locator": "events.taco_typical.hand_displacement_mm.mean"
+    },
+    {
+     "displayed": "+18%",
+     "dataset": "TACO",
+     "metric": "relative change of the direction-averaged modelled capability, (after − before) / before, TACO example (knife)",
+     "full_value": 0.18404855400091993,
+     "transform": "percent",
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "json_file": "docs/data/qual/reconfiguration_with_hand.json",
+      "path": [
+       "meta",
+       "events",
+       "taco_typical",
+       "rel_change"
+      ]
+     },
+     "internal_report": "docs/build/qual/q_reconfiguration_with_hand.py",
+     "source_file": "reports/project_page_qualitative/reconfiguration_with_hand/meta.json",
+     "locator": "events.taco_typical.rel_change"
+    },
+    {
+     "displayed": "+4%",
+     "dataset": "TACO",
+     "metric": "relative change of the direction-averaged modelled capability, (after − before) / before, median over the 119 persistent spatial test events",
+     "full_value": 0.0361643974468233,
+     "transform": "percent",
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "TACO | relative change of direction-averaged capability (Q_post − Q_pre)/Q_pre, median [CI]",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns rel_change_Q_median, _lo, _hi"
+    },
+    {
+     "displayed": "29 mm",
+     "dataset": "ARCTIC",
+     "metric": "mean displacement of the hand surface between the frame before and the frame after the event (mm), ARCTIC example (notebook)",
+     "full_value": 28.656722815264057,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "json_file": "docs/data/qual/reconfiguration_with_hand.json",
+      "path": [
+       "meta",
+       "events",
+       "arctic_typical",
+       "hand_displacement_mm",
+       "mean"
+      ]
+     },
+     "internal_report": "docs/build/qual/q_reconfiguration_with_hand.py",
+     "source_file": "reports/project_page_qualitative/reconfiguration_with_hand/meta.json",
+     "locator": "events.arctic_typical.hand_displacement_mm.mean"
+    },
+    {
+     "displayed": "+14%",
+     "dataset": "ARCTIC",
+     "metric": "relative change of the direction-averaged modelled capability, (after − before) / before, ARCTIC example (notebook)",
+     "full_value": 0.1410345433754338,
+     "transform": "percent",
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "json_file": "docs/data/qual/reconfiguration_with_hand.json",
+      "path": [
+       "meta",
+       "events",
+       "arctic_typical",
+       "rel_change"
+      ]
+     },
+     "internal_report": "docs/build/qual/q_reconfiguration_with_hand.py",
+     "source_file": "reports/project_page_qualitative/reconfiguration_with_hand/meta.json",
+     "locator": "events.arctic_typical.rel_change"
+    },
+    {
+     "displayed": "+2%",
+     "dataset": "ARCTIC",
+     "metric": "relative change of the direction-averaged modelled capability, (after − before) / before, median over the 26 persistent spatial test events",
+     "full_value": 0.02065742512497645,
+     "transform": "percent",
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | relative change of direction-averaged capability (Q_post − Q_pre)/Q_pre, median [CI]",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns rel_change_Q_median, _lo, _hi"
+    }
+   ],
+   "evidence_note": "docs/data/qual/reconfiguration_with_hand.json (meta.events, meta.selection_rule, meta.selection_evidence). TACO rows = the event at the median retention of the 119 persistent spatial events (retention 0.85, capability +18%; the palm starts touching: 'a part joins') and the event at the median capability change among the 45 events in which a part starts touching (0.74, +26%); ARCTIC rows = one of the two middle events of 26 (0.88, +14%; the same six parts touch) and the median event of the 7 in which a part starts touching (0.67, +34%). The two 'typical' rows are typical in retention only: their capability changes are above the class medians (+4%, +2%), and the knife event is one of the smaller contact changes of its class. Single examples chosen by a stated rule.",
+   "support": [
+    {
+     "shown_as": "the median-retention within-grasp spatial reconfiguration",
+     "dataset": "TACO",
+     "metric": "retention of the TACO example = median of its class (119 events)",
+     "full_value": 0.8457323588959588,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "json_file": "docs/data/qual/reconfiguration_with_hand.json",
+      "path": [
+       "meta",
+       "events",
+       "taco_typical",
+       "retention"
+      ]
+     },
+     "internal_report": "docs/build/qual/q_reconfiguration_with_hand.py",
+     "source_file": "reports/project_page_qualitative/reconfiguration_with_hand/meta.json",
+     "locator": "events.taco_typical.retention"
+    },
+    {
+     "shown_as": "the median-retention within-grasp spatial reconfiguration",
+     "dataset": "ARCTIC",
+     "metric": "retention of the ARCTIC example (one of the two middle events of 26; class median 0.89)",
+     "full_value": 0.8819545504778276,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "json_file": "docs/data/qual/reconfiguration_with_hand.json",
+      "path": [
+       "meta",
+       "events",
+       "arctic_typical",
+       "retention"
+      ]
+     },
+     "internal_report": "docs/build/qual/q_reconfiguration_with_hand.py",
+     "source_file": "reports/project_page_qualitative/reconfiguration_with_hand/meta.json",
+     "locator": "events.arctic_typical.retention"
+    },
+    {
+     "shown_as": "the median-change event among those where a hand part joins",
+     "dataset": "TACO",
+     "metric": "relative change of the direction-averaged modelled capability, (after − before) / before, TACO example of a joining part (plate)",
+     "full_value": 0.2565235808275299,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "json_file": "docs/data/qual/reconfiguration_with_hand.json",
+      "path": [
+       "meta",
+       "events",
+       "taco_part_joins",
+       "rel_change"
+      ]
+     },
+     "internal_report": "docs/build/qual/q_reconfiguration_with_hand.py",
+     "source_file": "reports/project_page_qualitative/reconfiguration_with_hand/meta.json",
+     "locator": "events.taco_part_joins.rel_change"
+    },
+    {
+     "shown_as": "the median-change event among those where a hand part joins",
+     "dataset": "ARCTIC",
+     "metric": "relative change of the direction-averaged modelled capability, (after − before) / before, ARCTIC example of a joining part (phone)",
+     "full_value": 0.33962947745526983,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "json_file": "docs/data/qual/reconfiguration_with_hand.json",
+      "path": [
+       "meta",
+       "events",
+       "arctic_part_joins",
+       "rel_change"
+      ]
+     },
+     "internal_report": "docs/build/qual/q_reconfiguration_with_hand.py",
+     "source_file": "reports/project_page_qualitative/reconfiguration_with_hand/meta.json",
+     "locator": "events.arctic_part_joins.rel_change"
+    }
+   ]
+  },
+  {
+   "id": "obs2-retention",
+   "section": "Observation 2",
+   "public_claim": "Within-grasp spatial reconfiguration keeps most modelled capability",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": null,
+   "numbers": [
+    {
+     "displayed": "0.85",
+     "dataset": "TACO",
+     "metric": "median over persistent spatial test events of the retention: share of the later grasp’s modelled capability that the earlier grasp already had (one-sided)",
+     "full_value": 0.8457323588959588,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "TACO | retention pre→post, median over events [95 % take-bootstrap CI]",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns R_pre_to_post_median, _lo, _hi"
+    },
+    {
+     "displayed": "119",
+     "dataset": "TACO",
+     "metric": "number of persistent spatial events analysed (test split)",
+     "full_value": 119.0,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "TACO | persistent spatial: events / takes analysed",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row dataset=taco, class_report=persistent_spatial; columns n_events, n_takes"
+    },
+    {
+     "displayed": "0.89",
+     "dataset": "ARCTIC",
+     "metric": "median over persistent spatial test events of the retention: share of the later grasp’s modelled capability that the earlier grasp already had (one-sided)",
+     "full_value": 0.8903558785893627,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | retention pre→post, median over events [95 % take-bootstrap CI]",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns R_pre_to_post_median, _lo, _hi"
+    },
+    {
+     "displayed": "26",
+     "dataset": "ARCTIC",
+     "metric": "number of persistent spatial events analysed (test split)",
+     "full_value": 26.0,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | persistent spatial: events / takes analysed",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row dataset=arctic, class_report=persistent_spatial; columns n_events, n_takes"
+    },
+    {
+     "displayed": "0.76",
+     "dataset": "ARCTIC",
+     "metric": "lower end of the 95% interval of the median retention (bootstrap over takes)",
+     "full_value": 0.7581835776655913,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | retention pre→post, median over events [95 % take-bootstrap CI]",
+      "value_index": 1
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns R_pre_to_post_median, _lo, _hi"
+    },
+    {
+     "displayed": "0.96",
+     "dataset": "ARCTIC",
+     "metric": "upper end of the 95% interval of the median retention (bootstrap over takes)",
+     "full_value": 0.9604408612428033,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | retention pre→post, median over events [95 % take-bootstrap CI]",
+      "value_index": 2
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns R_pre_to_post_median, _lo, _hi"
+    },
+    {
+     "displayed": "0.97",
+     "dataset": "TACO",
+     "metric": "median over persistent spatial test events of the cosine between the capability profiles before and after",
+     "full_value": 0.9680306162180315,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "TACO | profile cosine, median over events [CI]",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns cosine_median, _lo, _hi"
+    },
+    {
+     "displayed": "0.96",
+     "dataset": "ARCTIC",
+     "metric": "median over persistent spatial test events of the cosine between the capability profiles before and after",
+     "full_value": 0.9571627834814752,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | profile cosine, median over events [CI]",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns cosine_median, _lo, _hi"
+    }
+   ],
+   "evidence_note": "The card’s tiles: median retention and median profile cosine for persistent spatial reconfigurations in a maintained grasp (the class of this card; the larger within-grasp class that also changes the contact amount has lower retention, 0.76 and 0.75, and is the subject of the counterpoint card).",
+   "shown": [
+    "Median retention",
+    "TACO 0.85 119 events",
+    "ARCTIC 0.89 26 events; 95% interval 0.76 to 0.96",
+    "Median cosine of the capability profiles",
+    "TACO 0.97",
+    "ARCTIC 0.96"
+   ]
+  },
+  {
+   "id": "obs2-dataset-difference",
+   "section": "Observation 2",
+   "public_claim": "On TACO contact-change size says little about capability change (rank correlation 0.19); on ARCTIC (0.55) 5 of the 11 larger changes gain more than 25%.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": null,
+   "numbers": [
+    {
+     "displayed": "0.19",
+     "dataset": "TACO",
+     "metric": "Spearman rank correlation over persistent spatial test events between the size of the contact-map change and the relative change of the modelled capability",
+     "full_value": 0.18719978350585212,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "TACO | persistent spatial: Spearman(contact change, relative change of Q)",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/correlation_dC_vs_wrench.csv",
+     "locator": "row taco, persistent_spatial, metric=rel_change_Q; columns spearman_with_dC, n"
+    },
+    {
+     "displayed": "0.55",
+     "dataset": "ARCTIC",
+     "metric": "Spearman rank correlation over persistent spatial test events between the size of the contact-map change and the relative change of the modelled capability",
+     "full_value": 0.5521367521367521,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | persistent spatial: Spearman(contact change, relative change of Q)",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/correlation_dC_vs_wrench.csv",
+     "locator": "row arctic, persistent_spatial, metric=rel_change_Q; columns spearman_with_dC, n"
+    },
+    {
+     "displayed": "5",
+     "dataset": "ARCTIC",
+     "metric": "persistent spatial test events with a contact change at or above the training median that gain more than 25% modelled capability (count)",
+     "full_value": 5.0,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "json_file": "docs/evidence/f1d_wrench.json",
+      "path": [
+       "entries",
+       3,
+       "caveats",
+       1
+      ],
+      "value_index": 4
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows dataset=arctic, class_report=persistent_spatial with dC >= thresholds.json arctic.dC_q50 (11 events); rel_change_Q > 0.25 (5 events)",
+     "note": "stated in the caveat of the internal evidence entry and in the scatter caption of the internal page; recounted from the event table on 2026-10-05"
+    },
+    {
+     "displayed": "11",
+     "dataset": "ARCTIC",
+     "metric": "persistent spatial test events with a contact change at or above the training median (count)",
+     "full_value": 11.0,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | share of large-contact-change persistent spatial events whose |relative change| stays at or below the train median: frac [CI], count",
+      "value_index": 4
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/quadrant.csv",
+     "locator": "row arctic, dC_threshold=dC_q50, dQ_threshold=abs_rel_change_Q_q50, quadrant=small_dQ_given_large_dC; 11 = large_dC_small_dQ (1) + large_dC_large_dQ (10)"
+    }
+   ],
+   "evidence_note": "119 events on TACO, 26 on ARCTIC; the source gives no interval or test for these correlations. 'Larger' = contact change at or above the training median (the technical note says so). On TACO 33 of the 73 larger changes keep the capability change at or below the training median; on ARCTIC 1 of 11 does, and 5 of the 11 gain more than 25% (the others change by 10 to 25%, one of them a loss).",
+   "support": [
+    {
+     "shown_as": "larger changes (not the typical event)",
+     "dataset": "ARCTIC",
+     "metric": "of those 11 events, the number whose capability change stays at or below the training median",
+     "full_value": 1.0,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | share of large-contact-change persistent spatial events whose |relative change| stays at or below the train median: frac [CI], count",
+      "value_index": 3
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/quadrant.csv",
+     "locator": "row arctic, dC_threshold=dC_q50, dQ_threshold=abs_rel_change_Q_q50, quadrant=small_dQ_given_large_dC; 11 = large_dC_small_dQ (1) + large_dC_large_dQ (10)"
+    }
+   ]
+  },
+  {
+   "id": "obs2-counterpoint",
+   "section": "Observation 2",
+   "public_claim": "Events that also change the contact amount gain more than 25% modelled capability more often: 46% on both datasets, against 20% (TACO) and 23% (ARCTIC).",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": "pub_obs2_capability_by_class",
+   "numbers": [
+    {
+     "displayed": "46%",
+     "dataset": "TACO",
+     "metric": "share of persistent mixed (the contact amount also changes) test events whose direction-averaged modelled capability rises by more than 25%",
+     "full_value": 0.4574712643678161,
+     "transform": "percent",
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "TACO | persistent mixed: share within ±25 % / share gaining > 25 % / share with Q_post > Q_pre",
+      "value_index": 1
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_mixed; columns frac_abs_rel_change_le_0.25, frac_rel_change_gt_0.25, frac_Q_post_gt_pre"
+    },
+    {
+     "displayed": "46%",
+     "dataset": "ARCTIC",
+     "metric": "share of persistent mixed (the contact amount also changes) test events whose direction-averaged modelled capability rises by more than 25%",
+     "full_value": 0.4576271186440678,
+     "transform": "percent",
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | persistent mixed: share within ±25 % / share gaining > 25 % / share with Q_post > Q_pre",
+      "value_index": 1
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_mixed; columns frac_abs_rel_change_le_0.25, frac_rel_change_gt_0.25, frac_Q_post_gt_pre"
+    },
+    {
+     "displayed": "20%",
+     "dataset": "TACO",
+     "metric": "share of persistent spatial test events whose direction-averaged modelled capability rises by more than 25%",
+     "full_value": 0.20168067226890757,
+     "transform": "percent",
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "TACO | share of events gaining more than 25 % (relative change > 0.25)",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; column frac_rel_change_gt_0.25; count 24 from events.csv rows class_report=persistent_spatial with rel_change_Q > 0.25"
+    },
+    {
+     "displayed": "23%",
+     "dataset": "ARCTIC",
+     "metric": "share of persistent spatial test events whose direction-averaged modelled capability rises by more than 25%",
+     "full_value": 0.23076923076923078,
+     "transform": "percent",
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | share of events gaining more than 25 % (relative change > 0.25)",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; column frac_rel_change_gt_0.25; count 6 from events.csv"
+    },
+    {
+     "displayed": "61.1%",
+     "dataset": "TACO",
+     "metric": "share of amount-dominant test events whose direction-averaged modelled capability rises by more than 25%",
+     "full_value": 0.6111111111111112,
+     "transform": "percent",
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "TACO | amount-dominant: share within ±25 % / share gaining > 25 %",
+      "value_index": 1
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / amount; columns frac_abs_rel_change_le_0.25, frac_rel_change_gt_0.25",
+     "where": "chart"
+    },
+    {
+     "displayed": "47.5%",
+     "dataset": "ARCTIC",
+     "metric": "share of amount-dominant test events whose direction-averaged modelled capability rises by more than 25%",
+     "full_value": 0.475,
+     "transform": "percent",
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | amount-dominant: share within ±25 % / share gaining > 25 %",
+      "value_index": 1
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / amount; columns frac_abs_rel_change_le_0.25, frac_rel_change_gt_0.25",
+     "where": "chart"
+    }
+   ],
+   "evidence_note": "Events per kind: TACO 119 / 435 / 72, ARCTIC 26 / 118 / 40; these six counts are typed into the axis labels of the chart and are checked against the internal evidence as supporting values (where: chart). More often, not always: about half of the mixed events stay within ±25% (49% on TACO, 43% on ARCTIC). The source gives no interval for these shares. The bar labels of the chart show the same values with one decimal (20.2%, 45.7%, 23.1%, 45.8%).",
+   "support": [
+    {
+     "shown_as": "contact moves (119)",
+     "dataset": "TACO",
+     "metric": "number of test events of this kind (typed into the axis label of the chart)",
+     "full_value": 119.0,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "TACO | persistent spatial: events / takes analysed",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row dataset=taco, class_report=persistent_spatial; columns n_events, n_takes",
+     "where": "chart"
+    },
+    {
+     "shown_as": "moves, amount changes (435)",
+     "dataset": "TACO",
+     "metric": "number of test events of this kind (typed into the axis label of the chart)",
+     "full_value": 435.0,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "TACO | persistent mixed: events / takes",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_mixed; columns n_events, n_takes",
+     "where": "chart"
+    },
+    {
+     "shown_as": "mainly amount changes (72)",
+     "dataset": "TACO",
+     "metric": "number of test events of this kind (typed into the axis label of the chart)",
+     "full_value": 72.0,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "TACO | amount-dominant (diagnostic): n events; relative change median [CI]; retention median [CI]",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / amount; columns n_events, rel_change_Q_median(+_lo,_hi), R_pre_to_post_median(+_lo,_hi)",
+     "where": "chart"
+    },
+    {
+     "shown_as": "contact moves (26)",
+     "dataset": "ARCTIC",
+     "metric": "number of test events of this kind (typed into the axis label of the chart)",
+     "full_value": 26.0,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | persistent spatial: events / takes analysed",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row dataset=arctic, class_report=persistent_spatial; columns n_events, n_takes",
+     "where": "chart"
+    },
+    {
+     "shown_as": "moves, amount changes (118)",
+     "dataset": "ARCTIC",
+     "metric": "number of test events of this kind (typed into the axis label of the chart)",
+     "full_value": 118.0,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | persistent mixed: events / takes",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_mixed; columns n_events, n_takes",
+     "where": "chart"
+    },
+    {
+     "shown_as": "mainly amount changes (40)",
+     "dataset": "ARCTIC",
+     "metric": "number of test events of this kind (typed into the axis label of the chart)",
+     "full_value": 40.0,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | amount-dominant (diagnostic): n events; relative change median [CI]; retention median [CI]",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / amount; columns n_events, rel_change_Q_median(+_lo,_hi), R_pre_to_post_median(+_lo,_hi)",
+     "where": "chart"
+    }
+   ]
+  },
+  {
+   "id": "obs2-finger-set",
+   "section": "Observation 2",
+   "public_claim": "Among spatial reconfigurations, such gains occur almost only when a hand part joins, which adds capability by construction in this model.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": "pub_obs2_capability_by_class",
+   "numbers": [],
+   "evidence_note": "Counts over the per-event table: see the supporting values (TACO 23 of 24, ARCTIC 6 of 6); events that keep the same set of parts stay within ±25% in 61 of 62 (TACO) and 15 of 15 (ARCTIC). An association under a model that gives every touching part one unit of force, so a part that joins adds capability by construction; no interval.",
+   "support": [
+    {
+     "shown_as": "almost only",
+     "dataset": "TACO",
+     "metric": "persistent spatial events gaining more than 25% capability in which a hand part starts touching (count)",
+     "full_value": 23.0,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "TACO | RECOMPUTED COUNT: persistent spatial events gaining > 25 % that have at least one part appearing",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows taco / persistent_spatial with rel_change_Q > 0.25; n_appeared >= 1"
+    },
+    {
+     "shown_as": "almost only",
+     "dataset": "TACO",
+     "metric": "persistent spatial events gaining more than 25% capability (count)",
+     "full_value": 24.0,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "TACO | RECOMPUTED COUNT: persistent spatial events gaining > 25 % that have at least one part appearing",
+      "value_index": 1
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows taco / persistent_spatial with rel_change_Q > 0.25; n_appeared >= 1"
+    },
+    {
+     "shown_as": "almost only",
+     "dataset": "ARCTIC",
+     "metric": "persistent spatial events gaining more than 25% capability in which a hand part starts touching (count)",
+     "full_value": 6.0,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | RECOMPUTED COUNT: persistent spatial events gaining > 25 % that have at least one part appearing",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows arctic / persistent_spatial with rel_change_Q > 0.25; n_appeared >= 1"
+    },
+    {
+     "shown_as": "almost only",
+     "dataset": "ARCTIC",
+     "metric": "persistent spatial events gaining more than 25% capability (count)",
+     "full_value": 6.0,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | RECOMPUTED COUNT: persistent spatial events gaining > 25 % that have at least one part appearing",
+      "value_index": 1
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/events.csv",
+     "locator": "rows arctic / persistent_spatial with rel_change_Q > 0.25; n_appeared >= 1"
+    }
+   ]
+  },
+  {
+   "id": "obs2-technical-note",
+   "section": "Observation 2 (technical note)",
+   "public_claim": "A stricter exact-direction measure gives lower medians: 0.66 (TACO), 0.75 (ARCTIC).",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": null,
+   "numbers": [
+    {
+     "displayed": "0.66",
+     "dataset": "TACO",
+     "metric": "median retention under the stricter exact-direction measure (the single hand must produce a wrench exactly along each direction)",
+     "full_value": 0.6592420984429447,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "TACO | STRICT single-hand exact-direction measure: retention pre→post, median [CI]",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row taco / persistent_spatial; columns strict_R_pre_to_post_median, _lo, _hi"
+    },
+    {
+     "displayed": "0.75",
+     "dataset": "ARCTIC",
+     "metric": "median retention under the stricter exact-direction measure (the single hand must produce a wrench exactly along each direction)",
+     "full_value": 0.7454112597702915,
+     "internal_block": "F1-D",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1d_wrench.json",
+      "key": "ARCTIC | STRICT single-hand exact-direction measure: retention pre→post, median [CI]",
+      "value_index": 0
+     },
+     "internal_report": "reports/wrench_counterfactual/wrench_counterfactual_report.md",
+     "source_file": "reports/wrench_counterfactual/summary_by_event_type.csv",
+     "locator": "row arctic / persistent_spatial; columns strict_R_pre_to_post_median, _lo, _hi"
+    }
+   ],
+   "evidence_note": "'The cosine ignores overall scale': docs/evidence/f1d_wrench.json, entry 0 (metric: 'blind to an overall scale change') and entry 1 (caveat). 'Larger changes: at or above the training median': the contact-change threshold of the internal analysis (training median of the contact-map change; reports/wrench_counterfactual/thresholds.json, dC_q50). OakInk2 was not analysed (dataset chips and the scope table show it)."
+  },
+  {
+   "id": "obs2-interpretation",
+   "section": "Observation 2",
+   "public_claim": "Dense contact trajectories mix structural change with realization variation that, in the typical event, leaves the modelled wrench capability nearly unchanged.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": null,
+   "numbers": [],
+   "evidence_note": "The support is a median over one kind of event on TACO and ARCTIC (median relative change of the capability +0.04 and +0.02; 73% and 65% of these events change it by at most 25%). No null space was measured."
+  },
+  {
+   "id": "obs3-headline",
+   "section": "Observation 3",
+   "public_claim": "A compact description keeps much of what matters: which hand parts touch, how much, roughly where, facing which way.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": [
+    "assets/img/compact_state.webp",
+    "pub_obs3_future_ladder"
+   ],
+   "numbers": [],
+   "evidence_note": "What matters = the modelled wrench capability and the prediction of future structured contact, both tested with fixed small models. Much, not all: the compact level is close to, not at, the lowest error (wrench error 13% (TACO) and 8% (ARCTIC) above the best tested level, future-structure error 4% and 2% above). OakInk2 was not part of this analysis."
+  },
+  {
+   "id": "obs3-compact-state-image",
+   "section": "Observation 3",
+   "public_claim": "One recorded frame per dataset, reduced to the compact state: 48 numbers.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": "assets/img/compact_state.webp",
+   "numbers": [],
+   "evidence_note": "48 numbers per frame = touching yes / no (6) + amount (6) + contact centroid and mean normal (36) for six hand parts (structural number; docs/data/qual/structure_on_a_grasp.json and internal block F2-A). The discs and arrows are a drawing of recorded numbers; one frame of one sequence per dataset, selected by a stated rule."
+  },
+  {
+   "id": "obs3-levels",
+   "section": "Observation 3",
+   "public_claim": "Each frame is described at eight levels; fixed small models recover its modelled wrench profile (itself computed from contact positions and directions) and predict the compact quantities and that profile 1, 4 and 8 frames ahead. A ranking of inputs, not absolute prediction.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": "pub_obs3_future_ladder",
+   "numbers": [],
+   "evidence_note": "Numbers per frame of the eight levels: 6 / 12 / 48 / 60 / 90 / 102 / 512 / 812 (docs/evidence/f2_structure_variance.json, entry 0); the levels are ordered by size, not nested (the x axis of the chart says so). 'Itself computed from contact positions and directions': the wrench profile is computed from the centroid and the mean normal of each contact patch of each hand part (reports/wrench_counterfactual/wrench_counterfactual_report.md, section 3), the same kind of quantity the compact level adds per part, so the drop of the wrench error at that level is expected from the definition. The future targets are which parts touch, the amount, the centroid and normal, and the wrench profile, 1, 4 and 8 frames ahead. 'Not absolute prediction': one frame ahead the predictor fed the compact level does not beat carrying the current value forward on either dataset, and on ARCTIC not at eight frames either (entry 6)."
+  },
+  {
+   "id": "obs3-wrench-ladder",
+   "section": "Observation 3",
+   "public_claim": "Wrench-profile error (relative L1): 0.35 → 0.18 (TACO), 0.51 → 0.18 (ARCTIC) with coarse position and direction.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": null,
+   "numbers": [
+    {
+     "displayed": "0.35",
+     "dataset": "TACO",
+     "metric": "error of a fixed small model that recovers the 76-direction modelled wrench profile of a frame from its description (relative L1, mean of 3 fits, lower is better); level “+ amount”",
+     "full_value": 0.3461025918017722,
+     "internal_block": "F2-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | R1 rel. L1",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=taco, rep=R1, probe=mlpG_seedavg, target=q"
+    },
+    {
+     "displayed": "0.18",
+     "dataset": "TACO",
+     "metric": "error of a fixed small model that recovers the 76-direction modelled wrench profile of a frame from its description (relative L1, mean of 3 fits, lower is better); the compact level",
+     "full_value": 0.17599461524188184,
+     "internal_block": "F2-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | R2 rel. L1",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=taco, rep=R2, probe=mlpG_seedavg, target=q"
+    },
+    {
+     "displayed": "0.51",
+     "dataset": "ARCTIC",
+     "metric": "error of a fixed small model that recovers the 76-direction modelled wrench profile of a frame from its description (relative L1, mean of 3 fits, lower is better); level “+ amount”",
+     "full_value": 0.5099504398541802,
+     "internal_block": "F2-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | R1 rel. L1",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=arctic, rep=R1, probe=mlpG_seedavg, target=q"
+    },
+    {
+     "displayed": "0.18",
+     "dataset": "ARCTIC",
+     "metric": "error of a fixed small model that recovers the 76-direction modelled wrench profile of a frame from its description (relative L1, mean of 3 fits, lower is better); the compact level",
+     "full_value": 0.18485391878943247,
+     "internal_block": "F2-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | R2 rel. L1",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/functional_probe.csv",
+     "locator": "dataset=arctic, rep=R2, probe=mlpG_seedavg, target=q"
+    }
+   ],
+   "evidence_note": "Relative L1 error of a fixed small model that recovers the wrench profile of a frame from each description (the level below the compact one, then the compact one). Richer compact levels stay in a narrow band (0.16 to 0.18 on TACO, 0.17 to 0.19 on ARCTIC); the card 'What richer compact levels add' gives the further reduction. Dense inputs under the same fixed model: 0.36 and 0.32 (TACO), 0.40 and 0.39 (ARCTIC). No chart on the page for this result: it follows in part from how the profile is computed (see obs3-levels)."
+  },
+  {
+   "id": "obs3-future-ladder",
+   "section": "Observation 3",
+   "public_claim": "The error falls over the first three levels, to 18% (TACO) and 32% (ARCTIC) below the full dense state; richer compact levels change little.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": "pub_obs3_future_ladder",
+   "numbers": [
+    {
+     "displayed": "18%",
+     "dataset": "TACO",
+     "metric": "error of predicting future structured contact (which parts touch, amount, position and direction, wrench profile; 1, 4 and 8 frames ahead) from the compact level, as a ratio to the same prediction from the full dense state; shown as the reduction 1 - ratio",
+     "full_value": 0.817569649875454,
+     "transform": "one_minus_percent",
+     "internal_block": "F2-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | R2 composite ratio to FULL, mean over h",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R2, vs=FULL, metric=composite_T1_T4, h=0"
+    },
+    {
+     "displayed": "32%",
+     "dataset": "ARCTIC",
+     "metric": "error of predicting future structured contact (which parts touch, amount, position and direction, wrench profile; 1, 4 and 8 frames ahead) from the compact level, as a ratio to the same prediction from the full dense state; shown as the reduction 1 - ratio",
+     "full_value": 0.6803160698510843,
+     "transform": "one_minus_percent",
+     "internal_block": "F2-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | R2 composite ratio to FULL, mean over h",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=FULL, metric=composite_T1_T4, h=0"
+    }
+   ],
+   "evidence_note": "Levels in axis order, relative to the full dense state: TACO +15% / -1% / -18% / -19% / -21% / -21% / +13% / 0; ARCTIC +23% / +2% / -32% / -32% / -32% / -33% / +8% / 0. 'Richer compact levels' are the three after the compact one (the dense map, next on the axis, is higher). A comparison between inputs under one fixed small predictor, not good absolute prediction."
+  },
+  {
+   "id": "obs3-topology",
+   "section": "Observation 3",
+   "public_claim": "Wrench error, adding spread and patch count",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": null,
+   "numbers": [
+    {
+     "displayed": "10%",
+     "dataset": "TACO",
+     "metric": "wrench-profile error ratio after / before adding contact spread and patch count to the compact level; shown as the reduction 1 - ratio (as -10%)",
+     "full_value": 0.8956544663564188,
+     "transform": "one_minus_percent",
+     "internal_block": "F2-subB",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | R2 -> R3 wrench-probe ratio",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=taco, frm=R2, to=R3: functional_ratio, functional_lo, functional_hi"
+    },
+    {
+     "displayed": "7%",
+     "dataset": "ARCTIC",
+     "metric": "wrench-profile error ratio after / before adding contact spread and patch count to the compact level; shown as the reduction 1 - ratio (as -7%)",
+     "full_value": 0.9297731026641749,
+     "transform": "one_minus_percent",
+     "internal_block": "F2-subB",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | R2 -> R3 wrench-probe ratio",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R2, to=R3: functional_ratio, functional_lo, functional_hi"
+    }
+   ],
+   "evidence_note": "Tiles of the card: -10% (TACO) and -7% (ARCTIC). The same step changes the future-structure error by less than 1% on both datasets (ratios 0.992 and 1.001).",
+   "shown": [
+    "TACO −10%",
+    "ARCTIC −7%"
+   ]
+  },
+  {
+   "id": "obs3-coarse-hand",
+   "section": "Observation 3",
+   "public_claim": "Future-structure error, adding a coarse hand pose",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": "pub_obs3_future_ladder",
+   "numbers": [
+    {
+     "displayed": "2%",
+     "dataset": "TACO",
+     "metric": "future-structure error ratio after / before adding a coarse hand pose to the compact level, mean over 1, 4 and 8 frames ahead; shown as the reduction 1 - ratio (as -2%)",
+     "full_value": 0.9777716998155185,
+     "transform": "one_minus_percent",
+     "internal_block": "F2-subA",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | R2 -> R4 composite future-structure ratio, mean over h",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=taco, frm=R2, to=R4: temporal_ratio, temporal_lo, temporal_hi"
+    }
+   ],
+   "evidence_note": "Tiles of the card: -2% on TACO (an average over horizons: +2% one frame ahead, -4% and -5% at four and eight frames) and no reduction on ARCTIC (see the supporting values: ratio 1.01, interval includes 1). The sentence 'The coarse hand pose leaves the wrench error unchanged.' (ratio 1.00 on TACO and 1.01 on ARCTIC, both intervals include 1; internal block F2-subA) was cut for length and is no longer on the page.",
+   "shown": [
+    "TACO −2% averaged over horizons",
+    "ARCTIC no reduction"
+   ],
+   "support": [
+    {
+     "shown_as": "no reduction",
+     "dataset": "ARCTIC",
+     "metric": "future-structure error after / before adding the coarse hand pose to the compact level (ratio, mean over horizons)",
+     "full_value": 1.0120084015297346,
+     "internal_block": "F2-subA",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | R2 -> R4 composite future-structure ratio, mean over h",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R2, to=R4: temporal_ratio, temporal_lo, temporal_hi"
+    },
+    {
+     "shown_as": "no reduction",
+     "dataset": "ARCTIC",
+     "metric": "future-structure error after / before adding the coarse hand pose to the compact level (ratio, mean over horizons): lower end of the 95% interval",
+     "full_value": 0.9925750293577246,
+     "internal_block": "F2-subA",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | R2 -> R4 composite future-structure ratio, mean over h",
+      "value_index": 1
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R2, to=R4: temporal_ratio, temporal_lo, temporal_hi"
+    },
+    {
+     "shown_as": "no reduction",
+     "dataset": "ARCTIC",
+     "metric": "future-structure error after / before adding the coarse hand pose to the compact level (ratio, mean over horizons): upper end of the 95% interval",
+     "full_value": 1.035229562710197,
+     "internal_block": "F2-subA",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | R2 -> R4 composite future-structure ratio, mean over h",
+      "value_index": 2
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/incremental_gain.csv",
+     "locator": "dataset=arctic, frm=R2, to=R4: temporal_ratio, temporal_lo, temporal_hi"
+    }
+   ]
+  },
+  {
+   "id": "obs3-dense-explained",
+   "section": "Observation 3",
+   "public_claim": "From the compact state alone, a small fitted model leaves 11% (TACO) and 26% (ARCTIC) of the contact-map variance unexplained.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": null,
+   "numbers": [
+    {
+     "displayed": "11%",
+     "dataset": "TACO",
+     "metric": "share of the variance of the dense contact map that a small frame-wise model fitted on the compact state reproduces on test frames (the page shows what is left)",
+     "full_value": 0.8927482565244039,
+     "transform": "one_minus_percent",
+     "internal_block": "F2-C",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | decoder R2, contact map C (512-D), Z* = R2 -> residual share 10.7 %",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, model=decoder, block=C, metric=decoder_r2_test: value, seed_sd"
+    },
+    {
+     "displayed": "26%",
+     "dataset": "ARCTIC",
+     "metric": "share of the variance of the dense contact map that a small frame-wise model fitted on the compact state reproduces on test frames (the page shows what is left)",
+     "full_value": 0.743804136912028,
+     "transform": "one_minus_percent",
+     "internal_block": "F2-C",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | decoder R2, contact map C, Z* = R2 -> residual share 25.6 %",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, model=decoder, block=C, metric=decoder_r2_test"
+    }
+   ],
+   "evidence_note": "What one fitted model leaves of the contact-map variance: 10.7% (TACO) and 25.6% (ARCTIC); of the hand surface points 15% and 31% (not shown). An upper bound on what the compact state leaves undetermined, not a unique decomposition; mean of three fits; no interval. The card title 'The remaining dense detail is real' is the heading of this sentence."
+  },
+  {
+   "id": "obs3-residual-in-time",
+   "section": "Observation 3",
+   "public_claim": "That remainder persists from frame to frame; the predictors we tested capture little of its change.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": null,
+   "numbers": [],
+   "evidence_note": "Internal block F2-C, horizons of 1, 4 and 8 frames: carrying the contact-map remainder forward leaves 19% / 50% / 75% (TACO) and 9% / 26% / 42% (ARCTIC) of its energy unexplained; the tested predictors remove 4% / 14% / 20% of the persistence error on TACO and nothing measurable on ARCTIC (see the supporting values). No public chart shows this.",
+   "support": [
+    {
+     "shown_as": "persists from frame to frame",
+     "dataset": "TACO",
+     "metric": "energy of the contact-map remainder left unexplained when its current value is carried forward (share of its variance), 1 frame(s) ahead",
+     "full_value": 0.19371688010097768,
+     "internal_block": "F2-C",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | last value (persistence), h = 1 | 4 | 8",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, block=C, model=last, metric=mse_ratio_to_zero, h=1, 4, 8: value, lo, hi"
+    },
+    {
+     "shown_as": "persists from frame to frame",
+     "dataset": "TACO",
+     "metric": "energy of the contact-map remainder left unexplained when its current value is carried forward (share of its variance), 4 frame(s) ahead",
+     "full_value": 0.5007560708397207,
+     "internal_block": "F2-C",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | last value (persistence), h = 1 | 4 | 8",
+      "value_index": 3
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, block=C, model=last, metric=mse_ratio_to_zero, h=1, 4, 8: value, lo, hi"
+    },
+    {
+     "shown_as": "persists from frame to frame",
+     "dataset": "TACO",
+     "metric": "energy of the contact-map remainder left unexplained when its current value is carried forward (share of its variance), 8 frame(s) ahead",
+     "full_value": 0.7474870891224278,
+     "internal_block": "F2-C",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | last value (persistence), h = 1 | 4 | 8",
+      "value_index": 6
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, block=C, model=last, metric=mse_ratio_to_zero, h=1, 4, 8: value, lo, hi"
+    },
+    {
+     "shown_as": "capture little of its change",
+     "dataset": "TACO",
+     "metric": "error of the tested causal predictor of the remainder relative to carrying its current value forward (ratio), 1 frame(s) ahead",
+     "full_value": 0.9589682629833769,
+     "internal_block": "F2-C",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | contact residual, causal (history_delta), h = 1 | 4 | 8",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, block=C, model=history_delta, metric=mse_ratio_to_last, h=1, 4, 8"
+    },
+    {
+     "shown_as": "capture little of its change",
+     "dataset": "TACO",
+     "metric": "error of the tested causal predictor of the remainder relative to carrying its current value forward (ratio), 4 frame(s) ahead",
+     "full_value": 0.8574315331111981,
+     "internal_block": "F2-C",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | contact residual, causal (history_delta), h = 1 | 4 | 8",
+      "value_index": 3
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, block=C, model=history_delta, metric=mse_ratio_to_last, h=1, 4, 8"
+    },
+    {
+     "shown_as": "capture little of its change",
+     "dataset": "TACO",
+     "metric": "error of the tested causal predictor of the remainder relative to carrying its current value forward (ratio), 8 frame(s) ahead",
+     "full_value": 0.795970809037803,
+     "internal_block": "F2-C",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | contact residual, causal (history_delta), h = 1 | 4 | 8",
+      "value_index": 6
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=taco, zstar=R2, block=C, model=history_delta, metric=mse_ratio_to_last, h=1, 4, 8"
+    },
+    {
+     "shown_as": "persists from frame to frame",
+     "dataset": "ARCTIC",
+     "metric": "energy of the contact-map remainder left unexplained when its current value is carried forward (share of its variance), 1 frame(s) ahead",
+     "full_value": 0.08740987559005026,
+     "internal_block": "F2-C",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | last value (persistence), h = 1 | 4 | 8",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, block=C, model=last, metric=mse_ratio_to_zero, h=1, 4, 8: value, lo, hi"
+    },
+    {
+     "shown_as": "persists from frame to frame",
+     "dataset": "ARCTIC",
+     "metric": "energy of the contact-map remainder left unexplained when its current value is carried forward (share of its variance), 4 frame(s) ahead",
+     "full_value": 0.2601493665576969,
+     "internal_block": "F2-C",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | last value (persistence), h = 1 | 4 | 8",
+      "value_index": 3
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, block=C, model=last, metric=mse_ratio_to_zero, h=1, 4, 8: value, lo, hi"
+    },
+    {
+     "shown_as": "persists from frame to frame",
+     "dataset": "ARCTIC",
+     "metric": "energy of the contact-map remainder left unexplained when its current value is carried forward (share of its variance), 8 frame(s) ahead",
+     "full_value": 0.422154516204974,
+     "internal_block": "F2-C",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | last value (persistence), h = 1 | 4 | 8",
+      "value_index": 6
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, block=C, model=last, metric=mse_ratio_to_zero, h=1, 4, 8: value, lo, hi"
+    },
+    {
+     "shown_as": "capture little of its change",
+     "dataset": "ARCTIC",
+     "metric": "error of the tested causal predictor of the remainder relative to carrying its current value forward (ratio), 1 frame(s) ahead",
+     "full_value": 1.0308185395706648,
+     "internal_block": "F2-C",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | contact residual, causal (history_delta), h = 1 | 4 | 8",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, block=C, model=history_delta, metric=mse_ratio_to_last, h=1, 4, 8"
+    },
+    {
+     "shown_as": "capture little of its change",
+     "dataset": "ARCTIC",
+     "metric": "error of the tested causal predictor of the remainder relative to carrying its current value forward (ratio), 4 frame(s) ahead",
+     "full_value": 1.0225441678123186,
+     "internal_block": "F2-C",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | contact residual, causal (history_delta), h = 1 | 4 | 8",
+      "value_index": 3
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, block=C, model=history_delta, metric=mse_ratio_to_last, h=1, 4, 8"
+    },
+    {
+     "shown_as": "capture little of its change",
+     "dataset": "ARCTIC",
+     "metric": "error of the tested causal predictor of the remainder relative to carrying its current value forward (ratio), 8 frame(s) ahead",
+     "full_value": 0.974801256924149,
+     "internal_block": "F2-C",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | contact residual, causal (history_delta), h = 1 | 4 | 8",
+      "value_index": 6
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/residual_prediction.csv",
+     "locator": "dataset=arctic, zstar=R2, block=C, model=history_delta, metric=mse_ratio_to_last, h=1, 4, 8"
+    }
+   ]
+  },
+  {
+   "id": "obs3-technical-note",
+   "section": "Observation 3 (technical note)",
+   "public_claim": "These are comparisons between inputs under fixed small models, on the levels we tested (nothing between 12 and 48 numbers was tried); they are not statements of absolute predictability or information content, and the compact level is close to, not at, the lowest error.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": null,
+   "numbers": [],
+   "evidence_note": "12 and 48 are the sizes of the level below the compact one and of the compact level (structural numbers). 'The residual is what one particular reconstruction model leaves': internal block F2-C (a frame-wise model fitted on the compact state; not a unique decomposition).",
+   "support": [
+    {
+     "shown_as": "The dense inputs remain better at predicting the dense future itself",
+     "dataset": "TACO",
+     "metric": "error of predicting the future dense contact map from the compact level relative to the full dense state (ratio, above 1), 1 frame(s) ahead",
+     "full_value": 2.00160701223892,
+     "internal_block": "F2-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | R2 future dense contact-map error ratio to FULL at h = 1 / 4 / 8",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R2, vs=FULL, metric=E_C_ratio, h=1, 4, 8: ratio"
+    },
+    {
+     "shown_as": "The dense inputs remain better at predicting the dense future itself",
+     "dataset": "TACO",
+     "metric": "error of predicting the future dense contact map from the compact level relative to the full dense state (ratio, above 1), 4 frame(s) ahead",
+     "full_value": 1.525591293466126,
+     "internal_block": "F2-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | R2 future dense contact-map error ratio to FULL at h = 1 / 4 / 8",
+      "value_index": 1
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R2, vs=FULL, metric=E_C_ratio, h=1, 4, 8: ratio"
+    },
+    {
+     "shown_as": "The dense inputs remain better at predicting the dense future itself",
+     "dataset": "TACO",
+     "metric": "error of predicting the future dense contact map from the compact level relative to the full dense state (ratio, above 1), 8 frame(s) ahead",
+     "full_value": 1.3088736255961566,
+     "internal_block": "F2-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | R2 future dense contact-map error ratio to FULL at h = 1 / 4 / 8",
+      "value_index": 2
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=R2, vs=FULL, metric=E_C_ratio, h=1, 4, 8: ratio"
+    },
+    {
+     "shown_as": "The dense inputs remain better at predicting the dense future itself",
+     "dataset": "ARCTIC",
+     "metric": "error of predicting the future dense contact map from the compact level relative to the full dense state (ratio, above 1), 1 frame(s) ahead",
+     "full_value": 2.2924800819362496,
+     "internal_block": "F2-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | R2 future dense contact-map error ratio to FULL at h = 1 / 4 / 8",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=FULL, metric=E_C_ratio, h=1, 4, 8: ratio"
+    },
+    {
+     "shown_as": "The dense inputs remain better at predicting the dense future itself",
+     "dataset": "ARCTIC",
+     "metric": "error of predicting the future dense contact map from the compact level relative to the full dense state (ratio, above 1), 4 frame(s) ahead",
+     "full_value": 1.8533139182859633,
+     "internal_block": "F2-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | R2 future dense contact-map error ratio to FULL at h = 1 / 4 / 8",
+      "value_index": 1
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=FULL, metric=E_C_ratio, h=1, 4, 8: ratio"
+    },
+    {
+     "shown_as": "The dense inputs remain better at predicting the dense future itself",
+     "dataset": "ARCTIC",
+     "metric": "error of predicting the future dense contact map from the compact level relative to the full dense state (ratio, above 1), 8 frame(s) ahead",
+     "full_value": 1.5145042716154682,
+     "internal_block": "F2-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | R2 future dense contact-map error ratio to FULL at h = 1 / 4 / 8",
+      "value_index": 2
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=FULL, metric=E_C_ratio, h=1, 4, 8: ratio"
+    },
+    {
+     "shown_as": "close to, not at, the lowest error",
+     "dataset": "TACO",
+     "metric": "wrench error of the compact level above the best tested level (relative gap)",
+     "full_value": 0.13383020483975638,
+     "internal_block": "F2-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | R2 wrench gap to best (best = R5)",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=taco, rep=R2: functional_gap_best, _lo, _hi; best_functional=R5"
+    },
+    {
+     "shown_as": "close to, not at, the lowest error",
+     "dataset": "TACO",
+     "metric": "future-structure error of the compact level above the best tested level (relative gap)",
+     "full_value": 0.03978444635541667,
+     "internal_block": "F2-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | R2 future-structure gap to best (best = R5)",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=taco, rep=R2: temporal_gap_best, _lo, _hi; best_temporal=R5"
+    },
+    {
+     "shown_as": "close to, not at, the lowest error",
+     "dataset": "ARCTIC",
+     "metric": "wrench error of the compact level above the best tested level (relative gap)",
+     "full_value": 0.07553122061134787,
+     "internal_block": "F2-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | R2 wrench gap to best (best = R3)",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=arctic, rep=R2: functional_gap_best, _lo, _hi; best_functional=R3"
+    },
+    {
+     "shown_as": "close to, not at, the lowest error",
+     "dataset": "ARCTIC",
+     "metric": "future-structure error of the compact level above the best tested level (relative gap)",
+     "full_value": 0.01739949711586819,
+     "internal_block": "F2-A",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | R2 future-structure gap to best (best = R5)",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/saturation_summary.csv",
+     "locator": "dataset=arctic, rep=R2: temporal_gap_best, _lo, _hi; best_temporal=R5"
+    }
+   ]
+  },
+  {
+   "id": "obs3-dense-inputs",
+   "section": "Observation 3 (technical note)",
+   "public_claim": "Dense inputs score worse under these fixed models; that is no statement about the information they hold.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": "pub_obs3_future_ladder",
+   "numbers": [],
+   "support": [
+    {
+     "shown_as": "score worse",
+     "dataset": "TACO",
+     "metric": "future-structure error of the dense contact map relative to the full dense state (ratio, mean over horizons; above 1)",
+     "full_value": 1.1330050823904287,
+     "internal_block": "F2-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "TACO | CONTACT_FULL composite ratio to FULL, mean over h",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=taco, rep=CONTACT_FULL, vs=FULL, metric=composite_T1_T4, h=0"
+    },
+    {
+     "shown_as": "score worse",
+     "dataset": "ARCTIC",
+     "metric": "future-structure error of the dense contact map relative to the full dense state (ratio, mean over horizons; above 1)",
+     "full_value": 1.080882404279446,
+     "internal_block": "F2-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | CONTACT_FULL composite ratio to FULL, mean over h",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=CONTACT_FULL, vs=FULL, metric=composite_T1_T4, h=0"
+    }
+   ],
+   "evidence_note": "The sentence stands in the technical note (moved there from the caption of the chart, for length). 'These fixed models': the future-structure predictor of the chart (see the supporting values: the dense map is 13% (TACO) and 8% (ARCTIC) above the full dense state, against 18% and 32% below it for the compact level) and the model that recovers the wrench profile (dense inputs 0.36 and 0.32 on TACO, 0.40 and 0.39 on ARCTIC, against 0.18 from the compact level; claim obs3-wrench-ladder). All levels go through one fixed small model per task; the compact description is computed from the dense state, so the dense inputs doing worse is a statement about those models (docs/evidence/f2_structure_variance.json, entry 5). For predicting the future dense map itself the dense input remains better (next sentence of the technical note)."
+  },
+  {
+   "id": "obs3-interpretation",
+   "section": "Observation 3",
+   "public_claim": "Dense contact reads as a structured contact state plus realization detail.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": null,
+   "numbers": [],
+   "evidence_note": "A reading of the analysis shown as a conceptual diagram, not an exact or unique decomposition; the realization part is defined by what one fitted model leaves. The recap sentence that followed (what each part carries) was cut for length: the headline and the two cards of the section state it."
+  },
+  {
+   "id": "direction-question",
+   "section": "Current research direction",
+   "public_claim": "Can human contact dynamics be modelled as the evolution of a compact structural state, while dense contact detail is treated as realization variation?",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": null,
+   "numbers": [],
+   "evidence_note": "An open question, stated as a question. No generator was built or evaluated in the analyses of this page."
+  },
+  {
+   "id": "direction-statement",
+   "section": "Current research direction",
+   "public_claim": "We are currently investigating how such structural states should evolve over time and how realization detail should be preserved.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": null,
+   "numbers": [],
+   "evidence_note": "A statement of what is being investigated. No method and no result is claimed."
+  },
+  {
+   "id": "datasets-scope",
+   "section": "Datasets and scope",
+   "public_claim": "Datasets and scope",
+   "datasets": [
+    "TACO",
+    "ARCTIC",
+    "OakInk2"
+   ],
+   "figure_asset": null,
+   "numbers": [],
+   "evidence_note": "The table under this heading: Motivation: TACO (its four test splits; the Motivation paragraph says so); Observation 1: TACO, ARCTIC and OakInk2; Observations 2 and 3: TACO and ARCTIC only (OakInk2 was excluded from those analyses). Results are read per dataset and never pooled: every chart, tile and sentence names its dataset."
+  },
+  {
+   "id": "datasets-regimes",
+   "section": "Datasets and scope",
+   "public_claim": "TACO shows the stronger effect of temporal evolution; on ARCTIC the predictors we tested rarely beat carrying the current contact forward, although contact does change there.",
+   "datasets": [
+    "TACO",
+    "ARCTIC"
+   ],
+   "figure_asset": null,
+   "numbers": [],
+   "evidence_note": "Two analyses back this sentence. (1) Hold versus evolve (internal block F1-B; told in the card and the technical note of Observation 1): evolving the true first map removes 47.8% of the error of holding it on TACO (3.48 → 1.82, paired interval excludes zero) and 3.2% on ARCTIC (2.21 → 2.14, paired interval includes zero). (2) The description-ladder analysis (internal block F2-B, entry 6): eight frames ahead the predictor fed the compact level is above carrying the current value forward for all five targets on ARCTIC and below it for four of five on TACO. 42% of the ARCTIC test sequences leave firm contact within the window ('contact does change there'). The second sentence of the paragraph ('We read this as contact dynamics depending on the interaction regime (the test sets also differ in composition), not as a failure of either dataset.') is a reading, not a tested cause: the test sets also differ in size and composition.",
+   "support": [
+    {
+     "shown_as": "the stronger effect of temporal evolution",
+     "dataset": "TACO",
+     "metric": "share of the error of holding the true first map that the evolution removes, (held − evolved) / held (%; a relative measure, comparable between datasets)",
+     "full_value": 47.8,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "TACO | Share of the static (B0) error removed by the evolution (report prose, = (B0 - B1) / B0)"
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "reports/hier_contact_gen_report.md",
+     "locator": "section 4, TACO table, row Q2"
+    },
+    {
+     "shown_as": "the stronger effect of temporal evolution",
+     "dataset": "ARCTIC",
+     "metric": "share of the error of holding the true first map that the evolution removes, (held − evolved) / held (%; a relative measure, comparable between datasets)",
+     "full_value": 3.2,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "ARCTIC | Share of the static (B0) error removed by the evolution (report prose)"
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "reports/hier_contact_gen_report.md",
+     "locator": "section 4, ARCTIC table, row Q2"
+    },
+    {
+     "shown_as": "the stronger effect of temporal evolution",
+     "dataset": "TACO",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences",
+     "full_value": -1.663772577358471,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "TACO | B1 minus B0, paired E_C difference [95 % CI]; fraction of sequences where evolution is better (n = 364)",
+      "value_index": 0
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "taco/50_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)' (a=gtinit_vf K0, b=static_gt K0); columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "shown_as": "the stronger effect of temporal evolution",
+     "dataset": "TACO",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences: upper end of the 95% interval (below zero)",
+     "full_value": -1.5349612764135008,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "TACO | B1 minus B0, paired E_C difference [95 % CI]; fraction of sequences where evolution is better (n = 364)",
+      "value_index": 2
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "taco/50_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)' (a=gtinit_vf K0, b=static_gt K0); columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "shown_as": "rarely beat carrying the current contact forward",
+     "dataset": "ARCTIC",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences",
+     "full_value": -0.07023316942235475,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "ARCTIC | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 186)",
+      "value_index": 0
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "arctic/40_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "shown_as": "rarely beat carrying the current contact forward",
+     "dataset": "ARCTIC",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences: lower end of the 95% interval",
+     "full_value": -0.2569484386296308,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "ARCTIC | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 186)",
+      "value_index": 1
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "arctic/40_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "shown_as": "rarely beat carrying the current contact forward",
+     "dataset": "ARCTIC",
+     "metric": "paired difference of the contact error, evolved minus held, same test sequences: upper end of the 95% interval (above zero)",
+     "full_value": 0.10685708734752797,
+     "internal_block": "F1-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f1b_hier_contact_gen.json",
+      "key": "ARCTIC | B1 minus B0, paired E_C difference [95 % CI]; fraction better (n = 186)",
+      "value_index": 2
+     },
+     "internal_report": "reports/hier_contact_gen_report.md",
+     "source_file": "arctic/40_hier_contact_gen/results/paired_differences.csv",
+     "locator": "row comparison='Q2 VF - static (GT init)'; columns E_C, E_C_lo, E_C_hi, E_C_frac_better, n"
+    },
+    {
+     "shown_as": "rarely beat carrying the current contact forward",
+     "dataset": "ARCTIC",
+     "metric": "error of the predictor fed the compact level relative to carrying the current value forward, eight frames ahead (ratio; above 1 = worse than carrying forward): participation",
+     "full_value": 1.4724401089377248,
+     "internal_block": "F2-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | h = 8: participation",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=PERSIST, metric=T1_l1_ratio, h=8"
+    },
+    {
+     "shown_as": "rarely beat carrying the current contact forward",
+     "dataset": "ARCTIC",
+     "metric": "error of the predictor fed the compact level relative to carrying the current value forward, eight frames ahead (ratio; above 1 = worse than carrying forward): amount",
+     "full_value": 1.342960614746509,
+     "internal_block": "F2-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | h = 8: amount",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=PERSIST, metric=T2_rel_l1_ratio, h=8"
+    },
+    {
+     "shown_as": "rarely beat carrying the current contact forward",
+     "dataset": "ARCTIC",
+     "metric": "error of the predictor fed the compact level relative to carrying the current value forward, eight frames ahead (ratio; above 1 = worse than carrying forward): centroid",
+     "full_value": 1.6814108419577736,
+     "internal_block": "F2-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | h = 8: centroid",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=PERSIST, metric=T3_cent_ratio, h=8"
+    },
+    {
+     "shown_as": "rarely beat carrying the current contact forward",
+     "dataset": "ARCTIC",
+     "metric": "error of the predictor fed the compact level relative to carrying the current value forward, eight frames ahead (ratio; above 1 = worse than carrying forward): normal",
+     "full_value": 1.1062527870978964,
+     "internal_block": "F2-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | h = 8: normal",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=PERSIST, metric=T3_ang_ratio, h=8"
+    },
+    {
+     "shown_as": "rarely beat carrying the current contact forward",
+     "dataset": "ARCTIC",
+     "metric": "error of the predictor fed the compact level relative to carrying the current value forward, eight frames ahead (ratio; above 1 = worse than carrying forward): wrench profile",
+     "full_value": 1.1004511762591946,
+     "internal_block": "F2-B",
+     "internal_evidence": {
+      "evidence_file": "docs/evidence/f2_structure_variance.json",
+      "key": "ARCTIC | h = 8: wrench profile",
+      "value_index": 0
+     },
+     "internal_report": "reports/structure_variance_boundary/structure_variance_report.md",
+     "source_file": "reports/structure_variance_boundary/temporal_ratios.csv",
+     "locator": "dataset=arctic, rep=R2, vs=PERSIST, metric=T4_rel_l1_ratio, h=8"
+    }
+   ]
+  }
+ ],
+ "structural_numbers": [
+  {
+   "regex": "\\b512[ -](?:points?|values|stored values)\\b",
+   "why": "size of one contact map: one value on each of 512 surface points"
+  },
+  {
+   "regex": "\\b64[ -]frames?\\b",
+   "why": "length of an analysed sequence"
+  },
+  {
+   "regex": "\\b76 (?:force and torque |shared )?directions\\b",
+   "why": "number of directions of the wrench-capability profile"
+  },
+  {
+   "regex": "\\b48 numbers\\b|\\b12 and 48 numbers\\b",
+   "why": "size of the compact state and of the level below it"
+  },
+  {
+   "regex": "\\b1, 4 and 8 frames\\b",
+   "why": "prediction horizons of the description-ladder analysis"
+  },
+  {
+   "regex": "\\bObservations? [1-3](?:(?:, | and | to |–)[1-3])*\\b",
+   "why": "section numbering"
+  },
+  {
+   "regex": "\\bsplits? [1-4](?:(?:, | and | to |–)[1-4])*\\b",
+   "why": "names of the TACO test splits"
+  },
+  {
+   "regex": "\\b(?:CVPR|ICCV|ECCV|SIGGRAPH|NeurIPS) 20[0-9]{2}\\b",
+   "why": "venue and year of a cited paper"
+  },
+  {
+   "regex": "\\b(?:January|February|March|April|May|June|July|August|September|October|November|December) 20[0-9]{2}\\b",
+   "why": "date"
+  },
+  {
+   "regex": "\\b[23]-D\\b",
+   "why": "two- or three-dimensional picture"
+  },
+  {
+   "regex": "(?:more than|above|at most|within ±) ?25 ?%",
+   "why": "threshold of the capability-change analysis, not a measurement"
+  },
+  {
+   "regex": "\\b95 ?% (?:bootstrap |confidence )?intervals?\\b",
+   "why": "confidence level of the intervals"
+  },
+  {
+   "regex": "\\bet al\\.,? (?:19|20)[0-9]{2}\\b",
+   "why": "year of a cited paper"
+  },
+  {
+   "text": "01unghui@gmail.com",
+   "why": "the contact address (the digits are part of the address, not a measurement)"
+  }
+ ],
+ "chart_text_numbers": {
+  "pub_obs1_variation": {
+   "numbers": [
+    "1",
+    "8",
+    "22",
+    "39",
+    "17",
+    "1.011"
+   ],
+   "why": "reference level (1), number of groups behind each bar, and the ARCTIC subjects ratio against the other take level (1.011; docs/evidence/f1a_dynamic_contact.json), from the note of the internal figure"
+  },
+  "pub_obs2_capability_by_class": {
+   "numbers": [
+    "119",
+    "435",
+    "72",
+    "26",
+    "118",
+    "40"
+   ],
+   "why": "number of test events of each kind (axis labels and note), from the note of the internal figure (reports/wrench_counterfactual/summary_by_event_type.csv, n_events); the six counts of the axis labels are also supporting values of the claim obs2-counterpoint (where: chart), checked against docs/evidence/f1d_wrench.json"
+  },
+  "pub_obs3_future_ladder": {
+   "numbers": [
+    "8",
+    "0",
+    "1",
+    "3",
+    "186",
+    "44",
+    "95%"
+   ],
+   "why": "window length (8 frames), the zero of the last level, 'minus 1' of the plotted quantity, number of fits, test takes per dataset, confidence level, from the note and labels of the internal figure"
+  }
+ }
+}

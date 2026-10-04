@@ -1,0 +1,42 @@
+{
+ "about": [
+  "Record of the checks that a script cannot make (rule M01 of build/check_public.py). One entry per check: what was looked at, when, by whom, the result.",
+  "The two text checks carry text_sha256, the digest of the text that was read (the visible text and text attributes of site/index.html; for 'page-text' also the",
+  "titles, labels and notes of the chart data file). When that text changes, rule M01 fails until the text has been read again and the new digest recorded;",
+  "the failure message prints the digest, and so does `python public_page/build/check_public.py --pins`.",
+  "'by' names who made the check. An entry made by an agent is a first reading, not the owner's sign-off: before the page is published the owner reads the page",
+  "and replaces 'by' and 'date' (the digest stays the same as long as the text does)."
+ ],
+ "checks": [
+  {
+   "id": "page-text",
+   "date": "2026-10-05",
+   "by": "Claude (the orchestrating session, final reading before publication); the owner's own reading is still due",
+   "result": "pass",
+   "text_sha256": "d97f0ea63482dcf9e2b3e17124b2b24c47d885c89f23298a3ef181705c57b8f5",
+   "what": "Read every text block, alt text and label of site/index.html and the titles, labels and notes of the three charts in data/figures.js. The four take-aways of the brief (section 18) are the four lines of 'In one minute' and the headlines of the sections. The models named are analysis conditions (a learned model that evolves the first contact map; fixed small models that rank inputs; a small fitted reconstruction model); nothing describes the internal modelling work, a plan or a to-do. The only internal name is 'R2', inside the technical note of Observation 3, as the brief allows."
+  },
+  {
+   "id": "direction-wording",
+   "date": "2026-10-05",
+   "by": "Claude (the orchestrating session, final reading before publication); the owner's own reading is still due",
+   "result": "pass",
+   "text_sha256": "e644dd8b7cd38e9e117cb919ea14b6bb7ef051a66b989c2b62cd7f63e8f0a49c",
+   "what": "Read again in the tightening pass; the section was not changed (same digest). It holds the question, the conceptual chain diagram with its caption 'not a built system', the sentence 'We are currently investigating how such structural states should evolve over time and how realization detail should be preserved.' and 'This is a direction: no method and no result is claimed.' Nothing else."
+  },
+  {
+   "id": "image-text",
+   "date": "2026-10-05",
+   "by": "Claude (the orchestrating session, final reading before publication); the owner's own reading is still due",
+   "result": "pass",
+   "what": "Looked at the three pictures at full size (byte copies of the internal renders; hashes as in INSPECTED_IMAGES). Drawn text: frame labels, '512 points', the colour scale 0 to 1; dataset names, 'typical event (median retention)', 'event in which a part joins (median change)', object and hand names, '76 directions, sorted', 'before' / 'after', the hand-part legend; '1. Hand on the object', '2. Contact on the surface, coloured by hand part', '3. Only the 48 numbers: a disc and an arrow for each touching part', '64 frames', part names. No internal code, model name, path or file name. Looked at again in the final render."
+  },
+  {
+   "id": "render",
+   "date": "2026-10-05",
+   "by": "Claude (the orchestrating session, final reading before publication); the owner's own reading is still due",
+   "result": "pass",
+   "what": "Headless Firefox, full-page screenshots at 1280 px and 390 px of the final page, looked at tile by tile: three pictures shown, three charts drawn, three diagrams legible, no hole where the two removed charts were, no horizontal page scroll. Layout probes at other widths, keyboard focus and print were checked by the repair and tightening passes on earlier versions with the same layout rules."
+  }
+ ]
+}
