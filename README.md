@@ -38,6 +38,11 @@ Things to know before reading the research scripts:
 | `video_to_data` | <https://github.com/nvidia-isaac/video_to_data> | `5654c50e` | CHORD adapter (stub) |
 | `gears`, `SSCF`, `CAMS` | <https://github.com/kzhou23/gears>, <https://github.com/Daisy-1227/SSCF>, <https://github.com/cams-hoi/CAMS> | `bef39220`, `49aec64a`, `7de39619` | read for reference; not imported by the code |
 
+Two checkouts carry uncommitted local patches on top of these commits. BimArt: sharded / resumable
+inference (`inference/bimart_inference.py`, `inference/inference_module.py`) and edits in
+`utils/mano_utils.py` and `preprocess/obj_feature_preprocess.py`; nothing under `model_arch/` is changed.
+gears: five modified files; it is not imported by this repository.
+
 BimArt's code is released under CC BY-NC 4.0 and DexMachina's under MIT. Treat the BimArt ports in this
 repository as subject to BimArt's non-commercial terms. three.js (MIT) is vendored under
 `eval/visualization/static/vendor/` with its licence. This repository does not yet carry a licence of
