@@ -1,0 +1,2722 @@
+{
+ "fig_id": "direct_vs_via_z",
+ "created": "2026-10-05T00:01:28+0900",
+ "outputs": {
+  "figure": "reports/project_page_qualitative/direct_vs_via_z/figure.png",
+  "panels": "reports/project_page_qualitative/direct_vs_via_z/panels.npz",
+  "meta": "reports/project_page_qualitative/direct_vs_via_z/meta.json",
+  "asset": "docs/assets/img/qual_direct_vs_via_z.webp"
+ },
+ "master_size": [
+  2908,
+  3600
+ ],
+ "asset_size": [
+  2200,
+  2724
+ ],
+ "layout": {
+  "width": 2908,
+  "height": 3600,
+  "panel": [
+   400,
+   300
+  ],
+  "font_px": 41,
+  "cap_px": 30,
+  "cap_px_at_1100": 11.35
+ },
+ "display_rule": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0",
+ "soft_contact": "exp(-distance / 0.02 m)",
+ "colours": {
+  "zero": "#dcdbd5",
+  "orange": "#eb6834",
+  "dark": "#7a2408",
+  "blue": "#2a78d6",
+  "no_data": "#e7e1f1",
+  "parts": {
+   "palm": "#6b6a63",
+   "thumb": "#2a78d6",
+   "index": "#eb6834",
+   "middle": "#1baf7a",
+   "ring": "#eda100",
+   "little": "#8e5bd0"
+  }
+ },
+ "panels": {
+  "taco_recorded_with_hand/c512": {
+   "shape": [
+    64,
+    512
+   ],
+   "dtype": "float32"
+  },
+  "taco_recorded_with_hand/frame00": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_recorded_with_hand/frame08": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_recorded_with_hand/frame16": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_recorded_with_hand/frame32": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_recorded_with_hand/frame48": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_recorded_with_hand/frame63": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_recorded/c512": {
+   "shape": [
+    64,
+    512
+   ],
+   "dtype": "float32"
+  },
+  "taco_recorded/frame00": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_recorded/frame08": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_recorded/frame16": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_recorded/frame32": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_recorded/frame48": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_recorded/frame63": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_direct/c512": {
+   "shape": [
+    64,
+    512
+   ],
+   "dtype": "float32"
+  },
+  "taco_direct/frame00": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_direct/frame08": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_direct/frame16": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_direct/frame32": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_direct/frame48": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_direct/frame63": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_via_z_predicted/c512": {
+   "shape": [
+    64,
+    512
+   ],
+   "dtype": "float32"
+  },
+  "taco_via_z_predicted/frame00": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_via_z_predicted/frame08": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_via_z_predicted/frame16": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_via_z_predicted/frame32": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_via_z_predicted/frame48": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_via_z_predicted/frame63": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_via_z_true/c512": {
+   "shape": [
+    64,
+    512
+   ],
+   "dtype": "float32"
+  },
+  "taco_via_z_true/frame00": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_via_z_true/frame08": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_via_z_true/frame16": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_via_z_true/frame32": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_via_z_true/frame48": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_via_z_true/frame63": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_geometry/frames": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "taco_geometry/mesh_verts": {
+   "shape": [
+    6,
+    4002,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_geometry/mesh_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "taco_geometry/hand_verts": {
+   "shape": [
+    6,
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_geometry/hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "taco_geometry/covered": {
+   "shape": [
+    4002
+   ],
+   "dtype": "bool"
+  },
+  "arctic_recorded_with_hand/c512": {
+   "shape": [
+    64,
+    512
+   ],
+   "dtype": "float32"
+  },
+  "arctic_recorded_with_hand/frame00": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_recorded_with_hand/frame08": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_recorded_with_hand/frame16": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_recorded_with_hand/frame32": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_recorded_with_hand/frame48": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_recorded_with_hand/frame63": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_recorded/c512": {
+   "shape": [
+    64,
+    512
+   ],
+   "dtype": "float32"
+  },
+  "arctic_recorded/frame00": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_recorded/frame08": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_recorded/frame16": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_recorded/frame32": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_recorded/frame48": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_recorded/frame63": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_direct/c512": {
+   "shape": [
+    64,
+    512
+   ],
+   "dtype": "float32"
+  },
+  "arctic_direct/frame00": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_direct/frame08": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_direct/frame16": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_direct/frame32": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_direct/frame48": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_direct/frame63": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_via_z_predicted/c512": {
+   "shape": [
+    64,
+    512
+   ],
+   "dtype": "float32"
+  },
+  "arctic_via_z_predicted/frame00": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_via_z_predicted/frame08": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_via_z_predicted/frame16": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_via_z_predicted/frame32": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_via_z_predicted/frame48": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_via_z_predicted/frame63": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_via_z_true/c512": {
+   "shape": [
+    64,
+    512
+   ],
+   "dtype": "float32"
+  },
+  "arctic_via_z_true/frame00": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_via_z_true/frame08": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_via_z_true/frame16": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_via_z_true/frame32": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_via_z_true/frame48": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_via_z_true/frame63": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_geometry/frames": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "arctic_geometry/mesh_verts": {
+   "shape": [
+    6,
+    3947,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_geometry/mesh_faces": {
+   "shape": [
+    7705,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "arctic_geometry/hand_verts": {
+   "shape": [
+    6,
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_geometry/hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "arctic_geometry/covered": {
+   "shape": [
+    3947
+   ],
+   "dtype": "bool"
+  }
+ },
+ "meta": {
+  "id": "direct_vs_via_z",
+  "block": "F3-C, F3-diagA",
+  "title": "Direct generation, generation via z, and the true z through the same decoder: one sequence per dataset",
+  "panels": {
+   "layout": "two blocks, TACO above ARCTIC, each a grid of 5 rows x 6 columns under a heading with the dataset, the object and the hand",
+   "columns": [
+    "frame 0 of the 64-frame sequence (30 frames per second)",
+    "frame 8 of the 64-frame sequence (30 frames per second)",
+    "frame 16 of the 64-frame sequence (30 frames per second)",
+    "frame 32 of the 64-frame sequence (30 frames per second)",
+    "frame 48 of the 64-frame sequence (30 frames per second)",
+    "frame 63 of the 64-frame sequence (30 frames per second)"
+   ],
+   "rows": [
+    {
+     "key": "recorded_with_hand",
+     "label": {
+      "TACO": "Recorded contact, with the recorded hand",
+      "ARCTIC": "Recorded contact, with the recorded hand"
+     },
+     "shows": "the recorded contact map of each frame, with the recorded hand drawn as a translucent grey ghost (the ghost mutes the colours under it)"
+    },
+    {
+     "key": "recorded",
+     "label": {
+      "TACO": "Recorded contact alone",
+      "ARCTIC": "Recorded contact alone"
+     },
+     "shows": "the same recorded contact map without the hand: the reference for the rows below"
+    },
+    {
+     "key": "direct",
+     "label": {
+      "TACO": "Direct generator, error 1.85, test mean 1.70",
+      "ARCTIC": "Direct generator, error 1.89, test mean 1.89"
+     },
+     "shows": "the direct generator: from the first recorded map, the object and its motion it outputs the 63 later maps directly (saved prediction)"
+    },
+    {
+     "key": "via_z_predicted",
+     "label": {
+      "TACO": "Via z, with the predicted z, error 1.42, test mean 1.73",
+      "ARCTIC": "Via z, with the predicted z, error 1.81, test mean 2.16"
+     },
+     "shows": "the generator via z: from the same inputs it predicts the latent z of each later frame, and its decoder turns each z into a map (saved prediction)"
+    },
+    {
+     "key": "via_z_true",
+     "label": {
+      "TACO": "Via z, with the z of the true frames (analysis only), error 0.96, test mean 0.51",
+      "ARCTIC": "Via z, with the z of the true frames (analysis only), error 0.73, test mean 0.71"
+     },
+     "shows": "the decoder of the generator via z, fed the z that the study's encoder computed from the TRUE map of each frame: an analysis-only input that no generator has (decoded on CPU by this script)"
+    }
+   ],
+   "frame_0": "frame 0 is the given first map: the two generator rows show the recorded map there (the saved predictions equal it exactly); the last row shows the decoder's output for the true z of frame 0, which is not part of the error",
+   "two_recorded_rows": "the first row adds the recorded hand as a ghost, which mutes the colours of the contact under it; the second row draws the same recorded maps without the hand and is the one to compare the model rows with",
+   "row_label_numbers": "'error' is this sequence's dense error (frames 1 to 63), 'test mean' the mean over the dataset's test sequences",
+   "arrays": "panels.npz: <dataset>_<row>/c512 is the (64, 512) map sequence, <dataset>_<row>/frameNN the per-vertex values drawn, <dataset>_geometry/* the meshes, hands and covered mask of the drawn frames"
+  },
+  "examples": [
+   {
+    "dataset": "TACO",
+    "example": 898,
+    "sequence_id": "(cut, knife, plate)/20231015_253",
+    "object": "plate (mesh 166, role target)",
+    "hand": "left",
+    "frames": [
+     0,
+     8,
+     16,
+     32,
+     48,
+     63
+    ],
+    "take_frames": [
+     26,
+     34,
+     42,
+     58,
+     74,
+     89
+    ],
+    "split": "test",
+    "group": "plate__target__L",
+    "row_in_prediction_files": 116,
+    "subject": "14",
+    "training_sequences_with_this_mesh": 3,
+    "training_sequences_of_this_category": 457,
+    "hand_to_object_distance_mm": [
+     7.64,
+     1.74,
+     0.83,
+     1.17,
+     2.89,
+     3.19
+    ],
+    "articulation_rad": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "dataset": "ARCTIC",
+    "example": 44,
+    "sequence_id": "box_grab_01/s01",
+    "object": "box (mesh box, role obj)",
+    "hand": "right",
+    "frames": [
+     0,
+     8,
+     16,
+     32,
+     48,
+     63
+    ],
+    "take_frames": [
+     583,
+     591,
+     599,
+     615,
+     631,
+     646
+    ],
+    "split": "test",
+    "group": "box__obj__R",
+    "row_in_prediction_files": 11,
+    "subject": "s01",
+    "training_sequences_with_this_mesh": 55,
+    "training_sequences_of_this_category": 55,
+    "hand_to_object_distance_mm": [
+     5.4,
+     1.4,
+     1.13,
+     1.85,
+     1.33,
+     1.31
+    ],
+    "articulation_rad": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0065,
+     0.0
+    ]
+   }
+  ],
+  "selection_rule": "Per dataset, the test sequence at the median dense error of the generator via z: the test sequences are sorted by that error (mean over frames 1 to 63 of the L2 distance between the saved prediction and the recorded map; ties: smaller example index). The test sets have an even number of sequences, so the two middle ones are equally close to the median and the one with the smaller example index is taken.",
+  "selection_evidence": {
+   "TACO": {
+    "metric": "dense error of the generator via z: L2 distance between its 512-value map and the recorded map, averaged over frames 1 to 63",
+    "computed_from": "reports/contact_latent_temporal_stage2/taco/preds/B1_seed0_A.npz (arrays pred, example) against the recorded maps taco/50_hier_contact_gen/sequences.npz (array C)",
+    "candidates": 364,
+    "candidate_set": "all test sequences of the study's fixed split (the sequences of the prediction file)",
+    "median": 1.4165400862693787,
+    "tie_rule": "the count is even, so the two middle sequences are equally close to the median; the smaller example index is taken",
+    "middle": [
+     {
+      "rank": 182,
+      "example": 898,
+      "sequence_id": "(cut, knife, plate)/20231015_253",
+      "value": 1.4161484241485596
+     },
+     {
+      "rank": 183,
+      "example": 3197,
+      "sequence_id": "(scrape off, knife, plate)/20231015_298",
+      "value": 1.4169317483901978
+     }
+    ],
+    "chosen": {
+     "example": 898,
+     "rank": 182,
+     "value": 1.4161484241485596,
+     "distance_to_median": 0.0003916621208190918
+    },
+    "test_set": {
+     "min": 0.246013805270195,
+     "median": 1.4165400862693787,
+     "mean": 1.7317860700845062,
+     "max": 5.208280086517334
+    },
+    "sorted": {
+     "rank_1_is": "smallest error",
+     "example": [
+      476,
+      484,
+      1410,
+      1396,
+      2463,
+      412,
+      46,
+      517,
+      1340,
+      1349,
+      81,
+      1337,
+      2367,
+      3139,
+      3109,
+      1412,
+      51,
+      1368,
+      134,
+      580,
+      573,
+      2628,
+      571,
+      3336,
+      2337,
+      1136,
+      1411,
+      1398,
+      305,
+      1404,
+      2602,
+      3267,
+      408,
+      2306,
+      3160,
+      1133,
+      778,
+      3334,
+      555,
+      1134,
+      2437,
+      3260,
+      57,
+      1418,
+      2405,
+      1370,
+      2773,
+      3114,
+      939,
+      2991,
+      2313,
+      1321,
+      570,
+      848,
+      730,
+      2889,
+      1304,
+      3142,
+      2452,
+      2851,
+      2942,
+      3017,
+      731,
+      2395,
+      779,
+      2836,
+      2850,
+      3140,
+      2792,
+      2829,
+      2771,
+      1135,
+      3030,
+      2970,
+      2849,
+      2798,
+      2572,
+      2617,
+      2833,
+      3069,
+      3248,
+      929,
+      2772,
+      456,
+      2296,
+      2797,
+      2807,
+      1409,
+      1176,
+      3342,
+      2887,
+      838,
+      562,
+      897,
+      1195,
+      2944,
+      45,
+      2345,
+      3198,
+      283,
+      3003,
+      3141,
+      3068,
+      2195,
+      3106,
+      2985,
+      1149,
+      2908,
+      2289,
+      2951,
+      3086,
+      3107,
+      3199,
+      2791,
+      3162,
+      1193,
+      2607,
+      1415,
+      1303,
+      2835,
+      3269,
+      3164,
+      782,
+      2615,
+      937,
+      891,
+      1152,
+      2912,
+      2467,
+      2808,
+      2626,
+      2702,
+      3067,
+      785,
+      2888,
+      3057,
+      2971,
+      2592,
+      2591,
+      895,
+      3011,
+      2909,
+      741,
+      2984,
+      1177,
+      513,
+      2965,
+      110,
+      3015,
+      3303,
+      521,
+      783,
+      3016,
+      2770,
+      2573,
+      40,
+      2795,
+      1162,
+      3029,
+      3108,
+      1178,
+      1160,
+      3249,
+      2952,
+      3058,
+      1106,
+      2875,
+      1197,
+      862,
+      561,
+      3010,
+      2961,
+      3165,
+      2950,
+      1190,
+      1058,
+      3024,
+      928,
+      886,
+      2734,
+      2941,
+      898,
+      3197,
+      2794,
+      1175,
+      3088,
+      2869,
+      2907,
+      2707,
+      808,
+      494,
+      1180,
+      3195,
+      1194,
+      2868,
+      1150,
+      3194,
+      918,
+      2731,
+      2913,
+      3085,
+      2796,
+      2812,
+      825,
+      1159,
+      1179,
+      1301,
+      2870,
+      830,
+      2199,
+      914,
+      153,
+      910,
+      2282,
+      894,
+      943,
+      3054,
+      941,
+      3023,
+      940,
+      746,
+      899,
+      2229,
+      2871,
+      2973,
+      889,
+      3138,
+      942,
+      784,
+      816,
+      863,
+      3014,
+      810,
+      2962,
+      2972,
+      711,
+      3328,
+      3300,
+      736,
+      805,
+      3042,
+      1196,
+      170,
+      860,
+      916,
+      858,
+      2627,
+      2910,
+      812,
+      908,
+      2832,
+      907,
+      2793,
+      2872,
+      3311,
+      1157,
+      727,
+      696,
+      2426,
+      900,
+      735,
+      3161,
+      2730,
+      734,
+      2828,
+      2932,
+      2929,
+      3019,
+      2873,
+      832,
+      3196,
+      667,
+      724,
+      861,
+      354,
+      2756,
+      938,
+      2718,
+      865,
+      3323,
+      857,
+      722,
+      818,
+      2239,
+      859,
+      896,
+      1327,
+      2751,
+      657,
+      2701,
+      902,
+      2723,
+      777,
+      661,
+      745,
+      725,
+      811,
+      1057,
+      3163,
+      747,
+      660,
+      2752,
+      912,
+      2724,
+      831,
+      686,
+      919,
+      945,
+      3040,
+      677,
+      867,
+      3041,
+      817,
+      2755,
+      813,
+      809,
+      2911,
+      2754,
+      814,
+      1393,
+      901,
+      776,
+      743,
+      807,
+      911,
+      833,
+      675,
+      3241,
+      656,
+      815,
+      2717,
+      658,
+      729,
+      744,
+      892,
+      913,
+      2725,
+      828,
+      728,
+      890,
+      893,
+      3307,
+      2226,
+      2757,
+      944,
+      3287,
+      733,
+      888,
+      829,
+      3279,
+      3315,
+      1148,
+      864,
+      826,
+      680,
+      505,
+      806,
+      2837,
+      726,
+      748,
+      2758,
+      1326,
+      915,
+      866
+     ],
+     "value": [
+      0.246014,
+      0.294266,
+      0.41966,
+      0.421535,
+      0.423301,
+      0.467497,
+      0.472734,
+      0.483259,
+      0.487624,
+      0.500641,
+      0.514684,
+      0.526244,
+      0.540057,
+      0.548528,
+      0.559393,
+      0.561831,
+      0.562026,
+      0.580318,
+      0.581023,
+      0.584211,
+      0.585622,
+      0.610818,
+      0.613101,
+      0.617973,
+      0.625041,
+      0.625161,
+      0.637179,
+      0.64913,
+      0.650402,
+      0.651285,
+      0.665185,
+      0.677481,
+      0.679655,
+      0.694392,
+      0.699914,
+      0.713235,
+      0.716182,
+      0.717028,
+      0.721923,
+      0.728373,
+      0.737116,
+      0.737857,
+      0.740212,
+      0.742942,
+      0.746319,
+      0.756555,
+      0.760247,
+      0.764646,
+      0.768508,
+      0.772278,
+      0.772465,
+      0.77693,
+      0.785946,
+      0.794151,
+      0.823109,
+      0.825271,
+      0.831066,
+      0.838078,
+      0.853962,
+      0.855983,
+      0.869481,
+      0.875297,
+      0.87531,
+      0.875317,
+      0.885829,
+      0.890935,
+      0.892267,
+      0.895742,
+      0.897989,
+      0.899819,
+      0.899915,
+      0.907827,
+      0.908604,
+      0.908627,
+      0.909858,
+      0.912799,
+      0.922459,
+      0.92822,
+      0.945521,
+      0.946078,
+      0.948363,
+      0.95211,
+      0.960612,
+      0.968169,
+      0.978441,
+      0.98386,
+      0.992302,
+      0.99249,
+      0.993701,
+      0.994176,
+      1.002598,
+      1.003913,
+      1.010844,
+      1.019665,
+      1.023501,
+      1.024599,
+      1.026985,
+      1.029637,
+      1.032591,
+      1.035491,
+      1.035702,
+      1.036765,
+      1.05443,
+      1.069389,
+      1.082599,
+      1.08951,
+      1.096154,
+      1.097784,
+      1.105461,
+      1.110373,
+      1.11257,
+      1.113281,
+      1.118614,
+      1.11964,
+      1.130914,
+      1.145572,
+      1.146211,
+      1.154151,
+      1.155818,
+      1.157355,
+      1.158131,
+      1.160628,
+      1.169518,
+      1.180344,
+      1.188353,
+      1.19291,
+      1.195825,
+      1.198069,
+      1.202222,
+      1.203737,
+      1.204038,
+      1.216146,
+      1.216921,
+      1.222253,
+      1.226017,
+      1.235221,
+      1.237457,
+      1.238034,
+      1.243456,
+      1.245524,
+      1.250925,
+      1.260496,
+      1.261689,
+      1.262101,
+      1.262979,
+      1.26691,
+      1.274468,
+      1.274479,
+      1.280305,
+      1.282419,
+      1.284128,
+      1.297798,
+      1.298902,
+      1.303805,
+      1.308627,
+      1.31426,
+      1.316252,
+      1.322703,
+      1.328063,
+      1.334025,
+      1.342414,
+      1.348381,
+      1.349999,
+      1.361963,
+      1.363305,
+      1.366158,
+      1.366323,
+      1.370985,
+      1.37243,
+      1.377884,
+      1.387969,
+      1.392015,
+      1.394015,
+      1.396194,
+      1.402586,
+      1.404528,
+      1.404616,
+      1.406588,
+      1.406659,
+      1.40943,
+      1.415891,
+      1.416148,
+      1.416932,
+      1.420177,
+      1.461885,
+      1.469402,
+      1.470125,
+      1.470916,
+      1.478444,
+      1.480327,
+      1.482171,
+      1.4906,
+      1.496138,
+      1.499299,
+      1.516882,
+      1.52525,
+      1.527234,
+      1.529953,
+      1.533393,
+      1.536923,
+      1.544636,
+      1.551957,
+      1.552397,
+      1.552933,
+      1.553549,
+      1.561195,
+      1.56377,
+      1.581842,
+      1.58925,
+      1.592762,
+      1.609474,
+      1.622755,
+      1.625982,
+      1.647292,
+      1.653527,
+      1.675142,
+      1.687089,
+      1.70375,
+      1.716454,
+      1.717324,
+      1.733459,
+      1.755008,
+      1.763854,
+      1.766217,
+      1.771572,
+      1.781369,
+      1.788765,
+      1.796444,
+      1.797593,
+      1.821547,
+      1.833802,
+      1.84955,
+      1.849853,
+      1.858337,
+      1.861714,
+      1.873698,
+      1.883769,
+      1.889418,
+      1.88993,
+      1.891983,
+      1.89849,
+      1.910243,
+      1.918221,
+      1.939311,
+      1.948235,
+      1.971984,
+      1.977492,
+      1.977845,
+      1.990845,
+      1.993949,
+      2.001553,
+      2.014872,
+      2.038063,
+      2.04731,
+      2.049119,
+      2.054353,
+      2.055048,
+      2.085604,
+      2.111521,
+      2.111805,
+      2.118869,
+      2.122423,
+      2.131977,
+      2.141703,
+      2.149718,
+      2.157012,
+      2.159339,
+      2.177258,
+      2.178541,
+      2.222869,
+      2.222891,
+      2.231689,
+      2.23232,
+      2.25874,
+      2.290903,
+      2.327436,
+      2.330912,
+      2.35807,
+      2.358684,
+      2.363374,
+      2.366902,
+      2.382395,
+      2.385721,
+      2.388284,
+      2.412319,
+      2.420027,
+      2.427407,
+      2.430044,
+      2.481803,
+      2.482653,
+      2.51311,
+      2.552193,
+      2.577015,
+      2.586192,
+      2.59531,
+      2.597078,
+      2.611014,
+      2.613116,
+      2.622141,
+      2.623629,
+      2.639085,
+      2.642522,
+      2.705128,
+      2.72554,
+      2.731761,
+      2.742429,
+      2.813706,
+      2.819154,
+      2.822468,
+      2.831223,
+      2.84608,
+      2.876299,
+      2.882922,
+      2.897219,
+      2.901906,
+      2.934999,
+      2.952592,
+      2.974023,
+      2.980591,
+      3.010435,
+      3.025724,
+      3.02818,
+      3.035764,
+      3.053259,
+      3.066942,
+      3.074231,
+      3.118682,
+      3.130731,
+      3.146385,
+      3.1845,
+      3.208815,
+      3.247599,
+      3.251828,
+      3.269121,
+      3.287269,
+      3.351757,
+      3.376529,
+      3.481351,
+      3.505741,
+      3.589366,
+      3.599413,
+      3.628335,
+      3.666864,
+      3.723032,
+      3.728117,
+      3.767242,
+      3.776183,
+      3.795207,
+      3.79673,
+      3.796933,
+      3.808652,
+      3.968089,
+      3.993885,
+      3.996044,
+      4.076317,
+      4.111499,
+      4.345006,
+      4.658364,
+      4.694721,
+      4.700499,
+      4.853309,
+      4.958167,
+      5.021008,
+      5.20828
+     ]
+    },
+    "typicality": {
+     "direct_error_of_chosen": 1.8520597219467163,
+     "via_z_minus_direct_of_chosen": -0.43591129779815674,
+     "via_z_minus_direct_test_mean": 0.031433964373318704,
+     "sequences_where_via_z_is_lower": 174,
+     "share_where_via_z_is_lower": 0.47802197802197804,
+     "training_sequences": 1312,
+     "training_sequences_with_this_mesh": 3,
+     "training_sequences_of_this_category": 457,
+     "subject": "14",
+     "subject_in_training": true,
+     "test_subjects_absent_from_training": []
+    }
+   },
+   "ARCTIC": {
+    "metric": "dense error of the generator via z: L2 distance between its 512-value map and the recorded map, averaged over frames 1 to 63",
+    "computed_from": "reports/contact_latent_temporal_stage2/arctic/preds/B1_seed0_A.npz (arrays pred, example) against the recorded maps arctic/40_hier_contact_gen/sequences.npz (array C)",
+    "candidates": 186,
+    "candidate_set": "all test sequences of the study's fixed split (the sequences of the prediction file)",
+    "median": 1.8204379081726074,
+    "tie_rule": "the count is even, so the two middle sequences are equally close to the median; the smaller example index is taken",
+    "middle": [
+     {
+      "rank": 93,
+      "example": 44,
+      "sequence_id": "box_grab_01/s01",
+      "value": 1.8139957189559937
+     },
+     {
+      "rank": 94,
+      "example": 142,
+      "sequence_id": "capsulemachine_grab_01/s01",
+      "value": 1.8268800973892212
+     }
+    ],
+    "chosen": {
+     "example": 44,
+     "rank": 93,
+     "value": 1.8139957189559937,
+     "distance_to_median": 0.0064421892166137695
+    },
+    "test_set": {
+     "min": 0.11171906441450119,
+     "median": 1.8204379081726074,
+     "mean": 2.1565832805729683,
+     "max": 6.173370361328125
+    },
+    "sorted": {
+     "rank_1_is": "smallest error",
+     "example": [
+      335,
+      341,
+      339,
+      340,
+      329,
+      338,
+      342,
+      659,
+      661,
+      663,
+      330,
+      121,
+      826,
+      605,
+      41,
+      540,
+      81,
+      1115,
+      1143,
+      606,
+      136,
+      208,
+      596,
+      69,
+      541,
+      1117,
+      216,
+      533,
+      1257,
+      263,
+      1119,
+      36,
+      1142,
+      0,
+      768,
+      1120,
+      1113,
+      802,
+      877,
+      906,
+      268,
+      710,
+      576,
+      542,
+      1141,
+      769,
+      771,
+      1,
+      1114,
+      1112,
+      532,
+      1202,
+      1124,
+      1123,
+      708,
+      25,
+      1125,
+      1256,
+      1122,
+      1190,
+      770,
+      119,
+      664,
+      1144,
+      803,
+      26,
+      210,
+      1244,
+      1271,
+      1118,
+      960,
+      87,
+      575,
+      1191,
+      712,
+      1031,
+      521,
+      497,
+      89,
+      892,
+      217,
+      43,
+      265,
+      1126,
+      1243,
+      1285,
+      818,
+      1234,
+      186,
+      961,
+      260,
+      88,
+      44,
+      142,
+      266,
+      1029,
+      141,
+      706,
+      665,
+      1220,
+      388,
+      185,
+      1127,
+      40,
+      218,
+      943,
+      1286,
+      1186,
+      1008,
+      910,
+      1182,
+      1116,
+      1233,
+      745,
+      209,
+      849,
+      861,
+      42,
+      1032,
+      913,
+      428,
+      135,
+      1183,
+      1245,
+      1022,
+      3,
+      1121,
+      758,
+      713,
+      746,
+      543,
+      865,
+      1188,
+      1272,
+      361,
+      1255,
+      454,
+      364,
+      2,
+      996,
+      215,
+      851,
+      486,
+      427,
+      973,
+      120,
+      891,
+      962,
+      840,
+      140,
+      850,
+      995,
+      912,
+      267,
+      425,
+      343,
+      804,
+      890,
+      925,
+      453,
+      467,
+      1187,
+      499,
+      345,
+      451,
+      926,
+      362,
+      1189,
+      426,
+      911,
+      974,
+      143,
+      711,
+      363,
+      498,
+      214,
+      942,
+      944,
+      409,
+      344,
+      997,
+      90,
+      452,
+      387,
+      360,
+      1030
+     ],
+     "value": [
+      0.111719,
+      0.117251,
+      0.120519,
+      0.144007,
+      0.221193,
+      0.325038,
+      0.396982,
+      0.42022,
+      0.441484,
+      0.514216,
+      0.54068,
+      0.541605,
+      0.57362,
+      0.596327,
+      0.643793,
+      0.721821,
+      0.779332,
+      0.781389,
+      0.797425,
+      0.825317,
+      0.876003,
+      0.902193,
+      0.907933,
+      0.913773,
+      0.946407,
+      0.947656,
+      0.968223,
+      0.995396,
+      1.014403,
+      1.026902,
+      1.062291,
+      1.074394,
+      1.083003,
+      1.086834,
+      1.090073,
+      1.099042,
+      1.148745,
+      1.156026,
+      1.169264,
+      1.191751,
+      1.214003,
+      1.260589,
+      1.269751,
+      1.280304,
+      1.282647,
+      1.283927,
+      1.308476,
+      1.314972,
+      1.320444,
+      1.332735,
+      1.351248,
+      1.355643,
+      1.355757,
+      1.362834,
+      1.373392,
+      1.375025,
+      1.383482,
+      1.396771,
+      1.397636,
+      1.42379,
+      1.4243,
+      1.428086,
+      1.435611,
+      1.437123,
+      1.455904,
+      1.483932,
+      1.500671,
+      1.517894,
+      1.533612,
+      1.538958,
+      1.553755,
+      1.592707,
+      1.605661,
+      1.60699,
+      1.634526,
+      1.647254,
+      1.65037,
+      1.664004,
+      1.675878,
+      1.688876,
+      1.689682,
+      1.691631,
+      1.69449,
+      1.700889,
+      1.712078,
+      1.729458,
+      1.73457,
+      1.741146,
+      1.769629,
+      1.779058,
+      1.799818,
+      1.804744,
+      1.813996,
+      1.82688,
+      1.831215,
+      1.855386,
+      1.895101,
+      1.926001,
+      1.929309,
+      1.937344,
+      1.991599,
+      1.995672,
+      2.034151,
+      2.054092,
+      2.056606,
+      2.058776,
+      2.07291,
+      2.111683,
+      2.135003,
+      2.142523,
+      2.14446,
+      2.163508,
+      2.184127,
+      2.195664,
+      2.207033,
+      2.213659,
+      2.222819,
+      2.232153,
+      2.279196,
+      2.292113,
+      2.32674,
+      2.332027,
+      2.342374,
+      2.375749,
+      2.396759,
+      2.429632,
+      2.442684,
+      2.446896,
+      2.458252,
+      2.50898,
+      2.520181,
+      2.532879,
+      2.615963,
+      2.618561,
+      2.672314,
+      2.707574,
+      2.748246,
+      2.789082,
+      2.917695,
+      2.940894,
+      2.946196,
+      2.952344,
+      2.953501,
+      2.959026,
+      2.964203,
+      2.976407,
+      3.059312,
+      3.102173,
+      3.240666,
+      3.295929,
+      3.327807,
+      3.37535,
+      3.393167,
+      3.414319,
+      3.436702,
+      3.452491,
+      3.477741,
+      3.489642,
+      3.528888,
+      3.636905,
+      3.709201,
+      3.709689,
+      3.73262,
+      3.815688,
+      4.040973,
+      4.061793,
+      4.161807,
+      4.168449,
+      4.226618,
+      4.303972,
+      4.31363,
+      4.320377,
+      4.385099,
+      4.399752,
+      4.451358,
+      4.463155,
+      4.517189,
+      4.616864,
+      4.74456,
+      4.917142,
+      5.001691,
+      5.0408,
+      5.249924,
+      5.916978,
+      5.931581,
+      6.17337
+     ]
+    },
+    "typicality": {
+     "direct_error_of_chosen": 1.8872491121292114,
+     "via_z_minus_direct_of_chosen": -0.07325339317321777,
+     "via_z_minus_direct_test_mean": 0.2664355269523077,
+     "sequences_where_via_z_is_lower": 51,
+     "share_where_via_z_is_lower": 0.27419354838709675,
+     "training_sequences": 1005,
+     "training_sequences_with_this_mesh": 55,
+     "training_sequences_of_this_category": 55,
+     "subject": "s01",
+     "subject_in_training": true,
+     "test_subjects_absent_from_training": [
+      "s10"
+     ]
+    }
+   }
+  },
+  "display_choices": {
+   "canonical_to_surface": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0 (qlib.Example.to_vertices; the same rule for the recorded maps and every model output; a smoothing, not an inverse). The errors are computed on the 512 values, not on the surface.",
+   "colour_scale": {
+    "kind": "contact (grey, orange, dark red-brown)",
+    "min": 0.0,
+    "max": 0.7,
+    "shared_by": "every panel of both datasets, so that one colour bar serves the figure (a display constant; no statistic is pooled over the datasets)",
+    "rule": "the largest value drawn in any panel, rounded up to a multiple of 0.1",
+    "largest_drawn_value": 0.6955206394195557,
+    "largest_drawn_value_by_dataset": {
+     "TACO": 0.6955206394195557,
+     "ARCTIC": 0.6677307486534119
+    },
+    "smallest_drawn_value": -0.1139724999666214,
+    "below_zero": "model outputs are not clamped; values below 0 are drawn in the colour of 0",
+    "not_reached": "vertices no canonical point reaches are drawn in #e7e1f1 (TACO 26.8%, ARCTIC 0.0% of the vertices)"
+   },
+   "camera": {
+    "rule": "one camera per dataset for all rows and frames. Direction: of 2000 evenly spread directions on the hand's side of the object, the one from which the most recorded contact faces the camera (area x recorded value x cosine of the outward normal, summed over the drawn frames). The object's longest principal axis is horizontal, the hand on the left. Fitted (qlib.fit_camera) on the object and the hand of all drawn frames; perspective projection. The model outputs play no part in the view.",
+    "margin": 0.04,
+    "panel_px": [
+     400,
+     300
+    ],
+    "TACO": {
+     "direction": [
+      0.011457867693012743,
+      -0.029469768711839338,
+      0.9995
+     ],
+     "up": [
+      0.9971837891833373,
+      -0.0737520926117982,
+      -0.013605859963345311
+     ],
+     "candidates": 2000,
+     "candidates_on_the_hand_side": 998,
+     "share_of_recorded_contact_facing_the_camera": 0.4907357050670183,
+     "best_share_over_all_directions": 0.4907357050670183,
+     "object_longest_axis": [
+      -0.07376220907490508,
+      -0.9972758282888413,
+      -0.00024253493641064605
+     ],
+     "camera": {
+      "position": [
+       0.00996847864220301,
+       0.023653802642951072,
+       0.5850869007406205
+      ],
+      "focal_point": [
+       0.00386254050583261,
+       0.0393583464087485,
+       0.05244982281172387
+      ],
+      "up": [
+       0.9971837891833374,
+       -0.07375209261179821,
+       -0.013605859963345311
+      ],
+      "view_angle": 25.0,
+      "aspect": 1.3333333333333333
+     }
+    },
+    "ARCTIC": {
+     "direction": [
+      -0.5915385836203891,
+      0.44173731344361655,
+      -0.6745
+     ],
+     "up": [
+      0.580002218406877,
+      0.8142435775714744,
+      0.024593149995632967
+     ],
+     "candidates": 2000,
+     "candidates_on_the_hand_side": 1000,
+     "share_of_recorded_contact_facing_the_camera": 0.34674444452619657,
+     "best_share_over_all_directions": 0.34674444452619657,
+     "object_longest_axis": [
+      -0.030602374371091104,
+      -0.008389775122093032,
+      0.9994964263849331
+     ],
+     "camera": {
+      "position": [
+       -0.44657427104571085,
+       0.45860355904364886,
+       -0.5468971082358624
+      ],
+      "focal_point": [
+       0.0568827884452923,
+       0.08264199871287277,
+       0.027168212319124613
+      ],
+      "up": [
+       0.580002218406877,
+       0.8142435775714744,
+       0.024593149995632967
+      ],
+      "view_angle": 25.0,
+      "aspect": 1.3333333333333333
+     }
+    }
+   },
+   "hand": "recorded MANO hand, top row only, as a ghost (#cfcec8 at 35% opacity, front faces only); the generators output no hand, so the other rows show the object alone. The ghost mutes the colours under it, hence the second recorded row without the hand",
+   "frames": "six fixed frames of the 64 (0, 8, 16, 32, 48, 63); ARCTIC: the mesh is articulated at each frame"
+  },
+  "numbers": [
+   {
+    "label": "dense error of this sequence, direct generator",
+    "value": 1.8520597219467163,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays: mean over frames 1..63 of the L2 distance over the 512 values",
+    "locator": "panels.npz: taco_direct/c512 against taco_recorded/c512",
+    "shown_as": "1.85"
+   },
+   {
+    "label": "test-set mean dense error, direct generator",
+    "value": 1.700352207481206,
+    "dataset": "TACO",
+    "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+    "locator": "row dataset=taco, model=B0, metric=E_C, column value",
+    "shown_as": "1.70"
+   },
+   {
+    "label": "dense error of this sequence, via z, with the predicted z",
+    "value": 1.4161484241485596,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays: mean over frames 1..63 of the L2 distance over the 512 values",
+    "locator": "panels.npz: taco_via_z_predicted/c512 against taco_recorded/c512",
+    "shown_as": "1.42"
+   },
+   {
+    "label": "test-set mean dense error, via z, with the predicted z",
+    "value": 1.7317861767669955,
+    "dataset": "TACO",
+    "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+    "locator": "row dataset=taco, model=B1, metric=E_C, column value",
+    "shown_as": "1.73"
+   },
+   {
+    "label": "dense error of this sequence, via z, with the z of the true frames (analysis only)",
+    "value": 0.9591020941734314,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays: mean over frames 1..63 of the L2 distance over the 512 values",
+    "locator": "panels.npz: taco_via_z_true/c512 against taco_recorded/c512",
+    "shown_as": "0.96"
+   },
+   {
+    "label": "test-set mean dense error, via z, with the z of the true frames (analysis only)",
+    "value": 0.5100195803526011,
+    "dataset": "TACO",
+    "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+    "locator": "row dataset=taco, model=B1, column E_C_oracle_z",
+    "shown_as": "0.51"
+   },
+   {
+    "label": "number of test sequences",
+    "value": 364,
+    "dataset": "TACO",
+    "source": "reports/contact_latent_temporal_stage2/taco/preds/B1_seed0_A.npz",
+    "locator": "length of the array example",
+    "shown_as": "364"
+   },
+   {
+    "label": "rank of the chosen sequence by the via-z dense error (1 = smallest)",
+    "value": 182,
+    "dataset": "TACO",
+    "source": "computed in the script from the saved predictions",
+    "locator": "meta.selection_evidence"
+   },
+   {
+    "label": "median over the test sequences of the via-z dense error",
+    "value": 1.4165400862693787,
+    "dataset": "TACO",
+    "source": "computed in the script from the saved predictions",
+    "locator": "meta.selection_evidence",
+    "shown_as": "1.42"
+   },
+   {
+    "label": "test sequences on which the via-z dense error is below the direct generator's",
+    "value": 174,
+    "dataset": "TACO",
+    "source": "computed in the script from the saved predictions of both generators",
+    "locator": "meta.selection_evidence.typicality",
+    "shown_as": "174 of 364"
+   },
+   {
+    "label": "share of the mesh vertices the 512-point map does not reach",
+    "value": 0.26836581709145424,
+    "dataset": "TACO",
+    "source": "computed in the script from the study's operator W (qlib.Example.covered)",
+    "locator": "panels.npz: taco_geometry/covered",
+    "shown_as": "27%"
+   },
+   {
+    "label": "largest difference between the saved prediction and the saved predicted z decoded by this script",
+    "value": 0.004696696996688843,
+    "dataset": "TACO",
+    "source": "computed in the script",
+    "locator": "meta.inference.runs.*.check_same_decoder"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 0, direct generator",
+    "value": 0.0,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_direct/c512[0] against taco_recorded/c512[0]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 8, direct generator",
+    "value": 1.951624870300293,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_direct/c512[8] against taco_recorded/c512[8]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 16, direct generator",
+    "value": 1.7086639404296875,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_direct/c512[16] against taco_recorded/c512[16]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 32, direct generator",
+    "value": 1.8352200984954834,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_direct/c512[32] against taco_recorded/c512[32]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 48, direct generator",
+    "value": 1.9940959215164185,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_direct/c512[48] against taco_recorded/c512[48]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 63, direct generator",
+    "value": 1.9930778741836548,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_direct/c512[63] against taco_recorded/c512[63]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 0, via z, with the predicted z",
+    "value": 0.0,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_via_z_predicted/c512[0] against taco_recorded/c512[0]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 8, via z, with the predicted z",
+    "value": 1.3389906883239746,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_via_z_predicted/c512[8] against taco_recorded/c512[8]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 16, via z, with the predicted z",
+    "value": 1.255285382270813,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_via_z_predicted/c512[16] against taco_recorded/c512[16]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 32, via z, with the predicted z",
+    "value": 1.5796103477478027,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_via_z_predicted/c512[32] against taco_recorded/c512[32]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 48, via z, with the predicted z",
+    "value": 1.4784691333770752,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_via_z_predicted/c512[48] against taco_recorded/c512[48]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 63, via z, with the predicted z",
+    "value": 1.5303343534469604,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_via_z_predicted/c512[63] against taco_recorded/c512[63]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 0, via z, with the z of the true frames (analysis only)",
+    "value": 0.628180205821991,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_via_z_true/c512[0] against taco_recorded/c512[0]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 8, via z, with the z of the true frames (analysis only)",
+    "value": 0.9146106243133545,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_via_z_true/c512[8] against taco_recorded/c512[8]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 16, via z, with the z of the true frames (analysis only)",
+    "value": 0.9566307663917542,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_via_z_true/c512[16] against taco_recorded/c512[16]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 32, via z, with the z of the true frames (analysis only)",
+    "value": 0.9280192852020264,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_via_z_true/c512[32] against taco_recorded/c512[32]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 48, via z, with the z of the true frames (analysis only)",
+    "value": 0.9232463836669922,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_via_z_true/c512[48] against taco_recorded/c512[48]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 63, via z, with the z of the true frames (analysis only)",
+    "value": 0.9157270193099976,
+    "dataset": "TACO",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: taco_via_z_true/c512[63] against taco_recorded/c512[63]"
+   },
+   {
+    "label": "dense error of this sequence, direct generator",
+    "value": 1.8872491121292114,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays: mean over frames 1..63 of the L2 distance over the 512 values",
+    "locator": "panels.npz: arctic_direct/c512 against arctic_recorded/c512",
+    "shown_as": "1.89"
+   },
+   {
+    "label": "test-set mean dense error, direct generator",
+    "value": 1.8901479019112484,
+    "dataset": "ARCTIC",
+    "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+    "locator": "row dataset=arctic, model=B0, metric=E_C, column value",
+    "shown_as": "1.89"
+   },
+   {
+    "label": "dense error of this sequence, via z, with the predicted z",
+    "value": 1.8139957189559937,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays: mean over frames 1..63 of the L2 distance over the 512 values",
+    "locator": "panels.npz: arctic_via_z_predicted/c512 against arctic_recorded/c512",
+    "shown_as": "1.81"
+   },
+   {
+    "label": "test-set mean dense error, via z, with the predicted z",
+    "value": 2.156583450213876,
+    "dataset": "ARCTIC",
+    "source": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+    "locator": "row dataset=arctic, model=B1, metric=E_C, column value",
+    "shown_as": "2.16"
+   },
+   {
+    "label": "dense error of this sequence, via z, with the z of the true frames (analysis only)",
+    "value": 0.7345892190933228,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays: mean over frames 1..63 of the L2 distance over the 512 values",
+    "locator": "panels.npz: arctic_via_z_true/c512 against arctic_recorded/c512",
+    "shown_as": "0.73"
+   },
+   {
+    "label": "test-set mean dense error, via z, with the z of the true frames (analysis only)",
+    "value": 0.7086474054282711,
+    "dataset": "ARCTIC",
+    "source": "reports/contact_latent_temporal_stage2/bottleneck_metrics.csv",
+    "locator": "row dataset=arctic, model=B1, column E_C_oracle_z",
+    "shown_as": "0.71"
+   },
+   {
+    "label": "number of test sequences",
+    "value": 186,
+    "dataset": "ARCTIC",
+    "source": "reports/contact_latent_temporal_stage2/arctic/preds/B1_seed0_A.npz",
+    "locator": "length of the array example",
+    "shown_as": "186"
+   },
+   {
+    "label": "rank of the chosen sequence by the via-z dense error (1 = smallest)",
+    "value": 93,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the saved predictions",
+    "locator": "meta.selection_evidence"
+   },
+   {
+    "label": "median over the test sequences of the via-z dense error",
+    "value": 1.8204379081726074,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the saved predictions",
+    "locator": "meta.selection_evidence",
+    "shown_as": "1.82"
+   },
+   {
+    "label": "test sequences on which the via-z dense error is below the direct generator's",
+    "value": 51,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the saved predictions of both generators",
+    "locator": "meta.selection_evidence.typicality",
+    "shown_as": "51 of 186"
+   },
+   {
+    "label": "share of the mesh vertices the 512-point map does not reach",
+    "value": 0.0,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the study's operator W (qlib.Example.covered)",
+    "locator": "panels.npz: arctic_geometry/covered",
+    "shown_as": "0%"
+   },
+   {
+    "label": "largest difference between the saved prediction and the saved predicted z decoded by this script",
+    "value": 0.0077352821826934814,
+    "dataset": "ARCTIC",
+    "source": "computed in the script",
+    "locator": "meta.inference.runs.*.check_same_decoder"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 0, direct generator",
+    "value": 0.0,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_direct/c512[0] against arctic_recorded/c512[0]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 8, direct generator",
+    "value": 1.5079593658447266,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_direct/c512[8] against arctic_recorded/c512[8]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 16, direct generator",
+    "value": 2.2457284927368164,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_direct/c512[16] against arctic_recorded/c512[16]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 32, direct generator",
+    "value": 2.0721569061279297,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_direct/c512[32] against arctic_recorded/c512[32]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 48, direct generator",
+    "value": 1.7747198343276978,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_direct/c512[48] against arctic_recorded/c512[48]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 63, direct generator",
+    "value": 2.356572389602661,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_direct/c512[63] against arctic_recorded/c512[63]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 0, via z, with the predicted z",
+    "value": 0.0,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_via_z_predicted/c512[0] against arctic_recorded/c512[0]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 8, via z, with the predicted z",
+    "value": 2.123511791229248,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_via_z_predicted/c512[8] against arctic_recorded/c512[8]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 16, via z, with the predicted z",
+    "value": 2.136701822280884,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_via_z_predicted/c512[16] against arctic_recorded/c512[16]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 32, via z, with the predicted z",
+    "value": 1.0882532596588135,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_via_z_predicted/c512[32] against arctic_recorded/c512[32]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 48, via z, with the predicted z",
+    "value": 2.2734344005584717,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_via_z_predicted/c512[48] against arctic_recorded/c512[48]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 63, via z, with the predicted z",
+    "value": 2.4012744426727295,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_via_z_predicted/c512[63] against arctic_recorded/c512[63]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 0, via z, with the z of the true frames (analysis only)",
+    "value": 0.40068715810775757,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_via_z_true/c512[0] against arctic_recorded/c512[0]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 8, via z, with the z of the true frames (analysis only)",
+    "value": 0.45350268483161926,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_via_z_true/c512[8] against arctic_recorded/c512[8]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 16, via z, with the z of the true frames (analysis only)",
+    "value": 0.5439822673797607,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_via_z_true/c512[16] against arctic_recorded/c512[16]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 32, via z, with the z of the true frames (analysis only)",
+    "value": 0.8204066157341003,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_via_z_true/c512[32] against arctic_recorded/c512[32]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 48, via z, with the z of the true frames (analysis only)",
+    "value": 0.985802173614502,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_via_z_true/c512[48] against arctic_recorded/c512[48]"
+   },
+   {
+    "label": "L2 distance from the recorded map at frame 63, via z, with the z of the true frames (analysis only)",
+    "value": 0.9537249803543091,
+    "dataset": "ARCTIC",
+    "source": "computed in the script from the drawn arrays",
+    "locator": "panels.npz: arctic_via_z_true/c512[63] against arctic_recorded/c512[63]"
+   },
+   {
+    "label": "upper end of the colour scale",
+    "value": 0.7,
+    "dataset": "TACO and ARCTIC",
+    "source": "computed in the script: the largest value drawn in any panel (0.6955), rounded up to a multiple of 0.1",
+    "locator": "meta.display_choices.colour_scale",
+    "shown_as": "0.7"
+   },
+   {
+    "label": "frames per sequence",
+    "value": 64,
+    "dataset": "TACO and ARCTIC",
+    "source": "sequences.npz of the two studies (taco/50_hier_contact_gen/sequences.npz, arctic/40_hier_contact_gen/sequences.npz)",
+    "locator": "array C, axis 1",
+    "shown_as": "64"
+   },
+   {
+    "label": "values per contact map (canonical points)",
+    "value": 512,
+    "dataset": "TACO and ARCTIC",
+    "source": "sequences.npz of the two studies (taco/50_hier_contact_gen/sequences.npz, arctic/40_hier_contact_gen/sequences.npz)",
+    "locator": "array C, axis 2",
+    "shown_as": "512"
+   },
+   {
+    "label": "frames drawn per sequence",
+    "value": 6,
+    "dataset": "TACO and ARCTIC",
+    "source": "constant of the script",
+    "locator": "FRAMES = 0, 8, 16, 32, 48, 63",
+    "shown_as": "six"
+   },
+   {
+    "label": "first and last frame of the error average",
+    "value": [
+     1,
+     63
+    ],
+    "dataset": "TACO and ARCTIC",
+    "source": "the study's definition of the dense error (frame 0 is given, never generated)",
+    "locator": "scripts/research/contact_latent_temporal_stage2/s2_generate.py, s2_diag_bottleneck.py",
+    "shown_as": "1 to 63"
+   }
+  ],
+  "cross_checks": [
+   {
+    "dataset": "TACO",
+    "quantity": "dense error of this sequence, direct generator",
+    "computed": 1.8520597219467163,
+    "table": 1.8520598411560059,
+    "table_file": "reports/contact_latent_temporal_stage2/taco/metrics/B0_seed0_A.npz",
+    "table_key": "E_C[116, 0] (example 898)",
+    "difference": 1.1920928955078125e-07,
+    "agrees": true
+   },
+   {
+    "dataset": "TACO",
+    "quantity": "test-set mean dense error, direct generator",
+    "computed": 1.7003521057111877,
+    "computed_from": "reports/contact_latent_temporal_stage2/taco/preds/B0_seed0_A.npz against the recorded maps",
+    "table": 1.700352207481206,
+    "table_file": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+    "table_key": "row dataset=taco, model=B0, metric=E_C, column value",
+    "difference": 1.0177001841249478e-07,
+    "agrees": true
+   },
+   {
+    "dataset": "TACO",
+    "quantity": "dense error of this sequence, via z, with the predicted z",
+    "computed": 1.4161484241485596,
+    "table": 1.4161485433578491,
+    "table_file": "reports/contact_latent_temporal_stage2/taco/metrics/B1_seed0_A.npz",
+    "table_key": "E_C[116, 0] (example 898)",
+    "difference": 1.1920928955078125e-07,
+    "agrees": true
+   },
+   {
+    "dataset": "TACO",
+    "quantity": "test-set mean dense error, via z, with the predicted z",
+    "computed": 1.7317860700845062,
+    "computed_from": "reports/contact_latent_temporal_stage2/taco/preds/B1_seed0_A.npz against the recorded maps",
+    "table": 1.7317861767669955,
+    "table_file": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+    "table_key": "row dataset=taco, model=B1, metric=E_C, column value",
+    "difference": 1.066824892870244e-07,
+    "agrees": true
+   },
+   {
+    "dataset": "TACO",
+    "quantity": "dense error of this sequence, via z, with the z of the true frames (analysis only)",
+    "computed": 0.9591020941734314,
+    "table": null,
+    "agrees": null,
+    "note": "the study saved no per-sequence value of this path (only the test-set mean and curve), so this number has no table to be checked against; the decoder itself is checked by re-decoding the saved predicted z (inference.runs.*.check_same_decoder)"
+   },
+   {
+    "dataset": "ARCTIC",
+    "quantity": "dense error of this sequence, direct generator",
+    "computed": 1.8872491121292114,
+    "table": 1.8872489929199219,
+    "table_file": "reports/contact_latent_temporal_stage2/arctic/metrics/B0_seed0_A.npz",
+    "table_key": "E_C[11, 0] (example 44)",
+    "difference": 1.1920928955078125e-07,
+    "agrees": true
+   },
+   {
+    "dataset": "ARCTIC",
+    "quantity": "test-set mean dense error, direct generator",
+    "computed": 1.8901477536206603,
+    "computed_from": "reports/contact_latent_temporal_stage2/arctic/preds/B0_seed0_A.npz against the recorded maps",
+    "table": 1.8901479019112484,
+    "table_file": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+    "table_key": "row dataset=arctic, model=B0, metric=E_C, column value",
+    "difference": 1.4829058803123019e-07,
+    "agrees": true
+   },
+   {
+    "dataset": "ARCTIC",
+    "quantity": "dense error of this sequence, via z, with the predicted z",
+    "computed": 1.8139957189559937,
+    "table": 1.8139958381652832,
+    "table_file": "reports/contact_latent_temporal_stage2/arctic/metrics/B1_seed0_A.npz",
+    "table_key": "E_C[11, 0] (example 44)",
+    "difference": 1.1920928955078125e-07,
+    "agrees": true
+   },
+   {
+    "dataset": "ARCTIC",
+    "quantity": "test-set mean dense error, via z, with the predicted z",
+    "computed": 2.1565832805729683,
+    "computed_from": "reports/contact_latent_temporal_stage2/arctic/preds/B1_seed0_A.npz against the recorded maps",
+    "table": 2.156583450213876,
+    "table_file": "reports/contact_latent_temporal_stage2/main_metrics.csv",
+    "table_key": "row dataset=arctic, model=B1, metric=E_C, column value",
+    "difference": 1.6964090754356675e-07,
+    "agrees": true
+   },
+   {
+    "dataset": "ARCTIC",
+    "quantity": "dense error of this sequence, via z, with the z of the true frames (analysis only)",
+    "computed": 0.7345892190933228,
+    "table": null,
+    "agrees": null,
+    "note": "the study saved no per-sequence value of this path (only the test-set mean and curve), so this number has no table to be checked against; the decoder itself is checked by re-decoding the saved predicted z (inference.runs.*.check_same_decoder)"
+   }
+  ],
+  "inference": {
+   "device": "cpu (1 thread, float32)",
+   "seed": "none needed: the decoder is deterministic (the checkpoints are of training seed 0)",
+   "newly_computed": "last row only: for each of the two sequences, the 64 maps decoded from the cached z of the true frames 0..63 by the decoder of the generator via z; and, as a check, the 63 maps decoded from the saved predicted z",
+   "read_from_saved_predictions": {
+    "TACO": {
+     "direct": "reports/contact_latent_temporal_stage2/taco/preds/B0_seed0_A.npz",
+     "via_z_predicted": "reports/contact_latent_temporal_stage2/taco/preds/B1_seed0_A.npz"
+    },
+    "ARCTIC": {
+     "direct": "reports/contact_latent_temporal_stage2/arctic/preds/B0_seed0_A.npz",
+     "via_z_predicted": "reports/contact_latent_temporal_stage2/arctic/preds/B1_seed0_A.npz"
+    }
+   },
+   "decoder_inputs": "rebuilt by this script from sequences.npz and the canonical geometry cache as the study's data classes build them (hier_contact_gen/data.py FoldData.S; contact_latent_temporal_stage2/s2_data.py S2Data.geo_tokens), with the normalisation statistics stored in the checkpoint",
+   "runs": {
+    "TACO": {
+     "checkpoint": "<ckpt root>/contact_latent_temporal_stage2/taco/B1_seed0.pt",
+     "checkpoint_md5_head": "32950189bd51",
+     "state": "selected (best validation) state, key 'state'",
+     "selected_at_step": 4000,
+     "training_seed": 0,
+     "parameters": {
+      "backbone": 67923712,
+      "head": 49216,
+      "D_z": 5627393,
+      "total": 73600321
+     },
+     "model_class": "scripts/research/contact_latent_temporal_stage2/s2_models.py: Stage2Model, decode_maps (strict state load)",
+     "latents_of_the_true_frames": {
+      "file": "reports/contact_latent_temporal_stage2/taco/cache/teacher_z.npz",
+      "array": "z[898] (64 frames x 64), standardised with the checkpoint's training mean and std",
+      "encoder": {
+       "checkpoint": "<ckpt root>/contact_factorization_stage1/taco/A3_seed0.pt",
+       "md5": "88e5878deb88",
+       "step": 12000
+      }
+     },
+     "check_same_decoder": {
+      "what": "the saved predicted z of this sequence (z_hat of the prediction file), decoded here, against the saved prediction",
+      "max_abs_difference_per_value": 0.004696696996688843,
+      "tolerance": 0.02,
+      "dense_error_re_decoded": 1.415144920349121,
+      "dense_error_saved": 1.4161484241485596,
+      "note": "the remaining difference is CPU float32 here against the study's GPU bfloat16 pass"
+     },
+     "z_rms_error_of_the_prediction": 0.7738977670669556
+    },
+    "ARCTIC": {
+     "checkpoint": "<ckpt root>/contact_latent_temporal_stage2/arctic/B1_seed0.pt",
+     "checkpoint_md5_head": "60cf23d4c0da",
+     "state": "selected (best validation) state, key 'state'",
+     "selected_at_step": 4000,
+     "training_seed": 0,
+     "parameters": {
+      "backbone": 67833856,
+      "head": 49216,
+      "D_z": 5627393,
+      "total": 73510465
+     },
+     "model_class": "scripts/research/contact_latent_temporal_stage2/s2_models.py: Stage2Model, decode_maps (strict state load)",
+     "latents_of_the_true_frames": {
+      "file": "reports/contact_latent_temporal_stage2/arctic/cache/teacher_z.npz",
+      "array": "z[44] (64 frames x 64), standardised with the checkpoint's training mean and std",
+      "encoder": {
+       "checkpoint": "<ckpt root>/contact_factorization_stage1/arctic/A3_seed0.pt",
+       "md5": "2d0e55d2e34f",
+       "step": 12000
+      }
+     },
+     "check_same_decoder": {
+      "what": "the saved predicted z of this sequence (z_hat of the prediction file), decoded here, against the saved prediction",
+      "max_abs_difference_per_value": 0.0077352821826934814,
+      "tolerance": 0.02,
+      "dense_error_re_decoded": 1.8125957250595093,
+      "dense_error_saved": 1.8139957189559937,
+      "note": "the remaining difference is CPU float32 here against the study's GPU bfloat16 pass"
+     },
+     "z_rms_error_of_the_prediction": 0.824546217918396
+    }
+   },
+   "not_run": "no training; none of the study's scripts; the generators themselves were not re-run (their saved predictions are drawn)"
+  },
+  "caveats": [
+   "One sequence per dataset and one training seed; a picture of two sequences, not a result. The dataset-level statements rest on the study's tables (test-set means in the row labels).",
+   "The sequence is at the median of the VIA-Z error only. On both chosen sequences the via-z error is below the direct generator's: TACO 1.42 against 1.85, while the test-set means are 1.73 against 1.70 (via z lower on 174 of 364 test sequences); ARCTIC 1.81 against 1.89, while the test-set means are 2.16 against 1.89 (via z lower on 51 of 186 test sequences). The figure therefore does not illustrate the test-set comparison of the two generators (tie on TACO, via z worse on ARCTIC).",
+   "The error distribution is skewed: the median via-z error (TACO 1.42, ARCTIC 1.82) is below the mean, so a median sequence has a smaller error than the test-set mean printed next to it.",
+   "The last row uses the z of the true future frames: an analysis-only diagnostic of what the decoder can do with a perfect latent, not a generator. The decoder was trained on predicted latents. On the TACO sequence this row's error (0.96) is well above its test-set mean (0.51); the study saved no per-sequence values of this path to say where the sequence lies in that distribution.",
+   "The differences between the rows are small against the colour range (a dense error of 1 is a root-mean-square difference of 0.044 per map value, on a colour scale from 0 to 0.7); the rows differ mostly in the shape and strength of one contact patch.",
+   "Every map is 512 canonical values spread onto the mesh by a smoothing rule, so fine detail on the surface is not meaningful. On the TACO plate 27% of the vertices are not reached by the map (pale violet). A thin object shows contact on both of its faces; only the face towards the camera is seen.",
+   "Model outputs are not clamped: values below 0 are drawn as 0.",
+   "The last row was decoded on CPU in float32; the study's test-set mean of this path was computed on GPU with bfloat16 autocast (the same difference changes the re-decoded predicted maps by at most 0.008 per value).",
+   "Seen and unseen: TACO: this object (plate, mesh 166) occurs in 3 of the 1312 training sequences, the subject also appears in training takes; ARCTIC: this object (box, mesh box) occurs in 55 of the 1005 training sequences, the subject also appears in training takes."
+  ],
+  "suggested_caption": "One test sequence per dataset on the real object, at six of its 64 frames: a left hand on a plate (TACO) and a right hand on a box (ARCTIC), each selected as the test sequence at the median error of the generator that goes through z. The first two rows show the recorded contact, with the recorded hand as a ghost and without it; below them are the direct generator, the generator via z with its own predicted z, and the same decoder fed the z of the true frames, an analysis-only input that no generator has. Frame 0 is given to both generators; in the last row it is decoded as well. The error of a row is the distance between its maps and the recorded maps, averaged over frames 1 to 63: on the TACO sequence 1.85 (direct), 1.42 (predicted z) and 0.96 (true z), against test-set means of 1.70, 1.73 and 0.51; on the ARCTIC sequence 1.89 (direct), 1.81 (predicted z) and 0.73 (true z), against 1.89, 2.16 and 0.71. On both of these sequences the error with the predicted z is below the direct generator's, which the test-set means do not show. Pale violet marks the part of the plate that the 512-point map does not reach.",
+  "suggested_alt": "Two blocks of 3-D renders, a plate with a left hand and a box with a right hand, each with five rows of orange contact patches on the object over six frames: recorded with the hand, recorded alone, direct generator, generator via the predicted z, and the decoder fed the z of the true frames.",
+  "script": "docs/build/qual/q_direct_vs_via_z.py",
+  "command": "CUDA_VISIBLE_DEVICES=\"\" PYTHONDONTWRITEBYTECODE=1 VTK_DEFAULT_OPENGL_WINDOW=vtkOSOpenGLRenderWindow PYVISTA_OFF_SCREEN=true python docs/build/qual/q_direct_vs_via_z.py"
+ }
+}

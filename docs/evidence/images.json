@@ -1,12 +1,2257 @@
 {
- "assets/img/f1b_taco_knife_rollout.png": {
-  "from": "taco/50_hier_contact_gen/figures/fig6_qual_high_drift_fixed.png",
-  "edit": "cropped to the column header and the first three rows (ground truth; true first map + evolution; sampled first map, best of ten, + evolution); the title strip and the fourth row were removed; no pixel was redrawn",
-  "shows": "TACO test example 3011 (knife, tool role, right hand; take '(scrape off, knife, plate)/20231020_226'): contact maps on the 512 canonical points at t = 0, 8, 16, 32, 48, 63"
+ "assets/img/qual_motivation_two_contacts.webp": {
+  "from": "rendered for this page by docs/build/qual/q_motivation_two_contacts.py (master: reports/project_page_qualitative/motivation_two_contacts/figure.png)",
+  "edit": "none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP",
+  "shows": "One test window, one motion model, the same noise, two contact maps",
+  "selection_rule": "Among all windows of split test_2, the one whose increase of the mean hand-point error (predicted contact minus recorded contact; per window the mean of total_mm minus the mean of motion_mm over its 128 rows of test_2.csv) is the median: the windows are sorted by that increase and the middle one is taken.",
+  "examples": [
+   {
+    "dataset": "taco",
+    "study": "taco/30_bimart_gen3_scene_scale",
+    "split": "test_2",
+    "n": 198,
+    "n_is": "window index among the study's test_2 windows (TacoMotionDataset order = column window of test_2.csv)",
+    "sequence_id": "(empty, teapot, kettle)/20231031_113",
+    "take_frames": [
+     8,
+     71
+    ],
+    "object": {
+     "tool": "teapot (mesh 157)",
+     "target": "kettle (mesh 089)",
+     "verb": "empty"
+    },
+    "hand": "both (left and right)",
+    "frames_drawn": [
+     0,
+     21,
+     42,
+     63
+    ],
+    "training_sequences": 953,
+    "training_sequences_with_this_tool_mesh": 0,
+    "training_sequences_with_this_tool_mesh_as_target": 0,
+    "training_sequences_with_this_target_mesh": 3,
+    "training_sequences_with_this_triplet": 0,
+    "split_sequences": 234,
+    "split_sequences_whose_tool_mesh_is_the_tool_of_a_training_sequence": 0
+   }
+  ],
+  "display_choices": {
+   "frame": "the target object's rigid frame (the frame the models work in), metres; the tool moves in it",
+   "canonical_to_surface_rule": "Not the 512-point canonical map of the other figures. This study's map has, per hand, 512 entries on the tool and 512 on the target; entry k is the distance from mesh vertex obj_cano_bps_inds[k] to that hand. Each entry becomes exp(-max(distance, 0) / 2 cm), the larger of the two hands is kept, and a mesh vertex takes the Gaussian-weighted mean (sigma 1 cm) of the entries of its own object within 3 cm. A vertex with no entry within 3 cm has no value and is drawn in pale violet. Recorded and predicted maps go through the same rule.",
+   "display_rule_fidelity_recorded_map_vs_exact_per_vertex_contact": {
+    "correlation": 0.9565795892873086,
+    "mean_abs_difference": 0.024768511032674755,
+    "max_shown": 0.8602788835207161,
+    "max_exact": 0.9849660396575928,
+    "share_of_vertices_without_value": 0.04611499126964336
+   },
+   "colour_scales": [
+    {
+     "what": "contact on the objects (rows 1 and 2)",
+     "scale": "qlib.contact_rgb",
+     "range": [
+      0.0,
+      1.0
+     ],
+     "no_value": "#e7e1f1"
+    }
+   ],
+   "objects_rows_3_4": "plain #dcdbd5 (no map painted)",
+   "camera": {
+    "rule": "one camera for all 16 panels, fitted to everything drawn at the four frames; horizontal direction from the objects' centroid towards the recorded hands' centroid, turned by the azimuth about the vertical and raised by the elevation; vertical = the world's z axis in the target frame at frame 0. Azimuth and elevation were set by looking at renders (handle of the kettle in profile, teapot and both hands unoccluded).",
+    "azimuth_deg": 45.0,
+    "elevation_deg": 25.0,
+    "margin": 0.04,
+    "direction": [
+     -0.5326498552126725,
+     -0.6972882152716657,
+     0.4796595423685156
+    ],
+    "fitted": {
+     "position": [
+      -0.6347433996746371,
+      -0.9531198368109153,
+      0.6180097650313114
+     ],
+     "focal_point": [
+      -0.02475018683621763,
+      -0.15458197080867303,
+      0.06870131698685648
+     ],
+     "up": [
+      0.3118567212775225,
+      0.3651647856908459,
+      0.8771545272558263
+     ],
+     "view_angle": 25.0,
+     "aspect": 1.0
+    }
+   },
+   "hand_style": {
+    "recorded_hands": {
+     "color": "#93928c",
+     "opacity": 0.4,
+     "faces_drawn": "front and back (no back-face culling), the same in all four rows",
+     "note": "MANO meshes, translucent; the opacity is per face layer. qlib.render culls the back faces of a translucent mesh, and the MANO mesh is open at the wrist, which this camera faces, so with front faces alone the hands read as open shells. Each hand is passed to the renderer twice, the second time with reversed triangle winding, so that all of its faces are drawn. The lighter ellipse at the wrist is the opening of the mesh. Darker than qlib.GHOST, which is nearly invisible at this scene size."
+    },
+    "generated_hand_points": {
+     "radius_m": 0.005,
+     "from_recorded_contact": "#2a78d6",
+     "from_predicted_contact": "#1baf7a",
+     "note": "the motion stage outputs 100 surface points per hand, not MANO parameters; no mesh is fitted"
+    }
+   },
+   "panel_px": [
+    480,
+    480
+   ]
+  },
+  "inference": {
+   "checkpoints": {
+    "contact_stage": {
+     "file": "taco/30_bimart_gen3_scene_scale/experiments/contact_model_taco_scene_20260927_174803/model_best.pth",
+     "weights": "model_best.pth",
+     "epoch": 62
+    },
+    "motion_stage": {
+     "file": "taco/30_bimart_gen3_scene_scale/experiments/motion_model_taco_scene_20260927_174902/model_best.pth",
+     "weights": "model_best.pth+ema",
+     "epoch": 17
+    },
+    "configs": [
+     "configs/bimart_taco/train_contact_config_scene.yaml",
+     "configs/bimart_taco/train_motion_config_scene.yaml"
+    ],
+    "sampler": "scripts/eval_bimart_taco.py::sample (50-step DDPM, x0-prediction)",
+    "classifier_free_guidance": 0.5,
+    "contact_guidance": "off",
+    "initial_noise_seed": 0,
+    "later_noise_seed": 0,
+    "control_later_noise_seed": 1,
+    "undrawn_later_noise_seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "device": "cpu",
+    "threads": 1
+   },
+   "newly_computed": [
+    "the predicted contact map of the window (contact stage, 50 denoising steps)",
+    "the hand points generated from the recorded contact and from the predicted contact (motion stage, 50 steps each, classifier-free guidance 0.5, no contact guidance), with identical noise",
+    "an undrawn control: the same window sampled 5 more times (contact stage, then the motion stage from the recorded and from the predicted contact; same initial noise, later-noise seeds [1, 2, 3, 4, 5]). Its errors are in sampling_spread and its hand points in panels.npz under spread/; nothing of it is drawn, and it played no part in choosing the window or the drawn seed"
+   ],
+   "read_from_disk": [
+    "recorded contact map, recorded hand points and object features: taco/30_bimart_gen3_scene_scale/train_store",
+    "object meshes: taco/30_bimart_gen3_scene_scale/assets/taco_mesh_dict.npy",
+    "map vertices and dense hand distances: taco/30_bimart_gen3_scene_scale/sequences/(empty, teapot, kettle)__20231031_113.npz",
+    "recorded MANO hands and object poses: the TACO release through src/analysis/loaders/taco.py",
+    "per-window errors (selection and table values): taco/30_bimart_gen3_scene_scale/contact_probe/test_2.csv; split means: taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv"
+   ],
+   "noise": "The study's sampler seeds only the initial noise; the noise of the later denoising steps comes from torch's global generator, which the study's scripts do not seed. Here it is seeded before every run: the two drawn runs share all noise and the figure is reproducible. The study's table was sampled on CUDA in batches of 32.",
+   "cross_checks": {
+    "geometry_m": {
+     "max |MANO vertices at the 100 point indices - stored recorded hand points|": 4.470307413129149e-08,
+     "max |object-to-hand distance of the drawn meshes - stored dense distance|, drawn frames": 1.4899353084629752e-08,
+     "max |stored dense distance at the map's vertices - recorded contact map|": 1.4901161193847656e-08
+    },
+    "contact_maps_vs_saved": {
+     "max_abs_recorded_map_difference_mm": 0.1220703125,
+     "predicted_map_this_run_vs_saved_mean_abs_mm": 8.773881942033768,
+     "predicted_map_this_run_vs_recorded_mean_abs_mm": 25.08561685681343,
+     "predicted_map_saved_vs_recorded_mean_abs_mm": 25.2249538898468
+    },
+    "errors_vs_table_mm": {
+     "this_sample": [
+      31.082039698958397,
+      62.96728551387787
+     ],
+     "table": [
+      30.655744843184948,
+      55.125498190522194
+     ]
+    }
+   }
+  },
+  "caveats": [
+   "One window and one sample (seed 0). The drawn hands are a new CPU sample of the same two checkpoints, not the sample behind the saved table or the page's split means; this sample's errors differ from the table's for the same window.",
+   "The drawn sample is not a typical sample of this window in its first frame, which is where the figure shows its effect. Over the 6 samples (later-noise seeds [0, 1, 2, 3, 4, 5]) the frame-0 error with the predicted contact is 172, 96, 86, 66, 108, 170 mm and the whole-window error 63, 54, 57, 54, 60, 62 mm; the drawn sample (seed 0) has rank 1 and 1 from the top. The cloud of green points beside the kettle's handle is the left hand (236 mm from the recorded left hand at frame 0); the left hand starts more than 200 mm away in 2 of the 6 samples (236, 97, 83, 110, 54, 226 mm). In the study's saved sample of this window the left hand is not displaced at frame 0 (39 mm with the recorded contact, 44 mm with the predicted one), the right hand is (23 against 109 mm), and the largest per-frame increase is at frame 4 (104 mm), not at frame 0. The seed was fixed in advance (0); neither the window nor the seed was chosen by looking at these samples.",
+   "The window is the median of the per-window error increase (24.5 mm in the table); the mean increase over the split is larger (35.6 mm) because the distribution has a long upper tail, so the page's split means describe a larger gap than this window shows.",
+   "Most of what the picture shows is in the first column. From frame 21 on, this sample's error increase averages 16.8 mm, which is a few pixels at this panel size: the two generated hands look alike there.",
+   "The first-frame difference of this sample (34 against 172 mm) is larger than in the study's saved sample of the same window (31 against 76 mm): the contact stage's sample differs. A larger increase at the start of a window is the pattern of the whole split (57.1 mm at frame 0 against 30.0 mm over frames 21-63).",
+   "The contact maps are distances from object vertices to each hand (up to tens of centimetres). The colour is exp(-distance / 2 cm), so it shows only the last few centimetres; the motion stage also reads the larger distances, which is why the hands differ at frame 0 where neither map shows much contact.",
+   "The recorded-contact condition is an oracle: its map comes from the recorded hand, so it tells the motion stage where the hand is even before it touches.",
+   "Generated hands are 100 surface points per hand (the motion stage's output); no hand mesh was fitted to them.",
+   "The painted map is a smoothed display of 512 entries per object; vertices without an entry within 3 cm are pale violet. Both hands are merged (the nearer one).",
+   "The grey hands in the two contact rows are the recorded hands in both rows; the predicted contact has no hand of its own.",
+   "The split is defined by held-out tool meshes (none of its 234 sequences has a tool mesh that is the tool of a training sequence). This window's triplet (empty, teapot, kettle) occurs in 0 training sequences, and its target mesh (kettle) is the target of 3 training sequences."
+  ],
+  "metadata": "docs/data/qual/motivation_two_contacts.json"
  },
- "assets/img/f1d_taco_pan_equivalent.png": {
-  "from": "reports/wrench_counterfactual/figures/figF_taco_equivalent_1190_8.png",
-  "edit": "title strip cropped; resized to 1400 px width; no pixel was redrawn",
-  "shows": "TACO persistent spatial event 1190_8 (pan, target role, left hand): contact vertices by hand part at the frame before and after the event in three views, and the capability profiles over the 76 shared directions"
+ "assets/img/qual_contact_map_primer.webp": {
+  "from": "rendered for this page by docs/build/qual/q_contact_map_primer.py (master: reports/project_page_qualitative/contact_map_primer/figure.png)",
+  "edit": "none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP",
+  "shows": "What a contact map is: one recorded TACO sequence, on the object and as 512 points",
+  "selection_rule": "Sequence: among the TACO test sequences of the hierarchical contact study (split_set == test in sequences_meta.csv), the one with the largest Euclidean distance between its last and its first recorded 512-value contact map; this is the sequence the page already shows (example 3011). Top-row frame: the frame of that sequence with the largest contact amount (sum of the 512 values).",
+  "examples": [
+   {
+    "dataset": "TACO",
+    "example": 3011,
+    "sequence_id": "(scrape off, knife, plate)/20231020_226",
+    "object": "knife (a cleaver), mesh 063, role tool",
+    "hand": "R",
+    "split": "test",
+    "first_take_frame": 0,
+    "frames_drawn": {
+     "top row": [
+      63
+     ],
+     "bottom row": [
+      0,
+      8,
+      16,
+      32,
+      48,
+      63
+     ]
+    }
+   }
+  ],
+  "display_choices": {
+   "canonical_to_surface": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0 (the study's operator transposed and normalised: a smoothing, not an inverse)",
+   "colour_scale": {
+    "function": "qlib.contact_rgb",
+    "range": [
+     0.0,
+     1.0
+    ],
+    "stops": {
+     "0": "#dcdbd5",
+     "0.5": "#eb6834",
+     "1.0": "#7a2408"
+    },
+    "why": "the soft contact exp(-d / 2 cm) lies in [0, 1], so the scale does not depend on the example",
+    "largest_value_drawn": {
+     "on the surface": 0.7805217504501343,
+     "on the points": 0.82421875
+    },
+    "not_reached": "2 of 4002 vertices are not reached by the 512 points and are drawn in #e7e1f1; pixels of the coloured panels with that tint: 0 (no legend entry is drawn for it)"
+   },
+   "camera": {
+    "direction_rule": "the opposite of qlib.hand_side_view(object, hand at frame 63, tilt=0.5): the knife's broad side, longest axis horizontal, from the side on which the fingers (not the back of the hand) face the viewer; chosen by looking at both broad sides",
+    "direction": [
+     -0.046516544229421156,
+     -0.4443897017002778,
+     -0.8946250634403724
+    ],
+    "up": [
+     0.09300104144459068,
+     0.8897779577564665,
+     -0.4468176274286336
+    ],
+    "margin": 0.08,
+    "lens": "perspective; the horizontal field of view is 25 degrees in both rows (the vertical view angle follows from the panel's proportions), so the knife has the same perspective in both rows",
+    "top row": {
+     "camera": {
+      "position": [
+       -0.04659685248281053,
+       -0.3715855936822107,
+       -0.769628209528407
+      ],
+      "focal_point": [
+       -0.005900824156842051,
+       0.017198573064310167,
+       0.013054329039522914
+      ],
+      "up": [
+       0.09300104144459068,
+       0.8897779577564665,
+       -0.4468176274286337
+      ],
+      "view_angle": 7.794829594690711,
+      "aspect": 3.2540983606557377
+     },
+     "panel_px": [
+      794,
+      244
+     ],
+     "fitted_on": "knife, hand at frame 63, the 512 points"
+    },
+    "bottom row": {
+     "camera": {
+      "position": [
+       -0.058300297864491354,
+       -0.39249907032474374,
+       -0.7398563824573307
+      ],
+      "focal_point": [
+       -0.018125677926728704,
+       -0.008696110199162237,
+       0.032798218306871595
+      ],
+      "up": [
+       0.09300104144459068,
+       0.8897779577564665,
+       -0.4468176274286337
+      ],
+      "view_angle": 12.713260446752098,
+      "aspect": 1.9900497512437811
+     },
+     "panel_px": [
+      400,
+      201
+     ],
+     "fitted_on": "knife and the hand at all six frames"
+    }
+   },
+   "hand": "MANO mesh of the recorded right hand, opaque, #e8d2c0; in the top-left panel it is drawn on the uncoloured knife",
+   "points": "spheres of radius 3.5 mm at canonical point * object radius + object centre (the inverse of the study's normalisation), in front of the knife drawn as a ghost (qlib.GHOST)",
+   "template_of_the_points": {
+    "mesh_id": "122",
+    "largest_gap_canonical_units": 3.0080041927880083e-08,
+    "extent_m": [
+     0.299,
+     0.068,
+     0.024
+    ]
+   },
+   "layout": "two qlib.grid blocks of equal width stacked by this script (qlib.grid needs equal panels)"
+  },
+  "inference": "none: recorded data only; no checkpoint was loaded and no model was run (the MANO hand mesh is computed on CPU from the recorded hand parameters)",
+  "caveats": [
+   "One sequence. It is the test sequence with the largest change between its first and last map, so it is the least typical one in that respect (its difference is 2.0 times the test median).",
+   "The top-row frame (63) is also the last frame of the bottom row, so the bottom row's last panel repeats it with the hand in place.",
+   "In frames 0, 8 and 16 the hand is beside the handle and not closed on it (nearest hand vertex 6.4 mm from the knife at frame 0); the faint colour there is proximity, not touch. The study starts a sequence at the first frame of 'firm contact', which it defines as 'n_hard>0 and mass>=zero_mass' (a vertex within 1 cm of the hand, amount at least 1.5) for 3 frames in a row; frame 0 meets it without a grasp.",
+   "The picture is coarse twice over: the value decays over 2 cm, and the 512-value map is spread back onto the mesh by the study's own operator, which smooths. It shows that the whole handle is in contact, not which finger touches where, and the colour reaches a little onto the blade next to the handle.",
+   "The 512 points come from the category's template knife (mesh 122, blade 0.068 m high against 0.093 m here) scaled to this knife, not from this knife: their outline is another knife's, and they lie up to 14.3 mm from this knife's nearest mesh vertex (median 2.9 mm).",
+   "Frames 0, 8 and 16 look almost alike: the hand hardly moves before it closes on the handle.",
+   "The opaque hand hides the part of the handle under the fingers in the bottom row; the top-middle panel shows that frame's map without the hand.",
+   "No model output is shown; TACO only."
+  ],
+  "metadata": "docs/data/qual/contact_map_primer.json"
+ },
+ "assets/img/qual_grasp_modes.webp": {
+  "from": "rendered for this page by docs/build/qual/q_grasp_modes.py (master: reports/project_page_qualitative/grasp_modes/figure.png)",
+  "edit": "none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP",
+  "shows": "What an initial grasp mode is: recorded and sampled first contact on one object",
+  "selection_rule": "The rule of figure 7 of the hierarchical report (scripts/research/hier_contact_gen/figures.py::fig7): the (group, mesh) with the most test sequences, its first 10 test sequences in the order of the prediction file, and the 10 saved samples of the first of them. All ten samples are shown in stored order; none is picked.",
+  "examples": [
+   {
+    "panel": "recorded 1",
+    "dataset": "ARCTIC",
+    "example": 1029,
+    "sequence_id": "scissors_grab_01/s01",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 47
+    },
+    "take": "A",
+    "take_label_in_dataset": "grab",
+    "subject": "s01",
+    "contact_episode_in_take": "1 of 4",
+    "opening_angle_deg": 80.9,
+    "nearest_hand_to_surface_mm": 7.4,
+    "blade_side_share": 0.0926,
+    "prediction_file_row": 140
+   },
+   {
+    "panel": "recorded 2",
+    "dataset": "ARCTIC",
+    "example": 1030,
+    "sequence_id": "scissors_grab_01/s01",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 255
+    },
+    "take": "A",
+    "take_label_in_dataset": "grab",
+    "subject": "s01",
+    "contact_episode_in_take": "2 of 4",
+    "opening_angle_deg": 80.7,
+    "nearest_hand_to_surface_mm": 9.5,
+    "blade_side_share": 0.0178,
+    "prediction_file_row": 141
+   },
+   {
+    "panel": "recorded 3",
+    "dataset": "ARCTIC",
+    "example": 1031,
+    "sequence_id": "scissors_grab_01/s01",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 448
+    },
+    "take": "A",
+    "take_label_in_dataset": "grab",
+    "subject": "s01",
+    "contact_episode_in_take": "3 of 4",
+    "opening_angle_deg": 80.9,
+    "nearest_hand_to_surface_mm": 7.1,
+    "blade_side_share": 0.039,
+    "prediction_file_row": 142
+   },
+   {
+    "panel": "recorded 4",
+    "dataset": "ARCTIC",
+    "example": 1032,
+    "sequence_id": "scissors_grab_01/s01",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 606
+    },
+    "take": "A",
+    "take_label_in_dataset": "grab",
+    "subject": "s01",
+    "contact_episode_in_take": "4 of 4",
+    "opening_angle_deg": 76.4,
+    "nearest_hand_to_surface_mm": 6.2,
+    "blade_side_share": 0.0384,
+    "prediction_file_row": 143
+   },
+   {
+    "panel": "recorded 5",
+    "dataset": "ARCTIC",
+    "example": 1112,
+    "sequence_id": "scissors_use_02/s09",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 160
+    },
+    "take": "B",
+    "take_label_in_dataset": "use",
+    "subject": "s09",
+    "contact_episode_in_take": "1 of 4",
+    "opening_angle_deg": 24.3,
+    "nearest_hand_to_surface_mm": 8.3,
+    "blade_side_share": 0.9006,
+    "prediction_file_row": 144
+   },
+   {
+    "panel": "recorded 6",
+    "dataset": "ARCTIC",
+    "example": 1113,
+    "sequence_id": "scissors_use_02/s09",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 267
+    },
+    "take": "B",
+    "take_label_in_dataset": "use",
+    "subject": "s09",
+    "contact_episode_in_take": "2 of 4",
+    "opening_angle_deg": 36.8,
+    "nearest_hand_to_surface_mm": 6.1,
+    "blade_side_share": 0.434,
+    "prediction_file_row": 145
+   },
+   {
+    "panel": "recorded 7",
+    "dataset": "ARCTIC",
+    "example": 1114,
+    "sequence_id": "scissors_use_02/s09",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 467
+    },
+    "take": "B",
+    "take_label_in_dataset": "use",
+    "subject": "s09",
+    "contact_episode_in_take": "3 of 4",
+    "opening_angle_deg": 36.2,
+    "nearest_hand_to_surface_mm": 9.4,
+    "blade_side_share": 0.7705,
+    "prediction_file_row": 146
+   },
+   {
+    "panel": "recorded 8",
+    "dataset": "ARCTIC",
+    "example": 1115,
+    "sequence_id": "scissors_use_02/s09",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 554
+    },
+    "take": "B",
+    "take_label_in_dataset": "use",
+    "subject": "s09",
+    "contact_episode_in_take": "4 of 4",
+    "opening_angle_deg": 51.0,
+    "nearest_hand_to_surface_mm": 9.6,
+    "blade_side_share": 0.713,
+    "prediction_file_row": 147
+   },
+   {
+    "panel": "recorded 9",
+    "dataset": "ARCTIC",
+    "example": 1116,
+    "sequence_id": "scissors_use_02/s10",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 124
+    },
+    "take": "C",
+    "take_label_in_dataset": "use",
+    "subject": "s10",
+    "contact_episode_in_take": "1 of 13",
+    "opening_angle_deg": 27.4,
+    "nearest_hand_to_surface_mm": 9.8,
+    "blade_side_share": 0.9009,
+    "prediction_file_row": 148
+   },
+   {
+    "panel": "recorded 10",
+    "dataset": "ARCTIC",
+    "example": 1117,
+    "sequence_id": "scissors_use_02/s10",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 182
+    },
+    "take": "C",
+    "take_label_in_dataset": "use",
+    "subject": "s10",
+    "contact_episode_in_take": "2 of 13",
+    "opening_angle_deg": 12.7,
+    "nearest_hand_to_surface_mm": 8.2,
+    "blade_side_share": 0.9599,
+    "prediction_file_row": 149
+   }
+  ],
+  "display_choices": {
+   "canonical_to_surface": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0 (qlib.Example.to_vertices); recorded and sampled maps both go through it",
+   "colour_scales": [
+    {
+     "name": "contact",
+     "range": [
+      0.0,
+      0.6
+     ],
+     "colours": "grey (0) through orange to dark red-brown (maximum)",
+     "rule": "one scale for all twenty panels; maximum = largest drawn value (0.530) rounded up to a multiple of 0.1",
+     "negative_values": "the sampled maps go down to -0.031; values below 0 are drawn as 0"
+    }
+   ],
+   "camera": {
+    "rule": "the camera looks along the hinge axis (the object is thin along it), from the side on which fewer recorded hand vertices lie, tilted by 25 degrees away from the mean hand position, so that the thin object is drawn in front of the hands; the closed object lies horizontally",
+    "evidence": {
+     "hand_vertices_on_plus_z_side": 2549,
+     "hand_vertices_on_minus_z_side": 5231,
+     "camera_side_of_the_object": "+z",
+     "up": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "tilt_deg": 25.0,
+     "direction_scene_to_camera": [
+      0.0,
+      -0.42261826174069944,
+      0.9063077870366499
+     ],
+     "principal_axes_off_frame_axes_deg": {
+      "thinnest_vs_hinge_z": 4.8,
+      "middle_vs_y": 5.2,
+      "longest_vs_x": 2.6
+     }
+    },
+    "fitted_on": "the ten posed meshes, the ten hands and the closed mesh; one camera for all twenty panels",
+    "camera": {
+     "position": [
+      0.031227572697287438,
+      -0.30021856205251224,
+      0.7384777753519277
+     ],
+     "focal_point": [
+      0.031227572697287438,
+      0.05954986721445583,
+      -0.03304811099193886
+     ],
+     "up": [
+      0.0,
+      0.9063077870366499,
+      0.42261826174069944
+     ],
+     "view_angle": 25.0,
+     "aspect": 1.0
+    },
+    "panel_px": [
+     440,
+     440
+    ],
+    "margin": 0.05,
+    "sampled_panels": "rows 175 to 347 of the same 440 px view (the rows outside are empty)"
+   },
+   "hand_style": "recorded MANO left hand (the hand whose contact the map records), opaque skin colour, smooth shading; the right hand is not drawn in any panel; no hand in the sampled panels",
+   "object_pose": {
+    "recorded": "top part turned by the recorded opening angle at the drawn frame",
+    "sampled": "closed rest pose, the pose in which the 512 canonical points are defined (the sampler has no opening-angle input)"
+   },
+   "panel_titles": "drawn by this script in the grid's font (qlib.grid has one label per column; the ten panels wrap into two rows)",
+   "blade_side_of_the_hinge": {
+    "hinge_axis": "z axis through the origin of the object frame",
+    "blade_side": "x > 0",
+    "blade_sign": 1.0,
+    "width_across_m": {
+     "x<0": 0.083,
+     "x>0": 0.0211
+    },
+    "canonical_points_on_blade_side": 119,
+    "canonical_points": 512,
+    "share": "sum of the map over the blade-side canonical points / sum over all 512 (values below 0 counted as 0)",
+    "split_at": 0.25,
+    "shares_nearest_to_the_split_among_the_twenty_maps": [
+     0.1054,
+     0.434
+    ]
+   }
+  },
+  "inference": {
+   "newly_computed": "none (data and saved predictions only; no checkpoint was loaded)",
+   "device": "CPU (rendering only)",
+   "seed": "none used here",
+   "read_from_saved_predictions": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz: S0_G[140] (ten samples), gt[rows, 0] (recorded first maps)",
+   "how_the_saved_samples_were_made": "by the study's scripts/research/hier_contact_gen/rollout_eval.py (file written 2026-09-29) with hier_contact_gen_ckpt/arctic/fixed0/sampler_G.pt, the diffusion sampler of the first map given the object descriptor and the hand flag; per that script's defaults: 100 DDIM steps, one generator per sample index k, seeded 100000 + k, for the whole test batch"
+  },
+  "caveats": [
+   "The two visibly different grasps coincide with different recordings: sequences 1 to 4 are contact episodes of one take (scissors_grab_01/s01), the others come from 2 other takes by other subjects (scissors_use_02/s09, scissors_use_02/s10). The figure does not show one subject choosing between two grasps.",
+   "The first ten sequences in file order are not a random draw of the group: they contain all 4 handle-side sequences of the 23 test sequences; the other 13 are all at the hinge and the blades (blade-side share 0.66 to 0.97). 4 of 10 recorded panels against 1 of 10 sampled panels is therefore not a comparison of how often each grasp occurs. Handle-side counts: 4 of 23 test sequences, 14 of 85 training sequences, 22 of the 230 saved samples of the group.",
+   "The sampler is given the object's shape and which hand only, so its input is identical for every test sequence of the group: the samples are draws from one distribution and belong to sequence 1 only in that they were stored in its row.",
+   "The sampled maps are drawn on the closed object, the recorded maps on the object as opened at that frame; a map does not contain the opening angle.",
+   "The 512-value map is defined on the closed scissors: a map point between the closed blades covers both, so contact on one blade is also coloured on the other, in the recorded map itself and in what is drawn from it. Sequence 8: the top part is 53.8 mm from the hand at its nearest point (recorded per-vertex contact at most 0.07) and is drawn up to 0.25 (largest value of the panel 0.26); 60 % of the vertices drawn at half the panel's largest value or more are over 30 mm from the hand; correlation of the drawn values with the recorded per-vertex contact 0.61. Sequence 9: the bottom part is 32.2 mm from the hand at its nearest point (recorded per-vertex contact at most 0.20) and is drawn up to 0.39 (largest value of the panel 0.39); 40 % of the vertices drawn at half the panel's largest value or more are over 30 mm from the hand; correlation of the drawn values with the recorded per-vertex contact 0.87. In the other 8 recorded panels that correlation is 0.95 to 0.98.",
+   "Only the left hand is drawn, the hand whose contact the map records. The right hand is on the object in sequences 4 to 10 (nearest distance 0.19 to 0.77 mm, 74 to 98 of its 778 vertices within 5 mm of the surface, 44 to 85 mm behind the hinge), so the object is held there and is not floating; in the other drawn sequences it is 27.4 mm, 22.9 mm and 7.1 mm from the surface (sequences 1 to 3). The right hand's own contact is not part of the drawn map.",
+   "'First contact' is the study's first frame of firm contact (an object vertex within 1 cm of the hand and enough total contact, for three frames), so the hand is still 6.1 to 9.8 mm from the surface and the values stay below 0.6.",
+   "In recorded panels 5 to 10 the camera is on the far side of the object from the hand, so the hand is seen behind it.",
+   "The blade-side share is a coarse summary (canonical points beyond the hinge axis); it does not separate the two handle rings.",
+   "No error or quality value of the sampler is shown; whether the samples cover the recorded grasps in the right proportions cannot be read from ten samples."
+  ],
+  "metadata": "docs/data/qual/grasp_modes.json"
+ },
+ "assets/img/qual_sample_then_evolve.webp": {
+  "from": "rendered for this page by docs/build/qual/q_sample_then_evolve.py (master: reports/project_page_qualitative/sample_then_evolve/figure.png)",
+  "edit": "none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP",
+  "shows": "Sample a first contact map, then evolve it: one sequence on the real object",
+  "selection_rule": "The same documented sequence as the dot strip this figure replaces: among all test sequences of the TACO fixed split, the one with the largest L2 distance between its first and its last recorded contact map, a case where the evolution has the most to do. The script recomputes the ranking and stops unless it gives that sequence.",
+  "examples": [
+   {
+    "dataset": "TACO",
+    "example": 3011,
+    "sequence_id": "(scrape off, knife, plate)/20231020_226",
+    "object": "knife (mesh 063, the tool of the take)",
+    "hand": "right",
+    "frames": [
+     0,
+     8,
+     16,
+     32,
+     48,
+     63
+    ],
+    "take_frames": [
+     0,
+     8,
+     16,
+     32,
+     48,
+     63
+    ],
+    "split": "test"
+   }
+  ],
+  "display_choices": {
+   "canonical_to_surface": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0. Applied to every row, the recording included (the recorded row is the study's 512-point map, not the per-vertex recording), so rows are comparable. 2 of 4002 knife vertices are not reached by the map and would be drawn in pale violet (#e7e1f1); the legend swatch is left out below a share of 0.005.",
+   "colour_scale": {
+    "function": "qlib.contact_rgb",
+    "range": [
+     0.0,
+     0.8
+    ],
+    "stops": {
+     "0": "#dcdbd5",
+     "0.4": "#eb6834",
+     "0.8": "#7a2408"
+    },
+    "rule": "upper end = largest drawn surface value (0.7805) rounded up to 0.1; one scale for all 24 panels",
+    "drawn_value_range": [
+     -0.0246734619140625,
+     0.780521810054779
+    ],
+    "clipping": "model outputs below 0 (lowest drawn value -0.0247) are drawn as 0; nothing exceeds the upper end"
+   },
+   "camera": {
+    "rule": "far_side_view (this script): onto the knife's broad side from the side away from the recorded hand at the last drawn frame, raised by 0.5 towards the knife's middle axis on the hand's side, longest axis horizontal; fitted once on the knife and the recorded hand at all six frames and reused for every panel",
+    "why": "from the hand's own side (qlib.hand_side_view) the ghost of the closed hand lies over the handle and dims the recorded contact exactly where the rows are compared; from the far side the handle is in front of the hand",
+    "sides_decided_by": {
+     "hand_centre_along_thin_axis_mm": 4.44635118056642,
+     "hand_centre_along_middle_axis_mm": 6.480202482150466
+    },
+    "margin": 0.04,
+    "panel_px": [
+     480,
+     320
+    ],
+    "position": [
+     0.0055644897264287806,
+     0.23880980366866497,
+     -0.48778658854434587
+    ],
+    "focal_point": [
+     -0.02109402141227094,
+     -0.01646729574664227,
+     0.02497642735670436
+    ],
+    "up": [
+     0.09301386025029136,
+     0.8893785360141022,
+     0.4476094742951178
+    ],
+    "view_angle": 25.0,
+    "aspect": 1.5
+   },
+   "hand": "recorded MANO hand, top row only, as a ghost (#cfcec8 at 35% opacity, front faces only), mostly behind the knife in this view; the other rows have no hand because the models output contact maps, not hands",
+   "frame": "the knife's own rigid frame, metres: the knife stands still and the hand moves"
+  },
+  "inference": {
+   "newly_computed": "nothing; no model was run and no checkpoint was loaded",
+   "checkpoints_loaded": [],
+   "device": "CPU (rendering only)",
+   "seed": "none in this script",
+   "read_from_saved_predictions": {
+    "file": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "arrays": [
+     "example",
+     "gt",
+     "S0_G",
+     "gtinit_vf",
+     "samplerG_vf__K10",
+     "static_gt"
+    ],
+    "row": 302,
+    "produced_by": "the study's evaluation, scripts/research/hier_contact_gen/rollout_eval.py --split fixed --fold 0 --vf-tag _unroll8 (log: reports/hier_logs/taco/eval.log), with hier_contact_gen_ckpt/taco/fixed0/sampler_G.pt and vf_unroll8.pt; sample k of the first-map sampler was drawn with generator seed 100000 + k (here k = 5)"
+   }
+  },
+  "caveats": [
+   "One sequence, and by construction not a typical one: it has the largest first-to-last difference of the 364 test sequences (8.73 against a test median of 4.37). Its gain from evolving over holding (3.57) is rank 48 of 364, and its evolved error (0.96) is below the test mean (1.82), so the evolution looks better here than it does on average.",
+   "'Best of ten' is chosen with the ground truth (the sample whose evolved sequence has the lowest error), so the third row is an oracle pick, not what one draw gives: evolving sample 0 of the same ten gives 2.41 for this sequence. The other nine samples are not drawn.",
+   "The contact value is a soft proximity, exp(-distance / 2 cm), so it is above zero before the hand touches: in the first two drawn frames the recorded hand is about 6 mm from the knife and the map already shows contact at the blade corner.",
+   "The 512-point maps are smoothed onto the mesh vertices for display, and model outputs below zero (down to -0.025) are drawn as zero. The errors in the row labels are computed on the 512 points over all 64 frames, not on the six drawn surfaces.",
+   "The models output contact maps only. The hand is the recorded one and appears only in the top row. It is drawn as a pale ghost, mostly behind the knife; where its fingers reach around the handle towards the viewer the colours beneath look slightly lighter than the same value in the rows without a hand.",
+   "The knife is drawn in its own frame, so the object motion that conditions the evolution is not visible.",
+   "TACO only; the figure says nothing about ARCTIC or OakInk2."
+  ],
+  "metadata": "docs/data/qual/sample_then_evolve.json"
+ },
+ "assets/img/qual_change_events.webp": {
+  "from": "rendered for this page by docs/build/qual/q_change_events.py (master: reports/project_page_qualitative/change_events/figure.png)",
+  "edit": "none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP",
+  "shows": "What an amount-dominant, a spatial-dominant and a mixed contact change look like (one TACO sequence)",
+  "selection_rule": "No new choice of sequence: it is the documented TACO example of the page's timeline chart (TIMELINE_EXAMPLES in docs/build/figs/f1c_temporal_events.py). The rows are three of the 5 events of that sequence the chart's caption names (7 spike events in the sequence), fixed by their transitions: the only amount-dominant one (7-8), the spatial-dominant one that is the report's representative event (3023_4, 34-35) and the one the caption calls the large mixed event (39-42); the caption's mixed event at 26–28 and spatial event at 19–20 are not drawn. Before = the frame at which the event's first transition starts, after = the frame at which its last transition ends (frames 7 and 9, 34 and 36, 39 and 43).",
+  "examples": [
+   {
+    "dataset": "TACO",
+    "example": 3023,
+    "sequence_id": "(cut, knife, plate)/20231013_083",
+    "object": "knife (mesh 073, role tool)",
+    "hand": "right",
+    "split": "test",
+    "row_in_saved_predictions": 308,
+    "frames_drawn": [
+     7,
+     9,
+     34,
+     36,
+     39,
+     43
+    ],
+    "t0": 0,
+    "events": [
+     {
+      "event_id": "3023_0",
+      "class": "amount",
+      "transitions": [
+       7,
+       8
+      ],
+      "before_frame": 7,
+      "after_frame": 9,
+      "take_frames": [
+       7,
+       9
+      ]
+     },
+     {
+      "event_id": "3023_4",
+      "class": "spatial",
+      "transitions": [
+       34,
+       35
+      ],
+      "before_frame": 34,
+      "after_frame": 36,
+      "take_frames": [
+       34,
+       36
+      ]
+     },
+     {
+      "event_id": "3023_5",
+      "class": "mixed",
+      "transitions": [
+       39,
+       42
+      ],
+      "before_frame": 39,
+      "after_frame": 43,
+      "take_frames": [
+       39,
+       43
+      ]
+     }
+    ]
+   }
+  ],
+  "display_choices": {
+   "canonical_to_surface": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0 (qlib.Example.to_vertices); used for the recorded maps, their difference and the model's map",
+   "contact_scale": {
+    "range": [
+     0.0,
+     0.85
+    ],
+    "colours": "grey (0) through orange (half) to dark red-brown (maximum)",
+    "rule": "largest value drawn in the nine contact panels, rounded up to 0.05; one scale for all rows"
+   },
+   "change_scale": {
+    "range": [
+     -0.3,
+     0.3
+    ],
+    "colours": "blue (less), grey (no change), orange (more)",
+    "rule": "largest absolute change drawn in the three change panels, rounded up to 0.05; one scale for all rows"
+   },
+   "camera": {
+    "rule": "one camera for all twelve panels: qlib.hand_side_view(object, the six drawn hands, tilt 0), i.e. the knife's broad side seen from the side the hand is on, long axis horizontal; fitted to the object and the six drawn hands with a 5 % margin",
+    "direction": [
+     -0.0014926289801363178,
+     -0.01674203934439166,
+     0.9998587281097857
+    ],
+    "up": [
+     -0.0008736738314802301,
+     -0.9998594384916426,
+     -0.016743355494447717
+    ],
+    "camera": {
+     "position": [
+      -0.040066492271842745,
+      -0.05114909882918363,
+      0.4071095961529271
+     ],
+     "focal_point": [
+      -0.03948527556633764,
+      -0.044629894739835474,
+      0.017773328630220096
+     ],
+     "up": [
+      -0.0008736738314802301,
+      -0.9998594384916426,
+      -0.016743355494447717
+     ],
+     "view_angle": 25.0,
+     "aspect": 1.8604651162790697
+    }
+   },
+   "hand": "recorded MANO mesh of the contacting (right) hand, skin colour, opacity 0.6; drawn in the before and after columns only",
+   "panel_pixels": [
+    800,
+    430
+   ]
+  },
+  "inference": {
+   "summary": "none",
+   "checkpoints_loaded": [],
+   "device": "cpu",
+   "seed": null,
+   "read_from_saved_predictions": "taco/50_hier_contact_gen/eval/fixed0/preds.npz :: gtinit_vf[308], the study's saved rollout from the true first map (made by its evaluation with hier_contact_gen_ckpt/taco/fixed0/vf_unroll8.pt, which is not loaded here)",
+   "newly_computed": "only the MANO hand meshes, from the recorded TACO hand poses (a forward pass of the hand model on CPU; no learned model of this project is run)"
+  },
+  "caveats": [
+   "One sequence, three events: an illustration, not a statistic. The three are not all of the sequence's events: it has 7 spike events and the page's timeline caption names 5 of them; the named ones that are not drawn are the mixed event at 26–28 and the spatial event at 19–20.",
+   "The maps are 512-point canonical maps drawn back on the mesh by a smoothing rule, so the handle is coloured as a whole; the figure shows where and how much contact there is, not finger outlines.",
+   "'Contact' is the soft value exp(-distance / 2 cm). In the amount-dominant row the hand does not touch the knife: the event happens before the grasp and the event table marks it as not in firm contact, whereas 94% of the amount-dominant test events start in firm contact. This row is not typical of its class in that respect.",
+   "The mixed event is one of the largest of its class (its largest transition change is at or above that of 99% of the mixed test events) and the event table flags it as partly short-lived. The spatial-dominant event is the report's median-sized representative; 2 events are equally near that median (2755_2, 3023_4) and the report's code returns this one.",
+   "Amount and spatial are two parts of the map change, not two kinds of hand motion. The amount-dominant event also has a spatial part; the classes are set by the share amount / (amount + spatial).",
+   "The last column is a state, while the errors in the row labels are about changes: the model's map at the after frame also carries what the model drifted since the first frame, and the column cannot show whether the model followed the change. Over each event's frames the model's own map changes much less than the recorded one (see numbers).",
+   "In the amount-dominant row the labels and the picture point opposite ways, and both are right: the model's error of the change (0.59) is below that of holding (0.73), yet its map at frame 9 is further from the recorded map (2.26) than the before map held still (1.45); its total is 73.8 against the recorded 36.0. In the spatial-dominant row the state distances are 2.10 (model) and 1.57 (before map held still), in the mixed row 1.41 and 2.96.",
+   "Before and after are two to four frames apart, so the hand moves little between the first two columns; the change column carries the message.",
+   "One camera has to hold the knife and the hand of all six frames, so the knife is small in its panel; the two object-only columns keep that camera so that all twelve panels stay comparable."
+  ],
+  "metadata": "docs/data/qual/change_events.json"
+ },
+ "assets/img/qual_reconfiguration_with_hand.webp": {
+  "from": "rendered for this page by docs/build/qual/q_reconfiguration_with_hand.py (master: reports/project_page_qualitative/reconfiguration_with_hand/figure.png)",
+  "edit": "none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP",
+  "shows": "The hand on the object before and after an event that moves the contact, with the modelled capability",
+  "selection_rule": "Typical event: among the persistent spatial events of the test split (the study's class: firm contact before, after and throughout the event), the one whose retention is the median of the class. With an even count no event sits at the median: the two middle events are equally far from it and the one with the smaller event id is taken. Event ids are compared as numbers, the example number first and then the number of the event within the example (910_4 before 1286_3), not as text. Event in which a part joins: among the events of the same class in which the set of touching hand parts gains a part, the one whose relative capability change is the median, with the same rule for an even count. Both are computed per dataset by this script from events.csv.",
+  "examples": [
+   {
+    "dataset": "taco",
+    "kind": "typical",
+    "event_id": "3069_1",
+    "example": 3069,
+    "sequence_id": "(cut, knife, plate)/20231013_109",
+    "object": "knife",
+    "mesh_id": "120",
+    "hand": "right",
+    "split": "test",
+    "frames_drawn": {
+     "before": 12,
+     "after": 13
+    },
+    "take_frames_drawn": {
+     "before": 27,
+     "after": 28
+    }
+   },
+   {
+    "dataset": "taco",
+    "kind": "part_joins",
+    "event_id": "811_0",
+    "example": 811,
+    "sequence_id": "(cut, knife, plate)/20231013_059",
+    "object": "plate",
+    "mesh_id": "165",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "before": 3,
+     "after": 9
+    },
+    "take_frames_drawn": {
+     "before": 31,
+     "after": 37
+    }
+   },
+   {
+    "dataset": "arctic",
+    "kind": "typical",
+    "event_id": "910_4",
+    "example": 910,
+    "sequence_id": "notebook_use_04/s09",
+    "object": "notebook",
+    "mesh_id": "notebook",
+    "hand": "right",
+    "split": "test",
+    "frames_drawn": {
+     "before": 52,
+     "after": 55
+    },
+    "take_frames_drawn": {
+     "before": 89,
+     "after": 92
+    }
+   },
+   {
+    "dataset": "arctic",
+    "kind": "part_joins",
+    "event_id": "995_0",
+    "example": 995,
+    "sequence_id": "phone_grab_01/s10",
+    "object": "phone",
+    "mesh_id": "phone",
+    "hand": "right",
+    "split": "test",
+    "frames_drawn": {
+     "before": 56,
+     "after": 57
+    },
+    "take_frames_drawn": {
+     "before": 85,
+     "after": 86
+    }
+   }
+  ],
+  "display_choices": {
+   "canonical_to_surface_rule": "not used, no canonical map is drawn. Contact is the study's own per-vertex rule: an object vertex within 1 cm of the recorded hand mesh, coloured by the hand part of the nearest hand vertex (labels read from the event file)",
+   "colour_scales": {
+    "hand parts": {
+     "palm": "#6b6a63",
+     "thumb": "#2a78d6",
+     "index": "#eb6834",
+     "middle": "#1baf7a",
+     "ring": "#eda100",
+     "little": "#8e5bd0"
+    },
+    "no contact": "#dcdbd5",
+    "range": "categorical, no numeric range",
+    "note": "colours are interpolated between mesh vertices, so the outline of a patch follows the mesh triangles"
+   },
+   "hand_style": "recorded MANO mesh at opacity 0.5; each vertex is 25% the colour of its part and 75% skin #e8d2c0",
+   "camera": {
+    "rule": "One camera per event, the same for both frames, out of 400 directions spread evenly over the sphere. The score of a direction over a set of contact vertices is the sum, over those of them that face the camera, of the cosine between the direction and the surface normal (pointing to the hand); a vertex whose line of sight passes a hand vertex within 7 mm is seen through the hand and counts 0.5. Rows of typical events (rule 'all contact'): the direction with the highest score over all contact vertices of both frames. Rows of events in which a part joins (rule 'the part that joins first'): the direction with the highest score over the contact vertices of the joining part alone, the all-contact score breaking ties, because the all-contact direction can leave the joining part on the far side of the object. Up: the object's longest axis horizontal, the hand in the upper half. Fitted to the two hands and the contact vertices (margin 0.1), so a larger object runs out of the panel.",
+    "per_event": {
+     "taco_typical": {
+      "rule": "all contact",
+      "candidate": 152,
+      "direction": [
+       0.0011186589589013177,
+       -0.971386894394882,
+       0.23750000000000004
+      ],
+      "up": [
+       0.00011067805668041612,
+       0.2375002674175225,
+       0.9713874668364694
+      ],
+      "position": [
+       -0.11009352316852365,
+       -0.29938126673118565,
+       0.0920752628436559
+      ],
+      "focal_point": [
+       -0.11046343974514349,
+       0.02183559001382981,
+       0.01353909572307227
+      ],
+      "view_angle": 25.0,
+      "n_candidates": 400,
+      "score": 267.1191884841045,
+      "score_per_contact_vertex": 0.25709257794427764,
+      "best_all_contact_candidate": 152,
+      "best_all_contact_score": 267.1191884841045,
+      "share_of_best_all_contact_score": 1.0,
+      "added_parts": [
+       "palm"
+      ],
+      "added_part_score": 8.683396738878965,
+      "added_part_score_per_vertex": 0.18475312210380776,
+      "best_added_part_score": 20.26288072489396,
+      "added_part_score_at_best_all_contact_candidate": 8.683396738878965
+     },
+     "taco_part_joins": {
+      "rule": "the part that joins first",
+      "candidate": 0,
+      "direction": [
+       0.02560775434410799,
+       -0.06586344143340618,
+       0.9975
+      ],
+      "up": [
+       -0.0387179927583888,
+       0.9970131900566807,
+       0.06682526385853176
+      ],
+      "position": [
+       0.0022663037564660555,
+       -0.13795125684147608,
+       0.5276527008274029
+      ],
+      "focal_point": [
+       -0.009923057962684296,
+       -0.10660007700306968,
+       0.05283994874201446
+      ],
+      "view_angle": 25.0,
+      "n_candidates": 400,
+      "score": 73.74130380903837,
+      "score_per_contact_vertex": 0.42625031103490385,
+      "best_all_contact_candidate": 0,
+      "best_all_contact_score": 73.74130380903837,
+      "share_of_best_all_contact_score": 1.0,
+      "added_parts": [
+       "index"
+      ],
+      "added_part_score": 1.9948073079898263,
+      "added_part_score_per_vertex": 0.4987018269974566,
+      "best_added_part_score": 1.9948073079898263,
+      "added_part_score_at_best_all_contact_candidate": 1.9948073079898263
+     },
+     "arctic_typical": {
+      "rule": "all contact",
+      "candidate": 165,
+      "direction": [
+       0.2126084294092168,
+       -0.9617907286640612,
+       0.1725
+      ],
+      "up": [
+       0.9759066042009897,
+       0.21786373507906323,
+       0.01190347908354558
+      ],
+      "position": [
+       -0.01777963695238262,
+       -0.4726719404211302,
+       -0.05362339277284531
+      ],
+      "focal_point": [
+       -0.11093072176658356,
+       -0.05127825444052064,
+       -0.12920159150701588
+      ],
+      "view_angle": 25.0,
+      "n_candidates": 400,
+      "score": 128.6498191324522,
+      "score_per_contact_vertex": 0.31301659156314404,
+      "best_all_contact_candidate": 165,
+      "best_all_contact_score": 128.6498191324522,
+      "share_of_best_all_contact_score": 1.0,
+      "added_parts": [],
+      "added_part_score": null,
+      "added_part_score_per_vertex": null,
+      "best_added_part_score": null,
+      "added_part_score_at_best_all_contact_candidate": null
+     },
+     "arctic_part_joins": {
+      "rule": "the part that joins first",
+      "candidate": 305,
+      "direction": [
+       -0.3096803111601991,
+       0.7911016716451319,
+       -0.5275000000000001
+      ],
+      "up": [
+       0.02115541757211425,
+       0.5603674665456867,
+       0.8279738828879316
+      ],
+      "position": [
+       0.0009629038152088876,
+       0.31083824179893826,
+       -0.17658127137048174
+      ],
+      "focal_point": [
+       0.12657841893871136,
+       -0.01005604956387359,
+       0.03738836712348702
+      ],
+      "view_angle": 25.0,
+      "n_candidates": 400,
+      "score": 14.55668040205194,
+      "score_per_contact_vertex": 0.10703441472097015,
+      "best_all_contact_candidate": 160,
+      "best_all_contact_score": 46.96321548144746,
+      "share_of_best_all_contact_score": 0.30995919365449903,
+      "added_parts": [
+       "thumb"
+      ],
+      "added_part_score": 11.14036396490605,
+      "added_part_score_per_vertex": 0.39787014160378753,
+      "best_added_part_score": 11.14036396490605,
+      "added_part_score_at_best_all_contact_candidate": 0.508118034076279
+     }
+    }
+   },
+   "visibility": {
+    "rule": "What a viewer can see of every part's contact patch is counted in pixels of flat renders (no lighting, no anti-aliasing) from the row's camera at the panel's size. A pixel belongs to a part's patch where the part's indicator (1 on its contact vertices, 0 elsewhere, interpolated like the colours) is above 0.5. patch_alone: the patch drawn with nothing else; on_object: the patch on the whole object with the hand removed; clear_of_hand: of those, the pixels the hand is not in front of. With both frames summed, a part is 'far_side' when on_object is under 0.5 of patch_alone ('not_visible' when it is 0) and 'under_hand' when it is not far_side and clear_of_hand is under 0.5 of on_object.",
+    "counts": "events.<row>.contact_pixels and events.<row>.contact_visibility; the maps are in panels.npz (<row>_<before|after>/patch_on_object, patch_clear_of_hand, patch_alone_bits)",
+    "place_of_an_added_patch": "in the caption, 'at the left (right) end of the object' is computed: the patch lies left (right) of the patches of all other parts in the picture and reaches within 5% of the object's length of the end of the object on that side"
+   },
+   "plots": {
+    "x": "the 76 directions of the study, sorted by the capability before the event, largest first",
+    "y": "capability h(u) from 0 to 8 in the study's normalised unit (force, and torque divided by the object's length); the same range in all four plots",
+    "before": "#9a9890",
+    "after": "#1f1e1b"
+   },
+   "panel_px": [
+    592,
+    444
+   ],
+   "panel_outline": "2 px in #c3c2b7 around the rendered panels"
+  },
+  "inference": "none: recorded data and the saved analysis outputs of the study only; no checkpoint loaded, no device, no seed",
+  "caveats": [
+   "Four single events, one per row. They show what such an event looks like, not how the class is spread; the class statistics are in the charts of the same page block.",
+   "TACO event 3069_1 (knife) is the event at the median retention of its class (0.846; rank 60 of 119), so it is typical in retention only. It is itself an event in which the set of touching parts changes (palm), with a capability change of +18%, so the two TACO rows differ in degree, not in kind. In 52% of the 119 events of the class the set of touching parts is the same before and after.",
+   "TACO event 3069_1 (knife): seen from the row's camera, the object hides all of the contact of the thumb (pixels of the patch visible on the object, of the pixels the patch covers when drawn alone, both frames summed: thumb: 0 of 11148). One view cannot show both sides of the object.",
+   "TACO event 3069_1 (knife): the contact of the index, middle and ring is seen mostly through the see-through hand, at reduced strength (visible patch pixels that the hand is not in front of, both frames summed: index: 3546 of 10583; middle: 1051 of 8896; ring: 1604 of 7192).",
+   "TACO event 811_0 (plate) is the event at the median capability change (+0.257; rank 23 of 45) among the events of its class in which a part is added. Contact vertices of the added part after the event: index 4; all contact vertices: 138 before, 35 after. The capability model counts touching parts and where their patches are, not the contact area.",
+   "TACO event 811_0 (plate): the contact of the index, middle, ring and little is seen mostly through the see-through hand, at reduced strength (visible patch pixels that the hand is not in front of, both frames summed: index: 0 of 781; middle: 0 of 1534; ring: 0 of 4687; little: 0 of 2836).",
+   "ARCTIC event 910_4 (notebook) stands for the median retention of its class, but the class has an even number of events (26), so no event sits at the median: ranks 13 and 14 (910_4 at 0.8820, 1286_3 at 0.8988) are equally far from the median of 0.8904; the smaller event id is taken, ids compared as numbers (example number, then event number), so 910_4 comes first. Its retention is 0.882 (rank 13); it is typical in retention only. In 58% of the 26 events of the class the set of touching parts is the same before and after.",
+   "ARCTIC event 910_4 (notebook): seen from the row's camera, the object hides more than half of the contact of the thumb (pixels of the patch visible on the object, of the pixels the patch covers when drawn alone, both frames summed: thumb: 1208 of 6118). One view cannot show both sides of the object.",
+   "ARCTIC event 910_4 (notebook): the contact of the palm, middle and ring is seen mostly through the see-through hand, at reduced strength (visible patch pixels that the hand is not in front of, both frames summed: palm: 0 of 2772; middle: 3499 of 7940; ring: 3360 of 7578).",
+   "ARCTIC event 910_4 (notebook) is also one of the example events of the study's own report, chosen there by a different rule; here it is the event the stated rule returns.",
+   "ARCTIC event 995_0 (phone) is the event at the median capability change (+0.340; rank 4 of 7) among the events of its class in which a part is added. Contact vertices of the added part after the event: thumb 28; all contact vertices: 57 before, 79 after. The capability model counts touching parts and where their patches are, not the contact area.",
+   "ARCTIC event 995_0 (phone): the camera is the direction that sees the most contact of the part that joins (thumb); it reaches 31% of the score of the direction that sees the most contact overall, so the other patches are shown less well than they could be.",
+   "ARCTIC event 995_0 (phone): seen from the row's camera, the object hides all of the contact of the middle and more than half of the contact of the index (pixels of the patch visible on the object, of the pixels the patch covers when drawn alone, both frames summed: index: 751 of 1527; middle: 0 of 6818). One view cannot show both sides of the object.",
+   "Only the frame before and the frame after each event are drawn (frames apart: 3069_1: 1, 811_0: 6, 910_4: 3, 995_0: 1); the motion in between is not shown.",
+   "Contact is proximity (an object vertex within 1 cm of the recorded hand mesh), not measured force. The capability is a model output (linearised friction cones, friction coefficient 0.5, one unit of normal force per touching hand part, single hand): every touching part adds a term that is never negative, so a part that starts touching can only add to it. The total can still fall where the other parts' contact moves: it is lower after the event in 13%, 21%, 22%, 20% of the 76 directions of the four events (rows top to bottom).",
+   "What can be seen is counted in pixels of flat renders from the row's camera (visible_pixels in the script; maps in panels.npz). A patch that wraps around the object covers the same pixels with its near and its far side, so the counts say what the picture shows, not which share of the contact area faces the camera.",
+   "TACO event 3069_1 (knife): the palm's patch (47 contact vertices, 483 visible pixels in the frame after) is dark grey on a grey object and can be taken for shading; the caption says where it is.",
+   "The renders are close-ups fitted to the hand and the contact region; a larger object runs out of the panel (the grey outline is the panel edge). Colours are interpolated between mesh vertices, so the outline of a patch follows the mesh triangles. The see-through hand is skin colour mixed with 25% of the colour of each part, so the strong colours are on the object only."
+  ],
+  "metadata": "docs/data/qual/reconfiguration_with_hand.json"
+ },
+ "assets/img/qual_structure_on_a_grasp.webp": {
+  "from": "rendered for this page by docs/build/qual/q_structure_on_a_grasp.py (master: reports/project_page_qualitative/structure_on_a_grasp/figure.png)",
+  "edit": "none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP",
+  "shows": "What the 48 numbers are on a real grasp",
+  "selection_rule": "TACO: the sequence already shown on the page (example 3011), at its frame of largest contact amount (sum of the six per-part amounts of the feature cache; first such frame). ARCTIC: every test sequence is taken at its frame of largest contact amount (sum of the six per-part amounts; first such frame) and the number of touching parts there is counted; the sequence with the median count is drawn (lower middle value if the two middle values differ; smallest example index among the ties).",
+  "examples": [
+   {
+    "dataset": "TACO",
+    "example": 3011,
+    "sequence_id": "(scrape off, knife, plate)/20231020_226",
+    "object": "knife",
+    "mesh_id": "063",
+    "hand": "right",
+    "role": "tool",
+    "split": "test",
+    "frames_drawn": [
+     63
+    ],
+    "take_frames_drawn": [
+     63
+    ],
+    "strip_frames": [
+     0,
+     63
+    ],
+    "touching_parts_at_the_drawn_frame": [
+     "palm",
+     "thumb",
+     "index",
+     "middle",
+     "ring",
+     "little"
+    ]
+   },
+   {
+    "dataset": "ARCTIC",
+    "example": 36,
+    "sequence_id": "box_use_02/s10",
+    "object": "box",
+    "mesh_id": "box",
+    "hand": "left",
+    "role": "obj",
+    "split": "test",
+    "frames_drawn": [
+     17
+    ],
+    "take_frames_drawn": [
+     75
+    ],
+    "strip_frames": [
+     0,
+     63
+    ],
+    "touching_parts_at_the_drawn_frame": [
+     "thumb",
+     "index",
+     "middle",
+     "ring"
+    ]
+   }
+  ],
+  "display_choices": {
+   "canonical_to_surface_rule": "not used: no 512-point map is drawn. Panel 2 is coloured per mesh vertex from the recorded hand-to-vertex distances (qlib Example.dense, inverted to metres).",
+   "contact_by_part": "part of the hand vertex nearest to the object vertex (the study's rule); full part colour below 1 cm, 0.45 of the part colour mixed into the neutral grey between 1 and 2 cm, neutral grey above",
+   "colour_scales": {
+    "hand parts": {
+     "palm": "#6b6a63",
+     "thumb": "#2a78d6",
+     "index": "#eb6834",
+     "middle": "#1baf7a",
+     "ring": "#eda100",
+     "little": "#8e5bd0"
+    },
+    "no contact": "#dcdbd5",
+    "numeric_range": "categorical; the two tint levels are distance bands (0 to 1 cm, 1 to 2 cm), there is no continuous scale",
+    "strip": {
+     "touching": "part colour",
+     "not touching": "#eceae4"
+    }
+   },
+   "discs": "centre = cached centroid * length + mesh centroid; normal = cached normal; disc area = a quarter of the part's distance-weighted contact area (0.25 x amount x that object's surface area; radius = sqrt of that over pi), 2 mm thick. The amount is a share of the object's surface, so for the same amount the disc is 13.4 times larger on the box than on the knife (disc area per unit amount: TACO 106.5 cm^2, ARCTIC 1425.2 cm^2); disc areas compare amounts within one row only. Opacity 0.5 (front faces only), so that a disc or an arrow behind a disc stays visible; arrows are opaque",
+   "arrows": "from the disc centre along the cached unit normal (pointing from the surface to the hand), 3.5 cm long",
+   "object_in_panel_3": "ghost (#cfcec8, opacity 0.35), because a centroid of touching vertices can lie inside the object",
+   "hand_style": "panel 1 only: recorded MANO mesh, each vertex 0.55 part colour + 0.45 hand colour #e8d2c0; no hand in panels 2 and 3",
+   "camera": {
+    "rule": "(direction, up) for qlib.fit_camera, computed from the frame's own numbers. direction: of 4000 directions spread evenly over the sphere, leaving out those that look at the hand from behind the wrist (into the open end of the hand mesh), the one that maximises sum_k max(c_k, 0) sqrt(1 - c_k^2), c_k = cosine between the direction and the contact normal of touching part k. A disc seen at 45 degrees shows both its face and its arrow. up: the direction in which the framed points (hand, nearby object surface, discs, arrows) extend most, as seen from that direction, runs horizontally, with the wrist on the left.",
+    "framing": "perspective, 25 degrees; fitted to the hand, the object vertices within 6 cm of the hand and all discs and arrows (margin 0.06); the rest of the object may leave the picture",
+    "per_row": {
+     "TACO": {
+      "direction": [
+       -0.5608296191633496,
+       -0.8022141707605844,
+       -0.20475000000000002
+      ],
+      "up": [
+       -0.023327426934346307,
+       -0.23189410436070937,
+       0.9724612874121865
+      ],
+      "score": 1.5714450503573256,
+      "best_score_of_any_direction": 1.5714450503573256,
+      "largest_smallest_cosine_of_any_allowed_direction": -0.3070237039478616,
+      "angle_to_broad_side_deg": 11.794364702950322,
+      "thinnest_to_middle_extent": 0.1435408647115089,
+      "cosine_to_contact_normals": {
+       "palm": 0.24522562648349228,
+       "thumb": 0.4560335620174037,
+       "index": -0.9237504061613612,
+       "middle": 0.6873762685430866,
+       "ring": 0.49247133095277074,
+       "little": -0.5591031897381427
+      },
+      "cosine_to_wrist_axis": -0.04086198025842208,
+      "position": [
+       -0.27077577467219505,
+       -0.23849513445362047,
+       -0.056879916039108594
+      ],
+      "focal_point": [
+       -0.08393759591702729,
+       0.02875935695518445,
+       0.011331740037811722
+      ],
+      "view_angle": 25.0,
+      "object_vertices_in_frame": 0.670664667666167,
+      "hand_vertices_in_frame": 1.0,
+      "if_no_arrowhead_might_lie_behind_a_disc": {
+       "allowed_directions": 2003,
+       "of_them_with_no_arrowhead_behind_a_disc": 684,
+       "direction": [
+        -0.2511138130297726,
+        -0.8509937076181282,
+        -0.46124999999999994
+       ],
+       "score": 1.252228244042553,
+       "cosine_to_contact_normals": {
+        "palm": 0.49153751948331964,
+        "thumb": 0.07242719820658383,
+        "index": -0.8645879907120719,
+        "middle": 0.9180317649434352,
+        "ring": 0.4295852582602908,
+        "little": -0.821375870172372
+       }
+      }
+     },
+     "ARCTIC": {
+      "direction": [
+       -0.553049777247453,
+       0.27558461747082824,
+       -0.78625
+      ],
+      "up": [
+       -0.4613990541854405,
+       0.6844686068600921,
+       0.5644587132995518
+      ],
+      "score": 1.8145774711684852,
+      "best_score_of_any_direction": 1.9979438235766855,
+      "largest_smallest_cosine_of_any_allowed_direction": 0.6446939693902604,
+      "angle_to_broad_side_deg": 35.91973547887307,
+      "thinnest_to_middle_extent": 0.44337663669765276,
+      "cosine_to_contact_normals": {
+       "thumb": 0.5975646842011557,
+       "index": 0.7800391196113134,
+       "middle": 0.8821594931230191,
+       "ring": 0.4980609422666828
+      },
+      "cosine_to_wrist_axis": -0.19830465139914205,
+      "position": [
+       -0.06583336458541483,
+       0.3167155179360098,
+       -0.3960656706428147
+      ],
+      "focal_point": [
+       0.16173256252284954,
+       0.2033194520635066,
+       -0.07254377885328708
+      ],
+      "view_angle": 25.0,
+      "object_vertices_in_frame": 0.42310615657461365,
+      "hand_vertices_in_frame": 1.0,
+      "if_no_arrowhead_might_lie_behind_a_disc": {
+       "allowed_directions": 1998,
+       "of_them_with_no_arrowhead_behind_a_disc": 1340,
+       "direction": [
+        -0.553049777247453,
+        0.27558461747082824,
+        -0.78625
+       ],
+       "score": 1.8145774711684852,
+       "cosine_to_contact_normals": {
+        "thumb": 0.5975646842011557,
+        "index": 0.7800391196113134,
+        "middle": 0.8821594931230191,
+        "ring": 0.4980609422666828
+       }
+      }
+     }
+    }
+   },
+   "panel_px": [
+    598,
+    380
+   ],
+   "layout": {
+    "strip_boxes_px": [
+     [
+      350,
+      493,
+      2166,
+      834
+     ],
+     [
+      350,
+      1225,
+      2166,
+      1566
+     ]
+    ],
+    "strip_font_px": 30,
+    "strip_height_px": 341,
+    "row_label_boxes_px": [
+     [
+      22,
+      243,
+      339,
+      363
+     ],
+     [
+      22,
+      975,
+      339,
+      1095
+     ]
+    ],
+    "row_labels": "drawn by this script, centred on the three renders of the row (not on renders plus strip)"
+   },
+   "render_border": "Replace the outermost pixel line of a render by its neighbour. The renderer's anti-aliasing wraps around the image border, so an object that leaves the picture on one side leaves a faint line on the opposite side.",
+   "strip": "drawn by this script (PIL) in the label font and size of qlib.grid and pasted into a slot reserved under each row"
+  },
+  "inference": "none (data only): no checkpoint was loaded and no model was run; every value is read from the feature cache or recomputed from recorded geometry on CPU",
+  "caveats": [
+   "The third panel is a drawing of 48 numbers, not a surface and not a model output. A contact map decoded from these numbers is not shown because the study's decoder was never saved.",
+   "Disc area = a quarter of the part's distance-weighted contact area (0.25 x amount x that object's surface area); the quarter is a display choice. The stored amount is a share of the object's surface, so disc areas compare amounts within one row only: for the same amount the disc is 13.4 times larger on the box than on the knife. Arrow length is fixed and carries no value.",
+   "A disc centre is the mean position of the part's touching vertices. It need not lie on the surface (a finger wrapped around a handle gives a centre inside the handle), which is why the object is translucent in the third panel. Largest distance to the nearest touching vertex of the part: TACO 6.9 mm, ARCTIC 5.6 mm.",
+   "The arrow is the mean of the contact normals of the part, except where these nearly cancel (mean shorter than 0.2): there the study stores the normal of the touching vertex nearest the centroid. Affected here: {\"TACO\": [\"palm\", \"index\"], \"ARCTIC\": []}.",
+   "Discs whose normal points away from the camera are seen from behind through the ghost object: {\"TACO\": [\"index\", \"little\"], \"ARCTIC\": []}. Where the parts wrap around the object no camera avoids this; over the allowed view directions the largest attainable value of the smallest cosine between view direction and contact normal is TACO -0.31, ARCTIC 0.64 (negative: some disc is always seen from behind). Their arrows point into the picture, are seen through the translucent disc and are foreshortened; share of the arrow's length that the picture shows: {\"TACO\": {\"index\": \"45%\", \"little\": \"82%\"}, \"ARCTIC\": {}}. Share of each arrow's pixels that show in the third panel (the colour changes by more than 32/255 when the arrow is left out): {\"TACO\": {\"palm\": \"93%\", \"thumb\": \"89%\", \"index\": \"73%\", \"middle\": \"98%\", \"ring\": \"98%\", \"little\": \"95%\"}, \"ARCTIC\": {\"thumb\": \"98%\", \"index\": \"96%\", \"middle\": \"92%\", \"ring\": \"90%\"}}.",
+   "An arrowhead behind a disc of another part shows only as a dull mixed colour, and the arrow's bright base at the disc centre can then be mistaken for its head. Share of each arrowhead's pixels that show with no disc in front (the colour stays within 32/255 when all discs are left out): {\"TACO\": {\"palm\": \"100%\", \"thumb\": \"100%\", \"index\": \"0%\", \"middle\": \"100%\", \"ring\": \"100%\", \"little\": \"100%\"}, \"ARCTIC\": {\"thumb\": \"100%\", \"index\": \"99%\", \"middle\": \"92%\", \"ring\": \"100%\"}}; arrowheads that lie behind a disc by the geometry, with the share of the head: {\"TACO\": {\"index\": {\"thumb\": \"100%\"}}, \"ARCTIC\": {}}. TACO: 684 of the 2003 allowed view directions have no arrowhead behind a disc by that geometry test; the best of them by the camera rule's score (1.25 against 1.57) would see the largest disc (thumb) at cosine 0.07 instead of 0.46, that is, closer to edge-on. The camera rule was kept and the caption names the arrowhead.",
+   "Neighbouring discs overlap, which is why they are drawn at opacity 0.5; the overlapped part of a disc shows a mixed colour. Share of each disc's outline that other discs overlap: {\"TACO\": {\"palm\": \"0%\", \"thumb\": \"39%\", \"index\": \"39%\", \"middle\": \"0%\", \"ring\": \"0%\", \"little\": \"0%\"}, \"ARCTIC\": {\"thumb\": \"0%\", \"index\": \"36%\", \"middle\": \"53%\", \"ring\": \"34%\"}}; of these, behind a disc whose centre is nearer to the camera: {\"TACO\": {\"thumb\": \"39% behind index\", \"ring\": \"0% behind little\"}, \"ARCTIC\": {\"middle\": \"41% behind index\", \"ring\": \"34% behind middle\"}}.",
+   "Contact on faces turned away from the camera is not visible in the second panel. Touching vertices (within 1 cm) that the camera sees, per part: {\"TACO\": {\"palm\": \"80 of 164\", \"thumb\": \"23 of 360\", \"index\": \"224 of 255\", \"middle\": \"59 of 59\", \"ring\": \"46 of 55\", \"little\": \"94 of 94\"}, \"ARCTIC\": {\"thumb\": \"9 of 12\", \"index\": \"15 of 15\", \"middle\": \"9 of 14\", \"ring\": \"3 of 3\"}}.",
+   "A part counts as touching when at least 3 vertices of the object mesh are within 1 cm of the hand and nearest to that part (3-frame majority); this does not require the part to rest on the surface. Smallest distance from each touching hand part to the object surface, mm: {\"TACO\": {\"palm\": 0.2, \"thumb\": 0.1, \"index\": 0.1, \"middle\": 2.8, \"ring\": 0.4, \"little\": 0.1}, \"ARCTIC\": {\"thumb\": 2.6, \"index\": 3.5, \"middle\": 1.3, \"ring\": 7.9}}.",
+   "The dark grey of the palm (#6b6a63, the palette shared by all qualitative figures) is close to a shadow on the light grey object, so palm contact in the second panel can be mistaken for shading.",
+   "A part that does not count as touching has no disc although its amount is one of the 48 numbers: {\"TACO\": {}, \"ARCTIC\": {\"palm\": 0.00015}}.",
+   "A part counts as touching by a 3-frame majority (frames t-2, t-1, t), so the bars can lag the surface colouring by one frame.",
+   "The camera frames the hand and the object within 6 cm of it. Share of the object's vertices inside the picture: TACO 67%, ARCTIC 42%. The knife is seen edge-on (the view direction is within 20 degrees of its broad side), so a flat part of it appears as a thin wedge.",
+   "TACO: the sequence was not chosen for being typical; it is the page's example (docs/evidence/f1b_hier_contact_gen.json describes it as the test sequence with the largest change between first and last frame; not recomputed here) and the frame is the extreme of that sequence. 6 parts touch there, as in 183 of 364 test sequences at their own frame of largest contact amount.",
+   "ARCTIC: typical only in the number of touching parts (4, the median); it is the smallest index among 36 test sequences with that count. The mesh is coarse for the size of the object (3947 vertices; median triangle edge near the hand 13.1 mm, against 2.9 mm on the knife), and colours are interpolated across each triangle, so the coloured patch is blurred and looks larger than the 1 cm and 2 cm bands: 44 vertices are within 1 cm of the hand, 131 within 2 cm.",
+   "ARCTIC: the amounts recomputed on the drawn mesh are 0.6% above the cached ones at most, because the drawn mesh lacks the template's triangles that join the two parts (area ratio 0.9938); after that correction they agree to 9e-08.",
+   "The hand is tinted by part in the first panel only to show which colour is which part; it is the recorded hand mesh."
+  ],
+  "metadata": "docs/data/qual/structure_on_a_grasp.json"
+ },
+ "assets/img/qual_z_and_r_maps.webp": {
+  "from": "rendered for this page by docs/build/qual/q_z_and_r_maps.py (master: reports/project_page_qualitative/z_and_r_maps/figure.png)",
+  "edit": "none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP",
+  "shows": "The z-only map, the correction r adds, and a latent swap",
+  "selection_rule": "Reconstruction rows: per dataset, the test frame whose saved z-only reconstruction error (e_zonly) is the lower median over the unique test frames (every frame of every test sequence, a frame shared by two overlapping sequences of one take counted once; rank (N - 1) // 2 in ascending order, ties in file order). Swap rows: per dataset, the controlled pair whose detail score (mean of detail_cos_rdonor over the pair's two swaps in swap_pairs_A3.csv) is the lower median over all controlled pairs (ties: first in file).",
+  "examples": [
+   {
+    "part": "reconstruction",
+    "dataset": "taco",
+    "example": 2836,
+    "sequence_id": "(dust, roller, plate)/20231019_190",
+    "object": "roller (mesh 164, role tool)",
+    "hand": "R",
+    "frames_drawn": [
+     43
+    ],
+    "take_frames": [
+     73
+    ],
+    "split": "test",
+    "row_of_saved_file": 260
+   },
+   {
+    "part": "swap, frame A",
+    "dataset": "taco",
+    "example": 2463,
+    "sequence_id": "(stir, spatula, plate)/20231104_178",
+    "object": "spatula (mesh 181, role tool)",
+    "hand": "R",
+    "frames_drawn": [
+     46
+    ],
+    "take_frames": [
+     62
+    ],
+    "split": "test",
+    "pair": 634,
+    "opening_angle_rad": 0.0
+   },
+   {
+    "part": "swap, frame B",
+    "dataset": "taco",
+    "example": 2467,
+    "sequence_id": "(stir-fry, spatula, plate)/20231104_177",
+    "object": "spatula (mesh 181, role tool)",
+    "hand": "R",
+    "frames_drawn": [
+     53
+    ],
+    "take_frames": [
+     53
+    ],
+    "split": "test",
+    "pair": 634,
+    "opening_angle_rad": 0.0
+   },
+   {
+    "part": "reconstruction",
+    "dataset": "arctic",
+    "example": 906,
+    "sequence_id": "notebook_use_02/s10",
+    "object": "notebook (mesh notebook, role obj)",
+    "hand": "R",
+    "frames_drawn": [
+     55
+    ],
+    "take_frames": [
+     114
+    ],
+    "split": "test",
+    "row_of_saved_file": 120
+   },
+   {
+    "part": "swap, frame A",
+    "dataset": "arctic",
+    "example": 266,
+    "sequence_id": "espressomachine_grab_01/s01",
+    "object": "espressomachine (mesh espressomachine, role obj)",
+    "hand": "R",
+    "frames_drawn": [
+     8
+    ],
+    "take_frames": [
+     50
+    ],
+    "split": "test",
+    "pair": 158,
+    "opening_angle_rad": 0.0
+   },
+   {
+    "part": "swap, frame B",
+    "dataset": "arctic",
+    "example": 342,
+    "sequence_id": "espressomachine_use_04/s09",
+    "object": "espressomachine (mesh espressomachine, role obj)",
+    "hand": "R",
+    "frames_drawn": [
+     6
+    ],
+    "take_frames": [
+     490
+    ],
+    "split": "test",
+    "pair": 158,
+    "opening_angle_rad": 0.3897687494754791
+   }
+  ],
+  "display_choices": {
+   "canonical_to_surface": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0 (qlib.Example.to_vertices; the same rule for recorded maps, decoded maps and the differences)",
+   "contact_scale": {
+    "range": [
+     0.0,
+     0.9
+    ],
+    "colours": "grey at 0, orange at half, dark red-brown at the limit",
+    "rule": "largest drawn contact value on the surface over all rows, rounded up to 0.1"
+   },
+   "difference_scale": {
+    "range": [
+     -0.13,
+     0.13
+    ],
+    "colours": "blue = less contact, grey = no change, orange = more contact",
+    "rule": "largest drawn absolute difference on the surface over all difference panels (reconstruction and swap), rounded up to 0.01",
+    "panels": "the third column of rows 1-2 (what r adds) and the two panels of rows 4 and 6 (what the exchanged r changes)"
+   },
+   "camera": {
+    "rule": "per row: qlib.hand_side_view(mesh and hand of the first panel) (onto the object's broad side, from the side of that hand), then qlib.fit_camera on every mesh and hand the row shows; the same camera for the four panels; a change row reuses the camera of its swap row",
+    "panel_size_rule": "width 560 px; width / height = projected scene width / height, kept within [1.25, 2.0]",
+    "per_row": {
+     "recon_taco": {
+      "camera": {
+       "position": [
+        -0.3028971417465813,
+        0.00815042338063064,
+        0.4645012973239734
+       ],
+       "focal_point": [
+        -0.04730812616169155,
+        0.0009698747150038096,
+        0.0031526344819081103
+       ],
+       "up": [
+        -0.8747030220882475,
+        0.003638643699720036,
+        -0.4846456266404489
+       ],
+       "view_angle": 25.0,
+       "aspect": 1.25
+      },
+      "panel_size": [
+       560,
+       448
+      ]
+     },
+     "recon_arctic": {
+      "camera": {
+       "position": [
+        -0.32581749387612025,
+        -0.5927792123545751,
+        -0.0941238872573524
+       ],
+       "focal_point": [
+        -0.13391067095375284,
+        -0.05319126507001395,
+        -0.088476846530011
+       ],
+       "up": [
+        -0.9421322367455279,
+        0.33515373352843925,
+        -0.007669640592395148
+       ],
+       "view_angle": 25.0,
+       "aspect": 1.3592233009708738
+      },
+      "panel_size": [
+       560,
+       412
+      ]
+     },
+     "swap_taco": {
+      "camera": {
+       "position": [
+        -0.005938605608464043,
+        -0.22738029153757183,
+        -0.4313520611469702
+       ],
+       "focal_point": [
+        -0.0062433443486871985,
+        -0.004141343696741563,
+        0.014159964937020958
+       ],
+       "up": [
+        -0.0014361913300654173,
+        -0.894038671184293,
+        0.4479874906529054
+       ],
+       "view_angle": 25.0,
+       "aspect": 2.0
+      },
+      "panel_size": [
+       560,
+       280
+      ]
+     },
+     "swap_taco_change": {
+      "camera": {
+       "position": [
+        -0.005938605608464043,
+        -0.22738029153757183,
+        -0.4313520611469702
+       ],
+       "focal_point": [
+        -0.0062433443486871985,
+        -0.004141343696741563,
+        0.014159964937020958
+       ],
+       "up": [
+        -0.0014361913300654173,
+        -0.894038671184293,
+        0.4479874906529054
+       ],
+       "view_angle": 25.0,
+       "aspect": 2.0
+      },
+      "panel_size": [
+       560,
+       280
+      ],
+      "same_as": "swap_taco"
+     },
+     "swap_arctic": {
+      "camera": {
+       "position": [
+        0.3260684055292065,
+        -0.6227831634681282,
+        -0.534844317364728
+       ],
+       "focal_point": [
+        0.0025355564886196734,
+        -0.10117040967376213,
+        -0.03801025101174394
+       ],
+       "up": [
+        -0.2841988387721676,
+        0.5629491297679368,
+        -0.7760923252642524
+       ],
+       "view_angle": 25.0,
+       "aspect": 1.25
+      },
+      "panel_size": [
+       560,
+       448
+      ]
+     },
+     "swap_arctic_change": {
+      "camera": {
+       "position": [
+        0.3260684055292065,
+        -0.6227831634681282,
+        -0.534844317364728
+       ],
+       "focal_point": [
+        0.0025355564886196734,
+        -0.10117040967376213,
+        -0.03801025101174394
+       ],
+       "up": [
+        -0.2841988387721676,
+        0.5629491297679368,
+        -0.7760923252642524
+       ],
+       "view_angle": 25.0,
+       "aspect": 1.25
+      },
+      "panel_size": [
+       560,
+       448
+      ],
+      "same_as": "swap_arctic"
+     }
+    }
+   },
+   "hand": {
+    "style": "the recorded MANO hand of the frame as a line drawing laid over the render of the map alone, in the recorded panels only; decoded maps and differences are drawn without a hand",
+    "lines": "colour #3c3b37; the 2 px outline of the part of the hand that is in front of the object from the row's camera (parts behind the object are not drawn), and the pixels inside it where the hand's depth jumps by more than 6 mm between the two neighbouring pixels (a finger in front of another part of the hand); softened with a Gaussian of 0.6 px",
+    "why": "a filled or translucent hand repaints the contact map under it; with lines, every pixel that is not on a line is the pixel of the hand-free render (checks.hand_lines), so the recorded panel is comparable with the decoded panels beside it",
+    "how": "depth_image of this script: two extra renders per recorded panel (hand alone, object alone) with the camera and window of qlib.render on the same software renderer; qlib.render returns colours only",
+    "parameters": {
+     "colour": "#3c3b37",
+     "outline_px": 2,
+     "depth_jump_m": 0.006,
+     "soften_px": 0.6
+    }
+   },
+   "object_pose": "the contacted object's own frame; an ARCTIC object is drawn with the opening angle of the frame whose geometry the map was decoded on",
+   "layout": "one qlib.grid per row, stacked by this script (rows differ in height), a thin rule between the two parts; an empty cell is a white panel"
+  },
+  "inference": {
+   "checkpoints": {
+    "taco": "<ckpt root>/contact_factorization_stage1/taco/A3_seed0.pt",
+    "arctic": "<ckpt root>/contact_factorization_stage1/arctic/A3_seed0.pt"
+   },
+   "weights": "ema_state (the weights the study evaluated; best validation step TACO 12000, ARCTIC 12000)",
+   "model": "Stage-1 factorised autoencoder, z and r of 64 dimensions each, 23682242 parameters, one training seed (0)",
+   "device": "cpu, float32, torch 2.5.1+cu124, 2 threads; one child process per dataset, run one after the other",
+   "seed": "none needed: the encoders and decoders are deterministic in evaluation mode",
+   "newly_computed": "rows 3-6: the two swapped maps of each pair and each swap frame's own z + r map (the reference of the change panels); for checks only, the z-only maps of the swap frames and both maps of the reconstruction frames",
+   "read_from_saved": "rows 1-2: C_bar and C_hat of <ds>/latents/A3_seed0_test.npz (float16, clamped to [0, 1], written by the study on a GPU in bfloat16); every recorded map: sequences.npz of the hierarchical study; swap scores: swap_pairs_A3.csv",
+   "study_code_used": [
+    "scripts/research/contact_factorization_stage1/cf_common.py",
+    "scripts/research/contact_factorization_stage1/cf_data.py",
+    "scripts/research/contact_factorization_stage1/cf_models.py"
+   ]
+  },
+  "caveats": [
+   "One frame and one pair per dataset, from a model trained with one seed. Each is at the median of its selection metric, so it is typical in that metric only; the z + r errors of the two reconstruction frames are at percentile 55 (TACO) and 39 (ARCTIC) of the test frames.",
+   "The frame is ranked over the unique test frames, as the study's tables are. Ranking over every entry of the saved file (a frame shared by two overlapping sequences counted twice) picks another frame; it is listed in selection_evidence (other_reading_median_over_every_saved_entry).",
+   "A pair has two swaps with different detail scores; the pair is at the median of their mean, the single swaps are not (TACO 0.87 and 0.22; ARCTIC 0.00 and 0.00).",
+   "A swapped map is the z donor's z-only map plus a small correction by construction, so its resemblance to the z donor is largely built into the architecture, and the structure distance is computed with the z donor's own hand-part labels. The informative half of the swap is what the exchanged r changes (rows 4 and 6) and its detail score.",
+   "The change panels show the swapped map minus the map decoded with the frame's own r. They do not show whether the change points towards the r donor's detail; that is the detail score, a number, and it is near zero in the ARCTIC pair.",
+   "The controlled pairs are the study's: two test frames on the same object mesh from different takes, with a small distance between their structure and wrench descriptors relative to other pairs on that mesh and a dense distance above the median.",
+   "The difference panels use a scale about 7 times finer than the contact panels; equal colour strength does not mean equal size.",
+   "The hand is a line drawing, not a surface: its lines replace the map on 1 to 6 % of the object's pixels in the recorded panels, parts of the hand behind the object are not drawn, and the drawing does not show how far the hand is from the surface.",
+   "Every map is drawn through the smoothing display rule, so the surface values are smoother and lower than the 512 map values; the quoted errors, scores and largest changes are computed on the 512 values, not on the drawn surface.",
+   "ARCTIC: the display operator is built on the closed object, so contact near the hinge is drawn faintly on both parts.",
+   "Mesh vertices that none of the 512 map points reaches have no value and are drawn pale violet (share of the vertices: TACO roller 49 %). The map cannot represent contact there, recorded or decoded.",
+   "The decoded and swapped maps come from contact maps; no hand is generated.",
+   "z was trained with a relational loss built from the structure and wrench descriptors; the structure distances quoted for the swap use those same descriptors and the true hand-part labels of the reference frame, and are read from the study's table (not recomputed here).",
+   "The swapped maps are a float32 CPU run; the study's tables come from a bfloat16 GPU run. The differences are listed under checks."
+  ],
+  "metadata": "docs/data/qual/z_and_r_maps.json"
+ },
+ "assets/img/qual_direct_vs_via_z.webp": {
+  "from": "rendered for this page by docs/build/qual/q_direct_vs_via_z.py (master: reports/project_page_qualitative/direct_vs_via_z/figure.png)",
+  "edit": "none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP",
+  "shows": "Direct generation, generation via z, and the true z through the same decoder: one sequence per dataset",
+  "selection_rule": "Per dataset, the test sequence at the median dense error of the generator via z: the test sequences are sorted by that error (mean over frames 1 to 63 of the L2 distance between the saved prediction and the recorded map; ties: smaller example index). The test sets have an even number of sequences, so the two middle ones are equally close to the median and the one with the smaller example index is taken.",
+  "examples": [
+   {
+    "dataset": "TACO",
+    "example": 898,
+    "sequence_id": "(cut, knife, plate)/20231015_253",
+    "object": "plate (mesh 166, role target)",
+    "hand": "left",
+    "frames": [
+     0,
+     8,
+     16,
+     32,
+     48,
+     63
+    ],
+    "take_frames": [
+     26,
+     34,
+     42,
+     58,
+     74,
+     89
+    ],
+    "split": "test",
+    "group": "plate__target__L",
+    "row_in_prediction_files": 116,
+    "subject": "14",
+    "training_sequences_with_this_mesh": 3,
+    "training_sequences_of_this_category": 457,
+    "hand_to_object_distance_mm": [
+     7.64,
+     1.74,
+     0.83,
+     1.17,
+     2.89,
+     3.19
+    ],
+    "articulation_rad": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "dataset": "ARCTIC",
+    "example": 44,
+    "sequence_id": "box_grab_01/s01",
+    "object": "box (mesh box, role obj)",
+    "hand": "right",
+    "frames": [
+     0,
+     8,
+     16,
+     32,
+     48,
+     63
+    ],
+    "take_frames": [
+     583,
+     591,
+     599,
+     615,
+     631,
+     646
+    ],
+    "split": "test",
+    "group": "box__obj__R",
+    "row_in_prediction_files": 11,
+    "subject": "s01",
+    "training_sequences_with_this_mesh": 55,
+    "training_sequences_of_this_category": 55,
+    "hand_to_object_distance_mm": [
+     5.4,
+     1.4,
+     1.13,
+     1.85,
+     1.33,
+     1.31
+    ],
+    "articulation_rad": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0065,
+     0.0
+    ]
+   }
+  ],
+  "display_choices": {
+   "canonical_to_surface": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0 (qlib.Example.to_vertices; the same rule for the recorded maps and every model output; a smoothing, not an inverse). The errors are computed on the 512 values, not on the surface.",
+   "colour_scale": {
+    "kind": "contact (grey, orange, dark red-brown)",
+    "min": 0.0,
+    "max": 0.7,
+    "shared_by": "every panel of both datasets, so that one colour bar serves the figure (a display constant; no statistic is pooled over the datasets)",
+    "rule": "the largest value drawn in any panel, rounded up to a multiple of 0.1",
+    "largest_drawn_value": 0.6955206394195557,
+    "largest_drawn_value_by_dataset": {
+     "TACO": 0.6955206394195557,
+     "ARCTIC": 0.6677307486534119
+    },
+    "smallest_drawn_value": -0.1139724999666214,
+    "below_zero": "model outputs are not clamped; values below 0 are drawn in the colour of 0",
+    "not_reached": "vertices no canonical point reaches are drawn in #e7e1f1 (TACO 26.8%, ARCTIC 0.0% of the vertices)"
+   },
+   "camera": {
+    "rule": "one camera per dataset for all rows and frames. Direction: of 2000 evenly spread directions on the hand's side of the object, the one from which the most recorded contact faces the camera (area x recorded value x cosine of the outward normal, summed over the drawn frames). The object's longest principal axis is horizontal, the hand on the left. Fitted (qlib.fit_camera) on the object and the hand of all drawn frames; perspective projection. The model outputs play no part in the view.",
+    "margin": 0.04,
+    "panel_px": [
+     400,
+     300
+    ],
+    "TACO": {
+     "direction": [
+      0.011457867693012743,
+      -0.029469768711839338,
+      0.9995
+     ],
+     "up": [
+      0.9971837891833373,
+      -0.0737520926117982,
+      -0.013605859963345311
+     ],
+     "candidates": 2000,
+     "candidates_on_the_hand_side": 998,
+     "share_of_recorded_contact_facing_the_camera": 0.4907357050670183,
+     "best_share_over_all_directions": 0.4907357050670183,
+     "object_longest_axis": [
+      -0.07376220907490508,
+      -0.9972758282888413,
+      -0.00024253493641064605
+     ],
+     "camera": {
+      "position": [
+       0.00996847864220301,
+       0.023653802642951072,
+       0.5850869007406205
+      ],
+      "focal_point": [
+       0.00386254050583261,
+       0.0393583464087485,
+       0.05244982281172387
+      ],
+      "up": [
+       0.9971837891833374,
+       -0.07375209261179821,
+       -0.013605859963345311
+      ],
+      "view_angle": 25.0,
+      "aspect": 1.3333333333333333
+     }
+    },
+    "ARCTIC": {
+     "direction": [
+      -0.5915385836203891,
+      0.44173731344361655,
+      -0.6745
+     ],
+     "up": [
+      0.580002218406877,
+      0.8142435775714744,
+      0.024593149995632967
+     ],
+     "candidates": 2000,
+     "candidates_on_the_hand_side": 1000,
+     "share_of_recorded_contact_facing_the_camera": 0.34674444452619657,
+     "best_share_over_all_directions": 0.34674444452619657,
+     "object_longest_axis": [
+      -0.030602374371091104,
+      -0.008389775122093032,
+      0.9994964263849331
+     ],
+     "camera": {
+      "position": [
+       -0.44657427104571085,
+       0.45860355904364886,
+       -0.5468971082358624
+      ],
+      "focal_point": [
+       0.0568827884452923,
+       0.08264199871287277,
+       0.027168212319124613
+      ],
+      "up": [
+       0.580002218406877,
+       0.8142435775714744,
+       0.024593149995632967
+      ],
+      "view_angle": 25.0,
+      "aspect": 1.3333333333333333
+     }
+    }
+   },
+   "hand": "recorded MANO hand, top row only, as a ghost (#cfcec8 at 35% opacity, front faces only); the generators output no hand, so the other rows show the object alone. The ghost mutes the colours under it, hence the second recorded row without the hand",
+   "frames": "six fixed frames of the 64 (0, 8, 16, 32, 48, 63); ARCTIC: the mesh is articulated at each frame"
+  },
+  "inference": {
+   "device": "cpu (1 thread, float32)",
+   "seed": "none needed: the decoder is deterministic (the checkpoints are of training seed 0)",
+   "newly_computed": "last row only: for each of the two sequences, the 64 maps decoded from the cached z of the true frames 0..63 by the decoder of the generator via z; and, as a check, the 63 maps decoded from the saved predicted z",
+   "read_from_saved_predictions": {
+    "TACO": {
+     "direct": "reports/contact_latent_temporal_stage2/taco/preds/B0_seed0_A.npz",
+     "via_z_predicted": "reports/contact_latent_temporal_stage2/taco/preds/B1_seed0_A.npz"
+    },
+    "ARCTIC": {
+     "direct": "reports/contact_latent_temporal_stage2/arctic/preds/B0_seed0_A.npz",
+     "via_z_predicted": "reports/contact_latent_temporal_stage2/arctic/preds/B1_seed0_A.npz"
+    }
+   },
+   "decoder_inputs": "rebuilt by this script from sequences.npz and the canonical geometry cache as the study's data classes build them (hier_contact_gen/data.py FoldData.S; contact_latent_temporal_stage2/s2_data.py S2Data.geo_tokens), with the normalisation statistics stored in the checkpoint",
+   "runs": {
+    "TACO": {
+     "checkpoint": "<ckpt root>/contact_latent_temporal_stage2/taco/B1_seed0.pt",
+     "checkpoint_md5_head": "32950189bd51",
+     "state": "selected (best validation) state, key 'state'",
+     "selected_at_step": 4000,
+     "training_seed": 0,
+     "parameters": {
+      "backbone": 67923712,
+      "head": 49216,
+      "D_z": 5627393,
+      "total": 73600321
+     },
+     "model_class": "scripts/research/contact_latent_temporal_stage2/s2_models.py: Stage2Model, decode_maps (strict state load)",
+     "latents_of_the_true_frames": {
+      "file": "reports/contact_latent_temporal_stage2/taco/cache/teacher_z.npz",
+      "array": "z[898] (64 frames x 64), standardised with the checkpoint's training mean and std",
+      "encoder": {
+       "checkpoint": "<ckpt root>/contact_factorization_stage1/taco/A3_seed0.pt",
+       "md5": "88e5878deb88",
+       "step": 12000
+      }
+     },
+     "check_same_decoder": {
+      "what": "the saved predicted z of this sequence (z_hat of the prediction file), decoded here, against the saved prediction",
+      "max_abs_difference_per_value": 0.004696696996688843,
+      "tolerance": 0.02,
+      "dense_error_re_decoded": 1.415144920349121,
+      "dense_error_saved": 1.4161484241485596,
+      "note": "the remaining difference is CPU float32 here against the study's GPU bfloat16 pass"
+     },
+     "z_rms_error_of_the_prediction": 0.7738977670669556
+    },
+    "ARCTIC": {
+     "checkpoint": "<ckpt root>/contact_latent_temporal_stage2/arctic/B1_seed0.pt",
+     "checkpoint_md5_head": "60cf23d4c0da",
+     "state": "selected (best validation) state, key 'state'",
+     "selected_at_step": 4000,
+     "training_seed": 0,
+     "parameters": {
+      "backbone": 67833856,
+      "head": 49216,
+      "D_z": 5627393,
+      "total": 73510465
+     },
+     "model_class": "scripts/research/contact_latent_temporal_stage2/s2_models.py: Stage2Model, decode_maps (strict state load)",
+     "latents_of_the_true_frames": {
+      "file": "reports/contact_latent_temporal_stage2/arctic/cache/teacher_z.npz",
+      "array": "z[44] (64 frames x 64), standardised with the checkpoint's training mean and std",
+      "encoder": {
+       "checkpoint": "<ckpt root>/contact_factorization_stage1/arctic/A3_seed0.pt",
+       "md5": "2d0e55d2e34f",
+       "step": 12000
+      }
+     },
+     "check_same_decoder": {
+      "what": "the saved predicted z of this sequence (z_hat of the prediction file), decoded here, against the saved prediction",
+      "max_abs_difference_per_value": 0.0077352821826934814,
+      "tolerance": 0.02,
+      "dense_error_re_decoded": 1.8125957250595093,
+      "dense_error_saved": 1.8139957189559937,
+      "note": "the remaining difference is CPU float32 here against the study's GPU bfloat16 pass"
+     },
+     "z_rms_error_of_the_prediction": 0.824546217918396
+    }
+   },
+   "not_run": "no training; none of the study's scripts; the generators themselves were not re-run (their saved predictions are drawn)"
+  },
+  "caveats": [
+   "One sequence per dataset and one training seed; a picture of two sequences, not a result. The dataset-level statements rest on the study's tables (test-set means in the row labels).",
+   "The sequence is at the median of the VIA-Z error only. On both chosen sequences the via-z error is below the direct generator's: TACO 1.42 against 1.85, while the test-set means are 1.73 against 1.70 (via z lower on 174 of 364 test sequences); ARCTIC 1.81 against 1.89, while the test-set means are 2.16 against 1.89 (via z lower on 51 of 186 test sequences). The figure therefore does not illustrate the test-set comparison of the two generators (tie on TACO, via z worse on ARCTIC).",
+   "The error distribution is skewed: the median via-z error (TACO 1.42, ARCTIC 1.82) is below the mean, so a median sequence has a smaller error than the test-set mean printed next to it.",
+   "The last row uses the z of the true future frames: an analysis-only diagnostic of what the decoder can do with a perfect latent, not a generator. The decoder was trained on predicted latents. On the TACO sequence this row's error (0.96) is well above its test-set mean (0.51); the study saved no per-sequence values of this path to say where the sequence lies in that distribution.",
+   "The differences between the rows are small against the colour range (a dense error of 1 is a root-mean-square difference of 0.044 per map value, on a colour scale from 0 to 0.7); the rows differ mostly in the shape and strength of one contact patch.",
+   "Every map is 512 canonical values spread onto the mesh by a smoothing rule, so fine detail on the surface is not meaningful. On the TACO plate 27% of the vertices are not reached by the map (pale violet). A thin object shows contact on both of its faces; only the face towards the camera is seen.",
+   "Model outputs are not clamped: values below 0 are drawn as 0.",
+   "The last row was decoded on CPU in float32; the study's test-set mean of this path was computed on GPU with bfloat16 autocast (the same difference changes the re-decoded predicted maps by at most 0.008 per value).",
+   "Seen and unseen: TACO: this object (plate, mesh 166) occurs in 3 of the 1312 training sequences, the subject also appears in training takes; ARCTIC: this object (box, mesh box) occurs in 55 of the 1005 training sequences, the subject also appears in training takes."
+  ],
+  "metadata": "docs/data/qual/direct_vs_via_z.json"
+ },
+ "assets/img/qual_z_moves_with_contact.webp": {
+  "from": "rendered for this page by docs/build/qual/q_z_moves_with_contact.py (master: reports/project_page_qualitative/z_moves_with_contact/figure.png)",
+  "edit": "none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP",
+  "shows": "The latent z moves when the contact moves",
+  "selection_rule": "Per dataset, among all test sequences: compute the Spearman correlation between the sequence's 63 contact steps and its 63 latent steps, and draw the median sequence. Both test sets have an even number of sequences, so no sequence equals the median; the two middle sequences are equally far from it and the one with the smaller example index is drawn. Frames: the largest contact step and the largest one at least 8 transitions away from it; for each, the frame 3 before, the frame just before and the frame just after.",
+  "examples": [
+   {
+    "dataset": "TACO",
+    "example": 3249,
+    "sequence_id": "(pour in some, bowl, plate)/20231024_241",
+    "object": "bowl",
+    "mesh_id": "118",
+    "role": "tool",
+    "hand": "right",
+    "split": "test",
+    "cache_row": 1801,
+    "first_take_frame": 12,
+    "frames": [
+     1,
+     4,
+     5,
+     26,
+     29,
+     30
+    ],
+    "selected_steps": [
+     4,
+     29
+    ]
+   },
+   {
+    "dataset": "ARCTIC",
+    "example": 1125,
+    "sequence_id": "scissors_use_02/s10",
+    "object": "scissors",
+    "mesh_id": "scissors",
+    "role": "obj",
+    "hand": "left",
+    "split": "test",
+    "cache_row": 1268,
+    "first_take_frame": 485,
+    "frames": [
+     0,
+     3,
+     4,
+     43,
+     46,
+     47
+    ],
+    "selected_steps": [
+     3,
+     46
+    ]
+   }
+  ],
+  "display_choices": {
+   "canonical_to_surface": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0 (Example.to_vertices); the drawn map is the recorded 512-point map of the frame",
+   "colour_scales": {
+    "contact": {
+     "range": [
+      0.0,
+      0.9
+     ],
+     "stops": "grey #dcdbd5 at 0, orange #eb6834 at half, dark #7a2408 at the top",
+     "rule": "largest drawn per-vertex value over both datasets, rounded up to one decimal",
+     "largest_drawn_value": {
+      "TACO": 0.8096987009048462,
+      "ARCTIC": 0.5532841682434082
+     }
+    },
+    "not_reached": "#e7e1f1"
+   },
+   "chart": {
+    "contact_step": "#2a78d6",
+    "latent_step": "#eb6834",
+    "selected_steps_band": "#ecebe6",
+    "frame_markers": "#8a8983",
+    "y_axis": "shared, starts at 0; no second axis"
+   },
+   "camera": {
+    "TACO": {
+     "rule": "facing the contact",
+     "position": [
+      0.051095375208155894,
+      0.36041337912746124,
+      0.6941125516114205
+     ],
+     "focal_point": [
+      0.024944204759984132,
+      -0.051858518269497215,
+      0.037596189975473836
+     ],
+     "up": [
+      0.31716553579579554,
+      -0.8087815238080134,
+      0.49525596377040604
+     ],
+     "view_angle": 25.0,
+     "aspect": 1.0,
+     "fitted_on": "object and hand at all six frames"
+    },
+    "ARCTIC": {
+     "rule": "broad side, seen from the side away from the hand",
+     "position": [
+      -0.03946502533967995,
+      -0.2562351064843293,
+      0.42254842808123877
+     ],
+     "focal_point": [
+      0.0028923256425345575,
+      0.026731088400849458,
+      -0.07404086039788238
+     ],
+     "up": [
+      0.16957440190248105,
+      0.8499702583521666,
+      0.49879362679986927
+     ],
+     "view_angle": 25.0,
+     "aspect": 1.0,
+     "fitted_on": "object and hand at all six frames"
+    }
+   },
+   "hand": "recorded MANO hand of the contacting side, ghost (colour #cfcec8, opacity 0.35, front faces only)",
+   "frame_rule_parameters": {
+    "min_gap_between_steps": 8,
+    "context_frames": 3
+   }
+  },
+  "inference": "none: data only. z is the cached encoding of the frozen Stage-1 encoder, read from reports/z_temporal_diagnostic/<dataset>/cache/frames.npz (the encoder checkpoint is named in cache/frames.json and was not loaded here). Newly computed: the per-sequence correlations, the two step series of the drawn sequences (equal to the study's saved transition table), the principal components of the training latents. Device: CPU.",
+  "caveats": [
+   "One sequence per dataset. It is the median sequence by the per-sequence correlation, so it is typical in that one number; it says nothing about the spread (see quantiles_over_test_sequences).",
+   "The per-sequence correlation is not the number on the page: the page quotes the Spearman over all test transitions of a dataset pooled, which also contains differences between sequences.",
+   "z is computed by the encoder from the true frames, so the figure shows how the representation of recorded contact moves, not a prediction.",
+   "The figure shows that the two steps rise and fall together, not that they are equal: in these units the mean latent step is 2.0 times the mean contact step on the TACO sequence and 1.2 times on the ARCTIC sequence.",
+   "A single frame-to-frame step is a small change of the picture, also at the selected steps: the pictures just before and just after a step differ only locally (see the numbers 'largest change of a drawn surface value').",
+   "The 2-D view keeps 30% (TACO) and 34% (ARCTIC) of the variance of the training latents, and 42% and 18% of the drawn sequences' own latent variance; a step that is long in the 64 dimensions can look short there. The rank correlation between the contact steps and the steps of the projected path is 0.60 (TACO) and 0.81 (ARCTIC), lower than in 64 dimensions.",
+   "The two rows use different camera rules (bowl: the direction the contact faces; scissors: the broad side, from the side away from the hand); within a row the camera is fixed.",
+   "One colour scale for both rows, set by the largest drawn value (TACO); the ARCTIC contact stays in its lower two thirds.",
+   "The pictures draw the 512-point canonical map through the display rule, which smooths: on thin parts the contact shows on both faces. ARCTIC: the map is defined on the closed object, so contact near the joint is drawn on both blades."
+  ],
+  "metadata": "docs/data/qual/z_moves_with_contact.json"
  }
 }

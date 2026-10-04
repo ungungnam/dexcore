@@ -9,13 +9,25 @@ Result files are relative to the result root; `docs/data/sources/` holds snapsho
 - datasets on the page: TACO, ARCTIC
 - source label: BimArt → TACO port (generation 3) · BimArt upstream analysis
 - report: `arctic/10_bimart_upstream_analysis/README.md`
+- report: `docs/build/qual/q_motivation_two_contacts.py`
 - report: `reports/bimart_taco_and_canonical_contact.md`
 - report: `taco/30_bimart_gen3_scene_scale/scene_reverification.md`
-- verified claims: 5 with 68 numbers, in `docs/evidence/m0_motivation.json`
+- verified claims: 6 with 148 numbers, in `docs/evidence/m0_motivation.json`, `docs/evidence/zq_qualitative.json`
 
 | figure | built by | reads |
 |---|---|---|
 | `m0_hand_error_gt_vs_predicted_contact` | `docs/build/figs/m0_motivation.py` | `taco/30_bimart_gen3_scene_scale/evaluation/test_split_results.csv`<br>`arctic/10_bimart_upstream_analysis/contact_ablation/final/summary.json` |
+
+Image `docs/assets/img/qual_motivation_two_contacts.webp` from `rendered for this page by docs/build/qual/q_motivation_two_contacts.py (master: reports/project_page_qualitative/motivation_two_contacts/figure.png)` (none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP).
+
+## `F1-PRIMER` · Finding 1 · completed finding
+
+- datasets on the page: TACO
+- source label: recorded TACO data, rendered for this page
+- report: `docs/build/qual/q_contact_map_primer.py`
+- verified claims: 1 with 31 numbers, in `docs/evidence/zq_qualitative.json`
+
+Image `docs/assets/img/qual_contact_map_primer.webp` from `rendered for this page by docs/build/qual/q_contact_map_primer.py (master: reports/project_page_qualitative/contact_map_primer/figure.png)` (none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP).
 
 ## `F1-A` · Finding 1 · completed finding
 
@@ -37,28 +49,35 @@ Result files are relative to the result root; `docs/data/sources/` holds snapsho
 - on the page: **Much of the multimodality is associated with the choice of the initial contact map**
 - datasets on the page: TACO, ARCTIC, OakInk2
 - source label: Hierarchical contact generation
+- report: `docs/build/qual/q_grasp_modes.py`
+- report: `docs/build/qual/q_sample_then_evolve.py`
 - report: `reports/hier_contact_gen_report.md`
-- verified claims: 7 with 71 numbers, in `docs/evidence/f1b_hier_contact_gen.json`
+- verified claims: 9 with 257 numbers, in `docs/evidence/f1b_hier_contact_gen.json`, `docs/evidence/zq_qualitative.json`
 
 | figure | built by | reads |
 |---|---|---|
 | `f1b_sample_then_evolve` | `docs/build/figs/f1b_hier_contact_gen.py` | `taco/50_hier_contact_gen/results/aggregate.csv`<br>`arctic/40_hier_contact_gen/results/aggregate.csv`<br>`oakink2/20_hier_contact_gen/results/aggregate.csv` |
 
-Image `docs/assets/img/f1b_taco_knife_rollout.png` from `taco/50_hier_contact_gen/figures/fig6_qual_high_drift_fixed.png` (cropped to the column header and the first three rows (ground truth; true first map + evolution; sampled first map, best of ten, + evolution); the title strip and the fourth row were removed; no pixel was redrawn).
+Image `docs/assets/img/qual_grasp_modes.webp` from `rendered for this page by docs/build/qual/q_grasp_modes.py (master: reports/project_page_qualitative/grasp_modes/figure.png)` (none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP).
+
+Image `docs/assets/img/qual_sample_then_evolve.webp` from `rendered for this page by docs/build/qual/q_sample_then_evolve.py (master: reports/project_page_qualitative/sample_then_evolve/figure.png)` (none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP).
 
 ## `F1-C` · Finding 1 · completed finding
 
 - on the page: **Contact change is concentrated in a minority of transitions, and on the spatial ones the evolved model is no better than holding the map still**
 - datasets on the page: TACO, ARCTIC, OakInk2
 - source label: Temporal contact events
+- report: `docs/build/qual/q_change_events.py`
 - report: `reports/temporal_contact_events/temporal_contact_event_report.md`
-- verified claims: 5 with 81 numbers, in `docs/evidence/f1c_temporal_events.json`
+- verified claims: 6 with 204 numbers, in `docs/evidence/f1c_temporal_events.json`, `docs/evidence/zq_qualitative.json`
 
 | figure | built by | reads |
 |---|---|---|
 | `f1c_timeline` | `docs/build/figs/f1c_temporal_events.py` | `reports/temporal_contact_events/taco/frames_test.csv`<br>`reports/temporal_contact_events/taco/sanity.json`<br>`reports/temporal_contact_events/arctic/frames_test.csv`<br>`reports/temporal_contact_events/arctic/sanity.json` |
 | `f1c_error_by_event_class` | `docs/build/figs/f1c_temporal_events.py` | `reports/temporal_contact_events/taco/model_error_by_event.csv`<br>`reports/temporal_contact_events/arctic/model_error_by_event.csv`<br>`reports/temporal_contact_events/oakink2/model_error_by_event.csv` |
 | `f1c_spike_concentration` | `docs/build/figs/f1c_temporal_events.py` | `reports/temporal_contact_events/taco/sanity.json`<br>`reports/temporal_contact_events/arctic/sanity.json`<br>`reports/temporal_contact_events/oakink2/sanity.json` |
+
+Image `docs/assets/img/qual_change_events.webp` from `rendered for this page by docs/build/qual/q_change_events.py (master: reports/project_page_qualitative/change_events/figure.png)` (none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP).
 
 ## `F1-subA` · Finding 1 · completed finding
 
@@ -93,8 +112,9 @@ Image `docs/assets/img/f1b_taco_knife_rollout.png` from `taco/50_hier_contact_ge
 - on the page: **Within spatial events, capability changes of more than 25% occur almost only when the set of touching hand parts changes**
 - datasets on the page: TACO, ARCTIC
 - source label: Wrench counterfactual
+- report: `docs/build/qual/q_reconfiguration_with_hand.py`
 - report: `reports/wrench_counterfactual/wrench_counterfactual_report.md`
-- verified claims: 6 with 116 numbers, in `docs/evidence/f1d_wrench.json`
+- verified claims: 7 with 229 numbers, in `docs/evidence/f1d_wrench.json`, `docs/evidence/zq_qualitative.json`
 
 | figure | built by | reads |
 |---|---|---|
@@ -102,7 +122,16 @@ Image `docs/assets/img/f1b_taco_knife_rollout.png` from `taco/50_hier_contact_ge
 | `f1d_share_capability_change_by_event_class` | `docs/build/figs/f1d_wrench.py` | `reports/wrench_counterfactual/summary_by_event_type.csv` |
 | `f1d_spatial_events_by_finger_set` | `docs/build/figs/f1d_wrench.py` | `reports/wrench_counterfactual/events.csv`<br>`reports/wrench_counterfactual/thresholds.json` |
 
-Image `docs/assets/img/f1d_taco_pan_equivalent.png` from `reports/wrench_counterfactual/figures/figF_taco_equivalent_1190_8.png` (title strip cropped; resized to 1400 px width; no pixel was redrawn).
+Image `docs/assets/img/qual_reconfiguration_with_hand.webp` from `rendered for this page by docs/build/qual/q_reconfiguration_with_hand.py (master: reports/project_page_qualitative/reconfiguration_with_hand/figure.png)` (none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP).
+
+## `F2-PRIMER` · Finding 2 · completed finding
+
+- datasets on the page: TACO, ARCTIC
+- source label: Structure / variance boundary (feature cache), rendered for this page
+- report: `docs/build/qual/q_structure_on_a_grasp.py`
+- verified claims: 1 with 155 numbers, in `docs/evidence/zq_qualitative.json`
+
+Image `docs/assets/img/qual_structure_on_a_grasp.webp` from `rendered for this page by docs/build/qual/q_structure_on_a_grasp.py (master: reports/project_page_qualitative/structure_on_a_grasp/figure.png)` (none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP).
 
 ## `F2-A` · Finding 2 · completed finding
 
@@ -193,14 +222,17 @@ Image `docs/assets/img/f1d_taco_pan_equivalent.png` from `reports/wrench_counter
 - on the page: **In latent swaps, structure follows z**
 - datasets on the page: TACO, ARCTIC
 - source label: Stage-1 latent factorization
+- report: `docs/build/qual/q_z_and_r_maps.py`
 - report: `reports/contact_factorization_stage1/report.md`
-- verified claims: 7 with 85 numbers, in `docs/evidence/f3b_stage1_factorization.json`, `docs/evidence/zz_supplement.json`
+- verified claims: 8 with 202 numbers, in `docs/evidence/f3b_stage1_factorization.json`, `docs/evidence/zq_qualitative.json`, `docs/evidence/zz_supplement.json`
 
 | figure | built by | reads |
 |---|---|---|
 | `f3b_structure_retention` | `docs/build/figs/f3b_stage1_factorization.py` | `reports/contact_factorization_stage1/probe_metrics.csv` |
 | `f3b_reconstruction_error` | `docs/build/figs/f3b_stage1_factorization.py` | `reports/contact_factorization_stage1/reconstruction_metrics.csv` |
 | `f3b_swap_follows_donor` | `docs/build/figs/f3b_stage1_factorization.py` | `reports/contact_factorization_stage1/swap_metrics.csv`<br>`reports/contact_factorization_stage1/experiment_config.json` |
+
+Image `docs/assets/img/qual_z_and_r_maps.webp` from `rendered for this page by docs/build/qual/q_z_and_r_maps.py (master: reports/project_page_qualitative/z_and_r_maps/figure.png)` (none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP).
 
 ## `F3-C` · Finding 3 · completed finding
 
@@ -209,13 +241,16 @@ Image `docs/assets/img/f1d_taco_pan_equivalent.png` from `reports/wrench_counter
 - on the page: **Structure and wrench errors**
 - datasets on the page: TACO, ARCTIC
 - source label: Stage-2 z-mediated temporal generation
+- report: `docs/build/qual/q_direct_vs_via_z.py`
 - report: `reports/contact_latent_temporal_stage2/report.md`
-- verified claims: 6 with 69 numbers, in `docs/evidence/f3c_stage2_latent_temporal.json`
+- verified claims: 7 with 134 numbers, in `docs/evidence/f3c_stage2_latent_temporal.json`, `docs/evidence/zq_qualitative.json`
 
 | figure | built by | reads |
 |---|---|---|
 | `f3c_dense_error_b0_b1_b2` | `docs/build/figs/f3c_stage2_latent_temporal.py` | `reports/contact_latent_temporal_stage2/main_metrics.csv` |
 | `f3c_structure_rel_change_b1_vs_b0` | `docs/build/figs/f3c_stage2_latent_temporal.py` | `reports/contact_latent_temporal_stage2/paired_comparisons.csv` |
+
+Image `docs/assets/img/qual_direct_vs_via_z.webp` from `rendered for this page by docs/build/qual/q_direct_vs_via_z.py (master: reports/project_page_qualitative/direct_vs_via_z/figure.png)` (none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP).
 
 ## `F3-diagA` · Finding 3 · completed finding
 
@@ -234,12 +269,15 @@ Image `docs/assets/img/f1d_taco_pan_equivalent.png` from `reports/wrench_counter
 - on the page: **z has a meaningful temporal geometry**
 - datasets on the page: TACO, ARCTIC
 - source label: z temporal diagnostic
+- report: `docs/build/qual/q_z_moves_with_contact.py`
 - report: `reports/z_temporal_diagnostic/report.md`
-- verified claims: 3 with 44 numbers, in `docs/evidence/f3d_z_temporal_diagnostic.json`
+- verified claims: 4 with 89 numbers, in `docs/evidence/f3d_z_temporal_diagnostic.json`, `docs/evidence/zq_qualitative.json`
 
 | figure | built by | reads |
 |---|---|---|
 | `f3diagb_dz_vs_dc` | `docs/build/figs/f3d_z_temporal_diagnostic.py` | `reports/z_temporal_diagnostic/temporal_geometry_bins.csv`<br>`reports/z_temporal_diagnostic/temporal_geometry_metrics.csv`<br>`reports/z_temporal_diagnostic/quadrant_metrics.csv`<br>`reports/z_temporal_diagnostic/experiment_config.json` |
+
+Image `docs/assets/img/qual_z_moves_with_contact.webp` from `rendered for this page by docs/build/qual/q_z_moves_with_contact.py (master: reports/project_page_qualitative/z_moves_with_contact/figure.png)` (none: the page asset is the rendered figure, resized to at most 2200 px wide and saved as WebP).
 
 ## `F3-diagC` · Finding 3 · completed finding
 

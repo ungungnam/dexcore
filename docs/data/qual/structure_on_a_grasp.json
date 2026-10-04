@@ -1,0 +1,2768 @@
+{
+ "fig_id": "structure_on_a_grasp",
+ "created": "2026-10-05T00:41:40+0900",
+ "outputs": {
+  "figure": "reports/project_page_qualitative/structure_on_a_grasp/figure.png",
+  "panels": "reports/project_page_qualitative/structure_on_a_grasp/panels.npz",
+  "meta": "reports/project_page_qualitative/structure_on_a_grasp/meta.json",
+  "asset": "docs/assets/img/qual_structure_on_a_grasp.webp"
+ },
+ "master_size": [
+  2188,
+  1712
+ ],
+ "asset_size": [
+  2188,
+  1712
+ ],
+ "layout": {
+  "width": 2188,
+  "height": 1712,
+  "panel": [
+   598,
+   721
+  ],
+  "font_px": 30,
+  "cap_px": 22,
+  "cap_px_at_1100": 11.06
+ },
+ "display_rule": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0",
+ "soft_contact": "exp(-distance / 0.02 m)",
+ "colours": {
+  "zero": "#dcdbd5",
+  "orange": "#eb6834",
+  "dark": "#7a2408",
+  "blue": "#2a78d6",
+  "no_data": "#e7e1f1",
+  "parts": {
+   "palm": "#6b6a63",
+   "thumb": "#2a78d6",
+   "index": "#eb6834",
+   "middle": "#1baf7a",
+   "ring": "#eda100",
+   "little": "#8e5bd0"
+  }
+ },
+ "panels": {
+  "taco_1_hand_on_object/image": {
+   "shape": [
+    380,
+    598,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "taco_1_hand_on_object/object_verts": {
+   "shape": [
+    4002,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_1_hand_on_object/object_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "taco_1_hand_on_object/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_1_hand_on_object/hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "taco_1_hand_on_object/hand_part": {
+   "shape": [
+    778
+   ],
+   "dtype": "int64"
+  },
+  "taco_1_hand_on_object/hand_rgb": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_1_hand_on_object/surface_gap": {
+   "shape": [
+    6
+   ],
+   "dtype": "float64"
+  },
+  "taco_2_contact_by_part/image": {
+   "shape": [
+    380,
+    598,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "taco_2_contact_by_part/distance": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "taco_2_contact_by_part/part": {
+   "shape": [
+    4002
+   ],
+   "dtype": "int64"
+  },
+  "taco_2_contact_by_part/rgb": {
+   "shape": [
+    4002,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_2_contact_by_part/visible": {
+   "shape": [
+    4002
+   ],
+   "dtype": "bool"
+  },
+  "taco_3_numbers/image": {
+   "shape": [
+    380,
+    598,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "taco_3_numbers/touching": {
+   "shape": [
+    6
+   ],
+   "dtype": "bool"
+  },
+  "taco_3_numbers/amount": {
+   "shape": [
+    6
+   ],
+   "dtype": "float64"
+  },
+  "taco_3_numbers/centre": {
+   "shape": [
+    6,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_3_numbers/normal": {
+   "shape": [
+    6,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_3_numbers/radius": {
+   "shape": [
+    6
+   ],
+   "dtype": "float64"
+  },
+  "taco_3_numbers/n_hard": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "taco_3_numbers/disc_opacity": {
+   "shape": [],
+   "dtype": "float64"
+  },
+  "taco_3_numbers/arrow_pixels_alone": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "taco_3_numbers/arrow_pixels_showing": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "taco_3_numbers/head_pixels": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "taco_3_numbers/head_pixels_clear": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "taco_3_numbers/disc_pixels": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "taco_strip/touching": {
+   "shape": [
+    64,
+    6
+   ],
+   "dtype": "bool"
+  },
+  "taco_strip/frame": {
+   "shape": [],
+   "dtype": "int64"
+  },
+  "taco_strip/contact_amount": {
+   "shape": [
+    64
+   ],
+   "dtype": "float64"
+  },
+  "taco_camera/position": {
+   "shape": [
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_camera/focal_point": {
+   "shape": [
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_camera/up": {
+   "shape": [
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_camera/view_angle": {
+   "shape": [],
+   "dtype": "float64"
+  },
+  "taco_camera/aspect": {
+   "shape": [],
+   "dtype": "float64"
+  },
+  "arctic_1_hand_on_object/image": {
+   "shape": [
+    380,
+    598,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "arctic_1_hand_on_object/object_verts": {
+   "shape": [
+    3947,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_1_hand_on_object/object_faces": {
+   "shape": [
+    7705,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "arctic_1_hand_on_object/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_1_hand_on_object/hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "arctic_1_hand_on_object/hand_part": {
+   "shape": [
+    778
+   ],
+   "dtype": "int64"
+  },
+  "arctic_1_hand_on_object/hand_rgb": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_1_hand_on_object/surface_gap": {
+   "shape": [
+    6
+   ],
+   "dtype": "float64"
+  },
+  "arctic_2_contact_by_part/image": {
+   "shape": [
+    380,
+    598,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "arctic_2_contact_by_part/distance": {
+   "shape": [
+    3947
+   ],
+   "dtype": "float64"
+  },
+  "arctic_2_contact_by_part/part": {
+   "shape": [
+    3947
+   ],
+   "dtype": "int64"
+  },
+  "arctic_2_contact_by_part/rgb": {
+   "shape": [
+    3947,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_2_contact_by_part/visible": {
+   "shape": [
+    3947
+   ],
+   "dtype": "bool"
+  },
+  "arctic_3_numbers/image": {
+   "shape": [
+    380,
+    598,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "arctic_3_numbers/touching": {
+   "shape": [
+    6
+   ],
+   "dtype": "bool"
+  },
+  "arctic_3_numbers/amount": {
+   "shape": [
+    6
+   ],
+   "dtype": "float64"
+  },
+  "arctic_3_numbers/centre": {
+   "shape": [
+    6,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_3_numbers/normal": {
+   "shape": [
+    6,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_3_numbers/radius": {
+   "shape": [
+    6
+   ],
+   "dtype": "float64"
+  },
+  "arctic_3_numbers/n_hard": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "arctic_3_numbers/disc_opacity": {
+   "shape": [],
+   "dtype": "float64"
+  },
+  "arctic_3_numbers/arrow_pixels_alone": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "arctic_3_numbers/arrow_pixels_showing": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "arctic_3_numbers/head_pixels": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "arctic_3_numbers/head_pixels_clear": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "arctic_3_numbers/disc_pixels": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "arctic_strip/touching": {
+   "shape": [
+    64,
+    6
+   ],
+   "dtype": "bool"
+  },
+  "arctic_strip/frame": {
+   "shape": [],
+   "dtype": "int64"
+  },
+  "arctic_strip/contact_amount": {
+   "shape": [
+    64
+   ],
+   "dtype": "float64"
+  },
+  "arctic_camera/position": {
+   "shape": [
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_camera/focal_point": {
+   "shape": [
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_camera/up": {
+   "shape": [
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_camera/view_angle": {
+   "shape": [],
+   "dtype": "float64"
+  },
+  "arctic_camera/aspect": {
+   "shape": [],
+   "dtype": "float64"
+  }
+ },
+ "meta": {
+  "id": "structure_on_a_grasp",
+  "block": "F2",
+  "title": "What the 48 numbers are on a real grasp",
+  "panels": {
+   "rows": {
+    "TACO": "one recorded frame of one sequence (right hand on a knife, frame 63 of 0..63); the three panels share one camera",
+    "ARCTIC": "one recorded frame of one sequence (left hand on a box, frame 17 of 0..63); the three panels share one camera"
+   },
+   "column_1": "The recorded hand mesh on the object mesh. The hand is tinted by hand part (palm, thumb, index, middle, ring, little).",
+   "column_2": "The object alone. Each vertex within 1 cm of the hand has the colour of the hand part nearest to it; vertices between 1 and 2 cm have a pale version of that colour; all others are neutral grey.",
+   "column_3": "The object as a translucent ghost and nothing but the frame's 48 numbers: for every touching part a flat translucent disc centred at the centroid of its touching vertices, facing along its contact normal, with area proportional to its contact amount (within the row), and an opaque arrow of fixed length along that normal. Parts that do not touch have no disc.",
+   "strip_under_each_row": "Six bars, one per hand part, over the 64 frames of the sequence: coloured where the part touches, pale grey where it does not. The outlined column with the triangle is the frame drawn above."
+  },
+  "examples": [
+   {
+    "dataset": "TACO",
+    "example": 3011,
+    "sequence_id": "(scrape off, knife, plate)/20231020_226",
+    "object": "knife",
+    "mesh_id": "063",
+    "hand": "right",
+    "role": "tool",
+    "split": "test",
+    "frames_drawn": [
+     63
+    ],
+    "take_frames_drawn": [
+     63
+    ],
+    "strip_frames": [
+     0,
+     63
+    ],
+    "touching_parts_at_the_drawn_frame": [
+     "palm",
+     "thumb",
+     "index",
+     "middle",
+     "ring",
+     "little"
+    ]
+   },
+   {
+    "dataset": "ARCTIC",
+    "example": 36,
+    "sequence_id": "box_use_02/s10",
+    "object": "box",
+    "mesh_id": "box",
+    "hand": "left",
+    "role": "obj",
+    "split": "test",
+    "frames_drawn": [
+     17
+    ],
+    "take_frames_drawn": [
+     75
+    ],
+    "strip_frames": [
+     0,
+     63
+    ],
+    "touching_parts_at_the_drawn_frame": [
+     "thumb",
+     "index",
+     "middle",
+     "ring"
+    ]
+   }
+  ],
+  "selection_rule": "TACO: the sequence already shown on the page (example 3011), at its frame of largest contact amount (sum of the six per-part amounts of the feature cache; first such frame). ARCTIC: every test sequence is taken at its frame of largest contact amount (sum of the six per-part amounts; first such frame) and the number of touching parts there is counted; the sequence with the median count is drawn (lower middle value if the two middle values differ; smallest example index among the ties).",
+  "selection_evidence": {
+   "TACO": {
+    "n_test_sequences": 364,
+    "histogram_of_touching_parts": {
+     "0": 0,
+     "1": 1,
+     "2": 13,
+     "3": 22,
+     "4": 65,
+     "5": 80,
+     "6": 183
+    },
+    "lower_middle_value": 6,
+    "upper_middle_value": 6,
+    "median": 6.0,
+    "contact_amount_by_frame": [
+     0.00708,
+     0.00671,
+     0.00722,
+     0.00719,
+     0.00704,
+     0.00722,
+     0.00729,
+     0.00735,
+     0.00732,
+     0.00755,
+     0.00773,
+     0.00832,
+     0.00895,
+     0.01019,
+     0.0112,
+     0.01262,
+     0.01549,
+     0.01898,
+     0.02171,
+     0.02405,
+     0.02631,
+     0.02412,
+     0.01976,
+     0.01307,
+     0.00896,
+     0.00536,
+     0.0111,
+     0.02842,
+     0.04706,
+     0.06128,
+     0.07526,
+     0.0831,
+     0.08934,
+     0.09468,
+     0.09676,
+     0.10331,
+     0.11256,
+     0.12854,
+     0.14156,
+     0.14548,
+     0.15123,
+     0.15546,
+     0.16417,
+     0.16577,
+     0.1662,
+     0.16687,
+     0.16898,
+     0.17088,
+     0.17272,
+     0.17315,
+     0.17445,
+     0.17536,
+     0.17681,
+     0.17905,
+     0.1817,
+     0.18415,
+     0.18628,
+     0.18701,
+     0.18836,
+     0.18865,
+     0.18965,
+     0.18831,
+     0.18829,
+     0.19212
+    ],
+    "frame": 63,
+    "contact_amount_at_frame": 0.1921240519732237,
+    "five_largest_frames": [
+     {
+      "frame": 63,
+      "contact_amount": 0.1921240519732237
+     },
+     {
+      "frame": 60,
+      "contact_amount": 0.1896543838083744
+     },
+     {
+      "frame": 59,
+      "contact_amount": 0.1886513326317072
+     },
+     {
+      "frame": 58,
+      "contact_amount": 0.18836006987839937
+     },
+     {
+      "frame": 61,
+      "contact_amount": 0.18831072840839624
+     }
+    ],
+    "touching_parts_at_frame": 6,
+    "page_reference": {
+     "file": "docs/evidence/images.json",
+     "key": "assets/img/f1b_taco_knife_rollout.png",
+     "text": "TACO test example 3011 (knife, tool role, right hand; take '(scrape off, knife, plate)/20231020_226'): contact maps on the 512 canonical points at t = 0, 8, 16, 32, 48, 63"
+    },
+    "in_test_split": true,
+    "test_sequences_with_the_same_number_of_touching_parts": 183
+   },
+   "ARCTIC": {
+    "n_test_sequences": 186,
+    "histogram_of_touching_parts": {
+     "0": 2,
+     "1": 9,
+     "2": 31,
+     "3": 39,
+     "4": 36,
+     "5": 39,
+     "6": 30
+    },
+    "lower_middle_value": 4,
+    "upper_middle_value": 4,
+    "median": 4.0,
+    "contact_amount_by_frame": [
+     0.00458,
+     0.00564,
+     0.00686,
+     0.00714,
+     0.00676,
+     0.00667,
+     0.00812,
+     0.01072,
+     0.01146,
+     0.01218,
+     0.01246,
+     0.01248,
+     0.01292,
+     0.01408,
+     0.01443,
+     0.01475,
+     0.01465,
+     0.01484,
+     0.01466,
+     0.01453,
+     0.0146,
+     0.01463,
+     0.01462,
+     0.0145,
+     0.01443,
+     0.01407,
+     0.01456,
+     0.01457,
+     0.01438,
+     0.01367,
+     0.01336,
+     0.01354,
+     0.01354,
+     0.01349,
+     0.01322,
+     0.01324,
+     0.01353,
+     0.0139,
+     0.01396,
+     0.01394,
+     0.01438,
+     0.01435,
+     0.01373,
+     0.01338,
+     0.01323,
+     0.01318,
+     0.01302,
+     0.01287,
+     0.01277,
+     0.01262,
+     0.01262,
+     0.01253,
+     0.01256,
+     0.01241,
+     0.01246,
+     0.01243,
+     0.01244,
+     0.01249,
+     0.01247,
+     0.01264,
+     0.01265,
+     0.01262,
+     0.01265,
+     0.01264
+    ],
+    "frame": 17,
+    "contact_amount_at_frame": 0.014838757895631716,
+    "five_largest_frames": [
+     {
+      "frame": 17,
+      "contact_amount": 0.014838757895631716
+     },
+     {
+      "frame": 15,
+      "contact_amount": 0.014751996379345655
+     },
+     {
+      "frame": 18,
+      "contact_amount": 0.014663095120340586
+     },
+     {
+      "frame": 16,
+      "contact_amount": 0.014647066360339522
+     },
+     {
+      "frame": 21,
+      "contact_amount": 0.014634046936407685
+     }
+    ],
+    "touching_parts_at_frame": 4,
+    "touching_parts_sorted": [
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     5,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "ranks_holding_the_median_value": [
+     82,
+     117
+    ],
+    "n_sequences_with_the_median_value": 36,
+    "examples_with_the_median_value": [
+     36,
+     88,
+     209,
+     216,
+     341,
+     344,
+     360,
+     361,
+     363,
+     364,
+     451,
+     453,
+     454,
+     486,
+     575,
+     605,
+     713,
+     745,
+     770,
+     802,
+     818,
+     826,
+     912,
+     913,
+     962,
+     974,
+     1022,
+     1029,
+     1182,
+     1191,
+     1202,
+     1244,
+     1245,
+     1272,
+     1285,
+     1286
+    ],
+    "chosen": "smallest example index among them"
+   }
+  },
+  "display_choices": {
+   "canonical_to_surface_rule": "not used: no 512-point map is drawn. Panel 2 is coloured per mesh vertex from the recorded hand-to-vertex distances (qlib Example.dense, inverted to metres).",
+   "contact_by_part": "part of the hand vertex nearest to the object vertex (the study's rule); full part colour below 1 cm, 0.45 of the part colour mixed into the neutral grey between 1 and 2 cm, neutral grey above",
+   "colour_scales": {
+    "hand parts": {
+     "palm": "#6b6a63",
+     "thumb": "#2a78d6",
+     "index": "#eb6834",
+     "middle": "#1baf7a",
+     "ring": "#eda100",
+     "little": "#8e5bd0"
+    },
+    "no contact": "#dcdbd5",
+    "numeric_range": "categorical; the two tint levels are distance bands (0 to 1 cm, 1 to 2 cm), there is no continuous scale",
+    "strip": {
+     "touching": "part colour",
+     "not touching": "#eceae4"
+    }
+   },
+   "discs": "centre = cached centroid * length + mesh centroid; normal = cached normal; disc area = a quarter of the part's distance-weighted contact area (0.25 x amount x that object's surface area; radius = sqrt of that over pi), 2 mm thick. The amount is a share of the object's surface, so for the same amount the disc is 13.4 times larger on the box than on the knife (disc area per unit amount: TACO 106.5 cm^2, ARCTIC 1425.2 cm^2); disc areas compare amounts within one row only. Opacity 0.5 (front faces only), so that a disc or an arrow behind a disc stays visible; arrows are opaque",
+   "arrows": "from the disc centre along the cached unit normal (pointing from the surface to the hand), 3.5 cm long",
+   "object_in_panel_3": "ghost (#cfcec8, opacity 0.35), because a centroid of touching vertices can lie inside the object",
+   "hand_style": "panel 1 only: recorded MANO mesh, each vertex 0.55 part colour + 0.45 hand colour #e8d2c0; no hand in panels 2 and 3",
+   "camera": {
+    "rule": "(direction, up) for qlib.fit_camera, computed from the frame's own numbers. direction: of 4000 directions spread evenly over the sphere, leaving out those that look at the hand from behind the wrist (into the open end of the hand mesh), the one that maximises sum_k max(c_k, 0) sqrt(1 - c_k^2), c_k = cosine between the direction and the contact normal of touching part k. A disc seen at 45 degrees shows both its face and its arrow. up: the direction in which the framed points (hand, nearby object surface, discs, arrows) extend most, as seen from that direction, runs horizontally, with the wrist on the left.",
+    "framing": "perspective, 25 degrees; fitted to the hand, the object vertices within 6 cm of the hand and all discs and arrows (margin 0.06); the rest of the object may leave the picture",
+    "per_row": {
+     "TACO": {
+      "direction": [
+       -0.5608296191633496,
+       -0.8022141707605844,
+       -0.20475000000000002
+      ],
+      "up": [
+       -0.023327426934346307,
+       -0.23189410436070937,
+       0.9724612874121865
+      ],
+      "score": 1.5714450503573256,
+      "best_score_of_any_direction": 1.5714450503573256,
+      "largest_smallest_cosine_of_any_allowed_direction": -0.3070237039478616,
+      "angle_to_broad_side_deg": 11.794364702950322,
+      "thinnest_to_middle_extent": 0.1435408647115089,
+      "cosine_to_contact_normals": {
+       "palm": 0.24522562648349228,
+       "thumb": 0.4560335620174037,
+       "index": -0.9237504061613612,
+       "middle": 0.6873762685430866,
+       "ring": 0.49247133095277074,
+       "little": -0.5591031897381427
+      },
+      "cosine_to_wrist_axis": -0.04086198025842208,
+      "position": [
+       -0.27077577467219505,
+       -0.23849513445362047,
+       -0.056879916039108594
+      ],
+      "focal_point": [
+       -0.08393759591702729,
+       0.02875935695518445,
+       0.011331740037811722
+      ],
+      "view_angle": 25.0,
+      "object_vertices_in_frame": 0.670664667666167,
+      "hand_vertices_in_frame": 1.0,
+      "if_no_arrowhead_might_lie_behind_a_disc": {
+       "allowed_directions": 2003,
+       "of_them_with_no_arrowhead_behind_a_disc": 684,
+       "direction": [
+        -0.2511138130297726,
+        -0.8509937076181282,
+        -0.46124999999999994
+       ],
+       "score": 1.252228244042553,
+       "cosine_to_contact_normals": {
+        "palm": 0.49153751948331964,
+        "thumb": 0.07242719820658383,
+        "index": -0.8645879907120719,
+        "middle": 0.9180317649434352,
+        "ring": 0.4295852582602908,
+        "little": -0.821375870172372
+       }
+      }
+     },
+     "ARCTIC": {
+      "direction": [
+       -0.553049777247453,
+       0.27558461747082824,
+       -0.78625
+      ],
+      "up": [
+       -0.4613990541854405,
+       0.6844686068600921,
+       0.5644587132995518
+      ],
+      "score": 1.8145774711684852,
+      "best_score_of_any_direction": 1.9979438235766855,
+      "largest_smallest_cosine_of_any_allowed_direction": 0.6446939693902604,
+      "angle_to_broad_side_deg": 35.91973547887307,
+      "thinnest_to_middle_extent": 0.44337663669765276,
+      "cosine_to_contact_normals": {
+       "thumb": 0.5975646842011557,
+       "index": 0.7800391196113134,
+       "middle": 0.8821594931230191,
+       "ring": 0.4980609422666828
+      },
+      "cosine_to_wrist_axis": -0.19830465139914205,
+      "position": [
+       -0.06583336458541483,
+       0.3167155179360098,
+       -0.3960656706428147
+      ],
+      "focal_point": [
+       0.16173256252284954,
+       0.2033194520635066,
+       -0.07254377885328708
+      ],
+      "view_angle": 25.0,
+      "object_vertices_in_frame": 0.42310615657461365,
+      "hand_vertices_in_frame": 1.0,
+      "if_no_arrowhead_might_lie_behind_a_disc": {
+       "allowed_directions": 1998,
+       "of_them_with_no_arrowhead_behind_a_disc": 1340,
+       "direction": [
+        -0.553049777247453,
+        0.27558461747082824,
+        -0.78625
+       ],
+       "score": 1.8145774711684852,
+       "cosine_to_contact_normals": {
+        "thumb": 0.5975646842011557,
+        "index": 0.7800391196113134,
+        "middle": 0.8821594931230191,
+        "ring": 0.4980609422666828
+       }
+      }
+     }
+    }
+   },
+   "panel_px": [
+    598,
+    380
+   ],
+   "layout": {
+    "strip_boxes_px": [
+     [
+      350,
+      493,
+      2166,
+      834
+     ],
+     [
+      350,
+      1225,
+      2166,
+      1566
+     ]
+    ],
+    "strip_font_px": 30,
+    "strip_height_px": 341,
+    "row_label_boxes_px": [
+     [
+      22,
+      243,
+      339,
+      363
+     ],
+     [
+      22,
+      975,
+      339,
+      1095
+     ]
+    ],
+    "row_labels": "drawn by this script, centred on the three renders of the row (not on renders plus strip)"
+   },
+   "render_border": "Replace the outermost pixel line of a render by its neighbour. The renderer's anti-aliasing wraps around the image border, so an object that leaves the picture on one side leaves a faint line on the opposite side.",
+   "strip": "drawn by this script (PIL) in the label font and size of qlib.grid and pasted into a slot reserved under each row"
+  },
+  "numbers": [
+   {
+    "label": "numbers per frame in the structural description",
+    "value": 48,
+    "dataset": "both",
+    "source": "reports/structure_variance_boundary/representation_definitions.json",
+    "locator": "dims.R2"
+   },
+   {
+    "label": "of these: on/off per part, amount per part, centroid (3) and normal (3) per part",
+    "value": [
+     6,
+     6,
+     36
+    ],
+    "dataset": "both",
+    "source": "reports/structure_variance_boundary/representation_definitions.json",
+    "locator": "blocks.part, blocks.amount, blocks.geom"
+   },
+   {
+    "label": "hand parts (palm and five fingers)",
+    "value": 6,
+    "dataset": "both",
+    "source": "reports/structure_variance_boundary/representation_definitions.json",
+    "locator": "blocks.part"
+   },
+   {
+    "label": "frames per sequence",
+    "value": 64,
+    "dataset": "both",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "n_hard.shape[1] - 2 * 8 padding frames"
+   },
+   {
+    "label": "distance within which a vertex counts as touching, cm",
+    "value": 1.0,
+    "dataset": "both",
+    "source": "reports/structure_variance_boundary/representation_definitions.json",
+    "locator": "participation, geometry (rule re-implemented here; reproduces the cached counts exactly)"
+   },
+   {
+    "label": "distance up to which a vertex adds to the contact amount, cm",
+    "value": 2.0,
+    "dataset": "both",
+    "source": "reports/structure_variance_boundary/representation_definitions.json",
+    "locator": "amount"
+   },
+   {
+    "label": "smallest number of touching vertices for a part to count as touching",
+    "value": 3,
+    "dataset": "both",
+    "source": "reports/structure_variance_boundary/representation_definitions.json",
+    "locator": "participation"
+   },
+   {
+    "label": "share of (amount x object surface area) drawn as disc area",
+    "value": 0.25,
+    "dataset": "both",
+    "source": "this script",
+    "locator": "DISC_AREA_SHARE"
+   },
+   {
+    "label": "disc area for the same contact amount: ARCTIC row relative to TACO row",
+    "value": 13.4,
+    "dataset": "both",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "ratio of the surface areas of the two drawn meshes"
+   },
+   {
+    "label": "disc opacity in panel 3",
+    "value": 0.5,
+    "dataset": "both",
+    "source": "this script",
+    "locator": "DISC_OPACITY"
+   },
+   {
+    "label": "arrow length, cm",
+    "value": 3.5,
+    "dataset": "both",
+    "source": "this script",
+    "locator": "ARROW_LENGTH"
+   },
+   {
+    "label": "example index",
+    "value": 3011,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/sequences_meta.csv",
+    "locator": "row 3011"
+   },
+   {
+    "label": "frame drawn (0-based, of 64)",
+    "value": 63,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "argmax over frames 0..63 of sum_k m[3011, frame + 8, k]"
+   },
+   {
+    "label": "frame of the recorded take",
+    "value": 63,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/sequences_meta.csv",
+    "locator": "t0 of row 3011 + frame"
+   },
+   {
+    "label": "contact amount at the drawn frame (sum of the six parts; share of the object's surface, distance-weighted)",
+    "value": 0.19212,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "m[3011, 71] (stored frame = frame + 8).sum()"
+   },
+   {
+    "label": "hand parts that touch in the drawn frame",
+    "value": 6,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "n_hard[3011, 69:72] >= 3 in at least 2 of the 3 frames, per part"
+   },
+   {
+    "label": "test sequences",
+    "value": 364,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/manifests/fixed0.json",
+    "locator": "len(test)"
+   },
+   {
+    "label": "test sequences with that many touching parts at their own frame of largest contact amount",
+    "value": 183,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "meta.selection_evidence: histogram_of_touching_parts"
+   },
+   {
+    "label": "median number of touching parts over the test sequences, each at its frame of largest contact amount",
+    "value": 6.0,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "meta.selection_evidence: median"
+   },
+   {
+    "label": "object surface area of the drawn mesh, m^2",
+    "value": 0.0426,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "sum of triangle areas of taco_1_hand_on_object/object_verts, object_faces"
+   },
+   {
+    "label": "object vertices",
+    "value": 4002,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "taco_1_hand_on_object/object_verts"
+   },
+   {
+    "label": "object vertices within 1 cm of the hand (touching)",
+    "value": 987,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "taco_2_contact_by_part/distance < 0.01"
+   },
+   {
+    "label": "object vertices within 2 cm of the hand",
+    "value": 1502,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "taco_2_contact_by_part/distance < 0.02"
+   },
+   {
+    "label": "share of the object's vertices inside the picture",
+    "value": 0.671,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "projection of object_verts with meta.display_choices.camera.per_row"
+   },
+   {
+    "label": "angle between the view direction and the object's broad side, degrees",
+    "value": 11.8,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.display_choices.camera.per_row: asin |direction . thinnest principal axis of object_verts|"
+   },
+   {
+    "label": "largest distance of a drawn disc centre from the nearest touching vertex of its part, mm",
+    "value": 6.89,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.checks.centroid_to_nearest_touching_vertex_of_its_part_mm"
+   },
+   {
+    "label": "largest difference between cached and recomputed contact centroid, mm",
+    "value": 3e-05,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.checks.centroid_cache_vs_recomputed_max_mm"
+   },
+   {
+    "label": "largest relative difference between cached and recomputed amount",
+    "value": 6.2e-08,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.checks.amount_recomputed_vs_cache_max_relative_difference"
+   },
+   {
+    "label": "disc area per unit of contact amount, cm^2",
+    "value": 106.5,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "0.25 * surface area of the drawn mesh; pi * taco_3_numbers/radius^2 / taco_3_numbers/amount"
+   },
+   {
+    "label": "median edge length of the object's triangles with a vertex within 2 cm of the hand, mm",
+    "value": 2.9,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "taco_1_hand_on_object/object_verts, object_faces, taco_2_contact_by_part/distance < 0.02"
+   },
+   {
+    "label": "palm: frames (of 64) in which it touches",
+    "value": 24,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "causal 3-frame majority of n_hard[3011, :, 0] >= 3, frames 0..63"
+   },
+   {
+    "label": "palm: contact amount at the drawn frame",
+    "value": 0.04074,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "m[3011, 71, 0]"
+   },
+   {
+    "label": "palm: object vertices within 1 cm at the drawn frame",
+    "value": 164,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "n_hard[3011, 71, 0]"
+   },
+   {
+    "label": "palm: of these, vertices the camera sees in panel 2 (inside the picture, not hidden by the object)",
+    "value": 80,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "ray from the camera to each vertex; taco_2_contact_by_part/visible & (part == 0)"
+   },
+   {
+    "label": "palm: disc radius, mm",
+    "value": 11.8,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "sqrt(0.25 * amount * surface area / pi), taco_3_numbers/radius[0]"
+   },
+   {
+    "label": "palm: smallest distance from the hand part to the object surface, mm",
+    "value": 0.2,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "closest point on the object mesh of every hand vertex of the part; taco_1_hand_on_object/surface_gap[0]"
+   },
+   {
+    "label": "palm: share of its arrow's pixels that show in panel 3",
+    "value": 0.932,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.palm (taco_3_numbers/arrow_pixels_showing[0] / arrow_pixels_alone[0])"
+   },
+   {
+    "label": "palm: share of its arrowhead's pixels that show in panel 3 with no disc in front",
+    "value": 1.0,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.palm (taco_3_numbers/head_pixels_clear[0] / head_pixels[0])"
+   },
+   {
+    "label": "palm: share of its arrow's length that the picture shows (sine of the angle to the line of sight)",
+    "value": 0.968,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.palm; taco_3_numbers/centre[0], normal[0], taco_camera/position"
+   },
+   {
+    "label": "palm: share of its disc that other discs overlap in panel 3",
+    "value": 0.0,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_discs.palm (projected disc outlines)"
+   },
+   {
+    "label": "thumb: frames (of 64) in which it touches",
+    "value": 34,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "causal 3-frame majority of n_hard[3011, :, 1] >= 3, frames 0..63"
+   },
+   {
+    "label": "thumb: contact amount at the drawn frame",
+    "value": 0.06213,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "m[3011, 71, 1]"
+   },
+   {
+    "label": "thumb: object vertices within 1 cm at the drawn frame",
+    "value": 360,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "n_hard[3011, 71, 1]"
+   },
+   {
+    "label": "thumb: of these, vertices the camera sees in panel 2 (inside the picture, not hidden by the object)",
+    "value": 23,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "ray from the camera to each vertex; taco_2_contact_by_part/visible & (part == 1)"
+   },
+   {
+    "label": "thumb: disc radius, mm",
+    "value": 14.5,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "sqrt(0.25 * amount * surface area / pi), taco_3_numbers/radius[1]"
+   },
+   {
+    "label": "thumb: smallest distance from the hand part to the object surface, mm",
+    "value": 0.1,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "closest point on the object mesh of every hand vertex of the part; taco_1_hand_on_object/surface_gap[1]"
+   },
+   {
+    "label": "thumb: share of its arrow's pixels that show in panel 3",
+    "value": 0.891,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.thumb (taco_3_numbers/arrow_pixels_showing[1] / arrow_pixels_alone[1])"
+   },
+   {
+    "label": "thumb: share of its arrowhead's pixels that show in panel 3 with no disc in front",
+    "value": 1.0,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.thumb (taco_3_numbers/head_pixels_clear[1] / head_pixels[1])"
+   },
+   {
+    "label": "thumb: share of its arrow's length that the picture shows (sine of the angle to the line of sight)",
+    "value": 0.85,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.thumb; taco_3_numbers/centre[1], normal[1], taco_camera/position"
+   },
+   {
+    "label": "thumb: share of its disc that other discs overlap in panel 3",
+    "value": 0.394,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_discs.thumb (projected disc outlines)"
+   },
+   {
+    "label": "index: frames (of 64) in which it touches",
+    "value": 61,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "causal 3-frame majority of n_hard[3011, :, 2] >= 3, frames 0..63"
+   },
+   {
+    "label": "index: contact amount at the drawn frame",
+    "value": 0.0329,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "m[3011, 71, 2]"
+   },
+   {
+    "label": "index: object vertices within 1 cm at the drawn frame",
+    "value": 255,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "n_hard[3011, 71, 2]"
+   },
+   {
+    "label": "index: of these, vertices the camera sees in panel 2 (inside the picture, not hidden by the object)",
+    "value": 224,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "ray from the camera to each vertex; taco_2_contact_by_part/visible & (part == 2)"
+   },
+   {
+    "label": "index: disc radius, mm",
+    "value": 10.6,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "sqrt(0.25 * amount * surface area / pi), taco_3_numbers/radius[2]"
+   },
+   {
+    "label": "index: smallest distance from the hand part to the object surface, mm",
+    "value": 0.1,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "closest point on the object mesh of every hand vertex of the part; taco_1_hand_on_object/surface_gap[2]"
+   },
+   {
+    "label": "index: share of its arrow's pixels that show in panel 3",
+    "value": 0.726,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.index (taco_3_numbers/arrow_pixels_showing[2] / arrow_pixels_alone[2])"
+   },
+   {
+    "label": "index: share of its arrowhead's pixels that show in panel 3 with no disc in front",
+    "value": 0.0,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.index (taco_3_numbers/head_pixels_clear[2] / head_pixels[2])"
+   },
+   {
+    "label": "index: share of its arrow's length that the picture shows (sine of the angle to the line of sight)",
+    "value": 0.445,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.index; taco_3_numbers/centre[2], normal[2], taco_camera/position"
+   },
+   {
+    "label": "index: share of its disc that other discs overlap in panel 3",
+    "value": 0.394,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_discs.index (projected disc outlines)"
+   },
+   {
+    "label": "middle: frames (of 64) in which it touches",
+    "value": 26,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "causal 3-frame majority of n_hard[3011, :, 3] >= 3, frames 0..63"
+   },
+   {
+    "label": "middle: contact amount at the drawn frame",
+    "value": 0.01615,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "m[3011, 71, 3]"
+   },
+   {
+    "label": "middle: object vertices within 1 cm at the drawn frame",
+    "value": 59,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "n_hard[3011, 71, 3]"
+   },
+   {
+    "label": "middle: of these, vertices the camera sees in panel 2 (inside the picture, not hidden by the object)",
+    "value": 59,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "ray from the camera to each vertex; taco_2_contact_by_part/visible & (part == 3)"
+   },
+   {
+    "label": "middle: disc radius, mm",
+    "value": 7.4,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "sqrt(0.25 * amount * surface area / pi), taco_3_numbers/radius[3]"
+   },
+   {
+    "label": "middle: smallest distance from the hand part to the object surface, mm",
+    "value": 2.8,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "closest point on the object mesh of every hand vertex of the part; taco_1_hand_on_object/surface_gap[3]"
+   },
+   {
+    "label": "middle: share of its arrow's pixels that show in panel 3",
+    "value": 0.978,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.middle (taco_3_numbers/arrow_pixels_showing[3] / arrow_pixels_alone[3])"
+   },
+   {
+    "label": "middle: share of its arrowhead's pixels that show in panel 3 with no disc in front",
+    "value": 1.0,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.middle (taco_3_numbers/head_pixels_clear[3] / head_pixels[3])"
+   },
+   {
+    "label": "middle: share of its arrow's length that the picture shows (sine of the angle to the line of sight)",
+    "value": 0.757,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.middle; taco_3_numbers/centre[3], normal[3], taco_camera/position"
+   },
+   {
+    "label": "middle: share of its disc that other discs overlap in panel 3",
+    "value": 0.0,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_discs.middle (projected disc outlines)"
+   },
+   {
+    "label": "ring: frames (of 64) in which it touches",
+    "value": 31,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "causal 3-frame majority of n_hard[3011, :, 4] >= 3, frames 0..63"
+   },
+   {
+    "label": "ring: contact amount at the drawn frame",
+    "value": 0.01843,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "m[3011, 71, 4]"
+   },
+   {
+    "label": "ring: object vertices within 1 cm at the drawn frame",
+    "value": 55,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "n_hard[3011, 71, 4]"
+   },
+   {
+    "label": "ring: of these, vertices the camera sees in panel 2 (inside the picture, not hidden by the object)",
+    "value": 46,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "ray from the camera to each vertex; taco_2_contact_by_part/visible & (part == 4)"
+   },
+   {
+    "label": "ring: disc radius, mm",
+    "value": 7.9,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "sqrt(0.25 * amount * surface area / pi), taco_3_numbers/radius[4]"
+   },
+   {
+    "label": "ring: smallest distance from the hand part to the object surface, mm",
+    "value": 0.4,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "closest point on the object mesh of every hand vertex of the part; taco_1_hand_on_object/surface_gap[4]"
+   },
+   {
+    "label": "ring: share of its arrow's pixels that show in panel 3",
+    "value": 0.98,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.ring (taco_3_numbers/arrow_pixels_showing[4] / arrow_pixels_alone[4])"
+   },
+   {
+    "label": "ring: share of its arrowhead's pixels that show in panel 3 with no disc in front",
+    "value": 1.0,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.ring (taco_3_numbers/head_pixels_clear[4] / head_pixels[4])"
+   },
+   {
+    "label": "ring: share of its arrow's length that the picture shows (sine of the angle to the line of sight)",
+    "value": 0.835,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.ring; taco_3_numbers/centre[4], normal[4], taco_camera/position"
+   },
+   {
+    "label": "ring: share of its disc that other discs overlap in panel 3",
+    "value": 0.001,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_discs.ring (projected disc outlines)"
+   },
+   {
+    "label": "little: frames (of 64) in which it touches",
+    "value": 30,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "causal 3-frame majority of n_hard[3011, :, 5] >= 3, frames 0..63"
+   },
+   {
+    "label": "little: contact amount at the drawn frame",
+    "value": 0.02177,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "m[3011, 71, 5]"
+   },
+   {
+    "label": "little: object vertices within 1 cm at the drawn frame",
+    "value": 94,
+    "dataset": "TACO",
+    "source": "reports/structure_variance_boundary/taco/cache/features.npz",
+    "locator": "n_hard[3011, 71, 5]"
+   },
+   {
+    "label": "little: of these, vertices the camera sees in panel 2 (inside the picture, not hidden by the object)",
+    "value": 94,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "ray from the camera to each vertex; taco_2_contact_by_part/visible & (part == 5)"
+   },
+   {
+    "label": "little: disc radius, mm",
+    "value": 8.6,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "sqrt(0.25 * amount * surface area / pi), taco_3_numbers/radius[5]"
+   },
+   {
+    "label": "little: smallest distance from the hand part to the object surface, mm",
+    "value": 0.1,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "closest point on the object mesh of every hand vertex of the part; taco_1_hand_on_object/surface_gap[5]"
+   },
+   {
+    "label": "little: share of its arrow's pixels that show in panel 3",
+    "value": 0.953,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.little (taco_3_numbers/arrow_pixels_showing[5] / arrow_pixels_alone[5])"
+   },
+   {
+    "label": "little: share of its arrowhead's pixels that show in panel 3 with no disc in front",
+    "value": 1.0,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.little (taco_3_numbers/head_pixels_clear[5] / head_pixels[5])"
+   },
+   {
+    "label": "little: share of its arrow's length that the picture shows (sine of the angle to the line of sight)",
+    "value": 0.821,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_arrows.little; taco_3_numbers/centre[5], normal[5], taco_camera/position"
+   },
+   {
+    "label": "little: share of its disc that other discs overlap in panel 3",
+    "value": 0.001,
+    "dataset": "TACO",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.TACO.panel_3_discs.little (projected disc outlines)"
+   },
+   {
+    "label": "example index",
+    "value": 36,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/sequences_meta.csv",
+    "locator": "row 36"
+   },
+   {
+    "label": "frame drawn (0-based, of 64)",
+    "value": 17,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "argmax over frames 0..63 of sum_k m[36, frame + 8, k]"
+   },
+   {
+    "label": "frame of the recorded take",
+    "value": 75,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/sequences_meta.csv",
+    "locator": "t0 of row 36 + frame"
+   },
+   {
+    "label": "contact amount at the drawn frame (sum of the six parts; share of the object's surface, distance-weighted)",
+    "value": 0.01484,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "m[36, 25] (stored frame = frame + 8).sum()"
+   },
+   {
+    "label": "hand parts that touch in the drawn frame",
+    "value": 4,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "n_hard[36, 23:26] >= 3 in at least 2 of the 3 frames, per part"
+   },
+   {
+    "label": "test sequences",
+    "value": 186,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/manifests/fixed0.json",
+    "locator": "len(test)"
+   },
+   {
+    "label": "test sequences with that many touching parts at their own frame of largest contact amount",
+    "value": 36,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "meta.selection_evidence: histogram_of_touching_parts"
+   },
+   {
+    "label": "median number of touching parts over the test sequences, each at its frame of largest contact amount",
+    "value": 4.0,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "meta.selection_evidence: median"
+   },
+   {
+    "label": "object surface area of the drawn mesh, m^2",
+    "value": 0.57007,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "sum of triangle areas of arctic_1_hand_on_object/object_verts, object_faces"
+   },
+   {
+    "label": "object vertices",
+    "value": 3947,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "arctic_1_hand_on_object/object_verts"
+   },
+   {
+    "label": "object vertices within 1 cm of the hand (touching)",
+    "value": 44,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "arctic_2_contact_by_part/distance < 0.01"
+   },
+   {
+    "label": "object vertices within 2 cm of the hand",
+    "value": 131,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "arctic_2_contact_by_part/distance < 0.02"
+   },
+   {
+    "label": "share of the object's vertices inside the picture",
+    "value": 0.423,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "projection of object_verts with meta.display_choices.camera.per_row"
+   },
+   {
+    "label": "angle between the view direction and the object's broad side, degrees",
+    "value": 35.9,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.display_choices.camera.per_row: asin |direction . thinnest principal axis of object_verts|"
+   },
+   {
+    "label": "largest distance of a drawn disc centre from the nearest touching vertex of its part, mm",
+    "value": 5.58,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.checks.centroid_to_nearest_touching_vertex_of_its_part_mm"
+   },
+   {
+    "label": "largest difference between cached and recomputed contact centroid, mm",
+    "value": 3e-05,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.checks.centroid_cache_vs_recomputed_max_mm"
+   },
+   {
+    "label": "largest relative difference between cached and recomputed amount",
+    "value": 0.0062,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.checks.amount_recomputed_vs_cache_max_relative_difference"
+   },
+   {
+    "label": "disc area per unit of contact amount, cm^2",
+    "value": 1425.2,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "0.25 * surface area of the drawn mesh; pi * arctic_3_numbers/radius^2 / arctic_3_numbers/amount"
+   },
+   {
+    "label": "median edge length of the object's triangles with a vertex within 2 cm of the hand, mm",
+    "value": 13.1,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "arctic_1_hand_on_object/object_verts, object_faces, arctic_2_contact_by_part/distance < 0.02"
+   },
+   {
+    "label": "palm: frames (of 64) in which it touches",
+    "value": 0,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "causal 3-frame majority of n_hard[36, :, 0] >= 3, frames 0..63"
+   },
+   {
+    "label": "palm: contact amount at the drawn frame",
+    "value": 0.00015,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "m[36, 25, 0]"
+   },
+   {
+    "label": "palm: object vertices within 1 cm at the drawn frame",
+    "value": 0,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "n_hard[36, 25, 0]"
+   },
+   {
+    "label": "thumb: frames (of 64) in which it touches",
+    "value": 56,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "causal 3-frame majority of n_hard[36, :, 1] >= 3, frames 0..63"
+   },
+   {
+    "label": "thumb: contact amount at the drawn frame",
+    "value": 0.00284,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "m[36, 25, 1]"
+   },
+   {
+    "label": "thumb: object vertices within 1 cm at the drawn frame",
+    "value": 12,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "n_hard[36, 25, 1]"
+   },
+   {
+    "label": "thumb: of these, vertices the camera sees in panel 2 (inside the picture, not hidden by the object)",
+    "value": 9,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "ray from the camera to each vertex; arctic_2_contact_by_part/visible & (part == 1)"
+   },
+   {
+    "label": "thumb: disc radius, mm",
+    "value": 11.3,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "sqrt(0.25 * amount * surface area / pi), arctic_3_numbers/radius[1]"
+   },
+   {
+    "label": "thumb: smallest distance from the hand part to the object surface, mm",
+    "value": 2.6,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "closest point on the object mesh of every hand vertex of the part; arctic_1_hand_on_object/surface_gap[1]"
+   },
+   {
+    "label": "thumb: share of its arrow's pixels that show in panel 3",
+    "value": 0.976,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.ARCTIC.panel_3_arrows.thumb (arctic_3_numbers/arrow_pixels_showing[1] / arrow_pixels_alone[1])"
+   },
+   {
+    "label": "thumb: share of its arrowhead's pixels that show in panel 3 with no disc in front",
+    "value": 1.0,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.ARCTIC.panel_3_arrows.thumb (arctic_3_numbers/head_pixels_clear[1] / head_pixels[1])"
+   },
+   {
+    "label": "thumb: share of its arrow's length that the picture shows (sine of the angle to the line of sight)",
+    "value": 0.828,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.ARCTIC.panel_3_arrows.thumb; arctic_3_numbers/centre[1], normal[1], arctic_camera/position"
+   },
+   {
+    "label": "thumb: share of its disc that other discs overlap in panel 3",
+    "value": 0.0,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.ARCTIC.panel_3_discs.thumb (projected disc outlines)"
+   },
+   {
+    "label": "index: frames (of 64) in which it touches",
+    "value": 63,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "causal 3-frame majority of n_hard[36, :, 2] >= 3, frames 0..63"
+   },
+   {
+    "label": "index: contact amount at the drawn frame",
+    "value": 0.00496,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "m[36, 25, 2]"
+   },
+   {
+    "label": "index: object vertices within 1 cm at the drawn frame",
+    "value": 15,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "n_hard[36, 25, 2]"
+   },
+   {
+    "label": "index: of these, vertices the camera sees in panel 2 (inside the picture, not hidden by the object)",
+    "value": 15,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "ray from the camera to each vertex; arctic_2_contact_by_part/visible & (part == 2)"
+   },
+   {
+    "label": "index: disc radius, mm",
+    "value": 15.0,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "sqrt(0.25 * amount * surface area / pi), arctic_3_numbers/radius[2]"
+   },
+   {
+    "label": "index: smallest distance from the hand part to the object surface, mm",
+    "value": 3.5,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "closest point on the object mesh of every hand vertex of the part; arctic_1_hand_on_object/surface_gap[2]"
+   },
+   {
+    "label": "index: share of its arrow's pixels that show in panel 3",
+    "value": 0.957,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.ARCTIC.panel_3_arrows.index (arctic_3_numbers/arrow_pixels_showing[2] / arrow_pixels_alone[2])"
+   },
+   {
+    "label": "index: share of its arrowhead's pixels that show in panel 3 with no disc in front",
+    "value": 0.994,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.ARCTIC.panel_3_arrows.index (arctic_3_numbers/head_pixels_clear[2] / head_pixels[2])"
+   },
+   {
+    "label": "index: share of its arrow's length that the picture shows (sine of the angle to the line of sight)",
+    "value": 0.573,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.ARCTIC.panel_3_arrows.index; arctic_3_numbers/centre[2], normal[2], arctic_camera/position"
+   },
+   {
+    "label": "index: share of its disc that other discs overlap in panel 3",
+    "value": 0.357,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.ARCTIC.panel_3_discs.index (projected disc outlines)"
+   },
+   {
+    "label": "middle: frames (of 64) in which it touches",
+    "value": 63,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "causal 3-frame majority of n_hard[36, :, 3] >= 3, frames 0..63"
+   },
+   {
+    "label": "middle: contact amount at the drawn frame",
+    "value": 0.00407,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "m[36, 25, 3]"
+   },
+   {
+    "label": "middle: object vertices within 1 cm at the drawn frame",
+    "value": 14,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "n_hard[36, 25, 3]"
+   },
+   {
+    "label": "middle: of these, vertices the camera sees in panel 2 (inside the picture, not hidden by the object)",
+    "value": 9,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "ray from the camera to each vertex; arctic_2_contact_by_part/visible & (part == 3)"
+   },
+   {
+    "label": "middle: disc radius, mm",
+    "value": 13.6,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "sqrt(0.25 * amount * surface area / pi), arctic_3_numbers/radius[3]"
+   },
+   {
+    "label": "middle: smallest distance from the hand part to the object surface, mm",
+    "value": 1.3,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "closest point on the object mesh of every hand vertex of the part; arctic_1_hand_on_object/surface_gap[3]"
+   },
+   {
+    "label": "middle: share of its arrow's pixels that show in panel 3",
+    "value": 0.917,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.ARCTIC.panel_3_arrows.middle (arctic_3_numbers/arrow_pixels_showing[3] / arrow_pixels_alone[3])"
+   },
+   {
+    "label": "middle: share of its arrowhead's pixels that show in panel 3 with no disc in front",
+    "value": 0.924,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.ARCTIC.panel_3_arrows.middle (arctic_3_numbers/head_pixels_clear[3] / head_pixels[3])"
+   },
+   {
+    "label": "middle: share of its arrow's length that the picture shows (sine of the angle to the line of sight)",
+    "value": 0.477,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.ARCTIC.panel_3_arrows.middle; arctic_3_numbers/centre[3], normal[3], arctic_camera/position"
+   },
+   {
+    "label": "middle: share of its disc that other discs overlap in panel 3",
+    "value": 0.527,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.ARCTIC.panel_3_discs.middle (projected disc outlines)"
+   },
+   {
+    "label": "ring: frames (of 64) in which it touches",
+    "value": 5,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "causal 3-frame majority of n_hard[36, :, 4] >= 3, frames 0..63"
+   },
+   {
+    "label": "ring: contact amount at the drawn frame",
+    "value": 0.00282,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "m[36, 25, 4]"
+   },
+   {
+    "label": "ring: object vertices within 1 cm at the drawn frame",
+    "value": 3,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "n_hard[36, 25, 4]"
+   },
+   {
+    "label": "ring: of these, vertices the camera sees in panel 2 (inside the picture, not hidden by the object)",
+    "value": 3,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "ray from the camera to each vertex; arctic_2_contact_by_part/visible & (part == 4)"
+   },
+   {
+    "label": "ring: disc radius, mm",
+    "value": 11.3,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "sqrt(0.25 * amount * surface area / pi), arctic_3_numbers/radius[4]"
+   },
+   {
+    "label": "ring: smallest distance from the hand part to the object surface, mm",
+    "value": 7.9,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "closest point on the object mesh of every hand vertex of the part; arctic_1_hand_on_object/surface_gap[4]"
+   },
+   {
+    "label": "ring: share of its arrow's pixels that show in panel 3",
+    "value": 0.904,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.ARCTIC.panel_3_arrows.ring (arctic_3_numbers/arrow_pixels_showing[4] / arrow_pixels_alone[4])"
+   },
+   {
+    "label": "ring: share of its arrowhead's pixels that show in panel 3 with no disc in front",
+    "value": 1.0,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.ARCTIC.panel_3_arrows.ring (arctic_3_numbers/head_pixels_clear[4] / head_pixels[4])"
+   },
+   {
+    "label": "ring: share of its arrow's length that the picture shows (sine of the angle to the line of sight)",
+    "value": 0.892,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.ARCTIC.panel_3_arrows.ring; arctic_3_numbers/centre[4], normal[4], arctic_camera/position"
+   },
+   {
+    "label": "ring: share of its disc that other discs overlap in panel 3",
+    "value": 0.338,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from the arrays in panels.npz",
+    "locator": "meta.visibility.ARCTIC.panel_3_discs.ring (projected disc outlines)"
+   },
+   {
+    "label": "little: frames (of 64) in which it touches",
+    "value": 0,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "causal 3-frame majority of n_hard[36, :, 5] >= 3, frames 0..63"
+   },
+   {
+    "label": "little: contact amount at the drawn frame",
+    "value": 0.0,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "m[36, 25, 5]"
+   },
+   {
+    "label": "little: object vertices within 1 cm at the drawn frame",
+    "value": 0,
+    "dataset": "ARCTIC",
+    "source": "reports/structure_variance_boundary/arctic/cache/features.npz",
+    "locator": "n_hard[36, 25, 5]"
+   }
+  ],
+  "checks": {
+   "TACO": {
+    "hand_vs_recorded_distance_max_m": 1.8517270078399761e-09,
+    "touching_vertices_per_part": {
+     "cache": [
+      164,
+      360,
+      255,
+      59,
+      55,
+      94
+     ],
+     "recomputed": [
+      164,
+      360,
+      255,
+      59,
+      55,
+      94
+     ]
+    },
+    "centroid_cache_vs_recomputed_max_mm": 2.8703184209900527e-05,
+    "centroid_to_nearest_touching_vertex_of_its_part_mm": {
+     "palm": 2.818492775977832,
+     "thumb": 6.889548670782719,
+     "index": 1.0130710218987826,
+     "middle": 2.742328041792038,
+     "ring": 4.088784616585896,
+     "little": 3.1171426478835915
+    },
+    "normal_cosine_cache_vs_recomputed_min": 0.9999999851143473,
+    "mean_normal_length_before_normalising": {
+     "palm": 0.19154428462168885,
+     "thumb": 0.30844547476083334,
+     "index": 0.16971730718304961,
+     "middle": 0.7336913420993393,
+     "ring": 0.23675930867438436,
+     "little": 0.24558075643707453
+    },
+    "parts_whose_normal_is_the_nearest_vertex_normal": [
+     "palm",
+     "index"
+    ],
+    "amount": {
+     "cache": [
+      0.04073568433523178,
+      0.06212833523750305,
+      0.032899800688028336,
+      0.016153449192643166,
+      0.018432606011629105,
+      0.021774176508188248
+     ],
+     "recomputed_on_the_drawn_mesh": [
+      0.04073568551282745,
+      0.062128336557104154,
+      0.03289980273906264,
+      0.016153449016413454,
+      0.018432605583736897,
+      0.021774176130559576
+     ]
+    },
+    "amount_recomputed_vs_cache_max_relative_difference": 6.234184590780956e-08,
+    "amount_after_area_correction_max_relative_difference": 6.234184590780956e-08,
+    "drawn_mesh_area_m2": 0.0426012900931515,
+    "study_mesh_area_m2": 0.0426012900931515,
+    "area_ratio_drawn_to_study": 1.0,
+    "participation_equals_second_table": true,
+    "second_table": "reports/structure_aware_temporal_generation/taco/metrics/D0_seed0_A.npz",
+    "hand_part_to_object_surface_mm": {
+     "palm": 0.21469192118088026,
+     "thumb": 0.09744570920236008,
+     "index": 0.07152101672389796,
+     "middle": 2.821666361018946,
+     "ring": 0.4466672936177241,
+     "little": 0.05128841791601272
+    },
+    "nearest_object_vertex_of_each_touching_part_mm": {
+     "palm": 1.0056380415335309,
+     "thumb": 0.8252630941569803,
+     "index": 1.2056909035891297,
+     "middle": 2.8821884188801064,
+     "ring": 1.4597482513636362,
+     "little": 0.6080192979425191
+    },
+    "median_edge_of_triangles_within_2cm_of_the_hand_mm": 2.8706537973989206,
+    "median_edge_of_all_triangles_mm": 3.075982718661892
+   },
+   "ARCTIC": {
+    "hand_vs_recorded_distance_max_m": 9.12721050821963e-09,
+    "touching_vertices_per_part": {
+     "cache": [
+      0,
+      12,
+      15,
+      14,
+      3,
+      0
+     ],
+     "recomputed": [
+      0,
+      12,
+      15,
+      14,
+      3,
+      0
+     ]
+    },
+    "centroid_cache_vs_recomputed_max_mm": 3.048559443285539e-05,
+    "centroid_to_nearest_touching_vertex_of_its_part_mm": {
+     "thumb": 5.575676636806841,
+     "index": 3.9509550189799634,
+     "middle": 2.68425083528475,
+     "ring": 5.318989078629296
+    },
+    "normal_cosine_cache_vs_recomputed_min": 1.0000000121927326,
+    "mean_normal_length_before_normalising": {
+     "thumb": 0.6175182233347959,
+     "index": 0.784279120197444,
+     "middle": 0.8746183682609832,
+     "ring": 0.9351822164687494
+    },
+    "parts_whose_normal_is_the_nearest_vertex_normal": [],
+    "amount": {
+     "cache": [
+      0.00015099134179763496,
+      0.0028365873731672764,
+      0.004956897813826799,
+      0.004071823321282864,
+      0.0028224580455571413,
+      0.0
+     ],
+     "recomputed_on_the_drawn_mesh": [
+      0.00015193111156067702,
+      0.002854242532137825,
+      0.004987750259185862,
+      0.004097166735707427,
+      0.002840025373530847,
+      0.0
+     ]
+    },
+    "amount_recomputed_vs_cache_max_relative_difference": 0.0062241439137604715,
+    "amount_after_area_correction_max_relative_difference": 9.183096616460773e-08,
+    "drawn_mesh_area_m2": 0.5700726949271404,
+    "study_mesh_area_m2": 0.5736208787414843,
+    "area_ratio_drawn_to_study": 0.993814409576359,
+    "participation_equals_second_table": true,
+    "second_table": "reports/structure_aware_temporal_generation/arctic/metrics/D0_seed0_A.npz",
+    "hand_part_to_object_surface_mm": {
+     "palm": 11.097685030618797,
+     "thumb": 2.5569469815475174,
+     "index": 3.513886103588661,
+     "middle": 1.3214586628460658,
+     "ring": 7.904920963022916,
+     "little": 26.229827415684806
+    },
+    "nearest_object_vertex_of_each_touching_part_mm": {
+     "thumb": 3.5429501440376048,
+     "index": 5.36321010440588,
+     "middle": 2.8604087419807924,
+     "ring": 9.222598746418955
+    },
+    "median_edge_of_triangles_within_2cm_of_the_hand_mm": 13.063465830821091,
+    "median_edge_of_all_triangles_mm": 14.309315186364918
+   }
+  },
+  "visibility": {
+   "how": {
+    "panel_2_touching_vertices": "per part, the object vertices within 1 cm of the hand and how many of them the camera sees: inside the picture and, on the ray from the camera, nothing of the object hit more than 0.5 mm before the vertex (trimesh ray casting)",
+    "panel_3_discs": "from the projected outline of each disc (96-gon in the disc's middle plane, the camera of the row; the 2 mm thickness of the drawn disc is left out): pixels inside it, the share that the outlines of other discs overlap, the share behind a disc whose centre is nearer to the camera",
+    "panel_3_arrows": "arrow_pixels_alone: pixels the arrow covers when rendered alone; arrow_pixels_showing: those of them where the third panel differs by more than 32/255 in some channel from the same panel rendered without the arrow. The script stops below a share of 0.5. head_pixels: the arrow's pixels over the last 0.3 of its projected length; head_pixels_clear: those of them that show and whose colour stays within 32/255 when all discs are left out (no disc of another colour in front); the caption names an arrow whose head_share_clear is below 0.5. head_behind_discs: from the geometry alone, the share of 9 points along the head's axis that lie behind each disc as the camera sees it. cosine_normal_to_line_of_sight: between the contact normal and the line from the disc centre to the camera (negative: the arrow points into the picture); share_of_length_in_projection: the sine of that angle, the share of the arrow's length that the picture shows",
+    "hand_part_to_object_surface_mm": "smallest distance from the hand vertices of the part to the object mesh surface (closest point on a triangle, not on a vertex)"
+   },
+   "TACO": {
+    "panel_2_touching_vertices": {
+     "palm": {
+      "within_1cm": 164,
+      "visible": 80,
+      "share_visible": 0.4878048780487805
+     },
+     "thumb": {
+      "within_1cm": 360,
+      "visible": 23,
+      "share_visible": 0.06388888888888888
+     },
+     "index": {
+      "within_1cm": 255,
+      "visible": 224,
+      "share_visible": 0.8784313725490196
+     },
+     "middle": {
+      "within_1cm": 59,
+      "visible": 59,
+      "share_visible": 1.0
+     },
+     "ring": {
+      "within_1cm": 55,
+      "visible": 46,
+      "share_visible": 0.8363636363636363
+     },
+     "little": {
+      "within_1cm": 94,
+      "visible": 94,
+      "share_visible": 1.0
+     }
+    },
+    "panel_3_discs": {
+     "palm": {
+      "disc_pixels": 963,
+      "share_overlapped_by_other_discs": 0.0,
+      "share_behind_a_nearer_disc": 0.0,
+      "overlaps": [],
+      "behind": []
+     },
+     "thumb": {
+      "disc_pixels": 2035,
+      "share_overlapped_by_other_discs": 0.3936117936117936,
+      "share_behind_a_nearer_disc": 0.3936117936117936,
+      "overlaps": [
+       "index"
+      ],
+      "behind": [
+       "index"
+      ]
+     },
+     "index": {
+      "disc_pixels": 2035,
+      "share_overlapped_by_other_discs": 0.3936117936117936,
+      "share_behind_a_nearer_disc": 0.0,
+      "overlaps": [
+       "thumb"
+      ],
+      "behind": []
+     },
+     "middle": {
+      "disc_pixels": 836,
+      "share_overlapped_by_other_discs": 0.0,
+      "share_behind_a_nearer_disc": 0.0,
+      "overlaps": [],
+      "behind": []
+     },
+     "ring": {
+      "disc_pixels": 876,
+      "share_overlapped_by_other_discs": 0.001141552511415525,
+      "share_behind_a_nearer_disc": 0.001141552511415525,
+      "overlaps": [
+       "little"
+      ],
+      "behind": [
+       "little"
+      ]
+     },
+     "little": {
+      "disc_pixels": 1199,
+      "share_overlapped_by_other_discs": 0.0008340283569641367,
+      "share_behind_a_nearer_disc": 0.0,
+      "overlaps": [
+       "ring"
+      ],
+      "behind": []
+     }
+    },
+    "panel_3_arrows": {
+     "palm": {
+      "arrow_pixels_alone": 1042,
+      "arrow_pixels_showing": 971,
+      "share_showing": 0.9318618042226487,
+      "head_pixels": 354,
+      "head_pixels_clear": 354,
+      "head_share_clear": 1.0,
+      "head_behind_discs": {},
+      "cosine_normal_to_line_of_sight": 0.2495486643429847,
+      "share_of_length_in_projection": 0.9683622587258511,
+      "length_on_screen_px": 100.08420315723632,
+      "points": "towards the viewer"
+     },
+     "thumb": {
+      "arrow_pixels_alone": 679,
+      "arrow_pixels_showing": 605,
+      "share_showing": 0.8910162002945509,
+      "head_pixels": 241,
+      "head_pixels_clear": 241,
+      "head_share_clear": 1.0,
+      "head_behind_discs": {},
+      "cosine_normal_to_line_of_sight": 0.5267379057214431,
+      "share_of_length_in_projection": 0.8500277517094299,
+      "length_on_screen_px": 74.09858153895267,
+      "points": "towards the viewer"
+     },
+     "index": {
+      "arrow_pixels_alone": 420,
+      "arrow_pixels_showing": 305,
+      "share_showing": 0.7261904761904762,
+      "head_pixels": 152,
+      "head_pixels_clear": 0,
+      "head_share_clear": 0.0,
+      "head_behind_discs": {
+       "thumb": 1.0
+      },
+      "cosine_normal_to_line_of_sight": -0.8954314190681085,
+      "share_of_length_in_projection": 0.44519947635377266,
+      "length_on_screen_px": 35.726417510894564,
+      "points": "into the picture"
+     },
+     "middle": {
+      "arrow_pixels_alone": 805,
+      "arrow_pixels_showing": 787,
+      "share_showing": 0.977639751552795,
+      "head_pixels": 250,
+      "head_pixels_clear": 250,
+      "head_share_clear": 1.0,
+      "head_behind_discs": {},
+      "cosine_normal_to_line_of_sight": 0.6534974030591175,
+      "share_of_length_in_projection": 0.7569287576747162,
+      "length_on_screen_px": 75.69692552798043,
+      "points": "towards the viewer"
+     },
+     "ring": {
+      "arrow_pixels_alone": 921,
+      "arrow_pixels_showing": 903,
+      "share_showing": 0.9804560260586319,
+      "head_pixels": 309,
+      "head_pixels_clear": 309,
+      "head_share_clear": 1.0,
+      "head_behind_discs": {},
+      "cosine_normal_to_line_of_sight": 0.5495846830923171,
+      "share_of_length_in_projection": 0.8354380145231107,
+      "length_on_screen_px": 85.81768315401229,
+      "points": "towards the viewer"
+     },
+     "little": {
+      "arrow_pixels_alone": 870,
+      "arrow_pixels_showing": 829,
+      "share_showing": 0.9528735632183908,
+      "head_pixels": 327,
+      "head_pixels_clear": 327,
+      "head_share_clear": 1.0,
+      "head_behind_discs": {},
+      "cosine_normal_to_line_of_sight": -0.5703483997122744,
+      "share_of_length_in_projection": 0.8214028871057416,
+      "length_on_screen_px": 79.01130498240954,
+      "points": "into the picture"
+     }
+    },
+    "hand_part_to_object_surface_mm": {
+     "palm": 0.21469192118088026,
+     "thumb": 0.09744570920236008,
+     "index": 0.07152101672389796,
+     "middle": 2.821666361018946,
+     "ring": 0.4466672936177241,
+     "little": 0.05128841791601272
+    }
+   },
+   "ARCTIC": {
+    "panel_2_touching_vertices": {
+     "thumb": {
+      "within_1cm": 12,
+      "visible": 9,
+      "share_visible": 0.75
+     },
+     "index": {
+      "within_1cm": 15,
+      "visible": 15,
+      "share_visible": 1.0
+     },
+     "middle": {
+      "within_1cm": 14,
+      "visible": 9,
+      "share_visible": 0.6428571428571429
+     },
+     "ring": {
+      "within_1cm": 3,
+      "visible": 3,
+      "share_visible": 1.0
+     }
+    },
+    "panel_3_discs": {
+     "thumb": {
+      "disc_pixels": 1054,
+      "share_overlapped_by_other_discs": 0.0,
+      "share_behind_a_nearer_disc": 0.0,
+      "overlaps": [],
+      "behind": []
+     },
+     "index": {
+      "disc_pixels": 3143,
+      "share_overlapped_by_other_discs": 0.3573019408208718,
+      "share_behind_a_nearer_disc": 0.0,
+      "overlaps": [
+       "middle"
+      ],
+      "behind": []
+     },
+     "middle": {
+      "disc_pixels": 2730,
+      "share_overlapped_by_other_discs": 0.5267399267399268,
+      "share_behind_a_nearer_disc": 0.41135531135531134,
+      "overlaps": [
+       "index",
+       "ring"
+      ],
+      "behind": [
+       "index"
+      ]
+     },
+     "ring": {
+      "disc_pixels": 932,
+      "share_overlapped_by_other_discs": 0.33798283261802575,
+      "share_behind_a_nearer_disc": 0.33798283261802575,
+      "overlaps": [
+       "middle"
+      ],
+      "behind": [
+       "middle"
+      ]
+     }
+    },
+    "panel_3_arrows": {
+     "thumb": {
+      "arrow_pixels_alone": 540,
+      "arrow_pixels_showing": 527,
+      "share_showing": 0.975925925925926,
+      "head_pixels": 181,
+      "head_pixels_clear": 181,
+      "head_share_clear": 1.0,
+      "head_behind_discs": {},
+      "cosine_normal_to_line_of_sight": 0.560919561330952,
+      "share_of_length_in_projection": 0.8278703073044065,
+      "length_on_screen_px": 64.28332028446313,
+      "points": "towards the viewer"
+     },
+     "index": {
+      "arrow_pixels_alone": 506,
+      "arrow_pixels_showing": 484,
+      "share_showing": 0.9565217391304348,
+      "head_pixels": 163,
+      "head_pixels_clear": 162,
+      "head_share_clear": 0.9938650306748467,
+      "head_behind_discs": {},
+      "cosine_normal_to_line_of_sight": 0.8194132821399058,
+      "share_of_length_in_projection": 0.5732031690881577,
+      "length_on_screen_px": 49.89145092257243,
+      "points": "towards the viewer"
+     },
+     "middle": {
+      "arrow_pixels_alone": 460,
+      "arrow_pixels_showing": 422,
+      "share_showing": 0.9173913043478261,
+      "head_pixels": 158,
+      "head_pixels_clear": 146,
+      "head_share_clear": 0.9240506329113924,
+      "head_behind_discs": {},
+      "cosine_normal_to_line_of_sight": 0.8787060729100913,
+      "share_of_length_in_projection": 0.47736321331971665,
+      "length_on_screen_px": 41.59001438108021,
+      "points": "towards the viewer"
+     },
+     "ring": {
+      "arrow_pixels_alone": 616,
+      "arrow_pixels_showing": 557,
+      "share_showing": 0.9042207792207793,
+      "head_pixels": 218,
+      "head_pixels_clear": 218,
+      "head_share_clear": 1.0,
+      "head_behind_discs": {},
+      "cosine_normal_to_line_of_sight": 0.4514082784002441,
+      "share_of_length_in_projection": 0.8923175254312378,
+      "length_on_screen_px": 71.81069284891798,
+      "points": "towards the viewer"
+     }
+    },
+    "hand_part_to_object_surface_mm": {
+     "thumb": 2.5569469815475174,
+     "index": 3.513886103588661,
+     "middle": 1.3214586628460658,
+     "ring": 7.904920963022916
+    }
+   }
+  },
+  "inference": "none (data only): no checkpoint was loaded and no model was run; every value is read from the feature cache or recomputed from recorded geometry on CPU",
+  "caveats": [
+   "The third panel is a drawing of 48 numbers, not a surface and not a model output. A contact map decoded from these numbers is not shown because the study's decoder was never saved.",
+   "Disc area = a quarter of the part's distance-weighted contact area (0.25 x amount x that object's surface area); the quarter is a display choice. The stored amount is a share of the object's surface, so disc areas compare amounts within one row only: for the same amount the disc is 13.4 times larger on the box than on the knife. Arrow length is fixed and carries no value.",
+   "A disc centre is the mean position of the part's touching vertices. It need not lie on the surface (a finger wrapped around a handle gives a centre inside the handle), which is why the object is translucent in the third panel. Largest distance to the nearest touching vertex of the part: TACO 6.9 mm, ARCTIC 5.6 mm.",
+   "The arrow is the mean of the contact normals of the part, except where these nearly cancel (mean shorter than 0.2): there the study stores the normal of the touching vertex nearest the centroid. Affected here: {\"TACO\": [\"palm\", \"index\"], \"ARCTIC\": []}.",
+   "Discs whose normal points away from the camera are seen from behind through the ghost object: {\"TACO\": [\"index\", \"little\"], \"ARCTIC\": []}. Where the parts wrap around the object no camera avoids this; over the allowed view directions the largest attainable value of the smallest cosine between view direction and contact normal is TACO -0.31, ARCTIC 0.64 (negative: some disc is always seen from behind). Their arrows point into the picture, are seen through the translucent disc and are foreshortened; share of the arrow's length that the picture shows: {\"TACO\": {\"index\": \"45%\", \"little\": \"82%\"}, \"ARCTIC\": {}}. Share of each arrow's pixels that show in the third panel (the colour changes by more than 32/255 when the arrow is left out): {\"TACO\": {\"palm\": \"93%\", \"thumb\": \"89%\", \"index\": \"73%\", \"middle\": \"98%\", \"ring\": \"98%\", \"little\": \"95%\"}, \"ARCTIC\": {\"thumb\": \"98%\", \"index\": \"96%\", \"middle\": \"92%\", \"ring\": \"90%\"}}.",
+   "An arrowhead behind a disc of another part shows only as a dull mixed colour, and the arrow's bright base at the disc centre can then be mistaken for its head. Share of each arrowhead's pixels that show with no disc in front (the colour stays within 32/255 when all discs are left out): {\"TACO\": {\"palm\": \"100%\", \"thumb\": \"100%\", \"index\": \"0%\", \"middle\": \"100%\", \"ring\": \"100%\", \"little\": \"100%\"}, \"ARCTIC\": {\"thumb\": \"100%\", \"index\": \"99%\", \"middle\": \"92%\", \"ring\": \"100%\"}}; arrowheads that lie behind a disc by the geometry, with the share of the head: {\"TACO\": {\"index\": {\"thumb\": \"100%\"}}, \"ARCTIC\": {}}. TACO: 684 of the 2003 allowed view directions have no arrowhead behind a disc by that geometry test; the best of them by the camera rule's score (1.25 against 1.57) would see the largest disc (thumb) at cosine 0.07 instead of 0.46, that is, closer to edge-on. The camera rule was kept and the caption names the arrowhead.",
+   "Neighbouring discs overlap, which is why they are drawn at opacity 0.5; the overlapped part of a disc shows a mixed colour. Share of each disc's outline that other discs overlap: {\"TACO\": {\"palm\": \"0%\", \"thumb\": \"39%\", \"index\": \"39%\", \"middle\": \"0%\", \"ring\": \"0%\", \"little\": \"0%\"}, \"ARCTIC\": {\"thumb\": \"0%\", \"index\": \"36%\", \"middle\": \"53%\", \"ring\": \"34%\"}}; of these, behind a disc whose centre is nearer to the camera: {\"TACO\": {\"thumb\": \"39% behind index\", \"ring\": \"0% behind little\"}, \"ARCTIC\": {\"middle\": \"41% behind index\", \"ring\": \"34% behind middle\"}}.",
+   "Contact on faces turned away from the camera is not visible in the second panel. Touching vertices (within 1 cm) that the camera sees, per part: {\"TACO\": {\"palm\": \"80 of 164\", \"thumb\": \"23 of 360\", \"index\": \"224 of 255\", \"middle\": \"59 of 59\", \"ring\": \"46 of 55\", \"little\": \"94 of 94\"}, \"ARCTIC\": {\"thumb\": \"9 of 12\", \"index\": \"15 of 15\", \"middle\": \"9 of 14\", \"ring\": \"3 of 3\"}}.",
+   "A part counts as touching when at least 3 vertices of the object mesh are within 1 cm of the hand and nearest to that part (3-frame majority); this does not require the part to rest on the surface. Smallest distance from each touching hand part to the object surface, mm: {\"TACO\": {\"palm\": 0.2, \"thumb\": 0.1, \"index\": 0.1, \"middle\": 2.8, \"ring\": 0.4, \"little\": 0.1}, \"ARCTIC\": {\"thumb\": 2.6, \"index\": 3.5, \"middle\": 1.3, \"ring\": 7.9}}.",
+   "The dark grey of the palm (#6b6a63, the palette shared by all qualitative figures) is close to a shadow on the light grey object, so palm contact in the second panel can be mistaken for shading.",
+   "A part that does not count as touching has no disc although its amount is one of the 48 numbers: {\"TACO\": {}, \"ARCTIC\": {\"palm\": 0.00015}}.",
+   "A part counts as touching by a 3-frame majority (frames t-2, t-1, t), so the bars can lag the surface colouring by one frame.",
+   "The camera frames the hand and the object within 6 cm of it. Share of the object's vertices inside the picture: TACO 67%, ARCTIC 42%. The knife is seen edge-on (the view direction is within 20 degrees of its broad side), so a flat part of it appears as a thin wedge.",
+   "TACO: the sequence was not chosen for being typical; it is the page's example (docs/evidence/f1b_hier_contact_gen.json describes it as the test sequence with the largest change between first and last frame; not recomputed here) and the frame is the extreme of that sequence. 6 parts touch there, as in 183 of 364 test sequences at their own frame of largest contact amount.",
+   "ARCTIC: typical only in the number of touching parts (4, the median); it is the smallest index among 36 test sequences with that count. The mesh is coarse for the size of the object (3947 vertices; median triangle edge near the hand 13.1 mm, against 2.9 mm on the knife), and colours are interpolated across each triangle, so the coloured patch is blurred and looks larger than the 1 cm and 2 cm bands: 44 vertices are within 1 cm of the hand, 131 within 2 cm.",
+   "ARCTIC: the amounts recomputed on the drawn mesh are 0.6% above the cached ones at most, because the drawn mesh lacks the template's triangles that join the two parts (area ratio 0.9938); after that correction they agree to 9e-08.",
+   "The hand is tinted by part in the first panel only to show which colour is which part; it is the recorded hand mesh."
+  ],
+  "suggested_caption": "One recorded frame from one TACO sequence (a right hand on a knife; the sequence already shown on this page, drawn at its frame of largest contact amount) and from one ARCTIC sequence (a left hand on a box; each of the 186 test sequences was taken at its own frame of largest contact amount, 36 of them have the median number of touching parts, 4, and the first of these in index order is drawn). Left: the recorded hand on the object, its six parts in six colours (the palm is dark grey). Middle: the object surface coloured by the nearest hand part, strongly where the hand is within 1 cm and faintly up to 2 cm; contact on the far side of the knife is hidden in this panel, most of all the thumb's (23 of its 360 touching vertices are visible); the box mesh is coarse (triangle edges of about 13 mm near the hand), so its coloured patches are blurred. Right: the same frame reduced to its 48 numbers: for each of the six parts whether it touches (at least 3 vertices of the object mesh within 1 cm of it, so on the box the ring finger counts although it stays 8 mm from the surface), how much (disc area; disc areas compare amounts within one row only), where (disc centre, the centroid of its contact) and facing which way (arrow, its contact normal); 6 parts touch on the knife, 4 on the box. The discs are translucent because neighbouring ones overlap and some face away from the viewer (on the knife those of the index and little fingers), their arrows then pointing into the picture; on the knife the head of the index finger's arrow shows only dimly behind the thumb's disc. The bars show which parts touch in each of the 64 frames of the sequence, the outlined column being the frame drawn; the discs and arrows are a drawing of recorded numbers, not a model output, and the camera frames the hand, so part of each object lies outside the picture, and the knife is seen edge-on.",
+  "suggested_alt": "Two rows of 3-D renders, a right hand on a knife (TACO) and a left hand on a box (ARCTIC), each shown as the hand on the object, as contact on the surface coloured by hand part, and as one disc and arrow per touching hand part, with bars underneath showing which parts touch over 64 frames.",
+  "study_rules_source": "scripts/research/structure_variance_boundary/build_features.py (part_features), sv_common.py (causal_majority, N_MIN_VERTS), scripts/research/wrench_counterfactual/wc_common.py (contact_geometry)",
+  "script": "docs/build/qual/q_structure_on_a_grasp.py",
+  "command": "CUDA_VISIBLE_DEVICES=\"\" PYTHONDONTWRITEBYTECODE=1 VTK_DEFAULT_OPENGL_WINDOW=vtkOSOpenGLRenderWindow PYVISTA_OFF_SCREEN=true python docs/build/qual/q_structure_on_a_grasp.py"
+ }
+}

@@ -85,3 +85,22 @@ differ too: the ARCTIC one includes a subject absent from training, the TACO one
 | block | content | status | source |
 |---|---|---|---|
 | `HYP` | A: carry z as a state (`z_t → z_t+1`) instead of predicting the whole trajectory in one pass. B: keep the known first map when decoding (`C_t = s0 + D_Δ(s0, z_t, G)`). 2 × 2 experiment M00 / M01 / M10 / M11 | in progress, no result reported | `scripts/research/z_stateful_s0_factorial/` |
+
+## Qualitative figures
+
+3-D renders of the real object, the recorded hand and the contact, one per block where a picture helps;
+each example is chosen by a stated rule and is an illustration, not a statistic (`docs/build/qual/`).
+
+| block | figure | datasets | needs |
+|---|---|---|---|
+| `MOTIVATION` | one test window: recorded vs predicted contact, and the hand points the motion stage generates from each | TACO | inference (BimArt port, contact + motion stage) |
+| `F1-PRIMER` | what a contact map is: hand on object, map on the surface, the 512 stored values, six frames | TACO | recorded data |
+| `F1-B` | initial grasp modes: recorded first contacts and ten sampled first maps on the scissors | ARCTIC | saved samples |
+| `F1-B` | sample, then evolve, on the real object | TACO | saved predictions |
+| `F1-C` | an amount-dominant, a spatial-dominant and a mixed change of the timeline sequence | TACO | saved predictions |
+| `F1-D` | reconfigurations with the hand visible: a median-retention event and an event in which a part joins | TACO, ARCTIC | recorded data, event caches |
+| `F2-PRIMER` | the 48 numbers of R2 drawn on a real grasp | TACO, ARCTIC | feature cache |
+| `F3-B` | z-only map, what r adds, and a latent swap | TACO, ARCTIC | saved maps + inference (Stage-1 swap) |
+| `F3-C` | recorded, direct, via the predicted z, via the true z | TACO, ARCTIC | saved predictions + inference (true-z decode) |
+| `F3-diagB` | contact step and latent step over one sequence | TACO, ARCTIC | cached latents |
+

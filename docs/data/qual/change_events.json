@@ -1,0 +1,1858 @@
+{
+ "fig_id": "change_events",
+ "created": "2026-10-05T00:15:14+0900",
+ "outputs": {
+  "figure": "reports/project_page_qualitative/change_events/figure.png",
+  "panels": "reports/project_page_qualitative/change_events/panels.npz",
+  "meta": "reports/project_page_qualitative/change_events/meta.json",
+  "asset": "docs/assets/img/qual_change_events.webp"
+ },
+ "master_size": [
+  3896,
+  2171
+ ],
+ "asset_size": [
+  2200,
+  1226
+ ],
+ "layout": {
+  "width": 3896,
+  "height": 2171,
+  "panel": [
+   800,
+   430
+  ],
+  "font_px": 53,
+  "cap_px": 39,
+  "cap_px_at_1100": 11.01
+ },
+ "display_rule": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0",
+ "soft_contact": "exp(-distance / 0.02 m)",
+ "colours": {
+  "zero": "#dcdbd5",
+  "orange": "#eb6834",
+  "dark": "#7a2408",
+  "blue": "#2a78d6",
+  "no_data": "#e7e1f1",
+  "parts": {
+   "palm": "#6b6a63",
+   "thumb": "#2a78d6",
+   "index": "#eb6834",
+   "middle": "#1baf7a",
+   "ring": "#eda100",
+   "little": "#8e5bd0"
+  }
+ },
+ "panels": {
+  "object/verts": {
+   "shape": [
+    4002,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "object/faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "amount_before/contact": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "amount_before/hand": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "amount_before/map512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "amount_after/contact": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "amount_after/hand": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "amount_after/map512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "amount_change/change": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "amount_model/contact": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "amount_model/map512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "spatial_before/contact": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "spatial_before/hand": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "spatial_before/map512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "spatial_after/contact": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "spatial_after/hand": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "spatial_after/map512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "spatial_change/change": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "spatial_model/contact": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "spatial_model/map512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "mixed_before/contact": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "mixed_before/hand": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "mixed_before/map512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "mixed_after/contact": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "mixed_after/hand": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "mixed_after/map512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "mixed_change/change": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "mixed_model/contact": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "mixed_model/map512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  }
+ },
+ "meta": {
+  "id": "change_events",
+  "block": "F1-C",
+  "title": "What an amount-dominant, a spatial-dominant and a mixed contact change look like (one TACO sequence)",
+  "panels": {
+   "rows": {
+    "Amount-dominant": "event 3023_0, transitions 7 to 8 of the sequence, drawn at frame 7 (before) and frame 9 (after)",
+    "Spatial-dominant": "event 3023_4, transitions 34 to 35 of the sequence, drawn at frame 34 (before) and frame 36 (after)",
+    "Mixed": "event 3023_5, transitions 39 to 42 of the sequence, drawn at frame 39 (before) and frame 43 (after)"
+   },
+   "columns": {
+    "Before": "the knife with the recorded contact map of the before frame, and the recorded right hand (translucent)",
+    "After": "the same at the after frame",
+    "Recorded change": "the after map minus the before map, per mesh vertex; object only",
+    "Evolved model": "the saved map of the model evolved from the true first map, at the after frame; object only (the model outputs a map, not a hand)"
+   },
+   "row_label_numbers": "amount part and spatial part: the two parts of the recorded map change, SUMMED over the event's transitions. Error of the change, hold and model: the temporal error (norm of predicted change minus recorded change, per transition) of keeping the map unchanged and of the evolved model, AVERAGED over the event's transitions. All four are read from the event table. The two errors score the change, not the map drawn in the last column.",
+   "footnote": "Error of the change (the timeline chart's temporal error): distance between the predicted and the recorded frame-to-frame change, averaged over the event's transitions; hold = the map kept still. It does not score the map in the last column."
+  },
+  "examples": [
+   {
+    "dataset": "TACO",
+    "example": 3023,
+    "sequence_id": "(cut, knife, plate)/20231013_083",
+    "object": "knife (mesh 073, role tool)",
+    "hand": "right",
+    "split": "test",
+    "row_in_saved_predictions": 308,
+    "frames_drawn": [
+     7,
+     9,
+     34,
+     36,
+     39,
+     43
+    ],
+    "t0": 0,
+    "events": [
+     {
+      "event_id": "3023_0",
+      "class": "amount",
+      "transitions": [
+       7,
+       8
+      ],
+      "before_frame": 7,
+      "after_frame": 9,
+      "take_frames": [
+       7,
+       9
+      ]
+     },
+     {
+      "event_id": "3023_4",
+      "class": "spatial",
+      "transitions": [
+       34,
+       35
+      ],
+      "before_frame": 34,
+      "after_frame": 36,
+      "take_frames": [
+       34,
+       36
+      ]
+     },
+     {
+      "event_id": "3023_5",
+      "class": "mixed",
+      "transitions": [
+       39,
+       42
+      ],
+      "before_frame": 39,
+      "after_frame": 43,
+      "take_frames": [
+       39,
+       43
+      ]
+     }
+    ]
+   }
+  ],
+  "selection_rule": "No new choice of sequence: it is the documented TACO example of the page's timeline chart (TIMELINE_EXAMPLES in docs/build/figs/f1c_temporal_events.py). The rows are three of the 5 events of that sequence the chart's caption names (7 spike events in the sequence), fixed by their transitions: the only amount-dominant one (7-8), the spatial-dominant one that is the report's representative event (3023_4, 34-35) and the one the caption calls the large mixed event (39-42); the caption's mixed event at 26–28 and spatial event at 19–20 are not drawn. Before = the frame at which the event's first transition starts, after = the frame at which its last transition ends (frames 7 and 9, 34 and 36, 39 and 43).",
+  "selection_evidence": {
+   "sequence": {
+    "example": 3023,
+    "named_in": "docs/build/figs/f1c_temporal_events.py :: TIMELINE_EXAMPLES",
+    "rule_of_the_page": "the test sequence that holds the report's representative spatial-dominant event: among the spatial-dominant test events with peak transition 4 to 58, the one whose largest transition change is nearest the median",
+    "n_candidate_events": 354,
+    "median_largest_transition_change": 0.8688277006149292,
+    "nearest_to_median_ranked": [
+     {
+      "rank": 1,
+      "event_id": "2755_2",
+      "example": 2755,
+      "largest_transition_change": 0.8714867234230042,
+      "distance_to_median": 0.002659022808074951
+     },
+     {
+      "rank": 1,
+      "event_id": "3023_4",
+      "example": 3023,
+      "largest_transition_change": 0.8661686778068542,
+      "distance_to_median": 0.002659022808074951
+     },
+     {
+      "rank": 3,
+      "event_id": "656_1",
+      "example": 656,
+      "largest_transition_change": 0.8718860149383545,
+      "distance_to_median": 0.003058314323425293
+     },
+     {
+      "rank": 4,
+      "event_id": "2452_4",
+      "example": 2452,
+      "largest_transition_change": 0.8735833764076233,
+      "distance_to_median": 0.004755675792694092
+     },
+     {
+      "rank": 5,
+      "event_id": "2791_3",
+      "example": 2791,
+      "largest_transition_change": 0.8736319541931152,
+      "distance_to_median": 0.004804253578186035
+     }
+    ],
+    "n_tied_at_the_smallest_distance": 2,
+    "tied_events": [
+     "2755_2",
+     "3023_4"
+    ],
+    "event_the_reports_expression_returns": "3023_4",
+    "that_event_is_in_this_sequence": true
+   },
+   "events": {
+    "rule": "three of the 5 events of this sequence that the timeline caption on the page names (7 spike events in the sequence), fixed by their transitions and looked up in the event table: the only amount-dominant one, the spatial-dominant one that is the report's representative event (3023_4), and the one the caption calls the large mixed event; the other named events (mixed event at 26–28, spatial event at 19–20) are not drawn",
+    "class_limits": {
+     "amount-dominant": "amount / (amount + spatial) >= 0.7",
+     "spatial-dominant": "amount / (amount + spatial) <= 0.3",
+     "mixed": "in between"
+    },
+    "named_in_page_caption": [
+     {
+      "wording": "amount-dominant event at transitions 7–8",
+      "found_in_page_caption": true,
+      "transitions": [
+       7,
+       8
+      ],
+      "event_id": "3023_0",
+      "class_in_event_table": "amount",
+      "class_agrees_with_wording": true,
+      "drawn": true
+     },
+     {
+      "wording": "mixed event at 26–28",
+      "found_in_page_caption": true,
+      "transitions": [
+       26,
+       28
+      ],
+      "event_id": "3023_3",
+      "class_in_event_table": "mixed",
+      "class_agrees_with_wording": true,
+      "drawn": false
+     },
+     {
+      "wording": "spatial-dominant event at 34–35",
+      "found_in_page_caption": true,
+      "transitions": [
+       34,
+       35
+      ],
+      "event_id": "3023_4",
+      "class_in_event_table": "spatial",
+      "class_agrees_with_wording": true,
+      "drawn": true
+     },
+     {
+      "wording": "large mixed event at 39–42",
+      "found_in_page_caption": true,
+      "transitions": [
+       39,
+       42
+      ],
+      "event_id": "3023_5",
+      "class_in_event_table": "mixed",
+      "class_agrees_with_wording": true,
+      "drawn": true
+     },
+     {
+      "wording": "spatial event at 19–20",
+      "found_in_page_caption": true,
+      "transitions": [
+       19,
+       20
+      ],
+      "event_id": "3023_2",
+      "class_in_event_table": "spatial",
+      "class_agrees_with_wording": true,
+      "drawn": false
+     }
+    ],
+    "n_named_in_page_caption": 5,
+    "why_these_three": {
+     "amount": {
+      "reason": "the only amount-dominant event of the sequence",
+      "n_events_of_class_in_sequence": 1,
+      "holds": true
+     },
+     "spatial": {
+      "reason": "the report's representative spatial-dominant event (see 'sequence')",
+      "n_events_of_class_in_sequence": 3,
+      "event_the_reports_expression_returns": "3023_4",
+      "holds": true
+     },
+     "mixed": {
+      "reason": "the one the page caption calls the large mixed event: the larger of the sequence's mixed events, by energy and by largest transition change",
+      "n_events_of_class_in_sequence": 2,
+      "candidates": [
+       {
+        "event_id": "3023_3",
+        "transitions": [
+         26,
+         28
+        ],
+        "energy": 2.2772984504699707,
+        "largest_transition_change": 1.022572040557861,
+        "drawn": false
+       },
+       {
+        "event_id": "3023_5",
+        "transitions": [
+         39,
+         42
+        ],
+        "energy": 20.771217346191406,
+        "largest_transition_change": 3.191000699996948,
+        "drawn": true
+       }
+      ],
+      "holds": true
+     }
+    },
+    "n_events_in_sequence": 7,
+    "all_events_of_the_sequence": [
+     {
+      "event_id": "3023_0",
+      "class": "amount",
+      "transitions": [
+       7,
+       8
+      ],
+      "amount_part": 1.351982593536377,
+      "spatial_part": 0.3705948293209076,
+      "amount_share": 0.7848602767061392,
+      "energy": 1.055185079574585,
+      "firm_contact_before": false,
+      "hold_error": 0.7263480424880981,
+      "model_error": 0.5927463173866272,
+      "drawn": true
+     },
+     {
+      "event_id": "3023_1",
+      "class": "onset",
+      "transitions": [
+       13,
+       17
+      ],
+      "amount_part": 5.094752788543701,
+      "spatial_part": 2.3949875831604004,
+      "amount_share": 0.680230893865322,
+      "energy": 7.894380569458008,
+      "firm_contact_before": false,
+      "hold_error": 1.2202110290527344,
+      "model_error": 1.0990139245986938,
+      "drawn": false
+     },
+     {
+      "event_id": "3023_2",
+      "class": "spatial",
+      "transitions": [
+       19,
+       20
+      ],
+      "amount_part": 0.149924948811531,
+      "spatial_part": 1.3139808177947998,
+      "amount_share": 0.1024143439619594,
+      "energy": 0.9095091819763184,
+      "firm_contact_before": true,
+      "hold_error": 0.6733688116073608,
+      "model_error": 1.2608542442321775,
+      "drawn": false
+     },
+     {
+      "event_id": "3023_3",
+      "class": "mixed",
+      "transitions": [
+       26,
+       28
+      ],
+      "amount_part": 1.9033585786819456,
+      "spatial_part": 2.0948634147644043,
+      "amount_share": 0.4760512501121168,
+      "energy": 2.2772984504699707,
+      "firm_contact_before": true,
+      "hold_error": 0.8598182797431946,
+      "model_error": 0.5421132445335388,
+      "drawn": false
+     },
+     {
+      "event_id": "3023_4",
+      "class": "spatial",
+      "transitions": [
+       34,
+       35
+      ],
+      "amount_part": 0.2127313762903213,
+      "spatial_part": 1.599344253540039,
+      "amount_share": 0.1173965217957486,
+      "energy": 1.2658239603042605,
+      "firm_contact_before": true,
+      "hold_error": 0.7921023368835449,
+      "model_error": 0.8131184577941895,
+      "drawn": true
+     },
+     {
+      "event_id": "3023_5",
+      "class": "mixed",
+      "transitions": [
+       39,
+       42
+      ],
+      "amount_part": 6.256555557250977,
+      "spatial_part": 6.346214294433594,
+      "amount_share": 0.4964428955209589,
+      "energy": 20.771217346191406,
+      "firm_contact_before": true,
+      "hold_error": 2.013757467269897,
+      "model_error": 1.921123743057251,
+      "drawn": true
+     },
+     {
+      "event_id": "3023_6",
+      "class": "spatial",
+      "transitions": [
+       61,
+       62
+      ],
+      "amount_part": 0.1786946058273315,
+      "spatial_part": 1.7071564197540283,
+      "amount_share": 0.0947554198654101,
+      "energy": 1.5027079582214355,
+      "firm_contact_before": true,
+      "hold_error": 0.865145206451416,
+      "model_error": 0.8788822293281555,
+      "drawn": false
+     }
+    ]
+   }
+  },
+  "display_choices": {
+   "canonical_to_surface": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0 (qlib.Example.to_vertices); used for the recorded maps, their difference and the model's map",
+   "contact_scale": {
+    "range": [
+     0.0,
+     0.85
+    ],
+    "colours": "grey (0) through orange (half) to dark red-brown (maximum)",
+    "rule": "largest value drawn in the nine contact panels, rounded up to 0.05; one scale for all rows"
+   },
+   "change_scale": {
+    "range": [
+     -0.3,
+     0.3
+    ],
+    "colours": "blue (less), grey (no change), orange (more)",
+    "rule": "largest absolute change drawn in the three change panels, rounded up to 0.05; one scale for all rows"
+   },
+   "camera": {
+    "rule": "one camera for all twelve panels: qlib.hand_side_view(object, the six drawn hands, tilt 0), i.e. the knife's broad side seen from the side the hand is on, long axis horizontal; fitted to the object and the six drawn hands with a 5 % margin",
+    "direction": [
+     -0.0014926289801363178,
+     -0.01674203934439166,
+     0.9998587281097857
+    ],
+    "up": [
+     -0.0008736738314802301,
+     -0.9998594384916426,
+     -0.016743355494447717
+    ],
+    "camera": {
+     "position": [
+      -0.040066492271842745,
+      -0.05114909882918363,
+      0.4071095961529271
+     ],
+     "focal_point": [
+      -0.03948527556633764,
+      -0.044629894739835474,
+      0.017773328630220096
+     ],
+     "up": [
+      -0.0008736738314802301,
+      -0.9998594384916426,
+      -0.016743355494447717
+     ],
+     "view_angle": 25.0,
+     "aspect": 1.8604651162790697
+    }
+   },
+   "hand": "recorded MANO mesh of the contacting (right) hand, skin colour, opacity 0.6; drawn in the before and after columns only",
+   "panel_pixels": [
+    800,
+    430
+   ]
+  },
+  "numbers": [
+   {
+    "label": "mesh vertices of the hand model",
+    "value": 778.0,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz */hand, first dimension"
+   },
+   {
+    "label": "nearness threshold for counting hand vertices close to the object, mm",
+    "value": 10.0,
+    "dataset": "TACO",
+    "source": "constant NEAR in q_change_events.py",
+    "locator": "NEAR, metres times 1000"
+   },
+   {
+    "label": "position of the rear end of the knife along its long axis, mm (0 = mean of the mesh vertices, positive = towards the blade)",
+    "value": -104.95670651299537,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz object/verts, first principal axis, minimum"
+   },
+   {
+    "label": "position of the tip of the blade along the knife's long axis, mm",
+    "value": 132.95162911978474,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz object/verts, first principal axis, maximum"
+   },
+   {
+    "label": "amount-dominant: first transition of the event",
+    "value": 7.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_0, column start_frame"
+   },
+   {
+    "label": "amount-dominant: last transition of the event",
+    "value": 8.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_0, column end_frame"
+   },
+   {
+    "label": "amount-dominant: frame drawn as before",
+    "value": 7.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_0, column start_frame"
+   },
+   {
+    "label": "amount-dominant: frame drawn as after",
+    "value": 9.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_0, column end_frame, plus 1"
+   },
+   {
+    "label": "amount-dominant: amount part of the change",
+    "value": 1.351982593536377,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_0, column amount_component"
+   },
+   {
+    "label": "amount-dominant: spatial part of the change",
+    "value": 0.3705948293209076,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_0, column spatial_component"
+   },
+   {
+    "label": "amount-dominant: amount share, amount / (amount + spatial)",
+    "value": 0.7848602767061392,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_0, column amount_ratio"
+   },
+   {
+    "label": "amount-dominant: temporal error of holding the map still",
+    "value": 0.7263480424880981,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_0, column e_B0_static"
+   },
+   {
+    "label": "amount-dominant: temporal error of the evolved model",
+    "value": 0.5927463173866272,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_0, column e_B1_gtinit_vf"
+   },
+   {
+    "label": "amount-dominant: total contact before (sum of the 512 map values)",
+    "value": 61.35457611083984,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_0, column contact_mass_before"
+   },
+   {
+    "label": "amount-dominant: total contact after (sum of the 512 map values)",
+    "value": 36.012115478515625,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_0, column contact_mass_after"
+   },
+   {
+    "label": "amount-dominant: largest drawn contact value before (frame 7)",
+    "value": 0.335734099149704,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz amount_before/contact, maximum"
+   },
+   {
+    "label": "amount-dominant: hand vertices (of 778) within 10 mm of an object vertex, before (frame 7)",
+    "value": 0.0,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz amount_before/hand against object/verts"
+   },
+   {
+    "label": "amount-dominant: closest distance between the hand and the object, before (frame 7), mm",
+    "value": 15.139556489884852,
+    "dataset": "TACO",
+    "source": "taco/30_bimart_gen3_scene_scale/sequences (recorded hand-to-vertex distances, read by qlib.Example.dense)",
+    "locator": "sequence (cut, knife, plate)/20231013_083, take frame 7, right hand, tool vertices, minimum"
+   },
+   {
+    "label": "amount-dominant: largest drawn contact value after (frame 9)",
+    "value": 0.19024842977523804,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz amount_after/contact, maximum"
+   },
+   {
+    "label": "amount-dominant: hand vertices (of 778) within 10 mm of an object vertex, after (frame 9)",
+    "value": 0.0,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz amount_after/hand against object/verts"
+   },
+   {
+    "label": "amount-dominant: closest distance between the hand and the object, after (frame 9), mm",
+    "value": 27.447352185845375,
+    "dataset": "TACO",
+    "source": "taco/30_bimart_gen3_scene_scale/sequences (recorded hand-to-vertex distances, read by qlib.Example.dense)",
+    "locator": "sequence (cut, knife, plate)/20231013_083, take frame 9, right hand, tool vertices, minimum"
+   },
+   {
+    "label": "amount-dominant: most negative drawn change",
+    "value": -0.14686259627342224,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz amount_change/change, minimum"
+   },
+   {
+    "label": "amount-dominant: most positive drawn change",
+    "value": -0.001841085497289896,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz amount_change/change, maximum"
+   },
+   {
+    "label": "amount-dominant: share of mesh vertices that gain more than 0.02",
+    "value": 0.0,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz amount_change/change > 0.02"
+   },
+   {
+    "label": "amount-dominant: share of mesh vertices that lose more than 0.02",
+    "value": 0.6946526736631684,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz amount_change/change < -0.02"
+   },
+   {
+    "label": "amount-dominant: mean position along the knife of the vertices that lose more than 0.02, mm (0 = mean of the mesh vertices, positive = towards the blade)",
+    "value": -35.23048424563332,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz amount_change/change and object/verts"
+   },
+   {
+    "label": "amount-dominant: rearmost position along the knife of the vertices that lose more than 0.02, mm",
+    "value": -104.95670651299537,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz amount_change/change and object/verts"
+   },
+   {
+    "label": "amount-dominant: foremost position along the knife of the vertices that lose more than 0.02, mm",
+    "value": 44.31366304625925,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz amount_change/change and object/verts"
+   },
+   {
+    "label": "amount-dominant: largest drawn value of the model's map at the after frame",
+    "value": 0.4165152311325073,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz amount_model/contact, maximum"
+   },
+   {
+    "label": "amount-dominant: total of the model's map at the after frame (sum of the 512 map values)",
+    "value": 73.80476379394531,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gtinit_vf[308], frame 9"
+   },
+   {
+    "label": "amount-dominant: distance between the before map held still and the recorded map at the after frame, which is the size of the recorded change from before to after (norm over the 512 values)",
+    "value": 1.4491859674453735,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/sequences.npz",
+    "locator": "C[3023], frames 7 and 9"
+   },
+   {
+    "label": "amount-dominant: size of the model's own change over the same frames (norm over the 512 values)",
+    "value": 0.29908090829849243,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gtinit_vf[308], frames 7 and 9"
+   },
+   {
+    "label": "amount-dominant: distance between the model's map and the recorded map at the after frame (norm over the 512 values)",
+    "value": 2.2566635608673096,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gtinit_vf[308] and gt[308], frame 9"
+   },
+   {
+    "label": "amount-dominant: distance between the model's map and the recorded map at the before frame (norm over the 512 values)",
+    "value": 1.0919626951217651,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gtinit_vf[308] and gt[308], frame 7"
+   },
+   {
+    "label": "amount-dominant: share of the class's test events whose largest transition change is not larger than this event's",
+    "value": 0.2916666666666667,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "column peak_d, class amount"
+   },
+   {
+    "label": "amount-dominant: rank of this event among the class's test events by largest transition change (1 = largest)",
+    "value": 52.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "column peak_d, class amount"
+   },
+   {
+    "label": "amount-dominant: share of the class's test events that start in firm contact",
+    "value": 0.9444444444444444,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "column firm_before, class amount"
+   },
+   {
+    "label": "amount-dominant: share of the class's test events that start in firm contact, percent",
+    "value": 94.44444444444444,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "column firm_before, class amount"
+   },
+   {
+    "label": "spatial-dominant: first transition of the event",
+    "value": 34.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_4, column start_frame"
+   },
+   {
+    "label": "spatial-dominant: last transition of the event",
+    "value": 35.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_4, column end_frame"
+   },
+   {
+    "label": "spatial-dominant: frame drawn as before",
+    "value": 34.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_4, column start_frame"
+   },
+   {
+    "label": "spatial-dominant: frame drawn as after",
+    "value": 36.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_4, column end_frame, plus 1"
+   },
+   {
+    "label": "spatial-dominant: amount part of the change",
+    "value": 0.2127313762903213,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_4, column amount_component"
+   },
+   {
+    "label": "spatial-dominant: spatial part of the change",
+    "value": 1.599344253540039,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_4, column spatial_component"
+   },
+   {
+    "label": "spatial-dominant: amount share, amount / (amount + spatial)",
+    "value": 0.1173965217957486,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_4, column amount_ratio"
+   },
+   {
+    "label": "spatial-dominant: temporal error of holding the map still",
+    "value": 0.7921023368835449,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_4, column e_B0_static"
+   },
+   {
+    "label": "spatial-dominant: temporal error of the evolved model",
+    "value": 0.8131184577941895,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_4, column e_B1_gtinit_vf"
+   },
+   {
+    "label": "spatial-dominant: total contact before (sum of the 512 map values)",
+    "value": 157.31307983398438,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_4, column contact_mass_before"
+   },
+   {
+    "label": "spatial-dominant: total contact after (sum of the 512 map values)",
+    "value": 161.09402465820312,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_4, column contact_mass_after"
+   },
+   {
+    "label": "spatial-dominant: largest drawn contact value before (frame 34)",
+    "value": 0.6800969839096069,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz spatial_before/contact, maximum"
+   },
+   {
+    "label": "spatial-dominant: hand vertices (of 778) within 10 mm of an object vertex, before (frame 34)",
+    "value": 87.0,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz spatial_before/hand against object/verts"
+   },
+   {
+    "label": "spatial-dominant: closest distance between the hand and the object, before (frame 34), mm",
+    "value": 2.655729418620467,
+    "dataset": "TACO",
+    "source": "taco/30_bimart_gen3_scene_scale/sequences (recorded hand-to-vertex distances, read by qlib.Example.dense)",
+    "locator": "sequence (cut, knife, plate)/20231013_083, take frame 34, right hand, tool vertices, minimum"
+   },
+   {
+    "label": "spatial-dominant: largest drawn contact value after (frame 36)",
+    "value": 0.6983659863471985,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz spatial_after/contact, maximum"
+   },
+   {
+    "label": "spatial-dominant: hand vertices (of 778) within 10 mm of an object vertex, after (frame 36)",
+    "value": 78.0,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz spatial_after/hand against object/verts"
+   },
+   {
+    "label": "spatial-dominant: closest distance between the hand and the object, after (frame 36), mm",
+    "value": 2.6409430429339413,
+    "dataset": "TACO",
+    "source": "taco/30_bimart_gen3_scene_scale/sequences (recorded hand-to-vertex distances, read by qlib.Example.dense)",
+    "locator": "sequence (cut, knife, plate)/20231013_083, take frame 36, right hand, tool vertices, minimum"
+   },
+   {
+    "label": "spatial-dominant: most negative drawn change",
+    "value": -0.11371615529060364,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz spatial_change/change, minimum"
+   },
+   {
+    "label": "spatial-dominant: most positive drawn change",
+    "value": 0.15373805165290833,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz spatial_change/change, maximum"
+   },
+   {
+    "label": "spatial-dominant: share of mesh vertices that gain more than 0.02",
+    "value": 0.3823088455772114,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz spatial_change/change > 0.02"
+   },
+   {
+    "label": "spatial-dominant: share of mesh vertices that lose more than 0.02",
+    "value": 0.28335832083958024,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz spatial_change/change < -0.02"
+   },
+   {
+    "label": "spatial-dominant: mean position along the knife of the vertices that gain more than 0.02, mm (0 = mean of the mesh vertices, positive = towards the blade)",
+    "value": 6.779344667589333,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz spatial_change/change and object/verts"
+   },
+   {
+    "label": "spatial-dominant: rearmost position along the knife of the vertices that gain more than 0.02, mm",
+    "value": -41.41981053390076,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz spatial_change/change and object/verts"
+   },
+   {
+    "label": "spatial-dominant: foremost position along the knife of the vertices that gain more than 0.02, mm",
+    "value": 51.178926309234484,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz spatial_change/change and object/verts"
+   },
+   {
+    "label": "spatial-dominant: mean position along the knife of the vertices that lose more than 0.02, mm (0 = mean of the mesh vertices, positive = towards the blade)",
+    "value": -66.07197609880878,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz spatial_change/change and object/verts"
+   },
+   {
+    "label": "spatial-dominant: rearmost position along the knife of the vertices that lose more than 0.02, mm",
+    "value": -101.54242622096487,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz spatial_change/change and object/verts"
+   },
+   {
+    "label": "spatial-dominant: foremost position along the knife of the vertices that lose more than 0.02, mm",
+    "value": -28.131068614213508,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz spatial_change/change and object/verts"
+   },
+   {
+    "label": "spatial-dominant: largest drawn value of the model's map at the after frame",
+    "value": 0.7383183240890503,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz spatial_model/contact, maximum"
+   },
+   {
+    "label": "spatial-dominant: total of the model's map at the after frame (sum of the 512 map values)",
+    "value": 167.03619384765625,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gtinit_vf[308], frame 36"
+   },
+   {
+    "label": "spatial-dominant: distance between the before map held still and the recorded map at the after frame, which is the size of the recorded change from before to after (norm over the 512 values)",
+    "value": 1.5718871355056763,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/sequences.npz",
+    "locator": "C[3023], frames 34 and 36"
+   },
+   {
+    "label": "spatial-dominant: size of the model's own change over the same frames (norm over the 512 values)",
+    "value": 0.5462082624435425,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gtinit_vf[308], frames 34 and 36"
+   },
+   {
+    "label": "spatial-dominant: distance between the model's map and the recorded map at the after frame (norm over the 512 values)",
+    "value": 2.1009254455566406,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gtinit_vf[308] and gt[308], frame 36"
+   },
+   {
+    "label": "spatial-dominant: distance between the model's map and the recorded map at the before frame (norm over the 512 values)",
+    "value": 1.188092827796936,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gtinit_vf[308] and gt[308], frame 34"
+   },
+   {
+    "label": "spatial-dominant: share of the class's test events whose largest transition change is not larger than this event's",
+    "value": 0.4915254237288136,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "column peak_d, class spatial"
+   },
+   {
+    "label": "spatial-dominant: rank of this event among the class's test events by largest transition change (1 = largest)",
+    "value": 211.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "column peak_d, class spatial"
+   },
+   {
+    "label": "spatial-dominant: share of the class's test events that start in firm contact",
+    "value": 0.9878934624697336,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "column firm_before, class spatial"
+   },
+   {
+    "label": "spatial-dominant: share of the class's test events that start in firm contact, percent",
+    "value": 98.78934624697337,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "column firm_before, class spatial"
+   },
+   {
+    "label": "mixed: first transition of the event",
+    "value": 39.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_5, column start_frame"
+   },
+   {
+    "label": "mixed: last transition of the event",
+    "value": 42.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_5, column end_frame"
+   },
+   {
+    "label": "mixed: frame drawn as before",
+    "value": 39.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_5, column start_frame"
+   },
+   {
+    "label": "mixed: frame drawn as after",
+    "value": 43.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_5, column end_frame, plus 1"
+   },
+   {
+    "label": "mixed: amount part of the change",
+    "value": 6.256555557250977,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_5, column amount_component"
+   },
+   {
+    "label": "mixed: spatial part of the change",
+    "value": 6.346214294433594,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_5, column spatial_component"
+   },
+   {
+    "label": "mixed: amount share, amount / (amount + spatial)",
+    "value": 0.4964428955209589,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_5, column amount_ratio"
+   },
+   {
+    "label": "mixed: temporal error of holding the map still",
+    "value": 2.013757467269897,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_5, column e_B0_static"
+   },
+   {
+    "label": "mixed: temporal error of the evolved model",
+    "value": 1.921123743057251,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_5, column e_B1_gtinit_vf"
+   },
+   {
+    "label": "mixed: total contact before (sum of the 512 map values)",
+    "value": 164.60018920898438,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_5, column contact_mass_before"
+   },
+   {
+    "label": "mixed: total contact after (sum of the 512 map values)",
+    "value": 204.25506591796875,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "row event_id == 3023_5, column contact_mass_after"
+   },
+   {
+    "label": "mixed: largest drawn contact value before (frame 39)",
+    "value": 0.7702822685241699,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz mixed_before/contact, maximum"
+   },
+   {
+    "label": "mixed: hand vertices (of 778) within 10 mm of an object vertex, before (frame 39)",
+    "value": 89.0,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz mixed_before/hand against object/verts"
+   },
+   {
+    "label": "mixed: closest distance between the hand and the object, before (frame 39), mm",
+    "value": 0.4213699430692927,
+    "dataset": "TACO",
+    "source": "taco/30_bimart_gen3_scene_scale/sequences (recorded hand-to-vertex distances, read by qlib.Example.dense)",
+    "locator": "sequence (cut, knife, plate)/20231013_083, take frame 39, right hand, tool vertices, minimum"
+   },
+   {
+    "label": "mixed: largest drawn contact value after (frame 43)",
+    "value": 0.8014588952064514,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz mixed_after/contact, maximum"
+   },
+   {
+    "label": "mixed: hand vertices (of 778) within 10 mm of an object vertex, after (frame 43)",
+    "value": 163.0,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz mixed_after/hand against object/verts"
+   },
+   {
+    "label": "mixed: closest distance between the hand and the object, after (frame 43), mm",
+    "value": 0.2598256105557073,
+    "dataset": "TACO",
+    "source": "taco/30_bimart_gen3_scene_scale/sequences (recorded hand-to-vertex distances, read by qlib.Example.dense)",
+    "locator": "sequence (cut, knife, plate)/20231013_083, take frame 43, right hand, tool vertices, minimum"
+   },
+   {
+    "label": "mixed: most negative drawn change",
+    "value": -0.049417972564697266,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz mixed_change/change, minimum"
+   },
+   {
+    "label": "mixed: most positive drawn change",
+    "value": 0.27039089798927307,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz mixed_change/change, maximum"
+   },
+   {
+    "label": "mixed: share of mesh vertices that gain more than 0.02",
+    "value": 0.4992503748125937,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz mixed_change/change > 0.02"
+   },
+   {
+    "label": "mixed: share of mesh vertices that lose more than 0.02",
+    "value": 0.06996501749125437,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz mixed_change/change < -0.02"
+   },
+   {
+    "label": "mixed: mean position along the knife of the vertices that gain more than 0.02, mm (0 = mean of the mesh vertices, positive = towards the blade)",
+    "value": -53.53899564955909,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz mixed_change/change and object/verts"
+   },
+   {
+    "label": "mixed: rearmost position along the knife of the vertices that gain more than 0.02, mm",
+    "value": -104.95670651299537,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz mixed_change/change and object/verts"
+   },
+   {
+    "label": "mixed: foremost position along the knife of the vertices that gain more than 0.02, mm",
+    "value": 16.6015884045523,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz mixed_change/change and object/verts"
+   },
+   {
+    "label": "mixed: mean position along the knife of the vertices that lose more than 0.02, mm (0 = mean of the mesh vertices, positive = towards the blade)",
+    "value": 9.313874227074068,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz mixed_change/change and object/verts"
+   },
+   {
+    "label": "mixed: rearmost position along the knife of the vertices that lose more than 0.02, mm",
+    "value": -7.121359331567745,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz mixed_change/change and object/verts"
+   },
+   {
+    "label": "mixed: foremost position along the knife of the vertices that lose more than 0.02, mm",
+    "value": 27.229583403213102,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz mixed_change/change and object/verts"
+   },
+   {
+    "label": "mixed: largest drawn value of the model's map at the after frame",
+    "value": 0.8147807121276855,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py from the drawn arrays",
+    "locator": "panels.npz mixed_model/contact, maximum"
+   },
+   {
+    "label": "mixed: total of the model's map at the after frame (sum of the 512 map values)",
+    "value": 199.11500549316406,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gtinit_vf[308], frame 43"
+   },
+   {
+    "label": "mixed: distance between the before map held still and the recorded map at the after frame, which is the size of the recorded change from before to after (norm over the 512 values)",
+    "value": 2.9611237049102783,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/sequences.npz",
+    "locator": "C[3023], frames 39 and 43"
+   },
+   {
+    "label": "mixed: size of the model's own change over the same frames (norm over the 512 values)",
+    "value": 1.0006587505340576,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gtinit_vf[308], frames 39 and 43"
+   },
+   {
+    "label": "mixed: distance between the model's map and the recorded map at the after frame (norm over the 512 values)",
+    "value": 1.4060537815093994,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gtinit_vf[308] and gt[308], frame 43"
+   },
+   {
+    "label": "mixed: distance between the model's map and the recorded map at the before frame (norm over the 512 values)",
+    "value": 3.037977933883667,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gtinit_vf[308] and gt[308], frame 39"
+   },
+   {
+    "label": "mixed: share of the class's test events whose largest transition change is not larger than this event's",
+    "value": 0.9885057471264368,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "column peak_d, class mixed"
+   },
+   {
+    "label": "mixed: rank of this event among the class's test events by largest transition change (1 = largest)",
+    "value": 11.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "column peak_d, class mixed"
+   },
+   {
+    "label": "mixed: share of the class's test events that start in firm contact",
+    "value": 0.9758620689655172,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "column firm_before, class mixed"
+   },
+   {
+    "label": "mixed: share of the class's test events that start in firm contact, percent",
+    "value": 97.58620689655172,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "column firm_before, class mixed"
+   },
+   {
+    "label": "upper end of the contact colour scale",
+    "value": 0.85,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py",
+    "locator": "largest value drawn in the nine contact panels, rounded up to 0.05"
+   },
+   {
+    "label": "limit of the change colour scale (plus and minus)",
+    "value": 0.3,
+    "dataset": "TACO",
+    "source": "computed in q_change_events.py",
+    "locator": "largest absolute change drawn in the three change panels, rounded up to 0.05"
+   },
+   {
+    "label": "spike events in this sequence",
+    "value": 7.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "rows with example == 3023"
+   },
+   {
+    "label": "events of this sequence that the page's timeline caption names",
+    "value": 5.0,
+    "dataset": "TACO",
+    "source": "docs/index.html",
+    "locator": "figcaption of the figure f1c_timeline; wordings in PAGE_NAMED"
+   },
+   {
+    "label": "events of this sequence drawn in the figure (rows)",
+    "value": 3.0,
+    "dataset": "TACO",
+    "source": "constant DRAWN in q_change_events.py",
+    "locator": "number of entries"
+   },
+   {
+    "label": "TACO test events of class 'mixed'",
+    "value": 870.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "rows with event_category == mixed"
+   },
+   {
+    "label": "TACO test events of class 'spatial'",
+    "value": 413.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "rows with event_category == spatial"
+   },
+   {
+    "label": "TACO test events of class 'amount'",
+    "value": 72.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "rows with event_category == amount"
+   },
+   {
+    "label": "TACO test events of class 'onset'",
+    "value": 69.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "rows with event_category == onset"
+   },
+   {
+    "label": "TACO test events of class 'release'",
+    "value": 32.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "rows with event_category == release"
+   },
+   {
+    "label": "TACO test events of class 'onset+release'",
+    "value": 8.0,
+    "dataset": "TACO",
+    "source": "reports/temporal_contact_events/taco/events.csv",
+    "locator": "rows with event_category == onset+release"
+   }
+  ],
+  "cross_checks": [
+   {
+    "quantity": "3023_0 amount part",
+    "event_table": 1.351982593536377,
+    "recomputed_from_arrays": 1.351982593536377,
+    "abs_difference": 0.0,
+    "agree": true
+   },
+   {
+    "quantity": "3023_0 spatial part",
+    "event_table": 0.3705948293209076,
+    "recomputed_from_arrays": 0.3705948293209076,
+    "abs_difference": 0.0,
+    "agree": true
+   },
+   {
+    "quantity": "3023_0 temporal error of holding",
+    "event_table": 0.7263480424880981,
+    "recomputed_from_arrays": 0.7263480424880981,
+    "abs_difference": 0.0,
+    "agree": true
+   },
+   {
+    "quantity": "3023_0 temporal error of the evolved model",
+    "event_table": 0.5927463173866272,
+    "recomputed_from_arrays": 0.5927463173866272,
+    "abs_difference": 0.0,
+    "agree": true
+   },
+   {
+    "quantity": "3023_0 total contact before",
+    "event_table": 61.35457611083984,
+    "recomputed_from_arrays": 61.354576110839844,
+    "abs_difference": 7.105427357601002e-15,
+    "agree": true
+   },
+   {
+    "quantity": "3023_0 total contact after",
+    "event_table": 36.012115478515625,
+    "recomputed_from_arrays": 36.012115478515625,
+    "abs_difference": 0.0,
+    "agree": true
+   },
+   {
+    "quantity": "3023_4 amount part",
+    "event_table": 0.2127313762903213,
+    "recomputed_from_arrays": 0.21273137629032135,
+    "abs_difference": 5.551115123125783e-17,
+    "agree": true
+   },
+   {
+    "quantity": "3023_4 spatial part",
+    "event_table": 1.599344253540039,
+    "recomputed_from_arrays": 1.599344253540039,
+    "abs_difference": 0.0,
+    "agree": true
+   },
+   {
+    "quantity": "3023_4 temporal error of holding",
+    "event_table": 0.7921023368835449,
+    "recomputed_from_arrays": 0.7921023368835449,
+    "abs_difference": 0.0,
+    "agree": true
+   },
+   {
+    "quantity": "3023_4 temporal error of the evolved model",
+    "event_table": 0.8131184577941895,
+    "recomputed_from_arrays": 0.8131184577941895,
+    "abs_difference": 0.0,
+    "agree": true
+   },
+   {
+    "quantity": "3023_4 total contact before",
+    "event_table": 157.31307983398438,
+    "recomputed_from_arrays": 157.31307983398438,
+    "abs_difference": 0.0,
+    "agree": true
+   },
+   {
+    "quantity": "3023_4 total contact after",
+    "event_table": 161.09402465820312,
+    "recomputed_from_arrays": 161.09402465820312,
+    "abs_difference": 0.0,
+    "agree": true
+   },
+   {
+    "quantity": "3023_5 amount part",
+    "event_table": 6.256555557250977,
+    "recomputed_from_arrays": 6.256555557250977,
+    "abs_difference": 0.0,
+    "agree": true
+   },
+   {
+    "quantity": "3023_5 spatial part",
+    "event_table": 6.346214294433594,
+    "recomputed_from_arrays": 6.346214294433594,
+    "abs_difference": 0.0,
+    "agree": true
+   },
+   {
+    "quantity": "3023_5 temporal error of holding",
+    "event_table": 2.013757467269897,
+    "recomputed_from_arrays": 2.0137574672698975,
+    "abs_difference": 4.440892098500626e-16,
+    "agree": true
+   },
+   {
+    "quantity": "3023_5 temporal error of the evolved model",
+    "event_table": 1.921123743057251,
+    "recomputed_from_arrays": 1.921123743057251,
+    "abs_difference": 0.0,
+    "agree": true
+   },
+   {
+    "quantity": "3023_5 total contact before",
+    "event_table": 164.60018920898438,
+    "recomputed_from_arrays": 164.60018920898438,
+    "abs_difference": 0.0,
+    "agree": true
+   },
+   {
+    "quantity": "3023_5 total contact after",
+    "event_table": 204.25506591796875,
+    "recomputed_from_arrays": 204.25506591796875,
+    "abs_difference": 0.0,
+    "agree": true
+   }
+  ],
+  "typicality": {
+   "3023_0": {
+    "n_events_of_class": 72,
+    "rank_by_largest_transition_change": 52,
+    "share_with_smaller_or_equal_largest_change": 0.2916666666666667,
+    "share_starting_in_firm_contact": 0.9444444444444444,
+    "this_event_starts_in_firm_contact": false,
+    "this_event_flagged_short_lived": false,
+    "share_where_model_error_below_hold_error": 0.8055555555555556
+   },
+   "3023_4": {
+    "n_events_of_class": 413,
+    "rank_by_largest_transition_change": 211,
+    "share_with_smaller_or_equal_largest_change": 0.4915254237288136,
+    "share_starting_in_firm_contact": 0.9878934624697336,
+    "this_event_starts_in_firm_contact": true,
+    "this_event_flagged_short_lived": false,
+    "share_where_model_error_below_hold_error": 0.5399515738498789
+   },
+   "3023_5": {
+    "n_events_of_class": 870,
+    "rank_by_largest_transition_change": 11,
+    "share_with_smaller_or_equal_largest_change": 0.9885057471264368,
+    "share_starting_in_firm_contact": 0.9758620689655172,
+    "this_event_starts_in_firm_contact": true,
+    "this_event_flagged_short_lived": true,
+    "share_where_model_error_below_hold_error": 0.667816091954023
+   }
+  },
+  "inference": {
+   "summary": "none",
+   "checkpoints_loaded": [],
+   "device": "cpu",
+   "seed": null,
+   "read_from_saved_predictions": "taco/50_hier_contact_gen/eval/fixed0/preds.npz :: gtinit_vf[308], the study's saved rollout from the true first map (made by its evaluation with hier_contact_gen_ckpt/taco/fixed0/vf_unroll8.pt, which is not loaded here)",
+   "newly_computed": "only the MANO hand meshes, from the recorded TACO hand poses (a forward pass of the hand model on CPU; no learned model of this project is run)"
+  },
+  "caveats": [
+   "One sequence, three events: an illustration, not a statistic. The three are not all of the sequence's events: it has 7 spike events and the page's timeline caption names 5 of them; the named ones that are not drawn are the mixed event at 26–28 and the spatial event at 19–20.",
+   "The maps are 512-point canonical maps drawn back on the mesh by a smoothing rule, so the handle is coloured as a whole; the figure shows where and how much contact there is, not finger outlines.",
+   "'Contact' is the soft value exp(-distance / 2 cm). In the amount-dominant row the hand does not touch the knife: the event happens before the grasp and the event table marks it as not in firm contact, whereas 94% of the amount-dominant test events start in firm contact. This row is not typical of its class in that respect.",
+   "The mixed event is one of the largest of its class (its largest transition change is at or above that of 99% of the mixed test events) and the event table flags it as partly short-lived. The spatial-dominant event is the report's median-sized representative; 2 events are equally near that median (2755_2, 3023_4) and the report's code returns this one.",
+   "Amount and spatial are two parts of the map change, not two kinds of hand motion. The amount-dominant event also has a spatial part; the classes are set by the share amount / (amount + spatial).",
+   "The last column is a state, while the errors in the row labels are about changes: the model's map at the after frame also carries what the model drifted since the first frame, and the column cannot show whether the model followed the change. Over each event's frames the model's own map changes much less than the recorded one (see numbers).",
+   "In the amount-dominant row the labels and the picture point opposite ways, and both are right: the model's error of the change (0.59) is below that of holding (0.73), yet its map at frame 9 is further from the recorded map (2.26) than the before map held still (1.45); its total is 73.8 against the recorded 36.0. In the spatial-dominant row the state distances are 2.10 (model) and 1.57 (before map held still), in the mixed row 1.41 and 2.96.",
+   "Before and after are two to four frames apart, so the hand moves little between the first two columns; the change column carries the message.",
+   "One camera has to hold the knife and the hand of all six frames, so the knife is small in its panel; the two object-only columns keep that camera so that all twelve panels stay comparable."
+  ],
+  "suggested_caption": "One TACO test sequence, the one of the timeline chart (a right hand and a knife, from a cutting take): each row is one of three of that sequence's seven spike events (transitions 7–8, 34–35 and 39–42), drawn at the frame before its first transition and the frame after its last, with the hand translucent so that the contact under it stays visible. Amount-dominant (frames 7 to 9): the hand is near the handle without touching it (closest point 15 mm away, then 27 mm) and moves away, so the total contact (the sum of the map) falls from 61 to 36 and the map fades over the whole handle, blue everywhere; unlike most amount-dominant test events (94 % start in firm contact), this one happens before the grasp. Spatial-dominant (frames 34 to 36): the total barely changes (157 to 161) while contact weakens on the rear part of the handle and grows towards the blade, blue and orange side by side. Mixed (frames 39 to 43), one of the largest mixed events of the test set (11th of 870 by its largest single-transition change): more of the hand comes close to the handle (89 then 163 of its 778 mesh vertices within 10 mm), the total rises from 165 to 204 and the pattern shifts as well. Row labels give the amount and spatial parts of the recorded change, summed over the event's transitions, and the temporal error (the error of the predicted frame-to-frame change) of holding the map still and of the model evolved from the true first map, averaged over them. These errors do not score the map in the last column, that model's map at the after frame, which also carries the model's drift since the first frame: its distance to the recorded after map (second column) is 2.26, 2.10 and 1.41 in the three rows, against 1.45, 1.57 and 2.96 for the before map held still.",
+  "caption_numbers_traced_to_the_ledger": [
+   {
+    "as_written": "7",
+    "n_entries": 4,
+    "first_entry": "amount-dominant: first transition of the event"
+   },
+   {
+    "as_written": "8",
+    "n_entries": 2,
+    "first_entry": "amount-dominant: last transition of the event"
+   },
+   {
+    "as_written": "34",
+    "n_entries": 2,
+    "first_entry": "spatial-dominant: first transition of the event"
+   },
+   {
+    "as_written": "35",
+    "n_entries": 1,
+    "first_entry": "spatial-dominant: last transition of the event"
+   },
+   {
+    "as_written": "39",
+    "n_entries": 2,
+    "first_entry": "mixed: first transition of the event"
+   },
+   {
+    "as_written": "42",
+    "n_entries": 1,
+    "first_entry": "mixed: last transition of the event"
+   },
+   {
+    "as_written": "7",
+    "n_entries": 4,
+    "first_entry": "amount-dominant: first transition of the event"
+   },
+   {
+    "as_written": "9",
+    "n_entries": 2,
+    "first_entry": "amount-dominant: frame drawn as after"
+   },
+   {
+    "as_written": "15",
+    "n_entries": 1,
+    "first_entry": "amount-dominant: closest distance between the hand and the object, before (frame 7), mm"
+   },
+   {
+    "as_written": "27",
+    "n_entries": 2,
+    "first_entry": "amount-dominant: closest distance between the hand and the object, after (frame 9), mm"
+   },
+   {
+    "as_written": "61",
+    "n_entries": 1,
+    "first_entry": "amount-dominant: total contact before (sum of the 512 map values)"
+   },
+   {
+    "as_written": "36",
+    "n_entries": 2,
+    "first_entry": "amount-dominant: total contact after (sum of the 512 map values)"
+   },
+   {
+    "as_written": "94",
+    "n_entries": 1,
+    "first_entry": "amount-dominant: share of the class's test events that start in firm contact, percent"
+   },
+   {
+    "as_written": "34",
+    "n_entries": 2,
+    "first_entry": "spatial-dominant: first transition of the event"
+   },
+   {
+    "as_written": "36",
+    "n_entries": 2,
+    "first_entry": "amount-dominant: total contact after (sum of the 512 map values)"
+   },
+   {
+    "as_written": "157",
+    "n_entries": 1,
+    "first_entry": "spatial-dominant: total contact before (sum of the 512 map values)"
+   },
+   {
+    "as_written": "161",
+    "n_entries": 1,
+    "first_entry": "spatial-dominant: total contact after (sum of the 512 map values)"
+   },
+   {
+    "as_written": "39",
+    "n_entries": 2,
+    "first_entry": "mixed: first transition of the event"
+   },
+   {
+    "as_written": "43",
+    "n_entries": 1,
+    "first_entry": "mixed: frame drawn as after"
+   },
+   {
+    "as_written": "11",
+    "n_entries": 1,
+    "first_entry": "mixed: rank of this event among the class's test events by largest transition change (1 = largest)"
+   },
+   {
+    "as_written": "870",
+    "n_entries": 1,
+    "first_entry": "TACO test events of class 'mixed'"
+   },
+   {
+    "as_written": "89",
+    "n_entries": 1,
+    "first_entry": "mixed: hand vertices (of 778) within 10 mm of an object vertex, before (frame 39)"
+   },
+   {
+    "as_written": "163",
+    "n_entries": 1,
+    "first_entry": "mixed: hand vertices (of 778) within 10 mm of an object vertex, after (frame 43)"
+   },
+   {
+    "as_written": "778",
+    "n_entries": 1,
+    "first_entry": "mesh vertices of the hand model"
+   },
+   {
+    "as_written": "10",
+    "n_entries": 1,
+    "first_entry": "nearness threshold for counting hand vertices close to the object, mm"
+   },
+   {
+    "as_written": "165",
+    "n_entries": 1,
+    "first_entry": "mixed: total contact before (sum of the 512 map values)"
+   },
+   {
+    "as_written": "204",
+    "n_entries": 1,
+    "first_entry": "mixed: total contact after (sum of the 512 map values)"
+   },
+   {
+    "as_written": "2.26",
+    "n_entries": 1,
+    "first_entry": "amount-dominant: distance between the model's map and the recorded map at the after frame (norm over the 512 values)"
+   },
+   {
+    "as_written": "2.10",
+    "n_entries": 1,
+    "first_entry": "spatial-dominant: distance between the model's map and the recorded map at the after frame (norm over the 512 values)"
+   },
+   {
+    "as_written": "1.41",
+    "n_entries": 1,
+    "first_entry": "mixed: distance between the model's map and the recorded map at the after frame (norm over the 512 values)"
+   },
+   {
+    "as_written": "1.45",
+    "n_entries": 1,
+    "first_entry": "amount-dominant: distance between the before map held still and the recorded map at the after frame, which is the size of the recorded change from before to after (norm over the 512 values)"
+   },
+   {
+    "as_written": "1.57",
+    "n_entries": 1,
+    "first_entry": "spatial-dominant: distance between the before map held still and the recorded map at the after frame, which is the size of the recorded change from before to after (norm over the 512 values)"
+   },
+   {
+    "as_written": "2.96",
+    "n_entries": 1,
+    "first_entry": "mixed: distance between the before map held still and the recorded map at the after frame, which is the size of the recorded change from before to after (norm over the 512 values)"
+   }
+  ],
+  "suggested_alt": "A knife and a translucent right hand before and after three contact changes of one sequence, each with a blue and orange map of the change on the handle and the evolved model's contact map."
+ }
+}

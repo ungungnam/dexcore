@@ -1,0 +1,2703 @@
+{
+ "fig_id": "z_and_r_maps",
+ "created": "2026-10-05T00:32:12+0900",
+ "outputs": {
+  "figure": "reports/project_page_qualitative/z_and_r_maps/figure.png",
+  "panels": "reports/project_page_qualitative/z_and_r_maps/panels.npz",
+  "meta": "reports/project_page_qualitative/z_and_r_maps/meta.json",
+  "asset": "docs/assets/img/qual_z_and_r_maps.webp"
+ },
+ "master_size": [
+  2726,
+  2930
+ ],
+ "asset_size": [
+  2200,
+  2365
+ ],
+ "layout": {
+  "width": 2726,
+  "height": 2930,
+  "panel": [
+   [
+    560,
+    448
+   ],
+   [
+    560,
+    412
+   ],
+   [
+    560,
+    280
+   ],
+   [
+    560,
+    280
+   ],
+   [
+    560,
+    448
+   ],
+   [
+    560,
+    448
+   ]
+  ],
+  "font_px": 38,
+  "cap_px": 28,
+  "cap_px_at_1100": 11.3
+ },
+ "display_rule": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0",
+ "soft_contact": "exp(-distance / 0.02 m)",
+ "colours": {
+  "zero": "#dcdbd5",
+  "orange": "#eb6834",
+  "dark": "#7a2408",
+  "blue": "#2a78d6",
+  "no_data": "#e7e1f1",
+  "parts": {
+   "palm": "#6b6a63",
+   "thumb": "#2a78d6",
+   "index": "#eb6834",
+   "middle": "#1baf7a",
+   "ring": "#eda100",
+   "little": "#8e5bd0"
+  }
+ },
+ "panels": {
+  "recon_taco/recorded_surface": {
+   "shape": [
+    4004
+   ],
+   "dtype": "float64"
+  },
+  "recon_taco/recorded_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recon_taco/recorded_verts": {
+   "shape": [
+    4004,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "recon_taco/recorded_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "recon_taco/recorded_image": {
+   "shape": [
+    448,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recon_taco/recorded_hand_line": {
+   "shape": [
+    448,
+    560
+   ],
+   "dtype": "float32"
+  },
+  "recon_taco/recorded_hand_mask": {
+   "shape": [
+    448,
+    560
+   ],
+   "dtype": "bool"
+  },
+  "recon_taco/recorded_object_mask": {
+   "shape": [
+    448,
+    560
+   ],
+   "dtype": "bool"
+  },
+  "recon_taco/recorded_image_without_hand": {
+   "shape": [
+    448,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recon_taco/recorded_hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "recon_taco/recorded_hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "recon_taco/z_only_surface": {
+   "shape": [
+    4004
+   ],
+   "dtype": "float64"
+  },
+  "recon_taco/z_only_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recon_taco/z_only_verts": {
+   "shape": [
+    4004,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "recon_taco/z_only_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "recon_taco/z_only_image": {
+   "shape": [
+    448,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recon_taco/r_adds_surface": {
+   "shape": [
+    4004
+   ],
+   "dtype": "float64"
+  },
+  "recon_taco/r_adds_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recon_taco/r_adds_verts": {
+   "shape": [
+    4004,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "recon_taco/r_adds_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "recon_taco/r_adds_image": {
+   "shape": [
+    448,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recon_taco/z_and_r_surface": {
+   "shape": [
+    4004
+   ],
+   "dtype": "float64"
+  },
+  "recon_taco/z_and_r_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recon_taco/z_and_r_verts": {
+   "shape": [
+    4004,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "recon_taco/z_and_r_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "recon_taco/z_and_r_image": {
+   "shape": [
+    448,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recon_arctic/recorded_surface": {
+   "shape": [
+    3586
+   ],
+   "dtype": "float64"
+  },
+  "recon_arctic/recorded_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recon_arctic/recorded_verts": {
+   "shape": [
+    3586,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "recon_arctic/recorded_faces": {
+   "shape": [
+    6992,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "recon_arctic/recorded_image": {
+   "shape": [
+    412,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recon_arctic/recorded_hand_line": {
+   "shape": [
+    412,
+    560
+   ],
+   "dtype": "float32"
+  },
+  "recon_arctic/recorded_hand_mask": {
+   "shape": [
+    412,
+    560
+   ],
+   "dtype": "bool"
+  },
+  "recon_arctic/recorded_object_mask": {
+   "shape": [
+    412,
+    560
+   ],
+   "dtype": "bool"
+  },
+  "recon_arctic/recorded_image_without_hand": {
+   "shape": [
+    412,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recon_arctic/recorded_hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "recon_arctic/recorded_hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "recon_arctic/z_only_surface": {
+   "shape": [
+    3586
+   ],
+   "dtype": "float64"
+  },
+  "recon_arctic/z_only_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recon_arctic/z_only_verts": {
+   "shape": [
+    3586,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "recon_arctic/z_only_faces": {
+   "shape": [
+    6992,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "recon_arctic/z_only_image": {
+   "shape": [
+    412,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recon_arctic/r_adds_surface": {
+   "shape": [
+    3586
+   ],
+   "dtype": "float64"
+  },
+  "recon_arctic/r_adds_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recon_arctic/r_adds_verts": {
+   "shape": [
+    3586,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "recon_arctic/r_adds_faces": {
+   "shape": [
+    6992,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "recon_arctic/r_adds_image": {
+   "shape": [
+    412,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recon_arctic/z_and_r_surface": {
+   "shape": [
+    3586
+   ],
+   "dtype": "float64"
+  },
+  "recon_arctic/z_and_r_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recon_arctic/z_and_r_verts": {
+   "shape": [
+    3586,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "recon_arctic/z_and_r_faces": {
+   "shape": [
+    6992,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "recon_arctic/z_and_r_image": {
+   "shape": [
+    412,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "swap_taco/frame_A_surface": {
+   "shape": [
+    4000
+   ],
+   "dtype": "float64"
+  },
+  "swap_taco/frame_A_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco/frame_A_verts": {
+   "shape": [
+    4000,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco/frame_A_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "swap_taco/frame_A_image": {
+   "shape": [
+    280,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "swap_taco/frame_A_hand_line": {
+   "shape": [
+    280,
+    560
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco/frame_A_hand_mask": {
+   "shape": [
+    280,
+    560
+   ],
+   "dtype": "bool"
+  },
+  "swap_taco/frame_A_object_mask": {
+   "shape": [
+    280,
+    560
+   ],
+   "dtype": "bool"
+  },
+  "swap_taco/frame_A_image_without_hand": {
+   "shape": [
+    280,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "swap_taco/frame_A_hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco/frame_A_hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "swap_taco/frame_B_surface": {
+   "shape": [
+    4000
+   ],
+   "dtype": "float64"
+  },
+  "swap_taco/frame_B_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco/frame_B_verts": {
+   "shape": [
+    4000,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco/frame_B_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "swap_taco/frame_B_image": {
+   "shape": [
+    280,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "swap_taco/frame_B_hand_line": {
+   "shape": [
+    280,
+    560
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco/frame_B_hand_mask": {
+   "shape": [
+    280,
+    560
+   ],
+   "dtype": "bool"
+  },
+  "swap_taco/frame_B_object_mask": {
+   "shape": [
+    280,
+    560
+   ],
+   "dtype": "bool"
+  },
+  "swap_taco/frame_B_image_without_hand": {
+   "shape": [
+    280,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "swap_taco/frame_B_hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco/frame_B_hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "swap_taco/z_A_r_B_surface": {
+   "shape": [
+    4000
+   ],
+   "dtype": "float64"
+  },
+  "swap_taco/z_A_r_B_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco/z_A_r_B_verts": {
+   "shape": [
+    4000,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco/z_A_r_B_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "swap_taco/z_A_r_B_image": {
+   "shape": [
+    280,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "swap_taco/z_B_r_A_surface": {
+   "shape": [
+    4000
+   ],
+   "dtype": "float64"
+  },
+  "swap_taco/z_B_r_A_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco/z_B_r_A_verts": {
+   "shape": [
+    4000,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco/z_B_r_A_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "swap_taco/z_B_r_A_image": {
+   "shape": [
+    280,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "swap_taco/z_only_c512_A": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco/z_and_r_c512_A": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco/z_only_c512_B": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco/z_and_r_c512_B": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco_change/change_z_A_r_B_surface": {
+   "shape": [
+    4000
+   ],
+   "dtype": "float64"
+  },
+  "swap_taco_change/change_z_A_r_B_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco_change/change_z_A_r_B_verts": {
+   "shape": [
+    4000,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco_change/change_z_A_r_B_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "swap_taco_change/change_z_A_r_B_image": {
+   "shape": [
+    280,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "swap_taco_change/change_z_B_r_A_surface": {
+   "shape": [
+    4000
+   ],
+   "dtype": "float64"
+  },
+  "swap_taco_change/change_z_B_r_A_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco_change/change_z_B_r_A_verts": {
+   "shape": [
+    4000,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "swap_taco_change/change_z_B_r_A_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "swap_taco_change/change_z_B_r_A_image": {
+   "shape": [
+    280,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "swap_arctic/frame_A_surface": {
+   "shape": [
+    3997
+   ],
+   "dtype": "float64"
+  },
+  "swap_arctic/frame_A_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic/frame_A_verts": {
+   "shape": [
+    3997,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic/frame_A_faces": {
+   "shape": [
+    7972,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "swap_arctic/frame_A_image": {
+   "shape": [
+    448,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "swap_arctic/frame_A_hand_line": {
+   "shape": [
+    448,
+    560
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic/frame_A_hand_mask": {
+   "shape": [
+    448,
+    560
+   ],
+   "dtype": "bool"
+  },
+  "swap_arctic/frame_A_object_mask": {
+   "shape": [
+    448,
+    560
+   ],
+   "dtype": "bool"
+  },
+  "swap_arctic/frame_A_image_without_hand": {
+   "shape": [
+    448,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "swap_arctic/frame_A_hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic/frame_A_hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "swap_arctic/frame_B_surface": {
+   "shape": [
+    3997
+   ],
+   "dtype": "float64"
+  },
+  "swap_arctic/frame_B_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic/frame_B_verts": {
+   "shape": [
+    3997,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic/frame_B_faces": {
+   "shape": [
+    7972,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "swap_arctic/frame_B_image": {
+   "shape": [
+    448,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "swap_arctic/frame_B_hand_line": {
+   "shape": [
+    448,
+    560
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic/frame_B_hand_mask": {
+   "shape": [
+    448,
+    560
+   ],
+   "dtype": "bool"
+  },
+  "swap_arctic/frame_B_object_mask": {
+   "shape": [
+    448,
+    560
+   ],
+   "dtype": "bool"
+  },
+  "swap_arctic/frame_B_image_without_hand": {
+   "shape": [
+    448,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "swap_arctic/frame_B_hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic/frame_B_hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "swap_arctic/z_A_r_B_surface": {
+   "shape": [
+    3997
+   ],
+   "dtype": "float64"
+  },
+  "swap_arctic/z_A_r_B_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic/z_A_r_B_verts": {
+   "shape": [
+    3997,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic/z_A_r_B_faces": {
+   "shape": [
+    7972,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "swap_arctic/z_A_r_B_image": {
+   "shape": [
+    448,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "swap_arctic/z_B_r_A_surface": {
+   "shape": [
+    3997
+   ],
+   "dtype": "float64"
+  },
+  "swap_arctic/z_B_r_A_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic/z_B_r_A_verts": {
+   "shape": [
+    3997,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic/z_B_r_A_faces": {
+   "shape": [
+    7972,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "swap_arctic/z_B_r_A_image": {
+   "shape": [
+    448,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "swap_arctic/z_only_c512_A": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic/z_and_r_c512_A": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic/z_only_c512_B": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic/z_and_r_c512_B": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic_change/change_z_A_r_B_surface": {
+   "shape": [
+    3997
+   ],
+   "dtype": "float64"
+  },
+  "swap_arctic_change/change_z_A_r_B_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic_change/change_z_A_r_B_verts": {
+   "shape": [
+    3997,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic_change/change_z_A_r_B_faces": {
+   "shape": [
+    7972,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "swap_arctic_change/change_z_A_r_B_image": {
+   "shape": [
+    448,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "swap_arctic_change/change_z_B_r_A_surface": {
+   "shape": [
+    3997
+   ],
+   "dtype": "float64"
+  },
+  "swap_arctic_change/change_z_B_r_A_c512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic_change/change_z_B_r_A_verts": {
+   "shape": [
+    3997,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "swap_arctic_change/change_z_B_r_A_faces": {
+   "shape": [
+    7972,
+    3
+   ],
+   "dtype": "int32"
+  },
+  "swap_arctic_change/change_z_B_r_A_image": {
+   "shape": [
+    448,
+    560,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "selection_taco/e_zonly_unique_sorted": {
+   "shape": [
+    22938
+   ],
+   "dtype": "float32"
+  },
+  "selection_taco/pair_detail_score_sorted": {
+   "shape": [
+    800
+   ],
+   "dtype": "float64"
+  },
+  "selection_arctic/e_zonly_unique_sorted": {
+   "shape": [
+    11560
+   ],
+   "dtype": "float32"
+  },
+  "selection_arctic/pair_detail_score_sorted": {
+   "shape": [
+    725
+   ],
+   "dtype": "float64"
+  }
+ },
+ "meta": {
+  "id": "z_and_r_maps",
+  "block": "F3-B",
+  "title": "The z-only map, the correction r adds, and a latent swap",
+  "panels": {
+   "layout": "Six rows of four cells. Rows 1-2: reconstruction of one test frame (TACO, ARCTIC). Rows 3-6: one latent swap between two test frames of the same object per dataset (rows 3-4 TACO, rows 5-6 ARCTIC): a row with the two recorded frames and the two swapped maps, and under it a row with what the exchanged r changes in each swapped map (the two cells under the recorded frames are empty). Every panel of a row has the same camera; a change row has the camera of the swap row above it.",
+   "reconstruction_columns": {
+    "recorded, hand outlined": "the recorded 512-value contact map of the frame on the object, with the recorded MANO hand as a line drawing",
+    "decoded from z alone": "the map the study saved for the frame, decoded from the latent z alone (C_bar)",
+    "what r adds": "the saved z + r map minus the saved z-only map (C_hat - C_bar), on the difference scale",
+    "decoded from z and r": "the map the study saved for the frame, decoded from z and r (C_hat)"
+   },
+   "swap_columns": {
+    "frame A, recorded": "recorded contact map and recorded hand (line drawing) of frame A, on the object as posed in frame A",
+    "frame B, recorded": "recorded contact map and recorded hand (line drawing) of frame B, on the object as posed in frame B",
+    "z of A with r of B": "computed here: z-only map of A plus the correction decoded from the z of A and the r of B; on the object as posed in frame A",
+    "z of B with r of A": "computed here: z-only map of B plus the correction decoded from the z of B and the r of A; on the object as posed in frame B"
+   },
+   "change_rows": {
+    "label": "<dataset>, same pair | what the exchanged r changes | (swapped map minus the frame's own z and r map)",
+    "reference": "each swap frame's own z + r map (computed here, not drawn; panels.npz swap_<ds>/z_and_r_c512_A/B)",
+    "z of A with r of B": "computed here: the swapped map (z of A, r of B) minus the map decoded from the z of A and the r of A, on the difference scale; on the object as posed in frame A",
+    "z of B with r of A": "computed here: the swapped map (z of B, r of A) minus the map decoded from the z of B and the r of B, on the difference scale; on the object as posed in frame B",
+    "empty_cells": "the two cells under the recorded frames (no such difference exists for a recorded frame)"
+   },
+   "row_labels": [
+    "TACO | roller, right hand | error 0.31 with z alone, 0.09 with z and r",
+    "ARCTIC | notebook, right hand | error 0.58 with z alone, 0.10 with z and r",
+    "TACO | spatula, right hand | A and B from two takes",
+    "TACO, same pair | what the exchanged r changes | (swapped map minus the frame's own z and r map)",
+    "ARCTIC | espresso machine, right hand | A and B from two takes",
+    "ARCTIC, same pair | what the exchanged r changes | (swapped map minus the frame's own z and r map)"
+   ],
+   "arrays": "panels.npz: <row>/<panel>_surface (drawn per-vertex values), _c512 (the 512-value map behind it), _image (the panel as drawn), _verts, _faces; for a recorded panel also _image_without_hand (the render the hand lines are laid over), _hand_line (opacity of the lines), _hand_mask (hand in front of the object or background), _object_mask, _hand_verts, _hand_faces; swap_<ds>/z_only_c512_A/B and z_and_r_c512_A/B (the model's own maps of the swap frames, not drawn); swap_<ds>_change/change_z_A_r_B_* and change_z_B_r_A_* (the change panels); selection_<ds>/e_zonly_unique_sorted and pair_detail_score_sorted (the ranked selection metrics)."
+  },
+  "examples": [
+   {
+    "part": "reconstruction",
+    "dataset": "taco",
+    "example": 2836,
+    "sequence_id": "(dust, roller, plate)/20231019_190",
+    "object": "roller (mesh 164, role tool)",
+    "hand": "R",
+    "frames_drawn": [
+     43
+    ],
+    "take_frames": [
+     73
+    ],
+    "split": "test",
+    "row_of_saved_file": 260
+   },
+   {
+    "part": "swap, frame A",
+    "dataset": "taco",
+    "example": 2463,
+    "sequence_id": "(stir, spatula, plate)/20231104_178",
+    "object": "spatula (mesh 181, role tool)",
+    "hand": "R",
+    "frames_drawn": [
+     46
+    ],
+    "take_frames": [
+     62
+    ],
+    "split": "test",
+    "pair": 634,
+    "opening_angle_rad": 0.0
+   },
+   {
+    "part": "swap, frame B",
+    "dataset": "taco",
+    "example": 2467,
+    "sequence_id": "(stir-fry, spatula, plate)/20231104_177",
+    "object": "spatula (mesh 181, role tool)",
+    "hand": "R",
+    "frames_drawn": [
+     53
+    ],
+    "take_frames": [
+     53
+    ],
+    "split": "test",
+    "pair": 634,
+    "opening_angle_rad": 0.0
+   },
+   {
+    "part": "reconstruction",
+    "dataset": "arctic",
+    "example": 906,
+    "sequence_id": "notebook_use_02/s10",
+    "object": "notebook (mesh notebook, role obj)",
+    "hand": "R",
+    "frames_drawn": [
+     55
+    ],
+    "take_frames": [
+     114
+    ],
+    "split": "test",
+    "row_of_saved_file": 120
+   },
+   {
+    "part": "swap, frame A",
+    "dataset": "arctic",
+    "example": 266,
+    "sequence_id": "espressomachine_grab_01/s01",
+    "object": "espressomachine (mesh espressomachine, role obj)",
+    "hand": "R",
+    "frames_drawn": [
+     8
+    ],
+    "take_frames": [
+     50
+    ],
+    "split": "test",
+    "pair": 158,
+    "opening_angle_rad": 0.0
+   },
+   {
+    "part": "swap, frame B",
+    "dataset": "arctic",
+    "example": 342,
+    "sequence_id": "espressomachine_use_04/s09",
+    "object": "espressomachine (mesh espressomachine, role obj)",
+    "hand": "R",
+    "frames_drawn": [
+     6
+    ],
+    "take_frames": [
+     490
+    ],
+    "split": "test",
+    "pair": 158,
+    "opening_angle_rad": 0.3897687494754791
+   }
+  ],
+  "selection_rule": "Reconstruction rows: per dataset, the test frame whose saved z-only reconstruction error (e_zonly) is the lower median over the unique test frames (every frame of every test sequence, a frame shared by two overlapping sequences of one take counted once; rank (N - 1) // 2 in ascending order, ties in file order). Swap rows: per dataset, the controlled pair whose detail score (mean of detail_cos_rdonor over the pair's two swaps in swap_pairs_A3.csv) is the lower median over all controlled pairs (ties: first in file).",
+  "selection_evidence": {
+   "taco": {
+    "reconstruction_frame": {
+     "picked": {
+      "example": 2836,
+      "t": 43,
+      "row_of_saved_file": 260
+     },
+     "n_candidates": 22938,
+     "rank_0_based": 11468,
+     "value": 0.31153202056884766,
+     "numpy_median": 0.31156134605407715,
+     "mean": 0.4490911066532135,
+     "quantiles": {
+      "0": 0.04403987526893616,
+      "0.05": 0.10631366074085236,
+      "0.25": 0.19504425302147865,
+      "0.5": 0.31156133115291595,
+      "0.75": 0.5430230349302292,
+      "0.95": 1.171410858631133,
+      "1": 4.864763259887695
+     },
+     "neighbours_in_rank": [
+      {
+       "rank": 11466,
+       "value": 0.31150880455970764,
+       "example": 895,
+       "t": 35
+      },
+      {
+       "rank": 11467,
+       "value": 0.3115289509296417,
+       "example": 1057,
+       "t": 36
+      },
+      {
+       "rank": 11468,
+       "value": 0.31153202056884766,
+       "example": 2836,
+       "t": 43
+      },
+      {
+       "rank": 11469,
+       "value": 0.31159064173698425,
+       "example": 2850,
+       "t": 25
+      },
+      {
+       "rank": 11470,
+       "value": 0.311605840921402,
+       "example": 1057,
+       "t": 33
+      }
+     ],
+     "metric": "e_zonly of reports/contact_factorization_stage1/taco/latents/A3_seed0_test.npz (L2 norm over the 512 values of the raw map)",
+     "candidates": "the unique test frames: 364 test sequences x 64 frames as saved, a frame shared by overlapping sequences of one take counted once (first occurrence)",
+     "n_saved_entries": 23296,
+     "n_repeated_entries": 358,
+     "largest_error_difference_between_the_copies_of_a_repeated_frame": 0.0,
+     "share_of_unique_frames_with_smaller_z_and_r_error": 0.5485221030604237,
+     "other_reading_median_over_every_saved_entry": {
+      "example": 3030,
+      "t": 52,
+      "value": 0.3120478093624115,
+      "rank_0_based": 11647,
+      "n_entries": 23296,
+      "numpy_median": 0.31205394864082336,
+      "share_of_saved_entries_below_the_pick": 0.4989697802197802
+     }
+    },
+    "swap_pair": {
+     "picked": {
+      "pair": 634,
+      "iA": 13100,
+      "iB": 13171,
+      "frame_A": {
+       "example": 2463,
+       "t": 46
+      },
+      "frame_B": {
+       "example": 2467,
+       "t": 53
+      }
+     },
+     "n_candidates": 800,
+     "rank_0_based": 399,
+     "value": 0.5410251319408417,
+     "numpy_median": 0.5413866490125656,
+     "mean": 0.4430484720623645,
+     "quantiles": {
+      "0": -0.2724656164646148,
+      "0.05": -0.060783691331744216,
+      "0.25": 0.05325822602026159,
+      "0.5": 0.5413866490125656,
+      "0.75": 0.7616586163640022,
+      "0.95": 0.8843059048056602,
+      "1": 0.9495804905891418
+     },
+     "neighbours_in_rank": [
+      {
+       "rank": 397,
+       "value": 0.539204865694046,
+       "pair": 36
+      },
+      {
+       "rank": 398,
+       "value": 0.5398461371660233,
+       "pair": 60
+      },
+      {
+       "rank": 399,
+       "value": 0.5410251319408417,
+       "pair": 634
+      },
+      {
+       "rank": 400,
+       "value": 0.5417481660842896,
+       "pair": 590
+      },
+      {
+       "rank": 401,
+       "value": 0.5423102974891663,
+       "pair": 181
+      }
+     ],
+     "metric": "mean of detail_cos_rdonor over the two swaps (AB, BA) of a pair, reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+     "candidates": "800 controlled pairs of reports/contact_factorization_stage1/taco/swap_pairs_selected.csv",
+     "detail_cos_rdonor_of_the_two_swaps": {
+      "AB": 0.8669143915176392,
+      "BA": 0.2151358723640442
+     },
+     "share_of_all_swaps_below_each": {
+      "AB": 0.919375,
+      "BA": 0.325
+     },
+     "other_reading_median_over_single_swaps": {
+      "pair": 19,
+      "swap": "AB",
+      "value": 0.5291898250579834,
+      "n_swaps": 1600
+     }
+    },
+    "sorted_metrics": "panels.npz selection_taco/e_zonly_unique_sorted, selection_taco/pair_detail_score_sorted"
+   },
+   "arctic": {
+    "reconstruction_frame": {
+     "picked": {
+      "example": 906,
+      "t": 55,
+      "row_of_saved_file": 120
+     },
+     "n_candidates": 11560,
+     "rank_0_based": 5779,
+     "value": 0.5785583257675171,
+     "numpy_median": 0.578601598739624,
+     "mean": 0.6453289985656738,
+     "quantiles": {
+      "0": 0.014430569484829903,
+      "0.05": 0.0492000948637724,
+      "0.25": 0.24114803969860077,
+      "0.5": 0.5786015689373016,
+      "0.75": 0.9395563453435898,
+      "0.95": 1.5735678195953364,
+      "1": 3.008981466293335
+     },
+     "neighbours_in_rank": [
+      {
+       "rank": 5777,
+       "value": 0.5784060955047607,
+       "example": 1113,
+       "t": 8
+      },
+      {
+       "rank": 5778,
+       "value": 0.5784417390823364,
+       "example": 925,
+       "t": 14
+      },
+      {
+       "rank": 5779,
+       "value": 0.5785583257675171,
+       "example": 906,
+       "t": 55
+      },
+      {
+       "rank": 5780,
+       "value": 0.5786448121070862,
+       "example": 995,
+       "t": 44
+      },
+      {
+       "rank": 5781,
+       "value": 0.5787078142166138,
+       "example": 36,
+       "t": 62
+      }
+     ],
+     "metric": "e_zonly of reports/contact_factorization_stage1/arctic/latents/A3_seed0_test.npz (L2 norm over the 512 values of the raw map)",
+     "candidates": "the unique test frames: 186 test sequences x 64 frames as saved, a frame shared by overlapping sequences of one take counted once (first occurrence)",
+     "n_saved_entries": 11904,
+     "n_repeated_entries": 344,
+     "largest_error_difference_between_the_copies_of_a_repeated_frame": 0.0,
+     "share_of_unique_frames_with_smaller_z_and_r_error": 0.3864186851211073,
+     "other_reading_median_over_every_saved_entry": {
+      "example": 771,
+      "t": 17,
+      "value": 0.5585736632347107,
+      "rank_0_based": 5951,
+      "n_entries": 11904,
+      "numpy_median": 0.55859375,
+      "share_of_saved_entries_below_the_pick": 0.5131048387096774
+     }
+    },
+    "swap_pair": {
+     "picked": {
+      "pair": 158,
+      "iA": 2568,
+      "iB": 3206,
+      "frame_A": {
+       "example": 266,
+       "t": 8
+      },
+      "frame_B": {
+       "example": 342,
+       "t": 6
+      }
+     },
+     "n_candidates": 725,
+     "rank_0_based": 362,
+     "value": 0.0014404230751096998,
+     "numpy_median": 0.0014404230751096998,
+     "mean": 0.021316888534648602,
+     "quantiles": {
+      "0": -0.17280586063861847,
+      "0.05": -0.10078806057572359,
+      "0.25": -0.02798163425177335,
+      "0.5": 0.0014404230751096998,
+      "0.75": 0.03594930004328491,
+      "0.95": 0.23546566963195772,
+      "1": 0.5240470618009567
+     },
+     "neighbours_in_rank": [
+      {
+       "rank": 360,
+       "value": 0.00125039718113835,
+       "pair": 85
+      },
+      {
+       "rank": 361,
+       "value": 0.0014121867716312513,
+       "pair": 68
+      },
+      {
+       "rank": 362,
+       "value": 0.0014404230751096998,
+       "pair": 158
+      },
+      {
+       "rank": 363,
+       "value": 0.0015050210058688979,
+       "pair": 443
+      },
+      {
+       "rank": 364,
+       "value": 0.00169326271861795,
+       "pair": 415
+      }
+     ],
+     "metric": "mean of detail_cos_rdonor over the two swaps (AB, BA) of a pair, reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+     "candidates": "725 controlled pairs of reports/contact_factorization_stage1/arctic/swap_pairs_selected.csv",
+     "detail_cos_rdonor_of_the_two_swaps": {
+      "AB": -0.0008064666762948,
+      "BA": 0.0036873128265142
+     },
+     "share_of_all_swaps_below_each": {
+      "AB": 0.4606896551724138,
+      "BA": 0.5117241379310344
+     },
+     "other_reading_median_over_single_swaps": {
+      "pair": 387,
+      "swap": "BA",
+      "value": 0.0029617613181471,
+      "n_swaps": 1450
+     }
+    },
+    "sorted_metrics": "panels.npz selection_arctic/e_zonly_unique_sorted, selection_arctic/pair_detail_score_sorted"
+   }
+  },
+  "display_choices": {
+   "canonical_to_surface": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0 (qlib.Example.to_vertices; the same rule for recorded maps, decoded maps and the differences)",
+   "contact_scale": {
+    "range": [
+     0.0,
+     0.9
+    ],
+    "colours": "grey at 0, orange at half, dark red-brown at the limit",
+    "rule": "largest drawn contact value on the surface over all rows, rounded up to 0.1"
+   },
+   "difference_scale": {
+    "range": [
+     -0.13,
+     0.13
+    ],
+    "colours": "blue = less contact, grey = no change, orange = more contact",
+    "rule": "largest drawn absolute difference on the surface over all difference panels (reconstruction and swap), rounded up to 0.01",
+    "panels": "the third column of rows 1-2 (what r adds) and the two panels of rows 4 and 6 (what the exchanged r changes)"
+   },
+   "camera": {
+    "rule": "per row: qlib.hand_side_view(mesh and hand of the first panel) (onto the object's broad side, from the side of that hand), then qlib.fit_camera on every mesh and hand the row shows; the same camera for the four panels; a change row reuses the camera of its swap row",
+    "panel_size_rule": "width 560 px; width / height = projected scene width / height, kept within [1.25, 2.0]",
+    "per_row": {
+     "recon_taco": {
+      "camera": {
+       "position": [
+        -0.3028971417465813,
+        0.00815042338063064,
+        0.4645012973239734
+       ],
+       "focal_point": [
+        -0.04730812616169155,
+        0.0009698747150038096,
+        0.0031526344819081103
+       ],
+       "up": [
+        -0.8747030220882475,
+        0.003638643699720036,
+        -0.4846456266404489
+       ],
+       "view_angle": 25.0,
+       "aspect": 1.25
+      },
+      "panel_size": [
+       560,
+       448
+      ]
+     },
+     "recon_arctic": {
+      "camera": {
+       "position": [
+        -0.32581749387612025,
+        -0.5927792123545751,
+        -0.0941238872573524
+       ],
+       "focal_point": [
+        -0.13391067095375284,
+        -0.05319126507001395,
+        -0.088476846530011
+       ],
+       "up": [
+        -0.9421322367455279,
+        0.33515373352843925,
+        -0.007669640592395148
+       ],
+       "view_angle": 25.0,
+       "aspect": 1.3592233009708738
+      },
+      "panel_size": [
+       560,
+       412
+      ]
+     },
+     "swap_taco": {
+      "camera": {
+       "position": [
+        -0.005938605608464043,
+        -0.22738029153757183,
+        -0.4313520611469702
+       ],
+       "focal_point": [
+        -0.0062433443486871985,
+        -0.004141343696741563,
+        0.014159964937020958
+       ],
+       "up": [
+        -0.0014361913300654173,
+        -0.894038671184293,
+        0.4479874906529054
+       ],
+       "view_angle": 25.0,
+       "aspect": 2.0
+      },
+      "panel_size": [
+       560,
+       280
+      ]
+     },
+     "swap_taco_change": {
+      "camera": {
+       "position": [
+        -0.005938605608464043,
+        -0.22738029153757183,
+        -0.4313520611469702
+       ],
+       "focal_point": [
+        -0.0062433443486871985,
+        -0.004141343696741563,
+        0.014159964937020958
+       ],
+       "up": [
+        -0.0014361913300654173,
+        -0.894038671184293,
+        0.4479874906529054
+       ],
+       "view_angle": 25.0,
+       "aspect": 2.0
+      },
+      "panel_size": [
+       560,
+       280
+      ],
+      "same_as": "swap_taco"
+     },
+     "swap_arctic": {
+      "camera": {
+       "position": [
+        0.3260684055292065,
+        -0.6227831634681282,
+        -0.534844317364728
+       ],
+       "focal_point": [
+        0.0025355564886196734,
+        -0.10117040967376213,
+        -0.03801025101174394
+       ],
+       "up": [
+        -0.2841988387721676,
+        0.5629491297679368,
+        -0.7760923252642524
+       ],
+       "view_angle": 25.0,
+       "aspect": 1.25
+      },
+      "panel_size": [
+       560,
+       448
+      ]
+     },
+     "swap_arctic_change": {
+      "camera": {
+       "position": [
+        0.3260684055292065,
+        -0.6227831634681282,
+        -0.534844317364728
+       ],
+       "focal_point": [
+        0.0025355564886196734,
+        -0.10117040967376213,
+        -0.03801025101174394
+       ],
+       "up": [
+        -0.2841988387721676,
+        0.5629491297679368,
+        -0.7760923252642524
+       ],
+       "view_angle": 25.0,
+       "aspect": 1.25
+      },
+      "panel_size": [
+       560,
+       448
+      ],
+      "same_as": "swap_arctic"
+     }
+    }
+   },
+   "hand": {
+    "style": "the recorded MANO hand of the frame as a line drawing laid over the render of the map alone, in the recorded panels only; decoded maps and differences are drawn without a hand",
+    "lines": "colour #3c3b37; the 2 px outline of the part of the hand that is in front of the object from the row's camera (parts behind the object are not drawn), and the pixels inside it where the hand's depth jumps by more than 6 mm between the two neighbouring pixels (a finger in front of another part of the hand); softened with a Gaussian of 0.6 px",
+    "why": "a filled or translucent hand repaints the contact map under it; with lines, every pixel that is not on a line is the pixel of the hand-free render (checks.hand_lines), so the recorded panel is comparable with the decoded panels beside it",
+    "how": "depth_image of this script: two extra renders per recorded panel (hand alone, object alone) with the camera and window of qlib.render on the same software renderer; qlib.render returns colours only",
+    "parameters": {
+     "colour": "#3c3b37",
+     "outline_px": 2,
+     "depth_jump_m": 0.006,
+     "soften_px": 0.6
+    }
+   },
+   "object_pose": "the contacted object's own frame; an ARCTIC object is drawn with the opening angle of the frame whose geometry the map was decoded on",
+   "layout": "one qlib.grid per row, stacked by this script (rows differ in height), a thin rule between the two parts; an empty cell is a white panel"
+  },
+  "numbers": [
+   {
+    "label": "error of the z-only map in the drawn frame (L2 over the 512 map values), as saved",
+    "value": 0.31153202056884766,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/latents/A3_seed0_test.npz",
+    "locator": "e_zonly[260, 43] (row of example 2836, sequence frame 43)"
+   },
+   {
+    "label": "error of the z + r map in the drawn frame (L2 over the 512 map values), as saved",
+    "value": 0.0854714959859848,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/latents/A3_seed0_test.npz",
+    "locator": "e_full[260, 43] (row of example 2836, sequence frame 43)"
+   },
+   {
+    "label": "error of the z-only map in the drawn frame, recomputed from the drawn arrays",
+    "value": 0.3115101754665375,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "norm(C_bar[260, 43] (row of example 2836, sequence frame 43) of reports/contact_factorization_stage1/taco/latents/A3_seed0_test.npz - C[2836, 43] of taco/50_hier_contact_gen/sequences.npz); panels.npz recon_taco/z_only_c512, recorded_c512"
+   },
+   {
+    "label": "error of the z + r map in the drawn frame, recomputed from the drawn arrays",
+    "value": 0.08542222529649734,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "norm(C_hat[260, 43] (row of example 2836, sequence frame 43) of reports/contact_factorization_stage1/taco/latents/A3_seed0_test.npz - C[2836, 43] of taco/50_hier_contact_gen/sequences.npz); panels.npz recon_taco/z_and_r_c512, recorded_c512"
+   },
+   {
+    "label": "L2 norm of the recorded map of the drawn frame",
+    "value": 6.799005508422852,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "norm(C[2836, 43]) of taco/50_hier_contact_gen/sequences.npz; panels.npz recon_taco/recorded_c512"
+   },
+   {
+    "label": "number of values of a contact map",
+    "value": 512.0,
+    "dataset": "taco",
+    "source": "taco/50_hier_contact_gen/sequences.npz",
+    "locator": "C.shape[-1]"
+   },
+   {
+    "label": "largest absolute value of what r adds, on the 512 map values of the drawn frame",
+    "value": 0.09619140625,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "max |C_hat - C_bar|[260, 43] (row of example 2836, sequence frame 43) of reports/contact_factorization_stage1/taco/latents/A3_seed0_test.npz; panels.npz recon_taco/r_adds_c512"
+   },
+   {
+    "label": "median z-only error over the test frames (numpy median over the unique frames)",
+    "value": 0.31156134605407715,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/latents/A3_seed0_test.npz",
+    "locator": "median(e_zonly[first occurrences])"
+   },
+   {
+    "label": "number of test frames (unique frames: overlapping sequences counted once)",
+    "value": 22938.0,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "first occurrences of (take_key, group, t0 + t) over the test sequences of taco/50_hier_contact_gen/sequences_meta.csv"
+   },
+   {
+    "label": "number of entries of the saved test file (sequences x 64)",
+    "value": 23296.0,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/latents/A3_seed0_test.npz",
+    "locator": "e_zonly.size"
+   },
+   {
+    "label": "share of test frames with a smaller z + r error than the drawn frame",
+    "value": 0.5485221030604237,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/latents/A3_seed0_test.npz",
+    "locator": "mean(e_full[first occurrences] < e_full[260, 43] (row of example 2836, sequence frame 43))"
+   },
+   {
+    "label": "mean z-only error over the unique test frames (study table)",
+    "value": 0.4488290211349681,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/reconstruction.csv",
+    "locator": "row model == A3, column E_zonly"
+   },
+   {
+    "label": "mean z + r error over the unique test frames (study table)",
+    "value": 0.1508865981156584,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/reconstruction.csv",
+    "locator": "row model == A3, column E_full"
+   },
+   {
+    "label": "mean z-only error over the unique test frames, recomputed",
+    "value": 0.4490911066532135,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/latents/A3_seed0_test.npz",
+    "locator": "mean(e_zonly[first occurrences])"
+   },
+   {
+    "label": "mean z + r error over the unique test frames, recomputed",
+    "value": 0.15121816098690033,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/latents/A3_seed0_test.npz",
+    "locator": "mean(e_full[first occurrences])"
+   },
+   {
+    "label": "detail score of the drawn pair (mean over its two swaps)",
+    "value": 0.5410251319408417,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "mean of column detail_cos_rdonor over rows pair == 634"
+   },
+   {
+    "label": "median detail score over the controlled pairs (numpy median)",
+    "value": 0.5413866490125656,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "median over pairs of the pair mean of detail_cos_rdonor"
+   },
+   {
+    "label": "number of controlled pairs",
+    "value": 800.0,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "number of distinct values of column pair"
+   },
+   {
+    "label": "structure distance of the swapped map to the frame that gave z (z of A with r of B), study table",
+    "value": 0.0057528340257704,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "row pair == 634, swap == AB, column struct_to_zdonor"
+   },
+   {
+    "label": "structure distance of the swapped map to the frame that gave r (z of A with r of B), study table",
+    "value": 0.2692586183547973,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "row pair == 634, swap == AB, column struct_to_rdonor"
+   },
+   {
+    "label": "detail score: cosine between the correction after the swap and the detail the r donor's z-only map misses (z of A with r of B), study table",
+    "value": 0.8669143915176392,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "row pair == 634, swap == AB, column detail_cos_rdonor"
+   },
+   {
+    "label": "cosine between the correction after the swap and the detail the z donor's z-only map misses (z of A with r of B), study table",
+    "value": 0.0612270794808864,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "row pair == 634, swap == AB, column detail_cos_zdonor"
+   },
+   {
+    "label": "L2 distance between the swapped map and the z donor's own z + r map (z of A with r of B), study table",
+    "value": 0.2085928469896316,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "row pair == 634, swap == AB, column dense_change"
+   },
+   {
+    "label": "L2 distance between the two recorded maps (z of A with r of B), study table",
+    "value": 2.5165038108825684,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "row pair == 634, swap == AB, column dense_AB"
+   },
+   {
+    "label": "L2 distance between the swapped map and the z donor's recorded map (z of A with r of B), study table",
+    "value": 0.2163447588682174,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "row pair == 634, swap == AB, column dense_to_zdonor"
+   },
+   {
+    "label": "L2 distance between the swapped map and the r donor's recorded map (z of A with r of B), study table",
+    "value": 2.5594072341918945,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "row pair == 634, swap == AB, column dense_to_rdonor"
+   },
+   {
+    "label": "detail score: cosine between the correction after the swap and the detail the r donor's z-only map misses (z of A with r of B), recomputed on the CPU from the drawn maps",
+    "value": 0.874188244342804,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_taco/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "cosine between the correction after the swap and the detail the z donor's z-only map misses (z of A with r of B), recomputed on the CPU from the drawn maps",
+    "value": 0.08180560916662216,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_taco/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "L2 distance between the swapped map and the z donor's own z + r map (z of A with r of B), recomputed on the CPU from the drawn maps",
+    "value": 0.21097272634506226,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_taco/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "L2 distance between the two recorded maps (z of A with r of B), recomputed on the CPU from the drawn maps",
+    "value": 2.5165038108825684,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_taco/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "L2 distance between the swapped map and the z donor's recorded map (z of A with r of B), recomputed on the CPU from the drawn maps",
+    "value": 0.21891829371452332,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_taco/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "L2 distance between the swapped map and the r donor's recorded map (z of A with r of B), recomputed on the CPU from the drawn maps",
+    "value": 2.5634560585021973,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_taco/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "largest absolute change by the exchanged r, on the 512 map values (z of A with r of B)",
+    "value": 0.057341694831848145,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "max |swapped map - own z + r map|; panels.npz swap_taco_change/change_z_A_r_B_c512"
+   },
+   {
+    "label": "structure distance of the swapped map to the frame that gave z (z of B with r of A), study table",
+    "value": 0.0231499560177326,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "row pair == 634, swap == BA, column struct_to_zdonor"
+   },
+   {
+    "label": "structure distance of the swapped map to the frame that gave r (z of B with r of A), study table",
+    "value": 0.3579442799091339,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "row pair == 634, swap == BA, column struct_to_rdonor"
+   },
+   {
+    "label": "detail score: cosine between the correction after the swap and the detail the r donor's z-only map misses (z of B with r of A), study table",
+    "value": 0.2151358723640442,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "row pair == 634, swap == BA, column detail_cos_rdonor"
+   },
+   {
+    "label": "cosine between the correction after the swap and the detail the z donor's z-only map misses (z of B with r of A), study table",
+    "value": 0.190113291144371,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "row pair == 634, swap == BA, column detail_cos_zdonor"
+   },
+   {
+    "label": "L2 distance between the swapped map and the z donor's own z + r map (z of B with r of A), study table",
+    "value": 0.2252280861139297,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "row pair == 634, swap == BA, column dense_change"
+   },
+   {
+    "label": "L2 distance between the two recorded maps (z of B with r of A), study table",
+    "value": 2.5165038108825684,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "row pair == 634, swap == BA, column dense_AB"
+   },
+   {
+    "label": "L2 distance between the swapped map and the z donor's recorded map (z of B with r of A), study table",
+    "value": 0.2524308562278747,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "row pair == 634, swap == BA, column dense_to_zdonor"
+   },
+   {
+    "label": "L2 distance between the swapped map and the r donor's recorded map (z of B with r of A), study table",
+    "value": 2.5228843688964844,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_pairs_A3.csv",
+    "locator": "row pair == 634, swap == BA, column dense_to_rdonor"
+   },
+   {
+    "label": "detail score: cosine between the correction after the swap and the detail the r donor's z-only map misses (z of B with r of A), recomputed on the CPU from the drawn maps",
+    "value": 0.2173651158809662,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_taco/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "cosine between the correction after the swap and the detail the z donor's z-only map misses (z of B with r of A), recomputed on the CPU from the drawn maps",
+    "value": 0.22024089097976685,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_taco/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "L2 distance between the swapped map and the z donor's own z + r map (z of B with r of A), recomputed on the CPU from the drawn maps",
+    "value": 0.2271655648946762,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_taco/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "L2 distance between the two recorded maps (z of B with r of A), recomputed on the CPU from the drawn maps",
+    "value": 2.5165038108825684,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_taco/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "L2 distance between the swapped map and the z donor's recorded map (z of B with r of A), recomputed on the CPU from the drawn maps",
+    "value": 0.2552388906478882,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_taco/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "L2 distance between the swapped map and the r donor's recorded map (z of B with r of A), recomputed on the CPU from the drawn maps",
+    "value": 2.527902364730835,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_taco/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "largest absolute change by the exchanged r, on the 512 map values (z of B with r of A)",
+    "value": 0.05833354592323303,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "max |swapped map - own z + r map|; panels.npz swap_taco_change/change_z_B_r_A_c512"
+   },
+   {
+    "label": "largest absolute change by the exchanged r over the two swaps of the pair, on the 512 map values",
+    "value": 0.05833354592323303,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "max over panels.npz swap_taco_change/change_z_A_r_B_c512 and change_z_B_r_A_c512"
+   },
+   {
+    "label": "share of all swaps whose structure is closer to the z donor (study table)",
+    "value": 0.97125,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_metrics.csv",
+    "locator": "row model == A3, column frac_struct_follows_z"
+   },
+   {
+    "label": "share of all swaps whose detail is closer to the r donor (study table)",
+    "value": 0.766875,
+    "dataset": "taco",
+    "source": "reports/contact_factorization_stage1/taco/swap_metrics.csv",
+    "locator": "row model == A3, column frac_detail_follows_r"
+   },
+   {
+    "label": "error of the z-only map in the drawn frame (L2 over the 512 map values), as saved",
+    "value": 0.5785583257675171,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/latents/A3_seed0_test.npz",
+    "locator": "e_zonly[120, 55] (row of example 906, sequence frame 55)"
+   },
+   {
+    "label": "error of the z + r map in the drawn frame (L2 over the 512 map values), as saved",
+    "value": 0.09871648997068405,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/latents/A3_seed0_test.npz",
+    "locator": "e_full[120, 55] (row of example 906, sequence frame 55)"
+   },
+   {
+    "label": "error of the z-only map in the drawn frame, recomputed from the drawn arrays",
+    "value": 0.5783894062042236,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "norm(C_bar[120, 55] (row of example 906, sequence frame 55) of reports/contact_factorization_stage1/arctic/latents/A3_seed0_test.npz - C[906, 55] of arctic/40_hier_contact_gen/sequences.npz); panels.npz recon_arctic/z_only_c512, recorded_c512"
+   },
+   {
+    "label": "error of the z + r map in the drawn frame, recomputed from the drawn arrays",
+    "value": 0.09732461720705032,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "norm(C_hat[120, 55] (row of example 906, sequence frame 55) of reports/contact_factorization_stage1/arctic/latents/A3_seed0_test.npz - C[906, 55] of arctic/40_hier_contact_gen/sequences.npz); panels.npz recon_arctic/z_and_r_c512, recorded_c512"
+   },
+   {
+    "label": "L2 norm of the recorded map of the drawn frame",
+    "value": 3.301964521408081,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "norm(C[906, 55]) of arctic/40_hier_contact_gen/sequences.npz; panels.npz recon_arctic/recorded_c512"
+   },
+   {
+    "label": "number of values of a contact map",
+    "value": 512.0,
+    "dataset": "arctic",
+    "source": "arctic/40_hier_contact_gen/sequences.npz",
+    "locator": "C.shape[-1]"
+   },
+   {
+    "label": "largest absolute value of what r adds, on the 512 map values of the drawn frame",
+    "value": 0.16552734375,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "max |C_hat - C_bar|[120, 55] (row of example 906, sequence frame 55) of reports/contact_factorization_stage1/arctic/latents/A3_seed0_test.npz; panels.npz recon_arctic/r_adds_c512"
+   },
+   {
+    "label": "median z-only error over the test frames (numpy median over the unique frames)",
+    "value": 0.578601598739624,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/latents/A3_seed0_test.npz",
+    "locator": "median(e_zonly[first occurrences])"
+   },
+   {
+    "label": "number of test frames (unique frames: overlapping sequences counted once)",
+    "value": 11560.0,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "first occurrences of (take_key, group, t0 + t) over the test sequences of arctic/40_hier_contact_gen/sequences_meta.csv"
+   },
+   {
+    "label": "number of entries of the saved test file (sequences x 64)",
+    "value": 11904.0,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/latents/A3_seed0_test.npz",
+    "locator": "e_zonly.size"
+   },
+   {
+    "label": "share of test frames with a smaller z + r error than the drawn frame",
+    "value": 0.3864186851211073,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/latents/A3_seed0_test.npz",
+    "locator": "mean(e_full[first occurrences] < e_full[120, 55] (row of example 906, sequence frame 55))"
+   },
+   {
+    "label": "mean z-only error over the unique test frames (study table)",
+    "value": 0.645155618915489,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/reconstruction.csv",
+    "locator": "row model == A3, column E_zonly"
+   },
+   {
+    "label": "mean z + r error over the unique test frames (study table)",
+    "value": 0.204889352459164,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/reconstruction.csv",
+    "locator": "row model == A3, column E_full"
+   },
+   {
+    "label": "mean z-only error over the unique test frames, recomputed",
+    "value": 0.6453289985656738,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/latents/A3_seed0_test.npz",
+    "locator": "mean(e_zonly[first occurrences])"
+   },
+   {
+    "label": "mean z + r error over the unique test frames, recomputed",
+    "value": 0.20523601770401,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/latents/A3_seed0_test.npz",
+    "locator": "mean(e_full[first occurrences])"
+   },
+   {
+    "label": "detail score of the drawn pair (mean over its two swaps)",
+    "value": 0.0014404230751096998,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "mean of column detail_cos_rdonor over rows pair == 158"
+   },
+   {
+    "label": "median detail score over the controlled pairs (numpy median)",
+    "value": 0.0014404230751096998,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "median over pairs of the pair mean of detail_cos_rdonor"
+   },
+   {
+    "label": "number of controlled pairs",
+    "value": 725.0,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "number of distinct values of column pair"
+   },
+   {
+    "label": "structure distance of the swapped map to the frame that gave z (z of A with r of B), study table",
+    "value": 0.0370931327342987,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "row pair == 158, swap == AB, column struct_to_zdonor"
+   },
+   {
+    "label": "structure distance of the swapped map to the frame that gave r (z of A with r of B), study table",
+    "value": 0.4964073300361633,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "row pair == 158, swap == AB, column struct_to_rdonor"
+   },
+   {
+    "label": "detail score: cosine between the correction after the swap and the detail the r donor's z-only map misses (z of A with r of B), study table",
+    "value": -0.0008064666762948,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "row pair == 158, swap == AB, column detail_cos_rdonor"
+   },
+   {
+    "label": "cosine between the correction after the swap and the detail the z donor's z-only map misses (z of A with r of B), study table",
+    "value": 0.2905773222446441,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "row pair == 158, swap == AB, column detail_cos_zdonor"
+   },
+   {
+    "label": "L2 distance between the swapped map and the z donor's own z + r map (z of A with r of B), study table",
+    "value": 0.2815417647361755,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "row pair == 158, swap == AB, column dense_change"
+   },
+   {
+    "label": "L2 distance between the two recorded maps (z of A with r of B), study table",
+    "value": 3.022001028060913,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "row pair == 158, swap == AB, column dense_AB"
+   },
+   {
+    "label": "L2 distance between the swapped map and the z donor's recorded map (z of A with r of B), study table",
+    "value": 0.2949550747871399,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "row pair == 158, swap == AB, column dense_to_zdonor"
+   },
+   {
+    "label": "L2 distance between the swapped map and the r donor's recorded map (z of A with r of B), study table",
+    "value": 3.128291130065918,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "row pair == 158, swap == AB, column dense_to_rdonor"
+   },
+   {
+    "label": "detail score: cosine between the correction after the swap and the detail the r donor's z-only map misses (z of A with r of B), recomputed on the CPU from the drawn maps",
+    "value": -0.0038334247656166553,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_arctic/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "cosine between the correction after the swap and the detail the z donor's z-only map misses (z of A with r of B), recomputed on the CPU from the drawn maps",
+    "value": 0.30565646290779114,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_arctic/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "L2 distance between the swapped map and the z donor's own z + r map (z of A with r of B), recomputed on the CPU from the drawn maps",
+    "value": 0.2765883207321167,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_arctic/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "L2 distance between the two recorded maps (z of A with r of B), recomputed on the CPU from the drawn maps",
+    "value": 3.022001028060913,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_arctic/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "L2 distance between the swapped map and the z donor's recorded map (z of A with r of B), recomputed on the CPU from the drawn maps",
+    "value": 0.29147306084632874,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_arctic/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "L2 distance between the swapped map and the r donor's recorded map (z of A with r of B), recomputed on the CPU from the drawn maps",
+    "value": 3.123612642288208,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_arctic/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "largest absolute change by the exchanged r, on the 512 map values (z of A with r of B)",
+    "value": 0.10798603296279907,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "max |swapped map - own z + r map|; panels.npz swap_arctic_change/change_z_A_r_B_c512"
+   },
+   {
+    "label": "structure distance of the swapped map to the frame that gave z (z of B with r of A), study table",
+    "value": 0.00104414683301,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "row pair == 158, swap == BA, column struct_to_zdonor"
+   },
+   {
+    "label": "structure distance of the swapped map to the frame that gave r (z of B with r of A), study table",
+    "value": 0.9017807245254515,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "row pair == 158, swap == BA, column struct_to_rdonor"
+   },
+   {
+    "label": "detail score: cosine between the correction after the swap and the detail the r donor's z-only map misses (z of B with r of A), study table",
+    "value": 0.0036873128265142,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "row pair == 158, swap == BA, column detail_cos_rdonor"
+   },
+   {
+    "label": "cosine between the correction after the swap and the detail the z donor's z-only map misses (z of B with r of A), study table",
+    "value": 0.5244564414024353,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "row pair == 158, swap == BA, column detail_cos_zdonor"
+   },
+   {
+    "label": "L2 distance between the swapped map and the z donor's own z + r map (z of B with r of A), study table",
+    "value": 0.1082053408026695,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "row pair == 158, swap == BA, column dense_change"
+   },
+   {
+    "label": "L2 distance between the two recorded maps (z of B with r of A), study table",
+    "value": 3.022001028060913,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "row pair == 158, swap == BA, column dense_AB"
+   },
+   {
+    "label": "L2 distance between the swapped map and the z donor's recorded map (z of B with r of A), study table",
+    "value": 0.1099488735198974,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "row pair == 158, swap == BA, column dense_to_zdonor"
+   },
+   {
+    "label": "L2 distance between the swapped map and the r donor's recorded map (z of B with r of A), study table",
+    "value": 3.0125997066497803,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_pairs_A3.csv",
+    "locator": "row pair == 158, swap == BA, column dense_to_rdonor"
+   },
+   {
+    "label": "detail score: cosine between the correction after the swap and the detail the r donor's z-only map misses (z of B with r of A), recomputed on the CPU from the drawn maps",
+    "value": 0.00826180074363947,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_arctic/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "cosine between the correction after the swap and the detail the z donor's z-only map misses (z of B with r of A), recomputed on the CPU from the drawn maps",
+    "value": 0.5385950207710266,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_arctic/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "L2 distance between the swapped map and the z donor's own z + r map (z of B with r of A), recomputed on the CPU from the drawn maps",
+    "value": 0.10805752128362656,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_arctic/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "L2 distance between the two recorded maps (z of B with r of A), recomputed on the CPU from the drawn maps",
+    "value": 3.022001028060913,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_arctic/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "L2 distance between the swapped map and the z donor's recorded map (z of B with r of A), recomputed on the CPU from the drawn maps",
+    "value": 0.10938141494989395,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_arctic/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "L2 distance between the swapped map and the r donor's recorded map (z of B with r of A), recomputed on the CPU from the drawn maps",
+    "value": 3.0147643089294434,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "definition of eval_swap.py on panels.npz swap_arctic/frame_A_c512, frame_B_c512, z_A_r_B_c512, z_B_r_A_c512, z_only_c512_A/B, z_and_r_c512_A/B"
+   },
+   {
+    "label": "largest absolute change by the exchanged r, on the 512 map values (z of B with r of A)",
+    "value": 0.05886435508728027,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "max |swapped map - own z + r map|; panels.npz swap_arctic_change/change_z_B_r_A_c512"
+   },
+   {
+    "label": "largest absolute change by the exchanged r over the two swaps of the pair, on the 512 map values",
+    "value": 0.10798603296279907,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "max over panels.npz swap_arctic_change/change_z_A_r_B_c512 and change_z_B_r_A_c512"
+   },
+   {
+    "label": "share of all swaps whose structure is closer to the z donor (study table)",
+    "value": 0.9793103448275862,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_metrics.csv",
+    "locator": "row model == A3, column frac_struct_follows_z"
+   },
+   {
+    "label": "share of all swaps whose detail is closer to the r donor (study table)",
+    "value": 0.4413793103448276,
+    "dataset": "arctic",
+    "source": "reports/contact_factorization_stage1/arctic/swap_metrics.csv",
+    "locator": "row model == A3, column frac_detail_follows_r"
+   },
+   {
+    "label": "upper limit of the contact colour scale",
+    "value": 0.9,
+    "dataset": "both",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "largest drawn contact value on the surface, rounded up to 0.1"
+   },
+   {
+    "label": "limit of the difference colour scale (plus and minus)",
+    "value": 0.13,
+    "dataset": "both",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "largest drawn absolute difference on the surface, rounded up to 0.01"
+   },
+   {
+    "label": "contact scale limit divided by the difference scale limit",
+    "value": 6.923076923076923,
+    "dataset": "both",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "ratio of the two limits"
+   },
+   {
+    "label": "share of the object's pixels changed by the hand lines (recon_taco/recorded)",
+    "value": 0.029438802311329015,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "checks.hand_lines[recon_taco/recorded]: panels.npz recon_taco/recorded_image against recon_taco/recorded_image_without_hand over recon_taco/recorded_object_mask"
+   },
+   {
+    "label": "mean absolute colour change by the hand lines over the object's pixels, in 8-bit levels (recon_taco/recorded)",
+    "value": 1.6189590264402032,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "checks.hand_lines[recon_taco/recorded]: panels.npz recon_taco/recorded_image against recon_taco/recorded_image_without_hand over recon_taco/recorded_object_mask"
+   },
+   {
+    "label": "share of the object's pixels changed by the hand lines (recon_arctic/recorded)",
+    "value": 0.015945330296127564,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "checks.hand_lines[recon_arctic/recorded]: panels.npz recon_arctic/recorded_image against recon_arctic/recorded_image_without_hand over recon_arctic/recorded_object_mask"
+   },
+   {
+    "label": "mean absolute colour change by the hand lines over the object's pixels, in 8-bit levels (recon_arctic/recorded)",
+    "value": 0.4577721105278796,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "checks.hand_lines[recon_arctic/recorded]: panels.npz recon_arctic/recorded_image against recon_arctic/recorded_image_without_hand over recon_arctic/recorded_object_mask"
+   },
+   {
+    "label": "share of the object's pixels changed by the hand lines (swap_taco/frame_A)",
+    "value": 0.05633671229037231,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "checks.hand_lines[swap_taco/frame_A]: panels.npz swap_taco/frame_A_image against swap_taco/frame_A_image_without_hand over swap_taco/frame_A_object_mask"
+   },
+   {
+    "label": "mean absolute colour change by the hand lines over the object's pixels, in 8-bit levels (swap_taco/frame_A)",
+    "value": 1.0970087666028245,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "checks.hand_lines[swap_taco/frame_A]: panels.npz swap_taco/frame_A_image against swap_taco/frame_A_image_without_hand over swap_taco/frame_A_object_mask"
+   },
+   {
+    "label": "share of the object's pixels changed by the hand lines (swap_taco/frame_B)",
+    "value": 0.056196571215023125,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "checks.hand_lines[swap_taco/frame_B]: panels.npz swap_taco/frame_B_image against swap_taco/frame_B_image_without_hand over swap_taco/frame_B_object_mask"
+   },
+   {
+    "label": "mean absolute colour change by the hand lines over the object's pixels, in 8-bit levels (swap_taco/frame_B)",
+    "value": 1.0764703134488718,
+    "dataset": "taco",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "checks.hand_lines[swap_taco/frame_B]: panels.npz swap_taco/frame_B_image against swap_taco/frame_B_image_without_hand over swap_taco/frame_B_object_mask"
+   },
+   {
+    "label": "share of the object's pixels changed by the hand lines (swap_arctic/frame_A)",
+    "value": 0.03258743993742318,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "checks.hand_lines[swap_arctic/frame_A]: panels.npz swap_arctic/frame_A_image against swap_arctic/frame_A_image_without_hand over swap_arctic/frame_A_object_mask"
+   },
+   {
+    "label": "mean absolute colour change by the hand lines over the object's pixels, in 8-bit levels (swap_arctic/frame_A)",
+    "value": 1.4646981040712184,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "checks.hand_lines[swap_arctic/frame_A]: panels.npz swap_arctic/frame_A_image against swap_arctic/frame_A_image_without_hand over swap_arctic/frame_A_object_mask"
+   },
+   {
+    "label": "share of the object's pixels changed by the hand lines (swap_arctic/frame_B)",
+    "value": 0.009531418639530158,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "checks.hand_lines[swap_arctic/frame_B]: panels.npz swap_arctic/frame_B_image against swap_arctic/frame_B_image_without_hand over swap_arctic/frame_B_object_mask"
+   },
+   {
+    "label": "mean absolute colour change by the hand lines over the object's pixels, in 8-bit levels (swap_arctic/frame_B)",
+    "value": 0.37552387760537126,
+    "dataset": "arctic",
+    "source": "computed in q_z_and_r_maps.py",
+    "locator": "checks.hand_lines[swap_arctic/frame_B]: panels.npz swap_arctic/frame_B_image against swap_arctic/frame_B_image_without_hand over swap_arctic/frame_B_object_mask"
+   }
+  ],
+  "inference": {
+   "checkpoints": {
+    "taco": "<ckpt root>/contact_factorization_stage1/taco/A3_seed0.pt",
+    "arctic": "<ckpt root>/contact_factorization_stage1/arctic/A3_seed0.pt"
+   },
+   "weights": "ema_state (the weights the study evaluated; best validation step TACO 12000, ARCTIC 12000)",
+   "model": "Stage-1 factorised autoencoder, z and r of 64 dimensions each, 23682242 parameters, one training seed (0)",
+   "device": "cpu, float32, torch 2.5.1+cu124, 2 threads; one child process per dataset, run one after the other",
+   "seed": "none needed: the encoders and decoders are deterministic in evaluation mode",
+   "newly_computed": "rows 3-6: the two swapped maps of each pair and each swap frame's own z + r map (the reference of the change panels); for checks only, the z-only maps of the swap frames and both maps of the reconstruction frames",
+   "read_from_saved": "rows 1-2: C_bar and C_hat of <ds>/latents/A3_seed0_test.npz (float16, clamped to [0, 1], written by the study on a GPU in bfloat16); every recorded map: sequences.npz of the hierarchical study; swap scores: swap_pairs_A3.csv",
+   "study_code_used": [
+    "scripts/research/contact_factorization_stage1/cf_common.py",
+    "scripts/research/contact_factorization_stage1/cf_data.py",
+    "scripts/research/contact_factorization_stage1/cf_models.py"
+   ]
+  },
+  "checks": {
+   "taco": {
+    "saved_error_minus_recomputed": {
+     "z_only": 2.1845102310180664e-05,
+     "z_and_r": 4.9270689487457275e-05
+    },
+    "study_mean_minus_recomputed_over_unique_frames": {
+     "z_only": -0.00026208551824541404,
+     "z_and_r": -0.0003315628712419194
+    },
+    "unique_test_frames": {
+     "this_script": 22938,
+     "study_loader": 22938,
+     "same_frames_in_the_same_order": true
+    },
+    "cpu_float32_minus_saved_maps_max_abs": {
+     "reconstruction_frame_z_only": 0.0026635825634002686,
+     "reconstruction_frame_z_and_r": 0.0021767020225524902,
+     "swap_frames_z_only": 0.003954291343688965,
+     "swap_frames_z_and_r": 0.0035820305347442627
+    },
+    "swap_table_minus_recomputed": {
+     "AB": {
+      "detail_cos_rdonor": -0.007273852825164795,
+      "detail_cos_zdonor": -0.020578529685735765,
+      "dense_change": -0.0023798793554306585,
+      "dense_AB": 0.0,
+      "dense_to_zdonor": -0.0025735348463059027,
+      "dense_to_rdonor": -0.004048824310302734
+     },
+     "BA": {
+      "detail_cos_rdonor": -0.002229243516921997,
+      "detail_cos_zdonor": -0.03012759983539584,
+      "dense_change": -0.0019374787807465155,
+      "dense_AB": 0.0,
+      "dense_to_zdonor": -0.0028080344200134832,
+      "dense_to_rdonor": -0.005017995834350586
+     }
+    }
+   },
+   "arctic": {
+    "saved_error_minus_recomputed": {
+     "z_only": 0.00016891956329345703,
+     "z_and_r": 0.001391872763633728
+    },
+    "study_mean_minus_recomputed_over_unique_frames": {
+     "z_only": -0.00017337965018482393,
+     "z_and_r": -0.0003466652448460006
+    },
+    "unique_test_frames": {
+     "this_script": 11560,
+     "study_loader": 11560,
+     "same_frames_in_the_same_order": true
+    },
+    "cpu_float32_minus_saved_maps_max_abs": {
+     "reconstruction_frame_z_only": 0.0026395320892333984,
+     "reconstruction_frame_z_and_r": 0.0038603544235229492,
+     "swap_frames_z_only": 0.0049291253089904785,
+     "swap_frames_z_and_r": 0.0030535459518432617
+    },
+    "swap_table_minus_recomputed": {
+     "AB": {
+      "detail_cos_rdonor": 0.003026958089321855,
+      "detail_cos_zdonor": -0.015079140663147028,
+      "dense_change": 0.004953444004058782,
+      "dense_AB": 0.0,
+      "dense_to_zdonor": 0.0034820139408111572,
+      "dense_to_rdonor": 0.004678487777709961
+     },
+     "BA": {
+      "detail_cos_rdonor": -0.004574487917125269,
+      "detail_cos_zdonor": -0.014138579368591309,
+      "dense_change": 0.000147819519042941,
+      "dense_AB": 0.0,
+      "dense_to_zdonor": 0.000567458570003454,
+      "dense_to_rdonor": -0.002164602279663086
+     }
+    }
+   },
+   "hand_lines": {
+    "recon_taco/recorded": {
+     "object_pixels": 45688,
+     "share_of_object_pixels_with_the_hand_in_front": 0.1930047277184381,
+     "share_of_object_pixels_changed_by_the_lines": 0.029438802311329015,
+     "mean_abs_change_by_the_lines_on_the_object": 1.6189590264402032,
+     "max_abs_change_off_the_lines": 0.0,
+     "compared_with": "z_only",
+     "mean_abs_difference_to_the_compared_panel_as_drawn": 2.2783663106286114,
+     "mean_abs_difference_to_the_compared_panel_without_hand": 0.6715330064787253,
+     "depth_and_colour_render_object_overlap_iou": 0.9660358946073232
+    },
+    "recon_arctic/recorded": {
+     "object_pixels": 80776,
+     "share_of_object_pixels_with_the_hand_in_front": 0.03156878280677429,
+     "share_of_object_pixels_changed_by_the_lines": 0.015945330296127564,
+     "mean_abs_change_by_the_lines_on_the_object": 0.4577721105278796,
+     "max_abs_change_off_the_lines": 0.0,
+     "compared_with": "z_only",
+     "mean_abs_difference_to_the_compared_panel_as_drawn": 2.177655904394044,
+     "mean_abs_difference_to_the_compared_panel_without_hand": 1.8437407150638803,
+     "depth_and_colour_render_object_overlap_iou": 0.9847849409928802
+    },
+    "swap_taco/frame_A": {
+     "object_pixels": 21407,
+     "share_of_object_pixels_with_the_hand_in_front": 0.17022469285747652,
+     "share_of_object_pixels_changed_by_the_lines": 0.05633671229037231,
+     "mean_abs_change_by_the_lines_on_the_object": 1.0970087666028245,
+     "max_abs_change_off_the_lines": 0.0,
+     "compared_with": "z_A_r_B",
+     "mean_abs_difference_to_the_compared_panel_as_drawn": 1.5750144033882998,
+     "mean_abs_difference_to_the_compared_panel_without_hand": 0.5120443468647328,
+     "depth_and_colour_render_object_overlap_iou": 0.9561391754879628
+    },
+    "swap_taco/frame_B": {
+     "object_pixels": 21407,
+     "share_of_object_pixels_with_the_hand_in_front": 0.09501564908674733,
+     "share_of_object_pixels_changed_by_the_lines": 0.056196571215023125,
+     "mean_abs_change_by_the_lines_on_the_object": 1.0764703134488718,
+     "max_abs_change_off_the_lines": 0.0,
+     "compared_with": "z_B_r_A",
+     "mean_abs_difference_to_the_compared_panel_as_drawn": 1.7424674171999812,
+     "mean_abs_difference_to_the_compared_panel_without_hand": 0.7022469285747652,
+     "depth_and_colour_render_object_overlap_iou": 0.9561391754879628
+    },
+    "swap_arctic/frame_A": {
+     "object_pixels": 71592,
+     "share_of_object_pixels_with_the_hand_in_front": 0.10582187953961336,
+     "share_of_object_pixels_changed_by_the_lines": 0.03258743993742318,
+     "mean_abs_change_by_the_lines_on_the_object": 1.4646981040712184,
+     "max_abs_change_off_the_lines": 0.0,
+     "compared_with": "z_A_r_B",
+     "mean_abs_difference_to_the_compared_panel_as_drawn": 2.442665847208254,
+     "mean_abs_difference_to_the_compared_panel_without_hand": 1.0310649234551346,
+     "depth_and_colour_render_object_overlap_iou": 0.9813710572850269
+    },
+    "swap_arctic/frame_B": {
+     "object_pixels": 71343,
+     "share_of_object_pixels_with_the_hand_in_front": 0.0237304290540067,
+     "share_of_object_pixels_changed_by_the_lines": 0.009531418639530158,
+     "mean_abs_change_by_the_lines_on_the_object": 0.37552387760537126,
+     "max_abs_change_off_the_lines": 0.0,
+     "compared_with": "z_B_r_A",
+     "mean_abs_difference_to_the_compared_panel_as_drawn": 0.6556307790065832,
+     "mean_abs_difference_to_the_compared_panel_without_hand": 0.2841998046993632,
+     "depth_and_colour_render_object_overlap_iou": 0.9815637769492178
+    }
+   }
+  },
+  "caveats": [
+   "One frame and one pair per dataset, from a model trained with one seed. Each is at the median of its selection metric, so it is typical in that metric only; the z + r errors of the two reconstruction frames are at percentile 55 (TACO) and 39 (ARCTIC) of the test frames.",
+   "The frame is ranked over the unique test frames, as the study's tables are. Ranking over every entry of the saved file (a frame shared by two overlapping sequences counted twice) picks another frame; it is listed in selection_evidence (other_reading_median_over_every_saved_entry).",
+   "A pair has two swaps with different detail scores; the pair is at the median of their mean, the single swaps are not (TACO 0.87 and 0.22; ARCTIC 0.00 and 0.00).",
+   "A swapped map is the z donor's z-only map plus a small correction by construction, so its resemblance to the z donor is largely built into the architecture, and the structure distance is computed with the z donor's own hand-part labels. The informative half of the swap is what the exchanged r changes (rows 4 and 6) and its detail score.",
+   "The change panels show the swapped map minus the map decoded with the frame's own r. They do not show whether the change points towards the r donor's detail; that is the detail score, a number, and it is near zero in the ARCTIC pair.",
+   "The controlled pairs are the study's: two test frames on the same object mesh from different takes, with a small distance between their structure and wrench descriptors relative to other pairs on that mesh and a dense distance above the median.",
+   "The difference panels use a scale about 7 times finer than the contact panels; equal colour strength does not mean equal size.",
+   "The hand is a line drawing, not a surface: its lines replace the map on 1 to 6 % of the object's pixels in the recorded panels, parts of the hand behind the object are not drawn, and the drawing does not show how far the hand is from the surface.",
+   "Every map is drawn through the smoothing display rule, so the surface values are smoother and lower than the 512 map values; the quoted errors, scores and largest changes are computed on the 512 values, not on the drawn surface.",
+   "ARCTIC: the display operator is built on the closed object, so contact near the hinge is drawn faintly on both parts.",
+   "Mesh vertices that none of the 512 map points reaches have no value and are drawn pale violet (share of the vertices: TACO roller 49 %). The map cannot represent contact there, recorded or decoded.",
+   "The decoded and swapped maps come from contact maps; no hand is generated.",
+   "z was trained with a relational loss built from the structure and wrench descriptors; the structure distances quoted for the swap use those same descriptors and the true hand-part labels of the reference frame, and are read from the study's table (not recomputed here).",
+   "The swapped maps are a float32 CPU run; the study's tables come from a bfloat16 GPU run. The differences are listed under checks."
+  ],
+  "suggested_caption": "Top two rows: one test frame per dataset, selected as the frame whose error with z alone is the median over all test frames (TACO: a roller; ARCTIC: a notebook), shown from left as the recorded contact with the recorded hand drawn as an outline, the map decoded from z alone, what r adds to it, and the map decoded from z and r. In these two frames adding r lowers the error from 0.31 to 0.09 (TACO) and from 0.58 to 0.10 (ARCTIC), as a distance over the 512 map values (the recorded maps have norms 6.80 and 3.30); the difference panels use a scale of ±0.13, about 7 times finer than the contact scale. Lower rows: one swap pair per dataset, selected as the pair whose detail score, averaged over its two swaps, is the median over the controlled pairs (0.54 in the TACO pair, a spatula; 0.00 in the ARCTIC pair, an espresso machine): frames A and B as recorded, the z of A decoded with the r of B and the z of B decoded with the r of A, and under each swapped map what the exchanged r changes (the swapped map minus the map decoded from the same z with that frame's own r). Each swapped map keeps the layout of the frame that gave z: the study's structure distance to that frame is 0.01 and 0.02 (TACO) and 0.04 and 0.00 (ARCTIC), against 0.27 and 0.36 (TACO) and 0.50 and 0.90 (ARCTIC) to the frame that gave r. This is expected from the model's form: a swapped map is the z donor's z-only map plus a small correction decoded from r, so the swap tests what r carries, not whether z holds the layout. What the exchanged r changes is small, a distance of 0.21 and 0.23 (TACO) and 0.28 and 0.11 (ARCTIC) over the 512 map values where the two recorded frames are 2.52 and 3.02 apart; its detail score, the cosine between the correction after the swap and the detail that the r donor's own z-only map misses, is 0.87 and 0.22 for the two swaps of the TACO pair and 0.00 and 0.00 for those of the ARCTIC pair.",
+  "suggested_alt": "20 renders of four objects with contact painted on their surface: a roller and a notebook with the recorded contact and the outline of the hand, the map decoded from z alone, the small correction r adds and the map decoded from z and r; then a spatula and an espresso machine with two recorded frames, the two maps obtained by exchanging r between them, each looking like the frame that gave z, and the small change the exchanged r makes in each."
+ }
+}

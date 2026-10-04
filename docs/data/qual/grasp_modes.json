@@ -1,0 +1,2923 @@
+{
+ "fig_id": "grasp_modes",
+ "created": "2026-10-05T00:17:30+0900",
+ "outputs": {
+  "figure": "reports/project_page_qualitative/grasp_modes/figure.png",
+  "panels": "reports/project_page_qualitative/grasp_modes/panels.npz",
+  "meta": "reports/project_page_qualitative/grasp_modes/meta.json",
+  "asset": "docs/assets/img/qual_grasp_modes.webp"
+ },
+ "master_size": [
+  2664,
+  1732
+ ],
+ "asset_size": [
+  2200,
+  1430
+ ],
+ "layout": {
+  "width": 2664,
+  "height": 1732,
+  "panel": [
+   440,
+   501
+  ],
+  "font_px": 37,
+  "cap_px": 27,
+  "cap_px_at_1100": 11.15,
+  "panel_lower_grid": [
+   440,
+   233
+  ]
+ },
+ "display_rule": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0",
+ "soft_contact": "exp(-distance / 0.02 m)",
+ "colours": {
+  "zero": "#dcdbd5",
+  "orange": "#eb6834",
+  "dark": "#7a2408",
+  "blue": "#2a78d6",
+  "no_data": "#e7e1f1",
+  "parts": {
+   "palm": "#6b6a63",
+   "thumb": "#2a78d6",
+   "index": "#eb6834",
+   "middle": "#1baf7a",
+   "ring": "#eda100",
+   "little": "#8e5bd0"
+  }
+ },
+ "panels": {
+  "mesh_faces": {
+   "shape": [
+    6892,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "closed_mesh_verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "canonical_points_canonical_units": {
+   "shape": [
+    512,
+    3
+   ],
+   "dtype": "float32"
+  },
+  "blade_side_mask": {
+   "shape": [
+    512
+   ],
+   "dtype": "bool"
+  },
+  "sample_to_recorded_distance": {
+   "shape": [
+    10,
+    10
+   ],
+   "dtype": "float32"
+  },
+  "sample_band_rows": {
+   "shape": [
+    2
+   ],
+   "dtype": "int64"
+  },
+  "top_part_vertex_count": {
+   "shape": [],
+   "dtype": "int64"
+  },
+  "recorded_01/mesh_verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_01/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_01/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recorded_01/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_01/image": {
+   "shape": [
+    440,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_01/not_drawn_distance_to_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_01/not_drawn_right_hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_01/not_drawn_distance_to_right_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_01/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "sample_01/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_01/image": {
+   "shape": [
+    172,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_02/mesh_verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_02/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_02/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recorded_02/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_02/image": {
+   "shape": [
+    440,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_02/not_drawn_distance_to_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_02/not_drawn_right_hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_02/not_drawn_distance_to_right_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_02/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "sample_02/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_02/image": {
+   "shape": [
+    172,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_03/mesh_verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_03/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_03/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recorded_03/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_03/image": {
+   "shape": [
+    440,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_03/not_drawn_distance_to_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_03/not_drawn_right_hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_03/not_drawn_distance_to_right_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_03/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "sample_03/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_03/image": {
+   "shape": [
+    172,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_04/mesh_verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_04/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_04/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recorded_04/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_04/image": {
+   "shape": [
+    440,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_04/not_drawn_distance_to_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_04/not_drawn_right_hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_04/not_drawn_distance_to_right_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_04/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "sample_04/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_04/image": {
+   "shape": [
+    172,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_05/mesh_verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_05/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_05/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recorded_05/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_05/image": {
+   "shape": [
+    440,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_05/not_drawn_distance_to_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_05/not_drawn_right_hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_05/not_drawn_distance_to_right_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_05/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "sample_05/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_05/image": {
+   "shape": [
+    172,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_06/mesh_verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_06/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_06/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recorded_06/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_06/image": {
+   "shape": [
+    440,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_06/not_drawn_distance_to_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_06/not_drawn_right_hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_06/not_drawn_distance_to_right_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_06/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "sample_06/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_06/image": {
+   "shape": [
+    172,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_07/mesh_verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_07/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_07/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recorded_07/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_07/image": {
+   "shape": [
+    440,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_07/not_drawn_distance_to_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_07/not_drawn_right_hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_07/not_drawn_distance_to_right_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_07/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "sample_07/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_07/image": {
+   "shape": [
+    172,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_08/mesh_verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_08/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_08/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recorded_08/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_08/image": {
+   "shape": [
+    440,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_08/not_drawn_distance_to_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_08/not_drawn_right_hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_08/not_drawn_distance_to_right_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_08/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "sample_08/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_08/image": {
+   "shape": [
+    172,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_09/mesh_verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_09/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_09/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recorded_09/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_09/image": {
+   "shape": [
+    440,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_09/not_drawn_distance_to_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_09/not_drawn_right_hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_09/not_drawn_distance_to_right_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_09/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "sample_09/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_09/image": {
+   "shape": [
+    172,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_10/mesh_verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_10/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_10/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recorded_10/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_10/image": {
+   "shape": [
+    440,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "recorded_10/not_drawn_distance_to_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "recorded_10/not_drawn_right_hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_10/not_drawn_distance_to_right_hand_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_10/contact_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "sample_10/contact_vertex": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "sample_10/image": {
+   "shape": [
+    172,
+    440,
+    3
+   ],
+   "dtype": "uint8"
+  }
+ },
+ "meta": {
+  "id": "grasp_modes",
+  "block": "F1-B",
+  "title": "What an initial grasp mode is: recorded and sampled first contact on one object",
+  "panels": {
+   "upper two rows (ten panels, numbered 1 to 10 in file order)": "the recorded left hand on the scissors at the first frame of firm contact of one test sequence each; the surface is coloured by the recorded first contact map (512 values) of that sequence; the object is opened as recorded at that frame; the title gives the sequence number, the take it comes from (a letter) and, in brackets, the dataset's name of that take (grab or use; column verb of sequences_meta.csv); the right hand is not drawn",
+   "lower two rows (ten panels, sample 1 to sample 10 in stored order)": "the ten saved samples of the first contact map for sequence 1, from the sampler that is given the object's shape and which hand; drawn on the closed scissors, no hand; each panel is the horizontal band of the same camera view in which the closed object lies",
+   "layout": "each group of ten panels wraps into two rows of 5; one camera and one colour scale for all twenty panels"
+  },
+  "examples": [
+   {
+    "panel": "recorded 1",
+    "dataset": "ARCTIC",
+    "example": 1029,
+    "sequence_id": "scissors_grab_01/s01",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 47
+    },
+    "take": "A",
+    "take_label_in_dataset": "grab",
+    "subject": "s01",
+    "contact_episode_in_take": "1 of 4",
+    "opening_angle_deg": 80.9,
+    "nearest_hand_to_surface_mm": 7.4,
+    "blade_side_share": 0.0926,
+    "prediction_file_row": 140
+   },
+   {
+    "panel": "recorded 2",
+    "dataset": "ARCTIC",
+    "example": 1030,
+    "sequence_id": "scissors_grab_01/s01",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 255
+    },
+    "take": "A",
+    "take_label_in_dataset": "grab",
+    "subject": "s01",
+    "contact_episode_in_take": "2 of 4",
+    "opening_angle_deg": 80.7,
+    "nearest_hand_to_surface_mm": 9.5,
+    "blade_side_share": 0.0178,
+    "prediction_file_row": 141
+   },
+   {
+    "panel": "recorded 3",
+    "dataset": "ARCTIC",
+    "example": 1031,
+    "sequence_id": "scissors_grab_01/s01",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 448
+    },
+    "take": "A",
+    "take_label_in_dataset": "grab",
+    "subject": "s01",
+    "contact_episode_in_take": "3 of 4",
+    "opening_angle_deg": 80.9,
+    "nearest_hand_to_surface_mm": 7.1,
+    "blade_side_share": 0.039,
+    "prediction_file_row": 142
+   },
+   {
+    "panel": "recorded 4",
+    "dataset": "ARCTIC",
+    "example": 1032,
+    "sequence_id": "scissors_grab_01/s01",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 606
+    },
+    "take": "A",
+    "take_label_in_dataset": "grab",
+    "subject": "s01",
+    "contact_episode_in_take": "4 of 4",
+    "opening_angle_deg": 76.4,
+    "nearest_hand_to_surface_mm": 6.2,
+    "blade_side_share": 0.0384,
+    "prediction_file_row": 143
+   },
+   {
+    "panel": "recorded 5",
+    "dataset": "ARCTIC",
+    "example": 1112,
+    "sequence_id": "scissors_use_02/s09",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 160
+    },
+    "take": "B",
+    "take_label_in_dataset": "use",
+    "subject": "s09",
+    "contact_episode_in_take": "1 of 4",
+    "opening_angle_deg": 24.3,
+    "nearest_hand_to_surface_mm": 8.3,
+    "blade_side_share": 0.9006,
+    "prediction_file_row": 144
+   },
+   {
+    "panel": "recorded 6",
+    "dataset": "ARCTIC",
+    "example": 1113,
+    "sequence_id": "scissors_use_02/s09",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 267
+    },
+    "take": "B",
+    "take_label_in_dataset": "use",
+    "subject": "s09",
+    "contact_episode_in_take": "2 of 4",
+    "opening_angle_deg": 36.8,
+    "nearest_hand_to_surface_mm": 6.1,
+    "blade_side_share": 0.434,
+    "prediction_file_row": 145
+   },
+   {
+    "panel": "recorded 7",
+    "dataset": "ARCTIC",
+    "example": 1114,
+    "sequence_id": "scissors_use_02/s09",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 467
+    },
+    "take": "B",
+    "take_label_in_dataset": "use",
+    "subject": "s09",
+    "contact_episode_in_take": "3 of 4",
+    "opening_angle_deg": 36.2,
+    "nearest_hand_to_surface_mm": 9.4,
+    "blade_side_share": 0.7705,
+    "prediction_file_row": 146
+   },
+   {
+    "panel": "recorded 8",
+    "dataset": "ARCTIC",
+    "example": 1115,
+    "sequence_id": "scissors_use_02/s09",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 554
+    },
+    "take": "B",
+    "take_label_in_dataset": "use",
+    "subject": "s09",
+    "contact_episode_in_take": "4 of 4",
+    "opening_angle_deg": 51.0,
+    "nearest_hand_to_surface_mm": 9.6,
+    "blade_side_share": 0.713,
+    "prediction_file_row": 147
+   },
+   {
+    "panel": "recorded 9",
+    "dataset": "ARCTIC",
+    "example": 1116,
+    "sequence_id": "scissors_use_02/s10",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 124
+    },
+    "take": "C",
+    "take_label_in_dataset": "use",
+    "subject": "s10",
+    "contact_episode_in_take": "1 of 13",
+    "opening_angle_deg": 27.4,
+    "nearest_hand_to_surface_mm": 9.8,
+    "blade_side_share": 0.9009,
+    "prediction_file_row": 148
+   },
+   {
+    "panel": "recorded 10",
+    "dataset": "ARCTIC",
+    "example": 1117,
+    "sequence_id": "scissors_use_02/s10",
+    "object": "scissors",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "sequence_frame": 0,
+     "take_frame": 182
+    },
+    "take": "C",
+    "take_label_in_dataset": "use",
+    "subject": "s10",
+    "contact_episode_in_take": "2 of 13",
+    "opening_angle_deg": 12.7,
+    "nearest_hand_to_surface_mm": 8.2,
+    "blade_side_share": 0.9599,
+    "prediction_file_row": 149
+   }
+  ],
+  "selection_rule": "The rule of figure 7 of the hierarchical report (scripts/research/hier_contact_gen/figures.py::fig7): the (group, mesh) with the most test sequences, its first 10 test sequences in the order of the prediction file, and the 10 saved samples of the first of them. All ten samples are shown in stored order; none is picked.",
+  "selection_evidence": {
+   "ranked_test_sequences_per_group": [
+    {
+     "rank": 1,
+     "group": "scissors__obj__L",
+     "mesh_id": "scissors",
+     "test_sequences": 23
+    },
+    {
+     "rank": 2,
+     "group": "espressomachine__obj__R",
+     "mesh_id": "espressomachine",
+     "test_sequences": 11
+    },
+    {
+     "rank": 3,
+     "group": "ketchup__obj__L",
+     "mesh_id": "ketchup",
+     "test_sequences": 11
+    },
+    {
+     "rank": 4,
+     "group": "phone__obj__L",
+     "mesh_id": "phone",
+     "test_sequences": 11
+    },
+    {
+     "rank": 5,
+     "group": "ketchup__obj__R",
+     "mesh_id": "ketchup",
+     "test_sequences": 10
+    },
+    {
+     "rank": 6,
+     "group": "waffleiron__obj__R",
+     "mesh_id": "waffleiron",
+     "test_sequences": 10
+    },
+    {
+     "rank": 7,
+     "group": "capsulemachine__obj__L",
+     "mesh_id": "capsulemachine",
+     "test_sequences": 9
+    },
+    {
+     "rank": 8,
+     "group": "capsulemachine__obj__R",
+     "mesh_id": "capsulemachine",
+     "test_sequences": 9
+    },
+    {
+     "rank": 9,
+     "group": "waffleiron__obj__L",
+     "mesh_id": "waffleiron",
+     "test_sequences": 9
+    },
+    {
+     "rank": 10,
+     "group": "box__obj__L",
+     "mesh_id": "box",
+     "test_sequences": 8
+    },
+    {
+     "rank": 11,
+     "group": "mixer__obj__R",
+     "mesh_id": "mixer",
+     "test_sequences": 8
+    },
+    {
+     "rank": 12,
+     "group": "box__obj__R",
+     "mesh_id": "box",
+     "test_sequences": 7
+    },
+    {
+     "rank": 13,
+     "group": "espressomachine__obj__L",
+     "mesh_id": "espressomachine",
+     "test_sequences": 7
+    },
+    {
+     "rank": 14,
+     "group": "laptop__obj__L",
+     "mesh_id": "laptop",
+     "test_sequences": 7
+    },
+    {
+     "rank": 15,
+     "group": "laptop__obj__R",
+     "mesh_id": "laptop",
+     "test_sequences": 7
+    },
+    {
+     "rank": 16,
+     "group": "mixer__obj__L",
+     "mesh_id": "mixer",
+     "test_sequences": 7
+    },
+    {
+     "rank": 17,
+     "group": "phone__obj__R",
+     "mesh_id": "phone",
+     "test_sequences": 7
+    },
+    {
+     "rank": 18,
+     "group": "notebook__obj__L",
+     "mesh_id": "notebook",
+     "test_sequences": 6
+    },
+    {
+     "rank": 19,
+     "group": "notebook__obj__R",
+     "mesh_id": "notebook",
+     "test_sequences": 6
+    },
+    {
+     "rank": 20,
+     "group": "microwave__obj__R",
+     "mesh_id": "microwave",
+     "test_sequences": 5
+    },
+    {
+     "rank": 21,
+     "group": "microwave__obj__L",
+     "mesh_id": "microwave",
+     "test_sequences": 4
+    },
+    {
+     "rank": 22,
+     "group": "scissors__obj__R",
+     "mesh_id": "scissors",
+     "test_sequences": 4
+    }
+   ],
+   "chosen": {
+    "group": "scissors__obj__L",
+    "mesh_id": "scissors",
+    "rank": 1,
+    "test_sequences": 23,
+    "runner_up": {
+     "rank": 2,
+     "group": "espressomachine__obj__R",
+     "mesh_id": "espressomachine",
+     "test_sequences": 11
+    },
+    "candidates": 22
+   },
+   "prediction_file_rows_of_the_group": [
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    148,
+    149,
+    150,
+    151,
+    152,
+    153,
+    154,
+    155,
+    156,
+    157,
+    158,
+    159,
+    160,
+    161,
+    162
+   ],
+   "rows_drawn": [
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    148,
+    149
+   ],
+   "examples_drawn": [
+    1029,
+    1030,
+    1031,
+    1032,
+    1112,
+    1113,
+    1114,
+    1115,
+    1116,
+    1117
+   ],
+   "samples_drawn": {
+    "prediction_file_row": 140,
+    "example": 1029,
+    "sample_indices": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9
+    ]
+   },
+   "prediction_file_order_equals_test_manifest": true,
+   "sampler_input_identical_for_all_test_sequences_of_the_group": true,
+   "sampler_input_g_index_hand_role": [
+    9,
+    0,
+    0
+   ]
+  },
+  "display_choices": {
+   "canonical_to_surface": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0 (qlib.Example.to_vertices); recorded and sampled maps both go through it",
+   "colour_scales": [
+    {
+     "name": "contact",
+     "range": [
+      0.0,
+      0.6
+     ],
+     "colours": "grey (0) through orange to dark red-brown (maximum)",
+     "rule": "one scale for all twenty panels; maximum = largest drawn value (0.530) rounded up to a multiple of 0.1",
+     "negative_values": "the sampled maps go down to -0.031; values below 0 are drawn as 0"
+    }
+   ],
+   "camera": {
+    "rule": "the camera looks along the hinge axis (the object is thin along it), from the side on which fewer recorded hand vertices lie, tilted by 25 degrees away from the mean hand position, so that the thin object is drawn in front of the hands; the closed object lies horizontally",
+    "evidence": {
+     "hand_vertices_on_plus_z_side": 2549,
+     "hand_vertices_on_minus_z_side": 5231,
+     "camera_side_of_the_object": "+z",
+     "up": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "tilt_deg": 25.0,
+     "direction_scene_to_camera": [
+      0.0,
+      -0.42261826174069944,
+      0.9063077870366499
+     ],
+     "principal_axes_off_frame_axes_deg": {
+      "thinnest_vs_hinge_z": 4.8,
+      "middle_vs_y": 5.2,
+      "longest_vs_x": 2.6
+     }
+    },
+    "fitted_on": "the ten posed meshes, the ten hands and the closed mesh; one camera for all twenty panels",
+    "camera": {
+     "position": [
+      0.031227572697287438,
+      -0.30021856205251224,
+      0.7384777753519277
+     ],
+     "focal_point": [
+      0.031227572697287438,
+      0.05954986721445583,
+      -0.03304811099193886
+     ],
+     "up": [
+      0.0,
+      0.9063077870366499,
+      0.42261826174069944
+     ],
+     "view_angle": 25.0,
+     "aspect": 1.0
+    },
+    "panel_px": [
+     440,
+     440
+    ],
+    "margin": 0.05,
+    "sampled_panels": "rows 175 to 347 of the same 440 px view (the rows outside are empty)"
+   },
+   "hand_style": "recorded MANO left hand (the hand whose contact the map records), opaque skin colour, smooth shading; the right hand is not drawn in any panel; no hand in the sampled panels",
+   "object_pose": {
+    "recorded": "top part turned by the recorded opening angle at the drawn frame",
+    "sampled": "closed rest pose, the pose in which the 512 canonical points are defined (the sampler has no opening-angle input)"
+   },
+   "panel_titles": "drawn by this script in the grid's font (qlib.grid has one label per column; the ten panels wrap into two rows)",
+   "blade_side_of_the_hinge": {
+    "hinge_axis": "z axis through the origin of the object frame",
+    "blade_side": "x > 0",
+    "blade_sign": 1.0,
+    "width_across_m": {
+     "x<0": 0.083,
+     "x>0": 0.0211
+    },
+    "canonical_points_on_blade_side": 119,
+    "canonical_points": 512,
+    "share": "sum of the map over the blade-side canonical points / sum over all 512 (values below 0 counted as 0)",
+    "split_at": 0.25,
+    "shares_nearest_to_the_split_among_the_twenty_maps": [
+     0.1054,
+     0.434
+    ]
+   }
+  },
+  "numbers": [
+   {
+    "label": "test sequences of scissors, left hand",
+    "value": 23,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/sequences_meta.csv; arctic/40_hier_contact_gen/manifests/fixed0.json",
+    "locator": "manifest key 'test', group == scissors__obj__L"
+   },
+   {
+    "label": "test sequences of the group with the second most",
+    "value": 11,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/sequences_meta.csv; arctic/40_hier_contact_gen/manifests/fixed0.json",
+    "locator": "group espressomachine__obj__R"
+   },
+   {
+    "label": "groups (object, hand) with test sequences",
+    "value": 22,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/sequences_meta.csv; arctic/40_hier_contact_gen/manifests/fixed0.json",
+    "locator": "distinct (group, mesh_id) among the test rows"
+   },
+   {
+    "label": "sequences drawn",
+    "value": 10,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "rows [140, 141, 142, 143, 144, 145, 146, 147, 148, 149]: the first 10 of the group in file order"
+   },
+   {
+    "label": "samples drawn",
+    "value": 10,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[140, 0..9]: every saved sample, stored order"
+   },
+   {
+    "label": "takes among the ten sequences",
+    "value": 3,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/sequences_meta.csv",
+    "locator": "column take_key: ['scissors_grab_01/s01', 'scissors_use_02/s09', 'scissors_use_02/s10']"
+   },
+   {
+    "label": "other takes among the ten sequences",
+    "value": 2,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/sequences_meta.csv",
+    "locator": "column take_key: ['scissors_use_02/s09', 'scissors_use_02/s10']"
+   },
+   {
+    "label": "sequences from take A (scissors_grab_01/s01)",
+    "value": 4,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/sequences_meta.csv",
+    "locator": "sequences [1, 2, 3, 4]; contact episodes [1, 2, 3, 4] of 4 of that take and hand"
+   },
+   {
+    "label": "sequences from take B (scissors_use_02/s09)",
+    "value": 4,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/sequences_meta.csv",
+    "locator": "sequences [5, 6, 7, 8]; contact episodes [1, 2, 3, 4] of 4 of that take and hand"
+   },
+   {
+    "label": "sequences from take C (scissors_use_02/s10)",
+    "value": 2,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/sequences_meta.csv",
+    "locator": "sequences [9, 10]; contact episodes [1, 2] of 13 of that take and hand"
+   },
+   {
+    "label": "colour scale maximum",
+    "value": 0.6,
+    "dataset": "ARCTIC",
+    "source": "computed in q_grasp_modes.py",
+    "locator": "largest drawn value (0.530) rounded up to a multiple of 0.1"
+   },
+   {
+    "label": "largest value drawn, recorded maps",
+    "value": 0.53,
+    "dataset": "ARCTIC",
+    "source": "panels.npz",
+    "locator": "max of recorded_*/contact_vertex"
+   },
+   {
+    "label": "largest value drawn, sampled maps",
+    "value": 0.525,
+    "dataset": "ARCTIC",
+    "source": "panels.npz",
+    "locator": "max of sample_*/contact_vertex"
+   },
+   {
+    "label": "contact value at a hand distance of 1 cm",
+    "value": 0.607,
+    "dataset": "ARCTIC",
+    "source": "definition of the contact value, exp(-distance / 2 cm)",
+    "locator": "exp(-0.5)"
+   },
+   {
+    "label": "nearest hand-to-surface distance at the drawn frame, smallest of the ten (mm)",
+    "value": 6.1,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "contact_left[t0].min(), sequence 6"
+   },
+   {
+    "label": "nearest hand-to-surface distance at the drawn frame, largest of the ten (mm)",
+    "value": 9.8,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "contact_left[t0].min(), sequence 9"
+   },
+   {
+    "label": "opening angle at the drawn frame, smallest of the ten (degrees)",
+    "value": 12.7,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_obj_features.npy",
+    "locator": "obj_world_state[t0, 0], sequence 10"
+   },
+   {
+    "label": "opening angle at the drawn frame, largest of the ten (degrees)",
+    "value": 80.9,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_obj_features.npy",
+    "locator": "obj_world_state[t0, 0], sequence 3"
+   },
+   {
+    "label": "drawn sequences with the map on the handle side (blade-side share below 0.25)",
+    "value": 4,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "sequences [1, 2, 3, 4]"
+   },
+   {
+    "label": "highest blade-side share among those sequences",
+    "value": 0.0926,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[rows, 0], sequences [1, 2, 3, 4]"
+   },
+   {
+    "label": "lowest blade-side share among the other drawn sequences",
+    "value": 0.434,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[rows, 0], sequences [5, 6, 7, 8, 9, 10]"
+   },
+   {
+    "label": "highest blade-side share among the other drawn sequences",
+    "value": 0.9599,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[rows, 0], sequences [5, 6, 7, 8, 9, 10]"
+   },
+   {
+    "label": "samples with the map on the handle side (blade-side share below 0.25)",
+    "value": 1,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[140], samples [1]"
+   },
+   {
+    "label": "highest blade-side share among those samples",
+    "value": 0.1054,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[140], samples [1]"
+   },
+   {
+    "label": "other samples",
+    "value": 9,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[140], samples [2, 3, 4, 5, 6, 7, 8, 9, 10]"
+   },
+   {
+    "label": "lowest blade-side share among the other samples",
+    "value": 0.4853,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[140]"
+   },
+   {
+    "label": "highest blade-side share among the other samples",
+    "value": 0.8669,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[140]"
+   },
+   {
+    "label": "samples whose nearest recorded first map (of the ten drawn) is a handle-side sequence",
+    "value": 1,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "argmin over the drawn rows of ||S0_G[140, k] - gt[row, 0]||"
+   },
+   {
+    "label": "test sequences of the group with the map on the handle side",
+    "value": 4,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[rows of the group, 0], 23 sequences"
+   },
+   {
+    "label": "training sequences of the group",
+    "value": 85,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/sequences.npz; arctic/40_hier_contact_gen/manifests/fixed0.json",
+    "locator": "manifest key 'train', group == scissors__obj__L"
+   },
+   {
+    "label": "training sequences of the group with the map on the handle side",
+    "value": 14,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/sequences.npz; arctic/40_hier_contact_gen/manifests/fixed0.json",
+    "locator": "C[training rows of the group, 0]"
+   },
+   {
+    "label": "test sequences of the group that are not drawn",
+    "value": 13,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "rows [150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162]: the group's test sequences after the first 10 in file order"
+   },
+   {
+    "label": "test sequences that are not drawn with the map on the handle side",
+    "value": 0,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[rows 150 to 162, 0]"
+   },
+   {
+    "label": "lowest blade-side share among the test sequences that are not drawn",
+    "value": 0.6622,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[rows 150 to 162, 0]"
+   },
+   {
+    "label": "highest blade-side share among the test sequences that are not drawn",
+    "value": 0.9667,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[rows 150 to 162, 0]"
+   },
+   {
+    "label": "saved samples of the group (ten per test sequence)",
+    "value": 230,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[rows of the group]"
+   },
+   {
+    "label": "saved samples of the group with the map on the handle side",
+    "value": 22,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[rows of the group]; per test sequence [1, 0, 2, 4, 2, 1, 0, 1, 0, 0, 1, 0, 2, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1]"
+   },
+   {
+    "label": "drawn sequences with a strongly coloured half of the scissors that is far from the drawn hand",
+    "value": 2,
+    "dataset": "ARCTIC",
+    "source": "computed in q_grasp_modes.py; arrays in panels.npz",
+    "locator": "sequences [8, 9]; rule: the part (top or bottom half) farther from the drawn hand is more than 30 mm from it and is drawn at 0.5 of the panel's largest value or more"
+   },
+   {
+    "label": "recorded contact value at a hand distance of 30 mm",
+    "value": 0.223,
+    "dataset": "ARCTIC",
+    "source": "definition of the contact value, exp(-distance / 2 cm)",
+    "locator": "exp(-1.5)"
+   },
+   {
+    "label": "sequence 1: nearest distance from the drawn hand to the half of the scissors farther from it (bottom part) (mm)",
+    "value": 40.0,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_grab_01/s01, contact_left[47][1846:].min()"
+   },
+   {
+    "label": "sequence 2: nearest distance from the drawn hand to the half of the scissors farther from it (bottom part) (mm)",
+    "value": 81.0,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_grab_01/s01, contact_left[255][1846:].min()"
+   },
+   {
+    "label": "sequence 3: nearest distance from the drawn hand to the half of the scissors farther from it (bottom part) (mm)",
+    "value": 60.0,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_grab_01/s01, contact_left[448][1846:].min()"
+   },
+   {
+    "label": "sequence 4: nearest distance from the drawn hand to the half of the scissors farther from it (bottom part) (mm)",
+    "value": 55.4,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_grab_01/s01, contact_left[606][1846:].min()"
+   },
+   {
+    "label": "sequence 5: nearest distance from the drawn hand to the half of the scissors farther from it (bottom part) (mm)",
+    "value": 10.8,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s09, contact_left[160][1846:].min()"
+   },
+   {
+    "label": "sequence 6: nearest distance from the drawn hand to the half of the scissors farther from it (bottom part) (mm)",
+    "value": 13.1,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s09, contact_left[267][1846:].min()"
+   },
+   {
+    "label": "sequence 7: nearest distance from the drawn hand to the half of the scissors farther from it (bottom part) (mm)",
+    "value": 15.4,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s09, contact_left[467][1846:].min()"
+   },
+   {
+    "label": "sequence 8: nearest distance from the drawn hand to the half of the scissors farther from it (top part, the second coloured blade) (mm)",
+    "value": 53.8,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s09, contact_left[554][:1846].min()"
+   },
+   {
+    "label": "sequence 8: largest drawn value on that half",
+    "value": 0.251,
+    "dataset": "ARCTIC",
+    "source": "panels.npz",
+    "locator": "recorded_08/contact_vertex[:1846].max()"
+   },
+   {
+    "label": "sequence 8: largest drawn value in the panel",
+    "value": 0.263,
+    "dataset": "ARCTIC",
+    "source": "panels.npz",
+    "locator": "recorded_08/contact_vertex.max()"
+   },
+   {
+    "label": "sequence 8: largest recorded per-vertex contact on that half",
+    "value": 0.068,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "exp(-d / 2 cm) with d = scissors_use_02/s09, contact_left[554][:1846].min()"
+   },
+   {
+    "label": "sequence 8: share of the vertices drawn at 0.5 of the panel's largest value or more that are more than 30 mm from the drawn hand",
+    "value": 0.599,
+    "dataset": "ARCTIC",
+    "source": "panels.npz",
+    "locator": "recorded_08/contact_vertex and recorded_08/not_drawn_distance_to_hand_vertex"
+   },
+   {
+    "label": "sequence 8: correlation of the drawn values with the recorded per-vertex contact",
+    "value": 0.605,
+    "dataset": "ARCTIC",
+    "source": "panels.npz; arctic/20_bimart_contact_probe/sequences",
+    "locator": "recorded_08/contact_vertex against exp(-contact_left[554] / 2 cm)"
+   },
+   {
+    "label": "sequence 9: nearest distance from the drawn hand to the half of the scissors farther from it (bottom part, the second coloured blade) (mm)",
+    "value": 32.2,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s10, contact_left[124][1846:].min()"
+   },
+   {
+    "label": "sequence 9: largest drawn value on that half",
+    "value": 0.385,
+    "dataset": "ARCTIC",
+    "source": "panels.npz",
+    "locator": "recorded_09/contact_vertex[1846:].max()"
+   },
+   {
+    "label": "sequence 9: largest drawn value in the panel",
+    "value": 0.393,
+    "dataset": "ARCTIC",
+    "source": "panels.npz",
+    "locator": "recorded_09/contact_vertex.max()"
+   },
+   {
+    "label": "sequence 9: largest recorded per-vertex contact on that half",
+    "value": 0.2,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "exp(-d / 2 cm) with d = scissors_use_02/s10, contact_left[124][1846:].min()"
+   },
+   {
+    "label": "sequence 9: share of the vertices drawn at 0.5 of the panel's largest value or more that are more than 30 mm from the drawn hand",
+    "value": 0.396,
+    "dataset": "ARCTIC",
+    "source": "panels.npz",
+    "locator": "recorded_09/contact_vertex and recorded_09/not_drawn_distance_to_hand_vertex"
+   },
+   {
+    "label": "sequence 9: correlation of the drawn values with the recorded per-vertex contact",
+    "value": 0.87,
+    "dataset": "ARCTIC",
+    "source": "panels.npz; arctic/20_bimart_contact_probe/sequences",
+    "locator": "recorded_09/contact_vertex against exp(-contact_left[124] / 2 cm)"
+   },
+   {
+    "label": "sequence 10: nearest distance from the drawn hand to the half of the scissors farther from it (bottom part) (mm)",
+    "value": 20.1,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s10, contact_left[182][1846:].min()"
+   },
+   {
+    "label": "lowest correlation of the drawn values with the recorded per-vertex contact among the other drawn sequences",
+    "value": 0.95,
+    "dataset": "ARCTIC",
+    "source": "panels.npz; arctic/20_bimart_contact_probe/sequences",
+    "locator": "sequences [1, 2, 3, 4, 5, 6, 7, 10]"
+   },
+   {
+    "label": "highest correlation of the drawn values with the recorded per-vertex contact among the other drawn sequences",
+    "value": 0.982,
+    "dataset": "ARCTIC",
+    "source": "panels.npz; arctic/20_bimart_contact_probe/sequences",
+    "locator": "sequences [1, 2, 3, 4, 5, 6, 7, 10]"
+   },
+   {
+    "label": "drawn sequences in which the right hand (not drawn) is on the object (nearest distance below 2 mm)",
+    "value": 7,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "contact_right[t0].min(), sequences [4, 5, 6, 7, 8, 9, 10]"
+   },
+   {
+    "label": "largest nearest right-hand-to-surface distance among those sequences (mm)",
+    "value": 0.77,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "contact_right[t0].min(), sequence 8"
+   },
+   {
+    "label": "smallest nearest right-hand-to-surface distance among the other drawn sequences (mm)",
+    "value": 7.09,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "contact_right[t0].min(), sequence 3"
+   },
+   {
+    "label": "fewest right-hand vertices within 5 mm of the surface among those sequences (of 778)",
+    "value": 74,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_hand_features.npy (right_hand_verts)",
+    "locator": "sequences [4, 5, 6, 7, 8, 9, 10], take frame t0, against the posed mesh of the panel"
+   },
+   {
+    "label": "most right-hand vertices within 5 mm of the surface among those sequences (of 778)",
+    "value": 98,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_hand_features.npy (right_hand_verts)",
+    "locator": "sequences [4, 5, 6, 7, 8, 9, 10], take frame t0, against the posed mesh of the panel"
+   },
+   {
+    "label": "nearest surface point to the right hand among those sequences: smallest distance behind the hinge, toward the handles (mm)",
+    "value": 43.8,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_hand_features.npy (right_hand_verts)",
+    "locator": "sequences [4, 5, 6, 7, 8, 9, 10]; position of that vertex along the closed scissors"
+   },
+   {
+    "label": "nearest surface point to the right hand among those sequences: largest distance behind the hinge, toward the handles (mm)",
+    "value": 84.6,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_hand_features.npy (right_hand_verts)",
+    "locator": "sequences [4, 5, 6, 7, 8, 9, 10]; position of that vertex along the closed scissors"
+   },
+   {
+    "label": "smallest share of the surface vertices within 5 mm of the right hand that lie behind the hinge, among those sequences",
+    "value": 0.996,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_hand_features.npy (right_hand_verts)",
+    "locator": "sequences [4, 5, 6, 7, 8, 9, 10]: [0.996, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]"
+   },
+   {
+    "label": "sequence 1: nearest distance from the right hand (not drawn) to the surface at the drawn frame (mm)",
+    "value": 27.39,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_grab_01/s01, contact_right[47].min()"
+   },
+   {
+    "label": "sequence 1: right-hand vertices within 5 mm of the surface at the drawn frame (of 778)",
+    "value": 0,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_hand_features.npy (right_hand_verts)",
+    "locator": "scissors_grab_01/s01, take frame 47, against the posed mesh of the panel"
+   },
+   {
+    "label": "sequence 2: nearest distance from the right hand (not drawn) to the surface at the drawn frame (mm)",
+    "value": 22.85,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_grab_01/s01, contact_right[255].min()"
+   },
+   {
+    "label": "sequence 2: right-hand vertices within 5 mm of the surface at the drawn frame (of 778)",
+    "value": 0,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_hand_features.npy (right_hand_verts)",
+    "locator": "scissors_grab_01/s01, take frame 255, against the posed mesh of the panel"
+   },
+   {
+    "label": "sequence 3: nearest distance from the right hand (not drawn) to the surface at the drawn frame (mm)",
+    "value": 7.09,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_grab_01/s01, contact_right[448].min()"
+   },
+   {
+    "label": "sequence 3: right-hand vertices within 5 mm of the surface at the drawn frame (of 778)",
+    "value": 0,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_hand_features.npy (right_hand_verts)",
+    "locator": "scissors_grab_01/s01, take frame 448, against the posed mesh of the panel"
+   },
+   {
+    "label": "sequence 4: nearest distance from the right hand (not drawn) to the surface at the drawn frame (mm)",
+    "value": 0.41,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_grab_01/s01, contact_right[606].min()"
+   },
+   {
+    "label": "sequence 4: right-hand vertices within 5 mm of the surface at the drawn frame (of 778)",
+    "value": 74,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_hand_features.npy (right_hand_verts)",
+    "locator": "scissors_grab_01/s01, take frame 606, against the posed mesh of the panel"
+   },
+   {
+    "label": "sequence 5: nearest distance from the right hand (not drawn) to the surface at the drawn frame (mm)",
+    "value": 0.24,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s09, contact_right[160].min()"
+   },
+   {
+    "label": "sequence 5: right-hand vertices within 5 mm of the surface at the drawn frame (of 778)",
+    "value": 98,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_hand_features.npy (right_hand_verts)",
+    "locator": "scissors_use_02/s09, take frame 160, against the posed mesh of the panel"
+   },
+   {
+    "label": "sequence 6: nearest distance from the right hand (not drawn) to the surface at the drawn frame (mm)",
+    "value": 0.35,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s09, contact_right[267].min()"
+   },
+   {
+    "label": "sequence 6: right-hand vertices within 5 mm of the surface at the drawn frame (of 778)",
+    "value": 88,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_hand_features.npy (right_hand_verts)",
+    "locator": "scissors_use_02/s09, take frame 267, against the posed mesh of the panel"
+   },
+   {
+    "label": "sequence 7: nearest distance from the right hand (not drawn) to the surface at the drawn frame (mm)",
+    "value": 0.3,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s09, contact_right[467].min()"
+   },
+   {
+    "label": "sequence 7: right-hand vertices within 5 mm of the surface at the drawn frame (of 778)",
+    "value": 95,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_hand_features.npy (right_hand_verts)",
+    "locator": "scissors_use_02/s09, take frame 467, against the posed mesh of the panel"
+   },
+   {
+    "label": "sequence 8: nearest distance from the right hand (not drawn) to the surface at the drawn frame (mm)",
+    "value": 0.77,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s09, contact_right[554].min()"
+   },
+   {
+    "label": "sequence 8: right-hand vertices within 5 mm of the surface at the drawn frame (of 778)",
+    "value": 91,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_hand_features.npy (right_hand_verts)",
+    "locator": "scissors_use_02/s09, take frame 554, against the posed mesh of the panel"
+   },
+   {
+    "label": "sequence 9: nearest distance from the right hand (not drawn) to the surface at the drawn frame (mm)",
+    "value": 0.71,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s10, contact_right[124].min()"
+   },
+   {
+    "label": "sequence 9: right-hand vertices within 5 mm of the surface at the drawn frame (of 778)",
+    "value": 85,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_hand_features.npy (right_hand_verts)",
+    "locator": "scissors_use_02/s10, take frame 124, against the posed mesh of the panel"
+   },
+   {
+    "label": "sequence 10: nearest distance from the right hand (not drawn) to the surface at the drawn frame (mm)",
+    "value": 0.19,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s10, contact_right[182].min()"
+   },
+   {
+    "label": "sequence 10: right-hand vertices within 5 mm of the surface at the drawn frame (of 778)",
+    "value": 82,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_hand_features.npy (right_hand_verts)",
+    "locator": "scissors_use_02/s10, take frame 182, against the posed mesh of the panel"
+   },
+   {
+    "label": "distance of sample 1 to the recorded first map of sequence 1 (map units)",
+    "value": 3.271,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/per_example.csv",
+    "locator": "example == 1029, model == samplerG_static, K == 1, column s0_err"
+   },
+   {
+    "label": "mean distance of the ten samples to the recorded first map of sequence 1 (map units)",
+    "value": 4.58,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/per_example.csv",
+    "locator": "example == 1029, model == samplerG_static, K == -1, column s0_err"
+   },
+   {
+    "label": "sequence 1: share of the recorded first map on the blade side of the hinge",
+    "value": 0.0926,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[140, 0] (= sequences.npz C[1029, 0]); canonical points with x > 0"
+   },
+   {
+    "label": "sequence 1: opening angle at the drawn frame (degrees)",
+    "value": 80.9,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_obj_features.npy",
+    "locator": "scissors_grab_01/s01, obj_world_state[47, 0]"
+   },
+   {
+    "label": "sequence 1: nearest hand-to-surface distance at the drawn frame (mm)",
+    "value": 7.4,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_grab_01/s01, contact_left[47].min()"
+   },
+   {
+    "label": "sequence 2: share of the recorded first map on the blade side of the hinge",
+    "value": 0.0178,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[141, 0] (= sequences.npz C[1030, 0]); canonical points with x > 0"
+   },
+   {
+    "label": "sequence 2: opening angle at the drawn frame (degrees)",
+    "value": 80.7,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_obj_features.npy",
+    "locator": "scissors_grab_01/s01, obj_world_state[255, 0]"
+   },
+   {
+    "label": "sequence 2: nearest hand-to-surface distance at the drawn frame (mm)",
+    "value": 9.5,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_grab_01/s01, contact_left[255].min()"
+   },
+   {
+    "label": "sequence 3: share of the recorded first map on the blade side of the hinge",
+    "value": 0.039,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[142, 0] (= sequences.npz C[1031, 0]); canonical points with x > 0"
+   },
+   {
+    "label": "sequence 3: opening angle at the drawn frame (degrees)",
+    "value": 80.9,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_obj_features.npy",
+    "locator": "scissors_grab_01/s01, obj_world_state[448, 0]"
+   },
+   {
+    "label": "sequence 3: nearest hand-to-surface distance at the drawn frame (mm)",
+    "value": 7.1,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_grab_01/s01, contact_left[448].min()"
+   },
+   {
+    "label": "sequence 4: share of the recorded first map on the blade side of the hinge",
+    "value": 0.0384,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[143, 0] (= sequences.npz C[1032, 0]); canonical points with x > 0"
+   },
+   {
+    "label": "sequence 4: opening angle at the drawn frame (degrees)",
+    "value": 76.4,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_obj_features.npy",
+    "locator": "scissors_grab_01/s01, obj_world_state[606, 0]"
+   },
+   {
+    "label": "sequence 4: nearest hand-to-surface distance at the drawn frame (mm)",
+    "value": 6.2,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_grab_01/s01, contact_left[606].min()"
+   },
+   {
+    "label": "sequence 5: share of the recorded first map on the blade side of the hinge",
+    "value": 0.9006,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[144, 0] (= sequences.npz C[1112, 0]); canonical points with x > 0"
+   },
+   {
+    "label": "sequence 5: opening angle at the drawn frame (degrees)",
+    "value": 24.3,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_obj_features.npy",
+    "locator": "scissors_use_02/s09, obj_world_state[160, 0]"
+   },
+   {
+    "label": "sequence 5: nearest hand-to-surface distance at the drawn frame (mm)",
+    "value": 8.3,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s09, contact_left[160].min()"
+   },
+   {
+    "label": "sequence 6: share of the recorded first map on the blade side of the hinge",
+    "value": 0.434,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[145, 0] (= sequences.npz C[1113, 0]); canonical points with x > 0"
+   },
+   {
+    "label": "sequence 6: opening angle at the drawn frame (degrees)",
+    "value": 36.8,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_obj_features.npy",
+    "locator": "scissors_use_02/s09, obj_world_state[267, 0]"
+   },
+   {
+    "label": "sequence 6: nearest hand-to-surface distance at the drawn frame (mm)",
+    "value": 6.1,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s09, contact_left[267].min()"
+   },
+   {
+    "label": "sequence 7: share of the recorded first map on the blade side of the hinge",
+    "value": 0.7705,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[146, 0] (= sequences.npz C[1114, 0]); canonical points with x > 0"
+   },
+   {
+    "label": "sequence 7: opening angle at the drawn frame (degrees)",
+    "value": 36.2,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_obj_features.npy",
+    "locator": "scissors_use_02/s09, obj_world_state[467, 0]"
+   },
+   {
+    "label": "sequence 7: nearest hand-to-surface distance at the drawn frame (mm)",
+    "value": 9.4,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s09, contact_left[467].min()"
+   },
+   {
+    "label": "sequence 8: share of the recorded first map on the blade side of the hinge",
+    "value": 0.713,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[147, 0] (= sequences.npz C[1115, 0]); canonical points with x > 0"
+   },
+   {
+    "label": "sequence 8: opening angle at the drawn frame (degrees)",
+    "value": 51.0,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_obj_features.npy",
+    "locator": "scissors_use_02/s09, obj_world_state[554, 0]"
+   },
+   {
+    "label": "sequence 8: nearest hand-to-surface distance at the drawn frame (mm)",
+    "value": 9.6,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s09, contact_left[554].min()"
+   },
+   {
+    "label": "sequence 9: share of the recorded first map on the blade side of the hinge",
+    "value": 0.9009,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[148, 0] (= sequences.npz C[1116, 0]); canonical points with x > 0"
+   },
+   {
+    "label": "sequence 9: opening angle at the drawn frame (degrees)",
+    "value": 27.4,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_obj_features.npy",
+    "locator": "scissors_use_02/s10, obj_world_state[124, 0]"
+   },
+   {
+    "label": "sequence 9: nearest hand-to-surface distance at the drawn frame (mm)",
+    "value": 9.8,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s10, contact_left[124].min()"
+   },
+   {
+    "label": "sequence 10: share of the recorded first map on the blade side of the hinge",
+    "value": 0.9599,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "gt[149, 0] (= sequences.npz C[1117, 0]); canonical points with x > 0"
+   },
+   {
+    "label": "sequence 10: opening angle at the drawn frame (degrees)",
+    "value": 12.7,
+    "dataset": "ARCTIC",
+    "source": "third_party/BimArt/data/arctic_processed_data/scissors/<subject>/<take>_processed_obj_features.npy",
+    "locator": "scissors_use_02/s10, obj_world_state[182, 0]"
+   },
+   {
+    "label": "sequence 10: nearest hand-to-surface distance at the drawn frame (mm)",
+    "value": 8.2,
+    "dataset": "ARCTIC",
+    "source": "arctic/20_bimart_contact_probe/sequences",
+    "locator": "scissors_use_02/s10, contact_left[182].min()"
+   },
+   {
+    "label": "sample 1: share of the map on the blade side of the hinge",
+    "value": 0.1054,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[140, 0]; canonical points with x > 0"
+   },
+   {
+    "label": "sample 1: distance to the recorded first map of sequence 1 (map units)",
+    "value": 3.271,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "||S0_G[140, 0] - gt[140, 0]||"
+   },
+   {
+    "label": "sample 1: nearest of the ten recorded first maps (sequence number)",
+    "value": 1,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "argmin over the drawn rows of ||S0_G[140, 0] - gt[row, 0]||"
+   },
+   {
+    "label": "sample 2: share of the map on the blade side of the hinge",
+    "value": 0.8035,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[140, 1]; canonical points with x > 0"
+   },
+   {
+    "label": "sample 2: distance to the recorded first map of sequence 1 (map units)",
+    "value": 4.441,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "||S0_G[140, 1] - gt[140, 0]||"
+   },
+   {
+    "label": "sample 2: nearest of the ten recorded first maps (sequence number)",
+    "value": 9,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "argmin over the drawn rows of ||S0_G[140, 1] - gt[row, 0]||"
+   },
+   {
+    "label": "sample 3: share of the map on the blade side of the hinge",
+    "value": 0.8587,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[140, 2]; canonical points with x > 0"
+   },
+   {
+    "label": "sample 3: distance to the recorded first map of sequence 1 (map units)",
+    "value": 4.738,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "||S0_G[140, 2] - gt[140, 0]||"
+   },
+   {
+    "label": "sample 3: nearest of the ten recorded first maps (sequence number)",
+    "value": 5,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "argmin over the drawn rows of ||S0_G[140, 2] - gt[row, 0]||"
+   },
+   {
+    "label": "sample 4: share of the map on the blade side of the hinge",
+    "value": 0.5613,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[140, 3]; canonical points with x > 0"
+   },
+   {
+    "label": "sample 4: distance to the recorded first map of sequence 1 (map units)",
+    "value": 4.887,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "||S0_G[140, 3] - gt[140, 0]||"
+   },
+   {
+    "label": "sample 4: nearest of the ten recorded first maps (sequence number)",
+    "value": 6,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "argmin over the drawn rows of ||S0_G[140, 3] - gt[row, 0]||"
+   },
+   {
+    "label": "sample 5: share of the map on the blade side of the hinge",
+    "value": 0.6914,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[140, 4]; canonical points with x > 0"
+   },
+   {
+    "label": "sample 5: distance to the recorded first map of sequence 1 (map units)",
+    "value": 5.239,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "||S0_G[140, 4] - gt[140, 0]||"
+   },
+   {
+    "label": "sample 5: nearest of the ten recorded first maps (sequence number)",
+    "value": 7,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "argmin over the drawn rows of ||S0_G[140, 4] - gt[row, 0]||"
+   },
+   {
+    "label": "sample 6: share of the map on the blade side of the hinge",
+    "value": 0.8594,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[140, 5]; canonical points with x > 0"
+   },
+   {
+    "label": "sample 6: distance to the recorded first map of sequence 1 (map units)",
+    "value": 4.751,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "||S0_G[140, 5] - gt[140, 0]||"
+   },
+   {
+    "label": "sample 6: nearest of the ten recorded first maps (sequence number)",
+    "value": 7,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "argmin over the drawn rows of ||S0_G[140, 5] - gt[row, 0]||"
+   },
+   {
+    "label": "sample 7: share of the map on the blade side of the hinge",
+    "value": 0.4853,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[140, 6]; canonical points with x > 0"
+   },
+   {
+    "label": "sample 7: distance to the recorded first map of sequence 1 (map units)",
+    "value": 3.989,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "||S0_G[140, 6] - gt[140, 0]||"
+   },
+   {
+    "label": "sample 7: nearest of the ten recorded first maps (sequence number)",
+    "value": 7,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "argmin over the drawn rows of ||S0_G[140, 6] - gt[row, 0]||"
+   },
+   {
+    "label": "sample 8: share of the map on the blade side of the hinge",
+    "value": 0.8669,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[140, 7]; canonical points with x > 0"
+   },
+   {
+    "label": "sample 8: distance to the recorded first map of sequence 1 (map units)",
+    "value": 4.871,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "||S0_G[140, 7] - gt[140, 0]||"
+   },
+   {
+    "label": "sample 8: nearest of the ten recorded first maps (sequence number)",
+    "value": 5,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "argmin over the drawn rows of ||S0_G[140, 7] - gt[row, 0]||"
+   },
+   {
+    "label": "sample 9: share of the map on the blade side of the hinge",
+    "value": 0.7193,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[140, 8]; canonical points with x > 0"
+   },
+   {
+    "label": "sample 9: distance to the recorded first map of sequence 1 (map units)",
+    "value": 4.475,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "||S0_G[140, 8] - gt[140, 0]||"
+   },
+   {
+    "label": "sample 9: nearest of the ten recorded first maps (sequence number)",
+    "value": 5,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "argmin over the drawn rows of ||S0_G[140, 8] - gt[row, 0]||"
+   },
+   {
+    "label": "sample 10: share of the map on the blade side of the hinge",
+    "value": 0.5451,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "S0_G[140, 9]; canonical points with x > 0"
+   },
+   {
+    "label": "sample 10: distance to the recorded first map of sequence 1 (map units)",
+    "value": 5.14,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "||S0_G[140, 9] - gt[140, 0]||"
+   },
+   {
+    "label": "sample 10: nearest of the ten recorded first maps (sequence number)",
+    "value": 6,
+    "dataset": "ARCTIC",
+    "source": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "argmin over the drawn rows of ||S0_G[140, 9] - gt[row, 0]||"
+   }
+  ],
+  "per_panel_values": {
+   "recorded_blade_side_share": [
+    0.0926,
+    0.0178,
+    0.039,
+    0.0384,
+    0.9006,
+    0.434,
+    0.7705,
+    0.713,
+    0.9009,
+    0.9599
+   ],
+   "sample_blade_side_share": [
+    0.1054,
+    0.8035,
+    0.8587,
+    0.5613,
+    0.6914,
+    0.8594,
+    0.4853,
+    0.8669,
+    0.7193,
+    0.5451
+   ],
+   "sample_to_recorded_distance_rows_samples_cols_sequences": [
+    [
+     3.271,
+     4.488,
+     3.89,
+     3.506,
+     6.473,
+     5.117,
+     6.059,
+     5.642,
+     6.122,
+     6.138
+    ],
+    [
+     4.441,
+     3.991,
+     4.885,
+     4.645,
+     0.807,
+     3.659,
+     1.488,
+     1.827,
+     0.712,
+     1.722
+    ],
+    [
+     4.738,
+     4.314,
+     5.144,
+     4.94,
+     0.962,
+     4.117,
+     1.966,
+     2.229,
+     1.046,
+     1.825
+    ],
+    [
+     4.887,
+     4.818,
+     5.396,
+     5.069,
+     3.235,
+     1.53,
+     1.995,
+     3.682,
+     3.573,
+     4.193
+    ],
+    [
+     5.239,
+     5.067,
+     5.734,
+     5.435,
+     2.893,
+     2.1,
+     1.594,
+     3.627,
+     3.378,
+     4.087
+    ],
+    [
+     4.751,
+     4.377,
+     5.202,
+     4.97,
+     0.802,
+     3.192,
+     0.69,
+     2.419,
+     1.533,
+     2.551
+    ],
+    [
+     3.989,
+     3.833,
+     4.551,
+     4.169,
+     2.154,
+     2.06,
+     1.418,
+     2.493,
+     2.246,
+     2.928
+    ],
+    [
+     4.871,
+     4.526,
+     5.305,
+     5.101,
+     0.272,
+     3.628,
+     1.274,
+     2.586,
+     1.402,
+     2.507
+    ],
+    [
+     4.475,
+     4.135,
+     4.947,
+     4.687,
+     0.777,
+     3.146,
+     0.972,
+     2.256,
+     1.298,
+     2.369
+    ],
+    [
+     5.14,
+     4.997,
+     5.632,
+     5.268,
+     3.638,
+     1.802,
+     2.386,
+     3.847,
+     3.866,
+     4.394
+    ]
+   ],
+   "sample_nearest_recorded_sequence": [
+    1,
+    9,
+    5,
+    6,
+    7,
+    7,
+    7,
+    5,
+    5,
+    6
+   ],
+   "group_test_blade_side_share_file_order": [
+    0.0926,
+    0.0178,
+    0.039,
+    0.0384,
+    0.9006,
+    0.434,
+    0.7705,
+    0.713,
+    0.9009,
+    0.9599,
+    0.9306,
+    0.9667,
+    0.9582,
+    0.6622,
+    0.9195,
+    0.7732,
+    0.8661,
+    0.828,
+    0.8939,
+    0.8777,
+    0.7244,
+    0.7412,
+    0.8836
+   ],
+   "group_train_blade_side_share_histogram": {
+    "bin_edges": [
+     0,
+     0.1,
+     0.25,
+     0.5,
+     0.75,
+     0.9,
+     1.0
+    ],
+    "counts": [
+     8,
+     6,
+     9,
+     24,
+     28,
+     10
+    ]
+   },
+   "group_samples_on_the_handle_side_per_test_sequence_file_order": [
+    1,
+    0,
+    2,
+    4,
+    2,
+    1,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    2,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1
+   ],
+   "recorded_panels_at_the_drawn_frame": [
+    {
+     "sequence": 1,
+     "take_frame": 47,
+     "nearest_distance_left_hand_to_top_part_mm": 7.38,
+     "nearest_distance_left_hand_to_bottom_part_mm": 39.99,
+     "part_farther_from_the_drawn_hand": "bottom",
+     "nearest_distance_to_the_blade_of_that_part_mm": 39.99,
+     "largest_drawn_value": 0.477,
+     "largest_drawn_value_on_that_part": 0.075,
+     "largest_recorded_per_vertex_contact_on_that_part": 0.135,
+     "share_of_strongly_drawn_vertices_more_than_30_mm_from_the_hand": 0.006,
+     "correlation_drawn_vs_recorded_per_vertex_contact": 0.95,
+     "named_in_the_caption_as_second_coloured_blade": false,
+     "nearest_distance_right_hand_to_surface_mm": 27.39,
+     "right_hand_vertices_within_5_mm_of_the_surface": 0,
+     "part_nearest_to_the_right_hand": "bottom",
+     "that_point_behind_the_hinge_toward_the_handles_mm": 98.8,
+     "share_of_surface_vertices_within_5_mm_of_the_right_hand_on_the_handle_side": null,
+     "right_hand_counted_as_holding": false
+    },
+    {
+     "sequence": 2,
+     "take_frame": 255,
+     "nearest_distance_left_hand_to_top_part_mm": 9.53,
+     "nearest_distance_left_hand_to_bottom_part_mm": 81.04,
+     "part_farther_from_the_drawn_hand": "bottom",
+     "nearest_distance_to_the_blade_of_that_part_mm": 81.04,
+     "largest_drawn_value": 0.419,
+     "largest_drawn_value_on_that_part": 0.102,
+     "largest_recorded_per_vertex_contact_on_that_part": 0.017,
+     "share_of_strongly_drawn_vertices_more_than_30_mm_from_the_hand": 0.084,
+     "correlation_drawn_vs_recorded_per_vertex_contact": 0.968,
+     "named_in_the_caption_as_second_coloured_blade": false,
+     "nearest_distance_right_hand_to_surface_mm": 22.85,
+     "right_hand_vertices_within_5_mm_of_the_surface": 0,
+     "part_nearest_to_the_right_hand": "bottom",
+     "that_point_behind_the_hinge_toward_the_handles_mm": 59.4,
+     "share_of_surface_vertices_within_5_mm_of_the_right_hand_on_the_handle_side": null,
+     "right_hand_counted_as_holding": false
+    },
+    {
+     "sequence": 3,
+     "take_frame": 448,
+     "nearest_distance_left_hand_to_top_part_mm": 7.09,
+     "nearest_distance_left_hand_to_bottom_part_mm": 60.02,
+     "part_farther_from_the_drawn_hand": "bottom",
+     "nearest_distance_to_the_blade_of_that_part_mm": 60.02,
+     "largest_drawn_value": 0.506,
+     "largest_drawn_value_on_that_part": 0.111,
+     "largest_recorded_per_vertex_contact_on_that_part": 0.05,
+     "share_of_strongly_drawn_vertices_more_than_30_mm_from_the_hand": 0.006,
+     "correlation_drawn_vs_recorded_per_vertex_contact": 0.973,
+     "named_in_the_caption_as_second_coloured_blade": false,
+     "nearest_distance_right_hand_to_surface_mm": 7.09,
+     "right_hand_vertices_within_5_mm_of_the_surface": 0,
+     "part_nearest_to_the_right_hand": "bottom",
+     "that_point_behind_the_hinge_toward_the_handles_mm": 85.1,
+     "share_of_surface_vertices_within_5_mm_of_the_right_hand_on_the_handle_side": null,
+     "right_hand_counted_as_holding": false
+    },
+    {
+     "sequence": 4,
+     "take_frame": 606,
+     "nearest_distance_left_hand_to_top_part_mm": 6.24,
+     "nearest_distance_left_hand_to_bottom_part_mm": 55.37,
+     "part_farther_from_the_drawn_hand": "bottom",
+     "nearest_distance_to_the_blade_of_that_part_mm": 55.88,
+     "largest_drawn_value": 0.519,
+     "largest_drawn_value_on_that_part": 0.131,
+     "largest_recorded_per_vertex_contact_on_that_part": 0.063,
+     "share_of_strongly_drawn_vertices_more_than_30_mm_from_the_hand": 0.025,
+     "correlation_drawn_vs_recorded_per_vertex_contact": 0.961,
+     "named_in_the_caption_as_second_coloured_blade": false,
+     "nearest_distance_right_hand_to_surface_mm": 0.41,
+     "right_hand_vertices_within_5_mm_of_the_surface": 74,
+     "part_nearest_to_the_right_hand": "bottom",
+     "that_point_behind_the_hinge_toward_the_handles_mm": 43.8,
+     "share_of_surface_vertices_within_5_mm_of_the_right_hand_on_the_handle_side": 0.996,
+     "right_hand_counted_as_holding": true
+    },
+    {
+     "sequence": 5,
+     "take_frame": 160,
+     "nearest_distance_left_hand_to_top_part_mm": 8.34,
+     "nearest_distance_left_hand_to_bottom_part_mm": 10.76,
+     "part_farther_from_the_drawn_hand": "bottom",
+     "nearest_distance_to_the_blade_of_that_part_mm": 10.76,
+     "largest_drawn_value": 0.516,
+     "largest_drawn_value_on_that_part": 0.516,
+     "largest_recorded_per_vertex_contact_on_that_part": 0.584,
+     "share_of_strongly_drawn_vertices_more_than_30_mm_from_the_hand": 0.005,
+     "correlation_drawn_vs_recorded_per_vertex_contact": 0.982,
+     "named_in_the_caption_as_second_coloured_blade": false,
+     "nearest_distance_right_hand_to_surface_mm": 0.24,
+     "right_hand_vertices_within_5_mm_of_the_surface": 98,
+     "part_nearest_to_the_right_hand": "bottom",
+     "that_point_behind_the_hinge_toward_the_handles_mm": 84.6,
+     "share_of_surface_vertices_within_5_mm_of_the_right_hand_on_the_handle_side": 1.0,
+     "right_hand_counted_as_holding": true
+    },
+    {
+     "sequence": 6,
+     "take_frame": 267,
+     "nearest_distance_left_hand_to_top_part_mm": 6.11,
+     "nearest_distance_left_hand_to_bottom_part_mm": 13.06,
+     "part_farther_from_the_drawn_hand": "bottom",
+     "nearest_distance_to_the_blade_of_that_part_mm": 13.06,
+     "largest_drawn_value": 0.53,
+     "largest_drawn_value_on_that_part": 0.528,
+     "largest_recorded_per_vertex_contact_on_that_part": 0.521,
+     "share_of_strongly_drawn_vertices_more_than_30_mm_from_the_hand": 0.014,
+     "correlation_drawn_vs_recorded_per_vertex_contact": 0.958,
+     "named_in_the_caption_as_second_coloured_blade": false,
+     "nearest_distance_right_hand_to_surface_mm": 0.35,
+     "right_hand_vertices_within_5_mm_of_the_surface": 88,
+     "part_nearest_to_the_right_hand": "bottom",
+     "that_point_behind_the_hinge_toward_the_handles_mm": 61.8,
+     "share_of_surface_vertices_within_5_mm_of_the_right_hand_on_the_handle_side": 1.0,
+     "right_hand_counted_as_holding": true
+    },
+    {
+     "sequence": 7,
+     "take_frame": 467,
+     "nearest_distance_left_hand_to_top_part_mm": 9.37,
+     "nearest_distance_left_hand_to_bottom_part_mm": 15.4,
+     "part_farther_from_the_drawn_hand": "bottom",
+     "nearest_distance_to_the_blade_of_that_part_mm": 15.4,
+     "largest_drawn_value": 0.466,
+     "largest_drawn_value_on_that_part": 0.464,
+     "largest_recorded_per_vertex_contact_on_that_part": 0.463,
+     "share_of_strongly_drawn_vertices_more_than_30_mm_from_the_hand": 0.114,
+     "correlation_drawn_vs_recorded_per_vertex_contact": 0.972,
+     "named_in_the_caption_as_second_coloured_blade": false,
+     "nearest_distance_right_hand_to_surface_mm": 0.3,
+     "right_hand_vertices_within_5_mm_of_the_surface": 95,
+     "part_nearest_to_the_right_hand": "top",
+     "that_point_behind_the_hinge_toward_the_handles_mm": 53.0,
+     "share_of_surface_vertices_within_5_mm_of_the_right_hand_on_the_handle_side": 1.0,
+     "right_hand_counted_as_holding": true
+    },
+    {
+     "sequence": 8,
+     "take_frame": 554,
+     "nearest_distance_left_hand_to_top_part_mm": 53.81,
+     "nearest_distance_left_hand_to_bottom_part_mm": 9.57,
+     "part_farther_from_the_drawn_hand": "top",
+     "nearest_distance_to_the_blade_of_that_part_mm": 53.81,
+     "largest_drawn_value": 0.263,
+     "largest_drawn_value_on_that_part": 0.251,
+     "largest_recorded_per_vertex_contact_on_that_part": 0.068,
+     "share_of_strongly_drawn_vertices_more_than_30_mm_from_the_hand": 0.599,
+     "correlation_drawn_vs_recorded_per_vertex_contact": 0.605,
+     "named_in_the_caption_as_second_coloured_blade": true,
+     "nearest_distance_right_hand_to_surface_mm": 0.77,
+     "right_hand_vertices_within_5_mm_of_the_surface": 91,
+     "part_nearest_to_the_right_hand": "bottom",
+     "that_point_behind_the_hinge_toward_the_handles_mm": 80.4,
+     "share_of_surface_vertices_within_5_mm_of_the_right_hand_on_the_handle_side": 1.0,
+     "right_hand_counted_as_holding": true
+    },
+    {
+     "sequence": 9,
+     "take_frame": 124,
+     "nearest_distance_left_hand_to_top_part_mm": 9.79,
+     "nearest_distance_left_hand_to_bottom_part_mm": 32.19,
+     "part_farther_from_the_drawn_hand": "bottom",
+     "nearest_distance_to_the_blade_of_that_part_mm": 32.19,
+     "largest_drawn_value": 0.393,
+     "largest_drawn_value_on_that_part": 0.385,
+     "largest_recorded_per_vertex_contact_on_that_part": 0.2,
+     "share_of_strongly_drawn_vertices_more_than_30_mm_from_the_hand": 0.396,
+     "correlation_drawn_vs_recorded_per_vertex_contact": 0.87,
+     "named_in_the_caption_as_second_coloured_blade": true,
+     "nearest_distance_right_hand_to_surface_mm": 0.71,
+     "right_hand_vertices_within_5_mm_of_the_surface": 85,
+     "part_nearest_to_the_right_hand": "top",
+     "that_point_behind_the_hinge_toward_the_handles_mm": 70.3,
+     "share_of_surface_vertices_within_5_mm_of_the_right_hand_on_the_handle_side": 1.0,
+     "right_hand_counted_as_holding": true
+    },
+    {
+     "sequence": 10,
+     "take_frame": 182,
+     "nearest_distance_left_hand_to_top_part_mm": 8.17,
+     "nearest_distance_left_hand_to_bottom_part_mm": 20.13,
+     "part_farther_from_the_drawn_hand": "bottom",
+     "nearest_distance_to_the_blade_of_that_part_mm": 20.13,
+     "largest_drawn_value": 0.449,
+     "largest_drawn_value_on_that_part": 0.449,
+     "largest_recorded_per_vertex_contact_on_that_part": 0.366,
+     "share_of_strongly_drawn_vertices_more_than_30_mm_from_the_hand": 0.113,
+     "correlation_drawn_vs_recorded_per_vertex_contact": 0.96,
+     "named_in_the_caption_as_second_coloured_blade": false,
+     "nearest_distance_right_hand_to_surface_mm": 0.19,
+     "right_hand_vertices_within_5_mm_of_the_surface": 82,
+     "part_nearest_to_the_right_hand": "top",
+     "that_point_behind_the_hinge_toward_the_handles_mm": 82.0,
+     "share_of_surface_vertices_within_5_mm_of_the_right_hand_on_the_handle_side": 1.0,
+     "right_hand_counted_as_holding": true
+    }
+   ]
+  },
+  "reading_note_rules": {
+   "second_coloured_blade": "a sequence is named when the part (top or bottom half) farther from the drawn hand is more than 30 mm from it and is drawn at 0.5 of the panel's largest value or more; the distance quoted is the smallest distance of a vertex of that part to the drawn hand, and that vertex lies on the part's blade",
+   "hand_not_drawn": "the right hand is counted as holding the object when its nearest vertex is within 2 mm of the surface; among the ten panels the distances on the two sides of this threshold are 0.77 mm and 7.09 mm, so the threshold does not decide the count; 'holding the handles' is written when, in each of those sequences, the surface point nearest to that hand and at least 0.95 of the surface vertices within 5 mm of it lie behind the hinge (smallest share 0.996)",
+   "at_most": "a percentage after 'at most' is rounded up to one decimal; other percentages and distances are rounded to the nearest unit"
+  },
+  "cross_checks": {
+   "sample 1 to the recorded first map of sequence 1: computed vs per_example.csv (samplerG_static, K = 1, s0_err)": [
+    3.2711,
+    3.2711
+   ],
+   "mean over the ten samples of that distance: computed vs per_example.csv (samplerG_static, K = -1, s0_err)": [
+    4.5802,
+    4.5802
+   ],
+   "sum of the recorded first map vs sequences_meta.csv mass0 (max abs difference over the ten)": 0.0,
+   "opening angle: ARCTIC object state vs the study's stored state O[:, frame 0, 'arti'] (max abs difference, rad)": 0.0,
+   "nearest hand-to-surface distance: drawn geometry vs recorded distances (max abs difference, mm)": 0.0,
+   "distance of every mesh vertex to the drawn left hand: drawn geometry vs recorded contact_left (max abs difference over the ten panels, mm)": 1.1e-05,
+   "distance of every mesh vertex to the right hand (not drawn): this script's transform vs recorded contact_right (max abs difference over the ten panels, mm)": 9e-06
+  },
+  "disagreements": [],
+  "inference": {
+   "newly_computed": "none (data and saved predictions only; no checkpoint was loaded)",
+   "device": "CPU (rendering only)",
+   "seed": "none used here",
+   "read_from_saved_predictions": "arctic/40_hier_contact_gen/eval/fixed0/preds.npz: S0_G[140] (ten samples), gt[rows, 0] (recorded first maps)",
+   "how_the_saved_samples_were_made": "by the study's scripts/research/hier_contact_gen/rollout_eval.py (file written 2026-09-29) with hier_contact_gen_ckpt/arctic/fixed0/sampler_G.pt, the diffusion sampler of the first map given the object descriptor and the hand flag; per that script's defaults: 100 DDIM steps, one generator per sample index k, seeded 100000 + k, for the whole test batch"
+  },
+  "caveats": [
+   "The two visibly different grasps coincide with different recordings: sequences 1 to 4 are contact episodes of one take (scissors_grab_01/s01), the others come from 2 other takes by other subjects (scissors_use_02/s09, scissors_use_02/s10). The figure does not show one subject choosing between two grasps.",
+   "The first ten sequences in file order are not a random draw of the group: they contain all 4 handle-side sequences of the 23 test sequences; the other 13 are all at the hinge and the blades (blade-side share 0.66 to 0.97). 4 of 10 recorded panels against 1 of 10 sampled panels is therefore not a comparison of how often each grasp occurs. Handle-side counts: 4 of 23 test sequences, 14 of 85 training sequences, 22 of the 230 saved samples of the group.",
+   "The sampler is given the object's shape and which hand only, so its input is identical for every test sequence of the group: the samples are draws from one distribution and belong to sequence 1 only in that they were stored in its row.",
+   "The sampled maps are drawn on the closed object, the recorded maps on the object as opened at that frame; a map does not contain the opening angle.",
+   "The 512-value map is defined on the closed scissors: a map point between the closed blades covers both, so contact on one blade is also coloured on the other, in the recorded map itself and in what is drawn from it. Sequence 8: the top part is 53.8 mm from the hand at its nearest point (recorded per-vertex contact at most 0.07) and is drawn up to 0.25 (largest value of the panel 0.26); 60 % of the vertices drawn at half the panel's largest value or more are over 30 mm from the hand; correlation of the drawn values with the recorded per-vertex contact 0.61. Sequence 9: the bottom part is 32.2 mm from the hand at its nearest point (recorded per-vertex contact at most 0.20) and is drawn up to 0.39 (largest value of the panel 0.39); 40 % of the vertices drawn at half the panel's largest value or more are over 30 mm from the hand; correlation of the drawn values with the recorded per-vertex contact 0.87. In the other 8 recorded panels that correlation is 0.95 to 0.98.",
+   "Only the left hand is drawn, the hand whose contact the map records. The right hand is on the object in sequences 4 to 10 (nearest distance 0.19 to 0.77 mm, 74 to 98 of its 778 vertices within 5 mm of the surface, 44 to 85 mm behind the hinge), so the object is held there and is not floating; in the other drawn sequences it is 27.4 mm, 22.9 mm and 7.1 mm from the surface (sequences 1 to 3). The right hand's own contact is not part of the drawn map.",
+   "'First contact' is the study's first frame of firm contact (an object vertex within 1 cm of the hand and enough total contact, for three frames), so the hand is still 6.1 to 9.8 mm from the surface and the values stay below 0.6.",
+   "In recorded panels 5 to 10 the camera is on the far side of the object from the hand, so the hand is seen behind it.",
+   "The blade-side share is a coarse summary (canonical points beyond the hinge axis); it does not separate the two handle rings.",
+   "No error or quality value of the sampler is shown; whether the samples cover the recorded grasps in the right proportions cannot be read from ten samples."
+  ],
+  "suggested_caption": "ARCTIC scissors, left hand: the first 10 of the 23 test sequences of this object and hand, selected as the group with the most test sequences; each title gives the recording (take A, B or C) and, in brackets, the dataset's name of the recording (grab or use). Upper rows: the recorded left hand at the first frame of firm contact, still 6 to 10 mm from the surface, with the recorded contact map on the scissors; only the left hand is drawn, and in sequences 4 to 10 the right hand, not drawn, is already holding the handles. Sequences 1 to 4 are 4 contact episodes of one recording (take A), with the hand at a handle ring (at most 9.3 % of the map lies on the blade side of the hinge); sequences 5 to 10 come from 2 other recordings (takes B and C), with the hand at the hinge and the blades (43 to 96 %). The contact map is defined on the closed scissors, so contact on one blade is also coloured on the other: in sequences 8 and 9 the second coloured blade is 54 mm and 32 mm from the hand. Lower rows: 10 first contact maps sampled for sequence 1 by the model that is given only the object's shape and which hand, drawn on the closed scissors and without a hand because that model outputs a map and is not given the opening angle; sample 1 lies on a handle ring (11 % on the blade side), the other 9 around the hinge and on the blades (49 to 87 %). The 13 test sequences not drawn are all at the hinge and the blades, so the figure does not compare how often each grasp occurs; all panels share one camera and one colour scale (0 to 0.6).",
+  "suggested_caption_sentences": [
+   {
+    "role": "what",
+    "text": "ARCTIC scissors, left hand: the first 10 of the 23 test sequences of this object and hand, selected as the group with the most test sequences; each title gives the recording (take A, B or C) and, in brackets, the dataset's name of the recording (grab or use)."
+   },
+   {
+    "role": "what, with the note on the hand that is not drawn",
+    "text": "Upper rows: the recorded left hand at the first frame of firm contact, still 6 to 10 mm from the surface, with the recorded contact map on the scissors; only the left hand is drawn, and in sequences 4 to 10 the right hand, not drawn, is already holding the handles."
+   },
+   {
+    "role": "what",
+    "text": "Sequences 1 to 4 are 4 contact episodes of one recording (take A), with the hand at a handle ring (at most 9.3 % of the map lies on the blade side of the hinge); sequences 5 to 10 come from 2 other recordings (takes B and C), with the hand at the hinge and the blades (43 to 96 %)."
+   },
+   {
+    "role": "note on colour that is far from the hand",
+    "text": "The contact map is defined on the closed scissors, so contact on one blade is also coloured on the other: in sequences 8 and 9 the second coloured blade is 54 mm and 32 mm from the hand."
+   },
+   {
+    "role": "what",
+    "text": "Lower rows: 10 first contact maps sampled for sequence 1 by the model that is given only the object's shape and which hand, drawn on the closed scissors and without a hand because that model outputs a map and is not given the opening angle; sample 1 lies on a handle ring (11 % on the blade side), the other 9 around the hinge and on the blades (49 to 87 %)."
+   },
+   {
+    "role": "note on the sequences that are not drawn, and the shared camera and colour scale",
+    "text": "The 13 test sequences not drawn are all at the hinge and the blades, so the figure does not compare how often each grasp occurs; all panels share one camera and one colour scale (0 to 0.6)."
+   }
+  ],
+  "suggested_alt": "Twenty renders of a pair of scissors: ten with a recorded left hand at a handle ring or at the blades and the contact coloured on the surface, and ten sampled contact maps on the closed scissors without a hand."
+ }
+}

@@ -22,10 +22,11 @@ Opening `docs/index.html` directly from disk also works: the chart data is loade
 index.html                 the page: copy, diagrams (inline SVG), evidence blocks
 assets/css/style.css       one light theme, system fonts
 assets/js/charts.js        draws every chart from data/figures.js (bar, line, scatter; tooltip; data table)
-assets/img/                two qualitative figures cropped from the reports (see evidence/images.json)
+assets/img/                the ten qualitative figures, rendered by build/qual (see evidence/images.json)
 data/figures.json          every figure the modules return (69), with its module and source files
 data/figures.js            the 31 figures the page shows, as a script
 data/sources/              snapshots of the result tables the figures read (so they can be rebuilt here)
+data/qual/                 metadata of each qualitative figure: selection rule and its evidence, numbers, caveats
 evidence/*.json            verified evidence entries, one file per source report
 evidence_manifest.json     claim -> report -> result files -> figure / table source (generated)
 evidence_index.md          the same mapping as a table (generated)
@@ -33,6 +34,8 @@ content_outline.md         the argument: main and sub evidence under each findin
 build/build_figures.py     result tables -> data/figures.{json,js}
 build/build_manifest.py    index.html + evidence/ + figures.json -> evidence_manifest.json, evidence_index.md
 build/figs/*.py            one module per source report: reads the tables, returns chart data
+build/qual/*.py            one script per qualitative figure (3-D renders; needs the result tree, CPU only)
+build/build_qualitative.py registers those figures: data/qual/, evidence/images.json, evidence/zq_qualitative.json
 ```
 
 ## Where each evidence block comes from
@@ -56,6 +59,7 @@ the result files it reads. In short:
 | `F3-C`, `F3-diagA` | 3 | `reports/contact_latent_temporal_stage2/` | `build/figs/f3c_stage2_latent_temporal.py` |
 | `F3-diagB`, `F3-diagC` | 3 | `reports/z_temporal_diagnostic/` | `build/figs/f3d_z_temporal_diagnostic.py` |
 | `F3-subA`, `F3-subB` | 3 (supporting evidence) | `reports/z_joint_decoder_followup/` | `build/figs/f3s_joint_decoder.py` |
+| `F1-PRIMER`, `F2-PRIMER` | qualitative primers (what a contact map is; the 48 numbers on a grasp) | recorded data; `reports/structure_variance_boundary/` feature cache | `build/qual/q_contact_map_primer.py`, `build/qual/q_structure_on_a_grasp.py` |
 | `HYP` | Current hypothesis (in progress) | `scripts/research/z_stateful_s0_factorial/` (design only) | none: no result exists |
 
 The result root is the server's result tree (`/result/uhnam/dexcore`, or `$DEXCORE_RESULT_ROOT`). The
@@ -104,7 +108,9 @@ page.
 
 Rules the page follows:
 
-- every number comes from an existing result table or report; nothing was re-run for the page;
+- every number comes from an existing result table or report. No experiment was re-run and nothing was
+  trained for the page; the qualitative figures run the existing trained models on a few examples
+  (inference only, on CPU) and say so;
 - TACO, ARCTIC and OakInk2 are never pooled, and a result that exists for one dataset is not stated
   for another;
 - a null stays a null; best-of-K and "teacher latent" numbers are labelled as oracles;
@@ -116,5 +122,27 @@ Rules the page follows:
 
 ## Images
 
-The two qualitative figures are crops of figures that the experiments already produced; nothing was
-redrawn. `evidence/images.json` records the source file and the crop of each.
+The ten qualitative figures (`assets/img/qual_*.webp`) are 3-D renders made for the page by the
+scripts in `build/qual/` (see its README): the real object mesh, the recorded MANO hand and the
+contact on the object's surface. Seven use recorded data and saved model outputs only. Three run a
+trained model on CPU for the drawn examples: the BimArt port's contact and motion stages (Motivation),
+the Stage-1 model for a latent swap, and the z-mediated generator's decoder fed the latents of the
+true frames. No model was trained.
+
+Rules they follow: each example is chosen by a stated rule that the script computes (for example the
+test sequence at the median error), never by appearance; the caption names the rule and says what
+the example is not typical of; every number in a caption is in `data/qual/<id>.json` with its source;
+each figure was checked by an independent pass (selection recomputed, drawn arrays compared with
+their sources, numbers re-read). They are illustrations, not statistics: the results rest on the
+tables. Unlike the charts, they cannot be rebuilt from this repository alone (they need the result
+tree, the checkpoints and the raw datasets); `build/build_qualitative.py` re-registers them from the
+metadata snapshots.
+
+```bash
+CUDA_VISIBLE_DEVICES="" PYTHONDONTWRITEBYTECODE=1 VTK_DEFAULT_OPENGL_WINDOW=vtkOSOpenGLRenderWindow \
+    PYVISTA_OFF_SCREEN=true python docs/build/qual/q_<id>.py     # render one figure
+python docs/build/build_qualitative.py && python docs/build/build_manifest.py
+```
+
+The renders show objects of TACO and ARCTIC and the MANO hand model; only images are published, no
+mesh, pose or model parameters.

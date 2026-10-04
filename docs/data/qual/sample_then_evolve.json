@@ -1,0 +1,1048 @@
+{
+ "fig_id": "sample_then_evolve",
+ "created": "2026-10-04T23:52:13+0900",
+ "outputs": {
+  "figure": "reports/project_page_qualitative/sample_then_evolve/figure.png",
+  "panels": "reports/project_page_qualitative/sample_then_evolve/panels.npz",
+  "meta": "reports/project_page_qualitative/sample_then_evolve/meta.json",
+  "asset": "docs/assets/img/qual_sample_then_evolve.webp"
+ },
+ "master_size": [
+  3484,
+  1652
+ ],
+ "asset_size": [
+  2200,
+  1043
+ ],
+ "layout": {
+  "width": 3484,
+  "height": 1652,
+  "panel": [
+   480,
+   320
+  ],
+  "font_px": 48,
+  "cap_px": 35,
+  "cap_px_at_1100": 11.05
+ },
+ "display_rule": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0",
+ "soft_contact": "exp(-distance / 0.02 m)",
+ "colours": {
+  "zero": "#dcdbd5",
+  "orange": "#eb6834",
+  "dark": "#7a2408",
+  "blue": "#2a78d6",
+  "no_data": "#e7e1f1",
+  "parts": {
+   "palm": "#6b6a63",
+   "thumb": "#2a78d6",
+   "index": "#eb6834",
+   "middle": "#1baf7a",
+   "ring": "#eda100",
+   "little": "#8e5bd0"
+  }
+ },
+ "panels": {
+  "shared/mesh_verts": {
+   "shape": [
+    4002,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "shared/mesh_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "shared/hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "shared/reached": {
+   "shape": [
+    4002
+   ],
+   "dtype": "bool"
+  },
+  "shared/frames": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "selection/example": {
+   "shape": [
+    364
+   ],
+   "dtype": "int64"
+  },
+  "selection/first_to_last_difference": {
+   "shape": [
+    364
+   ],
+   "dtype": "float32"
+  },
+  "recorded_t00/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "recorded_t00/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recorded_t00/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_t08/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "recorded_t08/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recorded_t08/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_t16/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "recorded_t16/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recorded_t16/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_t32/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "recorded_t32/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recorded_t32/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_t48/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "recorded_t48/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recorded_t48/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "recorded_t63/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "recorded_t63/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "recorded_t63/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "evolved_t00/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "evolved_t00/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "evolved_t08/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "evolved_t08/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "evolved_t16/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "evolved_t16/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "evolved_t32/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "evolved_t32/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "evolved_t48/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "evolved_t48/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "evolved_t63/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "evolved_t63/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "sampled_t00/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "sampled_t00/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "sampled_t08/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "sampled_t08/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "sampled_t16/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "sampled_t16/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "sampled_t32/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "sampled_t32/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "sampled_t48/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "sampled_t48/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "sampled_t63/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "sampled_t63/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "held_t00/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "held_t00/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "held_t08/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "held_t08/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "held_t16/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "held_t16/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "held_t32/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "held_t32/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "held_t48/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "held_t48/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "held_t63/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "held_t63/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  }
+ },
+ "meta": {
+  "id": "sample_then_evolve",
+  "block": "F1-B",
+  "title": "Sample a first contact map, then evolve it: one sequence on the real object",
+  "replaces": "docs/assets/img/f1b_taco_knife_rollout.png (the dot strip of the same sequence on the 512 canonical points)",
+  "script": "docs/build/qual/q_sample_then_evolve.py",
+  "command": "CUDA_VISIBLE_DEVICES=\"\" PYTHONDONTWRITEBYTECODE=1 VTK_DEFAULT_OPENGL_WINDOW=vtkOSOpenGLRenderWindow PYVISTA_OFF_SCREEN=true python docs/build/qual/q_sample_then_evolve.py",
+  "panels": {
+   "rows": [
+    {
+     "key": "recorded",
+     "label": "Recorded contact, with the recorded hand",
+     "shows": "the recorded contact map of each frame, with the recorded hand drawn as a translucent grey ghost",
+     "source_array": "taco/50_hier_contact_gen/eval/fixed0/preds.npz: gt"
+    },
+    {
+     "key": "evolved",
+     "label": "True first map, evolved by the model, error 0.96",
+     "shows": "the true first map, then the deterministic model's evolution over the following frames",
+     "source_array": "taco/50_hier_contact_gen/eval/fixed0/preds.npz: gtinit_vf"
+    },
+    {
+     "key": "sampled",
+     "label": "Sampled first map (best of ten), evolved by the same model, error 1.26",
+     "shows": "a first map sampled from the object condition alone (the one of ten samples whose evolved sequence is closest to the recording, so picked with the ground truth), then the same deterministic evolution",
+     "source_array": "taco/50_hier_contact_gen/eval/fixed0/preds.npz: samplerG_vf__K10"
+    },
+    {
+     "key": "held",
+     "label": "True first map, held still, error 4.53",
+     "shows": "the true first map repeated unchanged in every frame: the reference without any evolution",
+     "source_array": "taco/50_hier_contact_gen/eval/fixed0/preds.npz: static_gt"
+    }
+   ],
+   "columns": [
+    "frame 0 of the 64-frame sequence (take frame 0)",
+    "frame 8 of the 64-frame sequence (take frame 8)",
+    "frame 16 of the 64-frame sequence (take frame 16)",
+    "frame 32 of the 64-frame sequence (take frame 32)",
+    "frame 48 of the 64-frame sequence (take frame 48)",
+    "frame 63 of the 64-frame sequence (take frame 63)"
+   ],
+   "note": "Every panel shows the same knife from the same camera with the same colour scale; the knife is fixed because everything is drawn in the knife's own frame. Column 'frame 0' of the third row is the sampled first map itself."
+  },
+  "examples": [
+   {
+    "dataset": "TACO",
+    "example": 3011,
+    "sequence_id": "(scrape off, knife, plate)/20231020_226",
+    "object": "knife (mesh 063, the tool of the take)",
+    "hand": "right",
+    "frames": [
+     0,
+     8,
+     16,
+     32,
+     48,
+     63
+    ],
+    "take_frames": [
+     0,
+     8,
+     16,
+     32,
+     48,
+     63
+    ],
+    "split": "test"
+   }
+  ],
+  "selection_rule": "The same documented sequence as the dot strip this figure replaces: among all test sequences of the TACO fixed split, the one with the largest L2 distance between its first and its last recorded contact map, a case where the evolution has the most to do. The script recomputes the ranking and stops unless it gives that sequence.",
+  "selection_evidence": {
+   "metric": "L2 distance between the last and the first recorded 512-point map of the sequence, ||C_63 - C_0||",
+   "computed_from": "taco/50_hier_contact_gen/eval/fixed0/preds.npz, arrays gt and example",
+   "candidates": 364,
+   "candidate_set": "all test sequences of the study's fixed split (taco/50_hier_contact_gen/manifests/fixed0.json, key test; checked equal to the rows of the prediction file)",
+   "chosen": {
+    "example": 3011,
+    "rank": 1,
+    "value": 8.731403350830078
+   },
+   "top_10": [
+    {
+     "rank": 1,
+     "example": 3011,
+     "sequence_id": "(scrape off, knife, plate)/20231020_226",
+     "value": 8.731403350830078
+    },
+    {
+     "rank": 2,
+     "example": 2973,
+     "sequence_id": "(cut, knife, plate)/20231020_229",
+     "value": 8.53547191619873
+    },
+    {
+     "rank": 3,
+     "example": 2730,
+     "sequence_id": "(dust, roller, pan)/20231019_072",
+     "value": 8.482810020446777
+    },
+    {
+     "rank": 4,
+     "example": 748,
+     "sequence_id": "(dust, roller, plate)/20231020_008",
+     "value": 8.397220611572266
+    },
+    {
+     "rank": 5,
+     "example": 660,
+     "sequence_id": "(brush, roller, plate)/20231020_003",
+     "value": 8.37236499786377
+    },
+    {
+     "rank": 6,
+     "example": 2972,
+     "sequence_id": "(cut, knife, plate)/20231020_227",
+     "value": 8.294888496398926
+    },
+    {
+     "rank": 7,
+     "example": 3067,
+     "sequence_id": "(cut, knife, plate)/20231013_105",
+     "value": 7.865103721618652
+    },
+    {
+     "rank": 8,
+     "example": 2226,
+     "sequence_id": "(put in, spatula, pan)/20231020_038",
+     "value": 7.864165306091309
+    },
+    {
+     "rank": 9,
+     "example": 3015,
+     "sequence_id": "(scrape off, knife, plate)/20231020_230",
+     "value": 7.790717124938965
+    },
+    {
+     "rank": 10,
+     "example": 3016,
+     "sequence_id": "(scrape off, knife, plate)/20231020_232",
+     "value": 7.754466533660889
+    }
+   ],
+   "test_set": {
+    "min": 0.4545934498310089,
+    "median": 4.369874000549316,
+    "mean": 4.414069652557373,
+    "max": 8.731403350830078
+   },
+   "same_rule_as": "scripts/research/hier_contact_gen/figures.py, fig6 'high_drift' (np.argmax of this metric), whose output taco/50_hier_contact_gen/figures/fig6_qual_high_drift_fixed.png is the dot strip now on the page",
+   "page_example": 3011
+  },
+  "display_choices": {
+   "canonical_to_surface": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0. Applied to every row, the recording included (the recorded row is the study's 512-point map, not the per-vertex recording), so rows are comparable. 2 of 4002 knife vertices are not reached by the map and would be drawn in pale violet (#e7e1f1); the legend swatch is left out below a share of 0.005.",
+   "colour_scale": {
+    "function": "qlib.contact_rgb",
+    "range": [
+     0.0,
+     0.8
+    ],
+    "stops": {
+     "0": "#dcdbd5",
+     "0.4": "#eb6834",
+     "0.8": "#7a2408"
+    },
+    "rule": "upper end = largest drawn surface value (0.7805) rounded up to 0.1; one scale for all 24 panels",
+    "drawn_value_range": [
+     -0.0246734619140625,
+     0.780521810054779
+    ],
+    "clipping": "model outputs below 0 (lowest drawn value -0.0247) are drawn as 0; nothing exceeds the upper end"
+   },
+   "camera": {
+    "rule": "far_side_view (this script): onto the knife's broad side from the side away from the recorded hand at the last drawn frame, raised by 0.5 towards the knife's middle axis on the hand's side, longest axis horizontal; fitted once on the knife and the recorded hand at all six frames and reused for every panel",
+    "why": "from the hand's own side (qlib.hand_side_view) the ghost of the closed hand lies over the handle and dims the recorded contact exactly where the rows are compared; from the far side the handle is in front of the hand",
+    "sides_decided_by": {
+     "hand_centre_along_thin_axis_mm": 4.44635118056642,
+     "hand_centre_along_middle_axis_mm": 6.480202482150466
+    },
+    "margin": 0.04,
+    "panel_px": [
+     480,
+     320
+    ],
+    "position": [
+     0.0055644897264287806,
+     0.23880980366866497,
+     -0.48778658854434587
+    ],
+    "focal_point": [
+     -0.02109402141227094,
+     -0.01646729574664227,
+     0.02497642735670436
+    ],
+    "up": [
+     0.09301386025029136,
+     0.8893785360141022,
+     0.4476094742951178
+    ],
+    "view_angle": 25.0,
+    "aspect": 1.5
+   },
+   "hand": "recorded MANO hand, top row only, as a ghost (#cfcec8 at 35% opacity, front faces only), mostly behind the knife in this view; the other rows have no hand because the models output contact maps, not hands",
+   "frame": "the knife's own rigid frame, metres: the knife stands still and the hand moves"
+  },
+  "numbers": [
+   {
+    "label": "error of the row 'True first map, evolved by the model' for this sequence: mean over the 64 frames of the L2 distance between its 512-point map and the recorded one (E_C)",
+    "value": 0.9602378606796264,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/per_example.csv",
+    "locator": "row model=gtinit_vf, K=0, example=3011, split=fixed; column E_C"
+   },
+   {
+    "label": "the same error recomputed from the drawn arrays, row 'True first map, evolved by the model'",
+    "value": 0.9602510333061218,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "mean over the 64 frames of ||gtinit_vf[302] - gt[302]||_2 (row 302 = example 3011)"
+   },
+   {
+    "label": "L2 distance to the recorded map at the drawn frames [0, 8, 16, 32, 48, 63], row 'True first map, evolved by the model'",
+    "value": [
+     0.0,
+     0.20589199662208557,
+     0.7798076272010803,
+     0.8456884026527405,
+     0.9464113116264343,
+     1.7573504447937012
+    ],
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "||gtinit_vf[302, t] - gt[302, t]||_2 for t in [0, 8, 16, 32, 48, 63]"
+   },
+   {
+    "label": "rank of this sequence's error among the 364 test sequences (1 = lowest), row 'True first map, evolved by the model'",
+    "value": 66,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/per_example.csv",
+    "locator": "rows model=gtinit_vf, K=0, split=fixed; column E_C; position of example 3011"
+   },
+   {
+    "label": "mean of the same error over the 364 test sequences (context, not drawn), row 'True first map, evolved by the model'",
+    "value": 1.8194538629972017,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/results/aggregate.csv",
+    "locator": "row split=fixed, model=gtinit_vf, K=0; column E_C"
+   },
+   {
+    "label": "error of the row 'Sampled first map (best of ten), evolved by the same model' for this sequence: mean over the 64 frames of the L2 distance between its 512-point map and the recorded one (E_C)",
+    "value": 1.2605035305023191,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/per_example.csv",
+    "locator": "row model=samplerG_vf, K=10, example=3011, split=fixed; column E_C"
+   },
+   {
+    "label": "the same error recomputed from the drawn arrays, row 'Sampled first map (best of ten), evolved by the same model'",
+    "value": 1.2604986429214478,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "mean over the 64 frames of ||samplerG_vf__K10[302] - gt[302]||_2 (row 302 = example 3011)"
+   },
+   {
+    "label": "L2 distance to the recorded map at the drawn frames [0, 8, 16, 32, 48, 63], row 'Sampled first map (best of ten), evolved by the same model'",
+    "value": [
+     0.93030846118927,
+     0.9225032329559326,
+     1.2839324474334717,
+     0.9715335369110107,
+     0.876567542552948,
+     1.5890241861343384
+    ],
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "||samplerG_vf__K10[302, t] - gt[302, t]||_2 for t in [0, 8, 16, 32, 48, 63]"
+   },
+   {
+    "label": "rank of this sequence's error among the 364 test sequences (1 = lowest), row 'Sampled first map (best of ten), evolved by the same model'",
+    "value": 118,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/per_example.csv",
+    "locator": "rows model=samplerG_vf, K=10, split=fixed; column E_C; position of example 3011"
+   },
+   {
+    "label": "mean of the same error over the 364 test sequences (context, not drawn), row 'Sampled first map (best of ten), evolved by the same model'",
+    "value": 1.855467032436486,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/results/aggregate.csv",
+    "locator": "row split=fixed, model=samplerG_vf, K=10; column E_C"
+   },
+   {
+    "label": "error of the row 'True first map, held still' for this sequence: mean over the 64 frames of the L2 distance between its 512-point map and the recorded one (E_C)",
+    "value": 4.533856391906738,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/per_example.csv",
+    "locator": "row model=static_gt, K=0, example=3011, split=fixed; column E_C"
+   },
+   {
+    "label": "the same error recomputed from the drawn arrays, row 'True first map, held still'",
+    "value": 4.533856391906738,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "mean over the 64 frames of ||static_gt[302] - gt[302]||_2 (row 302 = example 3011)"
+   },
+   {
+    "label": "L2 distance to the recorded map at the drawn frames [0, 8, 16, 32, 48, 63], row 'True first map, held still'",
+    "value": [
+     0.0,
+     0.051219020038843155,
+     0.7135344743728638,
+     5.437478065490723,
+     8.214110374450684,
+     8.731403350830078
+    ],
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "||static_gt[302, t] - gt[302, t]||_2 for t in [0, 8, 16, 32, 48, 63]"
+   },
+   {
+    "label": "rank of this sequence's error among the 364 test sequences (1 = lowest), row 'True first map, held still'",
+    "value": 283,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/per_example.csv",
+    "locator": "rows model=static_gt, K=0, split=fixed; column E_C; position of example 3011"
+   },
+   {
+    "label": "mean of the same error over the 364 test sequences (context, not drawn), row 'True first map, held still'",
+    "value": 3.483226440355673,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/results/aggregate.csv",
+    "locator": "row split=fixed, model=static_gt, K=0; column E_C"
+   },
+   {
+    "label": "index (0 to 9) of the drawn sample among the ten sampled first maps",
+    "value": 5,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/per_example.csv",
+    "locator": "row model=samplerG_vf, K=10, example=3011; column k_star"
+   },
+   {
+    "label": "L2 distance between the drawn sampled first map and the true first map",
+    "value": 0.9303480386734008,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/per_example.csv",
+    "locator": "row model=samplerG_vf, K=10, example=3011; column s0_err"
+   },
+   {
+    "label": "L2 distance to the true first map of each of the ten sampled first maps (sample 0 to 9)",
+    "value": [
+     1.2251590490341187,
+     2.966045618057251,
+     1.0866016149520874,
+     1.8470710515975952,
+     1.9092293977737427,
+     0.93030846118927,
+     1.697432041168213,
+     5.2058491706848145,
+     1.3842390775680542,
+     1.4549615383148193
+    ],
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "||S0_G[302, k] - gt[302, 0]||_2, k = 0..9"
+   },
+   {
+    "label": "error of this sequence when sample 0 is evolved instead of the best of ten (not drawn)",
+    "value": 2.4096903800964355,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/per_example.csv",
+    "locator": "row model=samplerG_vf, K=1, example=3011; column E_C"
+   },
+   {
+    "label": "number of first maps sampled, of which the best is drawn",
+    "value": 10,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "array S0_G, second dimension"
+   },
+   {
+    "label": "selection metric of this sequence: L2 distance between its last and first recorded map",
+    "value": 8.731403350830078,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "||gt[302, 63] - gt[302, 0]||_2"
+   },
+   {
+    "label": "rank of this sequence by the selection metric (1 = largest)",
+    "value": 1,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "argsort of ||gt[:, 63] - gt[:, 0]||_2 over all rows"
+   },
+   {
+    "label": "number of test sequences the selection ranks",
+    "value": 364,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "length of array example"
+   },
+   {
+    "label": "median of the selection metric over the test sequences",
+    "value": 4.369874000549316,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "median of ||gt[:, 63] - gt[:, 0]||_2"
+   },
+   {
+    "label": "error of holding minus error of evolving the true first map, this sequence",
+    "value": 3.573618531227112,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/per_example.csv",
+    "locator": "E_C(static_gt, K=0) - E_C(gtinit_vf, K=0), example=3011"
+   },
+   {
+    "label": "rank of that difference among the 364 test sequences (1 = largest gain from evolving)",
+    "value": 48,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/per_example.csv",
+    "locator": "E_C(static_gt, K=0) - E_C(gtinit_vf, K=0) per example, split=fixed"
+   },
+   {
+    "label": "frames per sequence",
+    "value": 64,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "array gt, second dimension"
+   },
+   {
+    "label": "canonical points per contact map",
+    "value": 512,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "locator": "array gt, third dimension"
+   },
+   {
+    "label": "frames drawn",
+    "value": [
+     0,
+     8,
+     16,
+     32,
+     48,
+     63
+    ],
+    "dataset": "TACO",
+    "source": "docs/build/qual/q_sample_then_evolve.py",
+    "locator": "constant FRAMES"
+   },
+   {
+    "label": "length scale of the contact value exp(-distance / scale), in cm",
+    "value": 2.0,
+    "dataset": "TACO",
+    "source": "docs/build/qual/qlib.py",
+    "locator": "constant SOFT_SCALE (the studies' definition of soft contact)"
+   },
+   {
+    "label": "smallest distance between the recorded hand mesh and the knife mesh at frames [0, 8, 16, 32, 48, 63], in mm",
+    "value": [
+     6.351279645492971,
+     6.03983372754984,
+     1.2410511021150807,
+     0.5809548747561349,
+     0.13925378506995958,
+     0.608019294684041
+    ],
+    "dataset": "TACO",
+    "source": "recorded MANO hand and object pose of the take (qlib.Example.hand, .mesh)",
+    "locator": "example 3011, minimum over knife vertices of the distance to the nearest hand vertex"
+   },
+   {
+    "label": "lower end of the colour scale (no contact)",
+    "value": 0.0,
+    "dataset": "TACO",
+    "source": "docs/build/qual/q_sample_then_evolve.py",
+    "locator": "first argument of qlib.colorbar / qlib.contact_rgb"
+   },
+   {
+    "label": "upper end of the colour scale (largest drawn surface value, rounded up to 0.1)",
+    "value": 0.8,
+    "dataset": "TACO",
+    "source": "docs/build/qual/q_sample_then_evolve.py",
+    "locator": "largest drawn value 0.7805 over the 24 panels"
+   },
+   {
+    "label": "vertices of the knife mesh",
+    "value": 4002,
+    "dataset": "TACO",
+    "source": "taco/30_bimart_gen3_scene_scale/assets/taco_mesh_dict.npy",
+    "locator": "mesh 063, verts_original"
+   },
+   {
+    "label": "knife vertices that the 512-point map does not reach (pale violet if visible)",
+    "value": 2,
+    "dataset": "TACO",
+    "source": "docs/build/qual/q_sample_then_evolve.py",
+    "locator": "qlib.Example.covered"
+   }
+  ],
+  "cross_checks": {
+   "note": "values stored by the studies against their recomputation here from the arrays that are drawn (saved predictions are float16) and from the recorded hand mesh",
+   "checks": [
+    {
+     "quantity": "E_C of this sequence, model=gtinit_vf, K=0",
+     "stored": 0.9602378606796264,
+     "stored_in": "taco/50_hier_contact_gen/eval/fixed0/per_example.csv",
+     "recomputed": 0.9602510333061218,
+     "difference": 1.317262649547235e-05,
+     "tolerance": 0.001,
+     "agrees": true
+    },
+    {
+     "quantity": "E_C of this sequence, model=samplerG_vf, K=10",
+     "stored": 1.2605035305023191,
+     "stored_in": "taco/50_hier_contact_gen/eval/fixed0/per_example.csv",
+     "recomputed": 1.2604986429214478,
+     "difference": 4.887580871359987e-06,
+     "tolerance": 0.001,
+     "agrees": true
+    },
+    {
+     "quantity": "E_C of this sequence, model=static_gt, K=0",
+     "stored": 4.533856391906738,
+     "stored_in": "taco/50_hier_contact_gen/eval/fixed0/per_example.csv",
+     "recomputed": 4.533856391906738,
+     "difference": 0.0,
+     "tolerance": 0.001,
+     "agrees": true
+    },
+    {
+     "quantity": "first-map error of the drawn sample (s0_err)",
+     "stored": 0.9303480386734008,
+     "stored_in": "taco/50_hier_contact_gen/eval/fixed0/per_example.csv",
+     "recomputed": 0.93030846118927,
+     "difference": 3.957748413074835e-05,
+     "tolerance": 0.001,
+     "agrees": true
+    },
+    {
+     "quantity": "smallest hand-to-knife distance at frame 0, mm",
+     "stored": 6.35127956047654,
+     "stored_in": "dense distances of the take (qlib.Example.dense)",
+     "recomputed": 6.351279645492971,
+     "difference": 8.501643122826863e-08,
+     "tolerance": 0.001,
+     "agrees": true
+    },
+    {
+     "quantity": "smallest hand-to-knife distance at frame 8, mm",
+     "stored": 6.039833649992942,
+     "stored_in": "dense distances of the take (qlib.Example.dense)",
+     "recomputed": 6.03983372754984,
+     "difference": 7.755689779287422e-08,
+     "tolerance": 0.001,
+     "agrees": true
+    },
+    {
+     "quantity": "smallest hand-to-knife distance at frame 16, mm",
+     "stored": 1.241051126271486,
+     "stored_in": "dense distances of the take (qlib.Example.dense)",
+     "recomputed": 1.2410511021150807,
+     "difference": 2.4156405320496788e-08,
+     "tolerance": 0.001,
+     "agrees": true
+    },
+    {
+     "quantity": "smallest hand-to-knife distance at frame 32, mm",
+     "stored": 0.5809548893012095,
+     "stored_in": "dense distances of the take (qlib.Example.dense)",
+     "recomputed": 0.5809548747561349,
+     "difference": 1.4545074589200624e-08,
+     "tolerance": 0.001,
+     "agrees": true
+    },
+    {
+     "quantity": "smallest hand-to-knife distance at frame 48, mm",
+     "stored": 0.13925378152634807,
+     "stored_in": "dense distances of the take (qlib.Example.dense)",
+     "recomputed": 0.13925378506995958,
+     "difference": 3.5436115153331116e-09,
+     "tolerance": 0.001,
+     "agrees": true
+    },
+    {
+     "quantity": "smallest hand-to-knife distance at frame 63, mm",
+     "stored": 0.6080192979425191,
+     "stored_in": "dense distances of the take (qlib.Example.dense)",
+     "recomputed": 0.608019294684041,
+     "difference": 3.258478042944546e-09,
+     "tolerance": 0.001,
+     "agrees": true
+    }
+   ],
+   "all_agree": true
+  },
+  "inference": {
+   "newly_computed": "nothing; no model was run and no checkpoint was loaded",
+   "checkpoints_loaded": [],
+   "device": "CPU (rendering only)",
+   "seed": "none in this script",
+   "read_from_saved_predictions": {
+    "file": "taco/50_hier_contact_gen/eval/fixed0/preds.npz",
+    "arrays": [
+     "example",
+     "gt",
+     "S0_G",
+     "gtinit_vf",
+     "samplerG_vf__K10",
+     "static_gt"
+    ],
+    "row": 302,
+    "produced_by": "the study's evaluation, scripts/research/hier_contact_gen/rollout_eval.py --split fixed --fold 0 --vf-tag _unroll8 (log: reports/hier_logs/taco/eval.log), with hier_contact_gen_ckpt/taco/fixed0/sampler_G.pt and vf_unroll8.pt; sample k of the first-map sampler was drawn with generator seed 100000 + k (here k = 5)"
+   }
+  },
+  "caveats": [
+   "One sequence, and by construction not a typical one: it has the largest first-to-last difference of the 364 test sequences (8.73 against a test median of 4.37). Its gain from evolving over holding (3.57) is rank 48 of 364, and its evolved error (0.96) is below the test mean (1.82), so the evolution looks better here than it does on average.",
+   "'Best of ten' is chosen with the ground truth (the sample whose evolved sequence has the lowest error), so the third row is an oracle pick, not what one draw gives: evolving sample 0 of the same ten gives 2.41 for this sequence. The other nine samples are not drawn.",
+   "The contact value is a soft proximity, exp(-distance / 2 cm), so it is above zero before the hand touches: in the first two drawn frames the recorded hand is about 6 mm from the knife and the map already shows contact at the blade corner.",
+   "The 512-point maps are smoothed onto the mesh vertices for display, and model outputs below zero (down to -0.025) are drawn as zero. The errors in the row labels are computed on the 512 points over all 64 frames, not on the six drawn surfaces.",
+   "The models output contact maps only. The hand is the recorded one and appears only in the top row. It is drawn as a pale ghost, mostly behind the knife; where its fingers reach around the handle towards the viewer the colours beneath look slightly lighter than the same value in the rows without a hand.",
+   "The knife is drawn in its own frame, so the object motion that conditions the evolution is not visible.",
+   "TACO only; the figure says nothing about ARCTIC or OakInk2."
+  ],
+  "suggested_caption": "One TACO test sequence, a right hand taking hold of a knife, drawn on the knife's surface at frames 0, 8, 16, 32, 48 and 63 of its 64; it was selected as the one of the 364 test sequences whose first and last recorded contact maps differ most, so a case where the evolution has the most to do and not a typical one. Top row: the recorded contact, with the recorded hand as a pale ghost; the contact starts at the corner of the blade next to the handle and ends on the whole handle. Below it: the true first map evolved by the deterministic model, then a sampled first map (the best of ten samples, picked with the ground truth) evolved by the same model, then the true first map simply held. The error in each label is this sequence's distance to the recorded maps, averaged over all 64 frames: 0.96 evolved from the true first map, 1.26 evolved from the sampled one, 4.53 when held. Colour is the contact value, highest where the hand touches and falling off with the distance to the hand, on one scale from 0 to 0.8 in every panel.",
+  "suggested_alt": "A knife drawn six times per row over the course of one recorded sequence, coloured by contact: in the recording and in the two evolved rows the handle turns from pale to dark red as the hand closes on it, while the held row stays unchanged."
+ }
+}

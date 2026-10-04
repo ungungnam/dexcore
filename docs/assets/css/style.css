@@ -325,3 +325,13 @@ noscript p.wrap { margin: 1.5rem auto; }
   .diagram-scroll svg { min-width: 0; }
   .diagram-scroll::after, .viz-tip { display: none !important; }
 }
+
+/* ---------- qualitative renders (docs/build/qual) ---------- */
+figure.qual { margin: 2rem 0 0; }
+figure.qual.card { margin: 0; }
+figure.qual figcaption { max-width: 68rem; }
+figure.qual figcaption strong { color: var(--ink-2); font-weight: 650; }
+details.fig-notes { margin-top: 0.45rem; font-size: 0.82rem; color: var(--ink-3); }
+details.fig-notes > summary { cursor: pointer; width: max-content; }
+details.fig-notes p { margin: 0.35rem 0 0; max-width: 62rem; line-height: 1.5; }
+figure.qual > .foot { margin-top: 0.75rem; }

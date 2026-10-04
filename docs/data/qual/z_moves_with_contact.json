@@ -1,0 +1,1298 @@
+{
+ "fig_id": "z_moves_with_contact",
+ "created": "2026-10-04T23:56:03+0900",
+ "outputs": {
+  "figure": "reports/project_page_qualitative/z_moves_with_contact/figure.png",
+  "panels": "reports/project_page_qualitative/z_moves_with_contact/panels.npz",
+  "meta": "reports/project_page_qualitative/z_moves_with_contact/meta.json",
+  "asset": "docs/assets/img/qual_z_moves_with_contact.webp"
+ },
+ "master_size": [
+  2181,
+  1877
+ ],
+ "asset_size": [
+  2181,
+  1877
+ ],
+ "layout": {
+  "width": 2181,
+  "height": 1877,
+  "panel": [
+   300,
+   300
+  ],
+  "font_px": 30,
+  "cap_px": 22,
+  "cap_px_at_1100": 11.1,
+  "composition": "per dataset: chart band (matplotlib, same font size) above a qlib.grid row"
+ },
+ "display_rule": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0",
+ "soft_contact": "exp(-distance / 0.02 m)",
+ "colours": {
+  "zero": "#dcdbd5",
+  "orange": "#eb6834",
+  "dark": "#7a2408",
+  "blue": "#2a78d6",
+  "no_data": "#e7e1f1",
+  "parts": {
+   "palm": "#6b6a63",
+   "thumb": "#2a78d6",
+   "index": "#eb6834",
+   "middle": "#1baf7a",
+   "ring": "#eda100",
+   "little": "#8e5bd0"
+  }
+ },
+ "panels": {
+  "taco_series/contact_step": {
+   "shape": [
+    63
+   ],
+   "dtype": "float32"
+  },
+  "taco_series/latent_step": {
+   "shape": [
+    63
+   ],
+   "dtype": "float32"
+  },
+  "taco_series/frames": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "taco_series/selected_steps": {
+   "shape": [
+    2
+   ],
+   "dtype": "int64"
+  },
+  "taco_zpath/xy": {
+   "shape": [
+    64,
+    2
+   ],
+   "dtype": "float64"
+  },
+  "taco_selection/example": {
+   "shape": [
+    364
+   ],
+   "dtype": "int64"
+  },
+  "taco_selection/spearman": {
+   "shape": [
+    364
+   ],
+   "dtype": "float64"
+  },
+  "taco_mesh/faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "taco_mesh/hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "taco_mesh/covered": {
+   "shape": [
+    4361
+   ],
+   "dtype": "bool"
+  },
+  "taco_frame01/values": {
+   "shape": [
+    4361
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame01/canonical": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "taco_frame01/verts": {
+   "shape": [
+    4361,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame01/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame01/image": {
+   "shape": [
+    300,
+    300,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "taco_frame04/values": {
+   "shape": [
+    4361
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame04/canonical": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "taco_frame04/verts": {
+   "shape": [
+    4361,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame04/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame04/image": {
+   "shape": [
+    300,
+    300,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "taco_frame05/values": {
+   "shape": [
+    4361
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame05/canonical": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "taco_frame05/verts": {
+   "shape": [
+    4361,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame05/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame05/image": {
+   "shape": [
+    300,
+    300,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "taco_frame26/values": {
+   "shape": [
+    4361
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame26/canonical": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "taco_frame26/verts": {
+   "shape": [
+    4361,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame26/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame26/image": {
+   "shape": [
+    300,
+    300,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "taco_frame29/values": {
+   "shape": [
+    4361
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame29/canonical": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "taco_frame29/verts": {
+   "shape": [
+    4361,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame29/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame29/image": {
+   "shape": [
+    300,
+    300,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "taco_frame30/values": {
+   "shape": [
+    4361
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame30/canonical": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "taco_frame30/verts": {
+   "shape": [
+    4361,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame30/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_frame30/image": {
+   "shape": [
+    300,
+    300,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "arctic_series/contact_step": {
+   "shape": [
+    63
+   ],
+   "dtype": "float32"
+  },
+  "arctic_series/latent_step": {
+   "shape": [
+    63
+   ],
+   "dtype": "float32"
+  },
+  "arctic_series/frames": {
+   "shape": [
+    6
+   ],
+   "dtype": "int64"
+  },
+  "arctic_series/selected_steps": {
+   "shape": [
+    2
+   ],
+   "dtype": "int64"
+  },
+  "arctic_zpath/xy": {
+   "shape": [
+    64,
+    2
+   ],
+   "dtype": "float64"
+  },
+  "arctic_selection/example": {
+   "shape": [
+    186
+   ],
+   "dtype": "int64"
+  },
+  "arctic_selection/spearman": {
+   "shape": [
+    186
+   ],
+   "dtype": "float64"
+  },
+  "arctic_mesh/faces": {
+   "shape": [
+    6892,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "arctic_mesh/hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "arctic_mesh/covered": {
+   "shape": [
+    3487
+   ],
+   "dtype": "bool"
+  },
+  "arctic_frame00/values": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame00/canonical": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "arctic_frame00/verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame00/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame00/image": {
+   "shape": [
+    300,
+    300,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "arctic_frame03/values": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame03/canonical": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "arctic_frame03/verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame03/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame03/image": {
+   "shape": [
+    300,
+    300,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "arctic_frame04/values": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame04/canonical": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "arctic_frame04/verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame04/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame04/image": {
+   "shape": [
+    300,
+    300,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "arctic_frame43/values": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame43/canonical": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "arctic_frame43/verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame43/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame43/image": {
+   "shape": [
+    300,
+    300,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "arctic_frame46/values": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame46/canonical": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "arctic_frame46/verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame46/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame46/image": {
+   "shape": [
+    300,
+    300,
+    3
+   ],
+   "dtype": "uint8"
+  },
+  "arctic_frame47/values": {
+   "shape": [
+    3487
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame47/canonical": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "arctic_frame47/verts": {
+   "shape": [
+    3487,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame47/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_frame47/image": {
+   "shape": [
+    300,
+    300,
+    3
+   ],
+   "dtype": "uint8"
+  }
+ },
+ "meta": {
+  "id": "z_moves_with_contact",
+  "block": "F3-diagB",
+  "title": "The latent z moves when the contact moves",
+  "panels": {
+   "layout": "two stacked blocks, TACO above ARCTIC; each block is a chart band above one row of six rendered panels",
+   "chart": "x: frame of the 64-frame sequence (axis on top); a step from frame k to k + 1 is drawn at k + 0.5. Blue: size of the contact step. Orange: size of the latent step. One shared y axis, both in units of the mean distance between two random training frames. Shaded: the two selected contact steps. Thin grey lines: the six drawn frames, each connected to its picture below.",
+   "square": "the 64 latents of the sequence projected on the first two principal components of the standardised TRAINING latents; dots are frames, rings the six drawn frames, dark segments the two selected steps, 'start' names frame 0; no axes (arbitrary orientation, equal scale on both directions)",
+   "pictures": "columns: the six frames in time order (three per selected step: 3 frames before, just before, just after). The object mesh is coloured by the recorded canonical contact map of that frame; the recorded hand is a ghost."
+  },
+  "examples": [
+   {
+    "dataset": "TACO",
+    "example": 3249,
+    "sequence_id": "(pour in some, bowl, plate)/20231024_241",
+    "object": "bowl",
+    "mesh_id": "118",
+    "role": "tool",
+    "hand": "right",
+    "split": "test",
+    "cache_row": 1801,
+    "first_take_frame": 12,
+    "frames": [
+     1,
+     4,
+     5,
+     26,
+     29,
+     30
+    ],
+    "selected_steps": [
+     4,
+     29
+    ]
+   },
+   {
+    "dataset": "ARCTIC",
+    "example": 1125,
+    "sequence_id": "scissors_use_02/s10",
+    "object": "scissors",
+    "mesh_id": "scissors",
+    "role": "obj",
+    "hand": "left",
+    "split": "test",
+    "cache_row": 1268,
+    "first_take_frame": 485,
+    "frames": [
+     0,
+     3,
+     4,
+     43,
+     46,
+     47
+    ],
+    "selected_steps": [
+     3,
+     46
+    ]
+   }
+  ],
+  "selection_rule": "Per dataset, among all test sequences: compute the Spearman correlation between the sequence's 63 contact steps and its 63 latent steps, and draw the median sequence. Both test sets have an even number of sequences, so no sequence equals the median; the two middle sequences are equally far from it and the one with the smaller example index is drawn. Frames: the largest contact step and the largest one at least 8 transitions away from it; for each, the frame 3 before, the frame just before and the frame just after.",
+  "selection_evidence": {
+   "TACO": {
+    "metric": "Spearman correlation between the 63 contact steps and the 63 latent steps of one test sequence",
+    "n_candidates": 364,
+    "median": 0.8946572580645161,
+    "middle_sequences": [
+     {
+      "example": 3249,
+      "spearman": 0.8946332565284177
+     },
+     {
+      "example": 3323,
+      "spearman": 0.8946812596006145
+     }
+    ],
+    "chosen_example": 3249,
+    "chosen_spearman": 0.8946332565284177,
+    "chosen_rank_ascending_from_1": 182,
+    "distance_to_median": 2.4001536098383625e-05,
+    "neighbours_in_sorted_order": [
+     {
+      "rank": 179,
+      "example": 783,
+      "spearman": 0.8930491551459295
+     },
+     {
+      "rank": 180,
+      "example": 1106,
+      "spearman": 0.8937211981566819
+     },
+     {
+      "rank": 181,
+      "example": 2907,
+      "spearman": 0.8942972350230417
+     },
+     {
+      "rank": 182,
+      "example": 3249,
+      "spearman": 0.8946332565284177
+     },
+     {
+      "rank": 183,
+      "example": 3323,
+      "spearman": 0.8946812596006145
+     },
+     {
+      "rank": 184,
+      "example": 3017,
+      "spearman": 0.8948252688172044
+     },
+     {
+      "rank": 185,
+      "example": 727,
+      "spearman": 0.8948732718894009
+     }
+    ],
+    "quantiles_over_test_sequences": {
+     "min": 0.4266993087557604,
+     "q10": 0.7838421658986177,
+     "q25": 0.8407858102918587,
+     "q50": 0.8946572580645161,
+     "q75": 0.9278153801843319,
+     "q90": 0.9480990783410139,
+     "max": 0.981278801843318
+    },
+    "full_ranking": "panels.npz: <dataset>_selection/example and <dataset>_selection/spearman, sorted ascending"
+   },
+   "ARCTIC": {
+    "metric": "Spearman correlation between the 63 contact steps and the 63 latent steps of one test sequence",
+    "n_candidates": 186,
+    "median": 0.8797043010752689,
+    "middle_sequences": [
+     {
+      "example": 1127,
+      "spearman": 0.8794642857142858
+     },
+     {
+      "example": 1125,
+      "spearman": 0.8799443164362519
+     }
+    ],
+    "chosen_example": 1125,
+    "chosen_spearman": 0.8799443164362519,
+    "chosen_rank_ascending_from_1": 94,
+    "distance_to_median": 0.0002400153609830591,
+    "neighbours_in_sorted_order": [
+     {
+      "rank": 91,
+      "example": 1190,
+      "spearman": 0.875384024577573
+     },
+     {
+      "rank": 92,
+      "example": 214,
+      "spearman": 0.8792722734254994
+     },
+     {
+      "rank": 93,
+      "example": 1127,
+      "spearman": 0.8794642857142858
+     },
+     {
+      "rank": 94,
+      "example": 1125,
+      "spearman": 0.8799443164362519
+     },
+     {
+      "rank": 95,
+      "example": 388,
+      "spearman": 0.8828245007680491
+     },
+     {
+      "rank": 96,
+      "example": 1187,
+      "spearman": 0.8839285714285715
+     },
+     {
+      "rank": 97,
+      "example": 713,
+      "spearman": 0.8840725806451613
+     }
+    ],
+    "quantiles_over_test_sequences": {
+     "min": 0.1706989247311828,
+     "q10": 0.6070708525345623,
+     "q25": 0.7907666090629801,
+     "q50": 0.8797043010752689,
+     "q75": 0.9260392665130568,
+     "q90": 0.9484927035330262,
+     "max": 0.9746063748079877
+    },
+    "full_ranking": "panels.npz: <dataset>_selection/example and <dataset>_selection/spearman, sorted ascending"
+   }
+  },
+  "page_quote": {
+   "TACO": {
+    "quoted_on_page": 0.85,
+    "table_value_h1": 0.8530395787504902,
+    "per_sequence_value_of_the_drawn_sequence": 0.8946332565284177,
+    "note": "the page's value is the Spearman over all test transitions of the dataset pooled; the value of the drawn sequence is computed within one sequence. They are different statistics."
+   },
+   "ARCTIC": {
+    "quoted_on_page": 0.81,
+    "table_value_h1": 0.8102962629052914,
+    "per_sequence_value_of_the_drawn_sequence": 0.8799443164362519,
+    "note": "the page's value is the Spearman over all test transitions of the dataset pooled; the value of the drawn sequence is computed within one sequence. They are different statistics."
+   }
+  },
+  "display_choices": {
+   "canonical_to_surface": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0 (Example.to_vertices); the drawn map is the recorded 512-point map of the frame",
+   "colour_scales": {
+    "contact": {
+     "range": [
+      0.0,
+      0.9
+     ],
+     "stops": "grey #dcdbd5 at 0, orange #eb6834 at half, dark #7a2408 at the top",
+     "rule": "largest drawn per-vertex value over both datasets, rounded up to one decimal",
+     "largest_drawn_value": {
+      "TACO": 0.8096987009048462,
+      "ARCTIC": 0.5532841682434082
+     }
+    },
+    "not_reached": "#e7e1f1"
+   },
+   "chart": {
+    "contact_step": "#2a78d6",
+    "latent_step": "#eb6834",
+    "selected_steps_band": "#ecebe6",
+    "frame_markers": "#8a8983",
+    "y_axis": "shared, starts at 0; no second axis"
+   },
+   "camera": {
+    "TACO": {
+     "rule": "facing the contact",
+     "position": [
+      0.051095375208155894,
+      0.36041337912746124,
+      0.6941125516114205
+     ],
+     "focal_point": [
+      0.024944204759984132,
+      -0.051858518269497215,
+      0.037596189975473836
+     ],
+     "up": [
+      0.31716553579579554,
+      -0.8087815238080134,
+      0.49525596377040604
+     ],
+     "view_angle": 25.0,
+     "aspect": 1.0,
+     "fitted_on": "object and hand at all six frames"
+    },
+    "ARCTIC": {
+     "rule": "broad side, seen from the side away from the hand",
+     "position": [
+      -0.03946502533967995,
+      -0.2562351064843293,
+      0.42254842808123877
+     ],
+     "focal_point": [
+      0.0028923256425345575,
+      0.026731088400849458,
+      -0.07404086039788238
+     ],
+     "up": [
+      0.16957440190248105,
+      0.8499702583521666,
+      0.49879362679986927
+     ],
+     "view_angle": 25.0,
+     "aspect": 1.0,
+     "fitted_on": "object and hand at all six frames"
+    }
+   },
+   "hand": "recorded MANO hand of the contacting side, ghost (colour #cfcec8, opacity 0.35, front faces only)",
+   "frame_rule_parameters": {
+    "min_gap_between_steps": 8,
+    "context_frames": 3
+   }
+  },
+  "numbers": [
+   {
+    "label": "Spearman correlation between the 63 contact steps and the 63 latent steps of the drawn sequence",
+    "value": 0.8946332565284177,
+    "dataset": "TACO",
+    "source": "computed in this script from reports/z_temporal_diagnostic/taco/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "cache row 1801 (seq == 3249); also panels.npz taco_series/contact_step, latent_step"
+   },
+   {
+    "label": "median of that per-sequence correlation over the test sequences",
+    "value": 0.8946572580645161,
+    "dataset": "TACO",
+    "source": "computed in this script from reports/z_temporal_diagnostic/taco/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "rows with split == test; panels.npz taco_selection/spearman"
+   },
+   {
+    "label": "number of test sequences (candidates of the selection)",
+    "value": 364,
+    "dataset": "TACO",
+    "source": "reports/z_temporal_diagnostic/taco/cache/frames.npz",
+    "locator": "split == test; equals n_sequences.test of taco/cache/frames.json"
+   },
+   {
+    "label": "smallest and largest per-sequence correlation over the test sequences",
+    "value": [
+     0.4266993087557604,
+     0.981278801843318
+    ],
+    "dataset": "TACO",
+    "source": "computed in this script from reports/z_temporal_diagnostic/taco/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "panels.npz taco_selection/spearman, first and last value"
+   },
+   {
+    "label": "dataset-level Spearman over ALL test transitions pooled, one-frame horizon (what the page quotes; a different statistic)",
+    "value": 0.8530395787504902,
+    "dataset": "TACO",
+    "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+    "locator": "row dataset=taco, h=1, column spearman_C_z"
+   },
+   {
+    "label": "the same dataset-level Spearman, recomputed in this script from the cache",
+    "value": 0.8530395787504902,
+    "dataset": "TACO",
+    "source": "computed in this script from reports/z_temporal_diagnostic/taco/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "all (test sequence, t) with t <= 62"
+   },
+   {
+    "label": "the report's mean of the dataset-level Spearman over its horizons of 1, 4 and 8 frames",
+    "value": 0.8533173616054195,
+    "dataset": "TACO",
+    "source": "reports/z_temporal_diagnostic/report_values.json",
+    "locator": "key mean_spearman_taco"
+   },
+   {
+    "label": "number of pooled test transitions behind the dataset-level value",
+    "value": 22932,
+    "dataset": "TACO",
+    "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+    "locator": "row dataset=taco, h=1, column n_test"
+   },
+   {
+    "label": "number of transitions in the drawn sequence",
+    "value": 63,
+    "dataset": "TACO",
+    "source": "computed in this script from reports/z_temporal_diagnostic/taco/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "cache row 1801 (seq == 3249)"
+   },
+   {
+    "label": "unit of the contact step: mean distance between the maps of two random training frames",
+    "value": 6.46868896484375,
+    "dataset": "TACO",
+    "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+    "locator": "row dataset=taco, h=1, column scale_C"
+   },
+   {
+    "label": "unit of the latent step: mean distance between the standardised latents of two random training frames",
+    "value": 11.084100723266602,
+    "dataset": "TACO",
+    "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+    "locator": "row dataset=taco, h=1, column scale_z"
+   },
+   {
+    "label": "selected contact step 1 (largest first): from frame 29 to frame 30; [contact step, latent step at the same transition]",
+    "value": [
+     0.1441047340631485,
+     0.2479201853275299
+    ],
+    "dataset": "TACO",
+    "source": "computed in this script from reports/z_temporal_diagnostic/taco/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "panels.npz taco_series/contact_step[29], latent_step[29]"
+   },
+   {
+    "label": "selected contact step 2 (largest first): from frame 4 to frame 5; [contact step, latent step at the same transition]",
+    "value": [
+     0.11161847412586212,
+     0.23479585349559784
+    ],
+    "dataset": "TACO",
+    "source": "computed in this script from reports/z_temporal_diagnostic/taco/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "panels.npz taco_series/contact_step[4], latent_step[4]"
+   },
+   {
+    "label": "largest latent step of the drawn sequence (from frame 5 to frame 6)",
+    "value": 0.2862660884857178,
+    "dataset": "TACO",
+    "source": "computed in this script from reports/z_temporal_diagnostic/taco/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "panels.npz taco_series/latent_step[5]"
+   },
+   {
+    "label": "mean contact step, mean latent step and their ratio in the drawn sequence",
+    "value": [
+     0.04322276636958122,
+     0.08568372577428818,
+     1.982374906539917
+    ],
+    "dataset": "TACO",
+    "source": "computed in this script from reports/z_temporal_diagnostic/taco/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "cache row 1801 (seq == 3249)"
+   },
+   {
+    "label": "share of the training latents' variance kept by the 2-D view (first two principal components)",
+    "value": 0.30368368015570807,
+    "dataset": "TACO",
+    "source": "computed in this script from reports/z_temporal_diagnostic/taco/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "rows with split == train, all 64 frames, standardised z"
+   },
+   {
+    "label": "share of the drawn sequence's own latent variance kept by the 2-D view",
+    "value": 0.42467652172334514,
+    "dataset": "TACO",
+    "source": "computed in this script from reports/z_temporal_diagnostic/taco/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "cache row 1801 (seq == 3249)"
+   },
+   {
+    "label": "Spearman between the contact steps and the steps of the 2-D projected path (drawn sequence)",
+    "value": 0.599078341013825,
+    "dataset": "TACO",
+    "source": "computed in this script from reports/z_temporal_diagnostic/taco/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "panels.npz taco_zpath/xy"
+   },
+   {
+    "label": "frames drawn",
+    "value": [
+     1,
+     4,
+     5,
+     26,
+     29,
+     30
+    ],
+    "dataset": "TACO",
+    "source": "computed in this script from reports/z_temporal_diagnostic/taco/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "rule: CONTEXT frames before, just before, just after each selected step"
+   },
+   {
+    "label": "largest change of a drawn surface value between consecutive pictures (five pairs, in the order drawn)",
+    "value": [
+     0.237,
+     0.139,
+     0.387,
+     0.07,
+     0.209
+    ],
+    "dataset": "TACO",
+    "source": "computed in this script from reports/z_temporal_diagnostic/taco/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "panels.npz taco_frameNN/values of consecutive drawn frames"
+   },
+   {
+    "label": "closest distance between the hand and the object at each drawn frame, cm",
+    "value": [
+     0.63,
+     0.61,
+     0.25,
+     0.11,
+     0.15,
+     0.08
+    ],
+    "dataset": "TACO",
+    "source": "dense hand-to-vertex distances of the take (taco/30_bimart_gen3_scene_scale or arctic/20_bimart_contact_probe, sequences/)",
+    "locator": "sequence (pour in some, bowl, plate)/20231024_241, hand R, take frames [13, 16, 17, 38, 41, 42]"
+   },
+   {
+    "label": "Spearman correlation between the 63 contact steps and the 63 latent steps of the drawn sequence",
+    "value": 0.8799443164362519,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from reports/z_temporal_diagnostic/arctic/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "cache row 1268 (seq == 1125); also panels.npz arctic_series/contact_step, latent_step"
+   },
+   {
+    "label": "median of that per-sequence correlation over the test sequences",
+    "value": 0.8797043010752689,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from reports/z_temporal_diagnostic/arctic/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "rows with split == test; panels.npz arctic_selection/spearman"
+   },
+   {
+    "label": "number of test sequences (candidates of the selection)",
+    "value": 186,
+    "dataset": "ARCTIC",
+    "source": "reports/z_temporal_diagnostic/arctic/cache/frames.npz",
+    "locator": "split == test; equals n_sequences.test of arctic/cache/frames.json"
+   },
+   {
+    "label": "smallest and largest per-sequence correlation over the test sequences",
+    "value": [
+     0.1706989247311828,
+     0.9746063748079877
+    ],
+    "dataset": "ARCTIC",
+    "source": "computed in this script from reports/z_temporal_diagnostic/arctic/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "panels.npz arctic_selection/spearman, first and last value"
+   },
+   {
+    "label": "dataset-level Spearman over ALL test transitions pooled, one-frame horizon (what the page quotes; a different statistic)",
+    "value": 0.8102962629052914,
+    "dataset": "ARCTIC",
+    "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+    "locator": "row dataset=arctic, h=1, column spearman_C_z"
+   },
+   {
+    "label": "the same dataset-level Spearman, recomputed in this script from the cache",
+    "value": 0.8102962629052914,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from reports/z_temporal_diagnostic/arctic/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "all (test sequence, t) with t <= 62"
+   },
+   {
+    "label": "the report's mean of the dataset-level Spearman over its horizons of 1, 4 and 8 frames",
+    "value": 0.8099254204543621,
+    "dataset": "ARCTIC",
+    "source": "reports/z_temporal_diagnostic/report_values.json",
+    "locator": "key mean_spearman_arctic"
+   },
+   {
+    "label": "number of pooled test transitions behind the dataset-level value",
+    "value": 11718,
+    "dataset": "ARCTIC",
+    "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+    "locator": "row dataset=arctic, h=1, column n_test"
+   },
+   {
+    "label": "number of transitions in the drawn sequence",
+    "value": 63,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from reports/z_temporal_diagnostic/arctic/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "cache row 1268 (seq == 1125)"
+   },
+   {
+    "label": "unit of the contact step: mean distance between the maps of two random training frames",
+    "value": 5.770269393920898,
+    "dataset": "ARCTIC",
+    "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+    "locator": "row dataset=arctic, h=1, column scale_C"
+   },
+   {
+    "label": "unit of the latent step: mean distance between the standardised latents of two random training frames",
+    "value": 10.948803901672363,
+    "dataset": "ARCTIC",
+    "source": "reports/z_temporal_diagnostic/temporal_geometry_metrics.csv",
+    "locator": "row dataset=arctic, h=1, column scale_z"
+   },
+   {
+    "label": "selected contact step 1 (largest first): from frame 46 to frame 47; [contact step, latent step at the same transition]",
+    "value": [
+     0.22435368597507477,
+     0.36748576164245605
+    ],
+    "dataset": "ARCTIC",
+    "source": "computed in this script from reports/z_temporal_diagnostic/arctic/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "panels.npz arctic_series/contact_step[46], latent_step[46]"
+   },
+   {
+    "label": "selected contact step 2 (largest first): from frame 3 to frame 4; [contact step, latent step at the same transition]",
+    "value": [
+     0.1742487996816635,
+     0.34828051924705505
+    ],
+    "dataset": "ARCTIC",
+    "source": "computed in this script from reports/z_temporal_diagnostic/arctic/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "panels.npz arctic_series/contact_step[3], latent_step[3]"
+   },
+   {
+    "label": "largest latent step of the drawn sequence (from frame 46 to frame 47)",
+    "value": 0.36748576164245605,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from reports/z_temporal_diagnostic/arctic/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "panels.npz arctic_series/latent_step[46]"
+   },
+   {
+    "label": "mean contact step, mean latent step and their ratio in the drawn sequence",
+    "value": [
+     0.05091449245810509,
+     0.058582156896591187,
+     1.1505988836288452
+    ],
+    "dataset": "ARCTIC",
+    "source": "computed in this script from reports/z_temporal_diagnostic/arctic/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "cache row 1268 (seq == 1125)"
+   },
+   {
+    "label": "share of the training latents' variance kept by the 2-D view (first two principal components)",
+    "value": 0.3383747719338782,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from reports/z_temporal_diagnostic/arctic/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "rows with split == train, all 64 frames, standardised z"
+   },
+   {
+    "label": "share of the drawn sequence's own latent variance kept by the 2-D view",
+    "value": 0.17842282232520107,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from reports/z_temporal_diagnostic/arctic/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "cache row 1268 (seq == 1125)"
+   },
+   {
+    "label": "Spearman between the contact steps and the steps of the 2-D projected path (drawn sequence)",
+    "value": 0.8091877880184332,
+    "dataset": "ARCTIC",
+    "source": "computed in this script from reports/z_temporal_diagnostic/arctic/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "panels.npz arctic_zpath/xy"
+   },
+   {
+    "label": "frames drawn",
+    "value": [
+     0,
+     3,
+     4,
+     43,
+     46,
+     47
+    ],
+    "dataset": "ARCTIC",
+    "source": "computed in this script from reports/z_temporal_diagnostic/arctic/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "rule: CONTEXT frames before, just before, just after each selected step"
+   },
+   {
+    "label": "largest change of a drawn surface value between consecutive pictures (five pairs, in the order drawn)",
+    "value": [
+     0.033,
+     0.156,
+     0.325,
+     0.235,
+     0.208
+    ],
+    "dataset": "ARCTIC",
+    "source": "computed in this script from reports/z_temporal_diagnostic/arctic/cache/frames.npz (C, z, z_mu, z_sd)",
+    "locator": "panels.npz arctic_frameNN/values of consecutive drawn frames"
+   },
+   {
+    "label": "closest distance between the hand and the object at each drawn frame, cm",
+    "value": [
+     0.53,
+     0.75,
+     1.5,
+     5.74,
+     1.8,
+     0.54
+    ],
+    "dataset": "ARCTIC",
+    "source": "dense hand-to-vertex distances of the take (taco/30_bimart_gen3_scene_scale or arctic/20_bimart_contact_probe, sequences/)",
+    "locator": "sequence scissors_use_02/s10, hand L, take frames [485, 488, 489, 528, 531, 532]"
+   },
+   {
+    "label": "top of the contact colour scale",
+    "value": 0.9,
+    "dataset": "both",
+    "source": "computed in this script",
+    "locator": "largest drawn per-vertex value, rounded up to one decimal"
+   },
+   {
+    "label": "frames between the earlier picture and the picture just before a selected step",
+    "value": 3,
+    "dataset": "both",
+    "source": "constant CONTEXT of this script (display rule)",
+    "locator": "frames_around"
+   },
+   {
+    "label": "smallest distance, in transitions, between the two selected contact steps",
+    "value": 8,
+    "dataset": "both",
+    "source": "constant MIN_GAP of this script (display rule)",
+    "locator": "largest_steps"
+   }
+  ],
+  "cross_checks": {
+   "TACO": {
+    "pooled_spearman_recomputed_here": 0.8530395787504902,
+    "pooled_spearman_in_table": 0.8530395787504902,
+    "pooled_abs_difference": 0.0,
+    "pooled_transitions_here": 22932,
+    "pooled_transitions_in_table": 22932,
+    "step_series_vs_geometry_arrays_max_abs_diff": {
+     "contact": 0.0,
+     "latent": 0.0
+    },
+    "cached_map_vs_sequences_npz_max_abs_diff": 0.0,
+    "n_test_sequences_here": 364,
+    "n_test_sequences_in_frames_json": 364,
+    "table_rounds_to_the_page_quote": true
+   },
+   "ARCTIC": {
+    "pooled_spearman_recomputed_here": 0.8102962629052914,
+    "pooled_spearman_in_table": 0.8102962629052914,
+    "pooled_abs_difference": 0.0,
+    "pooled_transitions_here": 11718,
+    "pooled_transitions_in_table": 11718,
+    "step_series_vs_geometry_arrays_max_abs_diff": {
+     "contact": 0.0,
+     "latent": 0.0
+    },
+    "cached_map_vs_sequences_npz_max_abs_diff": 0.0,
+    "n_test_sequences_here": 186,
+    "n_test_sequences_in_frames_json": 186,
+    "table_rounds_to_the_page_quote": true
+   }
+  },
+  "inference": "none: data only. z is the cached encoding of the frozen Stage-1 encoder, read from reports/z_temporal_diagnostic/<dataset>/cache/frames.npz (the encoder checkpoint is named in cache/frames.json and was not loaded here). Newly computed: the per-sequence correlations, the two step series of the drawn sequences (equal to the study's saved transition table), the principal components of the training latents. Device: CPU.",
+  "caveats": [
+   "One sequence per dataset. It is the median sequence by the per-sequence correlation, so it is typical in that one number; it says nothing about the spread (see quantiles_over_test_sequences).",
+   "The per-sequence correlation is not the number on the page: the page quotes the Spearman over all test transitions of a dataset pooled, which also contains differences between sequences.",
+   "z is computed by the encoder from the true frames, so the figure shows how the representation of recorded contact moves, not a prediction.",
+   "The figure shows that the two steps rise and fall together, not that they are equal: in these units the mean latent step is 2.0 times the mean contact step on the TACO sequence and 1.2 times on the ARCTIC sequence.",
+   "A single frame-to-frame step is a small change of the picture, also at the selected steps: the pictures just before and just after a step differ only locally (see the numbers 'largest change of a drawn surface value').",
+   "The 2-D view keeps 30% (TACO) and 34% (ARCTIC) of the variance of the training latents, and 42% and 18% of the drawn sequences' own latent variance; a step that is long in the 64 dimensions can look short there. The rank correlation between the contact steps and the steps of the projected path is 0.60 (TACO) and 0.81 (ARCTIC), lower than in 64 dimensions.",
+   "The two rows use different camera rules (bowl: the direction the contact faces; scissors: the broad side, from the side away from the hand); within a row the camera is fixed.",
+   "One colour scale for both rows, set by the largest drawn value (TACO); the ARCTIC contact stays in its lower two thirds.",
+   "The pictures draw the 512-point canonical map through the display rule, which smooths: on thin parts the contact shows on both faces. ARCTIC: the map is defined on the closed object, so contact near the joint is drawn on both blades."
+  ],
+  "suggested_caption": "One test sequence per dataset, selected as the median sequence of its test set by the rank correlation between its two step series: a right hand on a bowl (TACO, 0.89) and a left hand on scissors (ARCTIC, 0.88). Chart: for each of the 63 frame-to-frame transitions, how far the recorded contact map moves (blue) and how far the latent z moves (orange), both in units of the distance between two unrelated training frames. Pictures: the recorded contact on the object, with the hand as a ghost, 3 frames before, just before and just after the largest contact step of the sequence and the largest one at least 8 frames away from it (shaded in the chart); a single step is a small change of the picture. In both sequences the orange line peaks where the blue line peaks and is low where the contact hardly changes. The square shows the same z path projected on the two directions along which the training latents vary most, which keep about a third of their variance (30% on TACO, 34% on ARCTIC), so distances in it are only indicative. The 0.85 and 0.81 quoted in the text are a different statistic: the correlation over all test transitions of a dataset taken together.",
+  "suggested_alt": "For one TACO and one ARCTIC test sequence, a chart in which the size of the latent step follows the size of the contact step over 63 transitions, above six renders of the object coloured by the recorded contact around the two largest contact steps.",
+  "helpers_outside_qlib": "chart_band (matplotlib chart at the grid's font size), locate / stack (place the chart above a qlib.grid row), camera_for (two geometric view rules)",
+  "command": "CUDA_VISIBLE_DEVICES=\"\" PYTHONDONTWRITEBYTECODE=1 VTK_DEFAULT_OPENGL_WINDOW=vtkOSOpenGLRenderWindow PYVISTA_OFF_SCREEN=true python docs/build/qual/q_z_moves_with_contact.py"
+ }
+}

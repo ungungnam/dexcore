@@ -1,0 +1,1283 @@
+{
+ "fig_id": "contact_map_primer",
+ "created": "2026-10-04T23:52:40+0900",
+ "outputs": {
+  "figure": "reports/project_page_qualitative/contact_map_primer/figure.png",
+  "panels": "reports/project_page_qualitative/contact_map_primer/panels.npz",
+  "meta": "reports/project_page_qualitative/contact_map_primer/meta.json",
+  "asset": "docs/assets/img/qual_contact_map_primer.webp"
+ },
+ "master_size": [
+  2472,
+  941
+ ],
+ "asset_size": [
+  2200,
+  837
+ ],
+ "layout": {
+  "width": 2472,
+  "height": 941,
+  "panel": [
+   [
+    794,
+    244
+   ],
+   [
+    400,
+    201
+   ]
+  ],
+  "font_px": 34,
+  "cap_px": 25,
+  "cap_px_at_1100": 11.12,
+  "blocks": [
+   {
+    "width": 2472,
+    "height": 484,
+    "panel": [
+     794,
+     244
+    ],
+    "font_px": 34,
+    "cap_px": 25,
+    "cap_px_at_1100": 11.12
+   },
+   {
+    "width": 2472,
+    "height": 457,
+    "panel": [
+     400,
+     201
+    ],
+    "font_px": 34,
+    "cap_px": 25,
+    "cap_px_at_1100": 11.12
+   }
+  ]
+ },
+ "display_rule": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0",
+ "soft_contact": "exp(-distance / 0.02 m)",
+ "colours": {
+  "zero": "#dcdbd5",
+  "orange": "#eb6834",
+  "dark": "#7a2408",
+  "blue": "#2a78d6",
+  "no_data": "#e7e1f1",
+  "parts": {
+   "palm": "#6b6a63",
+   "thumb": "#2a78d6",
+   "index": "#eb6834",
+   "middle": "#1baf7a",
+   "ring": "#eda100",
+   "little": "#8e5bd0"
+  }
+ },
+ "panels": {
+  "selection/test_examples": {
+   "shape": [
+    364
+   ],
+   "dtype": "int64"
+  },
+  "selection/drift": {
+   "shape": [
+    364
+   ],
+   "dtype": "float32"
+  },
+  "selection/amount_per_frame": {
+   "shape": [
+    64
+   ],
+   "dtype": "float64"
+  },
+  "top_hand_on_object/object_verts": {
+   "shape": [
+    4002,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "top_hand_on_object/object_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "top_hand_on_object/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "top_hand_on_object/hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "top_surface/object_verts": {
+   "shape": [
+    4002,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "top_surface/object_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "top_surface/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "top_surface/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "top_points/xyz": {
+   "shape": [
+    512,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "top_points/values": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "top_points/ghost_object_verts": {
+   "shape": [
+    4002,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "check/dense_per_vertex": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "check/hand_distance": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "check/covered": {
+   "shape": [
+    4002
+   ],
+   "dtype": "bool"
+  },
+  "strip_frame_00/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_00/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "strip_frame_00/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_00/hand_distance": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_08/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_08/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "strip_frame_08/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_08/hand_distance": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_16/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_16/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "strip_frame_16/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_16/hand_distance": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_32/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_32/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "strip_frame_32/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_32/hand_distance": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_48/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_48/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "strip_frame_48/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_48/hand_distance": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_63/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_63/map_512": {
+   "shape": [
+    512
+   ],
+   "dtype": "float32"
+  },
+  "strip_frame_63/vertex_values": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  },
+  "strip_frame_63/hand_distance": {
+   "shape": [
+    4002
+   ],
+   "dtype": "float64"
+  }
+ },
+ "meta": {
+  "id": "contact_map_primer",
+  "block": "F1-intro",
+  "title": "What a contact map is: one recorded TACO sequence, on the object and as 512 points",
+  "panels": {
+   "top row, left": "frame 63: the recorded right hand (skin colour) on the knife (grey, no contact drawn)",
+   "top row, middle": "frame 63: the knife alone, its surface coloured by the recorded contact map of this frame",
+   "top row, right": "frame 63: the 512 stored values as dots at the 512 canonical points, in front of a pale ghost of the knife",
+   "bottom row": "frames 0, 8, 16, 32, 48, 63: the recorded hand on the knife, the knife coloured by the recorded contact map of that frame",
+   "colour bar": "contact value 0 to 1, shared by every panel"
+  },
+  "examples": [
+   {
+    "dataset": "TACO",
+    "example": 3011,
+    "sequence_id": "(scrape off, knife, plate)/20231020_226",
+    "object": "knife (a cleaver), mesh 063, role tool",
+    "hand": "R",
+    "split": "test",
+    "first_take_frame": 0,
+    "frames_drawn": {
+     "top row": [
+      63
+     ],
+     "bottom row": [
+      0,
+      8,
+      16,
+      32,
+      48,
+      63
+     ]
+    }
+   }
+  ],
+  "selection_rule": "Sequence: among the TACO test sequences of the hierarchical contact study (split_set == test in sequences_meta.csv), the one with the largest Euclidean distance between its last and its first recorded 512-value contact map; this is the sequence the page already shows (example 3011). Top-row frame: the frame of that sequence with the largest contact amount (sum of the 512 values).",
+  "selection_evidence": {
+   "metric": "||C_63 - C_0||_2 over the 512 canonical values, float32, per test sequence",
+   "candidates": 364,
+   "chosen": {
+    "example": 3011,
+    "rank": 1,
+    "value": 8.731403350830078
+   },
+   "top_10": [
+    {
+     "rank": 1,
+     "example": 3011,
+     "value": 8.731403350830078,
+     "group": "knife__tool__R"
+    },
+    {
+     "rank": 2,
+     "example": 2973,
+     "value": 8.53547191619873,
+     "group": "knife__tool__R"
+    },
+    {
+     "rank": 3,
+     "example": 2730,
+     "value": 8.482810020446777,
+     "group": "roller__tool__R"
+    },
+    {
+     "rank": 4,
+     "example": 748,
+     "value": 8.397220611572266,
+     "group": "plate__target__L"
+    },
+    {
+     "rank": 5,
+     "example": 660,
+     "value": 8.37236499786377,
+     "group": "plate__target__L"
+    },
+    {
+     "rank": 6,
+     "example": 2972,
+     "value": 8.294888496398926,
+     "group": "knife__tool__R"
+    },
+    {
+     "rank": 7,
+     "example": 3067,
+     "value": 7.865103721618652,
+     "group": "knife__tool__R"
+    },
+    {
+     "rank": 8,
+     "example": 2226,
+     "value": 7.864165306091309,
+     "group": "spatula__tool__R"
+    },
+    {
+     "rank": 9,
+     "example": 3015,
+     "value": 7.790717124938965,
+     "group": "knife__tool__R"
+    },
+    {
+     "rank": 10,
+     "example": 3016,
+     "value": 7.754466533660889,
+     "group": "knife__tool__R"
+    }
+   ],
+   "median": 4.369874000549316,
+   "minimum": 0.4545934498310089,
+   "sorted_values": [
+    8.731399536132812,
+    8.535499572753906,
+    8.482799530029297,
+    8.397199630737305,
+    8.372400283813477,
+    8.294899940490723,
+    7.865099906921387,
+    7.864200115203857,
+    7.7906999588012695,
+    7.754499912261963,
+    7.747000217437744,
+    7.731100082397461,
+    7.689300060272217,
+    7.553299903869629,
+    7.402599811553955,
+    7.377699851989746,
+    7.371600151062012,
+    7.338200092315674,
+    7.329800128936768,
+    7.327400207519531,
+    7.237100124359131,
+    7.23199987411499,
+    7.1722002029418945,
+    7.145999908447266,
+    7.062600135803223,
+    7.035699844360352,
+    7.02239990234375,
+    6.989099979400635,
+    6.964700222015381,
+    6.888000011444092,
+    6.881999969482422,
+    6.799900054931641,
+    6.76039981842041,
+    6.729000091552734,
+    6.678400039672852,
+    6.677299976348877,
+    6.672100067138672,
+    6.662099838256836,
+    6.633999824523926,
+    6.619999885559082,
+    6.609600067138672,
+    6.597799777984619,
+    6.57420015335083,
+    6.567699909210205,
+    6.564499855041504,
+    6.520699977874756,
+    6.483500003814697,
+    6.480199813842773,
+    6.427700042724609,
+    6.380300045013428,
+    6.356800079345703,
+    6.281000137329102,
+    6.252600193023682,
+    6.250800132751465,
+    6.2153000831604,
+    6.194499969482422,
+    6.181600093841553,
+    6.162799835205078,
+    6.161099910736084,
+    6.14870023727417,
+    6.138199806213379,
+    6.13670015335083,
+    6.129700183868408,
+    6.1006999015808105,
+    6.093400001525879,
+    6.088099956512451,
+    6.065999984741211,
+    6.059599876403809,
+    6.051000118255615,
+    6.023600101470947,
+    6.015500068664551,
+    5.968500137329102,
+    5.96589994430542,
+    5.922299861907959,
+    5.910600185394287,
+    5.8445000648498535,
+    5.827300071716309,
+    5.8028998374938965,
+    5.788899898529053,
+    5.772299766540527,
+    5.76140022277832,
+    5.760000228881836,
+    5.754799842834473,
+    5.711999893188477,
+    5.708799839019775,
+    5.671500205993652,
+    5.644400119781494,
+    5.6392998695373535,
+    5.615900039672852,
+    5.5625,
+    5.556399822235107,
+    5.543399810791016,
+    5.512800216674805,
+    5.507400035858154,
+    5.500699996948242,
+    5.497799873352051,
+    5.445499897003174,
+    5.41949987411499,
+    5.407700061798096,
+    5.386600017547607,
+    5.386300086975098,
+    5.384200096130371,
+    5.3755998611450195,
+    5.35260009765625,
+    5.34630012512207,
+    5.3460001945495605,
+    5.343299865722656,
+    5.341599941253662,
+    5.317299842834473,
+    5.300899982452393,
+    5.294400215148926,
+    5.286499977111816,
+    5.286099910736084,
+    5.259200096130371,
+    5.256199836730957,
+    5.229700088500977,
+    5.228499889373779,
+    5.227399826049805,
+    5.221099853515625,
+    5.207099914550781,
+    5.19350004196167,
+    5.184199810028076,
+    5.1803998947143555,
+    5.1682000160217285,
+    5.16510009765625,
+    5.163400173187256,
+    5.150199890136719,
+    5.147799968719482,
+    5.121799945831299,
+    5.111700057983398,
+    5.107399940490723,
+    5.097700119018555,
+    5.077499866485596,
+    5.043499946594238,
+    5.042900085449219,
+    5.042099952697754,
+    5.039299964904785,
+    5.0295000076293945,
+    5.00600004196167,
+    5.000699996948242,
+    4.959499835968018,
+    4.952499866485596,
+    4.951300144195557,
+    4.929599761962891,
+    4.89900016784668,
+    4.89739990234375,
+    4.895599842071533,
+    4.888299942016602,
+    4.883399963378906,
+    4.862500190734863,
+    4.855299949645996,
+    4.853700160980225,
+    4.849999904632568,
+    4.839700222015381,
+    4.82390022277832,
+    4.821199893951416,
+    4.820899963378906,
+    4.818600177764893,
+    4.813600063323975,
+    4.810500144958496,
+    4.753600120544434,
+    4.752500057220459,
+    4.6971001625061035,
+    4.6508002281188965,
+    4.643400192260742,
+    4.607900142669678,
+    4.595900058746338,
+    4.595799922943115,
+    4.58519983291626,
+    4.5782999992370605,
+    4.576000213623047,
+    4.5725998878479,
+    4.565999984741211,
+    4.54449987411499,
+    4.521599769592285,
+    4.470900058746338,
+    4.465799808502197,
+    4.450200080871582,
+    4.419600009918213,
+    4.4029998779296875,
+    4.378600120544434,
+    4.370500087738037,
+    4.369200229644775,
+    4.3678998947143555,
+    4.367499828338623,
+    4.308700084686279,
+    4.308599948883057,
+    4.290200233459473,
+    4.2434000968933105,
+    4.235899925231934,
+    4.231900215148926,
+    4.2245001792907715,
+    4.203800201416016,
+    4.1971001625061035,
+    4.195199966430664,
+    4.194799900054932,
+    4.19350004196167,
+    4.172299861907959,
+    4.14139986038208,
+    4.134399890899658,
+    4.1290998458862305,
+    4.127399921417236,
+    4.126800060272217,
+    4.07859992980957,
+    4.070199966430664,
+    4.054999828338623,
+    4.049699783325195,
+    4.000500202178955,
+    3.9946999549865723,
+    3.9921000003814697,
+    3.9890999794006348,
+    3.981300115585327,
+    3.9700000286102295,
+    3.9605000019073486,
+    3.944200038909912,
+    3.882200002670288,
+    3.8812999725341797,
+    3.8794000148773193,
+    3.8768999576568604,
+    3.8747000694274902,
+    3.8554999828338623,
+    3.844599962234497,
+    3.8334999084472656,
+    3.816699981689453,
+    3.796799898147583,
+    3.7901999950408936,
+    3.775700092315674,
+    3.7725000381469727,
+    3.762200117111206,
+    3.7446999549865723,
+    3.740299940109253,
+    3.73799991607666,
+    3.7348999977111816,
+    3.7342000007629395,
+    3.7019999027252197,
+    3.699199914932251,
+    3.694499969482422,
+    3.6888999938964844,
+    3.6858999729156494,
+    3.678800106048584,
+    3.6709001064300537,
+    3.668100118637085,
+    3.6647000312805176,
+    3.6617000102996826,
+    3.648099899291992,
+    3.644200086593628,
+    3.628999948501587,
+    3.611999988555908,
+    3.611299991607666,
+    3.610599994659424,
+    3.6033999919891357,
+    3.5982000827789307,
+    3.59689998626709,
+    3.5699000358581543,
+    3.5697999000549316,
+    3.5594000816345215,
+    3.5546998977661133,
+    3.5065999031066895,
+    3.498199939727783,
+    3.495500087738037,
+    3.4941999912261963,
+    3.4941000938415527,
+    3.490799903869629,
+    3.483599901199341,
+    3.4560000896453857,
+    3.405600070953369,
+    3.3954999446868896,
+    3.392899990081787,
+    3.3740999698638916,
+    3.3554999828338623,
+    3.343899965286255,
+    3.292099952697754,
+    3.29010009765625,
+    3.279599905014038,
+    3.277899980545044,
+    3.2744998931884766,
+    3.2676000595092773,
+    3.262200117111206,
+    3.249000072479248,
+    3.230299949645996,
+    3.1928999423980713,
+    3.164299964904785,
+    3.1545000076293945,
+    3.140000104904175,
+    3.135499954223633,
+    3.1338000297546387,
+    3.1270999908447266,
+    3.1131999492645264,
+    3.076200008392334,
+    3.0683000087738037,
+    3.053299903869629,
+    3.032900094985962,
+    3.025899887084961,
+    3.005000114440918,
+    2.9753000736236572,
+    2.958199977874756,
+    2.9309000968933105,
+    2.816800117492676,
+    2.7909998893737793,
+    2.7832999229431152,
+    2.7727999687194824,
+    2.7653000354766846,
+    2.7386999130249023,
+    2.725600004196167,
+    2.6958000659942627,
+    2.6861000061035156,
+    2.680999994277954,
+    2.6466000080108643,
+    2.642699956893921,
+    2.6164000034332275,
+    2.6149001121520996,
+    2.6096999645233154,
+    2.608099937438965,
+    2.59060001373291,
+    2.479599952697754,
+    2.409899950027466,
+    2.346299886703491,
+    2.3108999729156494,
+    2.2799999713897705,
+    2.2757999897003174,
+    2.259200096130371,
+    2.2095999717712402,
+    2.1856000423431396,
+    2.1510000228881836,
+    2.077899932861328,
+    2.0703001022338867,
+    2.0271999835968018,
+    2.0179998874664307,
+    2.0032999515533447,
+    1.940000057220459,
+    1.919100046157837,
+    1.881500005722046,
+    1.805400013923645,
+    1.7781000137329102,
+    1.7736999988555908,
+    1.7575000524520874,
+    1.7431999444961548,
+    1.7288999557495117,
+    1.7268999814987183,
+    1.6842999458312988,
+    1.617799997329712,
+    1.5921000242233276,
+    1.5872999429702759,
+    1.5570000410079956,
+    1.5261000394821167,
+    1.5054999589920044,
+    1.465499997138977,
+    1.3335000276565552,
+    1.2211999893188477,
+    1.2064000368118286,
+    1.1758999824523926,
+    1.079200029373169,
+    1.062000036239624,
+    1.0430999994277954,
+    0.9988999962806702,
+    0.9652000069618225,
+    0.8623999953269958,
+    0.8033000230789185,
+    0.7378000020980835,
+    0.6729000210762024,
+    0.6197999715805054,
+    0.5633999705314636,
+    0.5023999810218811,
+    0.4546000063419342
+   ],
+   "frame_metric": "sum of the 512 canonical values of a frame",
+   "frame_chosen": {
+    "frame": 63,
+    "value": 164.0179073214531
+   },
+   "frame_top_5": [
+    {
+     "rank": 1,
+     "frame": 63,
+     "value": 164.0179073214531
+    },
+    {
+     "rank": 2,
+     "frame": 60,
+     "value": 162.36293804645538
+    },
+    {
+     "rank": 3,
+     "frame": 59,
+     "value": 162.26537650823593
+    },
+    {
+     "rank": 4,
+     "frame": 61,
+     "value": 162.0901551246643
+    },
+    {
+     "rank": 5,
+     "frame": 58,
+     "value": 162.08047324419022
+    }
+   ],
+   "amount_per_frame": [
+    30.73,
+    30.95,
+    30.49,
+    30.34,
+    30.5,
+    30.5,
+    30.87,
+    30.79,
+    30.73,
+    30.68,
+    30.95,
+    31.83,
+    33.43,
+    34.91,
+    36.02,
+    38.78,
+    41.92,
+    46.24,
+    49.05,
+    51.67,
+    54.62,
+    51.3,
+    48.11,
+    40.11,
+    37.21,
+    47.31,
+    63.94,
+    77.71,
+    87.81,
+    92.72,
+    99.37,
+    102.19,
+    106.52,
+    112.09,
+    115.14,
+    119.96,
+    127.6,
+    136.32,
+    142.21,
+    140.43,
+    141.51,
+    144.69,
+    148.35,
+    150.14,
+    151.17,
+    151.76,
+    152.8,
+    153.65,
+    153.12,
+    153.24,
+    153.92,
+    154.64,
+    155.61,
+    156.62,
+    158.37,
+    159.27,
+    160.8,
+    161.16,
+    162.08,
+    162.27,
+    162.36,
+    162.09,
+    161.43,
+    164.02
+   ],
+   "cross_checks_against_the_study": {
+    "test_set_equals_saved_prediction_file": true,
+    "max_abs_difference_between_sequences_C_and_saved_gt": 0.0,
+    "study_high_drift_example": 3011,
+    "contact_amount_frame0": {
+     "script": 30.729111909866333,
+     "sequences_meta.csv mass0": 30.728872299194336
+    },
+    "contact_amount_mean": {
+     "script": 97.48604137636721,
+     "sequences_meta.csv mass_mean": 97.48606872558594
+    },
+    "error_of_holding_first_map": {
+     "script": 4.533856391906738,
+     "per_example.csv static_gt E_C": 4.533856391906738
+    },
+    "mean_frame_to_frame_change": {
+     "script": 0.2845606505870819,
+     "per_example.csv static_gt dmag_true": 0.2845606505870819
+    }
+   }
+  },
+  "display_choices": {
+   "canonical_to_surface": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0 (the study's operator transposed and normalised: a smoothing, not an inverse)",
+   "colour_scale": {
+    "function": "qlib.contact_rgb",
+    "range": [
+     0.0,
+     1.0
+    ],
+    "stops": {
+     "0": "#dcdbd5",
+     "0.5": "#eb6834",
+     "1.0": "#7a2408"
+    },
+    "why": "the soft contact exp(-d / 2 cm) lies in [0, 1], so the scale does not depend on the example",
+    "largest_value_drawn": {
+     "on the surface": 0.7805217504501343,
+     "on the points": 0.82421875
+    },
+    "not_reached": "2 of 4002 vertices are not reached by the 512 points and are drawn in #e7e1f1; pixels of the coloured panels with that tint: 0 (no legend entry is drawn for it)"
+   },
+   "camera": {
+    "direction_rule": "the opposite of qlib.hand_side_view(object, hand at frame 63, tilt=0.5): the knife's broad side, longest axis horizontal, from the side on which the fingers (not the back of the hand) face the viewer; chosen by looking at both broad sides",
+    "direction": [
+     -0.046516544229421156,
+     -0.4443897017002778,
+     -0.8946250634403724
+    ],
+    "up": [
+     0.09300104144459068,
+     0.8897779577564665,
+     -0.4468176274286336
+    ],
+    "margin": 0.08,
+    "lens": "perspective; the horizontal field of view is 25 degrees in both rows (the vertical view angle follows from the panel's proportions), so the knife has the same perspective in both rows",
+    "top row": {
+     "camera": {
+      "position": [
+       -0.04659685248281053,
+       -0.3715855936822107,
+       -0.769628209528407
+      ],
+      "focal_point": [
+       -0.005900824156842051,
+       0.017198573064310167,
+       0.013054329039522914
+      ],
+      "up": [
+       0.09300104144459068,
+       0.8897779577564665,
+       -0.4468176274286337
+      ],
+      "view_angle": 7.794829594690711,
+      "aspect": 3.2540983606557377
+     },
+     "panel_px": [
+      794,
+      244
+     ],
+     "fitted_on": "knife, hand at frame 63, the 512 points"
+    },
+    "bottom row": {
+     "camera": {
+      "position": [
+       -0.058300297864491354,
+       -0.39249907032474374,
+       -0.7398563824573307
+      ],
+      "focal_point": [
+       -0.018125677926728704,
+       -0.008696110199162237,
+       0.032798218306871595
+      ],
+      "up": [
+       0.09300104144459068,
+       0.8897779577564665,
+       -0.4468176274286337
+      ],
+      "view_angle": 12.713260446752098,
+      "aspect": 1.9900497512437811
+     },
+     "panel_px": [
+      400,
+      201
+     ],
+     "fitted_on": "knife and the hand at all six frames"
+    }
+   },
+   "hand": "MANO mesh of the recorded right hand, opaque, #e8d2c0; in the top-left panel it is drawn on the uncoloured knife",
+   "points": "spheres of radius 3.5 mm at canonical point * object radius + object centre (the inverse of the study's normalisation), in front of the knife drawn as a ghost (qlib.GHOST)",
+   "template_of_the_points": {
+    "mesh_id": "122",
+    "largest_gap_canonical_units": 3.0080041927880083e-08,
+    "extent_m": [
+     0.299,
+     0.068,
+     0.024
+    ]
+   },
+   "layout": "two qlib.grid blocks of equal width stacked by this script (qlib.grid needs equal panels)"
+  },
+  "numbers": [
+   {
+    "label": "values per contact map (canonical points)",
+    "value": 512,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/sequences.npz",
+    "locator": "key C, last dimension"
+   },
+   {
+    "label": "frames per sequence",
+    "value": 64,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/sequences.npz",
+    "locator": "key C, second dimension"
+   },
+   {
+    "label": "frame of the top row",
+    "value": 63,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "selection/amount_per_frame, argmax"
+   },
+   {
+    "label": "frames of the bottom row",
+    "value": [
+     0,
+     8,
+     16,
+     32,
+     48,
+     63
+    ],
+    "dataset": "TACO",
+    "source": "docs/build/qual/q_contact_map_primer.py",
+    "locator": "STRIP_FRAMES (the frames of the page's image f1b_taco_knife_rollout.png)"
+   },
+   {
+    "label": "test sequences ranked",
+    "value": 364,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/sequences_meta.csv",
+    "locator": "rows with split_set == test"
+   },
+   {
+    "label": "rank of the selected sequence by first-to-last map difference",
+    "value": 1,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "selection/drift, position of the largest value"
+   },
+   {
+    "label": "first-to-last map difference of the selected sequence (rank 1)",
+    "value": 8.731,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "selection/drift at selection/test_examples == 3011; computed from taco/50_hier_contact_gen/sequences.npz key C"
+   },
+   {
+    "label": "first-to-last map difference of the runner-up",
+    "value": 8.535,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "selection/drift at selection/test_examples == 2973"
+   },
+   {
+    "label": "median first-to-last map difference of the test sequences",
+    "value": 4.37,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "selection/drift, median"
+   },
+   {
+    "label": "contact amount at frame 0 (sum of the 512 values)",
+    "value": 30.7,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "selection/amount_per_frame[0]; equals mass0 of row 3011 in taco/50_hier_contact_gen/sequences_meta.csv"
+   },
+   {
+    "label": "contact amount at frame 63 (sum of the 512 values)",
+    "value": 164.0,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "selection/amount_per_frame[63]"
+   },
+   {
+    "label": "largest of the 512 values at frame 0",
+    "value": 0.39,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "strip_frame_00/map_512, max"
+   },
+   {
+    "label": "largest of the 512 values at frame 63",
+    "value": 0.82,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "top_points/values, max"
+   },
+   {
+    "label": "largest value drawn on the surface at frame 63",
+    "value": 0.78,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "top_surface/vertex_values, nanmax"
+   },
+   {
+    "label": "soft-contact length scale, cm (value = exp(-distance / 2 cm) per mesh vertex, then averaged around each point)",
+    "value": 2.0,
+    "dataset": "TACO",
+    "source": "docs/build/qual/qlib.py",
+    "locator": "SOFT_SCALE; hier_contact_gen report, data section"
+   },
+   {
+    "label": "smallest distance between a hand vertex and a knife vertex at frame 0, mm",
+    "value": 6.4,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "strip_frame_00/hand_distance, min"
+   },
+   {
+    "label": "smallest distance between a hand vertex and a knife vertex at frame 8, mm",
+    "value": 6.0,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "strip_frame_08/hand_distance, min"
+   },
+   {
+    "label": "smallest distance between a hand vertex and a knife vertex at frame 16, mm",
+    "value": 1.2,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "strip_frame_16/hand_distance, min"
+   },
+   {
+    "label": "smallest distance between a hand vertex and a knife vertex at frame 32, mm",
+    "value": 0.6,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "strip_frame_32/hand_distance, min"
+   },
+   {
+    "label": "smallest distance between a hand vertex and a knife vertex at frame 48, mm",
+    "value": 0.1,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "strip_frame_48/hand_distance, min"
+   },
+   {
+    "label": "smallest distance between a hand vertex and a knife vertex at frame 63, mm",
+    "value": 0.6,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "strip_frame_63/hand_distance, min"
+   },
+   {
+    "label": "mesh vertices of this knife",
+    "value": 4002,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "top_surface/object_verts, rows"
+   },
+   {
+    "label": "mesh vertices the 512 points do not reach (drawn pale violet)",
+    "value": 2,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "top_surface/vertex_values, NaN count"
+   },
+   {
+    "label": "median distance of the 512 points from this knife's nearest mesh vertex, mm",
+    "value": 2.9,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "top_points/xyz against top_surface/object_verts"
+   },
+   {
+    "label": "largest distance of the 512 points from this knife's nearest mesh vertex, mm",
+    "value": 14.3,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "top_points/xyz against top_surface/object_verts"
+   },
+   {
+    "label": "correlation between the surface drawing and the per-vertex recorded contact at frame 63",
+    "value": 0.979,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "top_surface/vertex_values against check/dense_per_vertex (reached vertices)"
+   },
+   {
+    "label": "length of the knife, m",
+    "value": 0.306,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "top_surface/object_verts, largest axis extent"
+   },
+   {
+    "label": "blade height of this knife, m",
+    "value": 0.093,
+    "dataset": "TACO",
+    "source": "panels.npz of contact_map_primer",
+    "locator": "top_surface/object_verts, second axis extent"
+   },
+   {
+    "label": "blade height of the template knife the points were sampled on, m",
+    "value": 0.068,
+    "dataset": "TACO",
+    "source": "taco/30_bimart_gen3_scene_scale/assets/taco_mesh_dict.npy",
+    "locator": "mesh 122, verts_original, second axis extent"
+   },
+   {
+    "label": "colour scale, lowest and highest value",
+    "value": [
+     0.0,
+     1.0
+    ],
+    "dataset": "TACO",
+    "source": "docs/build/qual/q_contact_map_primer.py",
+    "locator": "VMAX"
+   },
+   {
+    "label": "the study's distance for a hard contact, cm (a sequence starts where a vertex is this close and the amount is at least zero_mass)",
+    "value": 1.0,
+    "dataset": "TACO",
+    "source": "taco/50_hier_contact_gen/config/sequence_construction.json",
+    "locator": "key hard_mm (metres); keys firm_rule, zero_mass, firm_persist_frames"
+   }
+  ],
+  "self_check": {
+   "median distance to the hand of vertices drawn at >= half the largest value, frame 63, mm": 7.7,
+   "median distance to the hand of vertices drawn at <= 5 % of the largest value, frame 63, mm": 130.6,
+   "max |W s - C| over the drawn frames (float16 storage)": 0.00024366378784179688,
+   "max |cached distance - distance of the drawn hand| over the drawn frames, mm": 7.449067557230293e-06,
+   "pixels of the coloured panels tinted pale violet (vertices the map does not reach)": 0,
+   "non-white pixels on the edge of any panel (0 = nothing clipped)": 0
+  },
+  "inference": "none: recorded data only; no checkpoint was loaded and no model was run (the MANO hand mesh is computed on CPU from the recorded hand parameters)",
+  "caveats": [
+   "One sequence. It is the test sequence with the largest change between its first and last map, so it is the least typical one in that respect (its difference is 2.0 times the test median).",
+   "The top-row frame (63) is also the last frame of the bottom row, so the bottom row's last panel repeats it with the hand in place.",
+   "In frames 0, 8 and 16 the hand is beside the handle and not closed on it (nearest hand vertex 6.4 mm from the knife at frame 0); the faint colour there is proximity, not touch. The study starts a sequence at the first frame of 'firm contact', which it defines as 'n_hard>0 and mass>=zero_mass' (a vertex within 1 cm of the hand, amount at least 1.5) for 3 frames in a row; frame 0 meets it without a grasp.",
+   "The picture is coarse twice over: the value decays over 2 cm, and the 512-value map is spread back onto the mesh by the study's own operator, which smooths. It shows that the whole handle is in contact, not which finger touches where, and the colour reaches a little onto the blade next to the handle.",
+   "The 512 points come from the category's template knife (mesh 122, blade 0.068 m high against 0.093 m here) scaled to this knife, not from this knife: their outline is another knife's, and they lie up to 14.3 mm from this knife's nearest mesh vertex (median 2.9 mm).",
+   "Frames 0, 8 and 16 look almost alike: the hand hardly moves before it closes on the handle.",
+   "The opaque hand hides the part of the handle under the fingers in the bottom row; the top-middle panel shows that frame's map without the hand.",
+   "No model output is shown; TACO only."
+  ],
+  "suggested_caption": "One recorded TACO test sequence, a right hand taking hold of a knife, selected as the test sequence whose contact map differs most between its first and its last frame (rank 1 of 364), so it is not a typical one. Top row, frame 63 (the frame of this sequence with the largest contact amount): the recorded hand on the knife; the knife alone with that frame's contact map drawn on its surface; and the same map as it is stored, one value on each of 512 points. The points come from a template knife of the category, scaled to this knife, so their outline differs from it; the pale shape behind them is this knife. Bottom row: frames 0, 8, 16, 32, 48 and 63 of the 64, with the hand. The value falls off with the distance to the hand (scale 2 cm) instead of switching on at touch, so at frame 0, when the hand is still beside the handle (6.4 mm from the knife at its nearest point), the handle is already faintly coloured, and the colour deepens as the hand closes on it. All panels share one colour scale, 0 to 1.",
+  "suggested_alt": "Renders of one recorded sequence of a right hand grasping a knife: the hand on the knife, the knife with the contact coloured on its handle, the same contact as coloured dots, and six frames over time in which the colour on the handle deepens as the hand closes."
+ }
+}

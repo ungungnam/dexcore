@@ -1,0 +1,3747 @@
+{
+ "fig_id": "reconfiguration_with_hand",
+ "created": "2026-10-05T00:30:59+0900",
+ "outputs": {
+  "figure": "reports/project_page_qualitative/reconfiguration_with_hand/figure.png",
+  "panels": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+  "meta": "reports/project_page_qualitative/reconfiguration_with_hand/meta.json",
+  "asset": "docs/assets/img/qual_reconfiguration_with_hand.webp"
+ },
+ "master_size": [
+  2167,
+  2028
+ ],
+ "asset_size": [
+  2167,
+  2028
+ ],
+ "layout": {
+  "width": 2167,
+  "height": 2028,
+  "panel": [
+   592,
+   444
+  ],
+  "font_px": 30,
+  "cap_px": 22,
+  "cap_px_at_1100": 11.17
+ },
+ "display_rule": "value(u) = sum_k W[k,u] C[k] / sum_k W[k,u]; W = the study's canonical operator; NaN where sum_k W[k,u] = 0",
+ "soft_contact": "exp(-distance / 0.02 m)",
+ "colours": {
+  "zero": "#dcdbd5",
+  "orange": "#eb6834",
+  "dark": "#7a2408",
+  "blue": "#2a78d6",
+  "no_data": "#e7e1f1",
+  "parts": {
+   "palm": "#6b6a63",
+   "thumb": "#2a78d6",
+   "index": "#eb6834",
+   "middle": "#1baf7a",
+   "ring": "#eda100",
+   "little": "#8e5bd0"
+  }
+ },
+ "panels": {
+  "taco_typical_before/object_verts": {
+   "shape": [
+    3976,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_typical_before/object_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "taco_typical_before/object_rgb": {
+   "shape": [
+    3976,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_typical_before/contact_part": {
+   "shape": [
+    3976
+   ],
+   "dtype": "int64"
+  },
+  "taco_typical_before/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_typical_before/hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "taco_typical_before/hand_rgb": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_typical_before/camera": {
+   "shape": [
+    10
+   ],
+   "dtype": "float64"
+  },
+  "taco_typical_before/patch_on_object": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "int8"
+  },
+  "taco_typical_before/patch_clear_of_hand": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "int8"
+  },
+  "taco_typical_before/patch_alone_bits": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "uint8"
+  },
+  "taco_typical_after/object_verts": {
+   "shape": [
+    3976,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_typical_after/object_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "taco_typical_after/object_rgb": {
+   "shape": [
+    3976,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_typical_after/contact_part": {
+   "shape": [
+    3976
+   ],
+   "dtype": "int64"
+  },
+  "taco_typical_after/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_typical_after/hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "taco_typical_after/hand_rgb": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_typical_after/camera": {
+   "shape": [
+    10
+   ],
+   "dtype": "float64"
+  },
+  "taco_typical_after/patch_on_object": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "int8"
+  },
+  "taco_typical_after/patch_clear_of_hand": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "int8"
+  },
+  "taco_typical_after/patch_alone_bits": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "uint8"
+  },
+  "taco_typical_profiles/q_before": {
+   "shape": [
+    76
+   ],
+   "dtype": "float64"
+  },
+  "taco_typical_profiles/q_after": {
+   "shape": [
+    76
+   ],
+   "dtype": "float64"
+  },
+  "taco_typical_profiles/direction_order": {
+   "shape": [
+    76
+   ],
+   "dtype": "int64"
+  },
+  "taco_part_joins_before/object_verts": {
+   "shape": [
+    4002,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_part_joins_before/object_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "taco_part_joins_before/object_rgb": {
+   "shape": [
+    4002,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_part_joins_before/contact_part": {
+   "shape": [
+    4002
+   ],
+   "dtype": "int64"
+  },
+  "taco_part_joins_before/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_part_joins_before/hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "taco_part_joins_before/hand_rgb": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_part_joins_before/camera": {
+   "shape": [
+    10
+   ],
+   "dtype": "float64"
+  },
+  "taco_part_joins_before/patch_on_object": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "int8"
+  },
+  "taco_part_joins_before/patch_clear_of_hand": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "int8"
+  },
+  "taco_part_joins_before/patch_alone_bits": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "uint8"
+  },
+  "taco_part_joins_after/object_verts": {
+   "shape": [
+    4002,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_part_joins_after/object_faces": {
+   "shape": [
+    8000,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "taco_part_joins_after/object_rgb": {
+   "shape": [
+    4002,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_part_joins_after/contact_part": {
+   "shape": [
+    4002
+   ],
+   "dtype": "int64"
+  },
+  "taco_part_joins_after/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_part_joins_after/hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "taco_part_joins_after/hand_rgb": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "taco_part_joins_after/camera": {
+   "shape": [
+    10
+   ],
+   "dtype": "float64"
+  },
+  "taco_part_joins_after/patch_on_object": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "int8"
+  },
+  "taco_part_joins_after/patch_clear_of_hand": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "int8"
+  },
+  "taco_part_joins_after/patch_alone_bits": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "uint8"
+  },
+  "taco_part_joins_profiles/q_before": {
+   "shape": [
+    76
+   ],
+   "dtype": "float64"
+  },
+  "taco_part_joins_profiles/q_after": {
+   "shape": [
+    76
+   ],
+   "dtype": "float64"
+  },
+  "taco_part_joins_profiles/direction_order": {
+   "shape": [
+    76
+   ],
+   "dtype": "int64"
+  },
+  "arctic_typical_before/object_verts": {
+   "shape": [
+    3586,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_typical_before/object_faces": {
+   "shape": [
+    6992,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "arctic_typical_before/object_rgb": {
+   "shape": [
+    3586,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_typical_before/contact_part": {
+   "shape": [
+    3586
+   ],
+   "dtype": "int64"
+  },
+  "arctic_typical_before/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_typical_before/hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "arctic_typical_before/hand_rgb": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_typical_before/camera": {
+   "shape": [
+    10
+   ],
+   "dtype": "float64"
+  },
+  "arctic_typical_before/patch_on_object": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "int8"
+  },
+  "arctic_typical_before/patch_clear_of_hand": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "int8"
+  },
+  "arctic_typical_before/patch_alone_bits": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "uint8"
+  },
+  "arctic_typical_after/object_verts": {
+   "shape": [
+    3586,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_typical_after/object_faces": {
+   "shape": [
+    6992,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "arctic_typical_after/object_rgb": {
+   "shape": [
+    3586,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_typical_after/contact_part": {
+   "shape": [
+    3586
+   ],
+   "dtype": "int64"
+  },
+  "arctic_typical_after/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_typical_after/hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "arctic_typical_after/hand_rgb": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_typical_after/camera": {
+   "shape": [
+    10
+   ],
+   "dtype": "float64"
+  },
+  "arctic_typical_after/patch_on_object": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "int8"
+  },
+  "arctic_typical_after/patch_clear_of_hand": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "int8"
+  },
+  "arctic_typical_after/patch_alone_bits": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "uint8"
+  },
+  "arctic_typical_profiles/q_before": {
+   "shape": [
+    76
+   ],
+   "dtype": "float64"
+  },
+  "arctic_typical_profiles/q_after": {
+   "shape": [
+    76
+   ],
+   "dtype": "float64"
+  },
+  "arctic_typical_profiles/direction_order": {
+   "shape": [
+    76
+   ],
+   "dtype": "int64"
+  },
+  "arctic_part_joins_before/object_verts": {
+   "shape": [
+    2211,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_part_joins_before/object_faces": {
+   "shape": [
+    4278,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "arctic_part_joins_before/object_rgb": {
+   "shape": [
+    2211,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_part_joins_before/contact_part": {
+   "shape": [
+    2211
+   ],
+   "dtype": "int64"
+  },
+  "arctic_part_joins_before/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_part_joins_before/hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "arctic_part_joins_before/hand_rgb": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_part_joins_before/camera": {
+   "shape": [
+    10
+   ],
+   "dtype": "float64"
+  },
+  "arctic_part_joins_before/patch_on_object": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "int8"
+  },
+  "arctic_part_joins_before/patch_clear_of_hand": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "int8"
+  },
+  "arctic_part_joins_before/patch_alone_bits": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "uint8"
+  },
+  "arctic_part_joins_after/object_verts": {
+   "shape": [
+    2211,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_part_joins_after/object_faces": {
+   "shape": [
+    4278,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "arctic_part_joins_after/object_rgb": {
+   "shape": [
+    2211,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_part_joins_after/contact_part": {
+   "shape": [
+    2211
+   ],
+   "dtype": "int64"
+  },
+  "arctic_part_joins_after/hand_verts": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_part_joins_after/hand_faces": {
+   "shape": [
+    1538,
+    3
+   ],
+   "dtype": "int64"
+  },
+  "arctic_part_joins_after/hand_rgb": {
+   "shape": [
+    778,
+    3
+   ],
+   "dtype": "float64"
+  },
+  "arctic_part_joins_after/camera": {
+   "shape": [
+    10
+   ],
+   "dtype": "float64"
+  },
+  "arctic_part_joins_after/patch_on_object": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "int8"
+  },
+  "arctic_part_joins_after/patch_clear_of_hand": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "int8"
+  },
+  "arctic_part_joins_after/patch_alone_bits": {
+   "shape": [
+    444,
+    592
+   ],
+   "dtype": "uint8"
+  },
+  "arctic_part_joins_profiles/q_before": {
+   "shape": [
+    76
+   ],
+   "dtype": "float64"
+  },
+  "arctic_part_joins_profiles/q_after": {
+   "shape": [
+    76
+   ],
+   "dtype": "float64"
+  },
+  "arctic_part_joins_profiles/direction_order": {
+   "shape": [
+    76
+   ],
+   "dtype": "int64"
+  }
+ },
+ "meta": {
+  "id": "reconfiguration_with_hand",
+  "block": "F1-D",
+  "title": "The hand on the object before and after an event that moves the contact, with the modelled capability",
+  "panels": {
+   "rows": {
+    "taco_typical": "TACO, event 3069_1, knife, right hand: the event at the median retention of its class",
+    "taco_part_joins": "TACO, event 811_0, plate, left hand: the event at the median capability change among the events in which a hand part is added",
+    "arctic_typical": "ARCTIC, event 910_4, notebook, right hand: the event at the median retention of its class",
+    "arctic_part_joins": "ARCTIC, event 995_0, phone, right hand: the event at the median capability change among the events in which a hand part is added"
+   },
+   "columns": {
+    "before the event": "object mesh, recorded hand and contact at the frame before the event (pre_frame of the study)",
+    "after the event": "the same at the first frame after the event (post_frame), same camera and colours",
+    "modelled capability, before and after": "the study's capability profile over its 76 directions before (grey) and after (black), directions sorted by the value before, the same axes in all four plots"
+   }
+  },
+  "examples": [
+   {
+    "dataset": "taco",
+    "kind": "typical",
+    "event_id": "3069_1",
+    "example": 3069,
+    "sequence_id": "(cut, knife, plate)/20231013_109",
+    "object": "knife",
+    "mesh_id": "120",
+    "hand": "right",
+    "split": "test",
+    "frames_drawn": {
+     "before": 12,
+     "after": 13
+    },
+    "take_frames_drawn": {
+     "before": 27,
+     "after": 28
+    }
+   },
+   {
+    "dataset": "taco",
+    "kind": "part_joins",
+    "event_id": "811_0",
+    "example": 811,
+    "sequence_id": "(cut, knife, plate)/20231013_059",
+    "object": "plate",
+    "mesh_id": "165",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "before": 3,
+     "after": 9
+    },
+    "take_frames_drawn": {
+     "before": 31,
+     "after": 37
+    }
+   },
+   {
+    "dataset": "arctic",
+    "kind": "typical",
+    "event_id": "910_4",
+    "example": 910,
+    "sequence_id": "notebook_use_04/s09",
+    "object": "notebook",
+    "mesh_id": "notebook",
+    "hand": "right",
+    "split": "test",
+    "frames_drawn": {
+     "before": 52,
+     "after": 55
+    },
+    "take_frames_drawn": {
+     "before": 89,
+     "after": 92
+    }
+   },
+   {
+    "dataset": "arctic",
+    "kind": "part_joins",
+    "event_id": "995_0",
+    "example": 995,
+    "sequence_id": "phone_grab_01/s10",
+    "object": "phone",
+    "mesh_id": "phone",
+    "hand": "right",
+    "split": "test",
+    "frames_drawn": {
+     "before": 56,
+     "after": 57
+    },
+    "take_frames_drawn": {
+     "before": 85,
+     "after": 86
+    }
+   }
+  ],
+  "events": {
+   "taco_typical": {
+    "dataset": "taco",
+    "kind": "typical",
+    "event_id": "3069_1",
+    "example": 3069,
+    "sequence_id": "(cut, knife, plate)/20231013_109",
+    "object": "knife",
+    "mesh_id": "120",
+    "hand": "right",
+    "split": "test",
+    "frames_drawn": {
+     "before": 12,
+     "after": 13
+    },
+    "take_frames_drawn": {
+     "before": 27,
+     "after": 28
+    },
+    "parts_before": [
+     "thumb",
+     "index",
+     "middle",
+     "ring",
+     "little"
+    ],
+    "parts_after": [
+     "palm",
+     "thumb",
+     "index",
+     "middle",
+     "ring",
+     "little"
+    ],
+    "parts_added": [
+     "palm"
+    ],
+    "parts_removed": [],
+    "contact_vertices_before": {
+     "thumb": 115,
+     "index": 130,
+     "middle": 95,
+     "ring": 98,
+     "little": 90
+    },
+    "contact_vertices_after": {
+     "palm": 47,
+     "thumb": 116,
+     "index": 109,
+     "middle": 90,
+     "ring": 76,
+     "little": 73
+    },
+    "contact_pixels": {
+     "before": {
+      "thumb": {
+       "vertices": 115,
+       "patch_alone": 5501,
+       "on_object": 0,
+       "clear_of_hand": 0
+      },
+      "index": {
+       "vertices": 130,
+       "patch_alone": 5665,
+       "on_object": 5665,
+       "clear_of_hand": 1942
+      },
+      "middle": {
+       "vertices": 95,
+       "patch_alone": 4581,
+       "on_object": 4580,
+       "clear_of_hand": 571
+      },
+      "ring": {
+       "vertices": 98,
+       "patch_alone": 3923,
+       "on_object": 3921,
+       "clear_of_hand": 932
+      },
+      "little": {
+       "vertices": 90,
+       "patch_alone": 4179,
+       "on_object": 4179,
+       "clear_of_hand": 2152
+      }
+     },
+     "after": {
+      "palm": {
+       "vertices": 47,
+       "patch_alone": 494,
+       "on_object": 483,
+       "clear_of_hand": 483
+      },
+      "thumb": {
+       "vertices": 116,
+       "patch_alone": 5647,
+       "on_object": 0,
+       "clear_of_hand": 0
+      },
+      "index": {
+       "vertices": 109,
+       "patch_alone": 4918,
+       "on_object": 4918,
+       "clear_of_hand": 1604
+      },
+      "middle": {
+       "vertices": 90,
+       "patch_alone": 4317,
+       "on_object": 4316,
+       "clear_of_hand": 480
+      },
+      "ring": {
+       "vertices": 76,
+       "patch_alone": 3282,
+       "on_object": 3271,
+       "clear_of_hand": 672
+      },
+      "little": {
+       "vertices": 73,
+       "patch_alone": 3161,
+       "on_object": 3161,
+       "clear_of_hand": 1829
+      }
+     }
+    },
+    "contact_visibility": {
+     "far_side": [
+      "thumb"
+     ],
+     "not_visible": [
+      "thumb"
+     ],
+     "under_hand": [
+      "index",
+      "middle",
+      "ring"
+     ],
+     "pixels_both_frames": {
+      "palm": {
+       "patch_alone": 494,
+       "on_object": 483,
+       "clear_of_hand": 483
+      },
+      "thumb": {
+       "patch_alone": 11148,
+       "on_object": 0,
+       "clear_of_hand": 0
+      },
+      "index": {
+       "patch_alone": 10583,
+       "on_object": 10583,
+       "clear_of_hand": 3546
+      },
+      "middle": {
+       "patch_alone": 8898,
+       "on_object": 8896,
+       "clear_of_hand": 1051
+      },
+      "ring": {
+       "patch_alone": 7205,
+       "on_object": 7192,
+       "clear_of_hand": 1604
+      },
+      "little": {
+       "patch_alone": 7340,
+       "on_object": 7340,
+       "clear_of_hand": 3981
+      }
+     }
+    },
+    "added_patch_place": {
+     "palm": "at the left end of the knife"
+    },
+    "contact_vertices_with_normal_facing_camera": {
+     "before": {
+      "thumb": [
+       9,
+       115
+      ],
+      "index": [
+       128,
+       130
+      ],
+      "middle": [
+       82,
+       95
+      ],
+      "ring": [
+       76,
+       98
+      ],
+      "little": [
+       68,
+       90
+      ]
+     },
+     "after": {
+      "palm": [
+       31,
+       47
+      ],
+      "thumb": [
+       14,
+       116
+      ],
+      "index": [
+       107,
+       109
+      ],
+      "middle": [
+       81,
+       90
+      ],
+      "ring": [
+       66,
+       76
+      ],
+      "little": [
+       65,
+       73
+      ]
+     }
+    },
+    "hand_displacement_mm": {
+     "mean": 3.8994521775375564,
+     "max": 13.22174505824142
+    },
+    "retention": 0.8457323588959588,
+    "cosine": 0.9910674214807357,
+    "rel_change": 0.18404855400091993,
+    "mean_capability_before": 2.0495025880434934,
+    "mean_capability_after": 2.42671057597809,
+    "share_of_directions_with_lower_capability_after": 0.13157894736842105,
+    "events_csv": {
+     "R_pre_to_post": 0.8457323588959588,
+     "cosine": 0.9910674214807356,
+     "rel_change_Q": 0.1840485540009199,
+     "Q_pre": 2.0495025880434934,
+     "Q_post": 2.42671057597809,
+     "fingers_pre": "index+little+middle+ring+thumb",
+     "fingers_post": "index+little+middle+palm+ring+thumb",
+     "dC": 0.6248024702072144,
+     "contact_threshold_m": 0.01,
+     "friction": 0.5,
+     "budget": "finger_equal",
+     "part_changes": {
+      "palm": "appeared",
+      "thumb": "stable",
+      "index": "stable",
+      "middle": "stable",
+      "ring": "stable",
+      "little": "stable"
+     }
+    },
+    "cross_checks": {
+     "before": {
+      "max_vertex_mismatch_m": 7.447458585270098e-09,
+      "max_hand_mismatch_m": 7.443472449519817e-09,
+      "max_distance_mismatch_m": 3.469446951953614e-18,
+      "same_contact_set_as_qlib_distances": true,
+      "n_contact_vertices": 528,
+      "n_contact_vertices_events_csv": 528,
+      "parts": "index+little+middle+ring+thumb",
+      "parts_events_csv": "index+little+middle+ring+thumb",
+      "share_labels_equal_to_nearest_hand_vertex": 1.0,
+      "event_file_lists_contact_vertices_in_mesh_order": true
+     },
+     "after": {
+      "max_vertex_mismatch_m": 7.447458585270098e-09,
+      "max_hand_mismatch_m": 7.36605390572187e-09,
+      "max_distance_mismatch_m": 4.336808689942018e-18,
+      "same_contact_set_as_qlib_distances": true,
+      "n_contact_vertices": 511,
+      "n_contact_vertices_events_csv": 511,
+      "parts": "index+little+middle+palm+ring+thumb",
+      "parts_events_csv": "index+little+middle+palm+ring+thumb",
+      "share_labels_equal_to_nearest_hand_vertex": 1.0,
+      "event_file_lists_contact_vertices_in_mesh_order": true
+     }
+    }
+   },
+   "taco_part_joins": {
+    "dataset": "taco",
+    "kind": "part_joins",
+    "event_id": "811_0",
+    "example": 811,
+    "sequence_id": "(cut, knife, plate)/20231013_059",
+    "object": "plate",
+    "mesh_id": "165",
+    "hand": "left",
+    "split": "test",
+    "frames_drawn": {
+     "before": 3,
+     "after": 9
+    },
+    "take_frames_drawn": {
+     "before": 31,
+     "after": 37
+    },
+    "parts_before": [
+     "middle",
+     "ring",
+     "little"
+    ],
+    "parts_after": [
+     "index",
+     "middle",
+     "ring",
+     "little"
+    ],
+    "parts_added": [
+     "index"
+    ],
+    "parts_removed": [],
+    "contact_vertices_before": {
+     "middle": 30,
+     "ring": 59,
+     "little": 49
+    },
+    "contact_vertices_after": {
+     "index": 4,
+     "middle": 7,
+     "ring": 16,
+     "little": 8
+    },
+    "contact_pixels": {
+     "before": {
+      "middle": {
+       "vertices": 30,
+       "patch_alone": 499,
+       "on_object": 497,
+       "clear_of_hand": 0
+      },
+      "ring": {
+       "vertices": 59,
+       "patch_alone": 1396,
+       "on_object": 1393,
+       "clear_of_hand": 0
+      },
+      "little": {
+       "vertices": 49,
+       "patch_alone": 1324,
+       "on_object": 1322,
+       "clear_of_hand": 0
+      }
+     },
+     "after": {
+      "index": {
+       "vertices": 4,
+       "patch_alone": 1028,
+       "on_object": 781,
+       "clear_of_hand": 0
+      },
+      "middle": {
+       "vertices": 7,
+       "patch_alone": 1550,
+       "on_object": 1037,
+       "clear_of_hand": 0
+      },
+      "ring": {
+       "vertices": 16,
+       "patch_alone": 3294,
+       "on_object": 3294,
+       "clear_of_hand": 0
+      },
+      "little": {
+       "vertices": 8,
+       "patch_alone": 1514,
+       "on_object": 1514,
+       "clear_of_hand": 0
+      }
+     }
+    },
+    "contact_visibility": {
+     "far_side": [],
+     "not_visible": [],
+     "under_hand": [
+      "index",
+      "middle",
+      "ring",
+      "little"
+     ],
+     "pixels_both_frames": {
+      "index": {
+       "patch_alone": 1028,
+       "on_object": 781,
+       "clear_of_hand": 0
+      },
+      "middle": {
+       "patch_alone": 2049,
+       "on_object": 1534,
+       "clear_of_hand": 0
+      },
+      "ring": {
+       "patch_alone": 4690,
+       "on_object": 4687,
+       "clear_of_hand": 0
+      },
+      "little": {
+       "patch_alone": 2838,
+       "on_object": 2836,
+       "clear_of_hand": 0
+      }
+     }
+    },
+    "added_patch_place": {
+     "index": "right of the other patches"
+    },
+    "contact_vertices_with_normal_facing_camera": {
+     "before": {
+      "middle": [
+       26,
+       30
+      ],
+      "ring": [
+       55,
+       59
+      ],
+      "little": [
+       46,
+       49
+      ]
+     },
+     "after": {
+      "index": [
+       4,
+       4
+      ],
+      "middle": [
+       7,
+       7
+      ],
+      "ring": [
+       16,
+       16
+      ],
+      "little": [
+       8,
+       8
+      ]
+     }
+    },
+    "hand_displacement_mm": {
+     "mean": 72.28397342103104,
+     "max": 86.92293940412745
+    },
+    "retention": 0.7352666908399104,
+    "cosine": 0.9689578764771204,
+    "rel_change": 0.2565235808275299,
+    "mean_capability_before": 1.0926892998628255,
+    "mean_capability_after": 1.3729898720520877,
+    "share_of_directions_with_lower_capability_after": 0.21052631578947367,
+    "events_csv": {
+     "R_pre_to_post": 0.7352666908399104,
+     "cosine": 0.9689578764771204,
+     "rel_change_Q": 0.2565235808275299,
+     "Q_pre": 1.0926892998628257,
+     "Q_post": 1.3729898720520877,
+     "fingers_pre": "little+middle+ring",
+     "fingers_post": "index+little+middle+ring",
+     "dC": 3.7200865745544434,
+     "contact_threshold_m": 0.01,
+     "friction": 0.5,
+     "budget": "finger_equal",
+     "part_changes": {
+      "index": "appeared",
+      "middle": "slid",
+      "ring": "slid",
+      "little": "slid"
+     }
+    },
+    "cross_checks": {
+     "before": {
+      "max_vertex_mismatch_m": 5.108213256051163e-09,
+      "max_hand_mismatch_m": 7.425920239834127e-09,
+      "max_distance_mismatch_m": 3.469446951953614e-18,
+      "same_contact_set_as_qlib_distances": true,
+      "n_contact_vertices": 138,
+      "n_contact_vertices_events_csv": 138,
+      "parts": "little+middle+ring",
+      "parts_events_csv": "little+middle+ring",
+      "share_labels_equal_to_nearest_hand_vertex": 1.0,
+      "event_file_lists_contact_vertices_in_mesh_order": true
+     },
+     "after": {
+      "max_vertex_mismatch_m": 3.6151608361821266e-09,
+      "max_hand_mismatch_m": 3.7239605843453205e-09,
+      "max_distance_mismatch_m": 3.469446951953614e-18,
+      "same_contact_set_as_qlib_distances": true,
+      "n_contact_vertices": 35,
+      "n_contact_vertices_events_csv": 35,
+      "parts": "index+little+middle+ring",
+      "parts_events_csv": "index+little+middle+ring",
+      "share_labels_equal_to_nearest_hand_vertex": 1.0,
+      "event_file_lists_contact_vertices_in_mesh_order": true
+     }
+    }
+   },
+   "arctic_typical": {
+    "dataset": "arctic",
+    "kind": "typical",
+    "event_id": "910_4",
+    "example": 910,
+    "sequence_id": "notebook_use_04/s09",
+    "object": "notebook",
+    "mesh_id": "notebook",
+    "hand": "right",
+    "split": "test",
+    "frames_drawn": {
+     "before": 52,
+     "after": 55
+    },
+    "take_frames_drawn": {
+     "before": 89,
+     "after": 92
+    },
+    "parts_before": [
+     "palm",
+     "thumb",
+     "index",
+     "middle",
+     "ring",
+     "little"
+    ],
+    "parts_after": [
+     "palm",
+     "thumb",
+     "index",
+     "middle",
+     "ring",
+     "little"
+    ],
+    "parts_added": [],
+    "parts_removed": [],
+    "contact_vertices_before": {
+     "palm": 59,
+     "thumb": 63,
+     "index": 47,
+     "middle": 22,
+     "ring": 17,
+     "little": 16
+    },
+    "contact_vertices_after": {
+     "palm": 18,
+     "thumb": 92,
+     "index": 34,
+     "middle": 8,
+     "ring": 12,
+     "little": 23
+    },
+    "contact_pixels": {
+     "before": {
+      "palm": {
+       "vertices": 59,
+       "patch_alone": 1929,
+       "on_object": 1929,
+       "clear_of_hand": 0
+      },
+      "thumb": {
+       "vertices": 63,
+       "patch_alone": 3218,
+       "on_object": 0,
+       "clear_of_hand": 0
+      },
+      "index": {
+       "vertices": 47,
+       "patch_alone": 7849,
+       "on_object": 7849,
+       "clear_of_hand": 4467
+      },
+      "middle": {
+       "vertices": 22,
+       "patch_alone": 5831,
+       "on_object": 5831,
+       "clear_of_hand": 2886
+      },
+      "ring": {
+       "vertices": 17,
+       "patch_alone": 4806,
+       "on_object": 4806,
+       "clear_of_hand": 2386
+      },
+      "little": {
+       "vertices": 16,
+       "patch_alone": 4205,
+       "on_object": 4205,
+       "clear_of_hand": 2247
+      }
+     },
+     "after": {
+      "palm": {
+       "vertices": 18,
+       "patch_alone": 843,
+       "on_object": 843,
+       "clear_of_hand": 0
+      },
+      "thumb": {
+       "vertices": 92,
+       "patch_alone": 2900,
+       "on_object": 1208,
+       "clear_of_hand": 25
+      },
+      "index": {
+       "vertices": 34,
+       "patch_alone": 8902,
+       "on_object": 8902,
+       "clear_of_hand": 4259
+      },
+      "middle": {
+       "vertices": 8,
+       "patch_alone": 2109,
+       "on_object": 2109,
+       "clear_of_hand": 613
+      },
+      "ring": {
+       "vertices": 12,
+       "patch_alone": 2772,
+       "on_object": 2772,
+       "clear_of_hand": 974
+      },
+      "little": {
+       "vertices": 23,
+       "patch_alone": 5777,
+       "on_object": 5777,
+       "clear_of_hand": 2803
+      }
+     }
+    },
+    "contact_visibility": {
+     "far_side": [
+      "thumb"
+     ],
+     "not_visible": [],
+     "under_hand": [
+      "palm",
+      "middle",
+      "ring"
+     ],
+     "pixels_both_frames": {
+      "palm": {
+       "patch_alone": 2772,
+       "on_object": 2772,
+       "clear_of_hand": 0
+      },
+      "thumb": {
+       "patch_alone": 6118,
+       "on_object": 1208,
+       "clear_of_hand": 25
+      },
+      "index": {
+       "patch_alone": 16751,
+       "on_object": 16751,
+       "clear_of_hand": 8726
+      },
+      "middle": {
+       "patch_alone": 7940,
+       "on_object": 7940,
+       "clear_of_hand": 3499
+      },
+      "ring": {
+       "patch_alone": 7578,
+       "on_object": 7578,
+       "clear_of_hand": 3360
+      },
+      "little": {
+       "patch_alone": 9982,
+       "on_object": 9982,
+       "clear_of_hand": 5050
+      }
+     }
+    },
+    "added_patch_place": {},
+    "contact_vertices_with_normal_facing_camera": {
+     "before": {
+      "palm": [
+       38,
+       59
+      ],
+      "thumb": [
+       20,
+       63
+      ],
+      "index": [
+       39,
+       47
+      ],
+      "middle": [
+       19,
+       22
+      ],
+      "ring": [
+       16,
+       17
+      ],
+      "little": [
+       16,
+       16
+      ]
+     },
+     "after": {
+      "palm": [
+       16,
+       18
+      ],
+      "thumb": [
+       34,
+       92
+      ],
+      "index": [
+       32,
+       34
+      ],
+      "middle": [
+       8,
+       8
+      ],
+      "ring": [
+       12,
+       12
+      ],
+      "little": [
+       23,
+       23
+      ]
+     }
+    },
+    "hand_displacement_mm": {
+     "mean": 28.656722815264057,
+     "max": 52.50693338852698
+    },
+    "retention": 0.8819545504778276,
+    "cosine": 0.9946732880227852,
+    "rel_change": 0.1410345433754338,
+    "mean_capability_before": 2.2714608756693986,
+    "mean_capability_after": 2.59181532320563,
+    "share_of_directions_with_lower_capability_after": 0.2236842105263158,
+    "events_csv": {
+     "R_pre_to_post": 0.8819545504778276,
+     "cosine": 0.9946732880227852,
+     "rel_change_Q": 0.1410345433754338,
+     "Q_pre": 2.2714608756693986,
+     "Q_post": 2.59181532320563,
+     "fingers_pre": "index+little+middle+palm+ring+thumb",
+     "fingers_post": "index+little+middle+palm+ring+thumb",
+     "dC": 2.239400625228882,
+     "contact_threshold_m": 0.01,
+     "friction": 0.5,
+     "budget": "finger_equal",
+     "part_changes": {
+      "palm": "slid",
+      "thumb": "slid",
+      "index": "slid",
+      "middle": "slid",
+      "ring": "slid",
+      "little": "slid"
+     }
+    },
+    "cross_checks": {
+     "before": {
+      "max_vertex_mismatch_m": 9.567232730791461e-09,
+      "max_hand_mismatch_m": 7.426305959068458e-09,
+      "max_distance_mismatch_m": 3.469446951953614e-18,
+      "same_contact_set_as_qlib_distances": true,
+      "n_contact_vertices": 224,
+      "n_contact_vertices_events_csv": 224,
+      "parts": "index+little+middle+palm+ring+thumb",
+      "parts_events_csv": "index+little+middle+palm+ring+thumb",
+      "share_labels_equal_to_nearest_hand_vertex": 1.0,
+      "event_file_lists_contact_vertices_in_mesh_order": false
+     },
+     "after": {
+      "max_vertex_mismatch_m": 9.567232730791461e-09,
+      "max_hand_mismatch_m": 7.44353997883529e-09,
+      "max_distance_mismatch_m": 3.469446951953614e-18,
+      "same_contact_set_as_qlib_distances": true,
+      "n_contact_vertices": 187,
+      "n_contact_vertices_events_csv": 187,
+      "parts": "index+little+middle+palm+ring+thumb",
+      "parts_events_csv": "index+little+middle+palm+ring+thumb",
+      "share_labels_equal_to_nearest_hand_vertex": 1.0,
+      "event_file_lists_contact_vertices_in_mesh_order": false
+     }
+    }
+   },
+   "arctic_part_joins": {
+    "dataset": "arctic",
+    "kind": "part_joins",
+    "event_id": "995_0",
+    "example": 995,
+    "sequence_id": "phone_grab_01/s10",
+    "object": "phone",
+    "mesh_id": "phone",
+    "hand": "right",
+    "split": "test",
+    "frames_drawn": {
+     "before": 56,
+     "after": 57
+    },
+    "take_frames_drawn": {
+     "before": 85,
+     "after": 86
+    },
+    "parts_before": [
+     "index",
+     "middle"
+    ],
+    "parts_after": [
+     "thumb",
+     "index",
+     "middle"
+    ],
+    "parts_added": [
+     "thumb"
+    ],
+    "parts_removed": [],
+    "contact_vertices_before": {
+     "index": 25,
+     "middle": 32
+    },
+    "contact_vertices_after": {
+     "thumb": 28,
+     "index": 21,
+     "middle": 30
+    },
+    "contact_pixels": {
+     "before": {
+      "index": {
+       "vertices": 25,
+       "patch_alone": 736,
+       "on_object": 518,
+       "clear_of_hand": 518
+      },
+      "middle": {
+       "vertices": 32,
+       "patch_alone": 3553,
+       "on_object": 0,
+       "clear_of_hand": 0
+      }
+     },
+     "after": {
+      "thumb": {
+       "vertices": 28,
+       "patch_alone": 1382,
+       "on_object": 1382,
+       "clear_of_hand": 1382
+      },
+      "index": {
+       "vertices": 21,
+       "patch_alone": 791,
+       "on_object": 233,
+       "clear_of_hand": 233
+      },
+      "middle": {
+       "vertices": 30,
+       "patch_alone": 3265,
+       "on_object": 0,
+       "clear_of_hand": 0
+      }
+     }
+    },
+    "contact_visibility": {
+     "far_side": [
+      "index",
+      "middle"
+     ],
+     "not_visible": [
+      "middle"
+     ],
+     "under_hand": [],
+     "pixels_both_frames": {
+      "thumb": {
+       "patch_alone": 1382,
+       "on_object": 1382,
+       "clear_of_hand": 1382
+      },
+      "index": {
+       "patch_alone": 1527,
+       "on_object": 751,
+       "clear_of_hand": 751
+      },
+      "middle": {
+       "patch_alone": 6818,
+       "on_object": 0,
+       "clear_of_hand": 0
+      }
+     }
+    },
+    "added_patch_place": {
+     "thumb": ""
+    },
+    "contact_vertices_with_normal_facing_camera": {
+     "before": {
+      "index": [
+       8,
+       25
+      ],
+      "middle": [
+       0,
+       32
+      ]
+     },
+     "after": {
+      "thumb": [
+       22,
+       28
+      ],
+      "index": [
+       2,
+       21
+      ],
+      "middle": [
+       0,
+       30
+      ]
+     }
+    },
+    "hand_displacement_mm": {
+     "mean": 6.428867098383635,
+     "max": 11.800549904261704
+    },
+    "retention": 0.666750833046033,
+    "cosine": 0.9344531498008002,
+    "rel_change": 0.33962947745526983,
+    "mean_capability_before": 1.5918404300024616,
+    "mean_capability_after": 2.132476363775999,
+    "share_of_directions_with_lower_capability_after": 0.19736842105263158,
+    "events_csv": {
+     "R_pre_to_post": 0.666750833046033,
+     "cosine": 0.9344531498008002,
+     "rel_change_Q": 0.3396294774552698,
+     "Q_pre": 1.5918404300024616,
+     "Q_post": 2.132476363775999,
+     "fingers_pre": "index+middle",
+     "fingers_post": "index+middle+thumb",
+     "dC": 0.6702608466148376,
+     "contact_threshold_m": 0.01,
+     "friction": 0.5,
+     "budget": "finger_equal",
+     "part_changes": {
+      "thumb": "appeared",
+      "index": "stable",
+      "middle": "stable"
+     }
+    },
+    "cross_checks": {
+     "before": {
+      "max_vertex_mismatch_m": 3.739327047290834e-09,
+      "max_hand_mismatch_m": 7.439752286453327e-09,
+      "max_distance_mismatch_m": 3.469446951953614e-18,
+      "same_contact_set_as_qlib_distances": true,
+      "n_contact_vertices": 57,
+      "n_contact_vertices_events_csv": 57,
+      "parts": "index+middle",
+      "parts_events_csv": "index+middle",
+      "share_labels_equal_to_nearest_hand_vertex": 1.0,
+      "event_file_lists_contact_vertices_in_mesh_order": true
+     },
+     "after": {
+      "max_vertex_mismatch_m": 3.941259720688607e-09,
+      "max_hand_mismatch_m": 7.433785864652265e-09,
+      "max_distance_mismatch_m": 3.469446951953614e-18,
+      "same_contact_set_as_qlib_distances": true,
+      "n_contact_vertices": 79,
+      "n_contact_vertices_events_csv": 79,
+      "parts": "index+middle+thumb",
+      "parts_events_csv": "index+middle+thumb",
+      "share_labels_equal_to_nearest_hand_vertex": 1.0,
+      "event_file_lists_contact_vertices_in_mesh_order": true
+     }
+    }
+   }
+  },
+  "selection_rule": "Typical event: among the persistent spatial events of the test split (the study's class: firm contact before, after and throughout the event), the one whose retention is the median of the class. With an even count no event sits at the median: the two middle events are equally far from it and the one with the smaller event id is taken. Event ids are compared as numbers, the example number first and then the number of the event within the example (910_4 before 1286_3), not as text. Event in which a part joins: among the events of the same class in which the set of touching hand parts gains a part, the one whose relative capability change is the median, with the same rule for an even count. Both are computed per dataset by this script from events.csv.",
+  "selection_evidence": {
+   "taco": {
+    "class": "events.csv rows of this dataset with class_report == 'persistent_spatial' whose sequence is in the test split",
+    "n_class": 119,
+    "n_part_added": 45,
+    "class_median_cosine": 0.9680306162180315,
+    "class_median_rel_change_Q": 0.0361643974468233,
+    "class_share_same_parts": 0.5210084033613446,
+    "n_directions": 76,
+    "study_report_examples": [
+     "1190_8",
+     "2707_7",
+     "2723_2",
+     "745_9"
+    ],
+    "typical": {
+     "metric": "R_pre_to_post",
+     "n_candidates": 119,
+     "median": 0.8457323588959588,
+     "chosen_event": "3069_1",
+     "chosen_value": 0.8457323588959588,
+     "chosen_rank": 60,
+     "middle_ranks": [
+      60
+     ],
+     "tie": null,
+     "sorted": [
+      [
+       "2337_0",
+       0.3515310028388111
+      ],
+      [
+       "2723_2",
+       0.3647395318205693
+      ],
+      [
+       "2467_0",
+       0.4090800881659164
+      ],
+      [
+       "3023_2",
+       0.470565121984507
+      ],
+      [
+       "2707_7",
+       0.4710535092809284
+      ],
+      [
+       "3241_0",
+       0.5041620890141257
+      ],
+      [
+       "2573_2",
+       0.5149955314047786
+      ],
+      [
+       "2907_0",
+       0.5498762580275659
+      ],
+      [
+       "2828_3",
+       0.5613428192150987
+      ],
+      [
+       "1149_0",
+       0.5822504510089138
+      ],
+      [
+       "3086_1",
+       0.5921121995639599
+      ],
+      [
+       "2730_3",
+       0.5926562386578542
+      ],
+      [
+       "2573_1",
+       0.6095970514197636
+      ],
+      [
+       "1148_2",
+       0.6305725080080284
+      ],
+      [
+       "1327_3",
+       0.6348782651811927
+      ],
+      [
+       "2985_2",
+       0.6513192674357311
+      ],
+      [
+       "3040_4",
+       0.6682575754794289
+      ],
+      [
+       "2871_1",
+       0.6825980891887231
+      ],
+      [
+       "806_0",
+       0.6844435788181494
+      ],
+      [
+       "3307_2",
+       0.6886957298200745
+      ],
+      [
+       "680_2",
+       0.7147120429859893
+      ],
+      [
+       "743_2",
+       0.724419652034841
+      ],
+      [
+       "2755_3",
+       0.7336047472089832
+      ],
+      [
+       "811_0",
+       0.7352666908399104
+      ],
+      [
+       "2755_2",
+       0.7398002215519632
+      ],
+      [
+       "675_3",
+       0.74307831256375
+      ],
+      [
+       "2731_4",
+       0.7451227768450366
+      ],
+      [
+       "2912_0",
+       0.7504883569115687
+      ],
+      [
+       "3019_2",
+       0.7546251157851298
+      ],
+      [
+       "2718_9",
+       0.7550478396617448
+      ],
+      [
+       "2971_2",
+       0.7644282668180302
+      ],
+      [
+       "724_2",
+       0.7645005026674792
+      ],
+      [
+       "680_1",
+       0.7659257924626129
+      ],
+      [
+       "3140_2",
+       0.7685745766677158
+      ],
+      [
+       "890_1",
+       0.7686502669399967
+      ],
+      [
+       "2872_0",
+       0.7728516804660147
+      ],
+      [
+       "2723_4",
+       0.7752994401326543
+      ],
+      [
+       "862_0",
+       0.778404349996209
+      ],
+      [
+       "2792_1",
+       0.7848143873953388
+      ],
+      [
+       "2794_0",
+       0.7850147614878741
+      ],
+      [
+       "3279_4",
+       0.7890002772192763
+      ],
+      [
+       "3010_1",
+       0.794343319028875
+      ],
+      [
+       "3011_3",
+       0.794372545006388
+      ],
+      [
+       "2944_1",
+       0.7960813257801628
+      ],
+      [
+       "1177_10",
+       0.7997866923261432
+      ],
+      [
+       "2572_3",
+       0.8013326668022802
+      ],
+      [
+       "660_3",
+       0.8016916822714089
+      ],
+      [
+       "661_1",
+       0.8016916822714089
+      ],
+      [
+       "3086_2",
+       0.8036345991731018
+      ],
+      [
+       "2707_3",
+       0.8083357817565306
+      ],
+      [
+       "743_3",
+       0.8166702634008209
+      ],
+      [
+       "2812_4",
+       0.8168882118713047
+      ],
+      [
+       "2731_0",
+       0.8170716969873886
+      ],
+      [
+       "2952_1",
+       0.8196483680026314
+      ],
+      [
+       "2702_5",
+       0.8224771861959804
+      ],
+      [
+       "2871_0",
+       0.8327721565611753
+      ],
+      [
+       "2795_5",
+       0.8393153551657815
+      ],
+      [
+       "2942_2",
+       0.8414728751932948
+      ],
+      [
+       "3040_6",
+       0.8428928125208167
+      ],
+      [
+       "3069_1",
+       0.8457323588959588
+      ],
+      [
+       "2452_4",
+       0.8548406312663703
+      ],
+      [
+       "2812_5",
+       0.8559812101612678
+      ],
+      [
+       "2796_4",
+       0.8560417663368858
+      ],
+      [
+       "2730_4",
+       0.8632339125157753
+      ],
+      [
+       "728_0",
+       0.8670414899233356
+      ],
+      [
+       "1148_0",
+       0.869195374907692
+      ],
+      [
+       "784_1",
+       0.8742391014866872
+      ],
+      [
+       "2870_1",
+       0.8744826615086068
+      ],
+      [
+       "2755_10",
+       0.8747931471161499
+      ],
+      [
+       "656_1",
+       0.8817223223905334
+      ],
+      [
+       "2707_0",
+       0.8832566490355069
+      ],
+      [
+       "3085_2",
+       0.8847234564637925
+      ],
+      [
+       "911_0",
+       0.885199448529507
+      ],
+      [
+       "3141_0",
+       0.8852503524030654
+      ],
+      [
+       "680_4",
+       0.8863835478554701
+      ],
+      [
+       "2591_2",
+       0.8896053028699777
+      ],
+      [
+       "3139_5",
+       0.8904958599490039
+      ],
+      [
+       "2873_6",
+       0.8974598281981965
+      ],
+      [
+       "2754_2",
+       0.8996689024211754
+      ],
+      [
+       "733_2",
+       0.9128733787210104
+      ],
+      [
+       "1162_5",
+       0.913852361761487
+      ],
+      [
+       "2962_1",
+       0.9145567159870296
+      ],
+      [
+       "725_2",
+       0.9187910422544356
+      ],
+      [
+       "3019_4",
+       0.9198014063588512
+      ],
+      [
+       "2707_5",
+       0.9215293664657188
+      ],
+      [
+       "727_3",
+       0.9245821231261038
+      ],
+      [
+       "2617_4",
+       0.9291576093801972
+      ],
+      [
+       "3086_4",
+       0.929217567379664
+      ],
+      [
+       "2701_7",
+       0.9327400483519886
+      ],
+      [
+       "2752_5",
+       0.9356030654038432
+      ],
+      [
+       "901_2",
+       0.9371863563447246
+      ],
+      [
+       "2911_1",
+       0.937930789488128
+      ],
+      [
+       "3138_4",
+       0.9382023819173366
+      ],
+      [
+       "658_3",
+       0.938666417034922
+      ],
+      [
+       "2718_4",
+       0.9387615159427436
+      ],
+      [
+       "2617_3",
+       0.9396417996575038
+      ],
+      [
+       "729_2",
+       0.942621419700412
+      ],
+      [
+       "3017_1",
+       0.9455221943163604
+      ],
+      [
+       "3023_4",
+       0.945996470793909
+      ],
+      [
+       "3279_2",
+       0.9506650402127752
+      ],
+      [
+       "830_4",
+       0.9511041161051028
+      ],
+      [
+       "2796_8",
+       0.9544503046221534
+      ],
+      [
+       "2755_12",
+       0.9594889806539896
+      ],
+      [
+       "911_5",
+       0.9609610084838426
+      ],
+      [
+       "2911_5",
+       0.9680842619344708
+      ],
+      [
+       "2875_4",
+       0.9683188071710604
+      ],
+      [
+       "3300_5",
+       0.9727378920095786
+      ],
+      [
+       "729_1",
+       0.9728376155588054
+      ],
+      [
+       "658_7",
+       0.9729212092262748
+      ],
+      [
+       "2313_1",
+       0.975093701078843
+      ],
+      [
+       "2730_2",
+       0.9790116106122916
+      ],
+      [
+       "686_1",
+       0.9823389651748444
+      ],
+      [
+       "2849_0",
+       0.9885311610438304
+      ],
+      [
+       "2851_1",
+       0.9937843141454056
+      ],
+      [
+       "2972_1",
+       0.9938199047889829
+      ],
+      [
+       "745_9",
+       0.9953386319684372
+      ],
+      [
+       "1190_8",
+       0.9963326904343958
+      ],
+      [
+       "2627_3",
+       0.9988729110381668
+      ],
+      [
+       "729_7",
+       1.0
+      ]
+     ]
+    },
+    "part_joins": {
+     "metric": "rel_change_Q",
+     "n_candidates": 45,
+     "median": 0.2565235808275299,
+     "chosen_event": "811_0",
+     "chosen_value": 0.2565235808275299,
+     "chosen_rank": 23,
+     "middle_ranks": [
+      23
+     ],
+     "tie": null,
+     "sorted": [
+      [
+       "2870_1",
+       -0.5017796495079988
+      ],
+      [
+       "2872_0",
+       -0.2912890614834779
+      ],
+      [
+       "656_1",
+       -0.1094358419407095
+      ],
+      [
+       "2912_0",
+       -0.0450858294569341
+      ],
+      [
+       "2944_1",
+       -0.0425154401246391
+      ],
+      [
+       "2962_1",
+       -0.0351389641067996
+      ],
+      [
+       "3141_0",
+       -0.0140561407035158
+      ],
+      [
+       "3307_2",
+       -0.0126594987285041
+      ],
+      [
+       "2794_0",
+       0.0217002833346149
+      ],
+      [
+       "1149_0",
+       0.0309993788827862
+      ],
+      [
+       "2572_3",
+       0.132269421518207
+      ],
+      [
+       "2812_5",
+       0.1784652215208169
+      ],
+      [
+       "3069_1",
+       0.1840485540009199
+      ],
+      [
+       "2952_1",
+       0.1855666758840034
+      ],
+      [
+       "2812_4",
+       0.192126747612418
+      ],
+      [
+       "862_0",
+       0.1922818184828147
+      ],
+      [
+       "3011_3",
+       0.2045608227868109
+      ],
+      [
+       "660_3",
+       0.2191847126266398
+      ],
+      [
+       "661_1",
+       0.2191847126266398
+      ],
+      [
+       "724_2",
+       0.2260306206545974
+      ],
+      [
+       "3010_1",
+       0.2349896138193272
+      ],
+      [
+       "3019_2",
+       0.2384023283133181
+      ],
+      [
+       "811_0",
+       0.2565235808275299
+      ],
+      [
+       "3140_2",
+       0.2719914869615775
+      ],
+      [
+       "3086_2",
+       0.2973271845355029
+      ],
+      [
+       "2871_1",
+       0.3209504850726706
+      ],
+      [
+       "675_3",
+       0.3486372861301984
+      ],
+      [
+       "806_0",
+       0.3494595050292596
+      ],
+      [
+       "2755_3",
+       0.3611181591707695
+      ],
+      [
+       "680_2",
+       0.3870139109714594
+      ],
+      [
+       "2573_1",
+       0.4304710473274953
+      ],
+      [
+       "3040_4",
+       0.4386798794525197
+      ],
+      [
+       "1148_2",
+       0.4740077296737552
+      ],
+      [
+       "1327_3",
+       0.4776310689577693
+      ],
+      [
+       "2907_0",
+       0.5339901227461954
+      ],
+      [
+       "2573_2",
+       0.771153724625648
+      ],
+      [
+       "2730_3",
+       0.8325765258466039
+      ],
+      [
+       "2828_3",
+       0.8650446081693965
+      ],
+      [
+       "3086_1",
+       1.01144335827477
+      ],
+      [
+       "3023_2",
+       1.106056959616748
+      ],
+      [
+       "3241_0",
+       1.1119018242961032
+      ],
+      [
+       "2337_0",
+       1.3538057061132611
+      ],
+      [
+       "2467_0",
+       1.372513554260969
+      ],
+      [
+       "2707_7",
+       1.418729727638415
+      ],
+      [
+       "2723_2",
+       1.7673123434655114
+      ]
+     ]
+    }
+   },
+   "arctic": {
+    "class": "events.csv rows of this dataset with class_report == 'persistent_spatial' whose sequence is in the test split",
+    "n_class": 26,
+    "n_part_added": 7,
+    "class_median_cosine": 0.9571627834814752,
+    "class_median_rel_change_Q": 0.02065742512497645,
+    "class_share_same_parts": 0.5769230769230769,
+    "n_directions": 76,
+    "study_report_examples": [
+     "345_2",
+     "910_4",
+     "926_1",
+     "944_1"
+    ],
+    "typical": {
+     "metric": "R_pre_to_post",
+     "n_candidates": 26,
+     "median": 0.8903558785893627,
+     "chosen_event": "910_4",
+     "chosen_value": 0.8819545504778276,
+     "chosen_rank": 13,
+     "middle_ranks": [
+      13,
+      14
+     ],
+     "tie": "ranks 13 and 14 (910_4 at 0.8820, 1286_3 at 0.8988) are equally far from the median of 0.8904; the smaller event id is taken, ids compared as numbers (example number, then event number), so 910_4 comes first",
+     "sorted": [
+      [
+       "944_1",
+       0.4945567264681632
+      ],
+      [
+       "345_2",
+       0.5095027278062694
+      ],
+      [
+       "995_0",
+       0.666750833046033
+      ],
+      [
+       "1182_1",
+       0.7035728132721837
+      ],
+      [
+       "345_1",
+       0.7126631956306506
+      ],
+      [
+       "911_1",
+       0.7190510385342708
+      ],
+      [
+       "452_2",
+       0.7342059223400871
+      ],
+      [
+       "942_1",
+       0.7556692223467847
+      ],
+      [
+       "912_1",
+       0.7821612329910955
+      ],
+      [
+       "1008_4",
+       0.8287261751922275
+      ],
+      [
+       "758_0",
+       0.8351426393142976
+      ],
+      [
+       "1030_4",
+       0.840291785808517
+      ],
+      [
+       "910_4",
+       0.8819545504778276
+      ],
+      [
+       "1286_3",
+       0.8987572067008979
+      ],
+      [
+       "973_1",
+       0.9124376046677658
+      ],
+      [
+       "1272_2",
+       0.914308785290676
+      ],
+      [
+       "913_1",
+       0.9464989223815032
+      ],
+      [
+       "745_0",
+       0.9586470360324956
+      ],
+      [
+       "260_0",
+       0.9622346864531108
+      ],
+      [
+       "890_4",
+       0.9722649251674036
+      ],
+      [
+       "926_1",
+       0.9781899506922794
+      ],
+      [
+       "890_0",
+       0.9836219496725986
+      ],
+      [
+       "1272_1",
+       0.985022775753751
+      ],
+      [
+       "974_2",
+       0.9901208428805308
+      ],
+      [
+       "521_0",
+       0.9940950243724186
+      ],
+      [
+       "911_2",
+       0.9988724807052612
+      ]
+     ]
+    },
+    "part_joins": {
+     "metric": "rel_change_Q",
+     "n_candidates": 7,
+     "median": 0.3396294774552698,
+     "chosen_event": "995_0",
+     "chosen_value": 0.3396294774552698,
+     "chosen_rank": 4,
+     "middle_ranks": [
+      4
+     ],
+     "tie": null,
+     "sorted": [
+      [
+       "452_2",
+       0.2087829921486051
+      ],
+      [
+       "911_1",
+       0.2742277661215879
+      ],
+      [
+       "345_1",
+       0.3273943259345064
+      ],
+      [
+       "995_0",
+       0.3396294774552698
+      ],
+      [
+       "1182_1",
+       0.3515101657169399
+      ],
+      [
+       "345_2",
+       0.5481991040578688
+      ],
+      [
+       "944_1",
+       1.1978761828857825
+      ]
+     ]
+    }
+   }
+  },
+  "display_choices": {
+   "canonical_to_surface_rule": "not used, no canonical map is drawn. Contact is the study's own per-vertex rule: an object vertex within 1 cm of the recorded hand mesh, coloured by the hand part of the nearest hand vertex (labels read from the event file)",
+   "colour_scales": {
+    "hand parts": {
+     "palm": "#6b6a63",
+     "thumb": "#2a78d6",
+     "index": "#eb6834",
+     "middle": "#1baf7a",
+     "ring": "#eda100",
+     "little": "#8e5bd0"
+    },
+    "no contact": "#dcdbd5",
+    "range": "categorical, no numeric range",
+    "note": "colours are interpolated between mesh vertices, so the outline of a patch follows the mesh triangles"
+   },
+   "hand_style": "recorded MANO mesh at opacity 0.5; each vertex is 25% the colour of its part and 75% skin #e8d2c0",
+   "camera": {
+    "rule": "One camera per event, the same for both frames, out of 400 directions spread evenly over the sphere. The score of a direction over a set of contact vertices is the sum, over those of them that face the camera, of the cosine between the direction and the surface normal (pointing to the hand); a vertex whose line of sight passes a hand vertex within 7 mm is seen through the hand and counts 0.5. Rows of typical events (rule 'all contact'): the direction with the highest score over all contact vertices of both frames. Rows of events in which a part joins (rule 'the part that joins first'): the direction with the highest score over the contact vertices of the joining part alone, the all-contact score breaking ties, because the all-contact direction can leave the joining part on the far side of the object. Up: the object's longest axis horizontal, the hand in the upper half. Fitted to the two hands and the contact vertices (margin 0.1), so a larger object runs out of the panel.",
+    "per_event": {
+     "taco_typical": {
+      "rule": "all contact",
+      "candidate": 152,
+      "direction": [
+       0.0011186589589013177,
+       -0.971386894394882,
+       0.23750000000000004
+      ],
+      "up": [
+       0.00011067805668041612,
+       0.2375002674175225,
+       0.9713874668364694
+      ],
+      "position": [
+       -0.11009352316852365,
+       -0.29938126673118565,
+       0.0920752628436559
+      ],
+      "focal_point": [
+       -0.11046343974514349,
+       0.02183559001382981,
+       0.01353909572307227
+      ],
+      "view_angle": 25.0,
+      "n_candidates": 400,
+      "score": 267.1191884841045,
+      "score_per_contact_vertex": 0.25709257794427764,
+      "best_all_contact_candidate": 152,
+      "best_all_contact_score": 267.1191884841045,
+      "share_of_best_all_contact_score": 1.0,
+      "added_parts": [
+       "palm"
+      ],
+      "added_part_score": 8.683396738878965,
+      "added_part_score_per_vertex": 0.18475312210380776,
+      "best_added_part_score": 20.26288072489396,
+      "added_part_score_at_best_all_contact_candidate": 8.683396738878965
+     },
+     "taco_part_joins": {
+      "rule": "the part that joins first",
+      "candidate": 0,
+      "direction": [
+       0.02560775434410799,
+       -0.06586344143340618,
+       0.9975
+      ],
+      "up": [
+       -0.0387179927583888,
+       0.9970131900566807,
+       0.06682526385853176
+      ],
+      "position": [
+       0.0022663037564660555,
+       -0.13795125684147608,
+       0.5276527008274029
+      ],
+      "focal_point": [
+       -0.009923057962684296,
+       -0.10660007700306968,
+       0.05283994874201446
+      ],
+      "view_angle": 25.0,
+      "n_candidates": 400,
+      "score": 73.74130380903837,
+      "score_per_contact_vertex": 0.42625031103490385,
+      "best_all_contact_candidate": 0,
+      "best_all_contact_score": 73.74130380903837,
+      "share_of_best_all_contact_score": 1.0,
+      "added_parts": [
+       "index"
+      ],
+      "added_part_score": 1.9948073079898263,
+      "added_part_score_per_vertex": 0.4987018269974566,
+      "best_added_part_score": 1.9948073079898263,
+      "added_part_score_at_best_all_contact_candidate": 1.9948073079898263
+     },
+     "arctic_typical": {
+      "rule": "all contact",
+      "candidate": 165,
+      "direction": [
+       0.2126084294092168,
+       -0.9617907286640612,
+       0.1725
+      ],
+      "up": [
+       0.9759066042009897,
+       0.21786373507906323,
+       0.01190347908354558
+      ],
+      "position": [
+       -0.01777963695238262,
+       -0.4726719404211302,
+       -0.05362339277284531
+      ],
+      "focal_point": [
+       -0.11093072176658356,
+       -0.05127825444052064,
+       -0.12920159150701588
+      ],
+      "view_angle": 25.0,
+      "n_candidates": 400,
+      "score": 128.6498191324522,
+      "score_per_contact_vertex": 0.31301659156314404,
+      "best_all_contact_candidate": 165,
+      "best_all_contact_score": 128.6498191324522,
+      "share_of_best_all_contact_score": 1.0,
+      "added_parts": [],
+      "added_part_score": null,
+      "added_part_score_per_vertex": null,
+      "best_added_part_score": null,
+      "added_part_score_at_best_all_contact_candidate": null
+     },
+     "arctic_part_joins": {
+      "rule": "the part that joins first",
+      "candidate": 305,
+      "direction": [
+       -0.3096803111601991,
+       0.7911016716451319,
+       -0.5275000000000001
+      ],
+      "up": [
+       0.02115541757211425,
+       0.5603674665456867,
+       0.8279738828879316
+      ],
+      "position": [
+       0.0009629038152088876,
+       0.31083824179893826,
+       -0.17658127137048174
+      ],
+      "focal_point": [
+       0.12657841893871136,
+       -0.01005604956387359,
+       0.03738836712348702
+      ],
+      "view_angle": 25.0,
+      "n_candidates": 400,
+      "score": 14.55668040205194,
+      "score_per_contact_vertex": 0.10703441472097015,
+      "best_all_contact_candidate": 160,
+      "best_all_contact_score": 46.96321548144746,
+      "share_of_best_all_contact_score": 0.30995919365449903,
+      "added_parts": [
+       "thumb"
+      ],
+      "added_part_score": 11.14036396490605,
+      "added_part_score_per_vertex": 0.39787014160378753,
+      "best_added_part_score": 11.14036396490605,
+      "added_part_score_at_best_all_contact_candidate": 0.508118034076279
+     }
+    }
+   },
+   "visibility": {
+    "rule": "What a viewer can see of every part's contact patch is counted in pixels of flat renders (no lighting, no anti-aliasing) from the row's camera at the panel's size. A pixel belongs to a part's patch where the part's indicator (1 on its contact vertices, 0 elsewhere, interpolated like the colours) is above 0.5. patch_alone: the patch drawn with nothing else; on_object: the patch on the whole object with the hand removed; clear_of_hand: of those, the pixels the hand is not in front of. With both frames summed, a part is 'far_side' when on_object is under 0.5 of patch_alone ('not_visible' when it is 0) and 'under_hand' when it is not far_side and clear_of_hand is under 0.5 of on_object.",
+    "counts": "events.<row>.contact_pixels and events.<row>.contact_visibility; the maps are in panels.npz (<row>_<before|after>/patch_on_object, patch_clear_of_hand, patch_alone_bits)",
+    "place_of_an_added_patch": "in the caption, 'at the left (right) end of the object' is computed: the patch lies left (right) of the patches of all other parts in the picture and reaches within 5% of the object's length of the end of the object on that side"
+   },
+   "plots": {
+    "x": "the 76 directions of the study, sorted by the capability before the event, largest first",
+    "y": "capability h(u) from 0 to 8 in the study's normalised unit (force, and torque divided by the object's length); the same range in all four plots",
+    "before": "#9a9890",
+    "after": "#1f1e1b"
+   },
+   "panel_px": [
+    592,
+    444
+   ],
+   "panel_outline": "2 px in #c3c2b7 around the rendered panels"
+  },
+  "numbers": [
+   {
+    "label": "persistent spatial events in the test split",
+    "value": 119,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "rows with dataset == 'taco' and class_report == 'persistent_spatial' (count)"
+   },
+   {
+    "label": "median retention of the class",
+    "value": 0.8457323588959588,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "rows with dataset == 'taco' and class_report == 'persistent_spatial', column R_pre_to_post (median)"
+   },
+   {
+    "label": "median profile cosine of the class",
+    "value": 0.9680306162180315,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "rows with dataset == 'taco' and class_report == 'persistent_spatial', column cosine (median)"
+   },
+   {
+    "label": "median relative capability change of the class",
+    "value": 0.0361643974468233,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "rows with dataset == 'taco' and class_report == 'persistent_spatial', column rel_change_Q (median)"
+   },
+   {
+    "label": "share of the class with the same touching parts before and after",
+    "value": 0.5210084033613446,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "rows with dataset == 'taco' and class_report == 'persistent_spatial', fingers_pre == fingers_post (mean)"
+   },
+   {
+    "label": "events of the class in which a hand part is added",
+    "value": 45,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "rows with dataset == 'taco' and class_report == 'persistent_spatial', fingers_post has a part that fingers_pre lacks (count)"
+   },
+   {
+    "label": "median relative capability change among the events with an added part",
+    "value": 0.2565235808275299,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "rows with dataset == 'taco' and class_report == 'persistent_spatial' with an added part, column rel_change_Q (median)"
+   },
+   {
+    "label": "rank of the chosen event (typical)",
+    "value": "60 of 119",
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "computed in this script: rows with dataset == 'taco' and class_report == 'persistent_spatial', sorted by R_pre_to_post, then event id"
+   },
+   {
+    "label": "rank of the chosen event (part_joins)",
+    "value": "23 of 45",
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "computed in this script: rows with dataset == 'taco' and class_report == 'persistent_spatial' with an added part, sorted by rel_change_Q, then event id"
+   },
+   {
+    "label": "directions of a capability profile",
+    "value": 76,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/capacity/primary.npz",
+    "locator": "length of key 'direction'"
+   },
+   {
+    "label": "persistent spatial events in the test split",
+    "value": 26,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "rows with dataset == 'arctic' and class_report == 'persistent_spatial' (count)"
+   },
+   {
+    "label": "median retention of the class",
+    "value": 0.8903558785893627,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "rows with dataset == 'arctic' and class_report == 'persistent_spatial', column R_pre_to_post (median)"
+   },
+   {
+    "label": "median profile cosine of the class",
+    "value": 0.9571627834814752,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "rows with dataset == 'arctic' and class_report == 'persistent_spatial', column cosine (median)"
+   },
+   {
+    "label": "median relative capability change of the class",
+    "value": 0.02065742512497645,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "rows with dataset == 'arctic' and class_report == 'persistent_spatial', column rel_change_Q (median)"
+   },
+   {
+    "label": "share of the class with the same touching parts before and after",
+    "value": 0.5769230769230769,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "rows with dataset == 'arctic' and class_report == 'persistent_spatial', fingers_pre == fingers_post (mean)"
+   },
+   {
+    "label": "events of the class in which a hand part is added",
+    "value": 7,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "rows with dataset == 'arctic' and class_report == 'persistent_spatial', fingers_post has a part that fingers_pre lacks (count)"
+   },
+   {
+    "label": "median relative capability change among the events with an added part",
+    "value": 0.3396294774552698,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "rows with dataset == 'arctic' and class_report == 'persistent_spatial' with an added part, column rel_change_Q (median)"
+   },
+   {
+    "label": "rank of the chosen event (typical)",
+    "value": "13 of 26",
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "computed in this script: rows with dataset == 'arctic' and class_report == 'persistent_spatial', sorted by R_pre_to_post, then event id"
+   },
+   {
+    "label": "rank of the chosen event (part_joins)",
+    "value": "4 of 7",
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "computed in this script: rows with dataset == 'arctic' and class_report == 'persistent_spatial' with an added part, sorted by rel_change_Q, then event id"
+   },
+   {
+    "label": "directions of a capability profile",
+    "value": 76,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/capacity/primary.npz",
+    "locator": "length of key 'direction'"
+   },
+   {
+    "label": "retention, event 3069_1 (typical)",
+    "value": 0.8457323588959588,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'taco' and event_id == '3069_1', column R_pre_to_post"
+   },
+   {
+    "label": "profile cosine, event 3069_1 (typical)",
+    "value": 0.9910674214807356,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'taco' and event_id == '3069_1', column cosine"
+   },
+   {
+    "label": "relative capability change, event 3069_1 (typical)",
+    "value": 0.1840485540009199,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'taco' and event_id == '3069_1', column rel_change_Q"
+   },
+   {
+    "label": "retention recomputed from the drawn profiles, event 3069_1 (typical)",
+    "value": 0.8457323588959588,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/capacity/primary.npz",
+    "locator": "q_pre, q_post in the row where event_id == '3069_1'"
+   },
+   {
+    "label": "profile cosine recomputed from the drawn profiles, event 3069_1 (typical)",
+    "value": 0.9910674214807357,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/capacity/primary.npz",
+    "locator": "q_pre, q_post in the row where event_id == '3069_1'"
+   },
+   {
+    "label": "relative change recomputed from the drawn profiles, event 3069_1 (typical)",
+    "value": 0.18404855400091993,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/capacity/primary.npz",
+    "locator": "q_pre, q_post in the row where event_id == '3069_1'"
+   },
+   {
+    "label": "mean capability before, event 3069_1 (typical)",
+    "value": 2.0495025880434934,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/capacity/primary.npz",
+    "locator": "mean of q_pre in the row where event_id == '3069_1'"
+   },
+   {
+    "label": "mean capability after, event 3069_1 (typical)",
+    "value": 2.42671057597809,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/capacity/primary.npz",
+    "locator": "mean of q_post in the row where event_id == '3069_1'"
+   },
+   {
+    "label": "frame before / after, event 3069_1 (typical)",
+    "value": [
+     12,
+     13
+    ],
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'taco' and event_id == '3069_1', columns pre_frame, post_frame"
+   },
+   {
+    "label": "contact threshold (m), event 3069_1 (typical)",
+    "value": 0.01,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'taco' and event_id == '3069_1', column thr"
+   },
+   {
+    "label": "friction coefficient of the capability model, event 3069_1 (typical)",
+    "value": 0.5,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'taco' and event_id == '3069_1', column mu"
+   },
+   {
+    "label": "units of normal force per touching hand part in the capability model, event 3069_1 (typical)",
+    "value": 1,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'taco' and event_id == '3069_1', column budget == 'finger_equal' (one unit per finger and for the palm)"
+   },
+   {
+    "label": "mean displacement of the hand vertices between the two frames (mm), event 3069_1 (typical)",
+    "value": 3.8994521775375564,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/geometry/3069_1.npz",
+    "locator": "mean over the 778 vertices of |hand_post - hand_pre|"
+   },
+   {
+    "label": "touching hand parts before, event 3069_1 (typical)",
+    "value": 5,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/geometry/3069_1.npz",
+    "locator": "distinct pre_label where pre_dist < 0.01"
+   },
+   {
+    "label": "touching hand parts after, event 3069_1 (typical)",
+    "value": 6,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/geometry/3069_1.npz",
+    "locator": "distinct post_label where post_dist < 0.01"
+   },
+   {
+    "label": "contact vertices before, event 3069_1 (typical)",
+    "value": 528,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/geometry/3069_1.npz",
+    "locator": "pre_dist < 0.01 (count)"
+   },
+   {
+    "label": "contact vertices after, event 3069_1 (typical)",
+    "value": 511,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/geometry/3069_1.npz",
+    "locator": "post_dist < 0.01 (count)"
+   },
+   {
+    "label": "contact vertices of the added part (palm) after, event 3069_1 (typical)",
+    "value": 47,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/geometry/3069_1.npz",
+    "locator": "post_dist < 0.01 and post_label == 0 (count)"
+   },
+   {
+    "label": "share of the directions in which the capability is lower after than before, event 3069_1 (typical)",
+    "value": 0.13157894736842105,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/capacity/primary.npz",
+    "locator": "mean of q_post < q_pre in the row where event_id == '3069_1'"
+   },
+   {
+    "label": "pixels of the palm's contact patch, both frames summed [drawn alone, visible on the object, of those clear of the hand], event 3069_1 (typical)",
+    "value": [
+     494,
+     483,
+     483
+    ],
+    "dataset": "taco",
+    "source": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+    "locator": "keys 'taco_typical_before/...' and 'taco_typical_after/...': pixels with bit 0 set in patch_alone_bits, pixels == 0 in patch_on_object, pixels == 0 in patch_clear_of_hand"
+   },
+   {
+    "label": "pixels of the thumb's contact patch, both frames summed [drawn alone, visible on the object, of those clear of the hand], event 3069_1 (typical)",
+    "value": [
+     11148,
+     0,
+     0
+    ],
+    "dataset": "taco",
+    "source": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+    "locator": "keys 'taco_typical_before/...' and 'taco_typical_after/...': pixels with bit 1 set in patch_alone_bits, pixels == 1 in patch_on_object, pixels == 1 in patch_clear_of_hand"
+   },
+   {
+    "label": "pixels of the index's contact patch, both frames summed [drawn alone, visible on the object, of those clear of the hand], event 3069_1 (typical)",
+    "value": [
+     10583,
+     10583,
+     3546
+    ],
+    "dataset": "taco",
+    "source": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+    "locator": "keys 'taco_typical_before/...' and 'taco_typical_after/...': pixels with bit 2 set in patch_alone_bits, pixels == 2 in patch_on_object, pixels == 2 in patch_clear_of_hand"
+   },
+   {
+    "label": "pixels of the middle's contact patch, both frames summed [drawn alone, visible on the object, of those clear of the hand], event 3069_1 (typical)",
+    "value": [
+     8898,
+     8896,
+     1051
+    ],
+    "dataset": "taco",
+    "source": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+    "locator": "keys 'taco_typical_before/...' and 'taco_typical_after/...': pixels with bit 3 set in patch_alone_bits, pixels == 3 in patch_on_object, pixels == 3 in patch_clear_of_hand"
+   },
+   {
+    "label": "pixels of the ring's contact patch, both frames summed [drawn alone, visible on the object, of those clear of the hand], event 3069_1 (typical)",
+    "value": [
+     7205,
+     7192,
+     1604
+    ],
+    "dataset": "taco",
+    "source": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+    "locator": "keys 'taco_typical_before/...' and 'taco_typical_after/...': pixels with bit 4 set in patch_alone_bits, pixels == 4 in patch_on_object, pixels == 4 in patch_clear_of_hand"
+   },
+   {
+    "label": "retention, event 811_0 (part_joins)",
+    "value": 0.7352666908399104,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'taco' and event_id == '811_0', column R_pre_to_post"
+   },
+   {
+    "label": "profile cosine, event 811_0 (part_joins)",
+    "value": 0.9689578764771204,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'taco' and event_id == '811_0', column cosine"
+   },
+   {
+    "label": "relative capability change, event 811_0 (part_joins)",
+    "value": 0.2565235808275299,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'taco' and event_id == '811_0', column rel_change_Q"
+   },
+   {
+    "label": "retention recomputed from the drawn profiles, event 811_0 (part_joins)",
+    "value": 0.7352666908399104,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/capacity/primary.npz",
+    "locator": "q_pre, q_post in the row where event_id == '811_0'"
+   },
+   {
+    "label": "profile cosine recomputed from the drawn profiles, event 811_0 (part_joins)",
+    "value": 0.9689578764771204,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/capacity/primary.npz",
+    "locator": "q_pre, q_post in the row where event_id == '811_0'"
+   },
+   {
+    "label": "relative change recomputed from the drawn profiles, event 811_0 (part_joins)",
+    "value": 0.2565235808275299,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/capacity/primary.npz",
+    "locator": "q_pre, q_post in the row where event_id == '811_0'"
+   },
+   {
+    "label": "mean capability before, event 811_0 (part_joins)",
+    "value": 1.0926892998628255,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/capacity/primary.npz",
+    "locator": "mean of q_pre in the row where event_id == '811_0'"
+   },
+   {
+    "label": "mean capability after, event 811_0 (part_joins)",
+    "value": 1.3729898720520877,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/capacity/primary.npz",
+    "locator": "mean of q_post in the row where event_id == '811_0'"
+   },
+   {
+    "label": "frame before / after, event 811_0 (part_joins)",
+    "value": [
+     3,
+     9
+    ],
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'taco' and event_id == '811_0', columns pre_frame, post_frame"
+   },
+   {
+    "label": "contact threshold (m), event 811_0 (part_joins)",
+    "value": 0.01,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'taco' and event_id == '811_0', column thr"
+   },
+   {
+    "label": "friction coefficient of the capability model, event 811_0 (part_joins)",
+    "value": 0.5,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'taco' and event_id == '811_0', column mu"
+   },
+   {
+    "label": "units of normal force per touching hand part in the capability model, event 811_0 (part_joins)",
+    "value": 1,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'taco' and event_id == '811_0', column budget == 'finger_equal' (one unit per finger and for the palm)"
+   },
+   {
+    "label": "mean displacement of the hand vertices between the two frames (mm), event 811_0 (part_joins)",
+    "value": 72.28397342103104,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/geometry/811_0.npz",
+    "locator": "mean over the 778 vertices of |hand_post - hand_pre|"
+   },
+   {
+    "label": "touching hand parts before, event 811_0 (part_joins)",
+    "value": 3,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/geometry/811_0.npz",
+    "locator": "distinct pre_label where pre_dist < 0.01"
+   },
+   {
+    "label": "touching hand parts after, event 811_0 (part_joins)",
+    "value": 4,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/geometry/811_0.npz",
+    "locator": "distinct post_label where post_dist < 0.01"
+   },
+   {
+    "label": "contact vertices before, event 811_0 (part_joins)",
+    "value": 138,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/geometry/811_0.npz",
+    "locator": "pre_dist < 0.01 (count)"
+   },
+   {
+    "label": "contact vertices after, event 811_0 (part_joins)",
+    "value": 35,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/geometry/811_0.npz",
+    "locator": "post_dist < 0.01 (count)"
+   },
+   {
+    "label": "contact vertices of the added part (index) after, event 811_0 (part_joins)",
+    "value": 4,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/geometry/811_0.npz",
+    "locator": "post_dist < 0.01 and post_label == 2 (count)"
+   },
+   {
+    "label": "share of the directions in which the capability is lower after than before, event 811_0 (part_joins)",
+    "value": 0.21052631578947367,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/capacity/primary.npz",
+    "locator": "mean of q_post < q_pre in the row where event_id == '811_0'"
+   },
+   {
+    "label": "pixels of the index's contact patch, both frames summed [drawn alone, visible on the object, of those clear of the hand], event 811_0 (part_joins)",
+    "value": [
+     1028,
+     781,
+     0
+    ],
+    "dataset": "taco",
+    "source": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+    "locator": "keys 'taco_part_joins_before/...' and 'taco_part_joins_after/...': pixels with bit 2 set in patch_alone_bits, pixels == 2 in patch_on_object, pixels == 2 in patch_clear_of_hand"
+   },
+   {
+    "label": "pixels of the middle's contact patch, both frames summed [drawn alone, visible on the object, of those clear of the hand], event 811_0 (part_joins)",
+    "value": [
+     2049,
+     1534,
+     0
+    ],
+    "dataset": "taco",
+    "source": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+    "locator": "keys 'taco_part_joins_before/...' and 'taco_part_joins_after/...': pixels with bit 3 set in patch_alone_bits, pixels == 3 in patch_on_object, pixels == 3 in patch_clear_of_hand"
+   },
+   {
+    "label": "pixels of the ring's contact patch, both frames summed [drawn alone, visible on the object, of those clear of the hand], event 811_0 (part_joins)",
+    "value": [
+     4690,
+     4687,
+     0
+    ],
+    "dataset": "taco",
+    "source": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+    "locator": "keys 'taco_part_joins_before/...' and 'taco_part_joins_after/...': pixels with bit 4 set in patch_alone_bits, pixels == 4 in patch_on_object, pixels == 4 in patch_clear_of_hand"
+   },
+   {
+    "label": "pixels of the little's contact patch, both frames summed [drawn alone, visible on the object, of those clear of the hand], event 811_0 (part_joins)",
+    "value": [
+     2838,
+     2836,
+     0
+    ],
+    "dataset": "taco",
+    "source": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+    "locator": "keys 'taco_part_joins_before/...' and 'taco_part_joins_after/...': pixels with bit 5 set in patch_alone_bits, pixels == 5 in patch_on_object, pixels == 5 in patch_clear_of_hand"
+   },
+   {
+    "label": "all-contact score of the row's camera as a share of the best all-contact score, event 811_0 (part_joins)",
+    "value": 1.0,
+    "dataset": "taco",
+    "source": "reports/wrench_counterfactual/taco/geometry/811_0.npz",
+    "locator": "computed in this script (choose_camera) from pre/post_pos, _nrm, _outward, _dist, _label and hand_pre/post; stored in display_choices.camera.per_event"
+   },
+   {
+    "label": "retention, event 910_4 (typical)",
+    "value": 0.8819545504778276,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'arctic' and event_id == '910_4', column R_pre_to_post"
+   },
+   {
+    "label": "profile cosine, event 910_4 (typical)",
+    "value": 0.9946732880227852,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'arctic' and event_id == '910_4', column cosine"
+   },
+   {
+    "label": "relative capability change, event 910_4 (typical)",
+    "value": 0.1410345433754338,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'arctic' and event_id == '910_4', column rel_change_Q"
+   },
+   {
+    "label": "retention recomputed from the drawn profiles, event 910_4 (typical)",
+    "value": 0.8819545504778276,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/capacity/primary.npz",
+    "locator": "q_pre, q_post in the row where event_id == '910_4'"
+   },
+   {
+    "label": "profile cosine recomputed from the drawn profiles, event 910_4 (typical)",
+    "value": 0.9946732880227852,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/capacity/primary.npz",
+    "locator": "q_pre, q_post in the row where event_id == '910_4'"
+   },
+   {
+    "label": "relative change recomputed from the drawn profiles, event 910_4 (typical)",
+    "value": 0.1410345433754338,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/capacity/primary.npz",
+    "locator": "q_pre, q_post in the row where event_id == '910_4'"
+   },
+   {
+    "label": "mean capability before, event 910_4 (typical)",
+    "value": 2.2714608756693986,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/capacity/primary.npz",
+    "locator": "mean of q_pre in the row where event_id == '910_4'"
+   },
+   {
+    "label": "mean capability after, event 910_4 (typical)",
+    "value": 2.59181532320563,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/capacity/primary.npz",
+    "locator": "mean of q_post in the row where event_id == '910_4'"
+   },
+   {
+    "label": "frame before / after, event 910_4 (typical)",
+    "value": [
+     52,
+     55
+    ],
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'arctic' and event_id == '910_4', columns pre_frame, post_frame"
+   },
+   {
+    "label": "contact threshold (m), event 910_4 (typical)",
+    "value": 0.01,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'arctic' and event_id == '910_4', column thr"
+   },
+   {
+    "label": "friction coefficient of the capability model, event 910_4 (typical)",
+    "value": 0.5,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'arctic' and event_id == '910_4', column mu"
+   },
+   {
+    "label": "units of normal force per touching hand part in the capability model, event 910_4 (typical)",
+    "value": 1,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'arctic' and event_id == '910_4', column budget == 'finger_equal' (one unit per finger and for the palm)"
+   },
+   {
+    "label": "mean displacement of the hand vertices between the two frames (mm), event 910_4 (typical)",
+    "value": 28.656722815264057,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/geometry/910_4.npz",
+    "locator": "mean over the 778 vertices of |hand_post - hand_pre|"
+   },
+   {
+    "label": "touching hand parts before, event 910_4 (typical)",
+    "value": 6,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/geometry/910_4.npz",
+    "locator": "distinct pre_label where pre_dist < 0.01"
+   },
+   {
+    "label": "touching hand parts after, event 910_4 (typical)",
+    "value": 6,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/geometry/910_4.npz",
+    "locator": "distinct post_label where post_dist < 0.01"
+   },
+   {
+    "label": "contact vertices before, event 910_4 (typical)",
+    "value": 224,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/geometry/910_4.npz",
+    "locator": "pre_dist < 0.01 (count)"
+   },
+   {
+    "label": "contact vertices after, event 910_4 (typical)",
+    "value": 187,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/geometry/910_4.npz",
+    "locator": "post_dist < 0.01 (count)"
+   },
+   {
+    "label": "share of the directions in which the capability is lower after than before, event 910_4 (typical)",
+    "value": 0.2236842105263158,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/capacity/primary.npz",
+    "locator": "mean of q_post < q_pre in the row where event_id == '910_4'"
+   },
+   {
+    "label": "pixels of the palm's contact patch, both frames summed [drawn alone, visible on the object, of those clear of the hand], event 910_4 (typical)",
+    "value": [
+     2772,
+     2772,
+     0
+    ],
+    "dataset": "arctic",
+    "source": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+    "locator": "keys 'arctic_typical_before/...' and 'arctic_typical_after/...': pixels with bit 0 set in patch_alone_bits, pixels == 0 in patch_on_object, pixels == 0 in patch_clear_of_hand"
+   },
+   {
+    "label": "pixels of the thumb's contact patch, both frames summed [drawn alone, visible on the object, of those clear of the hand], event 910_4 (typical)",
+    "value": [
+     6118,
+     1208,
+     25
+    ],
+    "dataset": "arctic",
+    "source": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+    "locator": "keys 'arctic_typical_before/...' and 'arctic_typical_after/...': pixels with bit 1 set in patch_alone_bits, pixels == 1 in patch_on_object, pixels == 1 in patch_clear_of_hand"
+   },
+   {
+    "label": "pixels of the middle's contact patch, both frames summed [drawn alone, visible on the object, of those clear of the hand], event 910_4 (typical)",
+    "value": [
+     7940,
+     7940,
+     3499
+    ],
+    "dataset": "arctic",
+    "source": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+    "locator": "keys 'arctic_typical_before/...' and 'arctic_typical_after/...': pixels with bit 3 set in patch_alone_bits, pixels == 3 in patch_on_object, pixels == 3 in patch_clear_of_hand"
+   },
+   {
+    "label": "pixels of the ring's contact patch, both frames summed [drawn alone, visible on the object, of those clear of the hand], event 910_4 (typical)",
+    "value": [
+     7578,
+     7578,
+     3360
+    ],
+    "dataset": "arctic",
+    "source": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+    "locator": "keys 'arctic_typical_before/...' and 'arctic_typical_after/...': pixels with bit 4 set in patch_alone_bits, pixels == 4 in patch_on_object, pixels == 4 in patch_clear_of_hand"
+   },
+   {
+    "label": "retention, event 995_0 (part_joins)",
+    "value": 0.666750833046033,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'arctic' and event_id == '995_0', column R_pre_to_post"
+   },
+   {
+    "label": "profile cosine, event 995_0 (part_joins)",
+    "value": 0.9344531498008002,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'arctic' and event_id == '995_0', column cosine"
+   },
+   {
+    "label": "relative capability change, event 995_0 (part_joins)",
+    "value": 0.3396294774552698,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'arctic' and event_id == '995_0', column rel_change_Q"
+   },
+   {
+    "label": "retention recomputed from the drawn profiles, event 995_0 (part_joins)",
+    "value": 0.666750833046033,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/capacity/primary.npz",
+    "locator": "q_pre, q_post in the row where event_id == '995_0'"
+   },
+   {
+    "label": "profile cosine recomputed from the drawn profiles, event 995_0 (part_joins)",
+    "value": 0.9344531498008002,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/capacity/primary.npz",
+    "locator": "q_pre, q_post in the row where event_id == '995_0'"
+   },
+   {
+    "label": "relative change recomputed from the drawn profiles, event 995_0 (part_joins)",
+    "value": 0.33962947745526983,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/capacity/primary.npz",
+    "locator": "q_pre, q_post in the row where event_id == '995_0'"
+   },
+   {
+    "label": "mean capability before, event 995_0 (part_joins)",
+    "value": 1.5918404300024616,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/capacity/primary.npz",
+    "locator": "mean of q_pre in the row where event_id == '995_0'"
+   },
+   {
+    "label": "mean capability after, event 995_0 (part_joins)",
+    "value": 2.132476363775999,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/capacity/primary.npz",
+    "locator": "mean of q_post in the row where event_id == '995_0'"
+   },
+   {
+    "label": "frame before / after, event 995_0 (part_joins)",
+    "value": [
+     56,
+     57
+    ],
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'arctic' and event_id == '995_0', columns pre_frame, post_frame"
+   },
+   {
+    "label": "contact threshold (m), event 995_0 (part_joins)",
+    "value": 0.01,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'arctic' and event_id == '995_0', column thr"
+   },
+   {
+    "label": "friction coefficient of the capability model, event 995_0 (part_joins)",
+    "value": 0.5,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'arctic' and event_id == '995_0', column mu"
+   },
+   {
+    "label": "units of normal force per touching hand part in the capability model, event 995_0 (part_joins)",
+    "value": 1,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/events.csv",
+    "locator": "row with dataset == 'arctic' and event_id == '995_0', column budget == 'finger_equal' (one unit per finger and for the palm)"
+   },
+   {
+    "label": "mean displacement of the hand vertices between the two frames (mm), event 995_0 (part_joins)",
+    "value": 6.428867098383635,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/geometry/995_0.npz",
+    "locator": "mean over the 778 vertices of |hand_post - hand_pre|"
+   },
+   {
+    "label": "touching hand parts before, event 995_0 (part_joins)",
+    "value": 2,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/geometry/995_0.npz",
+    "locator": "distinct pre_label where pre_dist < 0.01"
+   },
+   {
+    "label": "touching hand parts after, event 995_0 (part_joins)",
+    "value": 3,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/geometry/995_0.npz",
+    "locator": "distinct post_label where post_dist < 0.01"
+   },
+   {
+    "label": "contact vertices before, event 995_0 (part_joins)",
+    "value": 57,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/geometry/995_0.npz",
+    "locator": "pre_dist < 0.01 (count)"
+   },
+   {
+    "label": "contact vertices after, event 995_0 (part_joins)",
+    "value": 79,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/geometry/995_0.npz",
+    "locator": "post_dist < 0.01 (count)"
+   },
+   {
+    "label": "contact vertices of the added part (thumb) after, event 995_0 (part_joins)",
+    "value": 28,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/geometry/995_0.npz",
+    "locator": "post_dist < 0.01 and post_label == 1 (count)"
+   },
+   {
+    "label": "share of the directions in which the capability is lower after than before, event 995_0 (part_joins)",
+    "value": 0.19736842105263158,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/capacity/primary.npz",
+    "locator": "mean of q_post < q_pre in the row where event_id == '995_0'"
+   },
+   {
+    "label": "pixels of the thumb's contact patch, both frames summed [drawn alone, visible on the object, of those clear of the hand], event 995_0 (part_joins)",
+    "value": [
+     1382,
+     1382,
+     1382
+    ],
+    "dataset": "arctic",
+    "source": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+    "locator": "keys 'arctic_part_joins_before/...' and 'arctic_part_joins_after/...': pixels with bit 1 set in patch_alone_bits, pixels == 1 in patch_on_object, pixels == 1 in patch_clear_of_hand"
+   },
+   {
+    "label": "pixels of the index's contact patch, both frames summed [drawn alone, visible on the object, of those clear of the hand], event 995_0 (part_joins)",
+    "value": [
+     1527,
+     751,
+     751
+    ],
+    "dataset": "arctic",
+    "source": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+    "locator": "keys 'arctic_part_joins_before/...' and 'arctic_part_joins_after/...': pixels with bit 2 set in patch_alone_bits, pixels == 2 in patch_on_object, pixels == 2 in patch_clear_of_hand"
+   },
+   {
+    "label": "pixels of the middle's contact patch, both frames summed [drawn alone, visible on the object, of those clear of the hand], event 995_0 (part_joins)",
+    "value": [
+     6818,
+     0,
+     0
+    ],
+    "dataset": "arctic",
+    "source": "reports/project_page_qualitative/reconfiguration_with_hand/panels.npz",
+    "locator": "keys 'arctic_part_joins_before/...' and 'arctic_part_joins_after/...': pixels with bit 3 set in patch_alone_bits, pixels == 3 in patch_on_object, pixels == 3 in patch_clear_of_hand"
+   },
+   {
+    "label": "all-contact score of the row's camera as a share of the best all-contact score, event 995_0 (part_joins)",
+    "value": 0.30995919365449903,
+    "dataset": "arctic",
+    "source": "reports/wrench_counterfactual/arctic/geometry/995_0.npz",
+    "locator": "computed in this script (choose_camera) from pre/post_pos, _nrm, _outward, _dist, _label and hand_pre/post; stored in display_choices.camera.per_event"
+   }
+  ],
+  "inference": "none: recorded data and the saved analysis outputs of the study only; no checkpoint loaded, no device, no seed",
+  "disagreements_with_study_tables": [],
+  "caveats": [
+   "Four single events, one per row. They show what such an event looks like, not how the class is spread; the class statistics are in the charts of the same page block.",
+   "TACO event 3069_1 (knife) is the event at the median retention of its class (0.846; rank 60 of 119), so it is typical in retention only. It is itself an event in which the set of touching parts changes (palm), with a capability change of +18%, so the two TACO rows differ in degree, not in kind. In 52% of the 119 events of the class the set of touching parts is the same before and after.",
+   "TACO event 3069_1 (knife): seen from the row's camera, the object hides all of the contact of the thumb (pixels of the patch visible on the object, of the pixels the patch covers when drawn alone, both frames summed: thumb: 0 of 11148). One view cannot show both sides of the object.",
+   "TACO event 3069_1 (knife): the contact of the index, middle and ring is seen mostly through the see-through hand, at reduced strength (visible patch pixels that the hand is not in front of, both frames summed: index: 3546 of 10583; middle: 1051 of 8896; ring: 1604 of 7192).",
+   "TACO event 811_0 (plate) is the event at the median capability change (+0.257; rank 23 of 45) among the events of its class in which a part is added. Contact vertices of the added part after the event: index 4; all contact vertices: 138 before, 35 after. The capability model counts touching parts and where their patches are, not the contact area.",
+   "TACO event 811_0 (plate): the contact of the index, middle, ring and little is seen mostly through the see-through hand, at reduced strength (visible patch pixels that the hand is not in front of, both frames summed: index: 0 of 781; middle: 0 of 1534; ring: 0 of 4687; little: 0 of 2836).",
+   "ARCTIC event 910_4 (notebook) stands for the median retention of its class, but the class has an even number of events (26), so no event sits at the median: ranks 13 and 14 (910_4 at 0.8820, 1286_3 at 0.8988) are equally far from the median of 0.8904; the smaller event id is taken, ids compared as numbers (example number, then event number), so 910_4 comes first. Its retention is 0.882 (rank 13); it is typical in retention only. In 58% of the 26 events of the class the set of touching parts is the same before and after.",
+   "ARCTIC event 910_4 (notebook): seen from the row's camera, the object hides more than half of the contact of the thumb (pixels of the patch visible on the object, of the pixels the patch covers when drawn alone, both frames summed: thumb: 1208 of 6118). One view cannot show both sides of the object.",
+   "ARCTIC event 910_4 (notebook): the contact of the palm, middle and ring is seen mostly through the see-through hand, at reduced strength (visible patch pixels that the hand is not in front of, both frames summed: palm: 0 of 2772; middle: 3499 of 7940; ring: 3360 of 7578).",
+   "ARCTIC event 910_4 (notebook) is also one of the example events of the study's own report, chosen there by a different rule; here it is the event the stated rule returns.",
+   "ARCTIC event 995_0 (phone) is the event at the median capability change (+0.340; rank 4 of 7) among the events of its class in which a part is added. Contact vertices of the added part after the event: thumb 28; all contact vertices: 57 before, 79 after. The capability model counts touching parts and where their patches are, not the contact area.",
+   "ARCTIC event 995_0 (phone): the camera is the direction that sees the most contact of the part that joins (thumb); it reaches 31% of the score of the direction that sees the most contact overall, so the other patches are shown less well than they could be.",
+   "ARCTIC event 995_0 (phone): seen from the row's camera, the object hides all of the contact of the middle and more than half of the contact of the index (pixels of the patch visible on the object, of the pixels the patch covers when drawn alone, both frames summed: index: 751 of 1527; middle: 0 of 6818). One view cannot show both sides of the object.",
+   "Only the frame before and the frame after each event are drawn (frames apart: 3069_1: 1, 811_0: 6, 910_4: 3, 995_0: 1); the motion in between is not shown.",
+   "Contact is proximity (an object vertex within 1 cm of the recorded hand mesh), not measured force. The capability is a model output (linearised friction cones, friction coefficient 0.5, one unit of normal force per touching hand part, single hand): every touching part adds a term that is never negative, so a part that starts touching can only add to it. The total can still fall where the other parts' contact moves: it is lower after the event in 13%, 21%, 22%, 20% of the 76 directions of the four events (rows top to bottom).",
+   "What can be seen is counted in pixels of flat renders from the row's camera (visible_pixels in the script; maps in panels.npz). A patch that wraps around the object covers the same pixels with its near and its far side, so the counts say what the picture shows, not which share of the contact area faces the camera.",
+   "TACO event 3069_1 (knife): the palm's patch (47 contact vertices, 483 visible pixels in the frame after) is dark grey on a grey object and can be taken for shading; the caption says where it is.",
+   "The renders are close-ups fitted to the hand and the contact region; a larger object runs out of the panel (the grey outline is the panel edge). Colours are interpolated between mesh vertices, so the outline of a patch follows the mesh triangles. The see-through hand is skin colour mixed with 25% of the colour of each part, so the strong colours are on the object only."
+  ],
+  "suggested_caption": "Four recorded events in which the contact moves over the object while the hand keeps hold of it, two from TACO and two from ARCTIC, each drawn at the frame before and the frame after the event: the object, the recorded hand (see-through) and the object surface within 1 cm of the hand, in the colour of the nearest hand part. In each dataset the first event is selected as the one at the median retention among the events of this kind in the test split (119 on TACO; 26 on ARCTIC, an even count, so the two middle events are equally far from the median of 0.89 and the one with the smaller id is drawn), the second as the one at the median capability change among those in which a hand part starts touching (45 on TACO; 7 on ARCTIC). TACO: on the knife the hand moves 4 mm on average and the palm starts touching with 47 mesh vertices, the dark grey patch at the left end of the knife, so the median event itself gains a part (retention 0.85, capability +18%); on the plate the hand moves 72 mm on average and the index finger starts touching with 4 mesh vertices, the orange patch right of the other patches, seen through the hand (retention 0.74, capability +26%). ARCTIC: on the notebook the hand moves 29 mm on average and the same 6 parts touch before and after (retention 0.88, capability +14%); on the phone the hand moves 6 mm on average and the thumb starts touching with 28 mesh vertices, the blue patch (retention 0.67, capability +34%). Each row is drawn from one camera, the direction that sees the most contact or, where a part joins, the most contact of that part, so not every patch can be seen: on the knife the contact of the thumb is on the far side and cannot be seen; on the notebook less than half of the contact of the thumb can be seen; on the phone the contact of the middle finger is on the far side and cannot be seen, and less than half of the contact of the index finger can be seen. The plots show the modelled capability along 76 directions before (grey) and after (black), sorted by the value before, and retention is the share of the capability after the event that the hand already had before it; the capability comes from a friction model that gives every touching hand part one unit of force, so a part that starts touching can only add to it by construction, and it is not a measurement.",
+  "suggested_alt": "Four rows of pictures, one event each (a knife, a plate, a notebook, a phone): the object with a see-through hand on it before and after the event, coloured patches on the object where each hand part touches, and a line plot of the modelled capability before and after."
+ }
+}
